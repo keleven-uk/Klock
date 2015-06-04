@@ -44,31 +44,33 @@ Partial Class frmKlock
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.CmbBxTime = New System.Windows.Forms.ComboBox()
         Me.TbPgCountDown = New System.Windows.Forms.TabPage()
-        Me.TbPgTimer = New System.Windows.Forms.TabPage()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.btnCountDownStart = New System.Windows.Forms.Button()
-        Me.btnCountDownStop = New System.Windows.Forms.Button()
-        Me.lblCountDownTime = New System.Windows.Forms.Label()
-        Me.upDwnCntDownValue = New System.Windows.Forms.NumericUpDown()
-        Me.CmbBxCountDownAction = New System.Windows.Forms.ComboBox()
-        Me.ChckBxCountDownAction = New System.Windows.Forms.CheckBox()
-        Me.TxtBxAction = New System.Windows.Forms.TextBox()
-        Me.btnCountDownTestSound = New System.Windows.Forms.Button()
         Me.btnCountdownLoadSound = New System.Windows.Forms.Button()
+        Me.btnCountDownTestSound = New System.Windows.Forms.Button()
+        Me.TxtBxAction = New System.Windows.Forms.TextBox()
+        Me.ChckBxCountDownAction = New System.Windows.Forms.CheckBox()
+        Me.CmbBxCountDownAction = New System.Windows.Forms.ComboBox()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.upDwnCntDownValue = New System.Windows.Forms.NumericUpDown()
+        Me.lblCountDownTime = New System.Windows.Forms.Label()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.btnCountDownStop = New System.Windows.Forms.Button()
+        Me.btnCountDownStart = New System.Windows.Forms.Button()
+        Me.TbPgTimer = New System.Windows.Forms.TabPage()
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.lblTimerSplit = New System.Windows.Forms.Label()
+        Me.btnTimerSplit = New System.Windows.Forms.Button()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.lblTimerTime = New System.Windows.Forms.Label()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.btnTimerClear = New System.Windows.Forms.Button()
+        Me.btnTimerStop = New System.Windows.Forms.Button()
+        Me.btnTimerStart = New System.Windows.Forms.Button()
         Me.btnHide = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnHelp = New System.Windows.Forms.Button()
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
-        Me.btnTimerStart = New System.Windows.Forms.Button()
-        Me.btnTimerStop = New System.Windows.Forms.Button()
-        Me.btnTimerClear = New System.Windows.Forms.Button()
-        Me.btnTimerSplit = New System.Windows.Forms.Button()
-        Me.lblTimerSplit = New System.Windows.Forms.Label()
-        Me.lblTimerTime = New System.Windows.Forms.Label()
+        Me.tmrTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.btnTimerSplitClear = New System.Windows.Forms.Button()
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -76,14 +78,14 @@ Partial Class frmKlock
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.TbPgCountDown.SuspendLayout()
-        Me.TbPgTimer.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
-        Me.GroupBox4.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         CType(Me.upDwnCntDownValue, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox6.SuspendLayout()
-        Me.GroupBox7.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        Me.TbPgTimer.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
+        Me.GroupBox7.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
         'StsStrpInfo
@@ -246,7 +248,6 @@ Partial Class frmKlock
         Me.CmbBxTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CmbBxTime.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.CmbBxTime.FormattingEnabled = True
-        Me.CmbBxTime.Items.AddRange(New Object() {"Fuzzy", "Local ", "Net"})
         Me.CmbBxTime.Location = New System.Drawing.Point(6, 19)
         Me.CmbBxTime.Name = "CmbBxTime"
         Me.CmbBxTime.Size = New System.Drawing.Size(86, 21)
@@ -265,38 +266,6 @@ Partial Class frmKlock
         Me.TbPgCountDown.TabIndex = 1
         Me.TbPgCountDown.Text = "CountDown"
         '
-        'TbPgTimer
-        '
-        Me.TbPgTimer.BackColor = System.Drawing.SystemColors.Control
-        Me.TbPgTimer.Controls.Add(Me.GroupBox8)
-        Me.TbPgTimer.Controls.Add(Me.GroupBox7)
-        Me.TbPgTimer.Controls.Add(Me.GroupBox6)
-        Me.TbPgTimer.Location = New System.Drawing.Point(4, 22)
-        Me.TbPgTimer.Name = "TbPgTimer"
-        Me.TbPgTimer.Size = New System.Drawing.Size(565, 134)
-        Me.TbPgTimer.TabIndex = 2
-        Me.TbPgTimer.Text = "Timer"
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.btnCountDownStop)
-        Me.GroupBox3.Controls.Add(Me.btnCountDownStart)
-        Me.GroupBox3.Location = New System.Drawing.Point(6, 6)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(103, 120)
-        Me.GroupBox3.TabIndex = 0
-        Me.GroupBox3.TabStop = False
-        '
-        'GroupBox4
-        '
-        Me.GroupBox4.Controls.Add(Me.upDwnCntDownValue)
-        Me.GroupBox4.Controls.Add(Me.lblCountDownTime)
-        Me.GroupBox4.Location = New System.Drawing.Point(115, 6)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(440, 57)
-        Me.GroupBox4.TabIndex = 1
-        Me.GroupBox4.TabStop = False
-        '
         'GroupBox5
         '
         Me.GroupBox5.Controls.Add(Me.btnCountdownLoadSound)
@@ -310,57 +279,32 @@ Partial Class frmKlock
         Me.GroupBox5.TabIndex = 2
         Me.GroupBox5.TabStop = False
         '
-        'btnCountDownStart
+        'btnCountdownLoadSound
         '
-        Me.btnCountDownStart.Enabled = False
-        Me.btnCountDownStart.Location = New System.Drawing.Point(14, 34)
-        Me.btnCountDownStart.Name = "btnCountDownStart"
-        Me.btnCountDownStart.Size = New System.Drawing.Size(75, 23)
-        Me.btnCountDownStart.TabIndex = 0
-        Me.btnCountDownStart.Text = "Start"
-        Me.btnCountDownStart.UseVisualStyleBackColor = True
+        Me.btnCountdownLoadSound.Enabled = False
+        Me.btnCountdownLoadSound.Location = New System.Drawing.Point(323, 23)
+        Me.btnCountdownLoadSound.Name = "btnCountdownLoadSound"
+        Me.btnCountdownLoadSound.Size = New System.Drawing.Size(50, 20)
+        Me.btnCountdownLoadSound.TabIndex = 4
+        Me.btnCountdownLoadSound.Text = "..."
+        Me.btnCountdownLoadSound.UseVisualStyleBackColor = True
         '
-        'btnCountDownStop
+        'btnCountDownTestSound
         '
-        Me.btnCountDownStop.Enabled = False
-        Me.btnCountDownStop.Location = New System.Drawing.Point(14, 73)
-        Me.btnCountDownStop.Name = "btnCountDownStop"
-        Me.btnCountDownStop.Size = New System.Drawing.Size(75, 23)
-        Me.btnCountDownStop.TabIndex = 1
-        Me.btnCountDownStop.Text = "Stop"
-        Me.btnCountDownStop.UseVisualStyleBackColor = True
+        Me.btnCountDownTestSound.Enabled = False
+        Me.btnCountDownTestSound.Location = New System.Drawing.Point(379, 23)
+        Me.btnCountDownTestSound.Name = "btnCountDownTestSound"
+        Me.btnCountDownTestSound.Size = New System.Drawing.Size(50, 20)
+        Me.btnCountDownTestSound.TabIndex = 3
+        Me.btnCountDownTestSound.Text = "Test"
+        Me.btnCountDownTestSound.UseVisualStyleBackColor = True
         '
-        'lblCountDownTime
+        'TxtBxAction
         '
-        Me.lblCountDownTime.AutoSize = True
-        Me.lblCountDownTime.Enabled = False
-        Me.lblCountDownTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCountDownTime.Location = New System.Drawing.Point(90, 15)
-        Me.lblCountDownTime.Name = "lblCountDownTime"
-        Me.lblCountDownTime.Size = New System.Drawing.Size(103, 39)
-        Me.lblCountDownTime.TabIndex = 0
-        Me.lblCountDownTime.Text = "00:00"
-        '
-        'upDwnCntDownValue
-        '
-        Me.upDwnCntDownValue.Enabled = False
-        Me.upDwnCntDownValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.upDwnCntDownValue.Location = New System.Drawing.Point(18, 16)
-        Me.upDwnCntDownValue.Maximum = New Decimal(New Integer() {90, 0, 0, 0})
-        Me.upDwnCntDownValue.Name = "upDwnCntDownValue"
-        Me.upDwnCntDownValue.Size = New System.Drawing.Size(57, 29)
-        Me.upDwnCntDownValue.TabIndex = 1
-        '
-        'CmbBxCountDownAction
-        '
-        Me.CmbBxCountDownAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxCountDownAction.Enabled = False
-        Me.CmbBxCountDownAction.FormattingEnabled = True
-        Me.CmbBxCountDownAction.Items.AddRange(New Object() {"Sound", "Reminder", "System", "Command"})
-        Me.CmbBxCountDownAction.Location = New System.Drawing.Point(18, 19)
-        Me.CmbBxCountDownAction.Name = "CmbBxCountDownAction"
-        Me.CmbBxCountDownAction.Size = New System.Drawing.Size(57, 21)
-        Me.CmbBxCountDownAction.TabIndex = 0
+        Me.TxtBxAction.Location = New System.Drawing.Point(160, 23)
+        Me.TxtBxAction.Name = "TxtBxAction"
+        Me.TxtBxAction.Size = New System.Drawing.Size(143, 20)
+        Me.TxtBxAction.TabIndex = 2
         '
         'ChckBxCountDownAction
         '
@@ -373,32 +317,182 @@ Partial Class frmKlock
         Me.ChckBxCountDownAction.Text = "Sound"
         Me.ChckBxCountDownAction.UseVisualStyleBackColor = True
         '
-        'TxtBxAction
+        'CmbBxCountDownAction
         '
-        Me.TxtBxAction.Location = New System.Drawing.Point(160, 23)
-        Me.TxtBxAction.Name = "TxtBxAction"
-        Me.TxtBxAction.Size = New System.Drawing.Size(143, 20)
-        Me.TxtBxAction.TabIndex = 2
+        Me.CmbBxCountDownAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CmbBxCountDownAction.Enabled = False
+        Me.CmbBxCountDownAction.FormattingEnabled = True
+        Me.CmbBxCountDownAction.Items.AddRange(New Object() {"Sound", "Reminder", "System", "Command"})
+        Me.CmbBxCountDownAction.Location = New System.Drawing.Point(18, 19)
+        Me.CmbBxCountDownAction.Name = "CmbBxCountDownAction"
+        Me.CmbBxCountDownAction.Size = New System.Drawing.Size(57, 21)
+        Me.CmbBxCountDownAction.TabIndex = 0
         '
-        'btnCountDownTestSound
+        'GroupBox4
         '
-        Me.btnCountDownTestSound.Enabled = False
-        Me.btnCountDownTestSound.Location = New System.Drawing.Point(379, 23)
-        Me.btnCountDownTestSound.Name = "btnCountDownTestSound"
-        Me.btnCountDownTestSound.Size = New System.Drawing.Size(50, 20)
-        Me.btnCountDownTestSound.TabIndex = 3
-        Me.btnCountDownTestSound.Text = "Test"
-        Me.btnCountDownTestSound.UseVisualStyleBackColor = True
+        Me.GroupBox4.Controls.Add(Me.upDwnCntDownValue)
+        Me.GroupBox4.Controls.Add(Me.lblCountDownTime)
+        Me.GroupBox4.Location = New System.Drawing.Point(115, 6)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(440, 57)
+        Me.GroupBox4.TabIndex = 1
+        Me.GroupBox4.TabStop = False
         '
-        'btnCountdownLoadSound
+        'upDwnCntDownValue
         '
-        Me.btnCountdownLoadSound.Enabled = False
-        Me.btnCountdownLoadSound.Location = New System.Drawing.Point(323, 23)
-        Me.btnCountdownLoadSound.Name = "btnCountdownLoadSound"
-        Me.btnCountdownLoadSound.Size = New System.Drawing.Size(50, 20)
-        Me.btnCountdownLoadSound.TabIndex = 4
-        Me.btnCountdownLoadSound.Text = "..."
-        Me.btnCountdownLoadSound.UseVisualStyleBackColor = True
+        Me.upDwnCntDownValue.Enabled = False
+        Me.upDwnCntDownValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.upDwnCntDownValue.Location = New System.Drawing.Point(18, 16)
+        Me.upDwnCntDownValue.Maximum = New Decimal(New Integer() {90, 0, 0, 0})
+        Me.upDwnCntDownValue.Name = "upDwnCntDownValue"
+        Me.upDwnCntDownValue.Size = New System.Drawing.Size(57, 29)
+        Me.upDwnCntDownValue.TabIndex = 1
+        '
+        'lblCountDownTime
+        '
+        Me.lblCountDownTime.AutoSize = True
+        Me.lblCountDownTime.Enabled = False
+        Me.lblCountDownTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCountDownTime.Location = New System.Drawing.Point(90, 15)
+        Me.lblCountDownTime.Name = "lblCountDownTime"
+        Me.lblCountDownTime.Size = New System.Drawing.Size(103, 39)
+        Me.lblCountDownTime.TabIndex = 0
+        Me.lblCountDownTime.Text = "00:00"
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.btnCountDownStop)
+        Me.GroupBox3.Controls.Add(Me.btnCountDownStart)
+        Me.GroupBox3.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(103, 120)
+        Me.GroupBox3.TabIndex = 0
+        Me.GroupBox3.TabStop = False
+        '
+        'btnCountDownStop
+        '
+        Me.btnCountDownStop.Enabled = False
+        Me.btnCountDownStop.Location = New System.Drawing.Point(14, 73)
+        Me.btnCountDownStop.Name = "btnCountDownStop"
+        Me.btnCountDownStop.Size = New System.Drawing.Size(75, 23)
+        Me.btnCountDownStop.TabIndex = 1
+        Me.btnCountDownStop.Text = "Stop"
+        Me.btnCountDownStop.UseVisualStyleBackColor = True
+        '
+        'btnCountDownStart
+        '
+        Me.btnCountDownStart.Enabled = False
+        Me.btnCountDownStart.Location = New System.Drawing.Point(14, 34)
+        Me.btnCountDownStart.Name = "btnCountDownStart"
+        Me.btnCountDownStart.Size = New System.Drawing.Size(75, 23)
+        Me.btnCountDownStart.TabIndex = 0
+        Me.btnCountDownStart.Text = "Start"
+        Me.btnCountDownStart.UseVisualStyleBackColor = True
+        '
+        'TbPgTimer
+        '
+        Me.TbPgTimer.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgTimer.Controls.Add(Me.GroupBox8)
+        Me.TbPgTimer.Controls.Add(Me.GroupBox7)
+        Me.TbPgTimer.Controls.Add(Me.GroupBox6)
+        Me.TbPgTimer.Location = New System.Drawing.Point(4, 22)
+        Me.TbPgTimer.Name = "TbPgTimer"
+        Me.TbPgTimer.Size = New System.Drawing.Size(565, 134)
+        Me.TbPgTimer.TabIndex = 2
+        Me.TbPgTimer.Text = "Timer"
+        '
+        'GroupBox8
+        '
+        Me.GroupBox8.Controls.Add(Me.btnTimerSplitClear)
+        Me.GroupBox8.Controls.Add(Me.lblTimerSplit)
+        Me.GroupBox8.Location = New System.Drawing.Point(115, 69)
+        Me.GroupBox8.Name = "GroupBox8"
+        Me.GroupBox8.Size = New System.Drawing.Size(440, 57)
+        Me.GroupBox8.TabIndex = 2
+        Me.GroupBox8.TabStop = False
+        '
+        'lblTimerSplit
+        '
+        Me.lblTimerSplit.AutoSize = True
+        Me.lblTimerSplit.Enabled = False
+        Me.lblTimerSplit.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTimerSplit.Location = New System.Drawing.Point(6, 15)
+        Me.lblTimerSplit.Name = "lblTimerSplit"
+        Me.lblTimerSplit.Size = New System.Drawing.Size(151, 39)
+        Me.lblTimerSplit.TabIndex = 1
+        Me.lblTimerSplit.Text = "00:00:00"
+        '
+        'btnTimerSplit
+        '
+        Me.btnTimerSplit.Enabled = False
+        Me.btnTimerSplit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnTimerSplit.Location = New System.Drawing.Point(298, 19)
+        Me.btnTimerSplit.Name = "btnTimerSplit"
+        Me.btnTimerSplit.Size = New System.Drawing.Size(75, 23)
+        Me.btnTimerSplit.TabIndex = 0
+        Me.btnTimerSplit.Text = "Split"
+        Me.btnTimerSplit.UseVisualStyleBackColor = True
+        '
+        'GroupBox7
+        '
+        Me.GroupBox7.Controls.Add(Me.lblTimerTime)
+        Me.GroupBox7.Controls.Add(Me.btnTimerSplit)
+        Me.GroupBox7.Location = New System.Drawing.Point(115, 6)
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.Size = New System.Drawing.Size(440, 57)
+        Me.GroupBox7.TabIndex = 1
+        Me.GroupBox7.TabStop = False
+        '
+        'lblTimerTime
+        '
+        Me.lblTimerTime.AutoSize = True
+        Me.lblTimerTime.Enabled = False
+        Me.lblTimerTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTimerTime.Location = New System.Drawing.Point(6, 15)
+        Me.lblTimerTime.Name = "lblTimerTime"
+        Me.lblTimerTime.Size = New System.Drawing.Size(151, 39)
+        Me.lblTimerTime.TabIndex = 0
+        Me.lblTimerTime.Text = "00:00:00"
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.btnTimerClear)
+        Me.GroupBox6.Controls.Add(Me.btnTimerStop)
+        Me.GroupBox6.Controls.Add(Me.btnTimerStart)
+        Me.GroupBox6.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(103, 120)
+        Me.GroupBox6.TabIndex = 0
+        Me.GroupBox6.TabStop = False
+        '
+        'btnTimerClear
+        '
+        Me.btnTimerClear.Enabled = False
+        Me.btnTimerClear.Location = New System.Drawing.Point(14, 85)
+        Me.btnTimerClear.Name = "btnTimerClear"
+        Me.btnTimerClear.Size = New System.Drawing.Size(75, 23)
+        Me.btnTimerClear.TabIndex = 2
+        Me.btnTimerClear.Text = "Clear"
+        Me.btnTimerClear.UseVisualStyleBackColor = True
+        '
+        'btnTimerStop
+        '
+        Me.btnTimerStop.Enabled = False
+        Me.btnTimerStop.Location = New System.Drawing.Point(14, 52)
+        Me.btnTimerStop.Name = "btnTimerStop"
+        Me.btnTimerStop.Size = New System.Drawing.Size(75, 23)
+        Me.btnTimerStop.TabIndex = 1
+        Me.btnTimerStop.Text = "Stop"
+        Me.btnTimerStop.UseVisualStyleBackColor = True
+        '
+        'btnTimerStart
+        '
+        Me.btnTimerStart.Location = New System.Drawing.Point(14, 19)
+        Me.btnTimerStart.Name = "btnTimerStart"
+        Me.btnTimerStart.Size = New System.Drawing.Size(75, 23)
+        Me.btnTimerStart.TabIndex = 0
+        Me.btnTimerStart.Text = "Start"
+        Me.btnTimerStart.UseVisualStyleBackColor = True
         '
         'btnHide
         '
@@ -429,97 +523,18 @@ Partial Class frmKlock
         Me.btnHelp.Text = "Help"
         Me.btnHelp.UseVisualStyleBackColor = True
         '
-        'GroupBox6
+        'tmrTimer
         '
-        Me.GroupBox6.Controls.Add(Me.btnTimerClear)
-        Me.GroupBox6.Controls.Add(Me.btnTimerStop)
-        Me.GroupBox6.Controls.Add(Me.btnTimerStart)
-        Me.GroupBox6.Location = New System.Drawing.Point(6, 6)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(103, 120)
-        Me.GroupBox6.TabIndex = 0
-        Me.GroupBox6.TabStop = False
         '
-        'GroupBox7
+        'btnTimerSplitClear
         '
-        Me.GroupBox7.Controls.Add(Me.lblTimerTime)
-        Me.GroupBox7.Location = New System.Drawing.Point(115, 6)
-        Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(440, 57)
-        Me.GroupBox7.TabIndex = 1
-        Me.GroupBox7.TabStop = False
-        '
-        'GroupBox8
-        '
-        Me.GroupBox8.Controls.Add(Me.lblTimerSplit)
-        Me.GroupBox8.Controls.Add(Me.btnTimerSplit)
-        Me.GroupBox8.Location = New System.Drawing.Point(115, 69)
-        Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(440, 57)
-        Me.GroupBox8.TabIndex = 2
-        Me.GroupBox8.TabStop = False
-        '
-        'btnTimerStart
-        '
-        Me.btnTimerStart.Enabled = False
-        Me.btnTimerStart.Location = New System.Drawing.Point(14, 19)
-        Me.btnTimerStart.Name = "btnTimerStart"
-        Me.btnTimerStart.Size = New System.Drawing.Size(75, 23)
-        Me.btnTimerStart.TabIndex = 0
-        Me.btnTimerStart.Text = "Start"
-        Me.btnTimerStart.UseVisualStyleBackColor = True
-        '
-        'btnTimerStop
-        '
-        Me.btnTimerStop.Enabled = False
-        Me.btnTimerStop.Location = New System.Drawing.Point(14, 48)
-        Me.btnTimerStop.Name = "btnTimerStop"
-        Me.btnTimerStop.Size = New System.Drawing.Size(75, 23)
-        Me.btnTimerStop.TabIndex = 1
-        Me.btnTimerStop.Text = "Stop"
-        Me.btnTimerStop.UseVisualStyleBackColor = True
-        '
-        'btnTimerClear
-        '
-        Me.btnTimerClear.Enabled = False
-        Me.btnTimerClear.Location = New System.Drawing.Point(14, 77)
-        Me.btnTimerClear.Name = "btnTimerClear"
-        Me.btnTimerClear.Size = New System.Drawing.Size(75, 23)
-        Me.btnTimerClear.TabIndex = 2
-        Me.btnTimerClear.Text = "Clear"
-        Me.btnTimerClear.UseVisualStyleBackColor = True
-        '
-        'btnTimerSplit
-        '
-        Me.btnTimerSplit.Enabled = False
-        Me.btnTimerSplit.Location = New System.Drawing.Point(6, 19)
-        Me.btnTimerSplit.Name = "btnTimerSplit"
-        Me.btnTimerSplit.Size = New System.Drawing.Size(75, 23)
-        Me.btnTimerSplit.TabIndex = 0
-        Me.btnTimerSplit.Text = "Split"
-        Me.btnTimerSplit.UseVisualStyleBackColor = True
-        '
-        'lblTimerSplit
-        '
-        Me.lblTimerSplit.AutoSize = True
-        Me.lblTimerSplit.Enabled = False
-        Me.lblTimerSplit.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTimerSplit.Location = New System.Drawing.Point(87, 14)
-        Me.lblTimerSplit.Name = "lblTimerSplit"
-        Me.lblTimerSplit.Size = New System.Drawing.Size(151, 39)
-        Me.lblTimerSplit.TabIndex = 1
-        Me.lblTimerSplit.Text = "00:00:00"
-        '
-        'lblTimerTime
-        '
-        Me.lblTimerTime.AutoSize = True
-        Me.lblTimerTime.Enabled = False
-        Me.lblTimerTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTimerTime.Location = New System.Drawing.Point(86, 15)
-        Me.lblTimerTime.Name = "lblTimerTime"
-        Me.lblTimerTime.Size = New System.Drawing.Size(151, 39)
-        Me.lblTimerTime.TabIndex = 0
-        Me.lblTimerTime.Text = "00:00:00"
+        Me.btnTimerSplitClear.Enabled = False
+        Me.btnTimerSplitClear.Location = New System.Drawing.Point(298, 22)
+        Me.btnTimerSplitClear.Name = "btnTimerSplitClear"
+        Me.btnTimerSplitClear.Size = New System.Drawing.Size(75, 23)
+        Me.btnTimerSplitClear.TabIndex = 2
+        Me.btnTimerSplitClear.Text = "Clear"
+        Me.btnTimerSplitClear.UseVisualStyleBackColor = True
         '
         'frmKlock
         '
@@ -547,18 +562,18 @@ Partial Class frmKlock
         Me.GroupBox2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.TbPgCountDown.ResumeLayout(False)
-        Me.TbPgTimer.ResumeLayout(False)
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox4.ResumeLayout(False)
-        Me.GroupBox4.PerformLayout()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
         CType(Me.upDwnCntDownValue, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox7.ResumeLayout(False)
-        Me.GroupBox7.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.TbPgTimer.ResumeLayout(False)
         Me.GroupBox8.ResumeLayout(False)
         Me.GroupBox8.PerformLayout()
+        Me.GroupBox7.ResumeLayout(False)
+        Me.GroupBox7.PerformLayout()
+        Me.GroupBox6.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -608,5 +623,7 @@ Partial Class frmKlock
     Friend WithEvents btnTimerClear As System.Windows.Forms.Button
     Friend WithEvents btnTimerStop As System.Windows.Forms.Button
     Friend WithEvents btnTimerStart As System.Windows.Forms.Button
+    Friend WithEvents tmrTimer As System.Windows.Forms.Timer
+    Friend WithEvents btnTimerSplitClear As System.Windows.Forms.Button
 
 End Class

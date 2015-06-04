@@ -15,7 +15,12 @@ Public Class frmKlock
     '   Dim fs As FileStream = New FileStream("debug.log", FileMode.Create)
     '   Dim sw As New StreamWriter(fs)
 
-    Public fTime As selectTime
+    Public displayTime As selectTime
+    Public displayTimer As Timer
+
+    ' ************************************************************************************** timer routines **************************
+    ' Seperate timers are used for each function, to reduce load on main timer
+
 
     Private Sub TmrMain_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TmrMain.Tick
         '   Main clock tick.
@@ -38,8 +43,86 @@ Public Class frmKlock
         End If
 
         StsLblKeys.Text = strKey
+        LblTimeTime.Text = displayTime.getTime()
 
     End Sub
+
+    Private Sub tmrTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrTimer.Tick
+        '   if enabled, timer is running - update timer label
+
+        lblTimerTime.Text = displayTimer.getHighElapsedTime()
+    End Sub
+
+    '   ********************************************************************************* time ****************************************
+
+    Sub setTimeTypes()
+
+        Dim names = System.Enum.GetNames(GetType(selectTime.TimeTypes))
+
+        CmbBxTime.Items.AddRange(names)
+
+        Me.CmbBxTime.SelectedIndex = 0      '   until I know how to do this at design time :o)
+        Me.CmbBxCountDownAction.SelectedIndex = 0
+
+    End Sub
+
+    Private Sub CmbBxTime_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxTime.SelectedIndexChanged
+        displayTime.setType = CmbBxTime.SelectedIndex
+
+    End Sub
+
+    '   ********************************************************************************* timer ***************************************
+
+    Private Sub btnTimerStart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerStart.Click
+        displayTimer.startStopWatch()
+
+        tmrTimer.Enabled = True
+
+        btnTimerStop.Enabled = True
+        btnTimerSplit.Enabled = True
+        btnTimerStart.Enabled = False
+        btnTimerClear.Enabled = False
+    End Sub
+
+    Private Sub btnTimerStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerStop.Click
+        displayTimer.stopStopWatch()
+
+        tmrTimer.Enabled = False
+
+        btnTimerStop.Enabled = False
+        btnTimerClear.Enabled = True
+
+        btnTimerStart.Text = "Resume"
+        btnTimerStart.Enabled = True
+    End Sub
+
+    Private Sub btnTimerClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerClear.Click
+        displayTimer.clearStopWatch()
+
+        btnTimerClear.Enabled = False
+        btnTimerSplit.Enabled = False
+
+        btnTimerStart.Text = "Start"
+        btnTimerStart.Enabled = True
+
+        lblTimerTime.Text = "00:00"
+
+    End Sub
+
+    Private Sub btnTimerSplit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerSplit.Click
+        lblTimerSplit.Text = lblTimerTime.Text
+
+        btnTimerSplitClear.Enabled = True
+    End Sub
+
+    Private Sub btnTimerSplitClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerSplitClear.Click
+
+        lblTimerSplit.Text = "00:00:00"
+
+        btnTimerSplitClear.Enabled = False
+    End Sub
+
+    ' ********************************************************************************************************************************
 
     Private Sub MnItmExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmExit.Click
         '   Close application.
@@ -72,17 +155,18 @@ Public Class frmKlock
         setSettings()
     End Sub
 
-    Private Sub Stub_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub frmKlock_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '   Apply current setting on form load.
 
         startTime = My.Computer.Clock.TickCount
+        displayTime = New selectTime
+        displayTimer = New Timer
 
-        Me.CmbBxTime.SelectedIndex = 0      '   until I know how to do this at design time :o)
-        Me.CmbBxCountDownAction.SelectedIndex = 0
         setSettings()
+        setTimeTypes()
     End Sub
 
-    Private Sub frmStub_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+    Private Sub frmKlock_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
         '   on close and if needed, save form position.
 
         If frmOptions.ChckBxOptionsSavePos.Checked Then
@@ -94,7 +178,6 @@ Public Class frmKlock
         '   sw.Close()
 
     End Sub
-
 
     Sub setSettings()
         '   Apply current settings,
@@ -116,4 +199,10 @@ Public Class frmKlock
     Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
         Close()
     End Sub
+
+    ' *********************************************************************************************************************************
+
+
+
+
 End Class
