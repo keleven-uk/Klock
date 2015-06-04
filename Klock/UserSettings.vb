@@ -22,6 +22,7 @@ Public Class UserSettings
     '   local versions of the user settings.
     '   NB : important to set default on all user settings will be used if not present in xml file.
     '-------------------------------------------------------------------------------------------------------- Global Settings -------------
+    Private _usrDefaultTab As Integer = 0
     Private _usrFormColour As Color = Color.LightGray
     Private _usrFormFont As Font = frmOptions.DefaultFont
     Private _usrFormFontColour As Color = Color.Black
@@ -37,6 +38,9 @@ Public Class UserSettings
     Private _usrTimeDefaultFormat As Integer = 0
     Private _usrTimeTwoDefaultFormat As Integer = 1
     Private _usrTimeTwoFormats As Boolean = False
+    Private _usrTimeSystem24Hour As Boolean = True
+    Private _usrTimeOne24Hour As Boolean = True
+    Private _usrTimeTwo24Hour As Boolean = True
     Private _usrTimeSwatchCentibeats As Boolean = False
     Private _usrTimeNETSeconds As Boolean = False
     Private _usrTimeHexIntuitorFormat As Boolean = False
@@ -87,6 +91,10 @@ Public Class UserSettings
     '-------------------------------------------------------------------------------------------------------- Memo Settings -------------
     Private _usrMemoFile As String = "Memo.bin"
 
+    Private _usrMemoUseDefaultPassword As Boolean = False
+    Private _usrMemoAllowEmptyPassword As Boolean = False
+    Private _usrMemoDefaultPassword As String = "klock"
+    Private _usrMemoDecyptTimeOut As Integer = 30
 
     '   run on set up - blank at the moment.
     Public Sub New()
@@ -99,6 +107,14 @@ Public Class UserSettings
 
     '   Getters and setters for each of the user settings.
     '-------------------------------------------------------------------------------------------------------- Global Settings -------------
+    Public Property usrDefaultTab() As Integer
+        Get
+            Return _usrDefaultTab
+        End Get
+        Set(ByVal value As Integer)
+            _usrDefaultTab = value
+        End Set
+    End Property
 
     Public Property usrFormColour() As Color
         Get
@@ -211,12 +227,40 @@ Public Class UserSettings
             _usrTimeDefaultFormat = value
         End Set
     End Property
+
     Public Property usrTimeTwoFormats() As Boolean
         Get
             Return _usrTimeTwoFormats
         End Get
         Set(ByVal value As Boolean)
             _usrTimeTwoFormats = value
+        End Set
+    End Property
+
+    Public Property usrTimeSystem24Hour() As Boolean
+        Get
+            Return _usrTimeSystem24Hour
+        End Get
+        Set(ByVal value As Boolean)
+            _usrTimeSystem24Hour = value
+        End Set
+    End Property
+
+    Public Property usrTimeOne24Hour() As Boolean
+        Get
+            Return _usrTimeOne24Hour
+        End Get
+        Set(ByVal value As Boolean)
+            _usrTimeOne24Hour = value
+        End Set
+    End Property
+
+    Public Property usrTimeTwo24Hour() As Boolean
+        Get
+            Return _usrTimeTwo24Hour
+        End Get
+        Set(ByVal value As Boolean)
+            _usrTimeTwo24Hour = value
         End Set
     End Property
 
@@ -561,6 +605,33 @@ Public Class UserSettings
 
     '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
 
+    Public Property usrMemoDefaultPassword() As String
+        Get
+            Return _usrMemoDefaultPassword
+        End Get
+        Set(ByVal value As String)
+            _usrMemoDefaultPassword = value
+        End Set
+    End Property
+
+    Public Property usrMemoUseDefaultPassword() As Boolean
+        Get
+            Return _usrMemoUseDefaultPassword
+        End Get
+        Set(ByVal value As Boolean)
+            _usrMemoUseDefaultPassword = value
+        End Set
+    End Property
+
+    Public Property usrMemoAllowEmptyPassword() As Boolean
+        Get
+            Return _usrMemoAllowEmptyPassword
+        End Get
+        Set(ByVal value As Boolean)
+            _usrMemoAllowEmptyPassword = value
+        End Set
+    End Property
+
     Public Property usrMemoFile() As String
         Get
             Return _usrMemoFile
@@ -570,6 +641,14 @@ Public Class UserSettings
         End Set
     End Property
 
+    Public Property usrMemoDecyptTimeOut() As Integer
+        Get
+            Return _usrMemoDecyptTimeOut
+        End Get
+        Set(ByVal value As Integer)
+            _usrMemoDecyptTimeOut = value
+        End Set
+    End Property
 
     '-------------------------------------------------------------------------------------------------------- file methods ------------
 
@@ -582,6 +661,7 @@ Public Class UserSettings
 
         Dim xmlSettings = <klock Version=<%= My.Application.Info.Version.ToString() %>>
                               <Global>
+                                  <DefaultTab><%= usrDefaultTab() %></DefaultTab>
                                   <FormColour>
                                       <FormColourR><%= usrFormColour().R %></FormColourR>
                                       <FormColourG><%= usrFormColour().G %></FormColourG>
@@ -611,6 +691,9 @@ Public Class UserSettings
                                   <TimeDefaultFormat><%= usrTimeDefaultFormat() %></TimeDefaultFormat>
                                   <TimeTwoDefaultFormat><%= usrTimeTWODefaultFormat() %></TimeTwoDefaultFormat>
                                   <TimeTwoFormats><%= usrTimeTwoFormats() %></TimeTwoFormats>
+                                  <TimeSystem24Hour><%= usrTimeSystem24Hour() %></TimeSystem24Hour>
+                                  <TimeOne24Hour><%= usrTimeOne24Hour() %></TimeOne24Hour>
+                                  <TimeTimeTwo24Hour><%= usrTimeTwo24Hour() %></TimeTimeTwo24Hour>
                                   <TimeSwatchCentibeats><%= usrTimeSwatchCentibeats() %></TimeSwatchCentibeats>
                                   <TimeNETSeconds><%= usrTimeNETSeconds() %></TimeNETSeconds>
                                   <TimeHexIntuitorFormat><%= usrTimeHexIntuitorFormat() %></TimeHexIntuitorFormat>
@@ -658,6 +741,16 @@ Public Class UserSettings
                                   </NotificationFontColour>
                                   <NotificationTimeOut><%= usrNotificationTimeOut() %></NotificationTimeOut>
                                   <NotificationOpacity><%= usrNotificationOpacity() %></NotificationOpacity>
+                              </Notification>
+                              <Friends>
+                                  <FriendsFileName><%= usrFriendsFile() %></FriendsFileName>
+                              </Friends>
+                              <Events>
+                                  <EventsFileName><%= usrEventsFile() %></EventsFileName>
+                                  <EventsFirstReminder><%= usrEventsFirstReminder() %></EventsFirstReminder>
+                                  <EventsSecondReminder><%= usrEventsSecondReminder() %></EventsSecondReminder>
+                                  <EventsThirdReminder><%= usrEventsThirdReminder() %></EventsThirdReminder>
+                                  <EventsTimerInterval><%= usrEventsTimerInterval() %></EventsTimerInterval>
                                   <EventNotificationFont>
                                       <EventNotificationFontName><%= usrEventNotificationFont().Name %></EventNotificationFontName>
                                       <EventNotificationFontSize><%= usrEventNotificationFont().Size %></EventNotificationFontSize>
@@ -688,19 +781,13 @@ Public Class UserSettings
                                       <ThirdEventNotificationColourA><%= usrThirdEventNotificationbackColour().A %></ThirdEventNotificationColourA>
                                   </ThirdEventNotificationColour>
                                   <EventNotificationOpacity><%= usrEventNotificationOpacity() %></EventNotificationOpacity>
-                              </Notification>
-                              <Friends>
-                                  <FriendsFileName><%= usrFriendsFile() %></FriendsFileName>
-                              </Friends>
-                              <Events>
-                                  <EventsFileName><%= usrEventsFile() %></EventsFileName>
-                                  <EventsFirstReminder><%= usrEventsFirstReminder() %></EventsFirstReminder>
-                                  <EventsSecondReminder><%= usrEventsSecondReminder() %></EventsSecondReminder>
-                                  <EventsThirdReminder><%= usrEventsThirdReminder() %></EventsThirdReminder>
-                                  <EventsTimerInterval><%= usrEventsTimerInterval() %></EventsTimerInterval>
                               </Events>
                               <Memo>
                                   <MemoFileName><%= usrMemoFile() %></MemoFileName>
+                                  <MemoUseDefaultPassword><%= usrMemoUseDefaultPassword() %></MemoUseDefaultPassword>
+                                  <MemoAllowEmptyPassword><%= usrMemoAllowEmptyPassword() %></MemoAllowEmptyPassword>
+                                  <MemoDefaultPassword><%= usrMemoDefaultPassword() %></MemoDefaultPassword>
+                                  <MemoDecyptTimeOut><%= usrMemoDecyptTimeOut() %></MemoDecyptTimeOut>
                               </Memo>
                           </klock>
 
@@ -713,10 +800,11 @@ Public Class UserSettings
 
         Dim xmlSettings = <klock Version=<%= My.Application.Info.Version.ToString() %>>
                               <Global>
+                                  <DefaultTab>0</DefaultTab>
                                   <FormColour>
-                                      <FormColourR>224</FormColourR>
-                                      <FormColourG>223</FormColourG>
-                                      <FormColourB>227</FormColourB>
+                                      <FormColourR>240</FormColourR>
+                                      <FormColourG>240</FormColourG>
+                                      <FormColourB>240</FormColourB>
                                       <FormColourA>255</FormColourA>
                                   </FormColour>
                                   <FormFont>
@@ -742,6 +830,9 @@ Public Class UserSettings
                                   <TimeDefaultFormat>0</TimeDefaultFormat>
                                   <TimeTwoDefaultFormat>1</TimeTwoDefaultFormat>
                                   <TimeTwoFormats>false</TimeTwoFormats>
+                                  <TimeSystem24Hour>true</TimeSystem24Hour>
+                                  <TimeOne24Hour>true</TimeOne24Hour>
+                                  <TimeTwo24Hour>true</TimeTwo24Hour>
                                   <TimeSwatchCentibeats>false</TimeSwatchCentibeats>
                                   <TimeNETSeconds>false</TimeNETSeconds>
                                   <TimeHexIntuitorFormat>false</TimeHexIntuitorFormat>
@@ -789,36 +880,6 @@ Public Class UserSettings
                                   </NotificationFontColour>
                                   <NotificationTimeOut>5000</NotificationTimeOut>
                                   <NotificationOpacity>80</NotificationOpacity>
-                                  <EventNotificationFont>
-                                      <EventNotificationFontName>Microsoft Sans Serif</EventNotificationFontName>
-                                      <EventNotificationFontSize>8.25</EventNotificationFontSize>
-                                      <EventNotificationFontStyle>0</EventNotificationFontStyle>
-                                  </EventNotificationFont>
-                                  <EventNotificationFontColour>
-                                      <EventNotificationFontColourR>128</EventNotificationFontColourR>
-                                      <EventNotificationFontColourG>255</EventNotificationFontColourG>
-                                      <EventNotificationFontColourB>255</EventNotificationFontColourB>
-                                      <EventNotificationFontColourA>255</EventNotificationFontColourA>
-                                  </EventNotificationFontColour>
-                                  <FirstEventNotificationColour>
-                                      <FirstNotificationColourR>242</FirstNotificationColourR>
-                                      <FirstNotificationColourG>255</FirstNotificationColourG>
-                                      <FirstNotificationColourB>198</FirstNotificationColourB>
-                                      <FirstNotificationColourA>255</FirstNotificationColourA>
-                                  </FirstEventNotificationColour>
-                                  <SecondEventNotificationColour>
-                                      <SecondFirstNotificationColourR>255</SecondFirstNotificationColourR>
-                                      <SecondFirstNotificationColourG>255</SecondFirstNotificationColourG>
-                                      <SecondFirstNotificationColourB>183</SecondFirstNotificationColourB>
-                                      <SecondFirstNotificationColourA>255</SecondFirstNotificationColourA>
-                                  </SecondEventNotificationColour>
-                                  <ThirdEventNotificationColour>
-                                      <ThirdFirstNotificationColourR>255</ThirdFirstNotificationColourR>
-                                      <ThirdFirstNotificationColourG>168</ThirdFirstNotificationColourG>
-                                      <ThirdFirstNotificationColourB>168</ThirdFirstNotificationColourB>
-                                      <ThirdFirstNotificationColourA>255</ThirdFirstNotificationColourA>
-                                  </ThirdEventNotificationColour>
-                                  <EventNotificationOpacity>80</EventNotificationOpacity>
                               </Notification>
                               <Friends>
                                   <FriendsDirectory><%= usrOptionsSavePath() %></FriendsDirectory>
@@ -831,9 +892,43 @@ Public Class UserSettings
                                   <EventsSecondReminder>5</EventsSecondReminder>
                                   <EventsThirdReminder>1</EventsThirdReminder>
                                   <EventsTimerInterval>60</EventsTimerInterval>
+                                  <EventNotificationFont>
+                                      <EventNotificationFontName>Microsoft Sans Serif</EventNotificationFontName>
+                                      <EventNotificationFontSize>8.25</EventNotificationFontSize>
+                                      <EventNotificationFontStyle>0</EventNotificationFontStyle>
+                                  </EventNotificationFont>
+                                  <EventNotificationFontColour>
+                                      <EventNotificationFontColourR>128</EventNotificationFontColourR>
+                                      <EventNotificationFontColourG>255</EventNotificationFontColourG>
+                                      <EventNotificationFontColourB>255</EventNotificationFontColourB>
+                                      <EventNotificationFontColourA>255</EventNotificationFontColourA>
+                                  </EventNotificationFontColour>
+                                  <FirstEventNotificationColour>
+                                      <FirstEventNotificationColourR>242</FirstEventNotificationColourR>
+                                      <FirstEventNotificationColourG>255</FirstEventNotificationColourG>
+                                      <FirstEventNotificationColourB>198</FirstEventNotificationColourB>
+                                      <FirstEventNotificationColourA>255</FirstEventNotificationColourA>
+                                  </FirstEventNotificationColour>
+                                  <SecondEventNotificationColour>
+                                      <SecondEventNotificationColourR>255</SecondEventNotificationColourR>
+                                      <SecondEventNotificationColourG>255</SecondEventNotificationColourG>
+                                      <SecondEventNotificationColourB>183</SecondEventNotificationColourB>
+                                      <SecondEventNotificationColourA>255</SecondEventNotificationColourA>
+                                  </SecondEventNotificationColour>
+                                  <ThirdEventNotificationColour>
+                                      <ThirdEventNotificationColourR>255</ThirdEventNotificationColourR>
+                                      <ThirdEventNotificationColourG>168</ThirdEventNotificationColourG>
+                                      <ThirdEventNotificationColourB>168</ThirdEventNotificationColourB>
+                                      <ThirdEventNotificationColourA>255</ThirdEventNotificationColourA>
+                                  </ThirdEventNotificationColour>
+                                  <EventNotificationOpacity>80</EventNotificationOpacity>
                               </Events>
                               <Memo>
                                   <MemoFileName><%= usrMemoFile() %></MemoFileName>
+                                  <MemoUseDefaultPassword>false</MemoUseDefaultPassword>
+                                  <MemoAllowEmptyPassword>false</MemoAllowEmptyPassword>
+                                  <MemoDefaultPassword>"klock"</MemoDefaultPassword>
+                                  <MemoDecyptTimeOut>30</MemoDecyptTimeOut>
                               </Memo>
                           </klock>
 
@@ -863,6 +958,7 @@ Public Class UserSettings
 
             Dim glbl = elem.Element("Global")
 
+            Me.usrDefaultTab = CType(readElement(glbl, "DefaultTab", usrDefaultTab()), Integer)
 
             Dim frmClr = glbl.Element("FormColour")
             r = CType(readElement(frmClr, "FormColourR", usrFormColour().R), Byte)
@@ -885,7 +981,7 @@ Public Class UserSettings
             Me.usrFormFontColour = Color.FromArgb(a, r, g, b)
 
             Me.usrFormTop = CType(readElement(glbl, "FormTop", usrFormTop()), Integer)
-            Me.usrFormLeft = CType(readElement(glbl, "formleft", usrFormLeft()), Integer)
+            Me.usrFormLeft = CType(readElement(glbl, "Formleft", usrFormLeft()), Integer)
             Me.usrSavePosition = CType(readElement(glbl, "SavePosition", usrSavePosition()), Boolean)
             Me.usrStartMinimised = CType(readElement(glbl, "StartMinimised", usrStartMinimised()), Boolean)
             Me.usrRunOnStartup = CType(readElement(glbl, "RunOnStartup", usrRunOnStartup()), Boolean)
@@ -897,6 +993,9 @@ Public Class UserSettings
             Me.usrTimeDefaultFormat = CType(readElement(tm, "TimeDefaultFormat", usrTimeDefaultFormat()), Integer)
             Me.usrTimeTWODefaultFormat = CType(readElement(tm, "TimeTwoDefaultFormat", usrTimeTWODefaultFormat()), Integer)
             Me.usrTimeTwoFormats = CType(readElement(tm, "TimeTwoFormats", usrTimeTwoFormats()), Boolean)
+            Me.usrTimeSystem24Hour = CType(readElement(tm, "TimeSystem24Hour", usrTimeSystem24Hour()), Boolean)
+            Me.usrTimeOne24Hour = CType(readElement(tm, "TimeOne24Hour", usrTimeOne24Hour()), Boolean)
+            Me.usrTimeTwo24Hour = CType(readElement(tm, "TimeTwo24Hour", usrTimeTwo24Hour()), Boolean)
             Me.usrTimeSwatchCentibeats = CType(readElement(tm, "TimeSwatchCentibeats", usrTimeSwatchCentibeats()), Boolean)
             Me.usrTimeNETSeconds = CType(readElement(tm, "TimeNETSeconds", usrTimeNETSeconds()), Boolean)
             Me.usrTimeHexIntuitorFormat = CType(readElement(tm, "TimeHexIntuitorFormat", usrTimeHexIntuitorFormat()), Boolean)
@@ -959,43 +1058,6 @@ Public Class UserSettings
             Me.usrNotificationTimeOut = CType(readElement(ntfctn, "NotificationTimeOut", usrNotificationTimeOut()), Integer)
             Me.usrNotificationOpacity = CType(readElement(ntfctn, "NotificationOpacity", usrNotificationOpacity()), Integer)
 
-
-            Dim entfctnFnt = ntfctn.Element("EventNotificationFont")
-            name = readElement(entfctnFnt, "EventNotificationFontName", usrEventNotificationFont().Name)       '   already a string
-            size = CType(readElement(entfctnFnt, "EventNotificationFontSize", usrEventNotificationFont().Size), Single)
-            style = CType(readElement(entfctnFnt, "EventNotificationFontStyle", 0), FontStyle)
-            Me.usrEventNotificationFont() = New Font(name, size, style)
-
-            Dim entfctnFntClr = ntfctn.Element("EventNotificationFontColour")
-            r = CType(readElement(entfctnFntClr, "EventNotificationFontColourR", usrEventNotificationFontColour().R), Byte)
-            g = CType(readElement(entfctnFntClr, "EventNotificationFontColourG", usrEventNotificationFontColour().G), Byte)
-            b = CType(readElement(entfctnFntClr, "EventNotificationFontColourB", usrEventNotificationFontColour().B), Byte)
-            a = CType(readElement(entfctnFntClr, "EventNotificationFontColourA", usrEventNotificationFontColour().A), Byte)
-            Me.usrEventNotificationFontColour = Color.FromArgb(a, r, g, b)
-
-            Dim fentfctnClr = ntfctn.Element("FirstEventNotificationColour")
-            r = CType(readElement(fentfctnClr, "FirstEventNotificationColourR", usrFirstEventNotificationbackColour().R), Byte)
-            g = CType(readElement(fentfctnClr, "FirstEventNotificationColourG", usrFirstEventNotificationbackColour().G), Byte)
-            b = CType(readElement(fentfctnClr, "FirstEventNotificationColourB", usrFirstEventNotificationbackColour().B), Byte)
-            a = CType(readElement(fentfctnClr, "FirstEventNotificationColourA", usrFirstEventNotificationbackColour().A), Byte)
-            Me.usrFirstEventNotificationbackColour = Color.FromArgb(a, r, g, b)
-
-            Dim sentfctnClr = ntfctn.Element("SecondEventNotificationColour")
-            r = CType(readElement(sentfctnClr, "SecondEventNotificationColourR", usrSecondEventNotificationbackColour().R), Byte)
-            g = CType(readElement(sentfctnClr, "SecondEventNotificationColourG", usrSecondEventNotificationbackColour().G), Byte)
-            b = CType(readElement(sentfctnClr, "SecondEventNotificationColourB", usrSecondEventNotificationbackColour().B), Byte)
-            a = CType(readElement(sentfctnClr, "SecondEventNotificationColourA", usrSecondEventNotificationbackColour().A), Byte)
-            Me.usrSecondEventNotificationbackColour = Color.FromArgb(a, r, g, b)
-
-            Dim tentfctnClr = ntfctn.Element("ThirdEventNotificationColour")
-            r = CType(readElement(tentfctnClr, "ThirdEventNotificationColourR", usrThirdEventNotificationbackColour().R), Byte)
-            g = CType(readElement(tentfctnClr, "ThirdEventNotificationColourG", usrThirdEventNotificationbackColour().G), Byte)
-            b = CType(readElement(tentfctnClr, "ThirdEventNotificationColourB", usrThirdEventNotificationbackColour().B), Byte)
-            a = CType(readElement(tentfctnClr, "ThirdEventNotificationColourA", usrThirdEventNotificationbackColour().A), Byte)
-            Me.usrThirdEventNotificationbackColour = Color.FromArgb(a, r, g, b)
-
-            Me.usrEventNotificationOpacity = CType(readElement(tentfctnClr, "EventNotificationOpacity", usrEventNotificationOpacity()), Integer)
-
             '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
             '   values are strings, so need to convert.
 
@@ -1013,11 +1075,50 @@ Public Class UserSettings
             Me.usrEventsThirdReminder = CType(readElement(evnts, "EventsThirdReminder", usrEventsThirdReminder()), Integer)
             Me.usrEventsTimerInterval = CType(readElement(evnts, "EventsTimerInterval", usrEventsTimerInterval()), Integer)
 
+            Dim entfctnFnt = evnts.Element("EventNotificationFont")
+            name = readElement(entfctnFnt, "EventNotificationFontName", usrEventNotificationFont().Name)       '   already a string
+            size = CType(readElement(entfctnFnt, "EventNotificationFontSize", usrEventNotificationFont().Size), Single)
+            style = CType(readElement(entfctnFnt, "EventNotificationFontStyle", 0), FontStyle)
+            Me.usrEventNotificationFont() = New Font(name, size, style)
+
+            Dim entfctnFntClr = evnts.Element("EventNotificationFontColour")
+            r = CType(readElement(entfctnFntClr, "EventNotificationFontColourR", usrEventNotificationFontColour().R), Byte)
+            g = CType(readElement(entfctnFntClr, "EventNotificationFontColourG", usrEventNotificationFontColour().G), Byte)
+            b = CType(readElement(entfctnFntClr, "EventNotificationFontColourB", usrEventNotificationFontColour().B), Byte)
+            a = CType(readElement(entfctnFntClr, "EventNotificationFontColourA", usrEventNotificationFontColour().A), Byte)
+            Me.usrEventNotificationFontColour = Color.FromArgb(a, r, g, b)
+
+            Dim fentfctnClr = evnts.Element("FirstEventNotificationColour")
+            r = CType(readElement(fentfctnClr, "FirstEventNotificationColourR", usrFirstEventNotificationbackColour().R), Byte)
+            g = CType(readElement(fentfctnClr, "FirstEventNotificationColourG", usrFirstEventNotificationbackColour().G), Byte)
+            b = CType(readElement(fentfctnClr, "FirstEventNotificationColourB", usrFirstEventNotificationbackColour().B), Byte)
+            a = CType(readElement(fentfctnClr, "FirstEventNotificationColourA", usrFirstEventNotificationbackColour().A), Byte)
+            Me.usrFirstEventNotificationbackColour = Color.FromArgb(a, r, g, b)
+
+            Dim sentfctnClr = evnts.Element("SecondEventNotificationColour")
+            r = CType(readElement(sentfctnClr, "SecondEventNotificationColourR", usrSecondEventNotificationbackColour().R), Byte)
+            g = CType(readElement(sentfctnClr, "SecondEventNotificationColourG", usrSecondEventNotificationbackColour().G), Byte)
+            b = CType(readElement(sentfctnClr, "SecondEventNotificationColourB", usrSecondEventNotificationbackColour().B), Byte)
+            a = CType(readElement(sentfctnClr, "SecondEventNotificationColourA", usrSecondEventNotificationbackColour().A), Byte)
+            Me.usrSecondEventNotificationbackColour = Color.FromArgb(a, r, g, b)
+
+            Dim tentfctnClr = evnts.Element("ThirdEventNotificationColour")
+            r = CType(readElement(tentfctnClr, "ThirdEventNotificationColourR", usrThirdEventNotificationbackColour().R), Byte)
+            g = CType(readElement(tentfctnClr, "ThirdEventNotificationColourG", usrThirdEventNotificationbackColour().G), Byte)
+            b = CType(readElement(tentfctnClr, "ThirdEventNotificationColourB", usrThirdEventNotificationbackColour().B), Byte)
+            a = CType(readElement(tentfctnClr, "ThirdEventNotificationColourA", usrThirdEventNotificationbackColour().A), Byte)
+            Me.usrThirdEventNotificationbackColour = Color.FromArgb(a, r, g, b)
+
+            Me.usrEventNotificationOpacity = CType(readElement(evnts, "EventNotificationOpacity", usrEventNotificationOpacity()), Integer)
             '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
             '   values are strings, so need to convert.
 
             Dim memo = elem.Element("Memo")
             Me.usrMemoFile = readElement(memo, "MemoFileName", usrMemoFile())
+            Me.usrMemoUseDefaultPassword = CType(readElement(memo, "MemoUseDefaultPassword", usrMemoUseDefaultPassword()), Boolean)
+            Me.usrMemoAllowEmptyPassword = CType(readElement(memo, "MemoAllowEmptyPassword", usrMemoAllowEmptyPassword()), Boolean)
+            Me.usrMemoDefaultPassword = readElement(memo, "MemoDefaultPassword", usrMemoDefaultPassword())
+            Me.usrMemoDecyptTimeOut = CType(readElement(memo, "MemoDecyptTimeOut", usrMemoDecyptTimeOut()), Integer)
 
             '   If version has changed, some settings might need to be added [will have been set to default].
             If version <> My.Application.Info.Version.ToString() Then
@@ -1034,11 +1135,17 @@ Public Class UserSettings
         '   If found, then return the elements value.
         '   if not found, return the default [d]
 
+        Dim r As String = ""
+
+        '   frmKlock.displayAction.DisplayReminder("ERROR", s)
+
         Try
-            readElement = g.Element(s).Value
+            r = g.Element(s).Value
         Catch ex As Exception
-            readElement = d
+            r = d
         End Try
+
+        readElement = r
     End Function
 
     Private Sub checkDataFile()

@@ -10,9 +10,15 @@ Public Class frmOptions
     Private Sub frmOptions_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '   When opened, set settings
 
+        Dim tabs() As String = {"Fuzzy Time", "World Klock", "Count Down", "Timer", "Reminder", "Friends", "Events", "Memo"}
+
         displayAction = New selectAction
 
         Me.TxtBxArchiveFile.Text = "Klock.zip"
+        Me.LblOptionSavepath.Text = System.IO.Path.Combine(frmKlock.usrSettings.usrOptionsSavePath(), frmKlock.usrSettings.usrOptionsSaveFile())
+
+        Me.CmbBxDefaultTab.Items.AddRange(tabs)
+        Me.CmbBxDefaultTab.SelectedIndex = frmKlock.usrSettings.usrDefaultTab
 
         Me.showArchiveButtons(False)
         Me.setSettings()
@@ -35,6 +41,8 @@ Public Class frmOptions
             Case 4              '   Archive options
                 Me.showArchiveButtons(True)
             Case 5              '   Events
+                Me.showArchiveButtons(False)
+            Case 6              '   Memo
                 Me.showArchiveButtons(False)
         End Select
     End Sub
@@ -72,12 +80,7 @@ Public Class frmOptions
         Me.TrckBrOptionsVolume.TickFrequency = 100
         Me.TrckBrOptionsVolume.Value = frmKlock.usrSettings.usrSoundVolume
 
-        If frmKlock.usrSettings.usrFriendsFile = "" Then
-            Me.TxtBxOptionsSettingsFile.Text = "Klock.xml"
-        Else
-            Me.TxtBxOptionsSettingsFile.Text = frmKlock.usrSettings.usrOptionsSaveFile
-        End If
-
+        Me.TxtBxOptionsSettingsFile.Text = IIf(frmKlock.usrSettings.usrFriendsFile = "", "Klock.xml", frmKlock.usrSettings.usrOptionsSaveFile)
         Me.TxtBxOptionsFriendsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
 
         '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
@@ -100,11 +103,13 @@ Public Class frmOptions
         Me.UpDwnVoiceDisplay.Value = frmKlock.usrSettings.usrTimeVoiceMinutes
 
         Me.UpDwnTimeDisplay.Enabled = frmKlock.usrSettings.usrTimeDisplayMinutes
-        'If frmKlock.usrSettings.usrTimeDisplayMinutes Then
-        '    Me.UpDwnTimeDisplay.Enabled = True
-        'Else
-        '    Me.UpDwnTimeDisplay.Enabled = False
-        'End If
+
+        Me.ChckBxTimeSystem24.Checked = frmKlock.usrSettings.usrTimeSystem24Hour
+        Me.ChckBxTimeSystem12.Checked = Not frmKlock.usrSettings.usrTimeSystem24Hour
+        Me.ChckBxTimeTimeOne24.Checked = frmKlock.usrSettings.usrTimeOne24Hour
+        Me.ChckBxTimeTimeOne12.Checked = Not frmKlock.usrSettings.usrTimeOne24Hour
+        Me.ChckBxTimeTimeTwo24.Checked = frmKlock.usrSettings.usrTimeTwo24Hour
+        Me.ChckBxTimeTimeTwo12.Checked = Not frmKlock.usrSettings.usrTimeTwo24Hour
 
         '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
@@ -137,32 +142,26 @@ Public Class frmOptions
         Me.PctrBxThirdEvent.BackColor = frmKlock.usrSettings.usrThirdEventNotificationbackColour
         '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
-        If frmKlock.usrSettings.usrFriendsFile = "" Then
-            Me.TxtBxOptionsFriendsFile.Text = "Friends.bin"
-        Else
-            Me.TxtBxOptionsFriendsFile.Text = frmKlock.usrSettings.usrFriendsFile
-        End If
+        Me.TxtBxOptionsFriendsFile.Text = IIf(frmKlock.usrSettings.usrFriendsFile = "", "Friends.bin", frmKlock.usrSettings.usrFriendsFile)
 
         '-------------------------------------------------------------------------------------------------------- Events Settings ------------
 
-        If frmKlock.usrSettings.usrEventsFile = "" Then
-            Me.TxtBxOptionsEventsFile.Text = "Events.bin"
-        Else
-            Me.TxtBxOptionsEventsFile.Text = frmKlock.usrSettings.usrEventsFile
-        End If
+        Me.TxtBxOptionsEventsFile.Text = IIf(frmKlock.usrSettings.usrEventsFile = "", "Events.bin", frmKlock.usrSettings.usrEventsFile)
 
         '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
 
-        If frmKlock.usrSettings.usrMemoFile = "" Then
-            Me.TxtBxOptionsMemoFile.Text = "Memo.bin"
-        Else
-            Me.TxtBxOptionsMemoFile.Text = frmKlock.usrSettings.usrMemoFile
-        End If
+        Me.TxtBxOptionsMemoFile.Text = IIf(frmKlock.usrSettings.usrMemoFile = "", "Memo.bin", frmKlock.usrSettings.usrMemoFile)
 
         Me.NmrcUpDwnFirstReminder.Value = frmKlock.usrSettings.usrEventsFirstReminder
         Me.NmrcUpDwnSecondReminder.Value = frmKlock.usrSettings.usrEventsSecondReminder
         Me.NmrcUpDwnThirdReminder.Value = frmKlock.usrSettings.usrEventsThirdReminder
         Me.NmrcUpDwnEventsInterval.Value = frmKlock.usrSettings.usrEventsTimerInterval
+
+        Me.ChckBxMemoDefaultPassword.Checked = frmKlock.usrSettings.usrMemoUseDefaultPassword
+        Me.ChckBxMemoAllowEmpty.Checked = frmKlock.usrSettings.usrMemoAllowEmptyPassword
+        Me.TxtBxMemoDefaultPassword.Text = frmKlock.usrSettings.usrMemoDefaultPassword
+
+        Me.NmrcUpDwnMemoDecrypt.Value = frmKlock.usrSettings.usrMemoDecyptTimeOut
     End Sub
 
     ' ************************************************************************************* global options *****************************
@@ -199,6 +198,10 @@ Public Class frmOptions
         frmKlock.usrSettings.usrTimeVoiceMinimised = Me.ChckBxOptionsVoice.Checked
         frmKlock.usrSettings.usrTimeVoiceMinutes = Me.UpDwnVoiceDisplay.Value
         frmKlock.usrSettings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
+
+        frmKlock.usrSettings.usrTimeSystem24Hour = Me.ChckBxTimeSystem24.Checked
+        frmKlock.usrSettings.usrTimeOne24Hour = Me.ChckBxTimeTimeOne24.Checked
+        frmKlock.usrSettings.usrTimeTwo24Hour = Me.ChckBxTimeTimeTwo24.Checked
 
         '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
@@ -242,12 +245,19 @@ Public Class frmOptions
         '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
 
         frmKlock.usrSettings.usrMemoFile = Me.TxtBxOptionsMemoFile.Text
+        frmKlock.usrSettings.usrMemoUseDefaultPassword = Me.ChckBxMemoDefaultPassword.Checked
+        frmKlock.usrSettings.usrMemoAllowEmptyPassword = Me.ChckBxMemoAllowEmpty.Checked
+        frmKlock.usrSettings.usrMemoDefaultPassword = Me.TxtBxMemoDefaultPassword.Text
+        frmKlock.usrSettings.usrMemoDecyptTimeOut = Me.NmrcUpDwnMemoDecrypt.Value
+
 
         frmKlock.usrSettings.writeSettings()
         frmKlock.setSettings()
 
         Me.Close()
     End Sub
+
+    '-----------------------------------------------------------Buttons---------------------------------------------------------------
 
     Private Sub btnOptionsCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsCancel.Click
         '   when cancelled, close but not save.
@@ -262,6 +272,15 @@ Public Class frmOptions
         frmKlock.usrSettings.readSettings()
         Me.setSettings()
         frmKlock.setSettings()
+    End Sub
+
+    '-----------------------------------------------------------Global---------------------------------------------------------------
+
+    Private Sub CmbBxDefaultTab_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles CmbBxDefaultTab.SelectedIndexChanged
+        '   If a new default tab is selected, do the update stuff.
+
+        frmKlock.usrSettings.usrDefaultTab = Me.CmbBxDefaultTab.SelectedIndex
+
     End Sub
 
 
@@ -357,6 +376,36 @@ Public Class frmOptions
         End If
     End Sub
 
+    Private Sub ChckBxTimeSystem24_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxTimeSystem24.CheckedChanged
+
+        Me.ChckBxTimeSystem12.Checked = Not Me.ChckBxTimeSystem24.Checked
+    End Sub
+
+    Private Sub ChckBxTimeTimeOne24_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxTimeTimeOne24.CheckedChanged
+
+        Me.ChckBxTimeTimeOne12.Checked = Not Me.ChckBxTimeTimeOne24.Checked
+    End Sub
+
+    Private Sub ChckBxTimeTimeTwo24_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxTimeTimeTwo24.CheckedChanged
+
+        Me.ChckBxTimeTimeTwo12.Checked = Not Me.ChckBxTimeTimeTwo24.Checked
+    End Sub
+
+    Private Sub ChckBxTimeSystem12_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxTimeSystem12.CheckedChanged
+
+        Me.ChckBxTimeSystem24.Checked = Not Me.ChckBxTimeSystem12.Checked
+    End Sub
+
+    Private Sub ChckBxTimeTimeOne12_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxTimeTimeOne12.CheckedChanged
+
+        Me.ChckBxTimeTimeOne24.Checked = Not Me.ChckBxTimeTimeOne12.Checked
+    End Sub
+
+    Private Sub ChckBxTimeTimeTwo12_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxTimeTimeTwo12.CheckedChanged
+
+        Me.ChckBxTimeTimeTwo24.Checked = Not Me.ChckBxTimeTimeTwo12.Checked
+    End Sub
+
     '-----------------------------------------------------------Notification---------------------------------------------------------------
 
     Private Sub btnNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNotificationColour.Click
@@ -380,6 +429,10 @@ Public Class frmOptions
             frmKlock.usrSettings.usrNotificationFont = Me.FntDlgFont.Font
             frmKlock.usrSettings.usrNotificationFontColour = Me.FntDlgFont.Color
         End If
+    End Sub
+
+    Private Sub btnEventNotificationFontColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
     End Sub
 
     Private Sub NmrcUpDwnNotificationTimeOut_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NmrcUpDwnNotificationTimeOut.ValueChanged
@@ -480,11 +533,6 @@ Public Class frmOptions
         '   If checkbox to enable notification message every nth minutes if checked, enables the minute counter.
 
         Me.UpDwnTimeDisplay.Enabled = Me.ChckBxTimeToast.Checked
-        'If Me.ChckBxTimeToast.Checked Then
-        '    Me.UpDwnTimeDisplay.Enabled = True
-        'Else
-        '    Me.UpDwnTimeDisplay.Enabled = False
-        'End If
     End Sub
 
     '---------------------------------------------------------- Friends Options  ---------------------------------------------------------------
@@ -530,6 +578,14 @@ Public Class frmOptions
             Me.TxtBxOptionsMemoFile.Text = Me.OpenFileDialog1.SafeFileName
             frmKlock.usrSettings.usrMemoFile = Me.OpenFileDialog1.SafeFileName
         End If
+    End Sub
+
+    Private Sub ChckBxMemoDefaultPassword_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxMemoDefaultPassword.CheckedChanged
+
+        Me.TxtBxMemoDefaultPassword.Enabled = Me.ChckBxMemoDefaultPassword.Checked
+        Me.TxtBxMemoDefaultPassword.ReadOnly = Me.ChckBxMemoDefaultPassword.Checked
+        Me.ChckBxMemoAllowEmpty.Enabled = Me.ChckBxMemoDefaultPassword.Checked
+        Me.NmrcUpDwnMemoDecrypt.Enabled = Me.ChckBxMemoDefaultPassword.Checked
     End Sub
 
     ' **************************************************************************************** Archive stuff ***************************

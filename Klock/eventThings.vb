@@ -23,6 +23,7 @@
     End Function
 
     Public Function eventmessage(ByVal e As Events) As String
+        '   Set an appropieate message according to the event type.
 
         Dim s As String = "d"
 
@@ -65,21 +66,14 @@
     End Function
 
     Private Function weddingAnniversary(ByVal n As Integer) As String
+        '   Selects the appropiate wedding gift, if knowm - otherwise returns the year number in words.
 
-        Dim s As String = ""
-
-        If Me.weddingAnniversaryGifts.ContainsKey(n) Then
-            s = Me.weddingAnniversaryGifts(n)
-        Else
-            s = Me.toOrdinal(n)
-        End If
-
-        weddingAnniversary = s
+        weddingAnniversary = IIf(Me.weddingAnniversaryGifts.ContainsKey(n), Me.weddingAnniversaryGifts(n), Me.toOrdinal(n))
     End Function
 
 
     Private Function toOrdinal(ByVal n As Integer) As String
-
+        '   returns the value in words.
 
         Dim units() As String = {"Zeroth", "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth", _
                                 "Eleventh", "Twelfth", "Thirteenth", "Fourteenth", "Fifteenth", "Sixteenth", "Seventeenth", "Eighteenth", "Nineteenth"}
@@ -96,12 +90,7 @@
             ten = n / 10
             unit = (n = unit) / 10
 
-            If unit = 0 Then
-                s = tens(ten) + "th"
-            Else
-                s = tens(ten) + units(unit)
-            End If
-
+            s = IIf(unit = 0, tens(ten) + "th", tens(ten) + units(unit))
         End If
 
         toOrdinal = s

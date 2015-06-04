@@ -1,15 +1,11 @@
-﻿Imports Klock.frmOptions
-Imports System.IO
-Imports System.Runtime.Serialization.Formatters.Binary
-
-
-Public Class frmKlock
+﻿Public Class frmKlock
 
     '   Main Klock application.       K. Scott    November 2012
     '
-    '   March 2013  V1.01 - added contacts tab              [build 14]
-    '   June 2013   V1.02 - added user settings             [build 23]
-    '   July 2013   V1.03 - added reminder & events tab     [build 30]
+    '   March 2013      V1.01 - added contacts tab              [build 14]
+    '   June 2013       V1.02 - added user settings             [build 23]
+    '   July 2013       V1.03 - added reminder & events tab     [build 30]
+    '   October 2013    V1.04 - added memo tab                  [build 37]
 
     Public startTime As Integer
 
@@ -27,6 +23,7 @@ Public Class frmKlock
     Public F_ADDING As Boolean = False          '   Will be true if adding an friend, false if editing.
     Public E_ADDING As Boolean = False          '   Will be true if adding an event, false if editing.
     Public M_ADDING As Boolean = False          '   Will be true if adding an memo, false if editing.
+    Public M_SHOW As Boolean = False            '   Will be true if displaying a secret memo test.
 
     Public reloadFriends As Boolean = True      '   if true, friends file will be re-loaded
     Public reloadEvents As Boolean = True       '   if true, events file will be re-loaded.
@@ -72,6 +69,8 @@ Public Class frmKlock
 
             If Me.TbCntrl.SelectedIndex = 0 Then
 
+                Me.displayOneTime.set24Hour = Me.usrSettings.usrTimeOne24Hour
+
                 Dim tmStr = Me.displayOneTime.getTime()
                 Dim textSize = grphcs.MeasureString(tmStr, txtBigFont)
 
@@ -87,38 +86,37 @@ Public Class frmKlock
                 End Select
 
                 Me.LblTimeOneTime.Text = tmStr                   '   Update local time in desired time format.
-            End If
 
-            If Me.TbCntrl.SelectedIndex = 0 And Me.usrSettings.usrTimeTwoFormats Then
+                If Me.usrSettings.usrTimeTwoFormats Then
 
-                Dim tmStr = Me.displayTwoTime.getTime()
-                Dim textSize = grphcs.MeasureString(tmStr, txtBigFont)
+                    Me.displayTwoTime.set24Hour = Me.usrSettings.usrTimeTwo24Hour
 
-                Select Case textSize.Width
-                    Case TEXT_WIDTH1 To TEXT_WIDTH2             '   400 to 500
-                        Me.LblTimeTwoTime.Font = txtBigFont
-                    Case TEXT_WIDTH2 To TEXT_WIDTH3             '   500 to 580
-                        Me.LblTimeTwoTime.Font = txtSmlFont
-                    Case Is > TEXT_WIDTH3                       '   > 580
-                        Me.LblTimeTwoTime.Font = txtTnyFont
-                    Case Else                                   '   < 400
-                        Me.LblTimeTwoTime.Font = txtLrgFont
-                End Select
+                    tmStr = Me.displayTwoTime.getTime()
+                    textSize = grphcs.MeasureString(tmStr, txtBigFont)
 
-                Me.LblTimeTwoTime.Text = tmStr              '   display local time in desired time format.
-            End If
+                    Select Case textSize.Width
+                        Case TEXT_WIDTH1 To TEXT_WIDTH2             '   400 to 500
+                            Me.LblTimeTwoTime.Font = txtBigFont
+                        Case TEXT_WIDTH2 To TEXT_WIDTH3             '   500 to 580
+                            Me.LblTimeTwoTime.Font = txtSmlFont
+                        Case Is > TEXT_WIDTH3                       '   > 580
+                            Me.LblTimeTwoTime.Font = txtTnyFont
+                        Case Else                                   '   < 400
+                            Me.LblTimeTwoTime.Font = txtLrgFont
+                    End Select
 
-            If Me.TbCntrl.SelectedIndex = 1 Then                                        '   Update World Klock.
-                Me.updateWorldKlock()
-            End If
+                    Me.LblTimeTwoTime.Text = tmStr              '   display local time in desired time format.
 
-            'Me.TmrMain.Interval = Me.displayOneTime.getClockTick()
+                End If      '   If Me.usrSettings.usrTimeTwoFormats Then
+            ElseIf Me.TbCntrl.SelectedIndex = 1 Then
+                Me.updateWorldKlock() '   Update World Klock.
+            End If          '   If Me.TbCntrl.SelectedIndex = 0 [or 1] Then
         Else
             Me.NotificationDispaly(currentSecond)                                       '   display a notification, if desired
-        End If
+        End If          '   If Me.Visible Then
 
         Me.playHourlyChimes(currentSecond)                                              '   Play a hourly chime,  if desired.
-        Notificationspeech(currentSecond)                                               '   Speak time, if desired.
+        Me.Notificationspeech(currentSecond)                                            '   Speak time, if desired.
     End Sub
 
     Private Sub updateStatusBar()
@@ -141,7 +139,13 @@ Public Class frmKlock
         If My.Computer.Keyboard.NumLock.ToString() Then strKey = Replace(strKey, "n", "N")
         If My.Computer.Keyboard.ScrollLock.ToString() Then strKey = Replace(strKey, "s", "S")
 
-        Me.stsLblTime.Text = Format(Now, "Long Time")
+        If Me.usrSettings.usrTimeSystem24Hour Then
+            Me.stsLblTime.Text = String.Format("{0:HH:mm:ss}", System.DateTime.Now)
+        Else
+            Me.stsLblTime.Text = String.Format("{0:hh:mm:ss tt}", System.DateTime.Now)
+        End If
+
+        '   Me.stsLblTime.Text = Format(Now, "Long Time")
         Me.StsLblDate.Text = Format(Now, "Long Date")
         Me.StsLblKeys.Text = strKey
     End Sub
@@ -161,12 +165,12 @@ Public Class frmKlock
             End If
         End If
 
-        If Me.usrsettings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
+        If Me.usrSettings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
             titletext = titletext & " .::. " & Me.minsToString(Me.CountDownTime)
         End If
 
-        If Me.usrsettings.usrReminderAdd And Me.tmrReminder.Enabled Then
-            If Me.usrsettings.usrReminderTimeChecked Then
+        If Me.usrSettings.usrReminderAdd And Me.tmrReminder.Enabled Then
+            If Me.usrSettings.usrReminderTimeChecked Then
                 titletext = titletext & " .::. Reminder set for " & Me.ReminderDateTime.ToLongDateString & " @ " & Me.ReminderDateTime.ToLongTimeString
             Else
                 titletext = titletext & " .::. Reminder set for " & Me.ReminderDateTime.ToLongDateString
@@ -176,7 +180,7 @@ Public Class frmKlock
         Me.Text = titletext
     End Sub
 
-    Private Sub playHourlyChimes(m As Integer)
+    Private Sub playHourlyChimes(ByVal m As Integer)
         '   Depending upon user settings, will play hourly pips or chimes.
         '   The chimes can sound on the hour and every quarter hour if desired.
 
@@ -207,14 +211,14 @@ Public Class frmKlock
 
         Dim noSecs As Integer = Me.usrSettings.usrTimeVoiceMinutes * 60
 
-        If Me.usrSettings.usrTimeVoiceMinimised And (Math.Floor(m Mod noSecs) = 0) Then
-            usrVoice.Say(displayOneTime.getTime())
-        End If
+        If Me.usrSettings.usrTimeVoiceMinimised And (Math.Floor(m Mod noSecs) = 0) Then usrVoice.Say(displayOneTime.getTime())
     End Sub
 
     Private Sub NotificationDispaly(ByVal m As Integer)
         '   If desired, check the status of notifications - should display the time every ?? minutes.
         '   Also, display result to time and countdown, if there running.  TO DO, should they be on their own settings?
+
+        Me.displayOneTime.set24Hour = Me.usrSettings.usrTimeOne24Hour
 
         Me.NtfyIcnKlock.Text = Me.displayOneTime.getTitle() & " : " & Me.displayOneTime.getTime()    '   set icon tool tip to current time.
 
@@ -265,11 +269,7 @@ Public Class frmKlock
     Private Sub tmrTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrTimer.Tick
         '   If enabled, timer is running - update timer label
 
-        If Me.usrsettings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
-            Me.lblTimerTime.Text = displayTimer.getHighElapsedTime()
-        Else
-            Me.lblTimerTime.Text = displayTimer.getLowElapsedTime()
-        End If
+        Me.lblTimerTime.Text = IIf(Me.usrSettings.usrTimerHigh, displayTimer.getHighElapsedTime(), displayTimer.getLowElapsedTime())
     End Sub
 
     ' ******************************************************************************************************************* Countdown clock ****************
@@ -298,7 +298,7 @@ Public Class frmKlock
 
     ' ******************************************************************************************************************* Event clock ******************
 
-    Private Sub tmrEvents_Tick(sender As System.Object, e As System.EventArgs) Handles tmrEvents.Tick
+    Private Sub tmrEvents_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrEvents.Tick
         '   if enabled, there is events that need checking.
         '   The timer fires every minute, the sub keeps score of the minutes.
         '   If the number of minutes exceeds the stores value, the events are checked.
@@ -342,7 +342,7 @@ Public Class frmKlock
                 FEMcommon.ButtonsVisible(True)
 
                 If Me.reloadFriends Then
-                    Me.loadFriends()
+                    IOcommon.loadFriends()
                     Me.blankFriendsDate()
                     Me.LoadAutoCompleteStuff()
                     Me.reloadFriends = False                    ' do not reload, if not necessary
@@ -357,7 +357,7 @@ Public Class frmKlock
                 FEMcommon.ButtonsVisible(True)
 
                 If Me.reloadEvents Then
-                    Me.loadEvents()
+                    IOcommon.loadEvents()
                     Me.reloadEvents = False
                 End If
 
@@ -370,7 +370,7 @@ Public Class frmKlock
                 FEMcommon.ButtonsVisible(True)
 
                 If Me.reloadMemo Then
-                    Me.loadMemo()
+                    IOcommon.loadMemo()
                     Me.reloadMemo = False
                 End If
 
@@ -400,6 +400,8 @@ Public Class frmKlock
                 Me.Text = "Klock - Reminds you of your friends"
             Case 6                                              '   events tab
                 Me.Text = "Klock - Reminds you of important events."
+            Case 7                                              '   Memo tab
+                Me.Text = "Klock - Reminds you of Memoranda."
         End Select
     End Sub
 
@@ -473,8 +475,8 @@ Public Class frmKlock
         Me.btnTimerStart.Text = "Start"
         Me.btnTimerStart.Enabled = True
 
-        If Me.usrsettings.usrTimerClearSplit Then
-            If Me.usrsettings.usrTimerHigh Then
+        If Me.usrSettings.usrTimerClearSplit Then
+            If Me.usrSettings.usrTimerHigh Then
                 Me.lblTimerTime.Text = "00:00:00:00"
                 Me.lblTimerSplit.Text = "00:00:00:00"
             Else
@@ -483,7 +485,7 @@ Public Class frmKlock
             End If
             Me.btnTimerSplitClear.Enabled = False
         Else
-            Me.lblTimerTime.Text = IIf(Me.usrsettings.usrTimerHigh, "00:00:00:00", "00:00:00")
+            Me.lblTimerTime.Text = IIf(Me.usrSettings.usrTimerHigh, "00:00:00:00", "00:00:00")
         End If
     End Sub
 
@@ -498,7 +500,7 @@ Public Class frmKlock
     Private Sub btnTimerSplitClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerSplitClear.Click
         '   Clears the split time.
 
-        Me.lblTimerSplit.Text = IIf(Me.usrsettings.usrTimerHigh, "00:00:00:00", "00:00:00")
+        Me.lblTimerSplit.Text = IIf(Me.usrSettings.usrTimerHigh, "00:00:00:00", "00:00:00")
 
         Me.btnTimerSplitClear.Enabled = False
     End Sub
@@ -969,7 +971,7 @@ Public Class frmKlock
         Me.ChckBxReminderTimeCheck.Visible = False
         Me.TmPckrRiminder.Visible = False
 
-        If Me.usrsettings.usrReminderTimeChecked Then
+        If Me.usrSettings.usrReminderTimeChecked Then
             Me.lblReminderText.Text = "Reminder set for " & d.ToLongDateString & " @ " & d.ToShortTimeString
         Else
             Me.lblReminderText.Text = "Reminder set for " & d.ToLongDateString
@@ -1002,7 +1004,7 @@ Public Class frmKlock
 
         Me.DtPckrRiminder.Value = Today
 
-        If Me.usrsettings.usrReminderTimeChecked Then
+        If Me.usrSettings.usrReminderTimeChecked Then
             Me.ChckBxReminderTimeCheck.Checked = True
             Me.TmPckrRiminder.Enabled = True
             Me.TmPckrRiminder.Value = Now()
@@ -1077,11 +1079,11 @@ Public Class frmKlock
         '   Allows the reminder date to include a time component.
 
         If Me.ChckBxReminderTimeCheck.Checked Then
-            Me.usrsettings.usrReminderTimeChecked = True
+            Me.usrSettings.usrReminderTimeChecked = True
             Me.TmPckrRiminder.Enabled = True
             Me.TmPckrRiminder.Value = Now()
         Else
-            Me.usrsettings.usrReminderTimeChecked = False
+            Me.usrSettings.usrReminderTimeChecked = False
             Me.TmPckrRiminder.Enabled = False
             Me.TmPckrRiminder.Value = Today
         End If
@@ -1158,7 +1160,6 @@ Public Class frmKlock
 
         Me.showFriends(Me.LstBxFriends.SelectedIndex)
     End Sub
-
 
     Public Sub showFriends(ByVal pos As Integer)
         '   Populates the text boxes on the form with the person at the specified position of the listview box.
@@ -1313,73 +1314,6 @@ Public Class frmKlock
 
     End Sub
 
-    Public Sub saveFriends()
-        '   Save friends to file in data directory.
-        '   Creates a list of all entries in the listview box and then writes this list to a binary file.
-
-        Dim saveFile As FileStream = File.Create(System.IO.Path.Combine(Me.usrSettings.usrOptionsSavePath, Me.usrSettings.usrFriendsFile))
-
-        saveFile.Seek(0, SeekOrigin.End)
-
-        Dim AL As New List(Of Person)
-        Dim p As Person
-
-        Dim Formatter As BinaryFormatter = New BinaryFormatter
-
-        For Each p In Me.LstBxFriends.Items        '   Create list.
-            AL.Add(p)
-        Next
-
-        Try
-            Formatter.Serialize(saveFile, AL)   '   Write list to binary file.
-        Catch ex As Exception
-            Me.displayAction.DisplayReminder("Friends Error", "Error saving Friends File." & vbCrLf & ex.Message)
-        End Try
-
-        saveFile.Close()
-
-        Formatter = Nothing
-    End Sub
-
-    Public Sub loadFriends()
-        '   Loads friends from file and populate the listview box.
-        '   Loads file into a list and then transfers each item in the list to the listview box.
-
-        Dim readFile As FileStream
-
-        Try
-            readFile = File.OpenRead(System.IO.Path.Combine(Me.usrSettings.usrOptionsSavePath, Me.usrSettings.usrFriendsFile))
-            readFile.Seek(0, SeekOrigin.Begin)
-        Catch ex As Exception                   '   not there, go away.
-            Me.displayAction.DisplayReminder("Friends", "No Friends file found - will create if needed.")
-            Exit Sub
-        End Try
-
-        Dim AL As New List(Of Person)
-        Dim p As Person
-
-        Dim Formatter As BinaryFormatter = New BinaryFormatter
-
-        Try
-            AL = Formatter.Deserialize(readFile)        '   loads file into the list.
-        Catch ex As Exception
-            Me.displayAction.DisplayReminder("Friends Error", "Error loading Friends File. " & ex.Message)
-            Exit Sub
-        End Try
-
-        '   If got to here, have successfully read and decoded friends file.
-        Me.LstBxFriends.Items.Clear()
-        Me.knownCities.Clear()
-
-        For Each p In AL                    '   For each item in the list.
-            Me.LstBxFriends.Items.Add(p)    '   Populate listview.
-            Me.FriendsAddToKnown(p)         '   Populate autocomplete collections.
-        Next
-
-        readFile.Close()
-        Formatter = Nothing
-    End Sub
-
     Private Sub txtbxFriendsAddressPostCode_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtbxFriendsAddressPostCode.KeyPress
         '   Post code may only contain upper case letters and numbers.
 
@@ -1529,79 +1463,6 @@ Public Class frmKlock
         End Try
     End Sub
 
-    Public Sub saveEvents()
-        '   Save Events to file in data directory.
-        '   Creates a list of all entries in the listview box and then writes this list to a binary file.
-
-        Dim saveFile As FileStream = File.Create(System.IO.Path.Combine(Me.usrSettings.usrOptionsSavePath, Me.usrSettings.usrEventsFile))
-
-        saveFile.Seek(0, SeekOrigin.End)
-
-        Dim AL As New List(Of Events)
-        Dim e As Events
-
-        Dim Formatter As BinaryFormatter = New BinaryFormatter
-
-        For Each e In LstBxEvents.Items        '   Create list.
-            AL.Add(e)
-        Next
-
-        Try
-            Formatter.Serialize(saveFile, AL)   '   Write list to binary file.
-        Catch ex As Exception
-            Me.displayAction.DisplayReminder("Events Error", "Error saving Events File." & vbCrLf & ex.Message)
-        End Try
-
-        saveFile.Close()
-
-        Formatter = Nothing
-    End Sub
-
-    Public Sub loadEvents()
-        '   Loads Events from file and populate the listview box.
-        '   Loads file into a list and then transfers each item in the list to the listview box.
-
-        Dim readFile As FileStream
-
-        Try
-            readFile = File.OpenRead(System.IO.Path.Combine(Me.usrSettings.usrOptionsSavePath, Me.usrSettings.usrEventsFile))
-            readFile.Seek(0, SeekOrigin.Begin)
-        Catch ex As Exception                   '   not there, go away.
-            Me.displayAction.DisplayReminder("Events", "No Events file found - will create if needed.")
-            Exit Sub
-        End Try
-
-        Dim AL As New List(Of Events)
-        Dim e As Events
-
-        Dim Formatter As BinaryFormatter = New BinaryFormatter
-
-        Try
-            AL = Formatter.Deserialize(readFile)        '   loads file into the list.
-        Catch ex As Exception
-            Me.displayAction.DisplayReminder("Events Error", "Error Events Friends File. " & ex.Message)
-            Exit Sub
-        End Try
-
-        '   If got to here, have successfully read and decoded friends file.
-        Me.LstBxEvents.Items.Clear()
-
-        For Each e In AL                    '   For each item in the list.
-            Me.LstBxEvents.Items.Add(e)     '   Populate listview.
-        Next
-
-        readFile.Close()
-        Formatter = Nothing
-
-        If Me.LstBxEvents.Items.Count > 0 Then
-            Me.tmrEvents.Enabled = True
-            Me.btnEventsCheck.Enabled = True
-        Else
-            Me.tmrEvents.Enabled = False
-            Me.btnEventsCheck.Enabled = False
-        End If
-    End Sub
-
     Private Sub LstBxEvents_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstBxEvents.SelectedIndexChanged
         '   A new entry has been selected in the listview box, display new entry.
 
@@ -1634,7 +1495,12 @@ Public Class frmKlock
             End If
         Next
 
-        If reSave Then Me.saveEvents()
+        If reSave Then
+            IOcommon.saveEvents()
+        Else
+            Me.displayAction.DisplayReminder("Events", "No events near")
+        End If
+
     End Sub
 
     ' ************************************************************************************************************************************** Memo ********
@@ -1644,6 +1510,7 @@ Public Class frmKlock
 
         Me.TxtBxMemoName.Text = ""
         Me.TxtBxMemo.Text = ""
+        Me.ChckBxMemoEncypt.Checked = False
     End Sub
 
     Public Sub memoReadOnlyText(ByVal b As Boolean)
@@ -1658,6 +1525,15 @@ Public Class frmKlock
     Private Sub LstBxMemo_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstBxMemo.SelectedIndexChanged
         '   A new memo has been selected in the listview box, display new entry
 
+        Dim password As String = ""
+
+        Me.showMemo(Me.LstBxMemo.SelectedIndex)
+    End Sub
+
+    Private Sub btnMemoDecrypt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMemoDecrypt.Click
+
+        Me.M_SHOW = True
+        Me.TmrMemo.Enabled = True
         Me.showMemo(Me.LstBxMemo.SelectedIndex)
     End Sub
 
@@ -1669,7 +1545,18 @@ Public Class frmKlock
 
         Try
             m.memoName = Me.TxtBxMemoName.Text
-            m.memoText = Me.TxtBxMemo.Text
+            m.memoSecret = Me.ChckBxMemoEncypt.Checked
+
+            If m.memoSecret Then
+                Dim password As String = Me.getMemoPassword()
+
+                If password = "-1" Then Exit Sub '   cancel been pressed - abort.
+
+                Dim des As New Simple3Des(password)
+                m.memoText = des.EncryptData(Me.TxtBxMemo.Text)
+            Else
+                m.memoText = Me.TxtBxMemo.Text
+            End If
 
             If mode = "ADD" Then
                 Me.LstBxMemo.Items.Add(m)
@@ -1690,75 +1577,76 @@ Public Class frmKlock
             Dim m As Memo = CType(Me.LstBxMemo.Items.Item(pos), Memo)
 
             Me.TxtBxMemoName.Text = m.memoName
-            Me.TxtBxMemo.Text = m.memoText
+            Me.ChckBxMemoEncypt.Checked = m.memoSecret
+
+            If m.memoSecret Then
+                Me.TxtBxMemo.Text = "It's a secret"
+                Me.btnMemoDecrypt.Enabled = True
+            Else
+                Me.TxtBxMemo.Text = m.memoText
+                Me.btnMemoDecrypt.Enabled = False
+            End If
+
+            If Me.M_SHOW = True Then
+                Dim password As String = Me.getMemoPassword()
+
+                If password = "-1" Then Exit Sub '   cancel been pressed - abort.
+
+                Dim des As New Simple3Des(password)
+                Try
+                    Me.TxtBxMemo.Text = des.DecryptData(m.memoText)
+                Catch ex As Exception
+                    Me.displayAction.DisplayReminder("Memo Error", "Seems to be the wrong password")
+                End Try
+
+                Me.M_SHOW = False
+            End If
 
             Me.LstBxMemo.SelectedIndex = pos
         End If
     End Sub
 
-    Public Sub saveMemo()
-        '   Save Memo to file in data directory.
-        '   Creates a list of all Memo in the listview box and then writes this list to a binary file.
+    Private Function getMemoPassword() As String
+        '   asks a password for the user.
+        '   returns either the passord or the default password is allowed.
+        '   returnds default password if black password is entered, if allowed, else returns "-1"
+        '   returns "-1" if cancel has been pressed.
 
-        Dim saveFile As FileStream = File.Create(System.IO.Path.Combine(Me.usrSettings.usrOptionsSavePath, Me.usrSettings.usrMemoFile))
+        Dim password As String = ""
 
-        saveFile.Seek(0, SeekOrigin.End)
+        If Me.usrSettings.usrMemoUseDefaultPassword Then
+            password = Me.usrSettings.usrMemoDefaultPassword
+        ElseIf frmMemoPassword.ShowDialog() = DialogResult.OK Then
+            password = frmMemoPassword.TxtBxMemoPassword.Text
 
-        Dim AL As New List(Of Memo)
-        Dim m As Memo
+            If password = "" And Me.usrSettings.usrMemoUseDefaultPassword Then
+                password = Me.usrSettings.usrMemoDefaultPassword
+            Else
+                Me.displayAction.DisplayReminder("Memo Error", "Sorry, Not set up to allow blank passwords")
+                password = "-1"
+            End If
+        ElseIf frmMemoPassword.ShowDialog() = DialogResult.Cancel Then
+            password = "-1"
+            Me.displayAction.DisplayReminder("Memo Error", "Sorry, You seem to have pressed cancel.")
+        End If
 
-        Dim Formatter As BinaryFormatter = New BinaryFormatter
+        getMemoPassword = password
+    End Function
 
-        For Each m In LstBxMemo.Items        '   Create list.
-            AL.Add(m)
-        Next
+    Private Sub TmrMemo_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TmrMemo.Tick
+        '   if enabled, a secret memo test has been decrypted..
+        '   The timer fires every second, the sub keeps score of the seconds.
+        '   If the number of seconds exceeds the stores value, the memo text is changed to "Its a secret".
 
-        Try
-            Formatter.Serialize(saveFile, AL)   '   Write list to binary file.
-        Catch ex As Exception
-            Me.displayAction.DisplayReminder("Events Error", "Error saving Memo File." & vbCrLf & ex.Message)
-        End Try
+        Static noOfSeconds As Integer = 0
 
-        saveFile.Close()
+        noOfSeconds += 1
 
-        Formatter = Nothing
-    End Sub
-
-    Public Sub loadMemo()
-        '   Loads Memo from file and populate the listview box.
-        '   Loads file into a list and then transfers each item in the list to the listview box.
-
-        Dim readFile As FileStream
-
-        Try
-            readFile = File.OpenRead(System.IO.Path.Combine(Me.usrSettings.usrOptionsSavePath, Me.usrSettings.usrMemoFile))
-            readFile.Seek(0, SeekOrigin.Begin)
-        Catch ex As Exception                   '   not there, go away.
-            Me.displayAction.DisplayReminder("Events", "No Memo file found - will create if needed.")
-            Exit Sub
-        End Try
-
-        Dim AL As New List(Of Memo)
-        Dim m As Memo
-
-        Dim Formatter As BinaryFormatter = New BinaryFormatter
-
-        Try
-            AL = Formatter.Deserialize(readFile)        '   loads file into the list.
-        Catch ex As Exception
-            Me.displayAction.DisplayReminder("Events Error", "Error Memo Friends File. " & ex.Message)
-            Exit Sub
-        End Try
-
-        '   If got to here, have successfully read and decoded friends file.
-        Me.LstBxMemo.Items.Clear()
-
-        For Each m In AL                    '   For each item in the list.
-            Me.LstBxMemo.Items.Add(m)       '   Populate listview.
-        Next
-
-        readFile.Close()
-        Formatter = Nothing
+        If noOfSeconds > Me.usrSettings.usrMemoDecyptTimeOut Then
+            noOfSeconds = 0
+            Me.showMemo(Me.LstBxMemo.SelectedIndex)
+            Me.TmrMemo.Enabled = False
+        End If
     End Sub
 
     ' ********************************************************************************************************************************* World Klock ******
@@ -1841,20 +1729,6 @@ Public Class frmKlock
 
         FEMcommon.ButtonsVisible(False)
 
-        '   For the moment, we will load both friends and events file at form load.
-        '   We need to load events file to see if any events need to be parsed.
-        '   if this causes a delay, friends file can be loaded on entering the friends tab [as before].
-
-        Me.loadFriends()                                '   load friends file - if there.
-        Me.loadEvents()                                 '   load events file - if there.
-        Me.loadMemo()                                   '   load memo file - if there
-
-        If Me.LstBxEvents.Items.Count > 0 Then Me.checkEvents()
-
-        Me.reloadFriends = False                        '   set to re-load friends file to false.
-        Me.reloadEvents = False                         '   set to re-load events file to false.
-        Me.reloadMemo = False                           '   set to re-load memo file to false
-
         Me.TmrMain.Enabled = True                       '   Turn on main timer now things are sorted out.
     End Sub
 
@@ -1917,6 +1791,8 @@ Public Class frmKlock
 
         Me.usrSettings.readSettings()           '   read settings file, if not there a default one will be created.
 
+        Me.TbCntrl.SelectedIndex = Me.usrSettings.usrDefaultTab
+
         Me.BackColor = Me.usrSettings.usrFormColour
         Me.StsStrpInfo.BackColor = Me.usrSettings.usrFormColour
         Me.MainMenuStrip.BackColor = Me.usrSettings.usrFormColour
@@ -1955,10 +1831,9 @@ Public Class frmKlock
         End If
 
         If Me.reloadFriends Then
-            Me.loadFriends()
+            IOcommon.loadFriends()
             Me.blankFriendsDate()
             Me.LoadAutoCompleteStuff()
-            Me.reloadFriends = False        ' do not reload, in not necessary
 
             If Me.TbCntrl.SelectedIndex = 5 And Me.LstBxFriends.Items.Count > 0 Then
                 Me.btnDelete.Enabled = True
@@ -1967,7 +1842,13 @@ Public Class frmKlock
             End If
         End If
 
-        If Me.reloadEvents Then Me.loadEvents()
+        If Me.reloadEvents Then IOcommon.loadEvents()
+        If Me.LstBxEvents.Items.Count > 0 Then Me.checkEvents()
+        If Me.reloadMemo Then IOcommon.loadMemo()
+
+        Me.reloadFriends = False                        '   set to re-load friends file to false.
+        Me.reloadEvents = False                         '   set to re-load events file to false.
+        Me.reloadMemo = False                           '   set to re-load memo file to false
     End Sub
 
     Sub setActionTypes()
@@ -2082,5 +1963,6 @@ Public Class frmKlock
 
 
     ' ********************************************************************************************************************************* END **************
+
 
 End Class

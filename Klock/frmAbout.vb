@@ -119,17 +119,11 @@ Public Class frmAbout
     Function getUpTime(ByVal type As Char) As String
         '   Determines the up time of either System or Application - depending on argument S or A.
 
-        Dim noTicks As Double
+        Dim noTicks As Double = IIf(type = "A", My.Computer.Clock.TickCount - frmKlock.startTime, Environment.TickCount)
         Dim noDays As Integer
         Dim noHours As Integer
         Dim noMin As Integer
         Dim noSec As Integer
-
-        If type = "A" Then
-            noTicks = My.Computer.Clock.TickCount - frmKlock.startTime   '   return application uptime
-        Else
-            noTicks = Environment.TickCount                             '   return system uptime
-        End If
 
         noTicks = noTicks / 1000
         noDays = Int(noTicks / 86400)               '   no of days
@@ -140,7 +134,7 @@ Public Class frmAbout
         noTicks = noTicks - (noMin * 60)
         noSec = noTicks                             '   no of secs
 
-        Return String.Format("{0} days  {1:00} hrs  {2:00} mins  {3:00} secs", noDays, noHours, noMin, noSec)
+        getUpTime = String.Format("{0} days  {1:00} hrs  {2:00} mins  {3:00} secs", noDays, noHours, noMin, noSec)
     End Function
 
 End Class

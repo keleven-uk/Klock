@@ -30,16 +30,13 @@
         MyBase.New()
     End Sub
 
-
-
-    Public Overrides Function ToString() As String
+    Public Overrides Function toString() As String
 
         Dim first As String = Me.LastName().PadRight(14, " ")
         Dim second As String = Me.FirstName().PadRight(10, " ")
         Dim third As String = Me.EMail1()
 
-        Return String.Format("{0}{1}", first, second)
-        'Return first & vbTab & second & vbTab & third
+        toString = String.Format("{0}{1}", first, second)
     End Function
 
     Public Property FirstName() As String

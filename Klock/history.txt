@@ -1,4 +1,44 @@
 ------------------------------------------------------------------------
+r39 | Media | 2013-10-29 20:37:18 +0000 (Tue, 29 Oct 2013) | 8 lines
+
+Finished the code for Memo, included the encryption bit.
+
+Added : frmMemoPassword.vb & Simple3Des.vb.
+
+[frmKlock.vb, frmOptions.vb, FEMcommon.vb & UserSettings.vb]
+Added code for the memo encryption.
+
+TODO :: still needs further testing.
+------------------------------------------------------------------------
+r38 | Media | 2013-10-17 20:04:21 +0100 (Thu, 17 Oct 2013) | 16 lines
+
+Renamed DataButtons.vb to FEMcommon.vb - common logic for Freiends, Events & Memo.
+
+Added InfoCommon.vb = Common logic for the Info menu options.
+Added Memo.vb - a class for the memo object.
+
+[frmKlock.vb]
+Added code to support Memo.
+Added code to support the InfoCommon.vb & FEMcommon.vb
+
+[frmOptions.vb]
+Added code for option for memo file name.
+Although the file name for the settings file is fixed, removed the label and 
+placed in a text box - as others.
+
+[UserSettings.vb]
+Added code for option for memo file name.
+Moved some notification code into the correct sections.
+------------------------------------------------------------------------
+r37 | Keleven | 2013-10-12 22:29:37 +0100 (Sat, 12 Oct 2013) | 5 lines
+
+New branch to hold Memo tab.
+
+This will be 1.0.4.37.
+
+tabs are now - Fuzzy Time / World Klock / Countdown / Timer / Reminders / Friends / Events / Memo.
+
+------------------------------------------------------------------------
 r36 | Keleven | 2013-10-12 22:09:33 +0100 (Sat, 12 Oct 2013) | 8 lines
 
 Still working through the Events.  

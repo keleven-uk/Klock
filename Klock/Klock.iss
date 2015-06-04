@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Klock"
-#define MyAppVersion "1.0.4.38"
+#define MyAppVersion "1.0.4.40"
 #define MyAppPublisher "keleven"
 #define MyAppURL "www.keleven.co.uk"
 #define MyAppExeName "Klock.exe"
@@ -21,14 +21,14 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 
 ;  all source files here
-SourceDir=C:\My\shed\projects\VB\klock\V1.0.3\Klock
+SourceDir=C:\My\shed\projects\VB\klock\V1.0.4\Klock
 
 DefaultDirName={pf}\keleven\Klock
 DefaultGroupName={#MyAppName}
 ;LicenseFile=License.txt
 InfoAfterFile=Help.txt
 OutputDir=C:\My\shed\projects\VB
-OutputBaseFilename=Klock_38
+OutputBaseFilename=Klock_40
 SetupIconFile=Klock.ico
 Compression=lzma
 SolidCompression=yes

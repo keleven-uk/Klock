@@ -1,5 +1,6 @@
 ﻿Public Class frmInfo
 
+    Public Const POWER As String = "Info - Power Source"
 
     Public myManagedPower As ManagedPower       '   instance of managed Power
 
@@ -13,7 +14,7 @@
     Private Sub frmInfo_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         '   if loaded as power source, switch on timer
 
-        If Me.Text = "Info - Power Source" Then
+        If Me.Text = POWER Then
             Me.myManagedPower = New ManagedPower            '   system power source
             Me.TmrInfo.Enabled = True
         End If

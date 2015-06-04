@@ -5,6 +5,9 @@
     '   TimeType is set to the desired time format [from TimeTypes]
     '   getTime is then called and this will return the current time is the desired time format.
 
+    '   set constants up for code type - so can't get them wrong!!
+    Const MORSE As String = "Morse"
+    Const BRAILLE As String = "Braille"
 
     Enum TimeTypes                  '   types of time format available :: new ones add in here.
         FuzzyTime
@@ -19,6 +22,8 @@
         MetricTime
         UnixTime
         RomanTime
+        MorseTime
+        BrailleTime
         TrueHexTime
         BinaryTime
         OctTime
@@ -29,6 +34,7 @@
     End Enum
 
     Private innerTime As String     '   local version of reformatted time.
+    Private use24Hour As Boolean    '   local version of use 24 hour.
     Private TimeType As String      '   local version of desired time format
     Private TimeTitle As String     '   local version of the fancy time title
     Private clockTick As Integer
@@ -76,6 +82,10 @@
                     innerTime = getUnixTime()
                 Case TimeTypes.RomanTime
                     innerTime = getRomanTime()
+                Case TimeTypes.MorseTime
+                    innerTime = getCodeTime(MORSE)
+                Case TimeTypes.BrailleTime
+                    innerTime = getCodeTime(BRAILLE)
                 Case TimeTypes.TrueHexTime
                     innerTime = getTrueHexTime()
                 Case TimeTypes.BinaryTime
@@ -125,6 +135,10 @@
                     TimeTitle = "Unix Time"
                 Case TimeTypes.RomanTime
                     TimeTitle = "Time as Roman Numerals"
+                Case TimeTypes.MorseTime
+                    TimeTitle = "Time as Morse Code"
+                Case TimeTypes.BrailleTime
+                    TimeTitle = "Time as Braille"
                 Case TimeTypes.TrueHexTime
                     TimeTitle = "Time as True Hexdecimal [i.e. 16 hours]"
                 Case TimeTypes.BinaryTime
@@ -180,7 +194,16 @@
         End Get
     End Property
 
+    Public Property set24Hour() As String
+        '   used to set desired time format.
 
+        Set(ByVal value As String)
+            use24Hour = value
+        End Set
+        Get
+            Return use24Hour
+        End Get
+    End Property
     ' ***************************************************************************************** time types **********************
 
     Private Function getFuzzyTime() As String
@@ -258,7 +281,12 @@
     Private Function getLocalTime() As String
         '   returns local time
 
-        getLocalTime = Now.ToLocalTime.ToLongTimeString
+        If Me.use24Hour Then
+            getLocalTime = String.Format("{0:HH:mm:ss}", System.DateTime.Now.ToLocalTime)
+        Else
+            getLocalTime = String.Format("{0:hh:mm:ss tt}", System.DateTime.Now.ToLocalTime)
+        End If
+
     End Function
 
     Private Function getwordsTime() As String
@@ -311,7 +339,11 @@
     Private Function getUTCTime() As String
         '   returns current [local] time as a Univarsal Current Time.
 
-        getUTCTime = Now.ToUniversalTime.ToLongTimeString
+        If Me.use24Hour Then
+            getUTCTime = String.Format("{0:HH:mm:ss}", System.DateTime.Now.ToUniversalTime.ToLongTimeString)
+        Else
+            getUTCTime = String.Format("{0:hh:mm:ss tt}", System.DateTime.Now.ToUniversalTime.ToLongTimeString)
+        End If
     End Function
 
     Private Function getSwatchTime() As String
@@ -477,7 +509,7 @@
         getRomanTime = String.Format("{0} {1} {2}", Me.toRoman(hours), Me.toRoman(mins), Me.toRoman(secs))
     End Function
 
-    Private Function toRoman(time) As String
+    Private Function toRoman(time As Integer) As String
         '   given an input integer, returns the Roman numeral equivalent.
         '   NB : only number 0 -> 60.
         '   This maybe could be written better!!!!
@@ -511,6 +543,73 @@
         Loop Until time < 1
 
         toRoman = result
+    End Function
+
+    Private Function getCodeTime(code As String) As String
+        '   Returns the current [local] time with each digit represented by a different encoding.
+        '   code = "MORSE"   - returns time in morse code.
+        '   code = "BRAILLE" - returns time in braille.
+
+        Dim hours As Integer = Now().Hour
+        Dim mins As Integer = Now().Minute
+        Dim secs As Integer = Now().Second
+
+        Dim codeHours As String = ""
+        Dim codeMins As String = ""
+        Dim codeSecs As String = ""
+
+        If hours < 9 Then
+            codeHours = toCode(hours, code)
+        Else
+            codeHours = String.Format("{0} {1}", toCode(Int(hours / 10), code), toCode(hours Mod 10, code))
+        End If
+
+        If mins < 9 Then
+            codeMins = toCode(mins, code)
+        Else
+            codeMins = String.Format("{0} {1}", toCode(Int(mins / 10), code), toCode(mins Mod 10, code))
+        End If
+
+        If secs < 9 Then
+            codeSecs = toCode(secs, code)
+        Else
+            codeSecs = String.Format("{0} {1}", toCode(Int(secs / 10), code), toCode(secs Mod 10, code))
+        End If
+
+        getCodeTime = String.Format("{0}  {1}  {2} ", codeHours, codeMins, codeSecs)
+    End Function
+
+    Private Function toCode(time As String, code As String) As String
+        '   code = "MORSE"   - returns string in morse code.
+        '   code = "BRAILLE" - returns string in braille.
+
+        Dim result As String = ""
+
+        Select Case time
+            Case 1
+                result = IIf(code = MORSE, "·----", ChrW(10241))
+            Case 2
+                result = IIf(code = MORSE, "··---", ChrW(10243))
+            Case 3
+                result = IIf(code = MORSE, "···--", ChrW(10249))
+            Case 4
+                result = IIf(code = MORSE, "····-", ChrW(10265))
+            Case 5
+                result = IIf(code = MORSE, "·····", ChrW(10257))
+            Case 6
+                result = IIf(code = MORSE, "-····", ChrW(10251))
+            Case 7
+                result = IIf(code = MORSE, "--···", ChrW(10267))
+            Case 8
+                result = IIf(code = MORSE, "---··", ChrW(10259))
+            Case 9
+                result = IIf(code = MORSE, "----·", ChrW(10250))
+            Case 0
+                result = IIf(code = MORSE, "-----", ChrW(10266))
+        End Select
+
+        toCode = result
+
     End Function
 
     Private Function getMarsSolDate()

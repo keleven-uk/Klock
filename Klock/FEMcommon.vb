@@ -59,6 +59,9 @@ Module FEMcommon
             Case 7
                 frmKlock.TxtBxMemoName.Focus()
 
+                frmKlock.btnMemoDecrypt.Enabled = True
+                frmKlock.ChckBxMemoEncypt.Enabled = True
+
                 frmKlock.MemoClearText()
                 frmKlock.memoReadOnlyText(True)
         End Select
@@ -82,7 +85,7 @@ Module FEMcommon
                 frmKlock.FriendsClearText()
                 frmKlock.FriendsReadOnlyText(True)
                 frmKlock.showFriends(0)                       '   Display first friend :: TODO should display new friend ??
-                frmKlock.saveFriends()
+                IOcommon.saveFriends()
             Case 6
                 frmKlock.populateEvents("ADD")
 
@@ -93,7 +96,7 @@ Module FEMcommon
                 frmKlock.EventsClearText()
                 frmKlock.EventsReadOnlyText(True)
                 frmKlock.showEvents(0)
-                frmKlock.saveEvents()
+                IOcommon.saveEvents()
             Case 7
                 frmKlock.populateMemo("ADD")
 
@@ -102,7 +105,7 @@ Module FEMcommon
                 frmKlock.MemoClearText()
                 frmKlock.memoReadOnlyText(True)
                 frmKlock.showMemo(0)
-                frmKlock.saveMemo()
+                IOcommon.saveMemo()
         End Select
     End Sub
 
@@ -153,6 +156,9 @@ Module FEMcommon
             Case 7
                 frmKlock.M_ADDING = False
 
+                frmKlock.btnMemoDecrypt.Enabled = False
+                frmKlock.ChckBxMemoEncypt.Enabled = False
+
                 If frmKlock.LstBxMemo.Items.Count > 0 Then
                     frmKlock.btnDelete.Enabled = True
                     frmKlock.btnEdit.Enabled = True
@@ -190,7 +196,7 @@ Module FEMcommon
                     frmKlock.btnNew.Enabled = True
 
                     frmKlock.FriendsReadOnlyText(True)
-                    frmKlock.saveFriends()
+                    IOcommon.saveFriends()
                 End If
             Case 6
                 If frmKlock.btnEdit.Text = "Edit" Then
@@ -210,7 +216,7 @@ Module FEMcommon
                     frmKlock.btnNew.Enabled = True
 
                     frmKlock.EventsReadOnlyText(True)                         '   Saves new events file.
-                    frmKlock.saveEvents()
+                    IOcommon.saveEvents()
                 End If
             Case 7
                 If frmKlock.btnEdit.Text = "Edit" Then
@@ -220,7 +226,7 @@ Module FEMcommon
                     frmKlock.btnDelete.Enabled = False
                     frmKlock.btnNew.Enabled = False
 
-                    frmKlock.memoReadOnlyText(False)
+                    frmKlock.memoReadOnlyText(True)
                 Else
                     frmKlock.populateMemo("EDIT")                         '   Save new data back to listview box
 
@@ -229,8 +235,8 @@ Module FEMcommon
                     frmKlock.btnDelete.Enabled = True
                     frmKlock.btnNew.Enabled = True
 
-                    frmKlock.memoReadOnlyText(True)
-                    frmKlock.saveMemo()
+                    frmKlock.memoReadOnlyText(False)
+                    IOcommon.saveMemo()
                 End If
         End Select
     End Sub
@@ -260,7 +266,7 @@ Module FEMcommon
                     frmKlock.btnDelete.Enabled = False
                     frmKlock.btnEdit.Enabled = False
                 End If
-                frmKlock.saveFriends()
+                IOcommon.saveFriends()
             Case 6
                 If frmKlock.LstBxEvents.SelectedIndex > -1 Then                                         '   If entries in listview box.
                     frmKlock.LstBxEvents.Items.RemoveAt(frmKlock.LstBxEvents.SelectedIndex)
@@ -281,7 +287,7 @@ Module FEMcommon
                     frmKlock.btnEventsCheck.Enabled = False
                     frmKlock.tmrEvents.Enabled = False                                                  '   enable events timer.
                 End If
-                frmKlock.saveEvents()
+                IOcommon.saveEvents()
             Case 7
                 If frmKlock.LstBxMemo.SelectedIndex > -1 Then                                        '   If entries in listview box.
                     frmKlock.LstBxMemo.Items.RemoveAt(frmKlock.LstBxMemo.SelectedIndex)
@@ -297,7 +303,7 @@ Module FEMcommon
                     frmKlock.btnDelete.Enabled = False
                     frmKlock.btnEdit.Enabled = False
                 End If
-                frmKlock.saveMemo()
+                IOcommon.saveMemo()
         End Select
     End Sub
 

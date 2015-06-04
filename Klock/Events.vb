@@ -4,9 +4,9 @@
     '
 
     Enum EventTypes
-        Birthdays
-        Anniversaries
-        Holidays
+        Birthday
+        Anniversary
+        Holiday
         Motor
         Appointment
         Meeting
@@ -42,9 +42,7 @@
         Dim em = e.Month
         Dim ey = Now().Year
 
-        If em < Now().Month Then
-            ey += 1
-        End If
+        If em < Now().Month Then ey += 1
 
         Dim dd As New Date(ey, em, ed)
 
@@ -60,9 +58,7 @@
         Dim dd As Double = 0
         Dim ey = e.Year
 
-        If ey < Now().Year Then
-            dd = DateDiff(DateInterval.Year, e, Now())
-        End If
+        If ey < Now().Year Then dd = DateDiff(DateInterval.Year, e, Now())
 
         NoOfYears = dd
     End Function

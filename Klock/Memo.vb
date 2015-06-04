@@ -5,14 +5,13 @@
 
     Private _memoName As String
     Private _memoText As String
-    Private _memoSecret As String
+    Private _memoSecret As Boolean
     Private _memoPassword As String
 
 
     Public Overrides Function ToString() As String
 
         Dim first As String = Me.memoName().PadRight(14, " ")
-        Dim second As String = Me.memoText().PadRight(10, " ")
 
         Return String.Format("{0}", first)
     End Function
@@ -35,11 +34,11 @@
         End Set
     End Property
 
-    Public Property memoSecret() As String
+    Public Property memoSecret() As Boolean
         Get
             Return _memoSecret
         End Get
-        Set(ByVal value As String)
+        Set(ByVal value As Boolean)
             _memoSecret = value
         End Set
     End Property
