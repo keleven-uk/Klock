@@ -1,0 +1,64 @@
+Klock - a clock with a k.
+
+A multifunction timing thingy, where some [but not necessary all] of the functions are useful.
+
+The multifunction timing thingy is split into four pages - Fuzzy Time, Countdown, Timer and Reminder.
+
+
+Fuzzy Time
+
+Allows the current time to be displayed in a number of different formats.
+
+
+Countdown
+
+Implements a simple countdown timer [between 1 and 90 minutes].
+The time for the countdown can be either entered directly of the up/down controls can be used.
+The timer can be paused during countdown and stopped before the end is reached.
+A sound can be played at the end of the countdown, this sound can be user selected [a .wav file].
+
+
+Timer
+
+Implements  a simple timer, with split time function.
+The timer can be stopped, paused and resumed.
+A split function allows for given time to be remembered.
+
+
+Reminder
+
+Implements a reminder option.
+When a given time is reached a reminder is displayed on screen.
+Today's date is default, but a future date can also be selected.
+
+
+
+The button bar contains three buttons -
+help  - will display a simple help screen, depending upon the tab being currently viewed.
+Close - Quits the application.
+Hide  - Switches the application to the system area.
+
+
+
+When the program is running in the system area, the following options are available.
+If hovered over, the current time will be displayed.
+Right clicked on the icon will display a pop up menu.
+This will allow the application to be restored,
+The application can be exited or the current time to be displayed in a minimum window.
+
+If the application is in the task bar, any display messages
+[i.e. a reminder becoming due] will  be displayed in the minimum window.
+
+
+The status bar contains [after the the time & date] the legend cns.
+The c represents caps lock.
+The n represents Num Lock.
+The S represents Scroll Lock.
+The letter will be upper case if the key is activated, otherwise lower case.
+
+The application contains a options screen [file / Options] which allows various coloursand fonts to be changed.
+
+
+
+
+Program tested on Windows XP & Windows 7 [both 32 & 64 bit].
