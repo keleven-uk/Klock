@@ -1525,6 +1525,20 @@ Public Class frmKlock
             Me.GroupBox14.Visible = False
             Me.GroupBox15.Visible = False
         End If
+
+        If Me.reloadFriends Then
+            Me.loadFriends()
+            Me.blankFriendsDate()
+            Me.LoadAutoCompleteStuff()
+            Me.reloadFriends = False        ' do not reload, in not necserry
+
+            If Me.TbCntrl.SelectedIndex = 5 And Me.LstBxFriends.Items.Count > 0 Then
+                Me.btnFriendsDelete.Enabled = True
+                Me.btnFriendsEdit.Enabled = True
+                Me.showFriends(0)
+            End If
+        End If
+
     End Sub
 
     Sub setActionTypes()
@@ -1583,8 +1597,9 @@ Public Class frmKlock
         '   Called from main menu [file / options] and system tray right click menu.
 
         frmOptions.ShowDialog()
-        Me.setSettings()
         Me.reloadFriends = True     '   set to re-load friends file.
+        Me.setSettings()
+
     End Sub
 
     Private Sub DaylightSavingToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles DaylightSavingToolStripMenuItem.Click

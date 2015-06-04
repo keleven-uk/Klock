@@ -1,3 +1,19 @@
+r22 | Media | 2013-05-30 21:52:25 +0100 (Thu, 30 May 2013) | 14 lines
+
+Deleted .exe - should not of been here in the first place.
+
+[Klock.vb]
+Added option to display two time formates, at the same time.
+Added World Klock tab - allows the time from each time zone to be displayed.
+Amended the order of the main tabs - World Klock now tab 1.
+Added Info to main menu.
+Added sub menu to Info - to display information on daylight saving time.
+Added sub menu to Info - to display information on current computer culture.
+
+[Options.vb]
+Added options to add World Klock to notification pop ups.
+
+Added Info.vb, which can be used to display information.
 ------------------------------------------------------------------------
 r21 | Media | 2013-05-23 21:47:22 +0100 (Thu, 23 May 2013) | 17 lines
 

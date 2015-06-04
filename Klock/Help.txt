@@ -9,9 +9,15 @@ Fuzzy Time
 
 Allows the current time to be displayed in a number of different formats.
 
+NB: The time can be displayed in two differnt forms of hex time.
+Hex time is just current [local] time display in hexidecimal format
+Where True Hex Time, divides the day into 16 hours of 256 minutes of 16 seconds.
+
+
 World Klock
 
 Allows the time from a selected Time Zone to be displayed.
+
 
 Countdown
 

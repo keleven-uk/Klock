@@ -14,9 +14,13 @@
         JulianTime
         DecimalTime
         NetTime
-        HexTime
         MetricTime
         UnixTime
+        RomanTime
+        TrueHexTime
+        BinaryTime
+        OctTime
+        HexTime
     End Enum
 
     Private innerTime As String     '   local version of reformatted time.
@@ -51,12 +55,20 @@
                     innerTime = getDecimalTime()
                 Case TimeTypes.NetTime
                     innerTime = getNetTime()
-                Case TimeTypes.HexTime
-                    innerTime = getHexTime()
                 Case TimeTypes.MetricTime
                     innerTime = getMetricTime()
                 Case TimeTypes.UnixTime
                     innerTime = getUnixTime()
+                Case TimeTypes.RomanTime
+                    innerTime = getRomanTime()
+                Case TimeTypes.TrueHexTime
+                    innerTime = getTrueHexTime()
+                Case TimeTypes.BinaryTime
+                    innerTime = getBinaryTime()
+                Case TimeTypes.OctTime
+                    innerTime = getOctTime()
+                Case TimeTypes.HexTime
+                    innerTime = getHexTime()
             End Select
 
             Return innerTime
@@ -101,7 +113,7 @@
     ' ***************************************************************************************** time types **********************
 
     Private Function getFuzzyTime() As String
-        '   returns the time has fuzzy time i.e. ten past three in the aftrernoon.
+        '   returns the current [local] time as fuzzy time i.e. ten past three in the aftrernoon.
 
         Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
         Dim hour As Integer = Now.Hour
@@ -186,19 +198,15 @@
 
     End Function
 
-    Private Function getBinarylTime() As String
-        '   returns local time as a 64 bit number.
-
-        getBinarylTime = Now.ToBinary.ToString
-
-    End Function
-
     Private Function getUTCTime() As String
+        '   returns current [local] time as a Univarsal Current Time.
+
         getUTCTime = Now.ToUniversalTime.ToLongTimeString
+
     End Function
 
     Private Function getSwatchTime() As String
-        '   returns Swatch Time.
+        '   returns UTC time as Swatch Time.
         '   Swatch time is made up of 1000 beats per day i.e. 1 beat = 86.4 seconds.
         '   This is then encoded into a string. 
 
@@ -213,9 +221,11 @@
         Else
             getSwatchTime = String.Format("@ {0:###} BMT", noOfBeats)
         End If
+
     End Function
 
     Private Function getNetTime() As String
+        '    Returns UTC time as New Earth Time.    
         '    New Earth Time [or NET] splits the day into 260 degrees. each degree is
         '    further split into 60 minutes and further into 60 seconds.
         '
@@ -244,7 +254,7 @@
     End Function
 
     Private Function getJulianTime() As String
-        '   returns Julian Date Time.
+        '   returns UTC time as a Julian Date Time.
         '   Formulae pinched from http://en.wikipedia.org/wiki/Julian_day 
 
         Dim UTC As DateTime = Now.ToUniversalTime
@@ -275,10 +285,10 @@
 
     End Function
 
-    Private Function getHexTime() As String
+    Private Function getTrueHexTime() As String
         '   Returns the current [local] time in Hexdecimal time.
-        '   The day is divided in 1016 (sixteen) hexadecimal hours, each hour in 10016 (two hundred and fifty-six) 
-        '   hexadecimal minutes and each minute in 1016 (sixteen) hexadecimal seconds.
+        '   The day is divided in 10 (sixteen) hexadecimal hours, each hour in 100 (two hundred and fifty-six) 
+        '   hexadecimal minutes and each minute in 10 (sixteen) hexadecimal seconds.
 
         Dim noOfSeconds As Integer = MilliSecondOfTheDay() / 1000
         Dim noOfHexSecs As Integer = Math.Round(noOfSeconds * (65536 / 84600)) '    a Hexadecimal second is larger then a normal second
@@ -288,10 +298,45 @@
         Dim sec As Integer = noOfHexSecs Mod 16
 
         If My.Settings.usrTimeHexIntuitor Then
-            getHexTime = String.Format("{0}_{1}_{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
+            getTrueHexTime = String.Format("{0}_{1}_{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
         Else
-            getHexTime = String.Format(".{0}{1}{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
+            getTrueHexTime = String.Format(".{0}{1}{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
         End If
+
+    End Function
+
+    Private Function getBinaryTime() As String
+        '   Returns current [local] time in binary [base 2] format.
+        '   This is only a binary representation of the current time.
+
+        Dim hour As Integer = Now.Hour
+        Dim mins As Integer = Now.Minute
+        Dim secs As Integer = Now.Second
+
+        getBinaryTime = String.Format("{0}:{1}:{2}", Convert.ToString(hour, 2), Convert.ToString(mins, 2), Convert.ToString(secs, 2))
+
+    End Function
+    Private Function getOctTime() As String
+        '   Returns current [local] time in octal [base 8] format.
+        '   This is only a octal representation of the current time.
+
+        Dim hour As Integer = Now.Hour
+        Dim mins As Integer = Now.Minute
+        Dim secs As Integer = Now.Second
+
+        getOctTime = String.Format("{0}:{1}:{2}", Convert.ToString(hour, 8).PadLeft(2, "0"c), Convert.ToString(mins, 8).PadLeft(2, "0"c), Convert.ToString(secs, 8).PadLeft(2, "0"c))
+
+    End Function
+
+    Private Function getHexTime() As String
+        '   Returns current [local] time in hex [base 162] format.
+        '   This is only a hex representation of the current time.
+
+        Dim hour As Integer = Now.Hour
+        Dim mins As Integer = Now.Minute
+        Dim secs As Integer = Now.Second
+
+        getHexTime = String.Format("{0}:{1}:{2}", Convert.ToString(hour, 16).PadLeft(2, "0"c), Convert.ToString(mins, 16).PadLeft(2, "0"c), Convert.ToString(secs, 16).PadLeft(2, "0"c))
 
 
     End Function
@@ -324,12 +369,61 @@
 
     End Function
 
+    Private Function getRomanTime() As String
+        '   Returns the current [local] time in roman numerials
+
+        Dim hours As Integer = Now().Hour
+        Dim mins As Integer = Now().Minute
+        Dim secs As Integer = Now().Second
+
+        getRomanTime = String.Format("{0} {1} {2}", Me.toRoman(hours), Me.toRoman(mins), Me.toRoman(secs))
+
+    End Function
+
+    Private Function toRoman(time) As String
+        '   given an input integer, returns the roman numeral equvelant.
+        '   NB : only nunmber 0 -> 60.
+        '   This maybe could be written better!!!!
+
+        Dim result As String = ""
+
+        Do
+            Select Case time
+                Case 50 To 60
+                    result = result & "L"
+                    time = (time - 50)
+                Case 40 To 49
+                    result = result & "XL"
+                    time = (time - 40)
+                Case 10 To 39
+                    result = result & "X"
+                    time = (time - 10)
+                Case Is = 9
+                    result = result & "IX"
+                    time = (time - 9)
+                Case 5 To 8
+                    result = result & "V"
+                    time = (time - 5)
+                Case Is = 4
+                    result = result & "IV"
+                    time = (time - 4)
+                Case 1 To 3
+                    result = result & "I"
+                    time = (time - 1)
+            End Select
+        Loop Until time < 1
+
+        toRoman = result
+
+    End Function
+
     Private Function MilliSecondOfTheDay() As Integer
         '       Returns the total number of milliseconds since midnight.
 
         Dim ts As New TimeSpan(0, Now.Hour, Now.Minute, Now.Second, Now.Millisecond)
 
         MilliSecondOfTheDay = ts.TotalMilliseconds
+
     End Function
 
 
