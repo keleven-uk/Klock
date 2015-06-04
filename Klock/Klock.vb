@@ -26,6 +26,7 @@ Public Class frmKlock
     Public displayAction As selectAction        '   instance of selectAction, allows different actions to be performed.
     Public usrSettings As UserSettings          '   instance of user settings.
     Public usrVoice As Voice                    '   instance of user voice
+    Public myManagedPower As ManagedPower       '   instance of managed Power
 
     Public CountDownTime As Integer             '   Holds number of minutes for the countdown timer.
     Public ReminderDateTime As DateTime         '   Holds the date [and time] of the set reminder.
@@ -76,7 +77,7 @@ Public Class frmKlock
         End If
 
         Me.playHourlyChimes(currentSecond)                                              '   Play a hourly chime,  if desired.
-        NotificationSpeach(currentSecond)                                               '   Speak time, if desired.
+        Notificationspeech(currentSecond)                                               '   Speak time, if desired.
 
     End Sub
 
@@ -85,12 +86,29 @@ Public Class frmKlock
 
         Dim strKey As String = "cns"
 
+        '                                               if running on battery, change status info coluor to red as a warning.
+        If Me.myManagedPower.powerSource().Contains("AC") Then
+            Me.stsLblTime.ForeColor = Color.Black
+            Me.StsLblDate.ForeColor = Color.Black
+            Me.StsLblKeys.ForeColor = Color.Black
+        Else
+            Me.stsLblTime.ForeColor = Color.Red
+            Me.StsLblDate.ForeColor = Color.Red
+            Me.StsLblKeys.ForeColor = Color.Red
+        End If
+
         Me.stsLblTime.Text = Format(Now, "Long Time")
         Me.StsLblDate.Text = Format(Now, "Long Date")
 
         If My.Computer.Keyboard.CapsLock.ToString() Then strKey = Replace(strKey, "c", "C")
         If My.Computer.Keyboard.NumLock.ToString() Then strKey = Replace(strKey, "n", "N")
         If My.Computer.Keyboard.ScrollLock.ToString() Then strKey = Replace(strKey, "s", "S")
+
+        If Me.myManagedPower.powerSource().Contains("AC") Then
+            Me.StsLblKeys.ForeColor = Color.Black
+        Else
+            Me.StsLblKeys.ForeColor = Color.Red
+        End If
 
         Me.StsLblKeys.Text = strKey
     End Sub
@@ -153,13 +171,13 @@ Public Class frmKlock
 
     End Sub
 
-    Private Sub NotificationSpeach(ByVal m As Integer)
+    Private Sub Notificationspeech(ByVal m As Integer)
         '   if desired, check the status of speak time - shpuild speak time every ?? minutes.
 
         Dim noSecs As Integer = Me.usrSettings.usrTimeVoiceMinutes * 60
 
         If Me.usrSettings.usrTimeVoiceMinimised And (Math.Floor(m Mod noSecs) = 0) Then
-            usrVoice.say(displayOneTime.getTime())
+            usrVoice.Say(displayOneTime.getTime())
         End If
 
     End Sub
@@ -437,7 +455,7 @@ Public Class frmKlock
 
     Private Sub btnCountDownStart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownStart.Click
         '   Start the countdown by enabling the timer.
-        '   Also, enable the stop button and countdown label.
+        '   Also, enable the stop button and countdown label and swith off quick start buttons..
 
         Me.tmrCountDown.Enabled = True
 
@@ -445,12 +463,45 @@ Public Class frmKlock
         Me.btnCountDownStop.Enabled = True
         Me.upDwnCntDownValue.Enabled = False
         Me.lblCountDownTime.Enabled = True
+        Me.QuickStartButtons(False)
     End Sub
 
     Private Sub btnCountDownStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownStop.Click
         '   Clear the countdown.
 
         Me.CountDownClear()
+    End Sub
+
+    Private Sub btnCountdown30_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdown30.Click
+        '   runs the countdown for 30 minutes form the quick start button.
+
+        Me.CountDownTime = 30 * 60                                  '   30 minutes in seconds.
+        Me.lblCountDownTime.Text = Me.minsToString(CountDownTime)
+        Me.btnCountDownStart_Click(sender, e)                       '   call click sub to strat countdown.
+    End Sub
+
+    Private Sub btnCountdown60_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdown60.Click
+        '   runs the countdown for 60 minutes form the quick start button.
+
+        Me.CountDownTime = 60 * 60                                  '   60 minutes in seconds.
+        Me.lblCountDownTime.Text = Me.minsToString(CountDownTime)
+        Me.btnCountDownStart_Click(sender, e)                       '   call click sub to strat countdown.
+    End Sub
+
+    Private Sub btnCountdown90_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdown90.Click
+        '   runs the countdown for 90 minutes form the quick start button.
+
+        Me.CountDownTime = 90 * 60                                  '   90 minutes in seconds.
+        Me.lblCountDownTime.Text = Me.minsToString(CountDownTime)
+        Me.btnCountDownStart_Click(sender, e)                       '   call click sub to strat countdown.
+    End Sub
+
+    Private Sub QuickStartButtons(ByVal b As Boolean)
+        '   toggles the quick start buttons on/off.
+
+        btnCountdown30.Enabled = b
+        btnCountdown60.Enabled = b
+        btnCountdown90.Enabled = b
     End Sub
 
     Private Sub CmbBxCountDownAction_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxCountDownAction.SelectedIndexChanged
@@ -462,31 +513,31 @@ Public Class frmKlock
                 Me.CountDownReminder(False)
                 Me.CountDownSystem(False)
                 Me.CountDownCommand(False)
-                Me.CountdownSpeach(False)
+                Me.CountdownSpeech(False)
             Case 1                                                  '   Reminder chosen
                 Me.CountDownSound(False)
                 Me.CountDownReminder(True)
                 Me.CountDownSystem(False)
                 Me.CountDownCommand(False)
-                Me.CountdownSpeach(False)
+                Me.CountdownSpeech(False)
             Case 2                                                  '   System action chosen
                 Me.CountDownSound(False)
                 Me.CountDownReminder(False)
                 Me.CountDownSystem(True)
                 Me.CountDownCommand(False)
-                Me.CountdownSpeach(False)
+                Me.CountdownSpeech(False)
             Case 3                                                  '   Run Command chosen
                 Me.CountDownSound(False)
                 Me.CountDownReminder(False)
                 Me.CountDownSystem(False)
                 Me.CountDownCommand(True)
-                Me.CountdownSpeach(False)
+                Me.CountdownSpeech(False)
             Case 4                                                  '   Speak chosen
                 Me.CountDownSound(False)
                 Me.CountDownReminder(False)
                 Me.CountDownSystem(False)
                 Me.CountDownCommand(False)
-                Me.CountdownSpeach(True)
+                Me.CountdownSpeech(True)
         End Select
 
     End Sub
@@ -520,10 +571,10 @@ Public Class frmKlock
         Me.btnCountDownLoadCommand.Enabled = Not Me.btnCountDownLoadCommand.Enabled
     End Sub
 
-    Private Sub ChckBxCountdownSpeach_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxCountdownSpeach.CheckedChanged
-        '   Selects speach action controls if desired.
+    Private Sub ChckBxCountdownspeech_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxCountdownSpeech.CheckedChanged
+        '   Selects speech action controls if desired.
 
-        Me.TxtBxCountdownSpeach.Enabled = Not Me.TxtBxCountdownSpeach.Enabled
+        Me.TxtBxCountdownSpeech.Enabled = Not Me.TxtBxCountdownSpeech.Enabled
     End Sub
 
     Private Sub btnCountDownTestSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownTestSound.Click
@@ -578,9 +629,9 @@ Public Class frmKlock
             Me.ChckBxCountDownCommand.Checked = False
             Me.displayAction.DoCommand(TxtBxCountDowndCommand.Text)
         End If
-        If Me.ChckBxCountdownSpeach.Checked Then                                  '   do speach action.
-            Me.ChckBxCountdownSpeach.Checked = False
-            usrVoice.Say(Me.TxtBxCountdownSpeach.Text)
+        If Me.ChckBxCountdownSpeech.Checked Then                                  '   do speech action.
+            Me.ChckBxCountdownSpeech.Checked = False
+            usrVoice.Say(Me.TxtBxCountdownSpeech.Text)
         End If
     End Sub
 
@@ -609,6 +660,8 @@ Public Class frmKlock
 
         Me.btnCountDownStart.Enabled = False
         Me.btnCountDownStop.Enabled = False
+
+        Me.QuickStartButtons(True)
     End Sub
 
     Function minsToString(ByVal m As Integer) As String
@@ -655,11 +708,11 @@ Public Class frmKlock
         Me.btnCountDownLoadCommand.Visible = b
     End Sub
 
-    Sub CountdownSpeach(ByVal b As Boolean)
-        '   sets visible to b for all speach components
+    Sub CountdownSpeech(ByVal b As Boolean)
+        '   sets visible to b for all speech components
 
-        Me.ChckBxCountdownSpeach.Visible = b
-        Me.TxtBxCountdownSpeach.Visible = b
+        Me.ChckBxCountdownSpeech.Visible = b
+        Me.TxtBxCountdownSpeech.Visible = b
     End Sub
     ' **************************************************************************************************** Reminder ****************************************
 
@@ -672,31 +725,31 @@ Public Class frmKlock
                 Me.ReminderReminder(False)
                 Me.ReminderSystem(False)
                 Me.ReminderCommand(False)
-                Me.reminderSpeach(False)
+                Me.reminderSpeech(False)
             Case 1                                                  '   Reminder chosen
                 Me.ReminderSound(False)
                 Me.ReminderReminder(True)
                 Me.ReminderSystem(False)
                 Me.ReminderCommand(False)
-                Me.reminderSpeach(False)
+                Me.reminderSpeech(False)
             Case 2                                                  '   System action chosen
                 Me.ReminderSound(False)
                 Me.ReminderReminder(False)
                 Me.ReminderSystem(True)
                 Me.ReminderCommand(False)
-                Me.reminderSpeach(False)
+                Me.reminderSpeech(False)
             Case 3                                                  '   Run Command chosen
                 Me.ReminderSound(False)
                 Me.ReminderReminder(False)
                 Me.ReminderSystem(False)
                 Me.ReminderCommand(True)
-                Me.reminderSpeach(False)
-            Case 4                                                  '   Speach chosen
+                Me.reminderSpeech(False)
+            Case 4                                                  '   speech chosen
                 Me.ReminderSound(False)
                 Me.ReminderReminder(False)
                 Me.ReminderSystem(False)
                 Me.ReminderCommand(False)
-                Me.reminderSpeach(True)
+                Me.reminderSpeech(True)
         End Select
     End Sub
 
@@ -729,10 +782,10 @@ Public Class frmKlock
         Me.btnReminderLoadCommand.Enabled = Not Me.btnReminderLoadCommand.Enabled
     End Sub
 
-    Private Sub ChckBxReminderSpeach_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxReminderSpeach.CheckedChanged
-        '   Selects speach command action controls if checked.
+    Private Sub ChckBxReminderSpeech_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxReminderSpeech.CheckedChanged
+        '   Selects speech command action controls if checked.
 
-        Me.TxtBxReminderSpeach.Enabled = Not Me.TxtBxCountdownSpeach.Enabled
+        Me.TxtBxReminderSpeech.Enabled = Not Me.TxtBxCountdownSpeech.Enabled
     End Sub
 
     Private Sub btnReminderTestSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderTestSound.Click
@@ -786,9 +839,9 @@ Public Class frmKlock
             Me.chckBXReminderCommand.Checked = False
             Me.displayAction.DoCommand(TxtBxReminderCommand.Text)
         End If
-        If Me.ChckBxReminderSpeach.Checked Then                                 '   do speach action.
-            Me.ChckBxReminderSpeach.Checked = False
-            Me.usrVoice.Say(Me.TxtBxReminderSpeach.Text)
+        If Me.ChckBxReminderSpeech.Checked Then                                 '   do speech action.
+            Me.ChckBxReminderSpeech.Checked = False
+            Me.usrVoice.Say(Me.TxtBxReminderSpeech.Text)
         End If
     End Sub
 
@@ -898,11 +951,11 @@ Public Class frmKlock
         Me.btnReminderLoadCommand.Visible = b
     End Sub
 
-    Private Sub reminderSpeach(ByVal b As Boolean)
+    Private Sub reminderSpeech(ByVal b As Boolean)
         '   Sets visible to b for all command components
 
-        Me.ChckBxReminderSpeach.Visible = b
-        Me.TxtBxReminderSpeach.Visible = b
+        Me.ChckBxReminderSpeech.Visible = b
+        Me.TxtBxReminderSpeech.Visible = b
     End Sub
 
     Private Sub reminder_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DtPckrRiminder.ValueChanged, TmPckrRiminder.ValueChanged
@@ -1285,12 +1338,9 @@ Public Class frmKlock
         '   Save friends to file in data directory.
         '   Creates a list of all entries in the listview box and then writes this list to a binary file.
 
-        Dim FriendsDirectory As String = Me.usrsettings.usrFriendsDirectory
-        Dim FriendsFile As String = Me.usrsettings.usrFrinedsFile
-
         checkFriendsDirectory()        '   Check for data directory first, will be created if not there.
 
-        Dim saveFile As FileStream = File.Create(FriendsDirectory & "\" & FriendsFile)
+        Dim saveFile As FileStream = File.Create(Me.usrSettings.usrFriendsDirectory & "\" & Me.usrSettings.usrFrinedsFile)
 
         saveFile.Seek(0, SeekOrigin.End)
 
@@ -1320,13 +1370,10 @@ Public Class frmKlock
         '   Loads friends from file and populate the listview box.
         '   Loads file into a list and then transfers each item in the list to the listview box.
 
-        Dim FriendsDirectory As String = Me.usrsettings.usrFriendsDirectory
-        Dim FriendsFile As String = Me.usrsettings.usrFrinedsFile
-
         Dim readFile As FileStream
 
         Try
-            readFile = File.OpenRead(FriendsDirectory & "\" & FriendsFile)
+            readFile = File.OpenRead(Me.usrSettings.usrFriendsDirectory & "\" & Me.usrSettings.usrFrinedsFile)
             readFile.Seek(0, SeekOrigin.Begin)
         Catch ex As Exception                   '   not there, go away.
             Me.displayAction.DisplayReminder("Friends", "No friends file found - will create if needed.")
@@ -1473,6 +1520,7 @@ Public Class frmKlock
         Me.displayTimer = New Timer                     '   timer stuff
         Me.usrSettings = New UserSettings               '   user settings
         Me.usrVoice = New Voice                         '   user voice
+        Me.myManagedPower = New ManagedPower            '   system power source
 
         Me.checkDataDirectory()
 
@@ -1565,7 +1613,8 @@ Public Class frmKlock
 
         If Me.usrsettings.usrSavePosition Then
             Me.usrsettings.usrFormTop = Me.Top
-            Me.usrsettings.usrFormLeft = Me.Left
+            Me.usrSettings.usrFormLeft = Me.Left
+            Me.usrSettings.writeSettings()
         End If
 
         '   fs.Close()
@@ -1754,6 +1803,23 @@ Public Class frmKlock
         frmInfo.ShowDialog()
     End Sub
 
+
+    Private Sub PowerSourceToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PowerSourceToolStripMenuItem.Click
+
+
+
+        frmInfo.Text = "Info - Power Source"
+        frmInfo.GroupBox1.Text = "Power Source"
+
+        frmInfo.Label1.Text = Me.myManagedPower.powerSource()
+        frmInfo.Label2.Text = ""
+        frmInfo.Label3.Text = Me.myManagedPower.powerStatus()
+        frmInfo.Label4.Text = Me.myManagedPower.chargingStatus()
+        frmInfo.Label5.Text = ""
+
+        frmInfo.ShowDialog()
+    End Sub
+
     ' ****************************************************************************************************** context Strip Menu **************************
     ' menu loads when right clicking on tray icon
 
@@ -1774,6 +1840,7 @@ Public Class frmKlock
 
 
     ' ********************************************************************************************************************************* END **************
+
 
 
 

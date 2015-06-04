@@ -8,7 +8,7 @@
         Reminder
         System
         Command
-        Speach      '   not handled in this class, must be coded on calling programm.
+        speech      '   not handled in this class, must be coded on calling programm.
     End Enum
 
     Enum SystemTypes            '   the types of system action that can be performed.

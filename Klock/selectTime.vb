@@ -9,6 +9,7 @@
     Enum TimeTypes                  '   types of time format available :: new ones add in here.
         FuzzyTime
         LocalTime
+        WordsTime
         UTC
         SwatchTime
         JulianTime
@@ -50,6 +51,8 @@
                     innerTime = getFuzzyTime()
                 Case TimeTypes.LocalTime
                     innerTime = getLocalTime()
+                Case TimeTypes.WordsTime
+                    innerTime = getwordsTime()
                 Case TimeTypes.UTC
                     innerTime = getUTCTime()
                 Case TimeTypes.SwatchTime
@@ -97,6 +100,8 @@
                     TimeTitle = "Fuzzy Time"
                 Case TimeTypes.LocalTime
                     TimeTitle = "Local Time"
+                Case TimeTypes.WordsTime
+                    TimeTitle = "Time in Words"
                 Case TimeTypes.UTC
                     TimeTitle = "Univarsal Current Time"
                 Case TimeTypes.SwatchTime
@@ -251,6 +256,55 @@
         '   returns local time
 
         getLocalTime = Now.ToLocalTime.ToLongTimeString
+
+    End Function
+
+    Private Function getwordsTime() As String
+
+        Dim units() As String = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
+        Dim tens() As String = {"zero", "ten", "eleven", "twelve", "thirteen", "forteen", "fifteen", "sizteen", "seventeen", "eighteen", "nineteen", "tweenty"}
+        Dim hour As Integer = Now.Hour
+        Dim mins As Integer = Now.Minute
+        Dim ampm As String = ""
+        Dim pasTo As String = "past"
+
+        ampm = IIf(hour < 12, "in the morning", "pm")      '   if hour less then 12, in the morning else afternoon
+
+        If mins > 30 Then            '   past the half hour - minuted to the hour.
+            hour += 1
+            pasTo = "to"
+            mins = 60 - mins
+        End If
+
+
+        '   generate output string according to the hour of the day.
+        '   This looks more complicated then it should be, maybe sperate if then's would be better and use exit sub's inside each.
+
+        '   if "pm" then afternoon, subtract 12 - only use 12 hour clock.
+
+        If ampm = "pm" Then
+            hour -= 12
+            ampm = IIf(hour >= 5, "in the evening", "in the afternoon")   '   if greater then five in the afternoon then evening.
+        End If
+
+        Dim minsStr As String = ""
+
+        Select Case mins
+            Case 0
+                minsStr = String.Format("{0} o'clock {1}", units(hour), ampm)
+            Case 1 To 9
+                minsStr = String.Format("{0} minutes {1} {2} {3}", units(mins), pasTo, units(hour), ampm)
+            Case 10 To 20
+                minsStr = String.Format("{0} minutes {1} {2} {3}", tens(mins - 9), pasTo, units(hour), ampm)
+            Case 21 To 29
+                Dim minsTens As Integer = Math.Floor(mins / 10)
+                Dim minsUnits As Integer = mins - (minsTens * 10)
+                minsStr = String.Format("tweenty{0} minutes {1} {2} {3}", units(minsUnits), pasTo, units(hour), ampm)
+            Case Else
+                minsStr = String.Format("thirty minutes {1} {2} {3}", minsStr, pasTo, units(hour), ampm)
+        End Select
+
+        getwordsTime = minsStr
 
     End Function
 

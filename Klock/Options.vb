@@ -19,11 +19,16 @@ Public Class frmOptions
 
         Me.TxtBxArchieveFriendsFile.Text = "Friends.zip"
 
+        Me.lblOptionsSettingsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
+        Me.lblOptionsSettingsFile.Text = frmKlock.usrSettings.usrOptionsSaveFile
+
         Me.setSettings()
     End Sub
 
     Sub setSettings()
         '   Apply the current settings.
+
+        Me.LblOptionSavepath.Text = frmKlock.usrSettings.usrOptionsSavePath
 
         Me.BackColor = frmKlock.usrsettings.usrFormColour
 
@@ -145,6 +150,14 @@ Public Class frmOptions
         '   when canceled, close but not save.
 
         Me.Close()
+    End Sub
+
+    Private Sub btnSettingsReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSettingsReset.Click
+        '   re-write settings file with defaults.
+
+        frmKlock.usrSettings.writeDefaultSettings()
+        frmKlock.usrSettings.readSettings()
+        Me.setSettings()
     End Sub
 
 
@@ -306,10 +319,11 @@ Public Class frmOptions
     '---------------------------------------------------------- Friends Options  ---------------------------------------------------------------
 
     Private Sub btnOptionsFriendsDirectory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFriendsDirectory.Click
-        '   Promt user to the location of the frinds file - Default to Application Path \data.
+        '   Promt user to the location of the friends file - Default to Application Path \data.
 
         If Me.FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
             Me.TxtBxOptionsFriendsDirectory.Text = Me.FolderBrowserDialog1.SelectedPath
+            frmKlock.usrSettings.usrFriendsDirectory = Me.FolderBrowserDialog1.SelectedPath
         End If
     End Sub
 
@@ -322,13 +336,14 @@ Public Class frmOptions
 
         If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
             Me.TxtBxOptionsFriendsFile.Text = Me.OpenFileDialog1.SafeFileName
+            frmKlock.usrSettings.usrFrinedsFile = Me.OpenFileDialog1.SafeFileName
         End If
     End Sub
 
     Private Sub btnOptionsFriendsPathReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFriendsPathReset.Click
-        '   Reset the location of the friends file to that of the application, plust \Data
+        '   Reset the location of the friends file to that of the system default data area [i.e. same as settings file].
 
-        Me.TxtBxOptionsFriendsDirectory.Text = Application.StartupPath & "\Data"
+        Me.TxtBxOptionsFriendsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
         Me.TxtBxOptionsFriendsFile.Text = "Friends.bin"
     End Sub
 
@@ -390,7 +405,9 @@ Public Class frmOptions
 
         Using zip As ZipFile = New ZipFile
 
-            zip.AddDirectory(Me.TxtBxOptionsFriendsDirectory.Text)      '   add directory to archieve.
+            'zip.AddDirectory(Me.TxtBxOptionsFriendsDirectory.Text)      '   add directory to archieve.
+            zip.AddFile(frmKlock.usrSettings.usrFriendsDirectory & "\" & frmKlock.usrSettings.usrFrinedsFile)
+            zip.AddFile(frmKlock.usrSettings.usrOptionsSavePath & "\" & frmKlock.usrSettings.usrOptionsSaveFile)
 
             Try
                 zip.Save(zippath)                                       '   save archive
@@ -431,7 +448,7 @@ Public Class frmOptions
                     Try                                     '   catch extract error, if any.
                         entry.Extract(Me.TxtBxOptionsFriendsDirectory.Text)
                         frmKlock.reloadFriends = True             '   set to re-load friends file.
-                        Me.displayAction.DisplayReminder("Loading File", "Archieve loaded Okay. ")
+                        Me.displayAction.DisplayReminder("Loading File", entry.FileName)
                     Catch ex As Exception
                         Me.displayAction.DisplayReminder("Loading File Error", "Error archieving Friends File. " & ex.Message)
                     End Try
@@ -442,4 +459,6 @@ Public Class frmOptions
         End Using
 
     End Sub
+
+
 End Class

@@ -1,4 +1,35 @@
 ------------------------------------------------------------------------
+r26 | Media | 2013-06-28 21:55:29 +0100 (Fri, 28 Jun 2013) | 26 lines
+
+Stated the help system.  Will consists on a number of html files that are 
+loaded into a custom form - still in development.
+
+Added Speech - using Microsoft SAPI.
+
+[Klock.vb]
+Added bits to call speech to time stuff.
+Added bits for speech being added to user actions - countdown & reminder.
+Added bits so that, when display time - the title reflects the time format.
+Enabled help button - call new help form
+
+[about.vb]
+The call to msinfo32.exe, failed on Windows XP.  The XP path has been hard coded for the moment.
+
+[Options.vb & UserSettings.vb]
+Added options for time to speech, with a minute interval.
+
+[selectActions.vb]
+Added option for speech to enum types.
+
+[selectTime.vb]
+Added time format - FlowTime.html.
+Added bits to return a fancy title for the current time format.
+Corrected marsSotDate & CoordinateMarsTime.
+
+[Voice.vb]
+Added new wrapper class for SAPI.
+
+------------------------------------------------------------------------
 r25 | Media | 2013-06-19 22:58:23 +0100 (Wed, 19 Jun 2013) | 15 lines
 
 The main change in this version is that user settings have been moved from 

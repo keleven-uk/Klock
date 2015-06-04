@@ -37,6 +37,7 @@ Partial Class frmKlock
         Me.DaylightSavingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CultureToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PowerSourceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmSubHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmLicense = New System.Windows.Forms.ToolStripMenuItem()
@@ -62,6 +63,8 @@ Partial Class frmKlock
         Me.CmbBxWorldKlockTimeZones = New System.Windows.Forms.ComboBox()
         Me.TbPgCountDown = New System.Windows.Forms.TabPage()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.TxtBxCountdownSpeech = New System.Windows.Forms.TextBox()
+        Me.ChckBxCountdownSpeech = New System.Windows.Forms.CheckBox()
         Me.btnCountdownSystemAbort = New System.Windows.Forms.Button()
         Me.TxtBxCountDowndCommand = New System.Windows.Forms.TextBox()
         Me.btnCountDownLoadCommand = New System.Windows.Forms.Button()
@@ -76,6 +79,9 @@ Partial Class frmKlock
         Me.ChckBxCountDownSound = New System.Windows.Forms.CheckBox()
         Me.CmbBxCountDownAction = New System.Windows.Forms.ComboBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.btnCountdown90 = New System.Windows.Forms.Button()
+        Me.btnCountdown60 = New System.Windows.Forms.Button()
+        Me.btnCountdown30 = New System.Windows.Forms.Button()
         Me.upDwnCntDownValue = New System.Windows.Forms.NumericUpDown()
         Me.lblCountDownTime = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -94,6 +100,8 @@ Partial Class frmKlock
         Me.btnTimerStart = New System.Windows.Forms.Button()
         Me.TbPgReminder = New System.Windows.Forms.TabPage()
         Me.GroupBox11 = New System.Windows.Forms.GroupBox()
+        Me.TxtBxReminderSpeech = New System.Windows.Forms.TextBox()
+        Me.ChckBxReminderSpeech = New System.Windows.Forms.CheckBox()
         Me.btnReminderSystemAbort = New System.Windows.Forms.Button()
         Me.TxtBxReminderCommand = New System.Windows.Forms.TextBox()
         Me.btnReminderLoadCommand = New System.Windows.Forms.Button()
@@ -171,10 +179,6 @@ Partial Class frmKlock
         Me.btnFriendsClear = New System.Windows.Forms.Button()
         Me.btnFriendsEdit = New System.Windows.Forms.Button()
         Me.btnFriendsDelete = New System.Windows.Forms.Button()
-        Me.ChckBxCountdownSpeach = New System.Windows.Forms.CheckBox()
-        Me.TxtBxCountdownSpeach = New System.Windows.Forms.TextBox()
-        Me.ChckBxReminderSpeach = New System.Windows.Forms.CheckBox()
-        Me.TxtBxReminderSpeach = New System.Windows.Forms.TextBox()
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -286,7 +290,7 @@ Partial Class frmKlock
         '
         'InfoToolStripMenuItem
         '
-        Me.InfoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DaylightSavingToolStripMenuItem, Me.CultureToolStripMenuItem, Me.OSToolStripMenuItem})
+        Me.InfoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DaylightSavingToolStripMenuItem, Me.CultureToolStripMenuItem, Me.OSToolStripMenuItem, Me.PowerSourceToolStripMenuItem})
         Me.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem"
         Me.InfoToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
         Me.InfoToolStripMenuItem.Text = "&Info"
@@ -308,6 +312,12 @@ Partial Class frmKlock
         Me.OSToolStripMenuItem.Name = "OSToolStripMenuItem"
         Me.OSToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.OSToolStripMenuItem.Text = "Operating System"
+        '
+        'PowerSourceToolStripMenuItem
+        '
+        Me.PowerSourceToolStripMenuItem.Name = "PowerSourceToolStripMenuItem"
+        Me.PowerSourceToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
+        Me.PowerSourceToolStripMenuItem.Text = "Power Source"
         '
         'MnItmHelp
         '
@@ -380,10 +390,10 @@ Partial Class frmKlock
         'LblTimeTwoTime
         '
         Me.LblTimeTwoTime.AutoSize = True
-        Me.LblTimeTwoTime.Font = New System.Drawing.Font("Lucida Calligraphy", 17.0!)
+        Me.LblTimeTwoTime.Font = New System.Drawing.Font("Lucida Calligraphy", 16.0!)
         Me.LblTimeTwoTime.Location = New System.Drawing.Point(6, 16)
         Me.LblTimeTwoTime.Name = "LblTimeTwoTime"
-        Me.LblTimeTwoTime.Size = New System.Drawing.Size(521, 29)
+        Me.LblTimeTwoTime.Size = New System.Drawing.Size(506, 28)
         Me.LblTimeTwoTime.TabIndex = 0
         Me.LblTimeTwoTime.Text = "twelve minutes past eleven in the evening"
         '
@@ -417,10 +427,10 @@ Partial Class frmKlock
         'LblTimeOneTime
         '
         Me.LblTimeOneTime.AutoSize = True
-        Me.LblTimeOneTime.Font = New System.Drawing.Font("Lucida Calligraphy", 17.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblTimeOneTime.Font = New System.Drawing.Font("Lucida Calligraphy", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblTimeOneTime.Location = New System.Drawing.Point(6, 19)
         Me.LblTimeOneTime.Name = "LblTimeOneTime"
-        Me.LblTimeOneTime.Size = New System.Drawing.Size(521, 29)
+        Me.LblTimeOneTime.Size = New System.Drawing.Size(506, 28)
         Me.LblTimeOneTime.TabIndex = 0
         Me.LblTimeOneTime.Text = "twelve minutes past eleven in the evening"
         '
@@ -550,8 +560,8 @@ Partial Class frmKlock
         '
         'GroupBox5
         '
-        Me.GroupBox5.Controls.Add(Me.TxtBxCountdownSpeach)
-        Me.GroupBox5.Controls.Add(Me.ChckBxCountdownSpeach)
+        Me.GroupBox5.Controls.Add(Me.TxtBxCountdownSpeech)
+        Me.GroupBox5.Controls.Add(Me.ChckBxCountdownSpeech)
         Me.GroupBox5.Controls.Add(Me.btnCountdownSystemAbort)
         Me.GroupBox5.Controls.Add(Me.TxtBxCountDowndCommand)
         Me.GroupBox5.Controls.Add(Me.btnCountDownLoadCommand)
@@ -570,6 +580,25 @@ Partial Class frmKlock
         Me.GroupBox5.Size = New System.Drawing.Size(550, 57)
         Me.GroupBox5.TabIndex = 2
         Me.GroupBox5.TabStop = False
+        '
+        'TxtBxCountdownSpeech
+        '
+        Me.TxtBxCountdownSpeech.Enabled = False
+        Me.TxtBxCountdownSpeech.Location = New System.Drawing.Point(188, 24)
+        Me.TxtBxCountdownSpeech.Name = "TxtBxCountdownSpeech"
+        Me.TxtBxCountdownSpeech.Size = New System.Drawing.Size(241, 20)
+        Me.TxtBxCountdownSpeech.TabIndex = 14
+        Me.TxtBxCountdownSpeech.Text = "Finished counting, now Sir!"
+        '
+        'ChckBxCountdownSpeech
+        '
+        Me.ChckBxCountdownSpeech.AutoSize = True
+        Me.ChckBxCountdownSpeech.Location = New System.Drawing.Point(100, 21)
+        Me.ChckBxCountdownSpeech.Name = "ChckBxCountdownSpeech"
+        Me.ChckBxCountdownSpeech.Size = New System.Drawing.Size(66, 19)
+        Me.ChckBxCountdownSpeech.TabIndex = 13
+        Me.ChckBxCountdownSpeech.Text = "speech"
+        Me.ChckBxCountdownSpeech.UseVisualStyleBackColor = True
         '
         'btnCountdownSystemAbort
         '
@@ -701,6 +730,9 @@ Partial Class frmKlock
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.btnCountdown90)
+        Me.GroupBox4.Controls.Add(Me.btnCountdown60)
+        Me.GroupBox4.Controls.Add(Me.btnCountdown30)
         Me.GroupBox4.Controls.Add(Me.upDwnCntDownValue)
         Me.GroupBox4.Controls.Add(Me.lblCountDownTime)
         Me.GroupBox4.Location = New System.Drawing.Point(115, 6)
@@ -708,6 +740,36 @@ Partial Class frmKlock
         Me.GroupBox4.Size = New System.Drawing.Size(550, 57)
         Me.GroupBox4.TabIndex = 1
         Me.GroupBox4.TabStop = False
+        '
+        'btnCountdown90
+        '
+        Me.btnCountdown90.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnCountdown90.Location = New System.Drawing.Point(469, 20)
+        Me.btnCountdown90.Name = "btnCountdown90"
+        Me.btnCountdown90.Size = New System.Drawing.Size(50, 25)
+        Me.btnCountdown90.TabIndex = 4
+        Me.btnCountdown90.Text = "90"
+        Me.btnCountdown90.UseVisualStyleBackColor = True
+        '
+        'btnCountdown60
+        '
+        Me.btnCountdown60.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnCountdown60.Location = New System.Drawing.Point(413, 20)
+        Me.btnCountdown60.Name = "btnCountdown60"
+        Me.btnCountdown60.Size = New System.Drawing.Size(50, 25)
+        Me.btnCountdown60.TabIndex = 3
+        Me.btnCountdown60.Text = "60"
+        Me.btnCountdown60.UseVisualStyleBackColor = True
+        '
+        'btnCountdown30
+        '
+        Me.btnCountdown30.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnCountdown30.Location = New System.Drawing.Point(357, 20)
+        Me.btnCountdown30.Name = "btnCountdown30"
+        Me.btnCountdown30.Size = New System.Drawing.Size(50, 25)
+        Me.btnCountdown30.TabIndex = 2
+        Me.btnCountdown30.Text = "30"
+        Me.btnCountdown30.UseVisualStyleBackColor = True
         '
         'upDwnCntDownValue
         '
@@ -888,8 +950,8 @@ Partial Class frmKlock
         '
         'GroupBox11
         '
-        Me.GroupBox11.Controls.Add(Me.TxtBxReminderSpeach)
-        Me.GroupBox11.Controls.Add(Me.ChckBxReminderSpeach)
+        Me.GroupBox11.Controls.Add(Me.TxtBxReminderSpeech)
+        Me.GroupBox11.Controls.Add(Me.ChckBxReminderSpeech)
         Me.GroupBox11.Controls.Add(Me.btnReminderSystemAbort)
         Me.GroupBox11.Controls.Add(Me.TxtBxReminderCommand)
         Me.GroupBox11.Controls.Add(Me.btnReminderLoadCommand)
@@ -908,6 +970,25 @@ Partial Class frmKlock
         Me.GroupBox11.Size = New System.Drawing.Size(553, 57)
         Me.GroupBox11.TabIndex = 3
         Me.GroupBox11.TabStop = False
+        '
+        'TxtBxReminderSpeech
+        '
+        Me.TxtBxReminderSpeech.Enabled = False
+        Me.TxtBxReminderSpeech.Location = New System.Drawing.Point(188, 24)
+        Me.TxtBxReminderSpeech.Name = "TxtBxReminderSpeech"
+        Me.TxtBxReminderSpeech.Size = New System.Drawing.Size(241, 20)
+        Me.TxtBxReminderSpeech.TabIndex = 14
+        Me.TxtBxReminderSpeech.Text = "Reminding you now, Sir!"
+        '
+        'ChckBxReminderSpeech
+        '
+        Me.ChckBxReminderSpeech.AutoSize = True
+        Me.ChckBxReminderSpeech.Location = New System.Drawing.Point(100, 23)
+        Me.ChckBxReminderSpeech.Name = "ChckBxReminderSpeech"
+        Me.ChckBxReminderSpeech.Size = New System.Drawing.Size(66, 19)
+        Me.ChckBxReminderSpeech.TabIndex = 13
+        Me.ChckBxReminderSpeech.Text = "speech"
+        Me.ChckBxReminderSpeech.UseVisualStyleBackColor = True
         '
         'btnReminderSystemAbort
         '
@@ -1534,31 +1615,31 @@ Partial Class frmKlock
         '
         Me.CntxtMnStrpKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TlStrpMnItmShow, Me.TlStrpMnItmTime, Me.TlStrpMnItmOptions, Me.TlStrpMnItmExit})
         Me.CntxtMnStrpKlock.Name = "CntxtMnStrpKlock"
-        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(117, 92)
+        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(123, 92)
         '
         'TlStrpMnItmShow
         '
         Me.TlStrpMnItmShow.Name = "TlStrpMnItmShow"
-        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(116, 22)
+        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(122, 22)
         Me.TlStrpMnItmShow.Text = "Show"
         '
         'TlStrpMnItmTime
         '
         Me.TlStrpMnItmTime.CheckOnClick = True
         Me.TlStrpMnItmTime.Name = "TlStrpMnItmTime"
-        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(116, 22)
+        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(122, 22)
         Me.TlStrpMnItmTime.Text = "Time"
         '
         'TlStrpMnItmOptions
         '
         Me.TlStrpMnItmOptions.Name = "TlStrpMnItmOptions"
-        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(116, 22)
+        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(122, 22)
         Me.TlStrpMnItmOptions.Text = "Options"
         '
         'TlStrpMnItmExit
         '
         Me.TlStrpMnItmExit.Name = "TlStrpMnItmExit"
-        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(116, 22)
+        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(122, 22)
         Me.TlStrpMnItmExit.Text = "Exit"
         '
         'tmrReminder
@@ -1613,44 +1694,6 @@ Partial Class frmKlock
         Me.btnFriendsDelete.TabIndex = 10
         Me.btnFriendsDelete.Text = "Delete"
         Me.btnFriendsDelete.UseVisualStyleBackColor = True
-        '
-        'ChckBxCountdownSpeach
-        '
-        Me.ChckBxCountdownSpeach.AutoSize = True
-        Me.ChckBxCountdownSpeach.Location = New System.Drawing.Point(100, 21)
-        Me.ChckBxCountdownSpeach.Name = "ChckBxCountdownSpeach"
-        Me.ChckBxCountdownSpeach.Size = New System.Drawing.Size(68, 19)
-        Me.ChckBxCountdownSpeach.TabIndex = 13
-        Me.ChckBxCountdownSpeach.Text = "Speach"
-        Me.ChckBxCountdownSpeach.UseVisualStyleBackColor = True
-        '
-        'TxtBxCountdownSpeach
-        '
-        Me.TxtBxCountdownSpeach.Enabled = False
-        Me.TxtBxCountdownSpeach.Location = New System.Drawing.Point(188, 24)
-        Me.TxtBxCountdownSpeach.Name = "TxtBxCountdownSpeach"
-        Me.TxtBxCountdownSpeach.Size = New System.Drawing.Size(241, 20)
-        Me.TxtBxCountdownSpeach.TabIndex = 14
-        Me.TxtBxCountdownSpeach.Text = "Finished counting, now Sir!"
-        '
-        'ChckBxReminderSpeach
-        '
-        Me.ChckBxReminderSpeach.AutoSize = True
-        Me.ChckBxReminderSpeach.Location = New System.Drawing.Point(100, 23)
-        Me.ChckBxReminderSpeach.Name = "ChckBxReminderSpeach"
-        Me.ChckBxReminderSpeach.Size = New System.Drawing.Size(68, 19)
-        Me.ChckBxReminderSpeach.TabIndex = 13
-        Me.ChckBxReminderSpeach.Text = "Speach"
-        Me.ChckBxReminderSpeach.UseVisualStyleBackColor = True
-        '
-        'TxtBxReminderSpeach
-        '
-        Me.TxtBxReminderSpeach.Enabled = False
-        Me.TxtBxReminderSpeach.Location = New System.Drawing.Point(188, 24)
-        Me.TxtBxReminderSpeach.Name = "TxtBxReminderSpeach"
-        Me.TxtBxReminderSpeach.Size = New System.Drawing.Size(241, 20)
-        Me.TxtBxReminderSpeach.TabIndex = 14
-        Me.TxtBxReminderSpeach.Text = "Reminding you now, Sir!"
         '
         'frmKlock
         '
@@ -1871,9 +1914,13 @@ Partial Class frmKlock
     Friend WithEvents RdBtnWorldClockTimeZoneID As System.Windows.Forms.RadioButton
     Friend WithEvents RdBtnWorldClockTimeZoneLongName As System.Windows.Forms.RadioButton
     Friend WithEvents OSToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TxtBxCountdownSpeach As System.Windows.Forms.TextBox
-    Friend WithEvents ChckBxCountdownSpeach As System.Windows.Forms.CheckBox
-    Friend WithEvents TxtBxReminderSpeach As System.Windows.Forms.TextBox
-    Friend WithEvents ChckBxReminderSpeach As System.Windows.Forms.CheckBox
+    Friend WithEvents TxtBxCountdownSpeech As System.Windows.Forms.TextBox
+    Friend WithEvents ChckBxCountdownSpeech As System.Windows.Forms.CheckBox
+    Friend WithEvents TxtBxReminderSpeech As System.Windows.Forms.TextBox
+    Friend WithEvents ChckBxReminderSpeech As System.Windows.Forms.CheckBox
+    Friend WithEvents PowerSourceToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents btnCountdown90 As System.Windows.Forms.Button
+    Friend WithEvents btnCountdown60 As System.Windows.Forms.Button
+    Friend WithEvents btnCountdown30 As System.Windows.Forms.Button
 
 End Class

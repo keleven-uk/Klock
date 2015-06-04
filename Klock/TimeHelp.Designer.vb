@@ -22,6 +22,7 @@ Partial Class TimeHelp
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(TimeHelp))
         Me.btnTimeHelpClose = New System.Windows.Forms.Button()
         Me.WbBrwsrTimeHelp = New System.Windows.Forms.WebBrowser()
         Me.SuspendLayout()
@@ -39,8 +40,8 @@ Partial Class TimeHelp
         'WbBrwsrTimeHelp
         '
         Me.WbBrwsrTimeHelp.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.WbBrwsrTimeHelp.Location = New System.Drawing.Point(12, 12)
         Me.WbBrwsrTimeHelp.MinimumSize = New System.Drawing.Size(20, 20)
         Me.WbBrwsrTimeHelp.Name = "WbBrwsrTimeHelp"
@@ -48,16 +49,17 @@ Partial Class TimeHelp
         Me.WbBrwsrTimeHelp.TabIndex = 1
         Me.WbBrwsrTimeHelp.WebBrowserShortcutsEnabled = False
         '
-        'frmTimeHelp
+        'TimeHelp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(412, 262)
         Me.Controls.Add(Me.WbBrwsrTimeHelp)
         Me.Controls.Add(Me.btnTimeHelpClose)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmTimeHelp"
+        Me.Name = "TimeHelp"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Time Help"
         Me.ResumeLayout(False)

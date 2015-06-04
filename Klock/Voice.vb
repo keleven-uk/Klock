@@ -1,8 +1,8 @@
 ﻿Public Class Voice
-    '   A wrapper class arouunf SAPI - Microsoft's Speach API.
+    '   A wrapper class arouunf SAPI - Microsoft's speech API.
 
     '    When the class in created, the SPAI object is created, is successfull voice.actice will return Truw, if failed it return false.
-    '   To produce speach, just pass a string to Voice.say
+    '   To produce speech, just pass a string to Voice.say
 
 
     Dim SAPI
@@ -22,11 +22,11 @@
 
         Try
             SAPI = CreateObject("SAPI.spvoice")
-            _active = True
+            Me.Active() = True
 
         Catch ex As Exception                   '   something has gone wrong, display error and set active to false.
             Me.displayAction.DisplayReminder("Voice Error :: Error with SAPI", ex.Message)
-            _active = False
+            Me.Active() = False
 
         End Try
     End Sub

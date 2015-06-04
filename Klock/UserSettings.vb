@@ -1,15 +1,28 @@
 ﻿Imports System
 Imports System.IO
+Imports System.Xml
+Imports System.Environment
 Imports System.Runtime.Serialization
 Imports System.Runtime.Serialization.Formatters.Binary
-Imports System.Xml
+
+'When you're writing .NET code, it's recommended that you use the functions explicitly designed for this purpose, 
+'rather than relying on environment variables such as %appdata%.
+
+'You're looking for the Environment.GetFolderPath method, which returns the path to the special folder that you specify from the 
+'Environment.SpecialFolder enumeration.
+
+'The Application Data folder is represented by the Environment.SpecialFolder.ApplicationData value. This is, as you requested, 
+'the roaming application data folder. If you do not need the data you save to roam across multiple machines and would prefer that it 
+'stays local to only one, you should use the Environment.SpecialFolder.LocalApplicationData value.
+
+
 
 Public Class UserSettings
 
-    Private DATAPATH As String = Application.StartupPath & "\Data\Klock.xml"        '   Hard wired, for now.
-
+    '   local versions of the user settings.
+    '   NB : importanat to set default on all user settings will be used if not present in xml file.
     '-------------------------------------------------------------------------------------------------------- Global Settings -------------
-    Private _usrFormColour As Color = frmOptions.DefaultBackColor
+    Private _usrFormColour As Color = Color.LightGray
     Private _usrFormFont As Font = frmOptions.DefaultFont
     Private _usrFormFontColour As Color = Color.Black
     Private _usrFormTop As Integer = 100
@@ -18,6 +31,8 @@ Public Class UserSettings
     Private _usrStartMinimised As Boolean = False
     Private _usrRunOnStartup As Boolean = False
     Private _usrSoundVolume As Integer = 100
+    Private _usrOptionsSavePath As String = GetFolderPath(SpecialFolder.LocalApplicationData) & "\klock"
+    Private _usrOptionsSaveFile As String = "klock.xml"
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
     Private _usrTimerHigh As Boolean = False
     Private _usrTimerClearSplit As Boolean = False
@@ -44,20 +59,26 @@ Public Class UserSettings
     '-------------------------------------------------------------------------------------------------------- World Klock Settings --------
     Private _usrWorldKlockAdd As Boolean = False
     '-------------------------------------------------------------------------------------------------------- Notification Settings -------
-    Private _usrNotificationbackColour As Color = Color.Gray
+    Private _usrNotificationbackColour As Color = Color.LightGray
     Private _usrNotificationFont As Font = frmOptions.DefaultFont
     Private _usrNotificationFontColour As Color = Color.Black
     Private _usrNotificationTimeOut As Integer = 5000
     Private _usrNotificationOpacity As Integer = 80
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
-    Private _usrFriendsDirectory As String = Application.StartupPath & "\Data\"
+    Private _usrFriendsDirectory As String = GetFolderPath(SpecialFolder.LocalApplicationData) & "\klock"
     Private _usrFrinedsFile As String = "Friends.bin"
 
+
+    '   run on set up - blank at the moment.
     Public Sub New()
 
         MyBase.New()
+
+        checkDataFile()         '   check data directory exists, if not create.
     End Sub
 
+
+    '   Getters and setters for each of the user settings.
     '-------------------------------------------------------------------------------------------------------- Global Settings -------------
 
     Public Property usrFormColour() As Color
@@ -139,6 +160,18 @@ Public Class UserSettings
         Set(ByVal value As Integer)
             _usrSoundVolume = value
         End Set
+    End Property
+
+    Public ReadOnly Property usrOptionsSavePath() As String     '   returns path to save settings file - readonly
+        Get
+            Return _usrOptionsSavePath
+        End Get
+    End Property
+
+    Public ReadOnly Property usrOptionsSaveFile() As String     '   returns path to save settings file - readonly
+        Get
+            Return _usrOptionsSaveFile
+        End Get
     End Property
 
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
@@ -401,12 +434,13 @@ Public Class UserSettings
     '-------------------------------------------------------------------------------------------------------- Setting Methods ------------
 
     Public Sub writeSettings()
-        '   Writes all settings out to a XML file.  This should only be used once, on first up.  
+        '   Writes all settings out to a XML file.  
+        '   This is run if the xml if not present [i.e. first run of the app] and if versions have changed.  
         '   This produces the default settings file, on subsequent loading, the settings files should already exist.
         '   NB: no spaces in titles please [thinks they become attributes].
         '   NB: The tag <%= switches you to VB, and the %> tag switches you back to XML.
 
-        Dim xmlSettings = <klock>
+        Dim xmlSettings = <klock Version=<%= My.Application.Info.Version.ToString() %>>
                               <Global>
                                   <FormColour>
                                       <FormColourR><%= usrFormColour().R %></FormColourR>
@@ -431,6 +465,7 @@ Public Class UserSettings
                                   <StartMinimised><%= usrStartMinimised() %></StartMinimised>
                                   <RunOnStartup><%= usrRunOnStartup() %></RunOnStartup>
                                   <SoundVolume><%= usrSoundVolume() %></SoundVolume>
+                                  <usrOptionsSavePath><%= usrOptionsSavePath() %></usrOptionsSavePath>
                               </Global>
                               <Time>
                                   <TimeTwoFormats><%= usrTimeTwoFormats() %></TimeTwoFormats>
@@ -488,7 +523,98 @@ Public Class UserSettings
                               </Friends>
                           </klock>
 
-        xmlSettings.Save(DATAPATH)
+        xmlSettings.Save(usrOptionsSavePath() & "/" & usrOptionsSaveFile())
+
+    End Sub
+
+    Public Sub writeDefaultSettings()
+        '   Writes all default settings out to a XML file.  
+        '   This is run on demand.
+
+        Dim xmlSettings = <klock Version=<%= My.Application.Info.Version.ToString() %>>
+                              <Global>
+                                  <FormColour>
+                                      <FormColourR>240</FormColourR>
+                                      <FormColourG>240</FormColourG>
+                                      <FormColourB>240</FormColourB>
+                                      <FormColourA>255</FormColourA>
+                                  </FormColour>
+                                  <FormFont>
+                                      <FormFontName>Microsoft Sans Serif</FormFontName>
+                                      <FormFontSize>8.25</FormFontSize>
+                                      <FormFontStyle>0</FormFontStyle>
+                                  </FormFont>
+                                  <FormFontColour>
+                                      <FormFontColourR>0</FormFontColourR>
+                                      <FormFontColourG>0</FormFontColourG>
+                                      <FormFontColourB>0</FormFontColourB>
+                                      <FormFontColourA>255</FormFontColourA>
+                                  </FormFontColour>
+                                  <FormTop>100</FormTop>
+                                  <formleft>100</formleft>
+                                  <SavePosition>false</SavePosition>
+                                  <StartMinimised>false</StartMinimised>
+                                  <RunOnStartup>false</RunOnStartup>
+                                  <SoundVolume>100</SoundVolume>
+                                  <usrOptionsSavePath><%= usrOptionsSavePath() %></usrOptionsSavePath>
+                              </Global>
+                              <Time>
+                                  <TimeTwoFormats>false</TimeTwoFormats>
+                                  <TimeSwatchCentibeats>false</TimeSwatchCentibeats>
+                                  <TimeNETSeconds>false</TimeNETSeconds>
+                                  <TimeHexIntuitorFormat>false</TimeHexIntuitorFormat>
+                                  <TimeHourPips>false</TimeHourPips>
+                                  <TimeHourChimes>false</TimeHourChimes>
+                                  <TimeHalfChimes>false</TimeHalfChimes>
+                                  <TimeQuarterChimes>false</TimeQuarterChimes>
+                                  <TimeDisplayMinimised>false</TimeDisplayMinimised>
+                                  <TimeDisplayMinutes>15</TimeDisplayMinutes>
+                                  <TimeVoiceMinimised>false</TimeVoiceMinimised>
+                                  <TimeVoiceMinutes>15</TimeVoiceMinutes>
+                              </Time>
+                              <Timer>
+                                  <TimerHigh>false</TimerHigh>
+                                  <TimerClearSplit>false</TimerClearSplit>
+                                  <TimerAdd>false</TimerAdd>
+                              </Timer>
+                              <Countdown>
+                                  <CountdownAdd>false</CountdownAdd>
+                              </Countdown>
+                              <Reminder>
+                                  <ReminderTimeChecked>false</ReminderTimeChecked>
+                                  <ReminderAdd>false</ReminderAdd>
+                              </Reminder>
+                              <WorldKlock>
+                                  <WorldKlockAdd>false</WorldKlockAdd>
+                              </WorldKlock>
+                              <Notification>
+                                  <NotificationColour>
+                                      <NotificationColourR>240</NotificationColourR>
+                                      <NotificationColourG>240</NotificationColourG>
+                                      <NotificationColourB>240</NotificationColourB>
+                                      <NotificationColourA>255</NotificationColourA>
+                                  </NotificationColour>
+                                  <NotificationFont>
+                                      <NotificationFontName>Microsoft Sans Serif</NotificationFontName>
+                                      <NotificationFontSize>8.25</NotificationFontSize>
+                                      <NotificationFontStyle>0</NotificationFontStyle>
+                                  </NotificationFont>
+                                  <NotificationFontColour>
+                                      <NotificationFontColourR>0</NotificationFontColourR>
+                                      <NotificationFontColourG>0</NotificationFontColourG>
+                                      <NotificationFontColourB>0</NotificationFontColourB>
+                                      <NotificationFontColourA>255</NotificationFontColourA>
+                                  </NotificationFontColour>
+                                  <NotificationTimeOut>5000</NotificationTimeOut>
+                                  <NotificationOpacity>80</NotificationOpacity>
+                              </Notification>
+                              <Friends>
+                                  <FriendsDirectory><%= usrOptionsSavePath() %></FriendsDirectory>
+                                  <FriendsFileName>Friends.bin</FriendsFileName>
+                              </Friends>
+                          </klock>
+
+        xmlSettings.Save(usrOptionsSavePath() & "/" & usrOptionsSaveFile())
 
     End Sub
 
@@ -501,118 +627,152 @@ Public Class UserSettings
         Dim name As String
         Dim size As Single
         Dim style As FontStyle
-
-        checkDataFile()         '   check data directory exists, if not create.
+        Dim version As String
 
         Try
-            Dim elem As XElement = XElement.Load(DATAPATH)
+            Dim elem As XElement = XElement.Load(usrOptionsSavePath() & "/" & usrOptionsSaveFile())
+
+            version = elem.Attribute("Version").Value.ToString
 
             '-------------------------------------------------------------------------------------------------------- Global Settings -------------
 
             Dim glbl = elem.Element("Global")
 
+
             Dim frmClr = glbl.Element("FormColour")
-            r = CType(frmClr.Element("FormColourR").Value, Byte)
-            g = CType(frmClr.Element("FormColourG").Value, Byte)
-            b = CType(frmClr.Element("FormColourB").Value, Byte)
-            a = CType(frmClr.Element("FormColourA").Value, Byte)
+            r = CType(readElement(frmClr, "FormColourR", usrFormColour().R), Byte)
+            g = CType(readElement(frmClr, "FormColourG", usrFormColour().G), Byte)
+            b = CType(readElement(frmClr, "FormColourB", usrFormColour().B), Byte)
+            a = CType(readElement(frmClr, "FormColourA", usrFormColour().A), Byte)
             Me.usrFormColour = Color.FromArgb(a, r, g, b)
 
             Dim fnt = glbl.Element("FormFont")
-            name = CType(fnt.Element("FormFontName").Value, String)
-            size = CType(fnt.Element("FormFontSize").Value, Single)
-            style = CType(fnt.Element("FormFontStyle").Value, FontStyle)
+            name = readElement(fnt, "FormFontName", usrFormFont().Name)       '   already a string
+            size = CType(readElement(fnt, "FormFontSize", usrFormFont().Size), Single)
+            style = CType(readElement(fnt, "FormFontStyle", 0), FontStyle)
             Me.usrFormFont() = New Font(name, size, style)
 
             Dim frmFntClr = glbl.Element("FormFontColour")
-            r = CType(frmFntClr.Element("FormFontColourR").Value, Byte)
-            g = CType(frmFntClr.Element("FormFontColourG").Value, Byte)
-            b = CType(frmFntClr.Element("FormFontColourB").Value, Byte)
-            a = CType(frmFntClr.Element("FormFontColourA").Value, Byte)
+            r = CType(readElement(frmFntClr, "FormFontColourR", usrFormFontColour().R), Byte)
+            g = CType(readElement(frmFntClr, "FormFontColourG", usrFormFontColour().G), Byte)
+            b = CType(readElement(frmFntClr, "FormFontColourB", usrFormFontColour().B), Byte)
+            a = CType(readElement(frmFntClr, "FormFontColourA", usrFormFontColour().A), Byte)
             Me.usrFormFontColour = Color.FromArgb(a, r, g, b)
 
-            Me.usrFormTop = CType(glbl.Element("FormTop").Value, Integer)
-            Me.usrFormLeft = CType(glbl.Element("formleft").Value, Integer)
-            Me.usrSavePosition = CType(glbl.Element("SavePosition").Value, Boolean)
-            Me.usrStartMinimised = CType(glbl.Element("StartMinimised").Value, Boolean)
-            Me.usrRunOnStartup = CType(glbl.Element("RunOnStartup").Value, Boolean)
-            Me.usrSoundVolume = CType(glbl.Element("SoundVolume").Value, Integer)
+            Me.usrFormTop = CType(readElement(glbl, "FormTop", usrFormTop()), Integer)
+            Me.usrFormLeft = CType(readElement(glbl, "formleft", usrFormLeft()), Integer)
+            Me.usrSavePosition = CType(readElement(glbl, "SavePosition", usrSavePosition()), Boolean)
+            Me.usrStartMinimised = CType(readElement(glbl, "StartMinimised", usrStartMinimised()), Boolean)
+            Me.usrRunOnStartup = CType(readElement(glbl, "RunOnStartup", usrRunOnStartup()), Boolean)
+            Me.usrSoundVolume = CType(readElement(glbl, "SoundVolume", usrSoundVolume()), Integer)
 
             '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
 
             Dim tm = elem.Element("Time")
-            Me.usrTimeTwoFormats = CType(tm.Element("TimeTwoFormats").Value, Boolean)
-            Me.usrTimeSwatchCentibeats = CType(tm.Element("TimeSwatchCentibeats").Value, Boolean)
-            Me.usrTimeNETSeconds = CType(tm.Element("TimeNETSeconds").Value, Boolean)
-            Me.usrTimeHexIntuitorFormat = CType(tm.Element("TimeHexIntuitorFormat").Value, Boolean)
-            Me.usrTimeHourPips = CType(tm.Element("TimeHourPips").Value, Boolean)
-            Me.usrTimeHourChimes = CType(tm.Element("TimeHourChimes").Value, Boolean)
-            Me.usrTimeHalfChimes = CType(tm.Element("TimeHalfChimes").Value, Boolean)
-            Me.usrTimeQuarterChimes = CType(tm.Element("TimeQuarterChimes").Value, Boolean)
-            Me.usrTimeDisplayMinimised = CType(tm.Element("TimeDisplayMinimised").Value, Boolean)
-            Me.usrTimeDisplayMinutes = CType(tm.Element("TimeDisplayMinutes").Value, Integer)
-            Me.usrTimeVoiceMinimised = CType(tm.Element("TimeVoiceMinimised").Value, Boolean)
-            Me.usrTimeVoiceMinutes = CType(tm.Element("TimeVoiceMinutes").Value, Integer)
+            Me.usrTimeTwoFormats = CType(readElement(tm, "TimeTwoFormats", usrTimeTwoFormats()), Boolean)
+            Me.usrTimeSwatchCentibeats = CType(readElement(tm, "TimeSwatchCentibeats", usrTimeSwatchCentibeats()), Boolean)
+            Me.usrTimeNETSeconds = CType(readElement(tm, "TimeNETSeconds", usrTimeNETSeconds()), Boolean)
+            Me.usrTimeHexIntuitorFormat = CType(readElement(tm, "TimeHexIntuitorFormat", usrTimeHexIntuitorFormat()), Boolean)
+            Me.usrTimeHourPips = CType(readElement(tm, "TimeHourPips", usrTimeHourPips()), Boolean)
+            Me.usrTimeHourChimes = CType(readElement(tm, "TimeHourChimes", usrTimeHourChimes()), Boolean)
+            Me.usrTimeHalfChimes = CType(readElement(tm, "TimeHalfChimes", usrTimeHalfChimes()), Boolean)
+            Me.usrTimeQuarterChimes = CType(readElement(tm, "TimeQuarterChimes", usrTimeQuarterChimes()), Boolean)
+            Me.usrTimeDisplayMinimised = CType(readElement(tm, "TimeDisplayMinimised", usrTimeDisplayMinimised()), Boolean)
+            Me.usrTimeDisplayMinutes = CType(readElement(tm, "TimeDisplayMinutes", usrTimeDisplayMinutes()), Integer)
+            Me.usrTimeVoiceMinimised = CType(readElement(tm, "TimeVoiceMinimised", usrTimeDisplayMinutes()), Boolean)
+            Me.usrTimeVoiceMinutes = CType(readElement(tm, "TimeVoiceMinutes", usrTimeVoiceMinutes()), Integer)
             '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
             Dim tmr = elem.Element("Timer")
-            Me.usrTimerHigh = CType(tmr.Element("TimerHigh").Value, Boolean)
-            Me.usrTimerClearSplit = CType(tmr.Element("TimerClearSplit").Value, Boolean)
-            Me.usrTimerAdd = CType(tmr.Element("TimerAdd").Value, Boolean)
-
-            'Me.usrCountdownAdd = CType(elem.Element("CountdownAdd").Value, Boolean)
+            Me.usrTimerHigh = CType(readElement(tmr, "TimerHigh", usrTimerHigh()), Boolean)
+            Me.usrTimerClearSplit = CType(readElement(tmr, "TimerClearSplit", usrTimerClearSplit()), Boolean)
+            Me.usrTimerAdd = CType(readElement(tmr, "TimerAdd", usrTimerAdd()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Countdown Settings ----------
 
+            Dim cntDwn = elem.Element("Countdown")
+            Me.usrCountdownAdd = CType(readElement(cntDwn, "CountdownAdd", usrCountdownAdd()), Boolean)
+
+            '-------------------------------------------------------------------------------------------------------- Reminder Settings ----------
+
+            Dim rmndr = elem.Element("Reminder")
+
+            Me.usrReminderTimeChecked = CType(readElement(rmndr, "ReminderTimeChecked", usrReminderTimeChecked()), Boolean)
+            Me.usrReminderAdd = CType(readElement(rmndr, "ReminderAdd", usrReminderAdd()), Boolean)
+
+            '-------------------------------------------------------------------------------------------------------- World Klock Settings ----------
+
             Dim wrldKlck = elem.Element("WorldKlock")
-            Me.usrWorldKlockAdd = CType(wrldKlck.Element("WorldKlockAdd").Value, Boolean)
+            Me.usrWorldKlockAdd = CType(readElement(wrldKlck, "WorldKlockAdd", usrWorldKlockAdd()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Notification Settings -------
 
             Dim ntfctn = elem.Element("Notification")
 
             Dim ntfctnClr = ntfctn.Element("NotificationColour")
-            r = CType(ntfctnClr.Element("NotificationColourR").Value, Byte)
-            g = CType(ntfctnClr.Element("NotificationColourG").Value, Byte)
-            b = CType(ntfctnClr.Element("NotificationColourB").Value, Byte)
-            a = CType(ntfctnClr.Element("NotificationColourA").Value, Byte)
+            r = CType(readElement(ntfctnClr, "NotificationColourR", usrNotificationbackColour().R), Byte)
+            g = CType(readElement(ntfctnClr, "NotificationColourG", usrNotificationbackColour().G), Byte)
+            b = CType(readElement(ntfctnClr, "NotificationColourB", usrNotificationbackColour().B), Byte)
+            a = CType(readElement(ntfctnClr, "NotificationColourA", usrNotificationbackColour().A), Byte)
             Me.usrNotificationbackColour = Color.FromArgb(a, r, g, b)
 
             Dim ntfctnFnt = ntfctn.Element("NotificationFont")
-            name = CType(ntfctnFnt.Element("NotificationFontName").Value, String)
-            size = CType(ntfctnFnt.Element("NotificationFontSize").Value, Single)
-            style = CType(ntfctnFnt.Element("NotificationFontStyle").Value, FontStyle)
+            name = readElement(ntfctnFnt, "NotificationFontName", usrNotificationFont().Name)       '   already a string
+            size = CType(readElement(ntfctnFnt, "NotificationFontSize", usrNotificationFont().Size), Single)
+            style = CType(readElement(ntfctnFnt, "NotificationFontStyle", 0), FontStyle)
             Me.usrNotificationFont() = New Font(name, size, style)
 
             Dim ntfctnFntClr = ntfctn.Element("NotificationFontColour")
-            r = CType(ntfctnFntClr.Element("NotificationFontColourR").Value, Byte)
-            g = CType(ntfctnFntClr.Element("NotificationFontColourG").Value, Byte)
-            b = CType(ntfctnFntClr.Element("NotificationFontColourB").Value, Byte)
-            a = CType(ntfctnFntClr.Element("NotificationFontColourA").Value, Byte)
+            r = CType(readElement(ntfctn, "NotificationFontColourR", usrNotificationFontColour().R), Byte)
+            g = CType(readElement(ntfctn, "NotificationFontColourG", usrNotificationFontColour().G), Byte)
+            b = CType(readElement(ntfctn, "NotificationFontColourB", usrNotificationFontColour().B), Byte)
+            a = CType(readElement(ntfctn, "NotificationFontColourA", usrNotificationFontColour().A), Byte)
             Me.usrNotificationFontColour = Color.FromArgb(a, r, g, b)
 
-            Me.usrNotificationTimeOut = CType(ntfctn.Element("NotificationTimeOut").Value, Integer)
-            Me.usrNotificationOpacity = CType(ntfctn.Element("NotificationOpacity").Value, Integer)
+            Me.usrNotificationTimeOut = CType(readElement(ntfctn, "NotificationTimeOut", usrNotificationTimeOut()), Integer)
+            Me.usrNotificationOpacity = CType(readElement(ntfctn, "NotificationOpacity", usrNotificationOpacity()), Integer)
 
             '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
+            '   values are strings, so need to convert.
 
             Dim frnds = elem.Element("Friends")
-            Me.usrFriendsDirectory = CType(frnds.Element("FriendsDirectory").Value, String)
-            Me.usrFrinedsFile = CType(frnds.Element("FriendsFileName").Value, String)
+            Me.usrFriendsDirectory = readElement(frnds, "FriendsDirectory", usrFriendsDirectory())
+            Me.usrFrinedsFile = readElement(frnds, "FriendsFileName", usrFrinedsFile())
 
+            '   If version has changed, some settings mighe need to be added [will have been set to default].
+            If version <> My.Application.Info.Version.ToString() Then
+                Me.writeSettings()
+            End If
 
         Catch ex As Exception
             MessageBox.Show("Error reading stream!  " & ex.Message, "Error")
         End Try
-        
+
 
     End Sub
 
-    Private Sub checkDataFile()
-        '   Checks for data director in application start up directory, is not create it.
-        '   For now this is hard wired [may also be used for the Friends data file, but this is user selectable].
+    Private Function readElement(ByVal g As XElement, ByVal s As String, ByVal d As String) As String
+        '   From a given node element [g], tries to read a child element [s].
+        '   If found, then return the elements value.
+        '   if not found, return the default [d]
 
-        If Not My.Computer.FileSystem.FileExists(DATAPATH) Then
+        Try
+            readElement = g.Element(s).Value
+        Catch ex As Exception
+            readElement = d
+        End Try
+
+    End Function
+
+    Private Sub checkDataFile()
+        '   Checks for data directory in usrOptionsSavepath(), if not create it.
+        '   Checks for settings file in above directory, if not there create it.
+
+        If Not My.Computer.FileSystem.DirectoryExists(usrOptionsSavePath()) Then
+            My.Computer.FileSystem.CreateDirectory(usrOptionsSavePath())
+        End If
+
+        If Not My.Computer.FileSystem.FileExists(usrOptionsSavePath() & "/" & usrOptionsSaveFile()) Then
             Me.writeSettings()
         End If
     End Sub

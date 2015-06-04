@@ -118,6 +118,7 @@
     </Compile>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="FormAnimator.vb" />
+    <Compile Include="ManagedPower.vb" />
     <Compile Include="TimeHelp.Designer.vb">
       <DependentUpon>TimeHelp.vb</DependentUpon>
     </Compile>

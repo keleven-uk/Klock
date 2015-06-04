@@ -22,6 +22,8 @@ Partial Class frmInfo
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmInfo))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -30,6 +32,7 @@ Partial Class frmInfo
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnInfoClose = New System.Windows.Forms.Button()
+        Me.TmrInfo = New System.Windows.Forms.Timer(Me.components)
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -110,6 +113,10 @@ Partial Class frmInfo
         Me.btnInfoClose.Text = "Close"
         Me.btnInfoClose.UseVisualStyleBackColor = True
         '
+        'TmrInfo
+        '
+        Me.TmrInfo.Interval = 6000
+        '
         'frmInfo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -118,6 +125,7 @@ Partial Class frmInfo
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmInfo"
@@ -137,4 +145,5 @@ Partial Class frmInfo
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents TmrInfo As System.Windows.Forms.Timer
 End Class

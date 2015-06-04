@@ -40,7 +40,7 @@ Reminder
 Implements a reminder option.
 Today's date is default, but a future date can also be selected.  A time can also be added to the reminder date.
 If no date is added, the reminder will fire at midnight.
-At the end of the countdownhen the reminder is due  either a sound can be played, a reminder displayed, 
+At the end of the countdownhen the reminder is due  either a sound can be played, a reminder displayed,
 a system command [system shut down or re-boot] or a external program can br run - or any combination of the four.
 
 
@@ -54,7 +54,7 @@ and a memo section for notes.
 The friends filename and location can be changed in the option screen.
 A Zip archive can then be save and re-loaded of this file
 
-Pressing F12 with the Friends tab visable, will show the total number of friends klock knows about.
+Pressing F12 with the Friends tab viable, will show the total number of friends klock knows about.
 
 
 
@@ -80,6 +80,7 @@ The c represents caps lock.
 The n represents Num Lock.
 The S represents Scroll Lock.
 The letter will be upper case if the key is activated, otherwise lower case.
+If the PC is detected to be running on battery, these will appear in red.
 
 
 The application also contains a options screen [file / Options] which allows various options to be set.
@@ -90,7 +91,7 @@ NB: If the option is checked to start on windows start up, it only operates for 
 Program partially tested on Windows XP & Windows 7 [both 32 & 64 bit].
 
 
-The notification windows [or toast] is written by jmcilhinney and can be found at 
+The notification windows [or toast] is written by jmcilhinney and can be found at
 http://www.vbforums.com/showthread.php?351757-Animated-Window-Effects-with-quot-Toast-quot-popup-demo
 
 The archive [zip] stuff uses a dll called DotNetZip - see http://DotNetZip.codeplex.com.

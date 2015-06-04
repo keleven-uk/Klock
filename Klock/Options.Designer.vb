@@ -35,6 +35,11 @@ Partial Class frmOptions
         Me.lblDefaultColour = New System.Windows.Forms.Label()
         Me.TabCntrlOptions = New System.Windows.Forms.TabControl()
         Me.TbPgGlobal = New System.Windows.Forms.TabPage()
+        Me.GroupBox13 = New System.Windows.Forms.GroupBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.btnSettingsReset = New System.Windows.Forms.Button()
+        Me.LblOptionSavepath = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.ChckBxOptionsRunOnStartup = New System.Windows.Forms.CheckBox()
         Me.ChckBxOptionsStartupMinimised = New System.Windows.Forms.CheckBox()
@@ -101,8 +106,11 @@ Partial Class frmOptions
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.lblOptionsSettingsFile = New System.Windows.Forms.Label()
+        Me.lblOptionsSettingsDirectory = New System.Windows.Forms.Label()
         Me.TabCntrlOptions.SuspendLayout()
         Me.TbPgGlobal.SuspendLayout()
+        Me.GroupBox13.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -138,7 +146,7 @@ Partial Class frmOptions
         'btnOptionsFormColour
         '
         Me.btnOptionsFormColour.Enabled = False
-        Me.btnOptionsFormColour.Location = New System.Drawing.Point(459, 11)
+        Me.btnOptionsFormColour.Location = New System.Drawing.Point(141, 12)
         Me.btnOptionsFormColour.Name = "btnOptionsFormColour"
         Me.btnOptionsFormColour.Size = New System.Drawing.Size(75, 23)
         Me.btnOptionsFormColour.TabIndex = 1
@@ -149,7 +157,7 @@ Partial Class frmOptions
         '
         Me.lblColour.AutoSize = True
         Me.lblColour.Enabled = False
-        Me.lblColour.Location = New System.Drawing.Point(302, 21)
+        Me.lblColour.Location = New System.Drawing.Point(6, 22)
         Me.lblColour.Name = "lblColour"
         Me.lblColour.Size = New System.Drawing.Size(129, 13)
         Me.lblColour.TabIndex = 2
@@ -158,7 +166,7 @@ Partial Class frmOptions
         'btnOptionsFormFont
         '
         Me.btnOptionsFormFont.Enabled = False
-        Me.btnOptionsFormFont.Location = New System.Drawing.Point(459, 42)
+        Me.btnOptionsFormFont.Location = New System.Drawing.Point(141, 41)
         Me.btnOptionsFormFont.Name = "btnOptionsFormFont"
         Me.btnOptionsFormFont.Size = New System.Drawing.Size(75, 23)
         Me.btnOptionsFormFont.TabIndex = 3
@@ -169,7 +177,7 @@ Partial Class frmOptions
         '
         Me.lblFont.AutoSize = True
         Me.lblFont.Enabled = False
-        Me.lblFont.Location = New System.Drawing.Point(311, 47)
+        Me.lblFont.Location = New System.Drawing.Point(15, 46)
         Me.lblFont.Name = "lblFont"
         Me.lblFont.Size = New System.Drawing.Size(120, 13)
         Me.lblFont.TabIndex = 4
@@ -192,7 +200,7 @@ Partial Class frmOptions
         '
         'btnDefaultColour
         '
-        Me.btnDefaultColour.Location = New System.Drawing.Point(459, 71)
+        Me.btnDefaultColour.Location = New System.Drawing.Point(141, 70)
         Me.btnDefaultColour.Name = "btnDefaultColour"
         Me.btnDefaultColour.Size = New System.Drawing.Size(75, 23)
         Me.btnDefaultColour.TabIndex = 6
@@ -203,7 +211,7 @@ Partial Class frmOptions
         '
         Me.lblDefaultColour.AutoSize = True
         Me.lblDefaultColour.Enabled = False
-        Me.lblDefaultColour.Location = New System.Drawing.Point(311, 76)
+        Me.lblDefaultColour.Location = New System.Drawing.Point(15, 70)
         Me.lblDefaultColour.Name = "lblDefaultColour"
         Me.lblDefaultColour.Size = New System.Drawing.Size(120, 13)
         Me.lblDefaultColour.TabIndex = 7
@@ -227,6 +235,7 @@ Partial Class frmOptions
         'TbPgGlobal
         '
         Me.TbPgGlobal.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgGlobal.Controls.Add(Me.GroupBox13)
         Me.TbPgGlobal.Controls.Add(Me.GroupBox8)
         Me.TbPgGlobal.Controls.Add(Me.GroupBox7)
         Me.TbPgGlobal.Controls.Add(Me.GroupBox2)
@@ -236,6 +245,55 @@ Partial Class frmOptions
         Me.TbPgGlobal.Size = New System.Drawing.Size(660, 265)
         Me.TbPgGlobal.TabIndex = 0
         Me.TbPgGlobal.Text = "Global"
+        '
+        'GroupBox13
+        '
+        Me.GroupBox13.Controls.Add(Me.Label10)
+        Me.GroupBox13.Controls.Add(Me.btnSettingsReset)
+        Me.GroupBox13.Controls.Add(Me.LblOptionSavepath)
+        Me.GroupBox13.Controls.Add(Me.Label9)
+        Me.GroupBox13.Location = New System.Drawing.Point(6, 8)
+        Me.GroupBox13.Name = "GroupBox13"
+        Me.GroupBox13.Size = New System.Drawing.Size(417, 97)
+        Me.GroupBox13.TabIndex = 13
+        Me.GroupBox13.TabStop = False
+        Me.GroupBox13.Text = "Settings"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(10, 68)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(157, 13)
+        Me.Label10.TabIndex = 13
+        Me.Label10.Text = "Reset to system default location"
+        '
+        'btnSettingsReset
+        '
+        Me.btnSettingsReset.Location = New System.Drawing.Point(173, 68)
+        Me.btnSettingsReset.Name = "btnSettingsReset"
+        Me.btnSettingsReset.Size = New System.Drawing.Size(75, 23)
+        Me.btnSettingsReset.TabIndex = 12
+        Me.btnSettingsReset.Text = "Reset"
+        Me.btnSettingsReset.UseVisualStyleBackColor = True
+        '
+        'LblOptionSavepath
+        '
+        Me.LblOptionSavepath.AutoSize = True
+        Me.LblOptionSavepath.Location = New System.Drawing.Point(10, 44)
+        Me.LblOptionSavepath.Name = "LblOptionSavepath"
+        Me.LblOptionSavepath.Size = New System.Drawing.Size(31, 13)
+        Me.LblOptionSavepath.TabIndex = 10
+        Me.LblOptionSavepath.Text = """c:\"""
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(6, 20)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(105, 13)
+        Me.Label9.TabIndex = 11
+        Me.Label9.Text = "User settings save in"
         '
         'GroupBox8
         '
@@ -279,9 +337,9 @@ Partial Class frmOptions
         Me.GroupBox7.Controls.Add(Me.lblColour)
         Me.GroupBox7.Controls.Add(Me.lblFont)
         Me.GroupBox7.Controls.Add(Me.lblDefaultColour)
-        Me.GroupBox7.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox7.Location = New System.Drawing.Point(429, 6)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(648, 99)
+        Me.GroupBox7.Size = New System.Drawing.Size(225, 99)
         Me.GroupBox7.TabIndex = 11
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Apperance [Not Implemented]"
@@ -468,9 +526,9 @@ Partial Class frmOptions
         Me.Label8.AutoSize = True
         Me.Label8.Location = New System.Drawing.Point(79, 67)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(117, 13)
+        Me.Label8.Size = New System.Drawing.Size(115, 13)
         Me.Label8.TabIndex = 11
-        Me.Label8.Text = "Time to Speach [every "
+        Me.Label8.Text = "Time to speech [every "
         '
         'UpDwnVoiceDisplay
         '
@@ -770,7 +828,7 @@ Partial Class frmOptions
         Me.TbPgFriends.Padding = New System.Windows.Forms.Padding(3)
         Me.TbPgFriends.Size = New System.Drawing.Size(660, 265)
         Me.TbPgFriends.TabIndex = 6
-        Me.TbPgFriends.Text = "Friends"
+        Me.TbPgFriends.Text = "Archieve"
         '
         'GroupBox11
         '
@@ -780,9 +838,9 @@ Partial Class frmOptions
         Me.GroupBox11.Controls.Add(Me.TxtBxArchieveFriendsDirectory)
         Me.GroupBox11.Controls.Add(Me.btnArchieveFriendsFile)
         Me.GroupBox11.Controls.Add(Me.btnArchieveFriendsDirectory)
-        Me.GroupBox11.Location = New System.Drawing.Point(6, 89)
+        Me.GroupBox11.Location = New System.Drawing.Point(6, 150)
         Me.GroupBox11.Name = "GroupBox11"
-        Me.GroupBox11.Size = New System.Drawing.Size(648, 164)
+        Me.GroupBox11.Size = New System.Drawing.Size(648, 103)
         Me.GroupBox11.TabIndex = 1
         Me.GroupBox11.TabStop = False
         Me.GroupBox11.Text = "Archieve"
@@ -843,6 +901,8 @@ Partial Class frmOptions
         '
         'GroupBox10
         '
+        Me.GroupBox10.Controls.Add(Me.lblOptionsSettingsDirectory)
+        Me.GroupBox10.Controls.Add(Me.lblOptionsSettingsFile)
         Me.GroupBox10.Controls.Add(Me.Label7)
         Me.GroupBox10.Controls.Add(Me.btnOptionsFriendsPathReset)
         Me.GroupBox10.Controls.Add(Me.btnOptionsFriendsFile)
@@ -851,7 +911,7 @@ Partial Class frmOptions
         Me.GroupBox10.Controls.Add(Me.TxtBxOptionsFriendsDirectory)
         Me.GroupBox10.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox10.Name = "GroupBox10"
-        Me.GroupBox10.Size = New System.Drawing.Size(648, 77)
+        Me.GroupBox10.Size = New System.Drawing.Size(648, 121)
         Me.GroupBox10.TabIndex = 0
         Me.GroupBox10.TabStop = False
         Me.GroupBox10.Text = "Data Files"
@@ -859,7 +919,7 @@ Partial Class frmOptions
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(145, 53)
+        Me.Label7.Location = New System.Drawing.Point(146, 97)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(185, 13)
         Me.Label7.TabIndex = 5
@@ -867,7 +927,7 @@ Partial Class frmOptions
         '
         'btnOptionsFriendsPathReset
         '
-        Me.btnOptionsFriendsPathReset.Location = New System.Drawing.Point(353, 44)
+        Me.btnOptionsFriendsPathReset.Location = New System.Drawing.Point(353, 92)
         Me.btnOptionsFriendsPathReset.Name = "btnOptionsFriendsPathReset"
         Me.btnOptionsFriendsPathReset.Size = New System.Drawing.Size(75, 23)
         Me.btnOptionsFriendsPathReset.TabIndex = 4
@@ -922,6 +982,24 @@ Partial Class frmOptions
         Me.OpenFileDialog1.CheckFileExists = False
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
+        'lblOptionsSettingsFile
+        '
+        Me.lblOptionsSettingsFile.AutoSize = True
+        Me.lblOptionsSettingsFile.Location = New System.Drawing.Point(431, 56)
+        Me.lblOptionsSettingsFile.Name = "lblOptionsSettingsFile"
+        Me.lblOptionsSettingsFile.Size = New System.Drawing.Size(103, 13)
+        Me.lblOptionsSettingsFile.TabIndex = 6
+        Me.lblOptionsSettingsFile.Text = "Options Settings File"
+        '
+        'lblOptionsSettingsDirectory
+        '
+        Me.lblOptionsSettingsDirectory.AutoSize = True
+        Me.lblOptionsSettingsDirectory.Location = New System.Drawing.Point(6, 56)
+        Me.lblOptionsSettingsDirectory.Name = "lblOptionsSettingsDirectory"
+        Me.lblOptionsSettingsDirectory.Size = New System.Drawing.Size(129, 13)
+        Me.lblOptionsSettingsDirectory.TabIndex = 7
+        Me.lblOptionsSettingsDirectory.Text = "Options Settings Directory"
+        '
         'frmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -939,6 +1017,8 @@ Partial Class frmOptions
         Me.Text = "Options"
         Me.TabCntrlOptions.ResumeLayout(False)
         Me.TbPgGlobal.ResumeLayout(False)
+        Me.GroupBox13.ResumeLayout(False)
+        Me.GroupBox13.PerformLayout()
         Me.GroupBox8.ResumeLayout(False)
         Me.GroupBox8.PerformLayout()
         Me.GroupBox7.ResumeLayout(False)
@@ -1053,4 +1133,11 @@ Partial Class frmOptions
     Private WithEvents ChckBxOptionsVoice As System.Windows.Forms.CheckBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents UpDwnVoiceDisplay As System.Windows.Forms.NumericUpDown
+    Friend WithEvents LblOptionSavepath As System.Windows.Forms.Label
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents GroupBox13 As System.Windows.Forms.GroupBox
+    Friend WithEvents btnSettingsReset As System.Windows.Forms.Button
+    Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents lblOptionsSettingsDirectory As System.Windows.Forms.Label
+    Friend WithEvents lblOptionsSettingsFile As System.Windows.Forms.Label
 End Class
