@@ -15,6 +15,8 @@ Public Class frmKlock
     '   Dim fs As FileStream = New FileStream("debug.log", FileMode.Create)
     '   Dim sw As New StreamWriter(fs)
 
+    Public fTime As selectTime
+
     Private Sub TmrMain_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TmrMain.Tick
         '   Main clock tick.
         '   Sets current time & date to status bar.
@@ -75,11 +77,13 @@ Public Class frmKlock
 
         startTime = My.Computer.Clock.TickCount
 
+        Me.CmbBxTime.SelectedIndex = 0      '   until I know how to do this at design time :o)
+        Me.CmbBxCountDownAction.SelectedIndex = 0
         setSettings()
     End Sub
 
     Private Sub frmStub_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        '   on close and if needed, save sform position.
+        '   on close and if needed, save form position.
 
         If frmOptions.ChckBxOptionsSavePos.Checked Then
             My.Settings.usrFormTop = Me.Top
@@ -99,11 +103,17 @@ Public Class frmKlock
         Me.StsStrpInfo.BackColor = My.Settings.usrFormColour
         Me.MainMenuStrip.BackColor = My.Settings.usrFormColour
 
+        Me.TbPgTime.BackColor = My.Settings.usrFormColour
+        Me.TbPgCountDown.BackColor = My.Settings.usrFormColour
+        Me.TbPgTimer.BackColor = My.Settings.usrFormColour
+
         If frmOptions.ChckBxOptionsSavePos.Checked Then
             Me.Top = My.Settings.usrFormTop
             Me.Left = My.Settings.usrFormLeft
         End If
     End Sub
 
-
+    Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
+        Close()
+    End Sub
 End Class
