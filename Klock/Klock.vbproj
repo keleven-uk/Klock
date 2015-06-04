@@ -107,7 +107,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataButtons.vb" />
+    <Compile Include="FEMcommon.vb" />
     <Compile Include="Events.vb" />
     <Compile Include="eventThings.vb" />
     <Compile Include="frmAbout.Designer.vb">
@@ -118,6 +118,7 @@
     </Compile>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="FormAnimator.vb" />
+    <Compile Include="InfoCommon.vb" />
     <Compile Include="ManagedPower.vb" />
     <Compile Include="frmInfo.Designer.vb">
       <DependentUpon>frmInfo.vb</DependentUpon>
@@ -125,6 +126,7 @@
     <Compile Include="frmInfo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Memo.vb" />
     <Compile Include="Person.vb" />
     <Compile Include="frmNotification.designer.vb">
       <DependentUpon>frmNotification.vb</DependentUpon>

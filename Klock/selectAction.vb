@@ -64,7 +64,6 @@
 
         hWnd = GetDesktopWindow()
         rtn = SendMessage(hWnd, WM_SYSCOMMAND, SC_SCREENSAVE, 0)
-
     End Sub
 
     Public Sub DisplayReminder(ByVal title As String, ByVal message As String)
@@ -123,8 +122,6 @@
         Catch ex As System.ComponentModel.Win32Exception
             DisplayReminder("ERROR", "Sorry, there seems to problems :: " & ex.Message)
         End Try
-
-
     End Sub
 
     Public Sub AbortSystemCommand()
@@ -140,7 +137,6 @@
         Catch ex As System.ComponentModel.Win32Exception
             DisplayReminder("ERROR", "Sorry, there seems to problems :: " & ex.Message)
         End Try
-
     End Sub
 
     Public Sub DoCommand(ByVal s As String)
@@ -162,7 +158,5 @@
             End If
         End If
     End Sub
-
-
 
 End Class

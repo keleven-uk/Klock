@@ -68,6 +68,10 @@ Partial Class frmOptions
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TbPgTime = New System.Windows.Forms.TabPage()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.lblTimeTwo = New System.Windows.Forms.Label()
+        Me.CmbBxDefaultTimeTwoFormat = New System.Windows.Forms.ComboBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.CmbBxDefaultTimeFormat = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.UpDwnVoiceDisplay = New System.Windows.Forms.NumericUpDown()
         Me.ChckBxOptionsVoice = New System.Windows.Forms.CheckBox()
@@ -102,13 +106,16 @@ Partial Class frmOptions
         Me.btnArchiveFile = New System.Windows.Forms.Button()
         Me.btnArchiveDirectory = New System.Windows.Forms.Button()
         Me.GroupBox10 = New System.Windows.Forms.GroupBox()
+        Me.TxtBxOptionsSettingsFile = New System.Windows.Forms.TextBox()
+        Me.TxtBxOptionsMemoFile = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.btnOptionsMemoFile = New System.Windows.Forms.Button()
         Me.label18 = New System.Windows.Forms.Label()
         Me.btnOptionsEventsFile = New System.Windows.Forms.Button()
         Me.TxtBxOptionsEventsFile = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.lblOptionsSettingsFile = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btnOptionsPathReset = New System.Windows.Forms.Button()
         Me.btnOptionsFriendsFile = New System.Windows.Forms.Button()
@@ -140,10 +147,6 @@ Partial Class frmOptions
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.CmbBxDefaultTimeFormat = New System.Windows.Forms.ComboBox()
-        Me.Label21 = New System.Windows.Forms.Label()
-        Me.lblTimeTwo = New System.Windows.Forms.Label()
-        Me.CmbBxDefaultTimeTwoFormat = New System.Windows.Forms.ComboBox()
         Me.TabCntrlOptions.SuspendLayout()
         Me.TbPgGlobal.SuspendLayout()
         Me.GroupBox13.SuspendLayout()
@@ -642,6 +645,44 @@ Partial Class frmOptions
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Settings"
         '
+        'lblTimeTwo
+        '
+        Me.lblTimeTwo.AutoSize = True
+        Me.lblTimeTwo.Enabled = False
+        Me.lblTimeTwo.Location = New System.Drawing.Point(408, 49)
+        Me.lblTimeTwo.Name = "lblTimeTwo"
+        Me.lblTimeTwo.Size = New System.Drawing.Size(126, 13)
+        Me.lblTimeTwo.TabIndex = 15
+        Me.lblTimeTwo.Text = "Default Two Time Format"
+        '
+        'CmbBxDefaultTimeTwoFormat
+        '
+        Me.CmbBxDefaultTimeTwoFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CmbBxDefaultTimeTwoFormat.Enabled = False
+        Me.CmbBxDefaultTimeTwoFormat.FormattingEnabled = True
+        Me.CmbBxDefaultTimeTwoFormat.Location = New System.Drawing.Point(540, 41)
+        Me.CmbBxDefaultTimeTwoFormat.Name = "CmbBxDefaultTimeTwoFormat"
+        Me.CmbBxDefaultTimeTwoFormat.Size = New System.Drawing.Size(86, 21)
+        Me.CmbBxDefaultTimeTwoFormat.TabIndex = 14
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(429, 22)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(102, 13)
+        Me.Label21.TabIndex = 13
+        Me.Label21.Text = "Default Time Format"
+        '
+        'CmbBxDefaultTimeFormat
+        '
+        Me.CmbBxDefaultTimeFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CmbBxDefaultTimeFormat.FormattingEnabled = True
+        Me.CmbBxDefaultTimeFormat.Location = New System.Drawing.Point(540, 14)
+        Me.CmbBxDefaultTimeFormat.Name = "CmbBxDefaultTimeFormat"
+        Me.CmbBxDefaultTimeFormat.Size = New System.Drawing.Size(86, 21)
+        Me.CmbBxDefaultTimeFormat.TabIndex = 12
+        '
         'Label8
         '
         Me.Label8.AutoSize = True
@@ -957,7 +998,7 @@ Partial Class frmOptions
         Me.GroupBox11.Controls.Add(Me.TxtBxArchiveDirectory)
         Me.GroupBox11.Controls.Add(Me.btnArchiveFile)
         Me.GroupBox11.Controls.Add(Me.btnArchiveDirectory)
-        Me.GroupBox11.Location = New System.Drawing.Point(6, 200)
+        Me.GroupBox11.Location = New System.Drawing.Point(6, 204)
         Me.GroupBox11.Name = "GroupBox11"
         Me.GroupBox11.Size = New System.Drawing.Size(648, 53)
         Me.GroupBox11.TabIndex = 1
@@ -1000,13 +1041,16 @@ Partial Class frmOptions
         '
         'GroupBox10
         '
+        Me.GroupBox10.Controls.Add(Me.TxtBxOptionsSettingsFile)
+        Me.GroupBox10.Controls.Add(Me.TxtBxOptionsMemoFile)
+        Me.GroupBox10.Controls.Add(Me.Label22)
+        Me.GroupBox10.Controls.Add(Me.btnOptionsMemoFile)
         Me.GroupBox10.Controls.Add(Me.label18)
         Me.GroupBox10.Controls.Add(Me.btnOptionsEventsFile)
         Me.GroupBox10.Controls.Add(Me.TxtBxOptionsEventsFile)
         Me.GroupBox10.Controls.Add(Me.Label13)
         Me.GroupBox10.Controls.Add(Me.Label12)
         Me.GroupBox10.Controls.Add(Me.Label11)
-        Me.GroupBox10.Controls.Add(Me.lblOptionsSettingsFile)
         Me.GroupBox10.Controls.Add(Me.Label7)
         Me.GroupBox10.Controls.Add(Me.btnOptionsPathReset)
         Me.GroupBox10.Controls.Add(Me.btnOptionsFriendsFile)
@@ -1015,10 +1059,44 @@ Partial Class frmOptions
         Me.GroupBox10.Controls.Add(Me.TxtBxOptionsFriendsDirectory)
         Me.GroupBox10.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox10.Name = "GroupBox10"
-        Me.GroupBox10.Size = New System.Drawing.Size(648, 188)
+        Me.GroupBox10.Size = New System.Drawing.Size(648, 192)
         Me.GroupBox10.TabIndex = 0
         Me.GroupBox10.TabStop = False
         Me.GroupBox10.Text = "Data Files"
+        '
+        'TxtBxOptionsSettingsFile
+        '
+        Me.TxtBxOptionsSettingsFile.Location = New System.Drawing.Point(434, 164)
+        Me.TxtBxOptionsSettingsFile.Name = "TxtBxOptionsSettingsFile"
+        Me.TxtBxOptionsSettingsFile.ReadOnly = True
+        Me.TxtBxOptionsSettingsFile.Size = New System.Drawing.Size(117, 20)
+        Me.TxtBxOptionsSettingsFile.TabIndex = 19
+        '
+        'TxtBxOptionsMemoFile
+        '
+        Me.TxtBxOptionsMemoFile.Location = New System.Drawing.Point(434, 121)
+        Me.TxtBxOptionsMemoFile.Name = "TxtBxOptionsMemoFile"
+        Me.TxtBxOptionsMemoFile.ReadOnly = True
+        Me.TxtBxOptionsMemoFile.Size = New System.Drawing.Size(117, 20)
+        Me.TxtBxOptionsMemoFile.TabIndex = 18
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(431, 105)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(55, 13)
+        Me.Label22.TabIndex = 17
+        Me.Label22.Text = "Memo File"
+        '
+        'btnOptionsMemoFile
+        '
+        Me.btnOptionsMemoFile.Location = New System.Drawing.Point(557, 118)
+        Me.btnOptionsMemoFile.Name = "btnOptionsMemoFile"
+        Me.btnOptionsMemoFile.Size = New System.Drawing.Size(75, 23)
+        Me.btnOptionsMemoFile.TabIndex = 16
+        Me.btnOptionsMemoFile.Text = "..."
+        Me.btnOptionsMemoFile.UseVisualStyleBackColor = True
         '
         'label18
         '
@@ -1049,7 +1127,7 @@ Partial Class frmOptions
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(431, 107)
+        Me.Label13.Location = New System.Drawing.Point(431, 146)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(64, 13)
         Me.Label13.TabIndex = 11
@@ -1073,19 +1151,10 @@ Partial Class frmOptions
         Me.Label11.TabIndex = 9
         Me.Label11.Text = "Friends File"
         '
-        'lblOptionsSettingsFile
-        '
-        Me.lblOptionsSettingsFile.AutoSize = True
-        Me.lblOptionsSettingsFile.Location = New System.Drawing.Point(431, 126)
-        Me.lblOptionsSettingsFile.Name = "lblOptionsSettingsFile"
-        Me.lblOptionsSettingsFile.Size = New System.Drawing.Size(103, 13)
-        Me.lblOptionsSettingsFile.TabIndex = 6
-        Me.lblOptionsSettingsFile.Text = "Options Settings File"
-        '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(143, 164)
+        Me.Label7.Location = New System.Drawing.Point(162, 78)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(185, 13)
         Me.Label7.TabIndex = 5
@@ -1093,7 +1162,7 @@ Partial Class frmOptions
         '
         'btnOptionsPathReset
         '
-        Me.btnOptionsPathReset.Location = New System.Drawing.Point(353, 159)
+        Me.btnOptionsPathReset.Location = New System.Drawing.Point(353, 75)
         Me.btnOptionsPathReset.Name = "btnOptionsPathReset"
         Me.btnOptionsPathReset.Size = New System.Drawing.Size(75, 23)
         Me.btnOptionsPathReset.TabIndex = 4
@@ -1360,44 +1429,6 @@ Partial Class frmOptions
         Me.OpenFileDialog1.CheckFileExists = False
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
-        'CmbBxDefaultTimeFormat
-        '
-        Me.CmbBxDefaultTimeFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxDefaultTimeFormat.FormattingEnabled = True
-        Me.CmbBxDefaultTimeFormat.Location = New System.Drawing.Point(540, 14)
-        Me.CmbBxDefaultTimeFormat.Name = "CmbBxDefaultTimeFormat"
-        Me.CmbBxDefaultTimeFormat.Size = New System.Drawing.Size(86, 21)
-        Me.CmbBxDefaultTimeFormat.TabIndex = 12
-        '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(429, 22)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(102, 13)
-        Me.Label21.TabIndex = 13
-        Me.Label21.Text = "Default Time Format"
-        '
-        'lblTimeTwo
-        '
-        Me.lblTimeTwo.AutoSize = True
-        Me.lblTimeTwo.Enabled = False
-        Me.lblTimeTwo.Location = New System.Drawing.Point(408, 49)
-        Me.lblTimeTwo.Name = "lblTimeTwo"
-        Me.lblTimeTwo.Size = New System.Drawing.Size(126, 13)
-        Me.lblTimeTwo.TabIndex = 15
-        Me.lblTimeTwo.Text = "Default Two Time Format"
-        '
-        'CmbBxDefaultTimeTwoFormat
-        '
-        Me.CmbBxDefaultTimeTwoFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxDefaultTimeTwoFormat.Enabled = False
-        Me.CmbBxDefaultTimeTwoFormat.FormattingEnabled = True
-        Me.CmbBxDefaultTimeTwoFormat.Location = New System.Drawing.Point(540, 41)
-        Me.CmbBxDefaultTimeTwoFormat.Name = "CmbBxDefaultTimeTwoFormat"
-        Me.CmbBxDefaultTimeTwoFormat.Size = New System.Drawing.Size(86, 21)
-        Me.CmbBxDefaultTimeTwoFormat.TabIndex = 14
-        '
         'frmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1546,7 +1577,6 @@ Partial Class frmOptions
     Friend WithEvents GroupBox13 As System.Windows.Forms.GroupBox
     Friend WithEvents btnSettingsReset As System.Windows.Forms.Button
     Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents lblOptionsSettingsFile As System.Windows.Forms.Label
     Friend WithEvents TxtBxArchiveFile As System.Windows.Forms.TextBox
     Friend WithEvents TxtBxArchiveDirectory As System.Windows.Forms.TextBox
     Friend WithEvents btnArchiveFile As System.Windows.Forms.Button
@@ -1590,4 +1620,8 @@ Partial Class frmOptions
     Friend WithEvents CmbBxDefaultTimeFormat As System.Windows.Forms.ComboBox
     Friend WithEvents lblTimeTwo As System.Windows.Forms.Label
     Friend WithEvents CmbBxDefaultTimeTwoFormat As System.Windows.Forms.ComboBox
+    Friend WithEvents TxtBxOptionsMemoFile As System.Windows.Forms.TextBox
+    Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents btnOptionsMemoFile As System.Windows.Forms.Button
+    Friend WithEvents TxtBxOptionsSettingsFile As System.Windows.Forms.TextBox
 End Class

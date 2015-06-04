@@ -11,7 +11,6 @@
 
     Private _active As Boolean          '   holds if voice is active.
 
-
     Sub New()
         '   Created a new instance on the voice.
         '   This tries to create a SPAI objects.  _active is set accordingly.
@@ -27,11 +26,8 @@
         Catch ex As Exception                   '   something has gone wrong, display error and set active to false.
             Me.displayAction.DisplayReminder("Voice Error :: Error with SAPI", ex.Message)
             Me.Active() = False
-
         End Try
     End Sub
-
-
 
     Public Property Active() As Boolean
         '   Returns True if the voice is active i.e. created successfully.  Returns false otherwise.

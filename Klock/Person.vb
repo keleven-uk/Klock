@@ -38,7 +38,7 @@
         Dim second As String = Me.FirstName().PadRight(10, " ")
         Dim third As String = Me.EMail1()
 
-        Return String.Format("{0}{1}{2}", first, second, third)
+        Return String.Format("{0}{1}", first, second)
         'Return first & vbTab & second & vbTab & third
     End Function
 

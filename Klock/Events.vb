@@ -31,7 +31,6 @@
         Dim second As String = Me.EventDate().PadRight(10, " ")
 
         Return String.Format("{0:000} {1} {2}", Me.DaysToGo(), first, second)
-
     End Function
 
     Public Function DaysToGo() As Integer
@@ -66,7 +65,6 @@
         End If
 
         NoOfYears = dd
-
     End Function
 
 

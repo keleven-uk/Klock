@@ -20,7 +20,6 @@
         End If
 
         eventTitle = s
-
     End Function
 
     Public Function eventmessage(ByVal e As Events) As String
@@ -63,7 +62,6 @@
         End Select
 
         eventmessage = s
-
     End Function
 
     Private Function weddingAnniversary(ByVal n As Integer) As String
@@ -107,7 +105,6 @@
         End If
 
         toOrdinal = s
-
     End Function
 
     Private Sub PopulateGifts()
@@ -170,6 +167,5 @@
         Me.weddingAnniversaryGifts.Add(80, "Oak")
         Me.weddingAnniversaryGifts.Add(85, "Wine")
         Me.weddingAnniversaryGifts.Add(90, "Stone")
-
     End Sub
 End Class

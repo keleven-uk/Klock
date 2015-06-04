@@ -72,9 +72,12 @@ Public Class frmOptions
         Me.TrckBrOptionsVolume.TickFrequency = 100
         Me.TrckBrOptionsVolume.Value = frmKlock.usrSettings.usrSoundVolume
 
-        Me.LblOptionSavepath.Text = frmKlock.usrSettings.usrOptionsSavePath
+        If frmKlock.usrSettings.usrFriendsFile = "" Then
+            Me.TxtBxOptionsSettingsFile.Text = "Klock.xml"
+        Else
+            Me.TxtBxOptionsSettingsFile.Text = frmKlock.usrSettings.usrOptionsSaveFile
+        End If
 
-        Me.lblOptionsSettingsFile.Text = frmKlock.usrSettings.usrOptionsSaveFile
         Me.TxtBxOptionsFriendsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
 
         '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
@@ -148,11 +151,18 @@ Public Class frmOptions
             Me.TxtBxOptionsEventsFile.Text = frmKlock.usrSettings.usrEventsFile
         End If
 
+        '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
+
+        If frmKlock.usrSettings.usrMemoFile = "" Then
+            Me.TxtBxOptionsMemoFile.Text = "Memo.bin"
+        Else
+            Me.TxtBxOptionsMemoFile.Text = frmKlock.usrSettings.usrMemoFile
+        End If
+
         Me.NmrcUpDwnFirstReminder.Value = frmKlock.usrSettings.usrEventsFirstReminder
         Me.NmrcUpDwnSecondReminder.Value = frmKlock.usrSettings.usrEventsSecondReminder
         Me.NmrcUpDwnThirdReminder.Value = frmKlock.usrSettings.usrEventsThirdReminder
         Me.NmrcUpDwnEventsInterval.Value = frmKlock.usrSettings.usrEventsTimerInterval
-
     End Sub
 
     ' ************************************************************************************* global options *****************************
@@ -229,6 +239,9 @@ Public Class frmOptions
         frmKlock.usrSettings.usrEventsThirdReminder = Me.NmrcUpDwnThirdReminder.Value
         frmKlock.usrSettings.usrEventsTimerInterval = Me.NmrcUpDwnEventsInterval.Value
 
+        '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
+
+        frmKlock.usrSettings.usrMemoFile = Me.TxtBxOptionsMemoFile.Text
 
         frmKlock.usrSettings.writeSettings()
         frmKlock.setSettings()
@@ -303,7 +316,6 @@ Public Class frmOptions
 
     '-----------------------------------------------------------Time---------------------------------------------------------------
 
-
     Private Sub chckBxTimeTwoFormats_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chckBxTimeTwoFormats.CheckedChanged
         '   Only disply two time default format if needed.
 
@@ -344,7 +356,6 @@ Public Class frmOptions
             Me.ChckBxTimeQuarterChimes.Enabled = False
         End If
     End Sub
-
 
     '-----------------------------------------------------------Notification---------------------------------------------------------------
 
@@ -400,7 +411,6 @@ Public Class frmOptions
         Me.displayAction.DisplayEvent(ev)
     End Sub
 
-
     '-----------------------------------------------------------Event Notification--------------------------------------------------------------
 
     Private Sub btnEventNotificationFont_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventNotificationFont.Click
@@ -451,20 +461,19 @@ Public Class frmOptions
 
         frmKlock.usrSettings.usrEventNotificationOpacity = Me.NmrcUpDwnEventNotificationOpacity.Value
     End Sub
+
     '---------------------------------------------------------- Sound Volume ---------------------------------------------------------------
 
     Private Sub TrckBrOptionsVolume_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrckBrOptionsVolume.Scroll
         '   Set system volume.
 
         frmKlock.usrSettings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
-
     End Sub
 
     Private Sub btnOptionsTestVolume_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsTestVolume.Click
         '   Play a sound to test system volume.
 
         Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\halfchime.mp3"))
-
     End Sub
 
     Private Sub ChckBxTimeToast_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeToast.CheckedChanged
@@ -496,7 +505,7 @@ Public Class frmOptions
     '---------------------------------------------------------- Events Options  ---------------------------------------------------------------
 
     Private Sub btnOptionsEventsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsEventsFile.Click
-        '   Prompt user for the filename of the Events file - Default to freinds.bin
+        '   Prompt user for the filename of the Events file - Default to Events.bin
 
         Me.OpenFileDialog1.Filter = "All Files|*.*"
         Me.OpenFileDialog1.InitialDirectory = frmKlock.usrSettings.usrOptionsSavePath
@@ -505,6 +514,21 @@ Public Class frmOptions
         If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
             Me.TxtBxOptionsEventsFile.Text = Me.OpenFileDialog1.SafeFileName
             frmKlock.usrSettings.usrEventsFile = Me.OpenFileDialog1.SafeFileName
+        End If
+    End Sub
+
+    '---------------------------------------------------------- Memo Options  ---------------------------------------------------------------
+
+    Private Sub btnOptionsMemoFile_Click(sender As System.Object, e As System.EventArgs) Handles btnOptionsMemoFile.Click
+        '   Prompt user for the filename of the Memo file - Default to memo.bin
+
+        Me.OpenFileDialog1.Filter = "All Files|*.*"
+        Me.OpenFileDialog1.InitialDirectory = frmKlock.usrSettings.usrOptionsSavePath
+        Me.OpenFileDialog1.FileName = Me.TxtBxOptionsMemoFile.Text
+
+        If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+            Me.TxtBxOptionsMemoFile.Text = Me.OpenFileDialog1.SafeFileName
+            frmKlock.usrSettings.usrMemoFile = Me.OpenFileDialog1.SafeFileName
         End If
     End Sub
 
@@ -554,8 +578,6 @@ Public Class frmOptions
                 Me.btnArchiveLoad.Enabled = True
             End If
         End If
-
-
     End Sub
 
     Private Sub btnArchiveSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchiveSave.Click
@@ -599,7 +621,6 @@ Public Class frmOptions
         Catch ex As Exception
             Me.displayAction.DisplayReminder("Saving File Error", "Error archieving Friends File. " & ex.Message)
         End Try
-
     End Sub
 
     Private Sub btnArchiveLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchiveLoad.Click
@@ -622,14 +643,12 @@ Public Class frmOptions
         Dim input As Shell32.Folder = sc.NameSpace(zippath)
         'Extract the files from the zip file using the CopyHere command .
 
-        Try                                     '   catch extract error, if any.
+        Try                                           '   catch extract error, if any.
             output.CopyHere(input.Items, 4)
             frmKlock.reloadFriends = True             '   set to re-load friends file.
         Catch ex As Exception
             Me.displayAction.DisplayReminder("Loading File Error", "Error archieving Friends File. " & ex.Message)
         End Try
-
     End Sub
-
 
 End Class

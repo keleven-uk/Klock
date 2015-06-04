@@ -30,7 +30,6 @@ Public Class frmAbout
         Me.lblComputerNameValue.Text = My.Computer.Name
         Me.lblNetworkAvailableValue.Text = My.Computer.Network.IsAvailable.ToString()
         Me.lblProcessorNameValue.Text = Microsoft.Win32.Registry.GetValue("HKEY_LOCAL_MACHINE\Hardware\DESCRIPTION\System\CentralProcessor\0", "Identifier", "")
-
     End Sub
 
     Sub updateTextInfo()
@@ -142,7 +141,6 @@ Public Class frmAbout
         noSec = noTicks                             '   no of secs
 
         Return String.Format("{0} days  {1:00} hrs  {2:00} mins  {3:00} secs", noDays, noHours, noMin, noSec)
-
     End Function
 
 End Class

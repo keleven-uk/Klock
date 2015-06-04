@@ -253,14 +253,12 @@
                 getFuzzyTime = String.Format("{0} {1} {2}", sRtn, hours(hour), ampm)
             End If
         End If
-
     End Function
 
     Private Function getLocalTime() As String
         '   returns local time
 
         getLocalTime = Now.ToLocalTime.ToLongTimeString
-
     End Function
 
     Private Function getwordsTime() As String
@@ -308,14 +306,12 @@
         End Select
 
         getwordsTime = minsStr
-
     End Function
 
     Private Function getUTCTime() As String
         '   returns current [local] time as a Univarsal Current Time.
 
         getUTCTime = Now.ToUniversalTime.ToLongTimeString
-
     End Function
 
     Private Function getSwatchTime() As String
@@ -334,7 +330,6 @@
         Else
             getSwatchTime = String.Format("@ {0:###} BMT", noOfBeats)
         End If
-
     End Function
 
     Private Function getNetTime() As String
@@ -363,7 +358,6 @@
         End If
 
         getNetTime = String.Format("{0} deg {1} min {2} sec", deg, min, sec)
-
     End Function
 
     Private Function getJulianTime() As String
@@ -380,7 +374,6 @@
         jt = jt + ((UTC.Hour - 12) / 24) + (UTC.Minute / 1440) + (UTC.Second / 86400)
 
         getJulianTime = String.Format("{0:#######.#######}", jt)
-
     End Function
 
     Private Function getDecimalTime() As String
@@ -395,7 +388,6 @@
         Dim secs As Integer = (NoOfDecSecs - (hrs * 10000) - (mins * 100))
 
         getDecimalTime = String.Format("{0:00} {1:00} {2:00}", hrs, mins, secs)
-
     End Function
 
     Private Function getTrueHexTime() As String
@@ -415,7 +407,6 @@
         Else
             getTrueHexTime = String.Format(".{0}{1}{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
         End If
-
     End Function
 
     Private Function getBinaryTime() As String
@@ -427,8 +418,8 @@
         Dim secs As Integer = Now.Second
 
         getBinaryTime = String.Format("{0}:{1}:{2}", Convert.ToString(hour, 2), Convert.ToString(mins, 2), Convert.ToString(secs, 2))
-
     End Function
+
     Private Function getOctTime() As String
         '   Returns current [local] time in octal [base 8] format.
         '   This is only a octal representation of the current time.
@@ -438,7 +429,6 @@
         Dim secs As Integer = Now.Second
 
         getOctTime = String.Format("{0}:{1}:{2}", Convert.ToString(hour, 8).PadLeft(2, "0"c), Convert.ToString(mins, 8).PadLeft(2, "0"c), Convert.ToString(secs, 8).PadLeft(2, "0"c))
-
     End Function
 
     Private Function getHexTime() As String
@@ -450,10 +440,7 @@
         Dim secs As Integer = Now.Second
 
         getHexTime = String.Format("{0}:{1}:{2}", Convert.ToString(hour, 16).PadLeft(2, "0"c), Convert.ToString(mins, 16).PadLeft(2, "0"c), Convert.ToString(secs, 16).PadLeft(2, "0"c))
-
-
     End Function
-
 
     Private Function getMetricTime() As String
         '   Returns the current [local] time in Metric time.
@@ -466,7 +453,6 @@
         Dim noOfK As Double = noOfSeconds / 1000
 
         getMetricTime = String.Format("{0:##.000} Kiloseconds", noOfK)
-
     End Function
 
     Private Function getUnixTime() As String
@@ -479,7 +465,6 @@
         Dim secs As Integer = tday.Subtract(epoc).TotalSeconds
 
         getUnixTime = String.Format("{0}", secs)
-
     End Function
 
     Private Function getRomanTime() As String
@@ -490,7 +475,6 @@
         Dim secs As Integer = Now().Second
 
         getRomanTime = String.Format("{0} {1} {2}", Me.toRoman(hours), Me.toRoman(mins), Me.toRoman(secs))
-
     End Function
 
     Private Function toRoman(time) As String
@@ -527,7 +511,6 @@
         Loop Until time < 1
 
         toRoman = result
-
     End Function
 
     Private Function getMarsSolDate()
@@ -576,9 +559,7 @@
         Dim secs As Integer = Now.Second * (5 / 3)
 
         getFlowTime = String.Format("{0:00}:{1:00}:{2:00}", hour, mins, secs)
-
     End Function
-
 
     Private Function MilliSecondOfTheDay() As Integer
         '   Returns the total number of milliseconds since midnight.
@@ -588,6 +569,5 @@
         MilliSecondOfTheDay = ts.TotalMilliseconds
 
     End Function
-
 
 End Class

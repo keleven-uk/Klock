@@ -1,9 +1,73 @@
 ------------------------------------------------------------------------
+r36 | Keleven | 2013-10-12 22:09:33 +0100 (Sat, 12 Oct 2013) | 8 lines
+
+Still working through the Events.  
+Added DataButtons.vb, which contains logic common to the buttons of both friends and Events.
+
+[frmKlock.vb]
+Mainly the movement of code from here to DataButtons.vb.
+
+[Events.vb]
+Simplification of the events objects.
+Removed Events periods and checkboxes for one off or recuring, for now.
+------------------------------------------------------------------------
+r35 | Media | 2013-10-03 20:53:22 +0100 (Thu, 03 Oct 2013) | 20 lines
+
+Still working through the Events. 
+Added eventThings.vb, which contains things to format the event message i.e. list of wedding anniversaries etc.
+
+[frmKlock.vb]
+Added code to handle default time formats.
+Added code for events check.
+Removed some debug code.
+
+[frmOptions.vb]
+Added code to handle default time formats.
+
+[UserSettings.vb]
+Added code to handle default time formats.
+
+[Events.vb]
+Added function NoOfYears()
+
+[frmNotification.vb]
+Amended code that display the notification.  It can now be called in reminder or event mode.
+
+Corrected spelling mistakes in all modules.
+------------------------------------------------------------------------
+r34 | scottk2 | 2013-09-09 14:44:42 +0100 (Mon, 09 Sep 2013) | 3 lines
+
+The archive stuff used a third party library from Ionic to produced the zip file.  
+Found an article which uses shell32 to produce the zip files a lot more simply.  
+This creates a native windows zip directory and copies the files into it.  
+
+Removed Ionic.Zip.Reduced.dll & Ionic_License.txt.
+------------------------------------------------------------------------
+r33 | Media | 2013-09-05 21:15:10 +0100 (Thu, 05 Sep 2013) | 14 lines
+
+Most of code for Events is now written - needs testing [lots].
+
+[frmKlock.vb]
+It seems that the timer maximum interval is a couple of minutes.  
+Now uses static variables to count the minutes.
+More code for Events.
+
+[frmNotification.vb]
+Amended original code to run differnet for notification called as either reminder of events.  
+Reminders will be closed by the time, but events will be closed by the user.
+
+[frmOptions.vb] & [UserSettings.vb]
+More options added for Events.
+
+[selectAction.vb]
+Added new action = DisplayEvent()
+------------------------------------------------------------------------
 r32 | Media | 2013-08-15 21:17:33 +0100 (Thu, 15 Aug 2013) | 5 lines
 
 Further code added for Events - still not completed.
 
-It seems that some of the settings are not saving [but some are].  Needs further investigation.
+It seems that some of the settings are not saving [but some are]. 
+ Needs further investigation.  Correct in build 34, I think.
 
 
 ------------------------------------------------------------------------

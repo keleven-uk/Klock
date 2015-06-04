@@ -176,6 +176,15 @@ Partial Class frmKlock
         Me.TxtBxEventsName = New System.Windows.Forms.TextBox()
         Me.GroupBox19 = New System.Windows.Forms.GroupBox()
         Me.LstBxEvents = New System.Windows.Forms.ListBox()
+        Me.TbPgMemo = New System.Windows.Forms.TabPage()
+        Me.GroupBox22 = New System.Windows.Forms.GroupBox()
+        Me.pnlMemo = New System.Windows.Forms.Panel()
+        Me.TxtBxMemo = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.TxtBxMemoName = New System.Windows.Forms.TextBox()
+        Me.lblMemoName = New System.Windows.Forms.Label()
+        Me.GroupBox21 = New System.Windows.Forms.GroupBox()
+        Me.LstBxMemo = New System.Windows.Forms.ListBox()
         Me.btnHide = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnHelp = New System.Windows.Forms.Button()
@@ -231,6 +240,10 @@ Partial Class frmKlock
         Me.GroupBox20.SuspendLayout()
         Me.pnlEvents.SuspendLayout()
         Me.GroupBox19.SuspendLayout()
+        Me.TbPgMemo.SuspendLayout()
+        Me.GroupBox22.SuspendLayout()
+        Me.pnlMemo.SuspendLayout()
+        Me.GroupBox21.SuspendLayout()
         Me.CntxtMnStrpKlock.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -381,6 +394,7 @@ Partial Class frmKlock
         Me.TbCntrl.Controls.Add(Me.TbPgReminder)
         Me.TbCntrl.Controls.Add(Me.TbPgFriends)
         Me.TbCntrl.Controls.Add(Me.TbPgEvents)
+        Me.TbCntrl.Controls.Add(Me.TbPgMemo)
         Me.TbCntrl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TbCntrl.Location = New System.Drawing.Point(12, 27)
         Me.TbCntrl.Name = "TbCntrl"
@@ -1651,17 +1665,17 @@ Partial Class frmKlock
         '
         'txtbxEventNotes
         '
-        Me.txtbxEventNotes.Location = New System.Drawing.Point(17, 69)
+        Me.txtbxEventNotes.Location = New System.Drawing.Point(8, 57)
         Me.txtbxEventNotes.Multiline = True
         Me.txtbxEventNotes.Name = "txtbxEventNotes"
         Me.txtbxEventNotes.ReadOnly = True
-        Me.txtbxEventNotes.Size = New System.Drawing.Size(363, 63)
+        Me.txtbxEventNotes.Size = New System.Drawing.Size(372, 63)
         Me.txtbxEventNotes.TabIndex = 11
         '
         'lblEventNotes
         '
         Me.lblEventNotes.AutoSize = True
-        Me.lblEventNotes.Location = New System.Drawing.Point(14, 45)
+        Me.lblEventNotes.Location = New System.Drawing.Point(3, 39)
         Me.lblEventNotes.Name = "lblEventNotes"
         Me.lblEventNotes.Size = New System.Drawing.Size(72, 15)
         Me.lblEventNotes.TabIndex = 6
@@ -1740,6 +1754,94 @@ Partial Class frmKlock
         Me.LstBxEvents.Size = New System.Drawing.Size(227, 88)
         Me.LstBxEvents.Sorted = True
         Me.LstBxEvents.TabIndex = 0
+        '
+        'TbPgMemo
+        '
+        Me.TbPgMemo.Controls.Add(Me.GroupBox22)
+        Me.TbPgMemo.Controls.Add(Me.GroupBox21)
+        Me.TbPgMemo.Location = New System.Drawing.Point(4, 25)
+        Me.TbPgMemo.Name = "TbPgMemo"
+        Me.TbPgMemo.Size = New System.Drawing.Size(671, 131)
+        Me.TbPgMemo.TabIndex = 7
+        Me.TbPgMemo.Text = "Memo"
+        Me.TbPgMemo.UseVisualStyleBackColor = True
+        '
+        'GroupBox22
+        '
+        Me.GroupBox22.Controls.Add(Me.pnlMemo)
+        Me.GroupBox22.Location = New System.Drawing.Point(251, 6)
+        Me.GroupBox22.Name = "GroupBox22"
+        Me.GroupBox22.Size = New System.Drawing.Size(413, 122)
+        Me.GroupBox22.TabIndex = 2
+        Me.GroupBox22.TabStop = False
+        '
+        'pnlMemo
+        '
+        Me.pnlMemo.AutoScroll = True
+        Me.pnlMemo.Controls.Add(Me.TxtBxMemo)
+        Me.pnlMemo.Controls.Add(Me.Label2)
+        Me.pnlMemo.Controls.Add(Me.TxtBxMemoName)
+        Me.pnlMemo.Controls.Add(Me.lblMemoName)
+        Me.pnlMemo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlMemo.Location = New System.Drawing.Point(3, 16)
+        Me.pnlMemo.Name = "pnlMemo"
+        Me.pnlMemo.Size = New System.Drawing.Size(407, 103)
+        Me.pnlMemo.TabIndex = 0
+        '
+        'TxtBxMemo
+        '
+        Me.TxtBxMemo.Location = New System.Drawing.Point(8, 57)
+        Me.TxtBxMemo.Multiline = True
+        Me.TxtBxMemo.Name = "TxtBxMemo"
+        Me.TxtBxMemo.ReadOnly = True
+        Me.TxtBxMemo.Size = New System.Drawing.Size(372, 63)
+        Me.TxtBxMemo.TabIndex = 12
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(3, 39)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(43, 15)
+        Me.Label2.TabIndex = 2
+        Me.Label2.Text = "Memo"
+        '
+        'TxtBxMemoName
+        '
+        Me.TxtBxMemoName.Location = New System.Drawing.Point(8, 18)
+        Me.TxtBxMemoName.Name = "TxtBxMemoName"
+        Me.TxtBxMemoName.ReadOnly = True
+        Me.TxtBxMemoName.Size = New System.Drawing.Size(120, 20)
+        Me.TxtBxMemoName.TabIndex = 1
+        '
+        'lblMemoName
+        '
+        Me.lblMemoName.AutoSize = True
+        Me.lblMemoName.Location = New System.Drawing.Point(3, 0)
+        Me.lblMemoName.Name = "lblMemoName"
+        Me.lblMemoName.Size = New System.Drawing.Size(80, 15)
+        Me.lblMemoName.TabIndex = 0
+        Me.lblMemoName.Text = "Memo Name"
+        '
+        'GroupBox21
+        '
+        Me.GroupBox21.Controls.Add(Me.LstBxMemo)
+        Me.GroupBox21.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox21.Name = "GroupBox21"
+        Me.GroupBox21.Size = New System.Drawing.Size(239, 122)
+        Me.GroupBox21.TabIndex = 1
+        Me.GroupBox21.TabStop = False
+        '
+        'LstBxMemo
+        '
+        Me.LstBxMemo.Font = New System.Drawing.Font("Lucida Sans Typewriter", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LstBxMemo.FormattingEnabled = True
+        Me.LstBxMemo.ItemHeight = 12
+        Me.LstBxMemo.Location = New System.Drawing.Point(6, 19)
+        Me.LstBxMemo.Name = "LstBxMemo"
+        Me.LstBxMemo.Size = New System.Drawing.Size(227, 88)
+        Me.LstBxMemo.Sorted = True
+        Me.LstBxMemo.TabIndex = 0
         '
         'btnHide
         '
@@ -1963,6 +2065,11 @@ Partial Class frmKlock
         Me.pnlEvents.ResumeLayout(False)
         Me.pnlEvents.PerformLayout()
         Me.GroupBox19.ResumeLayout(False)
+        Me.TbPgMemo.ResumeLayout(False)
+        Me.GroupBox22.ResumeLayout(False)
+        Me.pnlMemo.ResumeLayout(False)
+        Me.pnlMemo.PerformLayout()
+        Me.GroupBox21.ResumeLayout(False)
         Me.CntxtMnStrpKlock.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -2142,5 +2249,14 @@ Partial Class frmKlock
     Friend WithEvents txtbxEventNotes As System.Windows.Forms.TextBox
     Friend WithEvents tmrEvents As System.Windows.Forms.Timer
     Friend WithEvents btnEventsCheck As System.Windows.Forms.Button
+    Friend WithEvents TbPgMemo As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox22 As System.Windows.Forms.GroupBox
+    Friend WithEvents GroupBox21 As System.Windows.Forms.GroupBox
+    Friend WithEvents LstBxMemo As System.Windows.Forms.ListBox
+    Friend WithEvents pnlMemo As System.Windows.Forms.Panel
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents TxtBxMemoName As System.Windows.Forms.TextBox
+    Friend WithEvents lblMemoName As System.Windows.Forms.Label
+    Friend WithEvents TxtBxMemo As System.Windows.Forms.TextBox
 
 End Class

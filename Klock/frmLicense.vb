@@ -38,7 +38,6 @@ Public Class frmLicence
             End Try
 
         End If
-
     End Sub
 
 End Class

@@ -153,7 +153,6 @@ Public Class frmNotification
         For Each openForm As frmNotification In frmNotification.openForms
             If mode = "R" Then openForm.lifeTimer.Stop() '   timer only used for reminders.
         Next
-
     End Sub
 
     Private Sub NotificationForm_MouseLeave(sender As System.Object, e As System.EventArgs) Handles MyBase.MouseLeave, lblMessage1.MouseLeave, lblMessage2.MouseHover
@@ -161,7 +160,6 @@ Public Class frmNotification
         For Each openForm As frmNotification In frmNotification.openForms
             If mode = "R" Then openForm.lifeTimer.Start() '   timer only used for reminders.
         Next
-
     End Sub
 
     Private Sub NotificationForm_Click(sender As System.Object, e As System.EventArgs) Handles MyBase.Click, lblMessage1.Click, lblMessage2.Click
@@ -182,9 +180,5 @@ Public Class frmNotification
 
     Private Sub btnExit_Click(sender As System.Object, e As System.EventArgs) Handles btnExit.Click
         Me.Close()
-    End Sub
-
-    Private Sub btnExit_MouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles btnExit.MouseDown
-
     End Sub
 End Class

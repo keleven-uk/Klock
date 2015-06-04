@@ -67,21 +67,25 @@ Public Class UserSettings
     Private _usrNotificationTimeOut As Integer = 5000
     Private _usrNotificationOpacity As Integer = 80
 
-    Private _usrEventNotificationFont As Font = frmOptions.DefaultFont
-    Private _usrEventNotificationFontColour As Color = Color.Black
-    Private _usrFirstEventNotificationbackColour As Color = Color.Green
-    Private _usrSecondEventNotificationbackColour As Color = Color.Yellow
-    Private _usrThirdEventNotificationbackColour As Color = Color.Red
-    Private _usrEventNotificationOpacity As Integer = 80
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
     Private _usrFriendsFile As String = "Friends.bin"
     '-------------------------------------------------------------------------------------------------------- Events Settings ------------
     Private _usrEventsFile As String = "Events.bin"
+
+    Private _usrEventNotificationFont As Font = frmOptions.DefaultFont
+    Private _usrEventNotificationFontColour As Color = Color.Black
+    Private _usrFirstEventNotificationbackColour As Color = Color.FromArgb(242, 255, 198, 255)
+    Private _usrSecondEventNotificationbackColour As Color = Color.FromArgb(255, 255, 183, 255)
+    Private _usrThirdEventNotificationbackColour As Color = Color.FromArgb(255, 168, 168, 255)
+
     Private _usrEventsFirstReminder As Integer = 31
     Private _usrEventsSecondReminder As Integer = 7
     Private _usrEventsThirdReminder As Integer = 1
-    Private _usrEventsTimerInterval As Integer = 60
 
+    Private _usrEventNotificationOpacity As Integer = 80
+    Private _usrEventsTimerInterval As Integer = 60
+    '-------------------------------------------------------------------------------------------------------- Memo Settings -------------
+    Private _usrMemoFile As String = "Memo.bin"
 
 
     '   run on set up - blank at the moment.
@@ -555,6 +559,18 @@ Public Class UserSettings
         End Set
     End Property
 
+    '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
+
+    Public Property usrMemoFile() As String
+        Get
+            Return _usrMemoFile
+        End Get
+        Set(ByVal value As String)
+            _usrMemoFile = value
+        End Set
+    End Property
+
+
     '-------------------------------------------------------------------------------------------------------- file methods ------------
 
     Public Sub writeSettings()
@@ -593,7 +609,7 @@ Public Class UserSettings
                               </Global>
                               <Time>
                                   <TimeDefaultFormat><%= usrTimeDefaultFormat() %></TimeDefaultFormat>
-                                  <TimeTwoDefaultFormat><%= usrTimeTwoDefaultFormat() %></TimeTwoDefaultFormat>
+                                  <TimeTwoDefaultFormat><%= usrTimeTWODefaultFormat() %></TimeTwoDefaultFormat>
                                   <TimeTwoFormats><%= usrTimeTwoFormats() %></TimeTwoFormats>
                                   <TimeSwatchCentibeats><%= usrTimeSwatchCentibeats() %></TimeSwatchCentibeats>
                                   <TimeNETSeconds><%= usrTimeNETSeconds() %></TimeNETSeconds>
@@ -683,10 +699,12 @@ Public Class UserSettings
                                   <EventsThirdReminder><%= usrEventsThirdReminder() %></EventsThirdReminder>
                                   <EventsTimerInterval><%= usrEventsTimerInterval() %></EventsTimerInterval>
                               </Events>
+                              <Memo>
+                                  <MemoFileName><%= usrMemoFile() %></MemoFileName>
+                              </Memo>
                           </klock>
 
         xmlSettings.Save(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
-
     End Sub
 
     Public Sub writeDefaultSettings()
@@ -783,21 +801,21 @@ Public Class UserSettings
                                       <EventNotificationFontColourA>255</EventNotificationFontColourA>
                                   </EventNotificationFontColour>
                                   <FirstEventNotificationColour>
-                                      <FirstNotificationColourR>128</FirstNotificationColourR>
+                                      <FirstNotificationColourR>242</FirstNotificationColourR>
                                       <FirstNotificationColourG>255</FirstNotificationColourG>
-                                      <FirstNotificationColourB>128</FirstNotificationColourB>
+                                      <FirstNotificationColourB>198</FirstNotificationColourB>
                                       <FirstNotificationColourA>255</FirstNotificationColourA>
                                   </FirstEventNotificationColour>
                                   <SecondEventNotificationColour>
-                                      <SecondFirstNotificationColourR>0</SecondFirstNotificationColourR>
+                                      <SecondFirstNotificationColourR>255</SecondFirstNotificationColourR>
                                       <SecondFirstNotificationColourG>255</SecondFirstNotificationColourG>
-                                      <SecondFirstNotificationColourB>0</SecondFirstNotificationColourB>
+                                      <SecondFirstNotificationColourB>183</SecondFirstNotificationColourB>
                                       <SecondFirstNotificationColourA>255</SecondFirstNotificationColourA>
                                   </SecondEventNotificationColour>
                                   <ThirdEventNotificationColour>
-                                      <ThirdFirstNotificationColourR>0</ThirdFirstNotificationColourR>
-                                      <ThirdFirstNotificationColourG>0</ThirdFirstNotificationColourG>
-                                      <ThirdFirstNotificationColourB>255</ThirdFirstNotificationColourB>
+                                      <ThirdFirstNotificationColourR>255</ThirdFirstNotificationColourR>
+                                      <ThirdFirstNotificationColourG>168</ThirdFirstNotificationColourG>
+                                      <ThirdFirstNotificationColourB>168</ThirdFirstNotificationColourB>
                                       <ThirdFirstNotificationColourA>255</ThirdFirstNotificationColourA>
                                   </ThirdEventNotificationColour>
                                   <EventNotificationOpacity>80</EventNotificationOpacity>
@@ -814,11 +832,13 @@ Public Class UserSettings
                                   <EventsThirdReminder>1</EventsThirdReminder>
                                   <EventsTimerInterval>60</EventsTimerInterval>
                               </Events>
+                              <Memo>
+                                  <MemoFileName><%= usrMemoFile() %></MemoFileName>
+                              </Memo>
                           </klock>
 
 
         xmlSettings.Save(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
-
     End Sub
 
     Public Sub readSettings()
@@ -993,7 +1013,11 @@ Public Class UserSettings
             Me.usrEventsThirdReminder = CType(readElement(evnts, "EventsThirdReminder", usrEventsThirdReminder()), Integer)
             Me.usrEventsTimerInterval = CType(readElement(evnts, "EventsTimerInterval", usrEventsTimerInterval()), Integer)
 
+            '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
+            '   values are strings, so need to convert.
 
+            Dim memo = elem.Element("Memo")
+            Me.usrMemoFile = readElement(memo, "MemoFileName", usrMemoFile())
 
             '   If version has changed, some settings might need to be added [will have been set to default].
             If version <> My.Application.Info.Version.ToString() Then
@@ -1003,8 +1027,6 @@ Public Class UserSettings
         Catch ex As Exception
             MessageBox.Show("Error reading stream!  " & ex.Message, "Error")
         End Try
-
-
     End Sub
 
     Private Function readElement(ByVal g As XElement, ByVal s As String, ByVal d As String) As String
@@ -1017,7 +1039,6 @@ Public Class UserSettings
         Catch ex As Exception
             readElement = d
         End Try
-
     End Function
 
     Private Sub checkDataFile()
