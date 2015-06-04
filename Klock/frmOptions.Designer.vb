@@ -77,9 +77,6 @@ Partial Class frmOptions
         Me.ChckBxTimeTimeOne24 = New System.Windows.Forms.CheckBox()
         Me.ChckBxTimeSystem24 = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.ChckBxOptionsAgent = New System.Windows.Forms.CheckBox()
-        Me.UpDwnAgentDisplay = New System.Windows.Forms.NumericUpDown()
-        Me.Label24 = New System.Windows.Forms.Label()
         Me.lblTimeTwo = New System.Windows.Forms.Label()
         Me.CmbBxDefaultTimeTwoFormat = New System.Windows.Forms.ComboBox()
         Me.Label21 = New System.Windows.Forms.Label()
@@ -160,20 +157,11 @@ Partial Class frmOptions
         Me.Label23 = New System.Windows.Forms.Label()
         Me.TxtBxMemoDefaultPassword = New System.Windows.Forms.TextBox()
         Me.ChckBxMemoDefaultPassword = New System.Windows.Forms.CheckBox()
-        Me.TbPgAgents = New System.Windows.Forms.TabPage()
-        Me.GroupBox20 = New System.Windows.Forms.GroupBox()
-        Me.LblAgentsInfo = New System.Windows.Forms.Label()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.CmbBxAgents = New System.Windows.Forms.ComboBox()
-        Me.GroupBox19 = New System.Windows.Forms.GroupBox()
-        Me.ChckBxAgentsActive = New System.Windows.Forms.CheckBox()
         Me.btnArchiveLoad = New System.Windows.Forms.Button()
         Me.btnArchiveSave = New System.Windows.Forms.Button()
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.btnOptionsAgentsReload = New System.Windows.Forms.Button()
-        Me.btnOptionsAgentsTest = New System.Windows.Forms.Button()
         Me.TabCntrlOptions.SuspendLayout()
         Me.TbPgGlobal.SuspendLayout()
         Me.GroupBox17.SuspendLayout()
@@ -192,7 +180,6 @@ Partial Class frmOptions
         Me.TbPgTime.SuspendLayout()
         Me.GroupBox18.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
-        CType(Me.UpDwnAgentDisplay, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UpDwnVoiceDisplay, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UpDwnTimeDisplay, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -216,9 +203,6 @@ Partial Class frmOptions
         Me.TbPgMemo.SuspendLayout()
         Me.GroupBox16.SuspendLayout()
         CType(Me.NmrcUpDwnMemoDecrypt, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TbPgAgents.SuspendLayout()
-        Me.GroupBox20.SuspendLayout()
-        Me.GroupBox19.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnOptionsClose
@@ -314,7 +298,6 @@ Partial Class frmOptions
         Me.TabCntrlOptions.Controls.Add(Me.TbPgArchive)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgEvents)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgMemo)
-        Me.TabCntrlOptions.Controls.Add(Me.TbPgAgents)
         Me.TabCntrlOptions.Location = New System.Drawing.Point(12, 12)
         Me.TabCntrlOptions.Multiline = True
         Me.TabCntrlOptions.Name = "TabCntrlOptions"
@@ -726,7 +709,7 @@ Partial Class frmOptions
         Me.ChckBxTimeSystem12.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.ChckBxTimeSystem12.Size = New System.Drawing.Size(64, 17)
         Me.ChckBxTimeSystem12.TabIndex = 3
-        Me.ChckBxTimeSystem12.Text = "12 Hour"
+        Me.ChckBxTimeSystem12.Text = "Hour 12"
         Me.ChckBxTimeSystem12.UseVisualStyleBackColor = True
         '
         'ChckBxTimeTimeTwo24
@@ -764,9 +747,6 @@ Partial Class frmOptions
         '
         'GroupBox3
         '
-        Me.GroupBox3.Controls.Add(Me.ChckBxOptionsAgent)
-        Me.GroupBox3.Controls.Add(Me.UpDwnAgentDisplay)
-        Me.GroupBox3.Controls.Add(Me.Label24)
         Me.GroupBox3.Controls.Add(Me.lblTimeTwo)
         Me.GroupBox3.Controls.Add(Me.CmbBxDefaultTimeTwoFormat)
         Me.GroupBox3.Controls.Add(Me.Label21)
@@ -787,34 +767,6 @@ Partial Class frmOptions
         Me.GroupBox3.TabIndex = 5
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Settings"
-        '
-        'ChckBxOptionsAgent
-        '
-        Me.ChckBxOptionsAgent.AutoSize = True
-        Me.ChckBxOptionsAgent.Location = New System.Drawing.Point(249, 130)
-        Me.ChckBxOptionsAgent.Name = "ChckBxOptionsAgent"
-        Me.ChckBxOptionsAgent.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxOptionsAgent.Size = New System.Drawing.Size(50, 17)
-        Me.ChckBxOptionsAgent.TabIndex = 18
-        Me.ChckBxOptionsAgent.Text = "[mins"
-        Me.ChckBxOptionsAgent.UseVisualStyleBackColor = True
-        '
-        'UpDwnAgentDisplay
-        '
-        Me.UpDwnAgentDisplay.Location = New System.Drawing.Point(206, 127)
-        Me.UpDwnAgentDisplay.Name = "UpDwnAgentDisplay"
-        Me.UpDwnAgentDisplay.Size = New System.Drawing.Size(38, 20)
-        Me.UpDwnAgentDisplay.TabIndex = 17
-        Me.UpDwnAgentDisplay.Value = New Decimal(New Integer() {5, 0, 0, 0})
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(93, 131)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(107, 13)
-        Me.Label24.TabIndex = 16
-        Me.Label24.Text = "Time by Agent [every"
         '
         'lblTimeTwo
         '
@@ -857,7 +809,7 @@ Partial Class frmOptions
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(85, 103)
+        Me.Label8.Location = New System.Drawing.Point(81, 119)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(115, 13)
         Me.Label8.TabIndex = 11
@@ -865,7 +817,7 @@ Partial Class frmOptions
         '
         'UpDwnVoiceDisplay
         '
-        Me.UpDwnVoiceDisplay.Location = New System.Drawing.Point(206, 101)
+        Me.UpDwnVoiceDisplay.Location = New System.Drawing.Point(202, 112)
         Me.UpDwnVoiceDisplay.Maximum = New Decimal(New Integer() {60, 0, 0, 0})
         Me.UpDwnVoiceDisplay.Name = "UpDwnVoiceDisplay"
         Me.UpDwnVoiceDisplay.Size = New System.Drawing.Size(38, 20)
@@ -875,7 +827,7 @@ Partial Class frmOptions
         'ChckBxOptionsVoice
         '
         Me.ChckBxOptionsVoice.AutoSize = True
-        Me.ChckBxOptionsVoice.Location = New System.Drawing.Point(249, 103)
+        Me.ChckBxOptionsVoice.Location = New System.Drawing.Point(249, 115)
         Me.ChckBxOptionsVoice.Name = "ChckBxOptionsVoice"
         Me.ChckBxOptionsVoice.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ChckBxOptionsVoice.Size = New System.Drawing.Size(50, 17)
@@ -919,7 +871,7 @@ Partial Class frmOptions
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(26, 82)
+        Me.Label6.Location = New System.Drawing.Point(22, 93)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(174, 13)
         Me.Label6.TabIndex = 5
@@ -938,7 +890,7 @@ Partial Class frmOptions
         '
         'UpDwnTimeDisplay
         '
-        Me.UpDwnTimeDisplay.Location = New System.Drawing.Point(205, 75)
+        Me.UpDwnTimeDisplay.Location = New System.Drawing.Point(202, 86)
         Me.UpDwnTimeDisplay.Maximum = New Decimal(New Integer() {60, 0, 0, 0})
         Me.UpDwnTimeDisplay.Name = "UpDwnTimeDisplay"
         Me.UpDwnTimeDisplay.Size = New System.Drawing.Size(38, 20)
@@ -950,7 +902,7 @@ Partial Class frmOptions
         Me.ChckBxTimeToast.AutoSize = True
         Me.ChckBxTimeToast.Checked = True
         Me.ChckBxTimeToast.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChckBxTimeToast.Location = New System.Drawing.Point(249, 76)
+        Me.ChckBxTimeToast.Location = New System.Drawing.Point(249, 87)
         Me.ChckBxTimeToast.Name = "ChckBxTimeToast"
         Me.ChckBxTimeToast.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ChckBxTimeToast.Size = New System.Drawing.Size(50, 17)
@@ -1629,79 +1581,6 @@ Partial Class frmOptions
         Me.ChckBxMemoDefaultPassword.Text = "Use Default Password"
         Me.ChckBxMemoDefaultPassword.UseVisualStyleBackColor = True
         '
-        'TbPgAgents
-        '
-        Me.TbPgAgents.Controls.Add(Me.GroupBox20)
-        Me.TbPgAgents.Controls.Add(Me.GroupBox19)
-        Me.TbPgAgents.Location = New System.Drawing.Point(4, 25)
-        Me.TbPgAgents.Name = "TbPgAgents"
-        Me.TbPgAgents.Size = New System.Drawing.Size(660, 265)
-        Me.TbPgAgents.TabIndex = 10
-        Me.TbPgAgents.Text = "MS Agents"
-        Me.TbPgAgents.UseVisualStyleBackColor = True
-        '
-        'GroupBox20
-        '
-        Me.GroupBox20.Controls.Add(Me.btnOptionsAgentsTest)
-        Me.GroupBox20.Controls.Add(Me.btnOptionsAgentsReload)
-        Me.GroupBox20.Controls.Add(Me.LblAgentsInfo)
-        Me.GroupBox20.Controls.Add(Me.Label25)
-        Me.GroupBox20.Controls.Add(Me.CmbBxAgents)
-        Me.GroupBox20.Location = New System.Drawing.Point(6, 69)
-        Me.GroupBox20.Name = "GroupBox20"
-        Me.GroupBox20.Size = New System.Drawing.Size(648, 181)
-        Me.GroupBox20.TabIndex = 1
-        Me.GroupBox20.TabStop = False
-        Me.GroupBox20.Text = "Data"
-        '
-        'LblAgentsInfo
-        '
-        Me.LblAgentsInfo.AutoSize = True
-        Me.LblAgentsInfo.Location = New System.Drawing.Point(109, 87)
-        Me.LblAgentsInfo.Name = "LblAgentsInfo"
-        Me.LblAgentsInfo.Size = New System.Drawing.Size(56, 13)
-        Me.LblAgentsInfo.TabIndex = 2
-        Me.LblAgentsInfo.Text = "Agent Info"
-        Me.LblAgentsInfo.Visible = False
-        '
-        'Label25
-        '
-        Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(62, 22)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(68, 13)
-        Me.Label25.TabIndex = 1
-        Me.Label25.Text = "Active Agent"
-        '
-        'CmbBxAgents
-        '
-        Me.CmbBxAgents.FormattingEnabled = True
-        Me.CmbBxAgents.Location = New System.Drawing.Point(147, 19)
-        Me.CmbBxAgents.Name = "CmbBxAgents"
-        Me.CmbBxAgents.Size = New System.Drawing.Size(121, 21)
-        Me.CmbBxAgents.TabIndex = 0
-        '
-        'GroupBox19
-        '
-        Me.GroupBox19.Controls.Add(Me.ChckBxAgentsActive)
-        Me.GroupBox19.Location = New System.Drawing.Point(6, 6)
-        Me.GroupBox19.Name = "GroupBox19"
-        Me.GroupBox19.Size = New System.Drawing.Size(648, 47)
-        Me.GroupBox19.TabIndex = 0
-        Me.GroupBox19.TabStop = False
-        Me.GroupBox19.Text = "Active"
-        '
-        'ChckBxAgentsActive
-        '
-        Me.ChckBxAgentsActive.AutoSize = True
-        Me.ChckBxAgentsActive.Location = New System.Drawing.Point(54, 19)
-        Me.ChckBxAgentsActive.Name = "ChckBxAgentsActive"
-        Me.ChckBxAgentsActive.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxAgentsActive.Size = New System.Drawing.Size(111, 17)
-        Me.ChckBxAgentsActive.TabIndex = 0
-        Me.ChckBxAgentsActive.Text = "MS Agents Active"
-        Me.ChckBxAgentsActive.UseVisualStyleBackColor = True
-        '
         'btnArchiveLoad
         '
         Me.btnArchiveLoad.Enabled = False
@@ -1735,24 +1614,6 @@ Partial Class frmOptions
         '
         Me.OpenFileDialog1.CheckFileExists = False
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
-        '
-        'btnOptionsAgentsReload
-        '
-        Me.btnOptionsAgentsReload.Location = New System.Drawing.Point(294, 17)
-        Me.btnOptionsAgentsReload.Name = "btnOptionsAgentsReload"
-        Me.btnOptionsAgentsReload.Size = New System.Drawing.Size(75, 23)
-        Me.btnOptionsAgentsReload.TabIndex = 3
-        Me.btnOptionsAgentsReload.Text = "Reload"
-        Me.btnOptionsAgentsReload.UseVisualStyleBackColor = True
-        '
-        'btnOptionsAgentsTest
-        '
-        Me.btnOptionsAgentsTest.Location = New System.Drawing.Point(378, 17)
-        Me.btnOptionsAgentsTest.Name = "btnOptionsAgentsTest"
-        Me.btnOptionsAgentsTest.Size = New System.Drawing.Size(75, 23)
-        Me.btnOptionsAgentsTest.TabIndex = 4
-        Me.btnOptionsAgentsTest.Text = "Test"
-        Me.btnOptionsAgentsTest.UseVisualStyleBackColor = True
         '
         'frmOptions
         '
@@ -1797,7 +1658,6 @@ Partial Class frmOptions
         Me.GroupBox18.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
-        CType(Me.UpDwnAgentDisplay, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UpDwnVoiceDisplay, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UpDwnTimeDisplay, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
@@ -1830,11 +1690,6 @@ Partial Class frmOptions
         Me.GroupBox16.ResumeLayout(False)
         Me.GroupBox16.PerformLayout()
         CType(Me.NmrcUpDwnMemoDecrypt, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TbPgAgents.ResumeLayout(False)
-        Me.GroupBox20.ResumeLayout(False)
-        Me.GroupBox20.PerformLayout()
-        Me.GroupBox19.ResumeLayout(False)
-        Me.GroupBox19.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1977,16 +1832,4 @@ Partial Class frmOptions
     Friend WithEvents ChckBxTimeTimeTwo24 As System.Windows.Forms.CheckBox
     Friend WithEvents ChckBxTimeTimeOne24 As System.Windows.Forms.CheckBox
     Friend WithEvents ChckBxTimeSystem24 As System.Windows.Forms.CheckBox
-    Friend WithEvents TbPgAgents As System.Windows.Forms.TabPage
-    Friend WithEvents GroupBox19 As System.Windows.Forms.GroupBox
-    Friend WithEvents ChckBxAgentsActive As System.Windows.Forms.CheckBox
-    Friend WithEvents GroupBox20 As System.Windows.Forms.GroupBox
-    Friend WithEvents CmbBxAgents As System.Windows.Forms.ComboBox
-    Friend WithEvents ChckBxOptionsAgent As System.Windows.Forms.CheckBox
-    Friend WithEvents UpDwnAgentDisplay As System.Windows.Forms.NumericUpDown
-    Friend WithEvents Label24 As System.Windows.Forms.Label
-    Friend WithEvents LblAgentsInfo As System.Windows.Forms.Label
-    Friend WithEvents Label25 As System.Windows.Forms.Label
-    Friend WithEvents btnOptionsAgentsTest As System.Windows.Forms.Button
-    Friend WithEvents btnOptionsAgentsReload As System.Windows.Forms.Button
 End Class

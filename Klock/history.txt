@@ -1,32 +1,4 @@
 ------------------------------------------------------------------------
-r43 | Keleven | 2013-12-01 21:08:29 +0000 (Sun, 01 Dec 2013) | 10 lines
-
-Added selectAgent.vb, a wrapper class for MS agents. 
-Although, I use DoubleAgent, an open source alternative.
-
-[frmKlock.vb, frmOptions.vb & UserSettings.vb)
-Added : code for Agents.
-if Agents are chosen, notification display and notification speech are not called.
-
-[frmOptions.vb]
-Fixed : incorrect text on 12 / 24 hour label  [thanks Zach].
-
-
-------------------------------------------------------------------------
-r42 | Keleven | 2013-11-20 22:53:56 +0000 (Wed, 20 Nov 2013) | 1 line
-
-New branch V 1.0.5.42.  To add MS Agent functions.
-
-Because Microsoft are not to support MS Agents, decided to use an open source
-alternative DoubleAgent - http://doubleagent.sourceforge.net/
-
-------------------------------------------------------------------------
-r41 | Keleven | 2013-11-20 22:52:16 +0000 (Wed, 20 Nov 2013) | 3 lines
-
-Spelt check of sources and slight clean up of code.
-
-Also closes V1.0.4.40.
-------------------------------------------------------------------------
 r40 | Keleven | 2013-11-18 22:11:08 +0000 (Mon, 18 Nov 2013) | 17 lines
 
 Added sounds & fonts directory to top level.
@@ -98,7 +70,7 @@ Mainly the movement of code from here to DataButtons.vb.
 
 [Events.vb]
 Simplification of the events objects.
-Removed Events periods and checkboxes for one off or recurring, for now.
+Removed Events periods and checkboxes for one off or recuring, for now.
 ------------------------------------------------------------------------
 r35 | Media | 2013-10-03 20:53:22 +0100 (Thu, 03 Oct 2013) | 20 lines
 
@@ -142,7 +114,7 @@ Now uses static variables to count the minutes.
 More code for Events.
 
 [frmNotification.vb]
-Amended original code to run different for notification called as either reminder of events.  
+Amended original code to run differnet for notification called as either reminder of events.  
 Reminders will be closed by the time, but events will be closed by the user.
 
 [frmOptions.vb] & [UserSettings.vb]
@@ -322,7 +294,7 @@ r22 | Media | 2013-05-30 21:52:25 +0100 (Thu, 30 May 2013) | 14 lines
 Deleted .exe - should not of been here in the first place.
 
 [Klock.vb]
-Added option to display two time formats, at the same time.
+Added option to display two time formates, at the same time.
 Added World Klock tab - allows the time from each time zone to be displayed.
 Amended the order of the main tabs - World Klock now tab 1.
 Added Info to main menu.
@@ -336,8 +308,7 @@ Added Info.vb, which can be used to display information.
 ------------------------------------------------------------------------
 r21 | Media | 2013-05-23 21:47:22 +0100 (Thu, 23 May 2013) | 17 lines
 
-The achieving[zip] of files is done using Ionic.Zip.Reduced.dll.
-Added the file and licence file to repository.
+The achieving[zip] of files is done using Ionic.Zip.Reduced.dll - added the file and licence file to repository.
 
 [klock.vb]
 Added the ability to display two time formats, the second is configured via user setting.  
@@ -350,7 +321,7 @@ Changed function key to F12 from F5 that display total number of friends on syst
 
 {options.vb]
 Added option to display two time formats.
-Added option to display hex time in HexIntuitor format [underscore separator].
+Added option to display hex time in HexIntuitor format [underscore sperator].
 Re-wrote the load and save achieve files - seems to be better.
 
 [selectTime.vb]
@@ -427,12 +398,9 @@ V 1.0.1 - will contain the tab for contacts [Now called Friends].
 r14 | Keleven | 2013-03-28 20:56:34 +0000 (Thu, 28 Mar 2013) | 6 lines
 
 [klock.vb]
-Gave the reminder section its own timer.  Moved reminder checking code from 
-main timer into the reminder timer.
+Gave the reminder section its own timer.  Moved reminder checking code from main timer into the reminder timer.
 Finally got the file filter logic right on the open dialogues [i hope].
-Changed the logic in the action calling sub [both countdown and reminder], 
-setting the checked to false calls the appropriate checkchanged sub, 
-this disables the controls better.
+Changed the logic in the action calling sub [both countdown and reminder] - setting the checked to false calls the appropriate checkchanged sub, this disables the controls better.
 Further bugs squashed.
 
 ------------------------------------------------------------------------
@@ -471,7 +439,7 @@ Added a catch to the Countdown start, to disable the start button is the
 value to moved back to zero.
 Added the logic behind the system button(both countdown & reminder)
 If a system command is executed and the main form is not visible, 
-show main form - so both button can be used.
+show main form - so aboth button can be used.
 Fixed bug in Reminder System check sub.
 Fixed bug in Reminder date generation.
 
@@ -518,8 +486,7 @@ Added logic to handle time item on system tray strip menu.
 r7 | Keleven | 2013-02-02 22:02:20 +0000 (Sat, 02 Feb 2013) | 3 lines
 
 Added code to display "toast" messages i.e. a notification window rises form the system tray.  
-This uses code by user jmcilhinney  at 
-http://www.vbforums.com/showthread.php?351757-Animated-Window-Effects-with-quot-Toast-quot-popup-demo
+This uses code by user jmcilhinney  at http://www.vbforums.com/showthread.php?351757-Animated-Window-Effects-with-quot-Toast-quot-popup-demo
 
 Finished the right-click menu of the system tray icon.  The item time is now checkable.  
 If checked a toast showing the current chosen time format is display every 5 minutes.  
@@ -545,8 +512,7 @@ Finished countdown actions - needs testing.
 ------------------------------------------------------------------------
 r4 | Keleven | 2013-01-19 20:31:32 +0000 (Sat, 19 Jan 2013) | 3 lines
 
-Added SelectTime.vb, which will contain the various time functions.  
-Added functions for fuzzytime and local time.
+Added SelectTime.vb, which will contain the various time functions.  Added functions for fuzzytime and local time.
 
 Added Timer.vb, a wrapper class for the stopwatch class.
 ------------------------------------------------------------------------

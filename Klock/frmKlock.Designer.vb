@@ -210,7 +210,6 @@ Partial Class frmKlock
         Me.tmrEvents = New System.Windows.Forms.Timer(Me.components)
         Me.btnEventsCheck = New System.Windows.Forms.Button()
         Me.TmrMemo = New System.Windows.Forms.Timer(Me.components)
-        Me.AxCntrlAgnts = New DoubleAgent.AxControl.AxControl()
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -249,7 +248,6 @@ Partial Class frmKlock
         Me.pnlMemo.SuspendLayout()
         Me.GroupBox21.SuspendLayout()
         Me.CntxtMnStrpKlock.SuspendLayout()
-        CType(Me.AxCntrlAgnts, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StsStrpInfo
@@ -2024,21 +2022,11 @@ Partial Class frmKlock
         '
         Me.TmrMemo.Interval = 1000
         '
-        'AxCntrlAgnts
-        '
-        Me.AxCntrlAgnts.Enabled = True
-        Me.AxCntrlAgnts.Location = New System.Drawing.Point(351, 205)
-        Me.AxCntrlAgnts.Name = "AxCntrlAgnts"
-        Me.AxCntrlAgnts.OcxState = CType(resources.GetObject("AxCntrlAgnts.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.AxCntrlAgnts.Size = New System.Drawing.Size(32, 32)
-        Me.AxCntrlAgnts.TabIndex = 34
-        '
         'frmKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(696, 264)
-        Me.Controls.Add(Me.AxCntrlAgnts)
         Me.Controls.Add(Me.btnEventsCheck)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnEdit)
@@ -2113,7 +2101,6 @@ Partial Class frmKlock
         Me.pnlMemo.PerformLayout()
         Me.GroupBox21.ResumeLayout(False)
         Me.CntxtMnStrpKlock.ResumeLayout(False)
-        CType(Me.AxCntrlAgnts, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2304,6 +2291,5 @@ Partial Class frmKlock
     Friend WithEvents ChckBxMemoEncypt As System.Windows.Forms.CheckBox
     Friend WithEvents btnMemoDecrypt As System.Windows.Forms.Button
     Friend WithEvents TmrMemo As System.Windows.Forms.Timer
-    Friend WithEvents AxCntrlAgnts As DoubleAgent.AxControl.AxControl
 
 End Class

@@ -83,8 +83,6 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DoubleAgent.AxControl, Version=1.2.0.55, Culture=neutral, PublicKeyToken=69c93fb14342e6fc" />
-    <Reference Include="DoubleAgent.Control, Version=1.2.0.55, Culture=neutral, PublicKeyToken=69c93fb14342e6fc" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -128,6 +126,8 @@
     </Compile>
     <Compile Include="InfoCommon.vb" />
     <Compile Include="IOcommon.vb" />
+    <Compile Include="ListViewColumnSorter.vb" />
+    <Compile Include="ListViewPrint.vb" />
     <Compile Include="ManagedPower.vb" />
     <Compile Include="frmInfo.Designer.vb">
       <DependentUpon>frmInfo.vb</DependentUpon>
@@ -144,7 +144,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="selectAction.vb" />
-    <Compile Include="selectAgent.vb" />
     <Compile Include="selectTime.vb" />
     <Compile Include="frmOptions.Designer.vb">
       <DependentUpon>frmOptions.vb</DependentUpon>

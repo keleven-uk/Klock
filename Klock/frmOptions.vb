@@ -20,8 +20,6 @@ Public Class frmOptions
         Me.CmbBxDefaultTab.Items.AddRange(tabs)
         Me.CmbBxDefaultTab.SelectedIndex = frmKlock.usrSettings.usrDefaultTab
 
-        Me.TabCntrlOptions.SelectedIndex = 0
-
         Me.showArchiveButtons(False)
         Me.setSettings()
     End Sub
@@ -38,11 +36,6 @@ Public Class frmOptions
                 Me.showArchiveButtons(False)
             Case 2              '   Time options
                 Me.showArchiveButtons(False)
-
-                Me.ChckBxTimeToast.Enabled = Not Me.ChckBxOptionsAgent.Checked
-                Me.ChckBxOptionsVoice.Enabled = Not Me.ChckBxOptionsAgent.Checked
-                Me.UpDwnTimeDisplay.Enabled = Not Me.ChckBxOptionsAgent.Checked And Me.ChckBxTimeToast.Checked
-                Me.UpDwnVoiceDisplay.Enabled = Not Me.ChckBxOptionsAgent.Checked And Me.ChckBxOptionsVoice.Checked
             Case 3              '   Other Stuff options
                 Me.showArchiveButtons(False)
             Case 4              '   Archive options
@@ -51,29 +44,6 @@ Public Class frmOptions
                 Me.showArchiveButtons(False)
             Case 6              '   Memo
                 Me.showArchiveButtons(False)
-            Case 7              '   Agents
-                Me.showArchiveButtons(False)
-
-                If Not frmKlock.myAgents.agentActive Then
-                    Me.LblAgentsInfo.Visible = True
-                    Me.LblAgentsInfo.ForeColor = Color.Red
-                    Me.LblAgentsInfo.Text = "No Msagents directory." & vbCrLf & _
-                        "Must be C:\Windows\msagent\chars" & vbCrLf & vbCrLf & _
-                        "Need to download either MS Agents from http://www.microsoft.com/en-gb/download/details.aspx?id=6936" & vbCrLf & _
-                        "Or Double Agents from http://doubleagent.sourceforge.net/  :: Prefered."
-                ElseIf frmKlock.myAgents.agentNumber = 0 Then
-                    Me.btnOptionsAgentsTest.Enabled = False
-                    Me.LblAgentsInfo.Visible = True
-                    Me.LblAgentsInfo.ForeColor = Color.Red
-                    Me.LblAgentsInfo.Text = "No agent charaters found in directory." & vbCrLf & _
-                        "Must be C:\Windows\msagent\chars" & vbCrLf & vbCrLf & _
-                        "Please install some into above directory"
-                Else
-                    Me.btnOptionsAgentsTest.Enabled = True
-                    Me.LblAgentsInfo.Visible = True
-                    Me.LblAgentsInfo.Text = ""
-                End If
-
         End Select
     End Sub
 
@@ -131,12 +101,8 @@ Public Class frmOptions
         Me.UpDwnTimeDisplay.Value = frmKlock.usrSettings.usrTimeDisplayMinutes
         Me.ChckBxOptionsVoice.Checked = frmKlock.usrSettings.usrTimeVoiceMinimised
         Me.UpDwnVoiceDisplay.Value = frmKlock.usrSettings.usrTimeVoiceMinutes
-        Me.ChckBxOptionsAgent.Checked = frmKlock.usrSettings.usrTimeAgentMinimised
-        Me.UpDwnAgentDisplay.Value = frmKlock.usrSettings.usrTimeAgentMinutes
 
-        Me.UpDwnTimeDisplay.Enabled = frmKlock.usrSettings.usrTimeDisplayMinimised
-        Me.UpDwnVoiceDisplay.Enabled = frmKlock.usrSettings.usrTimeVoiceMinimised
-        Me.UpDwnAgentDisplay.Enabled = frmKlock.usrSettings.usrTimeAgentMinimised
+        Me.UpDwnTimeDisplay.Enabled = frmKlock.usrSettings.usrTimeDisplayMinutes
 
         Me.ChckBxTimeSystem24.Checked = frmKlock.usrSettings.usrTimeSystem24Hour
         Me.ChckBxTimeSystem12.Checked = Not frmKlock.usrSettings.usrTimeSystem24Hour
@@ -195,22 +161,6 @@ Public Class frmOptions
         Me.TxtBxMemoDefaultPassword.Text = frmKlock.usrSettings.usrMemoDefaultPassword
 
         Me.NmrcUpDwnMemoDecrypt.Value = frmKlock.usrSettings.usrMemoDecyptTimeOut
-
-        '-------------------------------------------------------------------------------------------------------- Agents Settings ------------
-
-        Me.ChckBxAgentsActive.Checked = frmKlock.usrSettings.usrAgentsActive
-
-        If frmKlock.myAgents.agentActive Then
-            Me.GroupBox20.Enabled = Me.ChckBxAgentsActive.Checked And frmKlock.myAgents.agentActive
-            Me.UpDwnAgentDisplay.Enabled = Me.ChckBxAgentsActive.Checked And frmKlock.myAgents.agentActive
-            Me.ChckBxOptionsAgent.Enabled = Me.ChckBxAgentsActive.Checked And frmKlock.myAgents.agentActive
-            Me.CmbBxAgents.DataSource = frmKlock.myAgents.agentList()
-        Else
-            Me.GroupBox20.Enabled = False
-            Me.UpDwnAgentDisplay.Enabled = False
-            Me.ChckBxOptionsAgent.Enabled = False
-        End If
-
     End Sub
 
     ' ************************************************************************************* global options *****************************
@@ -247,8 +197,6 @@ Public Class frmOptions
         frmKlock.usrSettings.usrTimeVoiceMinimised = Me.ChckBxOptionsVoice.Checked
         frmKlock.usrSettings.usrTimeVoiceMinutes = Me.UpDwnVoiceDisplay.Value
         frmKlock.usrSettings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
-        frmKlock.usrSettings.usrTimeAgentMinimised = Me.ChckBxOptionsAgent.Checked
-        frmKlock.usrSettings.usrTimeAgentMinutes = Me.UpDwnAgentDisplay.Value
 
         frmKlock.usrSettings.usrTimeSystem24Hour = Me.ChckBxTimeSystem24.Checked
         frmKlock.usrSettings.usrTimeOne24Hour = Me.ChckBxTimeTimeOne24.Checked
@@ -299,11 +247,6 @@ Public Class frmOptions
         frmKlock.usrSettings.usrMemoUseDefaultPassword = Me.ChckBxMemoDefaultPassword.Checked
         frmKlock.usrSettings.usrMemoDefaultPassword = Me.TxtBxMemoDefaultPassword.Text
         frmKlock.usrSettings.usrMemoDecyptTimeOut = Me.NmrcUpDwnMemoDecrypt.Value
-
-        '-------------------------------------------------------------------------------------------------------- Agents Settings ------------
-
-        frmKlock.usrSettings.usrAgentsActive = Me.ChckBxAgentsActive.Checked
-        frmKlock.usrSettings.usrAgentDefault = Me.CmbBxAgents.SelectedItem.ToString
 
 
         frmKlock.usrSettings.writeSettings()
@@ -461,29 +404,6 @@ Public Class frmOptions
         Me.ChckBxTimeTimeTwo24.Checked = Not Me.ChckBxTimeTimeTwo12.Checked
     End Sub
 
-    Private Sub ChckBxTimeToast_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeToast.CheckedChanged
-        '   If checkbox to enable notification message every nth minutes if checked, enables the minute counter.
-
-        Me.UpDwnTimeDisplay.Enabled = Me.ChckBxTimeToast.Checked
-    End Sub
-
-    Private Sub ChckBxOptionsVoice_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxOptionsVoice.CheckedChanged
-        '   If checkbox to enable Voice every nth minutes if checked, enables the minute counter.
-
-        Me.UpDwnVoiceDisplay.Enabled = Me.ChckBxOptionsVoice.Checked
-    End Sub
-
-    Private Sub ChckBxOptionsAgent_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxOptionsAgent.CheckedChanged
-        '   If checkbox to enable Agents every nth minutes if checked, enables the minute counter.
-
-        Me.UpDwnAgentDisplay.Enabled = Me.ChckBxOptionsAgent.Checked
-
-        Me.ChckBxTimeToast.Enabled = Not Me.ChckBxOptionsAgent.Checked
-        Me.ChckBxOptionsVoice.Enabled = Not Me.ChckBxOptionsAgent.Checked
-        Me.UpDwnTimeDisplay.Enabled = Not Me.ChckBxOptionsAgent.Checked And Me.ChckBxTimeToast.Checked
-        Me.UpDwnVoiceDisplay.Enabled = Not Me.ChckBxOptionsAgent.Checked And Me.ChckBxOptionsVoice.Checked
-    End Sub
-
     '-----------------------------------------------------------Notification---------------------------------------------------------------
 
     Private Sub btnNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNotificationColour.Click
@@ -605,6 +525,12 @@ Public Class frmOptions
         '   Play a sound to test system volume.
 
         Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\halfchime.mp3"))
+    End Sub
+
+    Private Sub ChckBxTimeToast_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeToast.CheckedChanged
+        '   If checkbox to enable notification message every nth minutes if checked, enables the minute counter.
+
+        Me.UpDwnTimeDisplay.Enabled = Me.ChckBxTimeToast.Checked
     End Sub
 
     '---------------------------------------------------------- Friends Options  ---------------------------------------------------------------
@@ -778,28 +704,4 @@ Public Class frmOptions
         End Try
     End Sub
 
-    ' **************************************************************************************** Agents stuff ***************************
-
-    Private Sub ChckBxAgentsActive_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxAgentsActive.CheckedChanged
-
-        frmKlock.usrSettings.usrAgentsActive = Me.ChckBxAgentsActive.Checked
-        Me.GroupBox20.Enabled = Me.ChckBxAgentsActive.Checked
-        Me.UpDwnAgentDisplay.Enabled = Me.ChckBxAgentsActive.Checked
-        Me.ChckBxOptionsAgent.Enabled = Me.ChckBxAgentsActive.Checked
-    End Sub
-
-    Private Sub btnOptionsAgentsReload_Click(sender As System.Object, e As System.EventArgs) Handles btnOptionsAgentsReload.Click
-
-        Me.CmbBxAgents.DataSource = Nothing
-        Me.CmbBxAgents.Items.Clear()
-        frmKlock.myAgents.loadAgents()
-        Me.CmbBxAgents.DataSource = frmKlock.myAgents.agentList()
-    End Sub
-
-    Private Sub btnOptionsAgentsTest_Click(sender As System.Object, e As System.EventArgs) Handles btnOptionsAgentsTest.Click
-
-        frmKlock.myAgents.closeAgent()
-        frmKlock.myAgents.loadAgent(Me.CmbBxAgents.SelectedItem.ToString)
-        frmKlock.myAgents.doAction(frmKlock.displayOneTime.getTime())
-    End Sub
 End Class
