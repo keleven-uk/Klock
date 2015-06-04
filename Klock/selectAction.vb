@@ -47,7 +47,7 @@
     Public Sub DisplayReminder(ByVal t As String, ByVal m As String)
         '   Display the reminder message
 
-        Dim Notification As New frmNotification(My.Settings.usrNotificationTimeOut, "CountDown", m)
+        Dim Notification As New frmNotification(My.Settings.usrNotificationTimeOut, t, m)
 
         Notification.Show()
     End Sub

@@ -1,5 +1,6 @@
 ﻿Imports Klock.frmOptions
 Imports System.IO
+Imports System.Runtime.Serialization.Formatters.Binary
 
 
 Public Class frmKlock
@@ -21,6 +22,8 @@ Public Class frmKlock
 
     Public CountDownTime As Integer             '   Holds number of minutes for the countdown timer.
     Public ReminderDateTime As DateTime         '   Holds the date [and time] of the set reminder.
+
+    Public ADDING As Boolean = False
 
     Public knownFirstNames As New AutoCompleteStringCollection      '   Auto Complete for friends first name.
     Public knownMiddleNames As New AutoCompleteStringCollection     '   Auto Complete for friends middle name.
@@ -179,6 +182,12 @@ Public Class frmKlock
             Case 4
                 Me.Text = "Klock - reminds you of your friends"
                 Me.FriendsButtonsVisible(True)
+
+                If Me.LstBxFriends.Items.Count > 0 Then
+                    Me.btnFriendsDelete.Enabled = True
+                    Me.btnFriendsEdit.Enabled = True
+                    Me.showFriends(0)
+                End If
         End Select
 
     End Sub
@@ -736,8 +745,245 @@ Public Class frmKlock
 
     Private Sub btnFriendsNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsNew.Click
 
+        Me.btnFriendsClear.Enabled = True
+        Me.btnFriendsNew.Enabled = False
+        Me.btnFriendsEdit.Enabled = False
+        Me.txtbxFriendsFirstName.Focus()
+
+        Me.FriendsClearText()
+        Me.FriendsReadOnlyText(False)
+
+        Me.ADDING = True
     End Sub
 
+    Private Sub btnFriendsClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsClear.Click
+
+        Me.ADDING = False
+
+        Me.btnFriendsEdit.Enabled = False
+        Me.btnFriendsEdit.Text = "Edit"
+        Me.btnFriendsClear.Enabled = False
+        Me.btnFriendsAdd.Enabled = False
+        Me.btnFriendsNew.Enabled = True
+
+        If Me.LstBxFriends.Items.Count > 0 Then
+            Me.btnFriendsDelete.Enabled = True
+            Me.btnFriendsEdit.Enabled = True
+            Me.showFriends(0)
+        Else
+            Me.btnFriendsEdit.Enabled = False
+            Me.FriendsClearText()
+        End If
+
+        Me.FriendsReadOnlyText(True)
+    End Sub
+
+    Private Sub FirstAndLastName_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtbxFriendsFirstName.TextChanged, txtbxFriendsLastName.TextChanged
+
+        If Me.ADDING Then
+            If Me.txtbxFriendsFirstName.Text <> "" And Me.txtbxFriendsLastName.Text <> "" Then
+                Me.btnFriendsAdd.Enabled = True
+            Else
+                Me.btnFriendsAdd.Enabled = False
+            End If
+        End If
+
+    End Sub
+
+    Private Sub btnFriendsAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsAdd.Click
+
+        Me.populateFriend("ADD")
+
+        Me.ADDING = False
+
+        Me.btnFriendsNew.Enabled = True
+        Me.btnFriendsDelete.Enabled = True
+        Me.btnFriendsEdit.Enabled = True
+        Me.btnFriendsClear.Enabled = False
+        Me.btnFriendsAdd.Enabled = False
+
+        Me.FriendsClearText()
+        Me.FriendsReadOnlyText(True)
+        Me.showFriends(0)
+        Me.savefriends()
+    End Sub
+
+    Private Sub btnFriendsEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsEdit.Click
+
+        If Me.btnFriendsEdit.Text = "Edit" Then
+            Me.txtbxFriendsFirstName.Focus()
+            Me.btnFriendsEdit.Text = "Save"
+            Me.btnFriendsClear.Enabled = True
+            Me.btnFriendsDelete.Enabled = False
+            Me.btnFriendsNew.Enabled = False
+
+            Me.FriendsReadOnlyText(False)
+        Else
+            Me.populateFriend("EDIT")
+
+            Me.btnFriendsEdit.Text = "Edit"
+            Me.btnFriendsClear.Enabled = False
+            Me.btnFriendsDelete.Enabled = True
+            Me.btnFriendsNew.Enabled = True
+
+            Me.FriendsReadOnlyText(True)
+
+            Me.savefriends()
+        End If
+    End Sub
+
+    Private Sub btnFriendsDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsDelete.Click
+
+        Dim reply As MsgBoxResult
+
+        reply = MsgBox("Are you sure to DELETE?", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
+
+        If reply = MsgBoxResult.No Then
+            Exit Sub
+        End If
+
+        If Me.LstBxFriends.SelectedIndex > -1 Then
+            Me.LstBxFriends.Items.RemoveAt(Me.LstBxFriends.SelectedIndex)
+            Me.savefriends()
+            Me.FriendsClearText()
+            Me.FriendsReadOnlyText(True)
+        End If
+
+        If Me.LstBxFriends.Items.Count > 0 Then
+            Me.btnFriendsDelete.Enabled = True
+            Me.btnFriendsEdit.Enabled = True
+            Me.showFriends(0)
+        Else
+            Me.btnFriendsDelete.Enabled = False
+            Me.btnFriendsEdit.Enabled = False
+        End If
+    End Sub
+
+    Private Sub FriendsClearText()
+
+        Me.txtbxFriendsFirstName.Text = ""
+        Me.txtbxFriendsMiddleName.Text = ""
+        Me.txtbxFriendsLastName.Text = ""
+        Me.txtbxFriendsEmail1.Text = ""
+        Me.txtbxFriendsEmail2.Text = ""
+        Me.txtbxFriendsEmail3.Text = ""
+        Me.txtbxFriendsTelephone1.Text = ""
+        Me.txtbxFriendsTelephone2.Text = ""
+        Me.txtbxFriendsTelephone3.Text = ""
+        Me.txtbxFriendsAddressNo.Text = ""
+        Me.txtbxFriendsAddressLine1.Text = ""
+        Me.txtbxFriendsAddressLine2.Text = ""
+        Me.txtbxFriendsAddressCity.Text = ""
+        Me.txtbxFriendsAddressPostCode.Text = ""
+        Me.txtbxFriendsAddressCounty.Text = ""
+        Me.txtbxFriendsHomePage.Text = ""
+        Me.txtbxFriendsNotes.Text = ""
+
+        Me.blankFriendsDate()
+    End Sub
+
+    Private Sub FriendsReadOnlyText(ByVal b As Boolean)
+
+        Me.txtbxFriendsFirstName.ReadOnly = b
+        Me.txtbxFriendsMiddleName.ReadOnly = b
+        Me.txtbxFriendsLastName.ReadOnly = b
+        Me.txtbxFriendsEmail1.ReadOnly = b
+        Me.txtbxFriendsEmail2.ReadOnly = b
+        Me.txtbxFriendsEmail3.ReadOnly = b
+        Me.txtbxFriendsTelephone1.ReadOnly = b
+        Me.txtbxFriendsTelephone2.ReadOnly = b
+        Me.txtbxFriendsTelephone3.ReadOnly = b
+        Me.txtbxFriendsAddressNo.ReadOnly = b
+        Me.txtbxFriendsAddressLine1.ReadOnly = b
+        Me.txtbxFriendsAddressLine2.ReadOnly = b
+        Me.txtbxFriendsAddressCity.ReadOnly = b
+        Me.txtbxFriendsAddressPostCode.ReadOnly = b
+        Me.txtbxFriendsAddressCounty.ReadOnly = b
+        Me.txtbxFriendsHomePage.ReadOnly = b
+        Me.txtbxFriendsNotes.ReadOnly = b
+
+        Me.DtPckrFriendsDOB.Enabled = Not b
+    End Sub
+
+    Private Sub LstBxFriends_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstBxFriends.SelectedIndexChanged
+
+        Me.showFriends(Me.LstBxFriends.SelectedIndex)
+    End Sub
+
+    Private Sub showFriends(ByVal pos As Integer)
+
+        If pos >= 0 Then
+            Dim p As Person = CType(Me.LstBxFriends.Items.Item(pos), Person)
+
+            Me.txtbxFriendsFirstName.Text = p.FirstName
+            Me.txtbxFriendsMiddleName.Text = p.MiddleName
+            Me.txtbxFriendsLastName.Text = p.LastName
+            Me.txtbxFriendsEmail1.Text = p.EMail1
+            Me.txtbxFriendsEmail2.Text = p.EMail2
+            Me.txtbxFriendsEmail3.Text = p.EMail3
+            Me.txtbxFriendsTelephone1.Text = p.TelNo1
+            Me.txtbxFriendsTelephone2.Text = p.TelNo2
+            Me.txtbxFriendsTelephone3.Text = p.TelNo3
+            Me.txtbxFriendsAddressNo.Text = p.HouseNo
+            Me.txtbxFriendsAddressLine1.Text = p.Address1
+            Me.txtbxFriendsAddressLine2.Text = p.Address2
+            Me.txtbxFriendsAddressCity.Text = p.City
+            Me.txtbxFriendsAddressPostCode.Text = p.PostCode
+            Me.txtbxFriendsAddressCounty.Text = p.County
+            Me.txtbxFriendsHomePage.Text = p.WebPage
+            Me.txtbxFriendsNotes.Text = p.Notes
+
+            If p.DOB = " " Then
+                Me.blankFriendsDate()
+            Else
+                Me.normalFriendsDate()
+                Me.DtPckrFriendsDOB.Value = p.DOB
+            End If
+
+            Me.LstBxFriends.SelectedIndex = pos
+        End If
+    End Sub
+
+    Private Sub populateFriend(ByVal mode As String)
+
+        Dim p As New Person
+
+        Try
+            p.FirstName = Me.txtbxFriendsFirstName.Text
+            p.MiddleName = Me.txtbxFriendsMiddleName.Text
+            p.LastName = Me.txtbxFriendsLastName.Text
+            p.EMail1 = Me.txtbxFriendsEmail1.Text
+            p.EMail2 = Me.txtbxFriendsEmail2.Text
+            p.EMail3 = Me.txtbxFriendsEmail3.Text
+            p.TelNo1 = Me.txtbxFriendsTelephone1.Text
+            p.TelNo2 = Me.txtbxFriendsTelephone2.Text
+            p.TelNo3 = Me.txtbxFriendsTelephone3.Text
+            p.HouseNo = Me.txtbxFriendsAddressNo.Text
+            p.Address1 = Me.txtbxFriendsAddressLine1.Text
+            p.Address2 = Me.txtbxFriendsAddressLine2.Text
+            p.City = Me.txtbxFriendsAddressCity.Text
+            p.PostCode = Me.txtbxFriendsAddressPostCode.Text
+            p.County = Me.txtbxFriendsAddressCounty.Text
+            p.Notes = Me.txtbxFriendsNotes.Text
+            p.WebPage = Me.txtbxFriendsHomePage.Text
+
+            If Me.DtPckrFriendsDOB.Format = DateTimePickerFormat.Long Then
+                p.DOB = Me.DtPckrFriendsDOB.Value.Date.ToString
+            Else
+                p.DOB = " "
+            End If
+
+            If mode = "ADD" Then
+                Me.LstBxFriends.Items.Add(p)
+                Me.FriendsAddToKnown(p)
+            Else    '   mode = "EDIT"
+                Me.LstBxFriends.Items(Me.LstBxFriends.SelectedIndex) = p
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
     Private Sub FriendsButtonsVisible(ByVal b As Boolean)
 
         Me.btnFriendsNew.Visible = b
@@ -798,6 +1044,137 @@ Public Class frmKlock
         Me.DtPckrFriendsDOB.CustomFormat = Now().Date
     End Sub
 
+    Private Sub FriendsAddToKnown(ByVal p As Person)
+
+        If Not Me.knownFirstNames.Contains(p.FirstName) Then
+            Me.knownFirstNames.Add(p.FirstName)
+        End If
+
+        If Not Me.knownMiddleNames.Add(p.MiddleName) Then
+            Me.knownMiddleNames.Add(p.MiddleName)
+        End If
+
+        If Not Me.knownLastnames.Add(p.LastName) Then
+            Me.knownLastnames.Add(p.LastName)
+        End If
+
+        If Not Me.knownAddress1.Add(p.Address1) Then
+            Me.knownAddress1.Add(p.Address1)
+        End If
+
+        If Not Me.knownAddress2.Add(p.Address2) Then
+            Me.knownAddress2.Add(p.Address2)
+        End If
+
+        If Me.knownPostCode.Add(p.PostCode) Then
+            Me.knownPostCode.Add(p.PostCode)
+        End If
+
+        If Me.knownCities.Add(p.City) Then
+            Me.knownCities.Add(p.City)
+        End If
+
+        If Me.knownCounties.Add(p.County) Then
+            Me.knownCounties.Add(p.County)
+        End If
+    End Sub
+
+    Private Sub savefriends()
+
+        Dim saveFile As FileStream = File.Create("Friends.bin")
+
+        saveFile.Seek(0, SeekOrigin.End)
+
+        Dim AL As New List(Of Person)
+        Dim p As Person
+
+        Dim Formatter As BinaryFormatter = New BinaryFormatter
+
+        For Each p In LstBxFriends.Items
+            AL.Add(p)
+        Next
+
+        Try
+            Formatter.Serialize(saveFile, AL)
+        Catch ex As Exception
+            Me.displayAction.DisplayReminder("Friends Error", "Error saving Friends File." & vbCrLf & ex.Message)
+        End Try
+
+
+        saveFile.Close()
+
+        Formatter = Nothing
+
+    End Sub
+
+    Private Sub loadFriends()
+
+        Dim readFile As FileStream
+
+        Try
+            readFile = File.OpenRead("Friends.bin")
+            readFile.Seek(0, SeekOrigin.Begin)
+        Catch ex As Exception
+            Me.displayAction.DisplayReminder("Friends", "No friends file found - will create if needed.")
+            Exit Sub
+        End Try
+
+        Dim AL As New List(Of Person)
+        Dim p As Person
+
+        Dim Formatter As BinaryFormatter = New BinaryFormatter
+
+        Try
+            AL = Formatter.Deserialize(readFile)
+        Catch ex As Exception
+            Me.displayAction.DisplayReminder("Friends Error", "Error loading Friends File." & vbCrLf & ex.Message)
+            Exit Sub
+        End Try
+
+
+        Me.LstBxFriends.Items.Clear()
+        Me.knownCities.Clear()
+
+        For Each p In AL
+            Me.LstBxFriends.Items.Add(p)
+            Me.FriendsAddToKnown(p)
+        Next
+
+        readFile.Close()
+        Formatter = Nothing
+
+    End Sub
+
+    Private Sub txtbxFriendsAddressPostCode_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtbxFriendsAddressPostCode.KeyPress
+        '   post code contains only upper case letters and numbers.
+
+        If Char.IsLetterOrDigit(e.KeyChar) Then
+
+            If Char.IsLetter(e.KeyChar) Then
+                Me.txtbxFriendsAddressPostCode.SelectedText = UCase(e.KeyChar)
+            Else
+                Me.txtbxFriendsAddressPostCode.SelectedText = e.KeyChar
+            End If
+
+            e.Handled = True
+
+        End If
+    End Sub
+
+    Private Sub FriendsTelephone1_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtbxFriendsTelephone1.KeyPress, txtbxFriendsTelephone2.KeyPress, txtbxFriendsTelephone3.KeyPress
+        '   Telephone numbers ony contain numbers.
+
+        If Char.IsNumber(e.KeyChar) Then
+
+        ElseIf Char.IsLetter(e.KeyChar) Then
+            e.Handled = True
+        ElseIf Char.IsPunctuation(e.KeyChar) Then
+            e.Handled = True
+        Else
+
+        End If
+    End Sub
+
     ' ******************************************************************************************************************************** global stuff ******
     Private Sub frmKlock_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '   Apply current setting on form load.
@@ -812,10 +1189,37 @@ Public Class frmKlock
         Me.setSettings()
         Me.setTimeTypes()
         Me.setActionTypes()
+
+        Me.loadFriends()
         Me.FriendsButtonsVisible(False)
         Me.blankFriendsDate()
         Me.LoadAutoCompleteStuff()
 
+    End Sub
+
+    Private Sub frmKlock_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
+
+        If e.KeyCode = Keys.F5 Then
+            MessageBox.Show(String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
+            e.Handled = True
+        End If
+
+        If e.KeyCode = Keys.Enter And Not (e.Alt Or e.Control) Then
+            e.SuppressKeyPress = True
+            ' Make sure that the active control is a TextBox control
+            ' Do not use the Enter key as tab when a button has the focus!
+            If Me.ActiveControl.GetType Is GetType(TextBox) Or _
+                    Me.ActiveControl.GetType Is GetType(CheckBox) Or _
+                    Me.ActiveControl.GetType Is GetType(DateTimePicker) Then
+                ' Use Shift + Enter to move backwords through the tab order
+
+                If e.Shift Then
+                    Me.ProcessTabKey(False)
+                Else
+                    Me.ProcessTabKey(True)
+                End If
+            End If
+        End If
     End Sub
 
     Private Sub frmKlock_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
@@ -940,6 +1344,8 @@ Public Class frmKlock
 
 
     ' ********************************************************************************************************************************* END **************
+
+
 
 
 

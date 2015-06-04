@@ -999,10 +999,8 @@ Partial Class frmKlock
         Me.DtPckrFriendsDOB.Enabled = False
         Me.DtPckrFriendsDOB.Location = New System.Drawing.Point(85, 275)
         Me.DtPckrFriendsDOB.Name = "DtPckrFriendsDOB"
-        Me.DtPckrFriendsDOB.ShowCheckBox = True
-        Me.DtPckrFriendsDOB.ShowUpDown = True
         Me.DtPckrFriendsDOB.Size = New System.Drawing.Size(131, 20)
-        Me.DtPckrFriendsDOB.TabIndex = 33
+        Me.DtPckrFriendsDOB.TabIndex = 29
         '
         'txtbxFriendsNotes
         '
@@ -1441,6 +1439,7 @@ Partial Class frmKlock
         Me.Controls.Add(Me.btnHide)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
         Me.MainMenuStrip = Me.MnStrpMain
         Me.Name = "frmKlock"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

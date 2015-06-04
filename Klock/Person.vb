@@ -38,8 +38,8 @@
         Dim second As String = Me.FirstName().PadRight(13)
         Dim third As String = Me.EMail1()
 
-        '   Return String.Format("{0}{1}{2}", first, second, third)
-        Return first & vbTab & second & vbTab & third
+        Return String.Format("{0}{1}{2}", first, second, third)
+        'Return first & vbTab & second & vbTab & third
     End Function
 
     Public Property FirstName() As String
