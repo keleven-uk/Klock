@@ -33,6 +33,9 @@ Partial Class frmKlock
         Me.MnItmFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmOptions = New System.Windows.Forms.ToolStripMenuItem()
+        Me.InfoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DaylightSavingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CultureToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmSubHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmLicense = New System.Windows.Forms.ToolStripMenuItem()
@@ -47,6 +50,15 @@ Partial Class frmKlock
         Me.LblTimeOneTime = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.CmbBxTimeOne = New System.Windows.Forms.ComboBox()
+        Me.TbPgWorldClock = New System.Windows.Forms.TabPage()
+        Me.GroupBox18 = New System.Windows.Forms.GroupBox()
+        Me.LblWorldKlockWorld = New System.Windows.Forms.Label()
+        Me.LblWorldKlockLocal = New System.Windows.Forms.Label()
+        Me.GroupBox17 = New System.Windows.Forms.GroupBox()
+        Me.RdBtnWorldClockTimeZoneID = New System.Windows.Forms.RadioButton()
+        Me.RdBtnWorldClockTimeZoneLongName = New System.Windows.Forms.RadioButton()
+        Me.GroupBox16 = New System.Windows.Forms.GroupBox()
+        Me.CmbBxWorldKlockTimeZones = New System.Windows.Forms.ComboBox()
         Me.TbPgCountDown = New System.Windows.Forms.TabPage()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.btnCountdownSystemAbort = New System.Windows.Forms.Button()
@@ -166,6 +178,10 @@ Partial Class frmKlock
         Me.GroupBox14.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.TbPgWorldClock.SuspendLayout()
+        Me.GroupBox18.SuspendLayout()
+        Me.GroupBox17.SuspendLayout()
+        Me.GroupBox16.SuspendLayout()
         Me.TbPgCountDown.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -234,7 +250,7 @@ Partial Class frmKlock
         '
         'MnStrpMain
         '
-        Me.MnStrpMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmFile, Me.MnItmHelp})
+        Me.MnStrpMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmFile, Me.InfoToolStripMenuItem, Me.MnItmHelp})
         Me.MnStrpMain.Location = New System.Drawing.Point(0, 0)
         Me.MnStrpMain.Name = "MnStrpMain"
         Me.MnStrpMain.Size = New System.Drawing.Size(696, 24)
@@ -262,6 +278,25 @@ Partial Class frmKlock
         Me.MnItmOptions.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.O), System.Windows.Forms.Keys)
         Me.MnItmOptions.Size = New System.Drawing.Size(159, 22)
         Me.MnItmOptions.Text = "&Options"
+        '
+        'InfoToolStripMenuItem
+        '
+        Me.InfoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DaylightSavingToolStripMenuItem, Me.CultureToolStripMenuItem})
+        Me.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem"
+        Me.InfoToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
+        Me.InfoToolStripMenuItem.Text = "&Info"
+        '
+        'DaylightSavingToolStripMenuItem
+        '
+        Me.DaylightSavingToolStripMenuItem.Name = "DaylightSavingToolStripMenuItem"
+        Me.DaylightSavingToolStripMenuItem.Size = New System.Drawing.Size(156, 22)
+        Me.DaylightSavingToolStripMenuItem.Text = "Daylight Saving"
+        '
+        'CultureToolStripMenuItem
+        '
+        Me.CultureToolStripMenuItem.Name = "CultureToolStripMenuItem"
+        Me.CultureToolStripMenuItem.Size = New System.Drawing.Size(156, 22)
+        Me.CultureToolStripMenuItem.Text = "Culture"
         '
         'MnItmHelp
         '
@@ -295,6 +330,7 @@ Partial Class frmKlock
         'TbCntrl
         '
         Me.TbCntrl.Controls.Add(Me.TbPgTime)
+        Me.TbCntrl.Controls.Add(Me.TbPgWorldClock)
         Me.TbCntrl.Controls.Add(Me.TbPgCountDown)
         Me.TbCntrl.Controls.Add(Me.TbPgTimer)
         Me.TbCntrl.Controls.Add(Me.TbPgReminder)
@@ -394,6 +430,98 @@ Partial Class frmKlock
         Me.CmbBxTimeOne.Name = "CmbBxTimeOne"
         Me.CmbBxTimeOne.Size = New System.Drawing.Size(86, 21)
         Me.CmbBxTimeOne.TabIndex = 0
+        '
+        'TbPgWorldClock
+        '
+        Me.TbPgWorldClock.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgWorldClock.Controls.Add(Me.GroupBox18)
+        Me.TbPgWorldClock.Controls.Add(Me.GroupBox17)
+        Me.TbPgWorldClock.Controls.Add(Me.GroupBox16)
+        Me.TbPgWorldClock.Location = New System.Drawing.Point(4, 22)
+        Me.TbPgWorldClock.Name = "TbPgWorldClock"
+        Me.TbPgWorldClock.Padding = New System.Windows.Forms.Padding(3)
+        Me.TbPgWorldClock.Size = New System.Drawing.Size(671, 134)
+        Me.TbPgWorldClock.TabIndex = 5
+        Me.TbPgWorldClock.Text = "World Klock"
+        '
+        'GroupBox18
+        '
+        Me.GroupBox18.Controls.Add(Me.LblWorldKlockWorld)
+        Me.GroupBox18.Controls.Add(Me.LblWorldKlockLocal)
+        Me.GroupBox18.Location = New System.Drawing.Point(365, 6)
+        Me.GroupBox18.Name = "GroupBox18"
+        Me.GroupBox18.Size = New System.Drawing.Size(300, 120)
+        Me.GroupBox18.TabIndex = 2
+        Me.GroupBox18.TabStop = False
+        '
+        'LblWorldKlockWorld
+        '
+        Me.LblWorldKlockWorld.AutoSize = True
+        Me.LblWorldKlockWorld.Location = New System.Drawing.Point(20, 63)
+        Me.LblWorldKlockWorld.Name = "LblWorldKlockWorld"
+        Me.LblWorldKlockWorld.Size = New System.Drawing.Size(45, 15)
+        Me.LblWorldKlockWorld.TabIndex = 1
+        Me.LblWorldKlockWorld.Text = "Label2"
+        '
+        'LblWorldKlockLocal
+        '
+        Me.LblWorldKlockLocal.AutoSize = True
+        Me.LblWorldKlockLocal.Location = New System.Drawing.Point(20, 25)
+        Me.LblWorldKlockLocal.Name = "LblWorldKlockLocal"
+        Me.LblWorldKlockLocal.Size = New System.Drawing.Size(45, 15)
+        Me.LblWorldKlockLocal.TabIndex = 0
+        Me.LblWorldKlockLocal.Text = "Label1"
+        '
+        'GroupBox17
+        '
+        Me.GroupBox17.Controls.Add(Me.RdBtnWorldClockTimeZoneID)
+        Me.GroupBox17.Controls.Add(Me.RdBtnWorldClockTimeZoneLongName)
+        Me.GroupBox17.Location = New System.Drawing.Point(6, 69)
+        Me.GroupBox17.Name = "GroupBox17"
+        Me.GroupBox17.Size = New System.Drawing.Size(353, 57)
+        Me.GroupBox17.TabIndex = 1
+        Me.GroupBox17.TabStop = False
+        '
+        'RdBtnWorldClockTimeZoneID
+        '
+        Me.RdBtnWorldClockTimeZoneID.AutoSize = True
+        Me.RdBtnWorldClockTimeZoneID.Location = New System.Drawing.Point(154, 19)
+        Me.RdBtnWorldClockTimeZoneID.Name = "RdBtnWorldClockTimeZoneID"
+        Me.RdBtnWorldClockTimeZoneID.Size = New System.Drawing.Size(127, 19)
+        Me.RdBtnWorldClockTimeZoneID.TabIndex = 1
+        Me.RdBtnWorldClockTimeZoneID.Text = "by Standard Name"
+        Me.RdBtnWorldClockTimeZoneID.UseVisualStyleBackColor = True
+        '
+        'RdBtnWorldClockTimeZoneLongName
+        '
+        Me.RdBtnWorldClockTimeZoneLongName.AutoSize = True
+        Me.RdBtnWorldClockTimeZoneLongName.Checked = True
+        Me.RdBtnWorldClockTimeZoneLongName.Location = New System.Drawing.Point(29, 19)
+        Me.RdBtnWorldClockTimeZoneLongName.Name = "RdBtnWorldClockTimeZoneLongName"
+        Me.RdBtnWorldClockTimeZoneLongName.Size = New System.Drawing.Size(105, 19)
+        Me.RdBtnWorldClockTimeZoneLongName.TabIndex = 0
+        Me.RdBtnWorldClockTimeZoneLongName.TabStop = True
+        Me.RdBtnWorldClockTimeZoneLongName.Text = "by Long Name"
+        Me.RdBtnWorldClockTimeZoneLongName.UseVisualStyleBackColor = True
+        '
+        'GroupBox16
+        '
+        Me.GroupBox16.Controls.Add(Me.CmbBxWorldKlockTimeZones)
+        Me.GroupBox16.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox16.Name = "GroupBox16"
+        Me.GroupBox16.Size = New System.Drawing.Size(353, 57)
+        Me.GroupBox16.TabIndex = 0
+        Me.GroupBox16.TabStop = False
+        Me.GroupBox16.Text = "Time Zones"
+        '
+        'CmbBxWorldKlockTimeZones
+        '
+        Me.CmbBxWorldKlockTimeZones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CmbBxWorldKlockTimeZones.FormattingEnabled = True
+        Me.CmbBxWorldKlockTimeZones.Location = New System.Drawing.Point(6, 19)
+        Me.CmbBxWorldKlockTimeZones.Name = "CmbBxWorldKlockTimeZones"
+        Me.CmbBxWorldKlockTimeZones.Size = New System.Drawing.Size(337, 21)
+        Me.CmbBxWorldKlockTimeZones.TabIndex = 0
         '
         'TbPgCountDown
         '
@@ -1506,6 +1634,12 @@ Partial Class frmKlock
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
+        Me.TbPgWorldClock.ResumeLayout(False)
+        Me.GroupBox18.ResumeLayout(False)
+        Me.GroupBox18.PerformLayout()
+        Me.GroupBox17.ResumeLayout(False)
+        Me.GroupBox17.PerformLayout()
+        Me.GroupBox16.ResumeLayout(False)
         Me.TbPgCountDown.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
@@ -1669,5 +1803,17 @@ Partial Class frmKlock
     Friend WithEvents LblTimeTwoTime As System.Windows.Forms.Label
     Friend WithEvents GroupBox14 As System.Windows.Forms.GroupBox
     Friend WithEvents CmbBxTimeTwo As System.Windows.Forms.ComboBox
+    Friend WithEvents InfoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DaylightSavingToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents CultureToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents TbPgWorldClock As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox17 As System.Windows.Forms.GroupBox
+    Friend WithEvents GroupBox16 As System.Windows.Forms.GroupBox
+    Friend WithEvents CmbBxWorldKlockTimeZones As System.Windows.Forms.ComboBox
+    Friend WithEvents GroupBox18 As System.Windows.Forms.GroupBox
+    Friend WithEvents LblWorldKlockWorld As System.Windows.Forms.Label
+    Friend WithEvents LblWorldKlockLocal As System.Windows.Forms.Label
+    Friend WithEvents RdBtnWorldClockTimeZoneID As System.Windows.Forms.RadioButton
+    Friend WithEvents RdBtnWorldClockTimeZoneLongName As System.Windows.Forms.RadioButton
 
 End Class

@@ -65,6 +65,7 @@ Public Class frmOptions
         Me.ChckBxReminderAdd.Checked = My.Settings.usrReminderAdd
         Me.ChckBxTimerAdd.Checked = My.Settings.usrTimerAdd
         Me.ChckBxCountdownAdd.Checked = My.Settings.usrCountdownAdd
+        Me.ChckBxWorldKlockAdd.Checked = My.Settings.usrWorldKlockAdd
 
         If My.Settings.usrTimeDisplayMinimised Then
             Me.UpDwnTimeDisplay.Enabled = True
@@ -127,6 +128,7 @@ Public Class frmOptions
         My.Settings.usrReminderAdd = Me.ChckBxReminderAdd.Checked
         My.Settings.usrTimerAdd = Me.ChckBxTimerAdd.Checked
         My.Settings.usrCountdownAdd = Me.ChckBxCountdownAdd.Checked
+        My.Settings.usrWorldKlockAdd = Me.ChckBxWorldKlockAdd.Checked
 
         My.Settings.usrReminderTimeChecked = Me.ChckBxReminderTimeCheck.Checked
 

@@ -29,6 +29,7 @@ Partial Class frmHelp
         '
         'btnHelpClose
         '
+        Me.btnHelpClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnHelpClose.Location = New System.Drawing.Point(325, 227)
         Me.btnHelpClose.Name = "btnHelpClose"
         Me.btnHelpClose.Size = New System.Drawing.Size(75, 23)
@@ -38,6 +39,9 @@ Partial Class frmHelp
         '
         'RchTxtBxHelp
         '
+        Me.RchTxtBxHelp.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RchTxtBxHelp.Location = New System.Drawing.Point(12, 12)
         Me.RchTxtBxHelp.Name = "RchTxtBxHelp"
         Me.RchTxtBxHelp.ReadOnly = True
@@ -52,7 +56,6 @@ Partial Class frmHelp
         Me.ClientSize = New System.Drawing.Size(412, 262)
         Me.Controls.Add(Me.RchTxtBxHelp)
         Me.Controls.Add(Me.btnHelpClose)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmHelp"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

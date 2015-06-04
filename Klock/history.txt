@@ -1,4 +1,26 @@
 ------------------------------------------------------------------------
+r21 | Media | 2013-05-23 21:47:22 +0100 (Thu, 23 May 2013) | 17 lines
+
+The achieving[zip] of files is done using Ionic.Zip.Reduced.dll - added the file and licence file to repository.
+
+[klock.vb]
+Added the ability to display two time formats, the second is configured via user setting.  
+This meant rename lbltime to lbltimeOntTime.
+Added logic, so that the friends list is only re-read if altered.
+Corrected bug: the abort became visible as soon system was chosen, 
+should only be visible when the action is being performed [countdown/remind].
+Added, so that the friends panel will always scroll to the top on edit. entry and display.
+Changed function key to F12 from F5 that display total number of friends on system.
+
+{options.vb]
+Added option to display two time formats.
+Added option to display hex time in HexIntuitor format [underscore sperator].
+Re-wrote the load and save achieve files - seems to be better.
+
+[selectTime.vb]
+Added HexTime, MetricTime & UnixTime.
+Amended fuzztime to be cleaner and hopefully work at midnight.
+------------------------------------------------------------------------
 r20 | Keleven | 2013-05-19 16:22:11 +0100 (Sun, 19 May 2013) | 10 lines
 
 [Klock.vb]

@@ -1,6 +1,10 @@
 ﻿Imports Klock.frmOptions
+Imports System
 Imports System.IO
+Imports System.Globalization
+Imports Microsoft.VisualBasic
 Imports System.Runtime.Serialization.Formatters.Binary
+
 
 
 Public Class frmKlock
@@ -52,10 +56,16 @@ Public Class frmKlock
             Me.updateStatusBar()
             Me.updateTitleText()
 
-            Me.LblTimeOneTime.Text = Me.displayOneTime.getTime()                              '   display local time in desired time format.
+            If Me.TbCntrl.SelectedIndex = 0 Then
+                Me.LblTimeOneTime.Text = Me.displayOneTime.getTime()                    '   Update local time in desired time format.
+            End If
 
-            If My.Settings.usrTimeTwoFormats Then
+            If Me.TbCntrl.SelectedIndex = 0 And My.Settings.usrTimeTwoFormats Then
                 Me.LblTimeTwoTime.Text = Me.displayTwoTime.getTime()                          '   display local time in desired time format.
+            End If
+
+            If Me.TbCntrl.SelectedIndex = 1 Then                                        '   Update World Klock.
+                Me.updateWorldKlock()
             End If
 
             Me.TmrMain.Interval = Me.displayOneTime.getClockTick()
@@ -157,6 +167,8 @@ Public Class frmKlock
 
             If My.Settings.usrTimeDisplayMinimised And (Math.Floor(m Mod noSecs) = 0) Then
 
+                Me.displayAction.DisplayReminder("Time", displayOneTime.getTime()) ' display current time as a toast notification,if desired
+
                 If My.Settings.usrTimerAdd And Me.tmrTimer.Enabled Then     ' time is running
                     If My.Settings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
                         Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getHighElapsedTime())
@@ -177,7 +189,19 @@ Public Class frmKlock
                     End If
                 End If
 
-                Me.displayAction.DisplayReminder("Time", displayOneTime.getTime()) ' display current time as a toast notification,if desired
+                If My.Settings.usrWorldKlockAdd Then
+
+                    Dim wctext As String
+
+                    If RdBtnWorldClockTimeZoneLongName.Checked Then
+                        Dim TzInfo As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(Me.CmbBxWorldKlockTimeZones.SelectedItem.id)
+                        wctext = TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongDateString & " :: " & TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongTimeString
+                    Else
+                        wctext = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongDateString & " :: " & TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongTimeString
+                    End If
+
+                    Me.displayAction.DisplayReminder("World Klock :: " & Me.CmbBxWorldKlockTimeZones.SelectedItem.ToString, wctext)
+                End If
 
             End If          '   If My.Settings.usrTimeDislayMinimised 
         End If              '   If Me.NtfyIcnKlock.Visible Then
@@ -229,13 +253,17 @@ Public Class frmKlock
             Case 0                                              '   time tab
                 Me.Text = "Klock - tells you the time"
                 Me.FriendsButtonsVisible(False)
-            Case 1                                              '   countdown tab
+            Case 1                                              '   World Klock
+                Me.Text = "Klock - tells you the time around the World"
+                Me.FriendsButtonsVisible(False)
+                Me.updateWorldKlock()
+            Case 2                                              '   countdown tab
                 Me.Text = "Klock - Countdown the time"
                 Me.FriendsButtonsVisible(False)
-            Case 2                                              '   timer tab
+            Case 3                                              '   timer tab
                 Me.Text = "Klock - measures the time"
                 Me.FriendsButtonsVisible(False)
-            Case 3                                              '   reminder tab
+            Case 4                                             '   reminder tab
                 Me.Text = "Klock - Reminds you of the time"
                 Me.FriendsButtonsVisible(False)
                 If My.Settings.usrReminderTimeChecked Then
@@ -245,7 +273,7 @@ Public Class frmKlock
                     Me.TmPckrRiminder.Enabled = False
                     Me.TmPckrRiminder.Value = Today
                 End If
-            Case 4
+            Case 5                                              '   friends tab
                 Me.Text = "Klock - reminds you of your friends"
                 Me.FriendsButtonsVisible(True)
 
@@ -269,13 +297,15 @@ Public Class frmKlock
         Select Case Me.TbCntrl.SelectedIndex
             Case 0                                              '   time tab
                 Me.Text = "Klock - tells you the time"
-            Case 1                                              '   countdown tab
+            Case 1                                              '   world klock tab
+                Me.Text = "Klock - tells you the time around the World"
+            Case 2                                              '   countdown tab
                 Me.Text = "Klock - Countdown the time"
-            Case 2                                              '   timer tab
+            Case 3                                              '   timer tab
                 Me.Text = "Klock - measures the time"
-            Case 3                                              '   reminder tab
+            Case 4                                              '   reminder tab
                 Me.Text = "Klock - Reminds you of the time"
-            Case 4
+            Case 5                                              '   friends tab
                 Me.Text = "Klock - reminds you of your friends"
         End Select
     End Sub
@@ -1329,8 +1359,55 @@ Public Class frmKlock
             Me.displayAction.DisplayReminder("Friends", "Using " & FriendsDirectory)
         End If
     End Sub
+    ' ********************************************************************************************************************************* World Klock ******
+    Private Sub CmbBxWorldKlockTimeZones_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxWorldKlockTimeZones.SelectedIndexChanged
+        '   Call update on world klock when a new time zone is chosen.
+        '   This is called from the main timer if the world klock is visable, following sub's don't then need to call this.
 
-    ' ******************************************************************************************************************************** global stuff ******
+        Me.updateWorldKlock()
+    End Sub
+
+    Private Sub updateWorldKlock()
+        '   Update the world klock, with local time and time of chosen time zone.
+        '   Sligthly differnet update, dependoing on wheater long name of id;s are being used for time zones.
+
+        If RdBtnWorldClockTimeZoneLongName.Checked Then
+            Dim TzInfo As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(Me.CmbBxWorldKlockTimeZones.SelectedItem.id)
+            Me.LblWorldKlockWorld.Text = "World Time " & TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongDateString & " :: " & TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongTimeString
+        Else
+            Me.LblWorldKlockWorld.Text = "World Time " & TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongDateString & " :: " & TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongTimeString
+        End If
+
+        Me.LblWorldKlockLocal.Text = "Current Time : " & Now.ToLongDateString & " :: " & Now.ToLongTimeString
+
+    End Sub
+
+    Private Sub setTimeZones(ByVal pos As Integer)
+        '   Load the time zones into the World Klock Combo Box.
+        '   Sligthly differnet update, dependoing on wheater long name of id;s are being used for time zones.
+        '   Argument passed in is the position of the current time zone, so it can be restored.
+
+        Me.CmbBxWorldKlockTimeZones.Items.Clear()
+
+        For Each f In TimeZoneInfo.GetSystemTimeZones
+            If RdBtnWorldClockTimeZoneLongName.Checked Then
+                Me.CmbBxWorldKlockTimeZones.Items.Add(f)
+            Else
+                Me.CmbBxWorldKlockTimeZones.Items.Add(f.Id)
+            End If
+        Next
+
+        Me.CmbBxWorldKlockTimeZones.SelectedIndex = pos
+    End Sub
+
+    Private Sub RdBtnWorldClockTimeZoneLongName_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RdBtnWorldClockTimeZoneLongName.CheckedChanged, RdBtnWorldClockTimeZoneID.CheckedChanged
+        '   reload the combo box with time zones, in either long names or time zone id's.
+
+        Dim pos As Integer = Me.CmbBxWorldKlockTimeZones.SelectedIndex
+        Me.setTimeZones(pos)
+    End Sub
+
+    ' ******************************************************************************************************************************** Global Stuff ******
     Private Sub frmKlock_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '   Apply current setting on form load.
 
@@ -1340,14 +1417,16 @@ Public Class frmKlock
         Me.displayAction = New selectAction
         Me.displayTimer = New Timer
 
-        Me.DtPckrFriendsDOB.MaxDate = Now()
+        Me.DtPckrFriendsDOB.MaxDate = Now()             '   nobody is born after today :-)
 
-        Me.setSettings()
-        Me.setTimeTypes()
-        Me.setActionTypes()
-        Me.setTitleText()
+        Me.setSettings()                                '   load user settings
+        Me.setTimeTypes()                               '   load time types into combo box.
+        Me.setActionTypes()                             '   load action types into combo box.
+        Me.setTimeZones(0)                              '   load time zones into combo box, making index 0 active.
+        Me.setTitleText()                               '   set app title text
 
-        Me.reloadFriends = True     '   set to re-load friends file.
+        Me.FriendsButtonsVisible(False)
+        Me.reloadFriends = True                         '   set to re-load friends file.
 
     End Sub
 
@@ -1508,6 +1587,43 @@ Public Class frmKlock
         Me.reloadFriends = True     '   set to re-load friends file.
     End Sub
 
+    Private Sub DaylightSavingToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles DaylightSavingToolStripMenuItem.Click
+        '   Display some information of Daulight Saving.
+
+        ' Get the local time zone and the current  year. 
+        Dim localZone As TimeZone = TimeZone.CurrentTimeZone
+        Dim currentDate As DateTime = DateTime.Now
+        Dim currentYear As Integer = currentDate.Year
+        Dim daylight As DaylightTime = localZone.GetDaylightChanges(currentYear)
+
+        If localZone.IsDaylightSavingTime(currentDate) Then
+            frmInfo.GroupBox1.Text = "Summer Time"
+        Else
+            frmInfo.GroupBox1.Text = "Winter Time"
+        End If
+
+        frmInfo.Label1.Text = "Standard Time Name : " & localZone.StandardName
+        frmInfo.Label2.Text = "Daylight Saving Time : " & localZone.DaylightName
+        frmInfo.Label3.Text = "Daylight saving time for " & currentYear
+        frmInfo.Label4.Text = String.Format(" Move the clocks forward {0} Hour on {1} at {2}", daylight.Delta.Hours, daylight.Start.ToLongDateString, daylight.Start.ToShortTimeString)
+        frmInfo.Label5.Text = String.Format(" Move the clocks back {0} Hour on {1} at {2}", daylight.Delta.Hours, daylight.End.ToLongDateString, daylight.End.ToShortTimeString)
+
+        frmInfo.ShowDialog()
+    End Sub
+
+
+    Private Sub CultureToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CultureToolStripMenuItem.Click
+
+
+        frmInfo.Label1.Text = "Current Culture Name : " & CultureInfo.CurrentCulture.EnglishName
+        frmInfo.Label2.Text = "Three Letter ISO Name : " & CultureInfo.CurrentCulture.ThreeLetterISOLanguageName
+        frmInfo.Label3.Text = "Full Date Time Pattern : " & CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern
+        frmInfo.Label4.Text = "Currency Symbol : " & CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol
+        frmInfo.Label5.Text = ""
+
+        frmInfo.ShowDialog()
+    End Sub
+
     ' ****************************************************************************************************** context Strip Menu **************************
     ' menu loads when right clicking on tray icon
 
@@ -1528,6 +1644,9 @@ Public Class frmKlock
 
 
     ' ********************************************************************************************************************************* END **************
+
+
+
 
 
 

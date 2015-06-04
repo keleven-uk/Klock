@@ -2,13 +2,16 @@ Klock - a clock with a k.
 
 A multifunction timing thingy, where some [but not necessary all] of the functions are useful.
 
-The multifunction timing thingy is split into four pages - Fuzzy Time, Countdown, Timer and Reminder.
+The multifunction timing thingy is split into five pages - Fuzzy Time, World Klock, Countdown, Timer and Reminder.
 
 
 Fuzzy Time
 
 Allows the current time to be displayed in a number of different formats.
 
+World Klock
+
+Allows the time from a selected Time Zone to be displayed.
 
 Countdown
 
@@ -73,7 +76,7 @@ The S represents Scroll Lock.
 The letter will be upper case if the key is activated, otherwise lower case.
 
 
-The application contains a options screen [file / Options] which allows various coloursand fonts to be changed.
+The application also contains a options screen [file / Options] which allows various options to be set.
 
 NB: If the option is checked to start on windows start up, it only operates for the current user.
 

@@ -56,6 +56,7 @@ Partial Class frmOptions
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TbPgTime = New System.Windows.Forms.TabPage()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.chckBxTimeTwoFormats = New System.Windows.Forms.CheckBox()
         Me.ChckBxTimeHexIntuitor = New System.Windows.Forms.CheckBox()
         Me.ChckBxTimeNetSeconds = New System.Windows.Forms.CheckBox()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -97,7 +98,9 @@ Partial Class frmOptions
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.chckBxTimeTwoFormats = New System.Windows.Forms.CheckBox()
+        Me.TbPgWorldKlock = New System.Windows.Forms.TabPage()
+        Me.GroupBox12 = New System.Windows.Forms.GroupBox()
+        Me.ChckBxWorldKlockAdd = New System.Windows.Forms.CheckBox()
         Me.TabCntrlOptions.SuspendLayout()
         Me.TbPgGlobal.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
@@ -121,6 +124,8 @@ Partial Class frmOptions
         Me.TbPgFriends.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.GroupBox10.SuspendLayout()
+        Me.TbPgWorldKlock.SuspendLayout()
+        Me.GroupBox12.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnOptionsClose
@@ -211,6 +216,7 @@ Partial Class frmOptions
         Me.TabCntrlOptions.Controls.Add(Me.TbPgGlobal)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgNotification)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgTime)
+        Me.TabCntrlOptions.Controls.Add(Me.TbPgWorldKlock)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgCountdown)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgTimer)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgReminder)
@@ -454,6 +460,17 @@ Partial Class frmOptions
         Me.GroupBox3.TabIndex = 5
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Settings"
+        '
+        'chckBxTimeTwoFormats
+        '
+        Me.chckBxTimeTwoFormats.AutoSize = True
+        Me.chckBxTimeTwoFormats.Location = New System.Drawing.Point(149, 14)
+        Me.chckBxTimeTwoFormats.Name = "chckBxTimeTwoFormats"
+        Me.chckBxTimeTwoFormats.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimeTwoFormats.Size = New System.Drawing.Size(150, 17)
+        Me.chckBxTimeTwoFormats.TabIndex = 8
+        Me.chckBxTimeTwoFormats.Text = "Display Two Time Formats"
+        Me.chckBxTimeTwoFormats.UseVisualStyleBackColor = True
         '
         'ChckBxTimeHexIntuitor
         '
@@ -870,22 +887,43 @@ Partial Class frmOptions
         Me.OpenFileDialog1.CheckFileExists = False
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
-        'chckBxTimeTwoFormats
+        'TbPgWorldKlock
         '
-        Me.chckBxTimeTwoFormats.AutoSize = True
-        Me.chckBxTimeTwoFormats.Location = New System.Drawing.Point(149, 14)
-        Me.chckBxTimeTwoFormats.Name = "chckBxTimeTwoFormats"
-        Me.chckBxTimeTwoFormats.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.chckBxTimeTwoFormats.Size = New System.Drawing.Size(150, 17)
-        Me.chckBxTimeTwoFormats.TabIndex = 8
-        Me.chckBxTimeTwoFormats.Text = "Display Two Time Formats"
-        Me.chckBxTimeTwoFormats.UseVisualStyleBackColor = True
+        Me.TbPgWorldKlock.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgWorldKlock.Controls.Add(Me.GroupBox12)
+        Me.TbPgWorldKlock.Location = New System.Drawing.Point(4, 22)
+        Me.TbPgWorldKlock.Name = "TbPgWorldKlock"
+        Me.TbPgWorldKlock.Padding = New System.Windows.Forms.Padding(3)
+        Me.TbPgWorldKlock.Size = New System.Drawing.Size(378, 259)
+        Me.TbPgWorldKlock.TabIndex = 7
+        Me.TbPgWorldKlock.Text = "Work Klock"
+        '
+        'GroupBox12
+        '
+        Me.GroupBox12.Controls.Add(Me.ChckBxWorldKlockAdd)
+        Me.GroupBox12.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox12.Name = "GroupBox12"
+        Me.GroupBox12.Size = New System.Drawing.Size(366, 247)
+        Me.GroupBox12.TabIndex = 0
+        Me.GroupBox12.TabStop = False
+        Me.GroupBox12.Text = "Settings"
+        '
+        'ChckBxWorldKlockAdd
+        '
+        Me.ChckBxWorldKlockAdd.AutoSize = True
+        Me.ChckBxWorldKlockAdd.Location = New System.Drawing.Point(6, 19)
+        Me.ChckBxWorldKlockAdd.Name = "ChckBxWorldKlockAdd"
+        Me.ChckBxWorldKlockAdd.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxWorldKlockAdd.Size = New System.Drawing.Size(214, 17)
+        Me.ChckBxWorldKlockAdd.TabIndex = 0
+        Me.ChckBxWorldKlockAdd.Text = "Add Countdown to Notification and Title"
+        Me.ChckBxWorldKlockAdd.UseVisualStyleBackColor = True
         '
         'frmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(414, 357)
+        Me.ClientSize = New System.Drawing.Size(410, 357)
         Me.Controls.Add(Me.btnOptionsCancel)
         Me.Controls.Add(Me.TabCntrlOptions)
         Me.Controls.Add(Me.btnOptionsClose)
@@ -928,6 +966,9 @@ Partial Class frmOptions
         Me.GroupBox11.PerformLayout()
         Me.GroupBox10.ResumeLayout(False)
         Me.GroupBox10.PerformLayout()
+        Me.TbPgWorldKlock.ResumeLayout(False)
+        Me.GroupBox12.ResumeLayout(False)
+        Me.GroupBox12.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1006,4 +1047,7 @@ Partial Class frmOptions
     Friend WithEvents btnArchieveFriendsSave As System.Windows.Forms.Button
     Friend WithEvents ChckBxTimeHexIntuitor As System.Windows.Forms.CheckBox
     Friend WithEvents chckBxTimeTwoFormats As System.Windows.Forms.CheckBox
+    Friend WithEvents TbPgWorldKlock As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox12 As System.Windows.Forms.GroupBox
+    Friend WithEvents ChckBxWorldKlockAdd As System.Windows.Forms.CheckBox
 End Class

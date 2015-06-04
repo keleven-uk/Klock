@@ -117,6 +117,12 @@
     </Compile>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="FormAnimator.vb" />
+    <Compile Include="Info.Designer.vb">
+      <DependentUpon>Info.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Info.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Person.vb" />
     <Compile Include="frmNotification.designer.vb">
       <DependentUpon>frmNotification.vb</DependentUpon>
@@ -172,6 +178,9 @@
   <ItemGroup>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Info.resx">
+      <DependentUpon>Info.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmNotification.resx">
       <DependentUpon>frmNotification.vb</DependentUpon>
