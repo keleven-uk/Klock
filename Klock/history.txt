@@ -1,4 +1,23 @@
 ------------------------------------------------------------------------
+r11 | Keleven | 2013-02-27 23:01:04 +0000 (Wed, 27 Feb 2013) | 15 lines
+
+[selectAction.vb]
+Added sub to abort system command i.e. system shut-down.
+Added to work around to the audio play (mciSendString), this could fail if the 
+path either contained more then 128 characters or contained spaces.  
+The filename had to be escaped with extra """.
+
+[Klock.vb]
+Re-wrote main clock tick sub - better flow, also uses the same minute throughout.
+Added a catch to the Countdown start, to disable the start button is the
+value to moved back to zero.
+Added the logic behind the system button(both countdown & reminder)
+If a system command is executed and the main form is not visible, 
+show main form - so aboth button can be used.
+Fixed bug in Reminder System check sub.
+Fixed bug in Reminder date generation.
+
+------------------------------------------------------------------------
 r10 | Keleven | 2013-02-24 20:02:54 +0000 (Sun, 24 Feb 2013) | 1 line
 
 Changed sound files from .wav to .mp3 to save space.

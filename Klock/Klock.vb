@@ -31,6 +31,23 @@ Public Class frmKlock
         '   Sets current time & date to status bar.
         '   Checks for Caps Lock, Num Lock & Scroll Lock - set message in status bar.
 
+        Dim currentMinute As Integer = Now.TimeOfDay.TotalSeconds
+
+        NotificationDispaly(currentMinute)                                           '   display a notification, if desired
+        playHourlyChimes(currentMinute)                                              '   Play a hourly chime,  if desired.
+
+        updateStatusBar()
+
+        Me.LblTimeTime.Text = displayTime.getTime()                     '   display local time in desired time format.
+        Me.TmrMain.Interval = displayTime.getClockTick()
+
+        If Me.btnReminderClear.Enabled Then                             '   a reminder is set, so check.
+            checkReminder()                                             '   [clear is only enabled once the reminder has been set]
+        End If
+    End Sub
+
+    Private Sub updateStatusBar()
+        '    updates the status bar - time, date and stause of caps, scroll and num lock keys.
         Dim strKey As String = "cns"
 
         Me.stsLblTime.Text = Format(Now, "Long Time")
@@ -47,19 +64,10 @@ Public Class frmKlock
         End If
 
         Me.StsLblKeys.Text = strKey
-
-        Me.LblTimeTime.Text = displayTime.getTime()                     '   display local time in desired time format.
-        Me.TmrMain.Interval = displayTime.getClockTick()
-
-        NotificationDispaly()                                           '   display a notification, if desired
-        playHourlyChimes()                                              '   Play a hourly chime,  if desired.
-
-        If Me.btnReminderClear.Enabled Then                             '   a reminder is set, so check.
-            checkReminder()                                             '   [clear is only enabled once the reminder has been set]
-        End If
     End Sub
 
     Private Sub checkReminder()
+        '   check the state of reminders.
 
         If Now() > ReminderDateTime Then
             ReminderAction()
@@ -68,16 +76,14 @@ Public Class frmKlock
 
     End Sub
 
-    Private Sub playHourlyChimes()
+    Private Sub playHourlyChimes(m As Integer)
         '   Depending upon user settings, will play hourly pips or chimes.
         '   The chimes can sound on the hour and every quarter hour if desired.
 
-
-
-        If My.Settings.usrTimeHourPips And (Math.Floor(Now.TimeOfDay.TotalSeconds Mod 3600) = 0) Then          '    will this work at midnight???
+        If My.Settings.usrTimeHourPips And (Math.Floor(m Mod 3600) = 0) Then          '    will this work at midnight???
 
             displayAction.PlaySound(Application.StartupPath & "\Sounds\quarterchime.mp3")               '    Play the Pips on the hour, if desired.
-        ElseIf My.Settings.usrTimeHourlyChimes And (Math.Floor(Now.TimeOfDay.TotalSeconds Mod 3600) = 0) Then  '    Play hourly chimes, if desired.
+        ElseIf My.Settings.usrTimeHourlyChimes And (Math.Floor(m Mod 3600) = 0) Then  '    Play hourly chimes, if desired.
 
             Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
             Dim hour As Integer = Now.Hour
@@ -85,26 +91,27 @@ Public Class frmKlock
             If hour > 12 Then
                 hour -= 12
             End If
-            displayAction.PlaySound(Application.StartupPath & "\Sounds\" & hours(Hour) & ".mp3")
-        ElseIf My.Settings.usrTimeQuarterChimes And (Math.Floor(Now.TimeOfDay.TotalSeconds Mod 900) = 0) Then  '    Play quarter chimes, if desired.
+            displayAction.PlaySound(Application.StartupPath & "\Sounds\" & hours(hour) & ".mp3")
+        ElseIf My.Settings.usrTimeQuarterChimes And (Math.Floor(m Mod 900) = 0) Then  '    Play quarter chimes, if desired.
 
             displayAction.PlaySound(Application.StartupPath & "\Sounds\quarterchime.mp3")
-        ElseIf My.Settings.usrTimeHalfChimes And (Math.Floor(Now.TimeOfDay.TotalSeconds Mod 1800) = 0) Then    '    Play half hourly chimes, if desired.
+        ElseIf My.Settings.usrTimeHalfChimes And (Math.Floor(m Mod 1800) = 0) Then    '    Play half hourly chimes, if desired.
 
             displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.mp3")
-        ElseIf My.Settings.usrTimeThreeQuarterChimes And (Math.Floor(Now.TimeOfDay.TotalSeconds Mod 2700) = 0) Then '    Play three quarter chimes, if desired.
+        ElseIf My.Settings.usrTimeThreeQuarterChimes And (Math.Floor(m Mod 2700) = 0) Then '    Play three quarter chimes, if desired.
 
             displayAction.PlaySound(Application.StartupPath & "\Sounds\threequarterchime.mp3")
         End If
 
     End Sub
 
-    Private Sub NotificationDispaly()
+    Private Sub NotificationDispaly(m As Integer)
+        '   if desired, check the status of notifications - should display the time every five minjutes.
 
         If Me.NtfyIcnKlock.Visible Then                     '   if in system tray,
             Me.NtfyIcnKlock.Text = displayTime.getTime()    '   set icon tool tip to current time.
 
-            If My.Settings.usrTimeDisplayMinimised And (Math.Floor(Now.TimeOfDay.TotalSeconds Mod 300) = 0) Then
+            If My.Settings.usrTimeDisplayMinimised And (Math.Floor(m Mod 300) = 0) Then
 
                 displayAction.DisplayReminder("Time", displayTime.getTime())                    ' display current time as a toast notification,if desired
 
@@ -112,6 +119,7 @@ Public Class frmKlock
         End If              '   If Me.NtfyIcnKlock.Visible Then
     End Sub
 
+    ' *************************************************************************************************************** timer clock ***********************
     Private Sub tmrTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrTimer.Tick
         '   if enabled, timer is running - update timer label
 
@@ -123,6 +131,7 @@ Public Class frmKlock
 
     End Sub
 
+    ' ******************************************************************************************************************* countdown clock ****************
     Private Sub tmrCountDown_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCountDown.Tick
         '   if enabled, countdown is running - clock ticks ever second.
 
@@ -135,7 +144,7 @@ Public Class frmKlock
         End If
     End Sub
 
-    '   ******************************************************************** Global Tab Change ****************************************
+    '   *************************************************************************************** Global Tab Change ****************************************
 
     Private Sub TbCntrl_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles TbCntrl.SelectedIndexChanged
         '    performed when ever the main tab is changed, used for any tab initalisation.
@@ -158,7 +167,7 @@ Public Class frmKlock
 
     End Sub
 
-    '   ********************************************************************************* time ****************************************
+    '   ************************************************************************************************** time ****************************************
 
     Sub setTimeTypes()
         '   Loads the different time format types and load into combo box.
@@ -178,7 +187,7 @@ Public Class frmKlock
 
     End Sub
 
-    '   ********************************************************************************* timer ***************************************
+    '   ************************************************************************************************** timer ***************************************
 
     Private Sub btnTimerStart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerStart.Click
         '   Start the timer
@@ -257,7 +266,7 @@ Public Class frmKlock
         Me.btnTimerSplitClear.Enabled = False
     End Sub
 
-    ' **************************************************************************************** Countdown ******************************
+    ' ************************************************************************************************************ Countdown ******************************
     Private Sub upDwnCntDownValue_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles upDwnCntDownValue.ValueChanged
         '   when the up down counter has been changed, enable the start button and update the countdown label.
 
@@ -492,7 +501,7 @@ Public Class frmKlock
         Me.btnCountDownLoadCommand.Visible = b
     End Sub
 
-    ' ******************************************************************************* Reminder ****************************************
+    ' **************************************************************************************************** Reminder ****************************************
 
     Private Sub CmbBxReminderAction_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxReminderAction.SelectedIndexChanged
         '   Depending on the position of the action combo box, enable the appropriate action controls.
@@ -776,40 +785,7 @@ Public Class frmKlock
     End Function
 
 
-    ' ********************************************************************************************************************************
-
-
-    Private Sub MnItmExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmExit.Click
-        '   Close application.
-
-        Me.Close()
-    End Sub
-
-    Private Sub MnItmAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmAbout.Click
-        '   Display About screen.
-
-        frmAbout.ShowDialog()
-    End Sub
-
-    Private Sub MnItmSubHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmSubHelp.Click
-        '   Display Help Screen.
-
-        frmHelp.ShowDialog()
-    End Sub
-
-    Private Sub LicenseToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmLicense.Click
-        '   Display License Screen.
-
-        frmLicence.ShowDialog()
-    End Sub
-
-    Private Sub OptionsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmOptions.Click
-        '   Display Settings Screen and apply settings, they may have changed.
-
-        frmOptions.ShowDialog()
-        setSettings()
-    End Sub
-
+    ' ******************************************************************************************************************************** global stuff ******
     Private Sub frmKlock_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '   Apply current setting on form load.
 
@@ -894,7 +870,40 @@ Public Class frmKlock
         Me.NtfyIcnKlock.Visible = True
         Me.Visible = False
     End Sub
-    ' *********************************************************************************** context Strip Menu **************************
+
+    ' *************************************************************************************************************************** menu stuff *************
+    Private Sub MnItmExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmExit.Click
+        '   Close application.
+
+        Me.Close()
+    End Sub
+
+    Private Sub MnItmAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmAbout.Click
+        '   Display About screen.
+
+        frmAbout.ShowDialog()
+    End Sub
+
+    Private Sub MnItmSubHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmSubHelp.Click
+        '   Display Help Screen.
+
+        frmHelp.ShowDialog()
+    End Sub
+
+    Private Sub LicenseToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmLicense.Click
+        '   Display License Screen.
+
+        frmLicence.ShowDialog()
+    End Sub
+
+    Private Sub OptionsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmOptions.Click
+        '   Display Settings Screen and apply settings, they may have changed.
+
+        frmOptions.ShowDialog()
+        setSettings()
+    End Sub
+
+    ' ****************************************************************************************************** context Strip Menu **************************
     ' menu loads when right clicking on tray icon
 
     Private Sub TlStrpMnItmShow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TlStrpMnItmShow.Click
@@ -935,15 +944,6 @@ Public Class frmKlock
     End Sub
 
 
-    ' *********************************************************************************************************************************
-
-
-
-
-
-
-
-
-
+    ' ********************************************************************************************************************************* END **************
 
 End Class
