@@ -101,6 +101,7 @@ Partial Class frmKlock
         Me.btnTimerStart = New System.Windows.Forms.Button()
         Me.TbPgReminder = New System.Windows.Forms.TabPage()
         Me.GroupBox11 = New System.Windows.Forms.GroupBox()
+        Me.ChckBxReminderScreenSaver = New System.Windows.Forms.CheckBox()
         Me.TxtBxReminderSpeech = New System.Windows.Forms.TextBox()
         Me.ChckBxReminderSpeech = New System.Windows.Forms.CheckBox()
         Me.btnReminderSystemAbort = New System.Windows.Forms.Button()
@@ -162,6 +163,24 @@ Partial Class frmKlock
         Me.lblFriendsFirstName = New System.Windows.Forms.Label()
         Me.GroupBox12 = New System.Windows.Forms.GroupBox()
         Me.LstBxFriends = New System.Windows.Forms.ListBox()
+        Me.TbPgEvents = New System.Windows.Forms.TabPage()
+        Me.GroupBox20 = New System.Windows.Forms.GroupBox()
+        Me.pnlEvents = New System.Windows.Forms.Panel()
+        Me.lblEventTime = New System.Windows.Forms.Label()
+        Me.DtTmPckrEventsTime = New System.Windows.Forms.DateTimePicker()
+        Me.txtbxEventNotes = New System.Windows.Forms.TextBox()
+        Me.CmbBxEventPeriod = New System.Windows.Forms.ComboBox()
+        Me.lblEventRecuring = New System.Windows.Forms.Label()
+        Me.ChckBxEventRecuring = New System.Windows.Forms.CheckBox()
+        Me.lblEventNotes = New System.Windows.Forms.Label()
+        Me.DtTmPckrEventsDate = New System.Windows.Forms.DateTimePicker()
+        Me.lblEventsDate = New System.Windows.Forms.Label()
+        Me.lblEventsName = New System.Windows.Forms.Label()
+        Me.CmbBxEventTypes = New System.Windows.Forms.ComboBox()
+        Me.lblEventsType = New System.Windows.Forms.Label()
+        Me.TxtBxEventsName = New System.Windows.Forms.TextBox()
+        Me.GroupBox19 = New System.Windows.Forms.GroupBox()
+        Me.LstBxEvents = New System.Windows.Forms.ListBox()
         Me.btnHide = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnHelp = New System.Windows.Forms.Button()
@@ -182,7 +201,11 @@ Partial Class frmKlock
         Me.btnFriendsEdit = New System.Windows.Forms.Button()
         Me.btnFriendsDelete = New System.Windows.Forms.Button()
         Me.HlpPrvdrKlock = New System.Windows.Forms.HelpProvider()
-        Me.ChckBxReminderScreenSaver = New System.Windows.Forms.CheckBox()
+        Me.btnEventsNew = New System.Windows.Forms.Button()
+        Me.btnEventsAdd = New System.Windows.Forms.Button()
+        Me.btnEventsClear = New System.Windows.Forms.Button()
+        Me.btnEventsEdit = New System.Windows.Forms.Button()
+        Me.btnEventsDelete = New System.Windows.Forms.Button()
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -212,13 +235,17 @@ Partial Class frmKlock
         Me.GroupBox13.SuspendLayout()
         Me.pnlFriends.SuspendLayout()
         Me.GroupBox12.SuspendLayout()
+        Me.TbPgEvents.SuspendLayout()
+        Me.GroupBox20.SuspendLayout()
+        Me.pnlEvents.SuspendLayout()
+        Me.GroupBox19.SuspendLayout()
         Me.CntxtMnStrpKlock.SuspendLayout()
         Me.SuspendLayout()
         '
         'StsStrpInfo
         '
         Me.StsStrpInfo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsLblTime, Me.StsLblDate, Me.StsLblKeys})
-        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 233)
+        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 240)
         Me.StsStrpInfo.Name = "StsStrpInfo"
         Me.StsStrpInfo.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.StsStrpInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -361,6 +388,7 @@ Partial Class frmKlock
         Me.TbCntrl.Controls.Add(Me.TbPgTimer)
         Me.TbCntrl.Controls.Add(Me.TbPgReminder)
         Me.TbCntrl.Controls.Add(Me.TbPgFriends)
+        Me.TbCntrl.Controls.Add(Me.TbPgEvents)
         Me.TbCntrl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TbCntrl.Location = New System.Drawing.Point(12, 27)
         Me.TbCntrl.Name = "TbCntrl"
@@ -987,6 +1015,16 @@ Partial Class frmKlock
         Me.GroupBox11.TabIndex = 3
         Me.GroupBox11.TabStop = False
         '
+        'ChckBxReminderScreenSaver
+        '
+        Me.ChckBxReminderScreenSaver.AutoSize = True
+        Me.ChckBxReminderScreenSaver.Location = New System.Drawing.Point(101, 23)
+        Me.ChckBxReminderScreenSaver.Name = "ChckBxReminderScreenSaver"
+        Me.ChckBxReminderScreenSaver.Size = New System.Drawing.Size(99, 19)
+        Me.ChckBxReminderScreenSaver.TabIndex = 15
+        Me.ChckBxReminderScreenSaver.Text = "Screen Saver"
+        Me.ChckBxReminderScreenSaver.UseVisualStyleBackColor = True
+        '
         'TxtBxReminderSpeech
         '
         Me.TxtBxReminderSpeech.Enabled = False
@@ -1582,6 +1620,192 @@ Partial Class frmKlock
         Me.LstBxFriends.Sorted = True
         Me.LstBxFriends.TabIndex = 0
         '
+        'TbPgEvents
+        '
+        Me.TbPgEvents.Controls.Add(Me.GroupBox20)
+        Me.TbPgEvents.Controls.Add(Me.GroupBox19)
+        Me.TbPgEvents.Location = New System.Drawing.Point(4, 25)
+        Me.TbPgEvents.Name = "TbPgEvents"
+        Me.TbPgEvents.Size = New System.Drawing.Size(671, 131)
+        Me.TbPgEvents.TabIndex = 6
+        Me.TbPgEvents.Text = "Events"
+        Me.TbPgEvents.UseVisualStyleBackColor = True
+        '
+        'GroupBox20
+        '
+        Me.GroupBox20.Controls.Add(Me.pnlEvents)
+        Me.GroupBox20.Location = New System.Drawing.Point(251, 6)
+        Me.GroupBox20.Name = "GroupBox20"
+        Me.GroupBox20.Size = New System.Drawing.Size(413, 122)
+        Me.GroupBox20.TabIndex = 1
+        Me.GroupBox20.TabStop = False
+        '
+        'pnlEvents
+        '
+        Me.pnlEvents.AutoScroll = True
+        Me.pnlEvents.Controls.Add(Me.lblEventTime)
+        Me.pnlEvents.Controls.Add(Me.DtTmPckrEventsTime)
+        Me.pnlEvents.Controls.Add(Me.txtbxEventNotes)
+        Me.pnlEvents.Controls.Add(Me.CmbBxEventPeriod)
+        Me.pnlEvents.Controls.Add(Me.lblEventRecuring)
+        Me.pnlEvents.Controls.Add(Me.ChckBxEventRecuring)
+        Me.pnlEvents.Controls.Add(Me.lblEventNotes)
+        Me.pnlEvents.Controls.Add(Me.DtTmPckrEventsDate)
+        Me.pnlEvents.Controls.Add(Me.lblEventsDate)
+        Me.pnlEvents.Controls.Add(Me.lblEventsName)
+        Me.pnlEvents.Controls.Add(Me.CmbBxEventTypes)
+        Me.pnlEvents.Controls.Add(Me.lblEventsType)
+        Me.pnlEvents.Controls.Add(Me.TxtBxEventsName)
+        Me.pnlEvents.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlEvents.Location = New System.Drawing.Point(3, 16)
+        Me.pnlEvents.Name = "pnlEvents"
+        Me.pnlEvents.Size = New System.Drawing.Size(407, 103)
+        Me.pnlEvents.TabIndex = 0
+        '
+        'lblEventTime
+        '
+        Me.lblEventTime.AutoSize = True
+        Me.lblEventTime.Location = New System.Drawing.Point(258, 42)
+        Me.lblEventTime.Name = "lblEventTime"
+        Me.lblEventTime.Size = New System.Drawing.Size(68, 15)
+        Me.lblEventTime.TabIndex = 13
+        Me.lblEventTime.Text = "Event Time"
+        '
+        'DtTmPckrEventsTime
+        '
+        Me.DtTmPckrEventsTime.Checked = False
+        Me.DtTmPckrEventsTime.CustomFormat = "HH:mm"
+        Me.DtTmPckrEventsTime.Enabled = False
+        Me.DtTmPckrEventsTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.DtTmPckrEventsTime.Location = New System.Drawing.Point(305, 60)
+        Me.DtTmPckrEventsTime.Name = "DtTmPckrEventsTime"
+        Me.DtTmPckrEventsTime.ShowUpDown = True
+        Me.DtTmPckrEventsTime.Size = New System.Drawing.Size(75, 20)
+        Me.DtTmPckrEventsTime.TabIndex = 12
+        Me.DtTmPckrEventsTime.Value = New Date(2013, 7, 29, 0, 0, 0, 0)
+        '
+        'txtbxEventNotes
+        '
+        Me.txtbxEventNotes.Location = New System.Drawing.Point(17, 111)
+        Me.txtbxEventNotes.Multiline = True
+        Me.txtbxEventNotes.Name = "txtbxEventNotes"
+        Me.txtbxEventNotes.ReadOnly = True
+        Me.txtbxEventNotes.Size = New System.Drawing.Size(363, 63)
+        Me.txtbxEventNotes.TabIndex = 11
+        '
+        'CmbBxEventPeriod
+        '
+        Me.CmbBxEventPeriod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CmbBxEventPeriod.Enabled = False
+        Me.CmbBxEventPeriod.FormattingEnabled = True
+        Me.CmbBxEventPeriod.Location = New System.Drawing.Point(134, 60)
+        Me.CmbBxEventPeriod.Name = "CmbBxEventPeriod"
+        Me.CmbBxEventPeriod.Size = New System.Drawing.Size(121, 21)
+        Me.CmbBxEventPeriod.TabIndex = 10
+        '
+        'lblEventRecuring
+        '
+        Me.lblEventRecuring.AutoSize = True
+        Me.lblEventRecuring.Location = New System.Drawing.Point(134, 42)
+        Me.lblEventRecuring.Name = "lblEventRecuring"
+        Me.lblEventRecuring.Size = New System.Drawing.Size(89, 15)
+        Me.lblEventRecuring.TabIndex = 9
+        Me.lblEventRecuring.Text = "Period of Event"
+        '
+        'ChckBxEventRecuring
+        '
+        Me.ChckBxEventRecuring.AutoSize = True
+        Me.ChckBxEventRecuring.Enabled = False
+        Me.ChckBxEventRecuring.Location = New System.Drawing.Point(31, 54)
+        Me.ChckBxEventRecuring.Name = "ChckBxEventRecuring"
+        Me.ChckBxEventRecuring.Size = New System.Drawing.Size(76, 19)
+        Me.ChckBxEventRecuring.TabIndex = 8
+        Me.ChckBxEventRecuring.Text = "Recuring"
+        Me.ChckBxEventRecuring.UseVisualStyleBackColor = True
+        '
+        'lblEventNotes
+        '
+        Me.lblEventNotes.AutoSize = True
+        Me.lblEventNotes.Location = New System.Drawing.Point(14, 91)
+        Me.lblEventNotes.Name = "lblEventNotes"
+        Me.lblEventNotes.Size = New System.Drawing.Size(72, 15)
+        Me.lblEventNotes.TabIndex = 6
+        Me.lblEventNotes.Text = "Event Notes"
+        '
+        'DtTmPckrEventsDate
+        '
+        Me.DtTmPckrEventsDate.Enabled = False
+        Me.DtTmPckrEventsDate.Location = New System.Drawing.Point(261, 18)
+        Me.DtTmPckrEventsDate.Name = "DtTmPckrEventsDate"
+        Me.DtTmPckrEventsDate.Size = New System.Drawing.Size(119, 20)
+        Me.DtTmPckrEventsDate.TabIndex = 5
+        '
+        'lblEventsDate
+        '
+        Me.lblEventsDate.AutoSize = True
+        Me.lblEventsDate.Location = New System.Drawing.Point(257, 0)
+        Me.lblEventsDate.Name = "lblEventsDate"
+        Me.lblEventsDate.Size = New System.Drawing.Size(66, 15)
+        Me.lblEventsDate.TabIndex = 4
+        Me.lblEventsDate.Text = "Event Date"
+        '
+        'lblEventsName
+        '
+        Me.lblEventsName.AutoSize = True
+        Me.lblEventsName.Location = New System.Drawing.Point(3, 0)
+        Me.lblEventsName.Name = "lblEventsName"
+        Me.lblEventsName.Size = New System.Drawing.Size(74, 15)
+        Me.lblEventsName.TabIndex = 0
+        Me.lblEventsName.Text = "Event Name"
+        '
+        'CmbBxEventTypes
+        '
+        Me.CmbBxEventTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CmbBxEventTypes.Enabled = False
+        Me.CmbBxEventTypes.FormattingEnabled = True
+        Me.CmbBxEventTypes.Location = New System.Drawing.Point(134, 18)
+        Me.CmbBxEventTypes.Name = "CmbBxEventTypes"
+        Me.CmbBxEventTypes.Size = New System.Drawing.Size(121, 21)
+        Me.CmbBxEventTypes.Sorted = True
+        Me.CmbBxEventTypes.TabIndex = 3
+        '
+        'lblEventsType
+        '
+        Me.lblEventsType.AutoSize = True
+        Me.lblEventsType.Location = New System.Drawing.Point(134, 0)
+        Me.lblEventsType.Name = "lblEventsType"
+        Me.lblEventsType.Size = New System.Drawing.Size(66, 15)
+        Me.lblEventsType.TabIndex = 2
+        Me.lblEventsType.Text = "Event Type"
+        '
+        'TxtBxEventsName
+        '
+        Me.TxtBxEventsName.Location = New System.Drawing.Point(8, 18)
+        Me.TxtBxEventsName.Name = "TxtBxEventsName"
+        Me.TxtBxEventsName.ReadOnly = True
+        Me.TxtBxEventsName.Size = New System.Drawing.Size(120, 20)
+        Me.TxtBxEventsName.TabIndex = 1
+        '
+        'GroupBox19
+        '
+        Me.GroupBox19.Controls.Add(Me.LstBxEvents)
+        Me.GroupBox19.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox19.Name = "GroupBox19"
+        Me.GroupBox19.Size = New System.Drawing.Size(239, 122)
+        Me.GroupBox19.TabIndex = 0
+        Me.GroupBox19.TabStop = False
+        '
+        'LstBxEvents
+        '
+        Me.LstBxEvents.Font = New System.Drawing.Font("Lucida Sans Typewriter", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LstBxEvents.FormattingEnabled = True
+        Me.LstBxEvents.ItemHeight = 12
+        Me.LstBxEvents.Location = New System.Drawing.Point(6, 19)
+        Me.LstBxEvents.Name = "LstBxEvents"
+        Me.LstBxEvents.Size = New System.Drawing.Size(227, 88)
+        Me.LstBxEvents.Sorted = True
+        Me.LstBxEvents.TabIndex = 0
+        '
         'btnHide
         '
         Me.btnHide.Location = New System.Drawing.Point(575, 193)
@@ -1717,21 +1941,65 @@ Partial Class frmKlock
         Me.btnFriendsDelete.Text = "Delete"
         Me.btnFriendsDelete.UseVisualStyleBackColor = True
         '
-        'ChckBxReminderScreenSaver
+        'btnEventsNew
         '
-        Me.ChckBxReminderScreenSaver.AutoSize = True
-        Me.ChckBxReminderScreenSaver.Location = New System.Drawing.Point(101, 23)
-        Me.ChckBxReminderScreenSaver.Name = "ChckBxReminderScreenSaver"
-        Me.ChckBxReminderScreenSaver.Size = New System.Drawing.Size(99, 19)
-        Me.ChckBxReminderScreenSaver.TabIndex = 15
-        Me.ChckBxReminderScreenSaver.Text = "Screen Saver"
-        Me.ChckBxReminderScreenSaver.UseVisualStyleBackColor = True
+        Me.btnEventsNew.Location = New System.Drawing.Point(17, 198)
+        Me.btnEventsNew.Name = "btnEventsNew"
+        Me.btnEventsNew.Size = New System.Drawing.Size(42, 23)
+        Me.btnEventsNew.TabIndex = 11
+        Me.btnEventsNew.Text = "New"
+        Me.btnEventsNew.UseVisualStyleBackColor = True
+        '
+        'btnEventsAdd
+        '
+        Me.btnEventsAdd.Enabled = False
+        Me.btnEventsAdd.Location = New System.Drawing.Point(66, 198)
+        Me.btnEventsAdd.Name = "btnEventsAdd"
+        Me.btnEventsAdd.Size = New System.Drawing.Size(42, 23)
+        Me.btnEventsAdd.TabIndex = 12
+        Me.btnEventsAdd.Text = "Add"
+        Me.btnEventsAdd.UseVisualStyleBackColor = True
+        '
+        'btnEventsClear
+        '
+        Me.btnEventsClear.Enabled = False
+        Me.btnEventsClear.Location = New System.Drawing.Point(115, 198)
+        Me.btnEventsClear.Name = "btnEventsClear"
+        Me.btnEventsClear.Size = New System.Drawing.Size(42, 23)
+        Me.btnEventsClear.TabIndex = 13
+        Me.btnEventsClear.Text = "Clear"
+        Me.btnEventsClear.UseVisualStyleBackColor = True
+        '
+        'btnEventsEdit
+        '
+        Me.btnEventsEdit.Enabled = False
+        Me.btnEventsEdit.Location = New System.Drawing.Point(164, 198)
+        Me.btnEventsEdit.Name = "btnEventsEdit"
+        Me.btnEventsEdit.Size = New System.Drawing.Size(42, 23)
+        Me.btnEventsEdit.TabIndex = 14
+        Me.btnEventsEdit.Text = "Edit"
+        Me.btnEventsEdit.UseVisualStyleBackColor = True
+        '
+        'btnEventsDelete
+        '
+        Me.btnEventsDelete.Enabled = False
+        Me.btnEventsDelete.Location = New System.Drawing.Point(212, 198)
+        Me.btnEventsDelete.Name = "btnEventsDelete"
+        Me.btnEventsDelete.Size = New System.Drawing.Size(49, 23)
+        Me.btnEventsDelete.TabIndex = 15
+        Me.btnEventsDelete.Text = "Delete"
+        Me.btnEventsDelete.UseVisualStyleBackColor = True
         '
         'frmKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(696, 257)
+        Me.ClientSize = New System.Drawing.Size(696, 264)
+        Me.Controls.Add(Me.btnEventsDelete)
+        Me.Controls.Add(Me.btnEventsEdit)
+        Me.Controls.Add(Me.btnEventsClear)
+        Me.Controls.Add(Me.btnEventsAdd)
+        Me.Controls.Add(Me.btnEventsNew)
         Me.Controls.Add(Me.btnFriendsDelete)
         Me.Controls.Add(Me.btnFriendsEdit)
         Me.Controls.Add(Me.btnFriendsClear)
@@ -1794,6 +2062,11 @@ Partial Class frmKlock
         Me.pnlFriends.ResumeLayout(False)
         Me.pnlFriends.PerformLayout()
         Me.GroupBox12.ResumeLayout(False)
+        Me.TbPgEvents.ResumeLayout(False)
+        Me.GroupBox20.ResumeLayout(False)
+        Me.pnlEvents.ResumeLayout(False)
+        Me.pnlEvents.PerformLayout()
+        Me.GroupBox19.ResumeLayout(False)
         Me.CntxtMnStrpKlock.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -1958,5 +2231,28 @@ Partial Class frmKlock
     Friend WithEvents TlStrpMnItmHelp As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ChckBxCountdownScreenSaver As System.Windows.Forms.CheckBox
     Friend WithEvents ChckBxReminderScreenSaver As System.Windows.Forms.CheckBox
+    Friend WithEvents TbPgEvents As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox19 As System.Windows.Forms.GroupBox
+    Friend WithEvents LstBxEvents As System.Windows.Forms.ListBox
+    Friend WithEvents GroupBox20 As System.Windows.Forms.GroupBox
+    Friend WithEvents TxtBxEventsName As System.Windows.Forms.TextBox
+    Friend WithEvents lblEventsName As System.Windows.Forms.Label
+    Friend WithEvents CmbBxEventTypes As System.Windows.Forms.ComboBox
+    Friend WithEvents lblEventsType As System.Windows.Forms.Label
+    Friend WithEvents pnlEvents As System.Windows.Forms.Panel
+    Friend WithEvents DtTmPckrEventsDate As System.Windows.Forms.DateTimePicker
+    Friend WithEvents lblEventsDate As System.Windows.Forms.Label
+    Friend WithEvents lblEventNotes As System.Windows.Forms.Label
+    Friend WithEvents ChckBxEventRecuring As System.Windows.Forms.CheckBox
+    Friend WithEvents CmbBxEventPeriod As System.Windows.Forms.ComboBox
+    Friend WithEvents lblEventRecuring As System.Windows.Forms.Label
+    Friend WithEvents txtbxEventNotes As System.Windows.Forms.TextBox
+    Friend WithEvents btnEventsNew As System.Windows.Forms.Button
+    Friend WithEvents btnEventsAdd As System.Windows.Forms.Button
+    Friend WithEvents btnEventsClear As System.Windows.Forms.Button
+    Friend WithEvents btnEventsEdit As System.Windows.Forms.Button
+    Friend WithEvents btnEventsDelete As System.Windows.Forms.Button
+    Friend WithEvents DtTmPckrEventsTime As System.Windows.Forms.DateTimePicker
+    Friend WithEvents lblEventTime As System.Windows.Forms.Label
 
 End Class

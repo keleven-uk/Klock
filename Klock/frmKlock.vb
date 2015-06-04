@@ -31,9 +31,13 @@ Public Class frmKlock
     Public CountDownTime As Integer             '   Holds number of minutes for the countdown timer.
     Public ReminderDateTime As DateTime         '   Holds the date [and time] of the set reminder.
 
-    Public ADDING As Boolean = False            '   Will be true if addinf friend, flase if editing.
+    Public F_ADDING As Boolean = False          '   Will be true if adding friend, false if editing.
+    Public E_ADDING As Boolean = False          '   Will be true if adding event, false if editing.
 
-    Public reloadFriends As Boolean = True      '   if true, friends file will re-loaded
+    Public reloadFriends As Boolean = True      '   if true, friends file will be re-loaded
+    Public reloadEvents As Boolean = True       '   if true, events file will be re-loaded.
+
+    Public epoc As Date = #1/1/1970#            '   used to set time picker to 0:00 i.e. midnight.
 
     Public strHelpPath As String = System.IO.Path.Combine(Application.StartupPath, "klock.chm") '   set up help location
 
@@ -313,15 +317,20 @@ Public Class frmKlock
         Select Case Me.TbCntrl.SelectedIndex
             Case 0                                              '   time tab
                 Me.FriendsButtonsVisible(False)
+                Me.eventsButtonsVisible(False)
             Case 1                                              '   World Klock
                 Me.FriendsButtonsVisible(False)
+                Me.eventsButtonsVisible(False)
                 Me.updateWorldKlock()
             Case 2                                              '   countdown tab
                 Me.FriendsButtonsVisible(False)
+                Me.eventsButtonsVisible(False)
             Case 3                                              '   timer tab
                 Me.FriendsButtonsVisible(False)
-            Case 4                                             '   reminder tab
+                Me.eventsButtonsVisible(False)
+            Case 4                                              '   reminder tab
                 Me.FriendsButtonsVisible(False)
+                Me.eventsButtonsVisible(False)
 
                 If Me.usrSettings.usrReminderTimeChecked Then
                     Me.TmPckrRiminder.Enabled = True
@@ -332,12 +341,13 @@ Public Class frmKlock
                 End If
             Case 5                                              '   friends tab
                 Me.FriendsButtonsVisible(True)
+                Me.eventsButtonsVisible(False)
 
                 If Me.reloadFriends Then
                     Me.loadFriends()
                     Me.blankFriendsDate()
                     Me.LoadAutoCompleteStuff()
-                    Me.reloadFriends = False        ' do not reload, if not necessary
+                    Me.reloadFriends = False                    ' do not reload, if not necessary
                 End If
 
                 If Me.LstBxFriends.Items.Count > 0 Then
@@ -345,6 +355,11 @@ Public Class frmKlock
                     Me.btnFriendsEdit.Enabled = True
                     Me.showFriends(0)
                 End If
+            Case 6                                              '   Events tab
+                Me.DtTmPckrEventsTime.Value = epoc              '   sets value to 00:00 i.e. midnight
+
+                Me.FriendsButtonsVisible(False)
+                Me.eventsButtonsVisible(True)
         End Select
 
         Me.setTitleText()
@@ -364,6 +379,8 @@ Public Class frmKlock
                 Me.Text = "Klock - Reminds you of the time"
             Case 5                                              '   friends tab
                 Me.Text = "Klock - Reminds you of your friends"
+            Case 6                                              '   events tab
+                Me.Text = "Klock - Reminds you of important events."
         End Select
     End Sub
 
@@ -1067,7 +1084,7 @@ Public Class frmKlock
         Me.FriendsClearText()
         Me.FriendsReadOnlyText(False)
 
-        Me.ADDING = True
+        Me.F_ADDING = True
     End Sub
 
     Private Sub btnFriendsClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsClear.Click
@@ -1075,7 +1092,7 @@ Public Class frmKlock
 
         Me.scrollFriendsPanelToTop()
 
-        Me.ADDING = False
+        Me.F_ADDING = False
 
         Me.btnFriendsEdit.Enabled = False
         Me.btnFriendsEdit.Text = "Edit"
@@ -1098,7 +1115,7 @@ Public Class frmKlock
     Private Sub FirstAndLastName_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtbxFriendsFirstName.TextChanged, txtbxFriendsLastName.TextChanged
         '   Only allow adding if first and last name exist.
 
-        If Me.ADDING Then
+        If Me.F_ADDING Then
             If Me.txtbxFriendsFirstName.Text <> "" And Me.txtbxFriendsLastName.Text <> "" Then
                 Me.btnFriendsAdd.Enabled = True
             Else
@@ -1113,7 +1130,7 @@ Public Class frmKlock
 
         Me.populateFriend("ADD")
 
-        Me.ADDING = False
+        Me.F_ADDING = False
 
         Me.btnFriendsNew.Enabled = True
         Me.btnFriendsDelete.Enabled = True
@@ -1319,6 +1336,7 @@ Public Class frmKlock
             Me.displayAction.DisplayReminder("ERROR :: populating friend", ex.Message)
         End Try
     End Sub
+
     Private Sub FriendsButtonsVisible(ByVal b As Boolean)
         '   Switch on the friends editing buttons.
 
@@ -1408,7 +1426,7 @@ Public Class frmKlock
 
         checkFriendsDirectory()        '   Check for data directory first, will be created if not there.
 
-        Dim saveFile As FileStream = File.Create(System.IO.Path.Combine(Me.usrSettings.usrFriendsDirectory, Me.usrSettings.usrFrinedsFile))
+        Dim saveFile As FileStream = File.Create(System.IO.Path.Combine(Me.usrSettings.usrFriendsDirectory, Me.usrSettings.usrFriendsFile))
 
         saveFile.Seek(0, SeekOrigin.End)
 
@@ -1417,7 +1435,7 @@ Public Class frmKlock
 
         Dim Formatter As BinaryFormatter = New BinaryFormatter
 
-        For Each p In LstBxFriends.Items        '   Create list.
+        For Each p In Me.LstBxFriends.Items        '   Create list.
             AL.Add(p)
         Next
 
@@ -1441,7 +1459,7 @@ Public Class frmKlock
         Dim readFile As FileStream
 
         Try
-            readFile = File.OpenRead(System.IO.Path.Combine(Me.usrSettings.usrFriendsDirectory, Me.usrSettings.usrFrinedsFile))
+            readFile = File.OpenRead(System.IO.Path.Combine(Me.usrSettings.usrFriendsDirectory, Me.usrSettings.usrFriendsFile))
             readFile.Seek(0, SeekOrigin.Begin)
         Catch ex As Exception                   '   not there, go away.
             Me.displayAction.DisplayReminder("Friends", "No friends file found - will create if needed.")
@@ -1523,6 +1541,309 @@ Public Class frmKlock
         Me.pnlFriends.ScrollControlIntoView(Me.lblFriendsFirstName)
     End Sub
 
+    ' ********************************************************************************************************************************* Events ********
+
+    Private Sub eventsButtonsVisible(ByVal b As Boolean)
+        '   Switch on the events editing buttons.
+
+        Me.btnEventsNew.Visible = b
+        Me.btnEventsAdd.Visible = b
+        Me.btnEventsClear.Visible = b
+        Me.btnEventsEdit.Visible = b
+        Me.btnEventsDelete.Visible = b
+    End Sub
+
+    Private Sub btnEventsNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventsNew.Click
+        '   Sets up to add new event.
+
+        Me.ScrollEventsPanelTop()
+
+        Me.btnEventsClear.Enabled = True
+        Me.btnEventsAdd.Enabled = False
+        Me.btnEventsNew.Enabled = False
+        Me.btnEventsEdit.Enabled = False
+        Me.TxtBxEventsName.Focus()
+
+        Me.EventsClearText()
+        Me.EventsReadOnlyText(True)
+
+        Me.E_ADDING = True
+    End Sub
+
+    Private Sub btnEventsAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventsAdd.Click
+        '   Adds a new event to listview and saves a new event file.
+
+        Me.populateEvents("ADD")
+
+        Me.btnEventsNew.Enabled = True
+        Me.btnEventsDelete.Enabled = True
+        Me.btnEventsEdit.Enabled = True
+        Me.btnEventsClear.Enabled = True
+        Me.btnEventsAdd.Enabled = False
+
+        Me.EventsClearText()
+        Me.EventsReadOnlyText(True)
+        Me.showEvents(0)
+        Me.saveEvents()
+    End Sub
+
+    Private Sub btnEventsClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventsClear.Click
+        '   Cleares everything [not sure when called]
+
+        Me.ScrollEventsPanelTop()
+
+        Me.E_ADDING = False
+
+        Me.btnEventsEdit.Enabled = False
+        Me.btnEventsEdit.Text = "Edit"
+        Me.btnEventsClear.Enabled = False
+        Me.btnEventsAdd.Enabled = False
+        Me.btnEventsNew.Enabled = False
+
+        If Me.LstBxEvents.Items.Count > 0 Then
+            Me.btnEventsDelete.Enabled = True
+            Me.btnEventsEdit.Enabled = True
+            Me.showEvents(0)
+        Else
+            Me.btnEventsEdit.Enabled = False
+            Me.btnEventsDelete.Enabled = False
+            Me.EventsClearText()
+        End If
+
+        Me.EventsReadOnlyText(False)
+    End Sub
+
+    Private Sub btnEventsEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventsEdit.Click
+        '   allows selected entry in listveiw box to be edited.
+        '   Changed button to "Save", which then will save new data to selected entry and save new friends file.
+
+        Me.ScrollEventsPanelTop()
+
+        If Me.btnEventsEdit.Text = "Edit" Then
+            Me.TxtBxEventsName.Focus()
+            Me.btnEventsEdit.Text = "Save"
+            Me.btnEventsClear.Enabled = True
+            Me.btnEventsDelete.Enabled = False
+            Me.btnEventsNew.Enabled = False
+
+            Me.EventsReadOnlyText(False)
+        Else
+            Me.populateEvents("Edit")                           '   Save new data back to listview box
+
+            Me.btnEventsEdit.Text = "Edit"
+            Me.btnEventsClear.Enabled = False
+            Me.btnEventsDelete.Enabled = True
+            Me.btnEventsNew.Enabled = True
+
+            Me.EventsReadOnlyText(True)                         '   Saves new events file.
+
+            Me.saveEvents()
+        End If
+    End Sub
+
+    Private Sub btnEventsDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventsDelete.Click
+        '   Deletes the currently selected entry form the listviewbox.
+        '   Saves new evenst file and display first entry [if exists].
+
+        Dim reply As MsgBoxResult
+
+        reply = MsgBox("Are you sure to DELETE?", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
+
+        If reply = MsgBoxResult.No Then Exit Sub '   Not to delete, exit sub.
+
+        If Me.LstBxEvents.SelectedIndex > -1 Then          '   If entries in listview box.
+            Me.LstBxEvents.Items.RemoveAt(Me.LstBxEvents.SelectedIndex)
+            Me.saveEvents()
+            Me.EventsClearText()
+            Me.EventsReadOnlyText(True)
+        End If
+
+        If Me.LstBxEvents.Items.Count > 0 Then             '   If entries in list view box, after delete.
+            Me.btnEventsDelete.Enabled = True
+            Me.btnEventsEdit.Enabled = True
+            Me.showEvents(0)
+        Else                                                '   No entries in listview box after delete.
+            Me.btnEventsDelete.Enabled = False
+            Me.btnEventsEdit.Enabled = False
+        End If
+    End Sub
+
+    Private Sub ChckBxEventRecuring_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxEventRecuring.CheckedChanged
+
+        Me.CmbBxEventPeriod.Enabled = ChckBxEventRecuring.Checked
+    End Sub
+
+    Private Sub TxtBxEventsName_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TxtBxEventsName.TextChanged
+        '   Only allow adding if name contains some text.
+
+        If Me.E_ADDING Then
+            If Me.TxtBxEventsName.Text <> "" Then
+                Me.btnEventsAdd.Enabled = True
+            Else
+                Me.btnEventsAdd.Enabled = False
+            End If
+        End If
+    End Sub
+
+    Private Sub EventsClearText()
+        '   Clears all date entry dields.
+
+        Me.TxtBxEventsName.Text = ""
+        Me.txtbxEventNotes.Text = ""
+
+        Me.DtTmPckrEventsDate.Value = Today
+        Me.DtTmPckrEventsTime.Value = epoc
+
+        Me.ChckBxEventRecuring.Checked = False
+
+    End Sub
+
+    Private Sub EventsReadOnlyText(ByVal b As Boolean)
+        '   Sets the read-only value on textboxes.
+        '   true = can be input of edit.
+        '   false = display only
+
+        Me.TxtBxEventsName.ReadOnly = Not b
+        Me.CmbBxEventTypes.Enabled = b
+        Me.DtTmPckrEventsDate.Enabled = b
+        Me.ChckBxEventRecuring.Enabled = b
+        Me.DtTmPckrEventsTime.Enabled = b
+        Me.txtbxEventNotes.ReadOnly = Not b
+    End Sub
+
+    Private Sub ScrollEventsPanelTop()
+        '   Scroll events pannel back to top.
+
+        Me.pnlEvents.ScrollControlIntoView(Me.lblEventsName)
+    End Sub
+
+    Private Sub showEvents(ByVal pos As Integer)
+        '   populates the text boxes on the form with the event at the specified position of the list view box.
+
+        Me.ScrollEventsPanelTop()
+
+        If pos >= 0 Then
+            Dim e As Events = CType(Me.LstBxEvents.Items.Item(pos), Events)
+
+            Me.TxtBxEventsName.Text = e.EventName
+            Me.CmbBxEventTypes.SelectedIndex = e.EventPeriod
+            Me.DtTmPckrEventsDate.Value = e.EventDate
+            Me.ChckBxEventRecuring.Checked = e.EventRecuring
+            Me.CmbBxEventPeriod.SelectedIndex = e.EventPeriod
+            Me.DtTmPckrEventsTime.Value = e.EventTime
+            Me.txtbxEventNotes.Text = e.EventNotes
+
+            Me.LstBxEvents.SelectedIndex = pos
+        End If
+    End Sub
+
+    Private Sub populateEvents(ByVal mode As String)
+        '   populates the events class with the corresponding data from the form.
+        '   If adding, the event is added to the list view box, if not the current entry is updated.
+
+        Dim e As New Events
+
+        Try
+            e.EventName = Me.TxtBxEventsName.Text
+            e.EventPeriod = Me.CmbBxEventTypes.SelectedIndex
+            e.EventDate = Me.DtTmPckrEventsDate.Value
+            e.EventRecuring = Me.ChckBxEventRecuring.Checked
+            e.EventPeriod = Me.CmbBxEventPeriod.SelectedIndex
+            e.EventTime = Me.DtTmPckrEventsTime.Value
+            e.EventNotes = Me.txtbxEventNotes.Text
+
+            If mode = "ADD" Then
+                Me.LstBxEvents.Items.Add(e)                             '   populate listview
+            Else
+                Me.LstBxEvents.Items(Me.LstBxEvents.SelectedIndex) = e
+            End If
+        Catch ex As Exception
+            Me.displayAction.DisplayReminder("ERROR :: populating event", ex.Message)
+        End Try
+    End Sub
+
+    Private Sub saveEvents()
+        '   Save Events to file in data directory.
+        '   Creates a list of all entries in the listview box and then writes this list to a binary file.
+
+        checkEventsDirectory()        '   Check for data directory first, will be created if not there.
+
+        Dim saveFile As FileStream = File.Create(System.IO.Path.Combine(Me.usrSettings.usrEventsDirectory, Me.usrSettings.usrEventsFile))
+
+        saveFile.Seek(0, SeekOrigin.End)
+
+        Dim AL As New List(Of Events)
+        Dim e As Events
+
+        Dim Formatter As BinaryFormatter = New BinaryFormatter
+
+        For Each e In LstBxEvents.Items        '   Create list.
+            AL.Add(e)
+        Next
+
+        Try
+            Formatter.Serialize(saveFile, AL)   '   Write list to binary file.
+        Catch ex As Exception
+            Me.displayAction.DisplayReminder("Events Error", "Error saving Friends File." & vbCrLf & ex.Message)
+        End Try
+
+
+        saveFile.Close()
+
+        Formatter = Nothing
+
+    End Sub
+
+    Private Sub loadEvents()
+        '   Loads Events from file and populate the listview box.
+        '   Loads file into a list and then transfers each item in the list to the listview box.
+
+        Dim readFile As FileStream
+
+        Try
+            readFile = File.OpenRead(System.IO.Path.Combine(Me.usrSettings.usrEventsDirectory, Me.usrSettings.usrEventsFile))
+            readFile.Seek(0, SeekOrigin.Begin)
+        Catch ex As Exception                   '   not there, go away.
+            Me.displayAction.DisplayReminder("Events", "No friends file found - will create if needed.")
+            Exit Sub
+        End Try
+
+        Dim AL As New List(Of Events)
+        Dim e As Events
+
+        Dim Formatter As BinaryFormatter = New BinaryFormatter
+
+        Try
+            AL = Formatter.Deserialize(readFile)        '   loads file into the list.
+        Catch ex As Exception
+            Me.displayAction.DisplayReminder("Events Error", "Error loading Friends File. " & ex.Message)
+            Exit Sub
+        End Try
+
+        '   If got to here, have successfully read and decoded friends file.
+        Me.LstBxEvents.Items.Clear()
+
+        For Each e In AL                    '   For each item in the list.
+            Me.LstBxEvents.Items.Add(e)     '   Populate listview.
+        Next
+
+        readFile.Close()
+        Formatter = Nothing
+
+    End Sub
+
+    Private Sub checkEventsDirectory()
+        '   Check for data directory, which can be user selected [i.e. might not be application starting directory].  if doesn't exist, create it.
+
+        Dim EventsDirectory As String = Me.usrSettings.usrEventsDirectory
+
+        If Not My.Computer.FileSystem.DirectoryExists(EventsDirectory) Then
+            Me.displayAction.DisplayReminder("Events", "Creating " & EventsDirectory)
+            My.Computer.FileSystem.CreateDirectory(EventsDirectory)
+        Else
+            Me.displayAction.DisplayReminder("Events", "Using " & EventsDirectory)
+        End If
+    End Sub
 
     ' ********************************************************************************************************************************* World Klock ******
     Private Sub CmbBxWorldKlockTimeZones_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxWorldKlockTimeZones.SelectedIndexChanged
@@ -1605,6 +1926,7 @@ Public Class frmKlock
         Me.setTitleText()                               '   set app title text
 
         Me.FriendsButtonsVisible(False)
+        Me.eventsButtonsVisible(False)
         Me.reloadFriends = True                         '   set to re-load friends file.
 
     End Sub
@@ -1754,9 +2076,13 @@ Public Class frmKlock
     Sub setActionTypes()
         '   Loads the different action types and load into combo box.   
         '   Loads the different system action types and load into combo box.
+        '   Also use this sub to load the event types and periods into thies respective combo boxes.
+
 
         Dim actionNames = System.Enum.GetNames(GetType(selectAction.ActionTypes))
         Dim systemNames = System.Enum.GetNames(GetType(selectAction.SystemTypes))
+        Dim eventTypes = System.Enum.GetNames(GetType(Events.EventTypes))
+        Dim eventPeriods = System.Enum.GetNames(GetType(Events.Eventsperiods))
 
         Me.CmbBxCountDownAction.Items.AddRange(actionNames)
         Me.CmbBxCountDownSystem.Items.AddRange(systemNames)
@@ -1764,8 +2090,13 @@ Public Class frmKlock
         Me.CmbBxReminderAction.Items.AddRange(actionNames)
         Me.CmbBxReminderSystem.Items.AddRange(systemNames)
 
+        Me.CmbBxEventTypes.Items.AddRange(eventTypes)
+        Me.CmbBxEventPeriod.Items.AddRange(eventPeriods)
+
         Me.CmbBxCountDownAction.SelectedIndex = 0       '   until I know how to do this at design time :o)
         Me.CmbBxReminderAction.SelectedIndex = 0
+        Me.CmbBxEventTypes.SelectedIndex = 0
+        Me.CmbBxEventPeriod.SelectedIndex = 0
     End Sub
 
 
@@ -1906,6 +2237,10 @@ Public Class frmKlock
 
 
     ' ********************************************************************************************************************************* END **************
+
+
+
+
 
 
 

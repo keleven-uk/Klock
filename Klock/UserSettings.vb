@@ -66,8 +66,10 @@ Public Class UserSettings
     Private _usrNotificationOpacity As Integer = 80
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
     Private _usrFriendsDirectory As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock")
-    Private _usrFrinedsFile As String = "Friends.bin"
-
+    Private _usrFriendsFile As String = "Friends.bin"
+    '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
+    Private _usrEventsDirectory As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock")
+    Private _usrEventsFile As String = "Events.bin"
 
     '   run on set up - blank at the moment.
     Public Sub New()
@@ -422,15 +424,34 @@ Public Class UserSettings
         End Set
     End Property
 
-    Public Property usrFrinedsFile() As String
+    Public Property usrFriendsFile() As String
         Get
-            Return _usrFrinedsFile
+            Return _usrFriendsFile
         End Get
         Set(ByVal value As String)
-            _usrFrinedsFile = value
+            _usrFriendsFile = value
         End Set
     End Property
 
+    '-------------------------------------------------------------------------------------------------------- Events Settings ------------
+
+    Public Property usrEventsDirectory() As String
+        Get
+            Return _usrEventsDirectory
+        End Get
+        Set(ByVal value As String)
+            _usrEventsDirectory = value
+        End Set
+    End Property
+
+    Public Property usrEventsFile() As String
+        Get
+            Return _usrEventsFile
+        End Get
+        Set(ByVal value As String)
+            _usrEventsFile = value
+        End Set
+    End Property
     '-------------------------------------------------------------------------------------------------------- Setting Methods ------------
 
     Public Sub writeSettings()
@@ -519,8 +540,12 @@ Public Class UserSettings
                               </Notification>
                               <Friends>
                                   <FriendsDirectory><%= usrFriendsDirectory() %></FriendsDirectory>
-                                  <FriendsFileName><%= usrFrinedsFile() %></FriendsFileName>
+                                  <FriendsFileName><%= usrFriendsFile() %></FriendsFileName>
                               </Friends>
+                              <Events>
+                                  <EventsDirectory><%= usrEventsDirectory() %></EventsDirectory>
+                                  <EventsFileName><%= usrEventsFile() %></EventsFileName>
+                              </Events>
                           </klock>
 
         xmlSettings.Save(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
@@ -612,7 +637,12 @@ Public Class UserSettings
                                   <FriendsDirectory><%= usrOptionsSavePath() %></FriendsDirectory>
                                   <FriendsFileName>Friends.bin</FriendsFileName>
                               </Friends>
+                              <Events>
+                                  <EventsDirectory><%= usrOptionsSavePath() %></EventsDirectory>
+                                  <EventsFileName>Events.bin</EventsFileName>
+                              </Events>
                           </klock>
+
 
         xmlSettings.Save(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
 
@@ -737,9 +767,16 @@ Public Class UserSettings
 
             Dim frnds = elem.Element("Friends")
             Me.usrFriendsDirectory = readElement(frnds, "FriendsDirectory", usrFriendsDirectory())
-            Me.usrFrinedsFile = readElement(frnds, "FriendsFileName", usrFrinedsFile())
+            Me.usrFriendsFile = readElement(frnds, "FriendsFileName", usrFriendsFile())
 
-            '   If version has changed, some settings mighe need to be added [will have been set to default].
+            '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
+            '   values are strings, so need to convert.
+
+            Dim evnts = elem.Element("Events")
+            Me.usrEventsDirectory = readElement(evnts, "EventsDirectory", usrEventsDirectory())
+            Me.usrEventsFile = readElement(evnts, "EventsFileName", usrEventsFile())
+
+            '   If version has changed, some settings might need to be added [will have been set to default].
             If version <> My.Application.Info.Version.ToString() Then
                 Me.writeSettings()
             End If

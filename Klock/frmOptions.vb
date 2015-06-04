@@ -17,12 +17,40 @@ Public Class frmOptions
 
         displayAction = New selectAction
 
-        Me.TxtBxarchiveFriendsFile.Text = "Friends.zip"
+        Me.TxtBxArchiveFile.Text = "Klock.zip"
 
         Me.lblOptionsSettingsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
         Me.lblOptionsSettingsFile.Text = frmKlock.usrSettings.usrOptionsSaveFile
 
+        Me.showArchiveButtons(False)
         Me.setSettings()
+    End Sub
+
+    '-----------------------------------------------------------------------------------------------------------------------tab control ---------------------
+
+    Private Sub TabCntrlOptions_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TabCntrlOptions.SelectedIndexChanged
+        '   actions depending upon which tab is chosen.
+
+        Select Case Me.TabCntrlOptions.SelectedIndex
+            Case 0              '   Global options
+                Me.showArchiveButtons(False)
+            Case 1              '   Notification options
+                Me.showArchiveButtons(False)
+            Case 2              '   Time options
+                Me.showArchiveButtons(False)
+            Case 3              '   Other Stuff options
+                Me.showArchiveButtons(False)
+            Case 4              '   Archive options
+                Me.showArchiveButtons(True)
+        End Select
+    End Sub
+
+    Private Sub showArchiveButtons(ByVal b As Boolean)
+        '   either show of hide the archive buttons.
+        '   not enought space on tab for buttons.
+
+        Me.btnArchiveLoad.Visible = b
+        Me.btnArchiveSave.Visible = b
     End Sub
 
     Sub setSettings()
@@ -89,10 +117,22 @@ Public Class frmOptions
             Me.TxtBxOptionsFriendsDirectory.Text = frmKlock.usrSettings.usrFriendsDirectory
         End If
 
-        If frmKlock.usrSettings.usrFrinedsFile = "" Then
+        If frmKlock.usrSettings.usrFriendsFile = "" Then
             Me.TxtBxOptionsFriendsFile.Text = "Friends.bin"
         Else
-            Me.TxtBxOptionsFriendsFile.Text = frmKlock.usrSettings.usrFrinedsFile
+            Me.TxtBxOptionsFriendsFile.Text = frmKlock.usrSettings.usrFriendsFile
+        End If
+
+        If frmKlock.usrSettings.usrEventsDirectory = "" Then
+            Me.TxtBxOptionsEventsDirectory.Text = System.IO.Path.Combine(Application.StartupPath, "Data")
+        Else
+            Me.TxtBxOptionsEventsDirectory.Text = frmKlock.usrSettings.usrEventsDirectory
+        End If
+
+        If frmKlock.usrSettings.usrEventsFile = "" Then
+            Me.TxtBxOptionsEventsFile.Text = "Events.bin"
+        Else
+            Me.TxtBxOptionsEventsFile.Text = frmKlock.usrSettings.usrEventsFile
         End If
 
     End Sub
@@ -138,7 +178,10 @@ Public Class frmOptions
         frmKlock.usrSettings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
 
         frmKlock.usrSettings.usrFriendsDirectory = Me.TxtBxOptionsFriendsDirectory.Text
-        frmKlock.usrSettings.usrFrinedsFile = Me.TxtBxOptionsFriendsFile.Text
+        frmKlock.usrSettings.usrFriendsFile = Me.TxtBxOptionsFriendsFile.Text
+
+        frmKlock.usrSettings.usrEventsDirectory = Me.TxtBxOptionsEventsDirectory.Text
+        frmKlock.usrSettings.usrEventsFile = Me.TxtBxOptionsEventsFile.Text
 
         frmKlock.usrSettings.writeSettings()
         frmKlock.setSettings()
@@ -336,61 +379,90 @@ Public Class frmOptions
 
         If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
             Me.TxtBxOptionsFriendsFile.Text = Me.OpenFileDialog1.SafeFileName
-            frmKlock.usrSettings.usrFrinedsFile = Me.OpenFileDialog1.SafeFileName
+            frmKlock.usrSettings.usrFriendsFile = Me.OpenFileDialog1.SafeFileName
         End If
     End Sub
 
-    Private Sub btnOptionsFriendsPathReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFriendsPathReset.Click
-        '   Reset the location of the friends file to that of the system default data area [i.e. same as settings file].
+    '---------------------------------------------------------- Events Options  ---------------------------------------------------------------
+
+    Private Sub btnOptionsEventsDirectory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsEventsDirectory.Click
+        '   Prompt user to the location of the Events file - Default to Application Path \data.
+
+        If Me.FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
+            Me.TxtBxOptionsEventsDirectory.Text = Me.FolderBrowserDialog1.SelectedPath
+            frmKlock.usrSettings.usrEventsDirectory = Me.FolderBrowserDialog1.SelectedPath
+        End If
+    End Sub
+
+    Private Sub btnOptionsEventsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsEventsFile.Click
+        '   Prompt user for the filename of the Events file - Default to freinds.bin
+
+        Me.OpenFileDialog1.Filter = "All Files|*.*"
+        Me.OpenFileDialog1.InitialDirectory = Me.TxtBxOptionsEventsDirectory.Text
+        Me.OpenFileDialog1.FileName = Me.TxtBxOptionsEventsFile.Text
+
+        If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+            Me.TxtBxOptionsEventsFile.Text = Me.OpenFileDialog1.SafeFileName
+            frmKlock.usrSettings.usrEventsFile = Me.OpenFileDialog1.SafeFileName
+        End If
+    End Sub
+
+    ' **************************************************************************************** Archive stuff ***************************
+
+    Private Sub btnOptionsPathReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsPathReset.Click
+        '   Reset the location of the data files to that of the system default data area [i.e. same as settings file].
 
         Me.TxtBxOptionsFriendsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
         Me.TxtBxOptionsFriendsFile.Text = "Friends.bin"
+
+        Me.TxtBxOptionsEventsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
+        Me.TxtBxOptionsEventsFile.Text = "Events.bin"
     End Sub
 
-    Private Sub btnArchiveFriendsDirectory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnarchiveFriendsDirectory.Click
+    Private Sub btnArchiveDirectory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchiveDirectory.Click
         '   Prompt user for location of the Archive file.
         '   If file exists, enable load button.  Enable save button as well
 
         If Me.FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
-            Me.TxtBxarchiveFriendsDirectory.Text = Me.FolderBrowserDialog1.SelectedPath
+            Me.TxtBxArchiveDirectory.Text = Me.FolderBrowserDialog1.SelectedPath
 
-            Me.btnarchiveFriendsSave.Enabled = True
+            Me.btnArchiveSave.Enabled = True
 
-            If My.Computer.FileSystem.FileExists(System.IO.Path.Combine(Me.TxtBxarchiveFriendsDirectory.Text, Me.TxtBxarchiveFriendsFile.Text)) Then
-                Me.btnarchiveFriendsLoad.Enabled = True
+            If My.Computer.FileSystem.FileExists(System.IO.Path.Combine(Me.TxtBxArchiveDirectory.Text, Me.TxtBxArchiveFile.Text)) Then
+                Me.btnArchiveLoad.Enabled = True
             End If
 
         End If
     End Sub
 
-    Private Sub btnArchiveFriendsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnarchiveFriendsFile.Click
+    Private Sub btnArchiveFriendsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchiveFile.Click
         '   Prompt user for file name of the Archive file.
         '   If file exists, enable load button.  Enable save button as well
 
 
         Me.OpenFileDialog1.Filter = "All Files|*.*"
-        Me.OpenFileDialog1.InitialDirectory = Me.TxtBxarchiveFriendsDirectory.Text
-        Me.OpenFileDialog1.FileName = Me.TxtBxarchiveFriendsFile.Text
+        Me.OpenFileDialog1.InitialDirectory = Me.TxtBxArchiveDirectory.Text
+        Me.OpenFileDialog1.FileName = Me.TxtBxArchiveFile.Text
         Me.OpenFileDialog1.DefaultExt = ".zip"
 
         If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
-            Me.TxtBxarchiveFriendsFile.Text = Me.OpenFileDialog1.SafeFileName
+            Me.TxtBxArchiveFile.Text = Me.OpenFileDialog1.SafeFileName
 
-            Me.btnarchiveFriendsSave.Enabled = True
+            Me.btnArchiveSave.Enabled = True
 
-            If My.Computer.FileSystem.FileExists(System.IO.Path.Combine(Me.TxtBxarchiveFriendsDirectory.Text, Me.TxtBxarchiveFriendsFile.Text)) Then
-                Me.btnarchiveFriendsLoad.Enabled = True
+            If My.Computer.FileSystem.FileExists(System.IO.Path.Combine(Me.TxtBxArchiveDirectory.Text, Me.TxtBxArchiveFile.Text)) Then
+                Me.btnArchiveLoad.Enabled = True
             End If
         End If
 
 
     End Sub
 
-    Private Sub btnArchiveFriendsSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnarchiveFriendsSave.Click
+    Private Sub btnArchiveSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchiveSave.Click
         '   Saves the friends file to Archive [zip].
         '   If the achieve already exists, it will only be overwritten on user prompt.
 
-        Dim zippath As String = System.IO.Path.Combine(Me.TxtBxarchiveFriendsDirectory.Text, Me.TxtBxarchiveFriendsFile.Text)
+        Dim zippath As String = System.IO.Path.Combine(Me.TxtBxArchiveDirectory.Text, Me.TxtBxArchiveFile.Text)
 
         If My.Computer.FileSystem.FileExists(zippath) Then      '   file already exists, prompt user.
             Dim reply As MsgBoxResult
@@ -398,15 +470,15 @@ Public Class frmOptions
             reply = MsgBox("This will over write existing Archive file", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
 
             If reply = MsgBoxResult.No Then     '   Not to over write, exit sub.
-                Me.btnarchiveFriendsSave.Enabled = False
+                Me.btnArchiveSave.Enabled = False
                 Exit Sub
             End If
         End If
 
         Using zip As ZipFile = New ZipFile
 
-            'zip.AddDirectory(Me.TxtBxOptionsFriendsDirectory.Text)      '   add directory to Archive.
-            zip.AddFile(System.IO.Path.Combine(frmKlock.usrSettings.usrFriendsDirectory, frmKlock.usrSettings.usrFrinedsFile))
+            zip.AddFile(System.IO.Path.Combine(frmKlock.usrSettings.usrFriendsDirectory, frmKlock.usrSettings.usrFriendsFile))
+            zip.AddFile(System.IO.Path.Combine(frmKlock.usrSettings.usrEventsDirectory, frmKlock.usrSettings.usrEventsFile))
             zip.AddFile(System.IO.Path.Combine(frmKlock.usrSettings.usrOptionsSavePath, frmKlock.usrSettings.usrOptionsSaveFile))
 
             Try
@@ -419,12 +491,12 @@ Public Class frmOptions
 
     End Sub
 
-    Private Sub btnArchiveFriendsLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnarchiveFriendsLoad.Click
+    Private Sub btnArchiveLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchiveLoad.Click
         '   Load the friends file from Archive.
         '   The file will only be overwritten, if it exists, on user prompt.
         '   If the path does not exist, it will be created.
 
-        Dim zippath As String = System.IO.Path.Combine(Me.TxtBxarchiveFriendsDirectory.Text, Me.TxtBxarchiveFriendsFile.Text)
+        Dim zippath As String = System.IO.Path.Combine(Me.TxtBxArchiveDirectory.Text, Me.TxtBxArchiveFile.Text)
         Dim reply As MsgBoxResult
         Dim extract As Boolean
 
@@ -459,6 +531,7 @@ Public Class frmOptions
         End Using
 
     End Sub
+
 
 
 End Class
