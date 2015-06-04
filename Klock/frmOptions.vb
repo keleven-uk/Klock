@@ -96,11 +96,12 @@ Public Class frmOptions
         Me.ChckBxOptionsVoice.Checked = frmKlock.usrSettings.usrTimeVoiceMinimised
         Me.UpDwnVoiceDisplay.Value = frmKlock.usrSettings.usrTimeVoiceMinutes
 
-        If frmKlock.usrSettings.usrTimeDisplayMinutes Then
-            Me.UpDwnTimeDisplay.Enabled = True
-        Else
-            Me.UpDwnTimeDisplay.Enabled = False
-        End If
+        Me.UpDwnTimeDisplay.Enabled = frmKlock.usrSettings.usrTimeDisplayMinutes
+        'If frmKlock.usrSettings.usrTimeDisplayMinutes Then
+        '    Me.UpDwnTimeDisplay.Enabled = True
+        'Else
+        '    Me.UpDwnTimeDisplay.Enabled = False
+        'End If
 
         '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
@@ -469,11 +470,12 @@ Public Class frmOptions
     Private Sub ChckBxTimeToast_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeToast.CheckedChanged
         '   If checkbox to enable notification message every nth minutes if checked, enables the minute counter.
 
-        If Me.ChckBxTimeToast.Checked Then
-            Me.UpDwnTimeDisplay.Enabled = True
-        Else
-            Me.UpDwnTimeDisplay.Enabled = False
-        End If
+        Me.UpDwnTimeDisplay.Enabled = Me.ChckBxTimeToast.Checked
+        'If Me.ChckBxTimeToast.Checked Then
+        '    Me.UpDwnTimeDisplay.Enabled = True
+        'Else
+        '    Me.UpDwnTimeDisplay.Enabled = False
+        'End If
     End Sub
 
     '---------------------------------------------------------- Friends Options  ---------------------------------------------------------------

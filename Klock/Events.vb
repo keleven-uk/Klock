@@ -14,23 +14,12 @@
         Other
     End Enum
 
-    Enum Eventsperiods
-        Yearly
-        Monthly
-        Weekly
-    End Enum
-
-
-
     ' Creates a TextInfo based on the "en-GB" culture.
     Private myTI As TextInfo = New CultureInfo("en-GB", False).TextInfo
 
     Private _eName As String
     Private _eType As Integer
     Private _eDate As String
-    Private _eRecuring As Boolean
-    Private _eOneOff As Boolean
-    Private _ePeriod As Integer
     Private _eNotes As String
     Private _eFirstReminder As Boolean
     Private _eSecondReminder As Boolean
@@ -105,33 +94,6 @@
         End Get
         Set(ByVal value As String)
             _eDate = value
-        End Set
-    End Property
-
-    Public Property EventRecuring() As Boolean
-        Get
-            Return _eRecuring
-        End Get
-        Set(ByVal value As Boolean)
-            _eRecuring = value
-        End Set
-    End Property
-
-    Public Property EventOneOff() As Boolean
-        Get
-            Return _eOneOff
-        End Get
-        Set(ByVal value As Boolean)
-            _eOneOff = value
-        End Set
-    End Property
-
-    Public Property EventPeriod() As Integer
-        Get
-            Return _ePeriod
-        End Get
-        Set(ByVal value As Integer)
-            _ePeriod = value
         End Set
     End Property
 
