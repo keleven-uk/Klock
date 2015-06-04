@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Klock"
-#define MyAppVersion "1.0.1.17"
+#define MyAppVersion "1.0.1.19"
 #define MyAppPublisher "keleven"
 #define MyAppURL "www.keleven.co.uk"
 #define MyAppExeName "Klock.exe"
@@ -28,7 +28,7 @@ DefaultGroupName={#MyAppName}
 LicenseFile=License.txt
 InfoAfterFile=Help.txt
 OutputDir=C:\My\shed\projects\VB
-OutputBaseFilename=Klock_17
+OutputBaseFilename=Klock_19
 SetupIconFile=Klock.ico
 Compression=lzma
 SolidCompression=yes
@@ -70,4 +70,10 @@ Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Fil
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, "&", "&&")}}"; Flags: nowait postinstall skipifsilent
+
+;	removed registry settings for the run on windows start up - might have been set.
+[Registry]
+Root: HKCU ; subkey : "SOFTWARE\Microsoft\Windows\CurrentVersion\Run" ; ValueType: string; ValueName: "{#MyAppName}"; Flags: uninsdeletevalue
+
+ 
 

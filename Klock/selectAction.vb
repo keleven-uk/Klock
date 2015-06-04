@@ -76,7 +76,7 @@
             p.FileName = "shutdown.exe"
             Process.Start(p)
         Catch ex As System.ComponentModel.Win32Exception
-            MessageBox.Show("Sorry, there seems to problems :: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            DisplayReminder("ERROR", "Sorry, there seems to problems :: " & ex.Message)
         End Try
 
 
@@ -93,7 +93,7 @@
             p.FileName = "shutdown.exe"
             Process.Start(p)
         Catch ex As System.ComponentModel.Win32Exception
-            MessageBox.Show("Sorry, there seems to problem with abort :: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            DisplayReminder("ERROR", "Sorry, there seems to problems :: " & ex.Message)
         End Try
 
     End Sub
@@ -110,10 +110,10 @@
                 Try
                     Process.Start(s)
                 Catch ex As System.ComponentModel.Win32Exception
-                    MessageBox.Show("Sorry, can not be executed :: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    DisplayReminder("ERROR", "Sorry, can not be executed :: " & ex.Message)
                 End Try
             Else
-                MessageBox.Show("Sorry, file seems to have gone away!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                DisplayReminder("ERROR", "Sorry, file seems to have gone away!!")
             End If
         End If
     End Sub

@@ -38,10 +38,13 @@ Partial Class frmHelp
         '
         'RchTxtBxHelp
         '
+        Me.RchTxtBxHelp.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RchTxtBxHelp.Location = New System.Drawing.Point(12, 12)
         Me.RchTxtBxHelp.Name = "RchTxtBxHelp"
         Me.RchTxtBxHelp.ReadOnly = True
-        Me.RchTxtBxHelp.Size = New System.Drawing.Size(388, 209)
+        Me.RchTxtBxHelp.Size = New System.Drawing.Size(382, 203)
         Me.RchTxtBxHelp.TabIndex = 1
         Me.RchTxtBxHelp.Text = ""
         '
@@ -49,12 +52,13 @@ Partial Class frmHelp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(412, 262)
+        Me.ClientSize = New System.Drawing.Size(406, 256)
         Me.Controls.Add(Me.RchTxtBxHelp)
         Me.Controls.Add(Me.btnHelpClose)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MinimumSize = New System.Drawing.Size(422, 294)
         Me.Name = "frmHelp"
+        Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Help"
         Me.ResumeLayout(False)

@@ -153,9 +153,27 @@ Private Sub btnDefaultColour_Click( ByVal sender As System.Object,  ByVal e As S
         Me.setSettings()
 End Sub
 
+    Private Sub ChckBxOptionsRunOnStartup_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxOptionsRunOnStartup.CheckedChanged
+        '   Sets or deletes the registry key required for running on windows start up.
+        '   Only sets for current user.
+
+        Try
+            If Me.ChckBxOptionsRunOnStartup.Checked Then
+                My.Computer.Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True).SetValue(Application.ProductName, Application.ExecutablePath)
+            Else
+                My.Computer.Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True).DeleteValue(Application.ProductName)
+            End If
+        Catch ex As Exception
+            Me.displayAction.DisplayReminder("Registry Error :: Cant write entry to Registry", ex.Message)
+        End Try
+
+    End Sub
+
     '-----------------------------------------------------------Time---------------------------------------------------------------
+    '   Can only selext either pips or chimes to be heard on the hour, but not both - can have none though.
 
     Private Sub ChckBxTimeHourPips_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxTimeHourPips.CheckedChanged
+        '   It the pips are selected, disable all chimes.
 
         If Me.ChckBxTimeHourPips.Checked Then
             Me.ChckBxTimeHourlyChimes.Enabled = False
@@ -172,6 +190,7 @@ End Sub
     End Sub
 
     Private Sub ChckBxTimeHourlyChimes_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxTimeHourlyChimes.CheckedChanged
+        '   if chimes are selected, disable the pips.
 
         If Me.ChckBxTimeHourlyChimes.Checked Then
             Me.ChckBxTimeHourPips.Enabled = False
@@ -187,6 +206,15 @@ End Sub
         End If
     End Sub
 
+    Private Sub ChckBxTimeToast_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeToast.CheckedChanged
+        '   if set [and klock is minimised] display time in a notification window.
+
+        If Me.ChckBxTimeToast.Checked Then
+            Me.UpDwnTimeDisplay.Enabled = True
+        Else
+            Me.UpDwnTimeDisplay.Enabled = False
+        End If
+    End Sub
 
     '-----------------------------------------------------------Notification---------------------------------------------------------------
 
@@ -226,49 +254,25 @@ End Sub
     End Sub
 
     Private Sub btnNotificationTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNotificationTest.Click
-        showNotification("Test", "Notification Test")
-    End Sub
+        '   Display a test notification, showinf the current notification opacity.
 
-    Private Sub showNotification(ByVal header As String, ByVal message As String)
-
-        Dim Notification As New frmNotification(My.Settings.usrNotificationTimeOut, header, String.Format(" Opacity = {0}", My.Settings.usrNotificationOpacity))
-
-        Notification.Show()
-
+        Me.displayAction.DisplayReminder("Notification Test", String.Format(" Opacity = {0}", My.Settings.usrNotificationOpacity))
     End Sub
 
     '---------------------------------------------------------- Sound Volume ---------------------------------------------------------------
 
     Private Sub TrckBrOptionsVolume_Scroll(sender As System.Object, e As System.EventArgs) Handles TrckBrOptionsVolume.Scroll
+        '   Sets global sound volume.
 
         My.Settings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
 
     End Sub
 
     Private Sub btnOptionsTestVolume_Click(sender As System.Object, e As System.EventArgs) Handles btnOptionsTestVolume.Click
+        '   Plays a sounbd to test volume.
 
         Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.mp3")
 
     End Sub
 
-    Private Sub ChckBxTimeToast_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeToast.CheckedChanged
-
-        If Me.ChckBxTimeToast.Checked Then
-            Me.UpDwnTimeDisplay.Enabled = True
-        Else
-            Me.UpDwnTimeDisplay.Enabled = False
-        End If
-    End Sub
-
-    Private Sub ChckBxOptionsRunOnStartup_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxOptionsRunOnStartup.CheckedChanged
-
-        If Me.ChckBxOptionsRunOnStartup.Checked Then
-            My.Computer.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True).SetValue(Application.ProductName, Application.ExecutablePath)
-        Else
-            My.Computer.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True).DeleteValue(Application.ProductName)
-        End If
-
-        'You can add it to current user in the following key
-        'HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
-    End Sub
 End Class

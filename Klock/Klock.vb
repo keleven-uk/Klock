@@ -1068,7 +1068,7 @@ Public Class frmKlock
             End If
 
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
+            Me.displayAction.DisplayReminder("ERROR :: populating friend", ex.Message)
         End Try
     End Sub
     Private Sub FriendsButtonsVisible(ByVal b As Boolean)
