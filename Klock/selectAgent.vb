@@ -46,6 +46,8 @@ Public Class selectAgent
         Dim agentPath As String = "C:\Windows\msagent\chars"
         Dim fileNme As String = ""
 
+        _agentList.Clear()
+
         If My.Computer.FileSystem.DirectoryExists(agentPath) Then
             For Each pathNme As String In Directory.GetFiles(agentPath, "*.acs", SearchOption.AllDirectories)
                 fileNme = Path.GetFileNameWithoutExtension(pathNme)

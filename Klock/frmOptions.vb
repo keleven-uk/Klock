@@ -790,7 +790,10 @@ Public Class frmOptions
 
     Private Sub btnOptionsAgentsReload_Click(sender As System.Object, e As System.EventArgs) Handles btnOptionsAgentsReload.Click
 
+        Me.CmbBxAgents.DataSource = Nothing
+        Me.CmbBxAgents.Items.Clear()
         frmKlock.myAgents.loadAgents()
+        Me.CmbBxAgents.DataSource = frmKlock.myAgents.agentList()
     End Sub
 
     Private Sub btnOptionsAgentsTest_Click(sender As System.Object, e As System.EventArgs) Handles btnOptionsAgentsTest.Click
