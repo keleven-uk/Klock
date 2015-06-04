@@ -49,9 +49,9 @@ Public Class UserSettings
     Private _usrTimeHalfChimes As Boolean = False
     Private _usrTimeQuarterChimes As Boolean = False
     Private _usrTimeThreeQuartersChimes As Boolean = False
-    Private _usrTimeDisplayMinimised As Boolean = False
+    Private _usrTimeDisplayMinimised As Boolean = False         '   Notification to tell time if klock in system tray
     Private _usrTimeDisplayMinutes As Integer = 15
-    Private _usrTimeVoiceMinimised As Boolean = False
+    Private _usrTimeVoiceMinimised As Boolean = False           '   Voice to tell time if klock in system tray
     Private _usrTimeVoiceMinutes As Integer = 15
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
     Private _usrTimerHigh As Boolean = False
@@ -993,7 +993,7 @@ Public Class UserSettings
             Me.usrTimeQuarterChimes = CType(readElement(tm, "TimeQuarterChimes", usrTimeQuarterChimes()), Boolean)
             Me.usrTimeDisplayMinimised = CType(readElement(tm, "TimeDisplayMinimised", usrTimeDisplayMinimised()), Boolean)
             Me.usrTimeDisplayMinutes = CType(readElement(tm, "TimeDisplayMinutes", usrTimeDisplayMinutes()), Integer)
-            Me.usrTimeVoiceMinimised = CType(readElement(tm, "TimeVoiceMinimised", usrTimeDisplayMinutes()), Boolean)
+            Me.usrTimeVoiceMinimised = CType(readElement(tm, "TimeVoiceMinimised", usrTimeVoiceMinutes()), Boolean)
             Me.usrTimeVoiceMinutes = CType(readElement(tm, "TimeVoiceMinutes", usrTimeVoiceMinutes()), Integer)
             '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 

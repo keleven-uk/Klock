@@ -20,6 +20,8 @@ Public Class frmOptions
         Me.CmbBxDefaultTab.Items.AddRange(tabs)
         Me.CmbBxDefaultTab.SelectedIndex = frmKlock.usrSettings.usrDefaultTab
 
+        Me.TabCntrlOptions.SelectedIndex = 0
+
         Me.showArchiveButtons(False)
         Me.setSettings()
     End Sub

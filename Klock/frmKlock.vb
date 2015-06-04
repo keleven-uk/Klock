@@ -2,10 +2,13 @@
 
     '   Main Klock application.       K. Scott    November 2012
     '
-    '   March 2013      V1.01 - added contacts tab              [build 14]
-    '   June 2013       V1.02 - added user settings             [build 23]
-    '   July 2013       V1.03 - added reminder & events tab     [build 30]
-    '   October 2013    V1.04 - added memo tab                  [build 37]
+    '   March 2013      V1.0.1 - added contacts tab              [build 14]
+    '   June 2013       V1.0.2 - added user settings             [build 23]
+    '   July 2013       V1.0.3 - added reminder & events tab     [build 30]
+    '   October 2013    V1.0.4 - added memo tab                  [build 37]
+    '   November 2013   V1.0.5 - added Double Agent              [build 44] :: parked for now
+    '   July 2014       V1.0.6 - added Text Klock                [build 46] :: copied from V1.0.4
+
 
     Public startTime As Integer
 

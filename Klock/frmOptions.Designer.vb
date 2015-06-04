@@ -709,7 +709,7 @@ Partial Class frmOptions
         Me.ChckBxTimeSystem12.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.ChckBxTimeSystem12.Size = New System.Drawing.Size(64, 17)
         Me.ChckBxTimeSystem12.TabIndex = 3
-        Me.ChckBxTimeSystem12.Text = "Hour 12"
+        Me.ChckBxTimeSystem12.Text = "12 Hour"
         Me.ChckBxTimeSystem12.UseVisualStyleBackColor = True
         '
         'ChckBxTimeTimeTwo24

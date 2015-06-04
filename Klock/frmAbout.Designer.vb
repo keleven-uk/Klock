@@ -68,10 +68,10 @@ Partial Class frmAbout
         '
         Me.lblTitle.AutoSize = True
         Me.lblTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblTitle.Font = New System.Drawing.Font("Old English Text MT", 26.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTitle.Location = New System.Drawing.Point(100, 16)
+        Me.lblTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTitle.Location = New System.Drawing.Point(98, 16)
         Me.lblTitle.Name = "lblTitle"
-        Me.lblTitle.Size = New System.Drawing.Size(103, 42)
+        Me.lblTitle.Size = New System.Drawing.Size(103, 39)
         Me.lblTitle.TabIndex = 0
         Me.lblTitle.Text = "Klock"
         '
@@ -79,7 +79,7 @@ Partial Class frmAbout
         '
         Me.lblDescription.AutoSize = True
         Me.lblDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDescription.Location = New System.Drawing.Point(90, 58)
+        Me.lblDescription.Location = New System.Drawing.Point(88, 58)
         Me.lblDescription.Name = "lblDescription"
         Me.lblDescription.Size = New System.Drawing.Size(122, 20)
         Me.lblDescription.TabIndex = 1
@@ -89,17 +89,17 @@ Partial Class frmAbout
         '
         Me.lblCopyright.AutoSize = True
         Me.lblCopyright.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        Me.lblCopyright.Location = New System.Drawing.Point(76, 91)
+        Me.lblCopyright.Location = New System.Drawing.Point(49, 91)
         Me.lblCopyright.Name = "lblCopyright"
-        Me.lblCopyright.Size = New System.Drawing.Size(151, 20)
+        Me.lblCopyright.Size = New System.Drawing.Size(200, 20)
         Me.lblCopyright.TabIndex = 2
-        Me.lblCopyright.Text = "Kevin Scott (c) 2012"
+        Me.lblCopyright.Text = "Kevin Scott (c) 2012 - 2014"
         '
         'lblEmail
         '
         Me.lblEmail.AutoSize = True
         Me.lblEmail.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        Me.lblEmail.Location = New System.Drawing.Point(73, 128)
+        Me.lblEmail.Location = New System.Drawing.Point(71, 128)
         Me.lblEmail.Name = "lblEmail"
         Me.lblEmail.Size = New System.Drawing.Size(157, 20)
         Me.lblEmail.TabIndex = 3
