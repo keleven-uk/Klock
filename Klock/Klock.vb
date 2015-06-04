@@ -24,7 +24,8 @@ Public Class frmKlock
     Public displayTwoTime As selectTime         '   instance of selectTime, allows different time formats.
     Public displayTimer As Timer                '   instance of timer, a wrapper of the stopwatch class.
     Public displayAction As selectAction        '   instance of selectAction, allows different actions to be performed.
-    Public usrsettings As UserSettings          '   instance of user settings.
+    Public usrSettings As UserSettings          '   instance of user settings.
+    Public usrVoice As Voice                    '   instance of user voice
 
     Public CountDownTime As Integer             '   Holds number of minutes for the countdown timer.
     Public ReminderDateTime As DateTime         '   Holds the date [and time] of the set reminder.
@@ -75,6 +76,8 @@ Public Class frmKlock
         End If
 
         Me.playHourlyChimes(currentSecond)                                              '   Play a hourly chime,  if desired.
+        NotificationSpeach(currentSecond)                                               '   Speak time, if desired.
+
     End Sub
 
     Private Sub updateStatusBar()
@@ -99,8 +102,8 @@ Public Class frmKlock
 
         Dim titletext As String = Me.Text
 
-        If Me.usrsettings.usrTimerAdd And Me.tmrTimer.Enabled Then     ' time is running
-            If Me.usrsettings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
+        If Me.usrSettings.usrTimerAdd And Me.tmrTimer.Enabled Then          ' time is running
+            If Me.usrSettings.usrTimerHigh Then                             '   are we displaying milliseconds in timer.
                 titletext = titletext & " .::. " & displayTimer.getHighElapsedTime() & " : "
             Else
                 titletext = titletext & " .::. " & displayTimer.getLowElapsedTime() & " : "
@@ -150,40 +153,51 @@ Public Class frmKlock
 
     End Sub
 
+    Private Sub NotificationSpeach(ByVal m As Integer)
+        '   if desired, check the status of speak time - shpuild speak time every ?? minutes.
+
+        Dim noSecs As Integer = Me.usrSettings.usrTimeVoiceMinutes * 60
+
+        If Me.usrSettings.usrTimeVoiceMinimised And (Math.Floor(m Mod noSecs) = 0) Then
+            usrVoice.say(displayOneTime.getTime())
+        End If
+
+    End Sub
+
     Private Sub NotificationDispaly(ByVal m As Integer)
         '   If desired, check the status of notifications - should display the time every ?? minutes.
         '   Also, display result to time and countdown, if there running.  TO DO, should they be on their own settings?
 
         If Me.NtfyIcnKlock.Visible Then                     '   if in system tray,
-            Me.NtfyIcnKlock.Text = displayOneTime.getTime()    '   set icon tool tip to current time.
+            Me.NtfyIcnKlock.Text = Me.displayOneTime.getTitle() & " : " & Me.displayOneTime.getTime()    '   set icon tool tip to current time.
 
             Dim noSecs As Integer = Me.usrsettings.usrTimeDisplayMinutes * 60
 
-            If Me.usrsettings.usrTimeDisplayMinimised And (Math.Floor(m Mod noSecs) = 0) Then
+            If Me.usrSettings.usrTimeDisplayMinimised And (Math.Floor(m Mod noSecs) = 0) Then
 
                 Me.displayAction.DisplayReminder("Time", displayOneTime.getTime()) ' display current time as a toast notification,if desired
 
-                If Me.usrsettings.usrTimerAdd And Me.tmrTimer.Enabled Then     ' time is running
-                    If Me.usrsettings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
+                If Me.usrSettings.usrTimerAdd And Me.tmrTimer.Enabled Then     ' time is running
+                    If Me.usrSettings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
                         Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getHighElapsedTime())
                     Else
                         Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getLowElapsedTime())
                     End If
                 End If
 
-                If Me.usrsettings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
+                If Me.usrSettings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
                     Me.displayAction.DisplayReminder("Countdown", "Countdown Running :: " & Me.minsToString(Me.CountDownTime))
                 End If
 
-                If Me.usrsettings.usrReminderAdd And Me.tmrReminder.Enabled Then
-                    If Me.usrsettings.usrReminderTimeChecked Then
+                If Me.usrSettings.usrReminderAdd And Me.tmrReminder.Enabled Then
+                    If Me.usrSettings.usrReminderTimeChecked Then
                         Me.displayAction.DisplayReminder("Reminder", "Reminder set for " & Me.ReminderDateTime.ToLongDateString & " @ " & Me.ReminderDateTime.ToLongTimeString)
                     Else
                         Me.displayAction.DisplayReminder("Reminder", "Reminder set for " & Me.ReminderDateTime.ToLongDateString)
                     End If
                 End If
 
-                If Me.usrsettings.usrWorldKlockAdd Then
+                If Me.usrSettings.usrWorldKlockAdd Then
 
                     Dim wctext As String
 
@@ -247,19 +261,25 @@ Public Class frmKlock
             Case 0                                              '   time tab
                 Me.Text = "Klock - tells you the time"
                 Me.FriendsButtonsVisible(False)
+                Me.btnHelp.Enabled = True
             Case 1                                              '   World Klock
                 Me.Text = "Klock - tells you the time around the World"
                 Me.FriendsButtonsVisible(False)
                 Me.updateWorldKlock()
+                Me.btnHelp.Enabled = False
             Case 2                                              '   countdown tab
                 Me.Text = "Klock - Countdown the time"
                 Me.FriendsButtonsVisible(False)
+                Me.btnHelp.Enabled = False
             Case 3                                              '   timer tab
                 Me.Text = "Klock - measures the time"
                 Me.FriendsButtonsVisible(False)
+                Me.btnHelp.Enabled = False
             Case 4                                             '   reminder tab
                 Me.Text = "Klock - Reminds you of the time"
                 Me.FriendsButtonsVisible(False)
+                Me.btnHelp.Enabled = False
+
                 If Me.usrsettings.usrReminderTimeChecked Then
                     Me.TmPckrRiminder.Enabled = True
                     Me.TmPckrRiminder.Value = Now()
@@ -270,6 +290,7 @@ Public Class frmKlock
             Case 5                                              '   friends tab
                 Me.Text = "Klock - reminds you of your friends"
                 Me.FriendsButtonsVisible(True)
+                Me.btnHelp.Enabled = False
 
                 If Me.reloadFriends Then
                     Me.loadFriends()
@@ -290,7 +311,7 @@ Public Class frmKlock
     Private Sub setTitleText()
         Select Case Me.TbCntrl.SelectedIndex
             Case 0                                              '   time tab
-                Me.Text = "Klock - tells you the time"
+                Me.Text = "Klock - tells you the time :: " & Me.displayOneTime.getTitle()
             Case 1                                              '   world klock tab
                 Me.Text = "Klock - tells you the time around the World"
             Case 2                                              '   countdown tab
@@ -441,21 +462,31 @@ Public Class frmKlock
                 Me.CountDownReminder(False)
                 Me.CountDownSystem(False)
                 Me.CountDownCommand(False)
+                Me.CountdownSpeach(False)
             Case 1                                                  '   Reminder chosen
                 Me.CountDownSound(False)
                 Me.CountDownReminder(True)
                 Me.CountDownSystem(False)
                 Me.CountDownCommand(False)
+                Me.CountdownSpeach(False)
             Case 2                                                  '   System action chosen
                 Me.CountDownSound(False)
                 Me.CountDownReminder(False)
                 Me.CountDownSystem(True)
                 Me.CountDownCommand(False)
+                Me.CountdownSpeach(False)
             Case 3                                                  '   Run Command chosen
                 Me.CountDownSound(False)
                 Me.CountDownReminder(False)
                 Me.CountDownSystem(False)
                 Me.CountDownCommand(True)
+                Me.CountdownSpeach(False)
+            Case 4                                                  '   Speak chosen
+                Me.CountDownSound(False)
+                Me.CountDownReminder(False)
+                Me.CountDownSystem(False)
+                Me.CountDownCommand(False)
+                Me.CountdownSpeach(True)
         End Select
 
     End Sub
@@ -487,6 +518,12 @@ Public Class frmKlock
 
         Me.TxtBxCountDowndCommand.Enabled = Not Me.TxtBxCountDowndCommand.Enabled
         Me.btnCountDownLoadCommand.Enabled = Not Me.btnCountDownLoadCommand.Enabled
+    End Sub
+
+    Private Sub ChckBxCountdownSpeach_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxCountdownSpeach.CheckedChanged
+        '   Selects speach action controls if desired.
+
+        Me.TxtBxCountdownSpeach.Enabled = Not Me.TxtBxCountdownSpeach.Enabled
     End Sub
 
     Private Sub btnCountDownTestSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownTestSound.Click
@@ -541,7 +578,10 @@ Public Class frmKlock
             Me.ChckBxCountDownCommand.Checked = False
             Me.displayAction.DoCommand(TxtBxCountDowndCommand.Text)
         End If
-
+        If Me.ChckBxCountdownSpeach.Checked Then                                  '   do speach action.
+            Me.ChckBxCountdownSpeach.Checked = False
+            usrVoice.Say(Me.TxtBxCountdownSpeach.Text)
+        End If
     End Sub
 
     Private Sub btnCountdownSystemAbort_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdownSystemAbort.Click
@@ -608,13 +648,19 @@ Public Class frmKlock
     End Sub
 
     Sub CountDownCommand(ByVal b As Boolean)
-        '   Sets enable to b for all command components
+        '   Sets visible to b for all command components
 
         Me.ChckBxCountDownCommand.Visible = b
         Me.TxtBxCountDowndCommand.Visible = b
         Me.btnCountDownLoadCommand.Visible = b
     End Sub
 
+    Sub CountdownSpeach(ByVal b As Boolean)
+        '   sets visible to b for all speach components
+
+        Me.ChckBxCountdownSpeach.Visible = b
+        Me.TxtBxCountdownSpeach.Visible = b
+    End Sub
     ' **************************************************************************************************** Reminder ****************************************
 
     Private Sub CmbBxReminderAction_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxReminderAction.SelectedIndexChanged
@@ -626,21 +672,31 @@ Public Class frmKlock
                 Me.ReminderReminder(False)
                 Me.ReminderSystem(False)
                 Me.ReminderCommand(False)
+                Me.reminderSpeach(False)
             Case 1                                                  '   Reminder chosen
                 Me.ReminderSound(False)
                 Me.ReminderReminder(True)
                 Me.ReminderSystem(False)
                 Me.ReminderCommand(False)
+                Me.reminderSpeach(False)
             Case 2                                                  '   System action chosen
                 Me.ReminderSound(False)
                 Me.ReminderReminder(False)
                 Me.ReminderSystem(True)
                 Me.ReminderCommand(False)
+                Me.reminderSpeach(False)
             Case 3                                                  '   Run Command chosen
                 Me.ReminderSound(False)
                 Me.ReminderReminder(False)
                 Me.ReminderSystem(False)
                 Me.ReminderCommand(True)
+                Me.reminderSpeach(False)
+            Case 4                                                  '   Speach chosen
+                Me.ReminderSound(False)
+                Me.ReminderReminder(False)
+                Me.ReminderSystem(False)
+                Me.ReminderCommand(False)
+                Me.reminderSpeach(True)
         End Select
     End Sub
 
@@ -671,6 +727,12 @@ Public Class frmKlock
 
         Me.TxtBxReminderCommand.Enabled = Not Me.TxtBxReminderCommand.Enabled
         Me.btnReminderLoadCommand.Enabled = Not Me.btnReminderLoadCommand.Enabled
+    End Sub
+
+    Private Sub ChckBxReminderSpeach_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxReminderSpeach.CheckedChanged
+        '   Selects speach command action controls if checked.
+
+        Me.TxtBxReminderSpeach.Enabled = Not Me.TxtBxCountdownSpeach.Enabled
     End Sub
 
     Private Sub btnReminderTestSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderTestSound.Click
@@ -724,7 +786,10 @@ Public Class frmKlock
             Me.chckBXReminderCommand.Checked = False
             Me.displayAction.DoCommand(TxtBxReminderCommand.Text)
         End If
-
+        If Me.ChckBxReminderSpeach.Checked Then                                 '   do speach action.
+            Me.ChckBxReminderSpeach.Checked = False
+            Me.usrVoice.Say(Me.TxtBxReminderSpeach.Text)
+        End If
     End Sub
 
     Private Sub btnReminderSystemAbort_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderSystemAbort.Click
@@ -826,11 +891,18 @@ Public Class frmKlock
     End Sub
 
     Private Sub ReminderCommand(ByVal b As Boolean)
-        '   Sets enable to b for all command components
+        '   Sets visible to b for all command components
 
         Me.chckBXReminderCommand.Visible = b
         Me.TxtBxReminderCommand.Visible = b
         Me.btnReminderLoadCommand.Visible = b
+    End Sub
+
+    Private Sub reminderSpeach(ByVal b As Boolean)
+        '   Sets visible to b for all command components
+
+        Me.ChckBxReminderSpeach.Visible = b
+        Me.TxtBxReminderSpeach.Visible = b
     End Sub
 
     Private Sub reminder_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DtPckrRiminder.ValueChanged, TmPckrRiminder.ValueChanged
@@ -1399,7 +1471,8 @@ Public Class frmKlock
         Me.displayTwoTime = New selectTime              '   user selected time II
         Me.displayAction = New selectAction             '   user selected actions
         Me.displayTimer = New Timer                     '   timer stuff
-        Me.usrsettings = New UserSettings               '   user settings
+        Me.usrSettings = New UserSettings               '   user settings
+        Me.usrVoice = New Voice                         '   user voice
 
         Me.checkDataDirectory()
 
@@ -1582,6 +1655,11 @@ Public Class frmKlock
         Me.Visible = False
     End Sub
 
+    Private Sub btnHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHelp.Click
+
+        TimeHelp.ShowDialog()
+    End Sub
+
     ' *************************************************************************************************************************** menu stuff *************
     Private Sub closeKlock(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click, MnItmExit.Click, TlStrpMnItmExit.Click
         '   Close application.
@@ -1696,6 +1774,9 @@ Public Class frmKlock
 
 
     ' ********************************************************************************************************************************* END **************
+
+
+
 
 
 

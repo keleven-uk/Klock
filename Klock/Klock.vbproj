@@ -90,6 +90,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -117,6 +118,12 @@
     </Compile>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="FormAnimator.vb" />
+    <Compile Include="TimeHelp.Designer.vb">
+      <DependentUpon>TimeHelp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TimeHelp.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Info.Designer.vb">
       <DependentUpon>Info.vb</DependentUpon>
     </Compile>
@@ -175,10 +182,14 @@
     </Compile>
     <Compile Include="Timer.vb" />
     <Compile Include="UserSettings.vb" />
+    <Compile Include="Voice.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeHelp.resx">
+      <DependentUpon>TimeHelp.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Info.resx">
       <DependentUpon>Info.vb</DependentUpon>

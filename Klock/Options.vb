@@ -37,14 +37,12 @@ Public Class frmOptions
         Me.lblDefaultColour.ForeColor = frmKlock.usrsettings.usrFormFontColour
 
         Me.TbPgGlobal.BackColor = frmKlock.usrsettings.usrFormColour
-        Me.TbPgTime.BackColor = frmKlock.usrsettings.usrFormColour
-        Me.TbPgTimer.BackColor = frmKlock.usrsettings.usrFormColour
 
         Me.ChckBxOptionsSavePos.Checked = frmKlock.usrsettings.usrSavePosition
         Me.ChckBxOptionsRunOnStartup.Checked = frmKlock.usrsettings.usrRunOnStartup
         Me.ChckBxOptionsStartupMinimised.Checked = frmKlock.usrsettings.usrStartMinimised
 
-        Me.ChckBxTimerHigh.Checked = frmKlock.usrsettings.usrTimerHigh
+        Me.ChckBxTimerHigh.Checked = frmKlock.usrSettings.usrTimerHigh
         Me.ChckBxClearSplit.Checked = frmKlock.usrsettings.usrTimerClearSplit
 
         Me.chckBxTimeTwoFormats.Checked = frmKlock.usrsettings.usrTimeTwoFormats
@@ -58,6 +56,8 @@ Public Class frmOptions
         Me.ChckBxTimeQuarterChimes.Checked = frmKlock.usrsettings.usrTimeQuarterChimes
         Me.ChckBxTimeToast.Checked = frmKlock.usrsettings.usrTimeDisplayMinimised
         Me.UpDwnTimeDisplay.Value = frmKlock.usrsettings.usrTimeDisplayMinutes
+        Me.ChckBxOptionsVoice.Checked = frmKlock.usrSettings.usrTimeVoiceMinimised
+        Me.UpDwnVoiceDisplay.Value = frmKlock.usrSettings.usrTimeVoiceMinutes
 
         Me.ChckBxReminderAdd.Checked = frmKlock.usrsettings.usrReminderAdd
         Me.ChckBxTimerAdd.Checked = frmKlock.usrsettings.usrTimerAdd
@@ -101,9 +101,9 @@ Public Class frmOptions
         frmKlock.usrsettings.usrRunOnStartup = Me.ChckBxOptionsRunOnStartup.Checked
         frmKlock.usrsettings.usrStartMinimised = Me.ChckBxOptionsStartupMinimised.Checked
 
-        If frmKlock.usrsettings.usrSavePosition Then
-            frmKlock.usrsettings.usrFormTop = frmKlock.Top
-            frmKlock.usrsettings.usrFormLeft = frmKlock.Left
+        If frmKlock.usrSettings.usrSavePosition Then
+            frmKlock.usrSettings.usrFormTop = frmKlock.Top
+            frmKlock.usrSettings.usrFormLeft = frmKlock.Left
         End If
 
         frmKlock.usrsettings.usrTimerHigh = Me.ChckBxTimerHigh.Checked
@@ -120,6 +120,8 @@ Public Class frmOptions
         frmKlock.usrsettings.usrTimeQuarterChimes = Me.ChckBxTimeQuarterChimes.Checked
         frmKlock.usrsettings.usrTimeDisplayMinimised = Me.ChckBxTimeToast.Checked
         frmKlock.usrsettings.usrTimeDisplayMinutes = Me.UpDwnTimeDisplay.Value
+        frmKlock.usrSettings.usrTimeVoiceMinimised = Me.ChckBxOptionsVoice.Checked
+        frmKlock.usrSettings.usrTimeVoiceMinutes = Me.UpDwnVoiceDisplay.Value
 
         frmKlock.usrsettings.usrReminderAdd = Me.ChckBxReminderAdd.Checked
         frmKlock.usrsettings.usrTimerAdd = Me.ChckBxTimerAdd.Checked
@@ -392,6 +394,7 @@ Public Class frmOptions
 
             Try
                 zip.Save(zippath)                                       '   save archive
+                Me.displayAction.DisplayReminder("Saving File", "Archieve saved Okay. ")
             Catch ex As Exception
                 Me.displayAction.DisplayReminder("Saving File Error", "Error archieving Friends File. " & ex.Message)
             End Try
@@ -428,8 +431,9 @@ Public Class frmOptions
                     Try                                     '   catch extract error, if any.
                         entry.Extract(Me.TxtBxOptionsFriendsDirectory.Text)
                         frmKlock.reloadFriends = True             '   set to re-load friends file.
+                        Me.displayAction.DisplayReminder("Loading File", "Archieve loaded Okay. ")
                     Catch ex As Exception
-                        Me.displayAction.DisplayReminder("Saving File Error", "Error archieving Friends File. " & ex.Message)
+                        Me.displayAction.DisplayReminder("Loading File Error", "Error archieving Friends File. " & ex.Message)
                     End Try
                 End If          '   if extract
 

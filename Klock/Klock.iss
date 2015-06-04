@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Klock"
-#define MyAppVersion "1.0.2.25"
+#define MyAppVersion "1.0.2.26"
 #define MyAppPublisher "keleven"
 #define MyAppURL "www.keleven.co.uk"
 #define MyAppExeName "Klock.exe"
@@ -28,7 +28,7 @@ DefaultGroupName={#MyAppName}
 LicenseFile=License.txt
 InfoAfterFile=Help.txt
 OutputDir=C:\My\shed\projects\VB
-OutputBaseFilename=Klock_25
+OutputBaseFilename=Klock_26
 SetupIconFile=Klock.ico
 Compression=lzma
 SolidCompression=yes
@@ -52,7 +52,8 @@ Name: exe; Description: exe's only; Types: full prog
 Source: "bin\Release\Klock.exe"             ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 Source: "bin\Release\Ionic.Zip.Reduced.dll" ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 Source: "Ionic_License.txt"                 ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
-Source: "bin\Release\sounds\*"              ; DestDir: "{app}\sounds"; Components : exe; Flags: ignoreversion
+Source: "bin\Release\Sounds\*"              ; DestDir: "{app}\Sounds"; Components : exe; Flags: ignoreversion
+Source: "bin\Release\Help\*"                ; DestDir: "{app}\Help"  ; Components : exe; Flags: ignoreversion
 Source: "help.txt"                          ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 Source: "License.txt"                       ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 Source: "History.txt"                       ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion

@@ -21,19 +21,21 @@ Public Class UserSettings
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
     Private _usrTimerHigh As Boolean = False
     Private _usrTimerClearSplit As Boolean = False
+    Private _usrTimerAdd As Boolean = False
     '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
     Private _usrTimeTwoFormats As Boolean = False
     Private _usrTimeSwatchCentibeats As Boolean = False
     Private _usrTimeNETSeconds As Boolean = False
-    Private _usrTimeDisplayMinimised As Boolean = False
     Private _usrTimeHexIntuitorFormat As Boolean = False
     Private _usrTimeHourPips As Boolean = True
     Private _usrTimeHourChimes As Boolean = False
     Private _usrTimeHalfChimes As Boolean = False
     Private _usrTimeQuarterChimes As Boolean = False
     Private _usrTimeThreeQuartersChimes As Boolean = False
+    Private _usrTimeDisplayMinimised As Boolean = False
     Private _usrTimeDisplayMinutes As Integer = 15
-    Private _usrTimerAdd As Boolean = False
+    Private _usrTimeVoiceMinimised As Boolean = False
+    Private _usrTimeVoiceMinutes As Integer = 15
     '-------------------------------------------------------------------------------------------------------- Reminder Settings -----------
     Private _usrReminderTimeChecked As Boolean = False
     Private _usrReminderAdd As Boolean = False
@@ -159,6 +161,15 @@ Public Class UserSettings
         End Set
     End Property
 
+    Public Property usrTimerAdd() As Boolean
+        Get
+            Return _usrTimerAdd
+        End Get
+        Set(ByVal value As Boolean)
+            _usrTimerAdd = value
+        End Set
+    End Property
+
     '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
 
     Public Property usrTimeTwoFormats() As Boolean
@@ -185,15 +196,6 @@ Public Class UserSettings
         End Get
         Set(ByVal value As Boolean)
             _usrTimeNETSeconds = value
-        End Set
-    End Property
-
-    Public Property usrTimeDisplayMinimised() As Boolean
-        Get
-            Return _usrTimeDisplayMinimised
-        End Get
-        Set(ByVal value As Boolean)
-            _usrTimeDisplayMinimised = value
         End Set
     End Property
 
@@ -251,6 +253,15 @@ Public Class UserSettings
         End Set
     End Property
 
+    Public Property usrTimeDisplayMinimised() As Boolean
+        Get
+            Return _usrTimeDisplayMinimised
+        End Get
+        Set(ByVal value As Boolean)
+            _usrTimeDisplayMinimised = value
+        End Set
+    End Property
+
     Public Property usrTimeDisplayMinutes() As Integer
         Get
             Return _usrTimeDisplayMinutes
@@ -260,12 +271,21 @@ Public Class UserSettings
         End Set
     End Property
 
-    Public Property usrTimerAdd() As Boolean
+    Public Property usrTimeVoiceMinimised() As Boolean
         Get
-            Return _usrTimerAdd
+            Return _usrTimeVoiceMinimised
         End Get
         Set(ByVal value As Boolean)
-            _usrTimerAdd = value
+            _usrTimeVoiceMinimised = value
+        End Set
+    End Property
+
+    Public Property usrTimeVoiceMinutes() As Integer
+        Get
+            Return _usrTimeVoiceMinutes
+        End Get
+        Set(ByVal value As Integer)
+            _usrTimeVoiceMinutes = value
         End Set
     End Property
 
@@ -421,7 +441,10 @@ Public Class UserSettings
                                   <TimeHourChimes><%= usrTimeHourChimes() %></TimeHourChimes>
                                   <TimeHalfChimes><%= usrTimeHalfChimes() %></TimeHalfChimes>
                                   <TimeQuarterChimes><%= usrTimeQuarterChimes() %></TimeQuarterChimes>
+                                  <TimeDisplayMinimised><%= usrTimeDisplayMinimised() %></TimeDisplayMinimised>
                                   <TimeDisplayMinutes><%= usrTimeDisplayMinutes() %></TimeDisplayMinutes>
+                                  <TimeVoiceMinimised><%= usrTimeVoiceMinimised() %></TimeVoiceMinimised>
+                                  <TimeVoiceMinutes><%= usrTimeVoiceMinutes() %></TimeVoiceMinutes>
                               </Time>
                               <Timer>
                                   <TimerHigh><%= usrTimerHigh() %></TimerHigh>
@@ -511,6 +534,7 @@ Public Class UserSettings
             Me.usrFormTop = CType(glbl.Element("FormTop").Value, Integer)
             Me.usrFormLeft = CType(glbl.Element("formleft").Value, Integer)
             Me.usrSavePosition = CType(glbl.Element("SavePosition").Value, Boolean)
+            Me.usrStartMinimised = CType(glbl.Element("StartMinimised").Value, Boolean)
             Me.usrRunOnStartup = CType(glbl.Element("RunOnStartup").Value, Boolean)
             Me.usrSoundVolume = CType(glbl.Element("SoundVolume").Value, Integer)
 
@@ -525,8 +549,10 @@ Public Class UserSettings
             Me.usrTimeHourChimes = CType(tm.Element("TimeHourChimes").Value, Boolean)
             Me.usrTimeHalfChimes = CType(tm.Element("TimeHalfChimes").Value, Boolean)
             Me.usrTimeQuarterChimes = CType(tm.Element("TimeQuarterChimes").Value, Boolean)
-            Me.usrTimeDisplayMinimised = CType(tm.Element("TimeDisplayMinutes").Value, Boolean)
-
+            Me.usrTimeDisplayMinimised = CType(tm.Element("TimeDisplayMinimised").Value, Boolean)
+            Me.usrTimeDisplayMinutes = CType(tm.Element("TimeDisplayMinutes").Value, Integer)
+            Me.usrTimeVoiceMinimised = CType(tm.Element("TimeVoiceMinimised").Value, Boolean)
+            Me.usrTimeVoiceMinutes = CType(tm.Element("TimeVoiceMinutes").Value, Integer)
             '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
             Dim tmr = elem.Element("Timer")

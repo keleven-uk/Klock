@@ -13,6 +13,7 @@
         SwatchTime
         JulianTime
         DecimalTime
+        FlowTime
         NetTime
         MetricTime
         UnixTime
@@ -28,6 +29,7 @@
 
     Private innerTime As String     '   local version of reformatted time.
     Private TimeType As String      '   local version of desired time format
+    Private TimeTitle As String     '   local version of the fancy time title
     Private clockTick As Integer
 
 
@@ -56,6 +58,8 @@
                     innerTime = getJulianTime()
                 Case TimeTypes.DecimalTime
                     innerTime = getDecimalTime()
+                Case TimeTypes.FlowTime
+                    innerTime = getFlowTime()
                 Case TimeTypes.NetTime
                     innerTime = getNetTime()
                 Case TimeTypes.MetricTime
@@ -83,6 +87,54 @@
             Return innerTime
         End Get
     End Property
+
+    Public ReadOnly Property getTitle() As String
+        '   Returns a fancy title for the chosen time format. [read only]
+
+        Get
+            Select Case TimeType
+                Case TimeTypes.FuzzyTime
+                    TimeTitle = "Fuzzy Time"
+                Case TimeTypes.LocalTime
+                    TimeTitle = "Local Time"
+                Case TimeTypes.UTC
+                    TimeTitle = "Univarsal Current Time"
+                Case TimeTypes.SwatchTime
+                    TimeTitle = "Swatch Time"
+                Case TimeTypes.JulianTime
+                    TimeTitle = "Julian Date"
+                Case TimeTypes.DecimalTime
+                    TimeTitle = "Decimal Time"
+                Case TimeTypes.FlowTime
+                    TimeTitle = "Flow Time"
+                Case TimeTypes.NetTime
+                    TimeTitle = "New Earth Time"
+                Case TimeTypes.MetricTime
+                    TimeTitle = "Metric Time"
+                Case TimeTypes.UnixTime
+                    TimeTitle = "Unix Time"
+                Case TimeTypes.RomanTime
+                    TimeTitle = "Time as Roman Numerals"
+                Case TimeTypes.TrueHexTime
+                    TimeTitle = "Time as True Hexdecimal [i.e. 16 hours]"
+                Case TimeTypes.BinaryTime
+                    TimeTitle = "Time as Binary [base 2] format"
+                Case TimeTypes.OctTime
+                    TimeTitle = "Time as octal [base 8] format"
+                Case TimeTypes.HexTime
+                    TimeTitle = "Time as Hexdecimal [base 16] format"
+                Case TimeTypes.PercentTime
+                    TimeTitle = "Time as a percent of the day"
+                Case TimeTypes.MarsSolDate
+                    TimeTitle = "Mars Sol Date"
+                Case TimeTypes.CoordinatedMarsTime
+                    TimeTitle = "Coordinated Mars Time"
+            End Select
+
+            Return TimeTitle
+        End Get
+    End Property
+
 
     Public ReadOnly Property getClockTick()
         Get
@@ -374,7 +426,7 @@
     End Function
 
     Private Function getRomanTime() As String
-        '   Returns the current [local] time in roman numerials
+        '   Returns the current [local] time in roman numerials.
 
         Dim hours As Integer = Now().Hour
         Dim mins As Integer = Now().Minute
@@ -422,33 +474,57 @@
     End Function
 
     Private Function getMarsSolDate()
+        '   Returns the current [UTC] time as Mars Sol Date - as http://jtauber.github.io/mars-clock/
+        '   Strange :: DateDiff seems to use american dates and not English [unlike my computer and me].
 
-        Dim noOfDays As Double = DateDiff(DateInterval.Second, #6/1/2000#, Now) / 86400
+        Dim noOfDays As Double = DateDiff(DateInterval.Second, #1/6/2000#, Now.ToUniversalTime) / 86400
 
-        getMarsSolDate = String.Format("{0:##.000} {1:##.000}", (((noOfDays - 4.5) / 1.027491252) + 44796.0 - 0.00096), noOfDays)
+        getMarsSolDate = String.Format("{0:##.00000}", (((noOfDays) / 1.027491252) + 44796.0 - 0.00096))
     End Function
 
     Private Function getCoordinatedMarsTime()
+        '   Returns the current [UTC] time as Coordinated Mars Time - as http://jtauber.github.io/mars-clock/
+        '   Strange :: DateDiff seems to use american dates and not English [unlike my computer and me].
 
-        Dim noOfDays As Double = DateDiff(DateInterval.Second, #6/1/2000#, Now) / 86400
-        Dim hour As Integer = DateDiff(DateInterval.Hour, #6/1/2000#, Now) Mod 24
-        Dim mins As Integer = DateDiff(DateInterval.Minute, #6/1/2000#, Now) - (hour * 24 * 60)
-        Dim secs As Integer = DateDiff(DateInterval.Second, #6/1/2000#, Now) - (hour * 3600) - (mins * 60)
+        Dim marsSolDate As Double = DateDiff(DateInterval.Second, #1/6/2000#, Now.ToUniversalTime) / 86400
 
-        getCoordinatedMarsTime = String.Format("{0}:{1}:{2}", hour, mins, secs)
+        marsSolDate = (marsSolDate / 1.027491252) + 44796.0 - 0.00096
+
+        Dim mtc As Double = (24 * marsSolDate) Mod 24
+
+        Dim hour As Integer = Int(mtc)
+        Dim min As Double = (mtc - hour) * 60
+        Dim secs As Integer = (min - Int(min)) * 60
+
+        getCoordinatedMarsTime = String.Format("{0:00}:{1:00}:{2:00}", hour, min, secs)
     End Function
 
     Private Function getPercentTime()
+        '   Returns the current [local] time as a percent of the day.
+        '   See http://raywinstead.com/metricclock.shtml
 
         Dim noOfSeconds As Integer = MilliSecondOfTheDay() / 1000
         Dim percentSeconds As Double = noOfSeconds / 86400 * 100
 
-        getPercentTime = String.Format("{0:##.0000 PMH}", percentSeconds)
+        getPercentTime = String.Format("{0:0#.0000 PMH}", percentSeconds)
     End Function
                                                                          
-    
+    Private Function getFlowTime()
+        '   Returns the current [local] time as Flow Time.
+        '   Flow Time still divides the day into 24 hours, but each hour is divided into 100 minutes of 100 seconds.
+        '   A Quick conversion is takes 2/3 of the minute [or secoond] and add it to it's self.
+
+        Dim hour As Integer = Now.Hour
+        Dim mins As Integer = Now.Minute * (5 / 3)
+        Dim secs As Integer = Now.Second * (5 / 3)
+
+        getFlowTime = String.Format("{0:00}:{1:00}:{2:00}", hour, mins, secs)
+
+    End Function
+
+
     Private Function MilliSecondOfTheDay() As Integer
-        '       Returns the total number of milliseconds since midnight.
+        '   Returns the total number of milliseconds since midnight.
 
         Dim ts As New TimeSpan(0, Now.Hour, Now.Minute, Now.Second, Now.Millisecond)
 

@@ -105,7 +105,16 @@ Public Class frmAbout
     Private Sub btnAboutMSinfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAboutMSinfo.Click
         '   load ms info
 
-        Shell("msinfo32.exe", AppWinStyle.NormalFocus)
+        Try
+            Shell("msinfo32.exe", AppWinStyle.NormalFocus)
+        Catch ex As Exception
+            Try                         '   if failes, try hard coded location [I think for windoes XP]
+                Shell("C:\Program Files\Common Files\Microsoft Shared\MSInfo\msinfo32.exe", AppWinStyle.NormalFocus)
+            Catch ex1 As Exception
+                MessageBox.Show("Cannot find MSinfo! " & ex1.Message, "Error")
+            End Try
+
+        End Try
     End Sub
 
     Function getUpTime(ByVal type As Char) As String

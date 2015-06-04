@@ -1,4 +1,26 @@
 ------------------------------------------------------------------------
+r25 | Media | 2013-06-19 22:58:23 +0100 (Wed, 19 Jun 2013) | 15 lines
+
+The main change in this version is that user settings have been moved from 
+internal project settings [handled vie VB.net] to being handled by the application 
+and held in an XML file.  The settings are held internally within a settings object, 
+which is populated from the XML file at the start and loaded into the file when changed.
+
+There seemed to be problems with settings not been carried over between different 
+versions.  Also, the settings where hidden within the system.
+
+The settings are now visible inside the XML file and can be read by any version of Klock.
+
+[UserSettings.vb as been added.
+
+[Klock.VB]
+Added a OS info screen.
+
+[selectTime.vb]
+Added PercentTime, MarsSolDate & CoordinatedMarsTime.
+The Mars time function need to be checked against known good sources.
+
+------------------------------------------------------------------------
 r24 | Media | 2013-06-04 21:47:04 +0100 (Tue, 04 Jun 2013) | 1 line
 
 New branch for new user settings.
