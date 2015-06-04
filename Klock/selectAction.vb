@@ -13,7 +13,7 @@
     Enum SystemTypes            '   the types of system action that can be performed.
         ShutDown
         Restart
-        Hibernate
+        GUI
         LogOff
     End Enum
 
@@ -22,8 +22,12 @@
         '   MUST BE OF TYPE .WAV
 
         If s.EndsWith(".wav") Then
-            My.Computer.Audio.Play(s)
-        End If
+            If My.Computer.FileSystem.FileExists(s) Then
+                My.Computer.Audio.Play(s)
+            Else
+                MessageBox.Show("Sorry, sound file seems to have gone away!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If  '   If s.EndsWith(".wav")
+        End If      '   if My.Computer.FileSystem.FileExists(s)
     End Sub
 
     Public Sub DisplayReminder(ByVal s As String)
@@ -40,36 +44,46 @@
 
         Select Case s
             Case SystemTypes.ShutDown
-                p.Arguments = "0" & "-t 10" & "-c 'Shutting Down PC in 10 Seconds'"
+                frmKlock.Text = " Klock is Shutting Down PC"
+                p.Arguments = "0 " & "-t 10 " & "-c ""Shutting Down PC in 10 Seconds"""
             Case SystemTypes.Restart
-                p.Arguments = "-r" & "-t 10" & "-c 'Restarting Down PC in 10 Seconds'"
-            Case SystemTypes.Hibernate
-                p.Arguments = "-h" & "-t 10" & "-c 'Hibernate PC in 10 Seconds by Klock'"
+                frmKlock.Text = " Klock is Restsrting PC"
+                p.Arguments = "-r " & "-t 10 " & "-c ""Restarting Down PC in 10 Seconds"""
+            Case SystemTypes.GUI
+                frmKlock.Text = " Klock is Displaying GUI Interface"
+                p.Arguments = "-i "
             Case SystemTypes.LogOff
-                p.Arguments = "-l" & "-t 10" & "-c 'Logging off user in 10 Seconds by Klock'"
+                frmKlock.Text = " Klock is Logging off Current User"
+                p.Arguments = "-l " & "-t 10 " & "-c ""Logging off user in 10 Seconds by Klock"""
         End Select
 
-        p.FileName = "shutdown"
+        Try
+            p.FileName = "shutdown.exe"
+            Process.Start(p)
+        Catch ex As System.ComponentModel.Win32Exception
+            MessageBox.Show("Sorry, there seems to problems :: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
 
-        Process.Start(p)
 
     End Sub
 
-    Public Sub DoCommand(ByVal S As String)
+    Public Sub DoCommand(ByVal s As String)
         '   Performs the externam command.
         '   If the file is executable it will be run. 
         '   If the file has an association, the host will be run. i.e a .doc file will launch word.
-        '   No error checking is performed [yet]
 
-        Dim p As New ProcessStartInfo
-
-        If S = String.Empty Then
-            MessageBox.Show("Even Klock cant run with nowt!!")
+        If s = String.Empty Then
+            MessageBox.Show("Even Klock cant run with nowt!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
-            p.Arguments = S
-            p.FileName = "cmd"
-
-            Process.Start(p)
+            If My.Computer.FileSystem.FileExists(s) Then
+                Try
+                    Process.Start(s)
+                Catch ex As System.ComponentModel.Win32Exception
+                    MessageBox.Show("Sorry, can not be executed :: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            Else
+                MessageBox.Show("Sorry, file seems to have gone away!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
         End If
     End Sub
 

@@ -115,7 +115,6 @@
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="selectAction.vb" />
     <Compile Include="selectTime.vb" />
-    <Compile Include="Module1.vb" />
     <Compile Include="Options.Designer.vb">
       <DependentUpon>Options.vb</DependentUpon>
     </Compile>
@@ -232,6 +231,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Klock.ico" />
+    <Content Include="wip.txt" />
     <None Include="Klock.iss" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

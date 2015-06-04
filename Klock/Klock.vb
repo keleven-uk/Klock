@@ -17,8 +17,8 @@ Public Class frmKlock
     '   Dim sw As New StreamWriter(fs)
 
     Public displayTime As selectTime
-    Public displayAction As selectAction
     Public displayTimer As Timer
+    Public displayAction As selectAction
 
     Public CountDownTime As Integer
 
@@ -28,7 +28,7 @@ Public Class frmKlock
     Private Sub TmrMain_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TmrMain.Tick
         '   Main clock tick.
         '   Sets current time & date to status bar.
-        '   Checks for Capps Lock, Mum Lock & Scoll Lock - set message in status bar.
+        '   Checks for Capps Lock, Num Lock & Scoll Lock - set message in status bar.
 
         Dim strKey As String = "cns"
 
@@ -49,6 +49,9 @@ Public Class frmKlock
 
         LblTimeTime.Text = displayTime.getTime()                    '   display local time in desired time format.
 
+        If Me.NtfyIcnKlock.Visible Then
+            Me.NtfyIcnKlock.Text = displayTime.getTime()
+        End If
     End Sub
 
     Private Sub tmrTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrTimer.Tick
@@ -219,65 +222,25 @@ Public Class frmKlock
 
         Select Case Me.CmbBxCountDownAction.SelectedIndex
             Case 0                                                  '   Sound chosen
-                ChckBxCountDownSound.Visible = True
-                TxtBxAction.Visible = True
-                btnCountdownLoadSound.Visible = True
-                btnCountDownTestSound.Visible = True
-
-                ChckBxCountDownReminder.Visible = False
-                TxtBxCountDownReminder.Visible = False
-
-                ChckBxCountDownSystem.Visible = False
-                CmbBxCountDownSystem.Visible = False
-
-                ChckBxCountDownCommand.Visible = False
-                TxtBxCountDowndCommand.Visible = False
-                btnCountDownLoadCommand.Visible = False
+                CountDownSound(True)
+                CountDownReminder(False)
+                CountDownSystem(False)
+                CountDownCommand(False)
             Case 1                                                  '   Reminder chosen
-                ChckBxCountDownSound.Visible = False
-                TxtBxAction.Visible = False
-                btnCountdownLoadSound.Visible = False
-                btnCountDownTestSound.Visible = False
-
-                ChckBxCountDownReminder.Visible = True
-                TxtBxCountDownReminder.Visible = True
-
-                ChckBxCountDownSystem.Visible = False
-                CmbBxCountDownSystem.Visible = False
-
-                ChckBxCountDownCommand.Visible = False
-                TxtBxCountDowndCommand.Visible = False
-                btnCountDownLoadCommand.Visible = False
+                CountDownSound(False)
+                CountDownReminder(True)
+                CountDownSystem(False)
+                CountDownCommand(False)
             Case 2                                                  '   System action chosen
-                ChckBxCountDownSound.Visible = False
-                TxtBxAction.Visible = False
-                btnCountdownLoadSound.Visible = False
-                btnCountDownTestSound.Visible = False
-
-                ChckBxCountDownReminder.Visible = False
-                TxtBxCountDownReminder.Visible = False
-
-                ChckBxCountDownSystem.Visible = True
-                CmbBxCountDownSystem.Visible = True
-
-                ChckBxCountDownCommand.Visible = False
-                TxtBxCountDowndCommand.Visible = False
-                btnCountDownLoadCommand.Visible = False
+               CountDownSound(False)
+                CountDownReminder(False)
+                CountDownSystem(True)
+                CountDownCommand(False)
             Case 3                                                  '   Run Command chosen
-                ChckBxCountDownSound.Visible = False
-                TxtBxAction.Visible = False
-                btnCountdownLoadSound.Visible = False
-                btnCountDownTestSound.Visible = False
-
-                ChckBxCountDownReminder.Visible = False
-                TxtBxCountDownReminder.Visible = False
-
-                ChckBxCountDownSystem.Visible = False
-                CmbBxCountDownSystem.Visible = False
-
-                ChckBxCountDownCommand.Visible = True
-                TxtBxCountDowndCommand.Visible = True
-                btnCountDownLoadCommand.Visible = True
+                CountDownSound(False)
+                CountDownReminder(False)
+                CountDownSystem(False)
+                CountDownCommand(True)
         End Select
 
     End Sub
@@ -336,8 +299,9 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnCountdownLoadSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdownLoadSound.Click
-        ' open file dialof to load sound file.
+        ' open file dialog to load sound file.
 
+        OpenFileDialog1.Filter = "Sound Files|*.wav"
         If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
             btnCountDownTestSound.Enabled = True
             TxtBxAction.Text = OpenFileDialog1.FileName
@@ -345,21 +309,42 @@ Public Class frmKlock
 
     End Sub
 
+    Private Sub btnCountDownLoadCommand_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownLoadCommand.Click
+        ' open file dialog to load command file.
+
+        OpenFileDialog1.Filter = "All Files|*.*"
+        If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+            TxtBxCountDowndCommand.Text = OpenFileDialog1.FileName
+        End If
+    End Sub
+
     Sub CountDownAction()
         '   When CountDown is finished, perform desired action
 
         If ChckBxCountDownSound.Checked Then                                '   do sound action.
+            ChckBxCountDownSound.Checked = False
+            TxtBxAction.Enabled = False
+            btnCountdownLoadSound.Enabled = False
+            btnCountDownTestSound.Enabled = False
             displayAction.PlaySound(TxtBxAction.Text)
         End If
         If ChckBxCountDownReminder.Checked Then                             '   do reminder action.
+            ChckBxCountDownReminder.Checked = False
+            TxtBxCountDownReminder.Enabled = False
             displayAction.DisplayReminder(TxtBxCountDownReminder.Text)
         End If
         If ChckBxCountDownSystem.Checked Then                               '   do system action action.
+            ChckBxCountDownSystem.Checked = False
+            CmbBxCountDownSystem.Enabled = False
             displayAction.DoSystemCommand(CmbBxCountDownSystem.SelectedIndex)
         End If
         If ChckBxCountDownCommand.Checked Then                              '   do run command action.
+            ChckBxCountDownCommand.Checked = False
+            TxtBxCountDowndCommand.Enabled = False
+            btnCountDownLoadCommand.Enabled = False
             displayAction.DoCommand(TxtBxCountDowndCommand.Text)
         End If
+
     End Sub
 
     Sub CountDownClear()
@@ -387,6 +372,36 @@ Public Class frmKlock
         minsToString = String.Format("{0:00}:{1:00}", hours, mins)
     End Function
 
+    Sub CountDownSound(ByVal b As Boolean)
+        '   sets visible to b for all sound components
+
+        ChckBxCountDownSound.Visible = b
+        TxtBxAction.Visible = b
+        btnCountdownLoadSound.Visible = b
+        btnCountDownTestSound.Visible = b
+    End Sub
+
+    Sub CountDownReminder(ByVal b As Boolean)
+        '   sets visible to b for all reminder components
+
+        ChckBxCountDownReminder.Visible = b
+        TxtBxCountDownReminder.Visible = b
+    End Sub
+
+    Sub CountDownSystem(ByVal b As Boolean)
+        '   sets visible to b for all system components
+
+        ChckBxCountDownSystem.Visible = b
+        CmbBxCountDownSystem.Visible = b
+    End Sub
+
+    Sub CountDownCommand(ByVal b As Boolean)
+        '   sets enable to b for all command components
+
+        ChckBxCountDownCommand.Visible = b
+        TxtBxCountDowndCommand.Visible = b
+        btnCountDownLoadCommand.Visible = b
+    End Sub
     ' ********************************************************************************************************************************
 
 
@@ -474,17 +489,32 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
-        Close()
+        Me.Close()
     End Sub
 
-    
+    Private Sub btnHide_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHide.Click
+        '   hides main form and call system tray icon.
+
+        Me.NtfyIcnKlock.Visible = True
+        Me.Visible = False
+    End Sub
+    ' *********************************************************************************** context Strip Menu **************************
+    ' menu loads when right clicking on tray icon
+
+    Private Sub TlStrpMnItmShow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TlStrpMnItmShow.Click
+        Me.NtfyIcnKlock.Visible = False
+        Me.Visible = True
+    End Sub
+
+    Private Sub TlStrpMnItmExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TlStrpMnItmExit.Click
+        Me.Close()
+    End Sub
+
+    Private Sub TlStrpMnItmTime_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TlStrpMnItmTime.Click
+
+    End Sub
+
     ' *********************************************************************************************************************************
-
-
-
-
-
-
 
 
 End Class

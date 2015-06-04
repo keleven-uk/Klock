@@ -80,6 +80,11 @@ Partial Class frmKlock
         Me.tmrTimer = New System.Windows.Forms.Timer(Me.components)
         Me.tmrCountDown = New System.Windows.Forms.Timer(Me.components)
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.NtfyIcnKlock = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.CntxtMnStrpKlock = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.TlStrpMnItmShow = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TlStrpMnItmTime = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TlStrpMnItmExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -95,16 +100,17 @@ Partial Class frmKlock
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
+        Me.CntxtMnStrpKlock.SuspendLayout()
         Me.SuspendLayout()
         '
         'StsStrpInfo
         '
         Me.StsStrpInfo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsLblTime, Me.StsLblDate, Me.StsLblKeys})
-        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 255)
+        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 227)
         Me.StsStrpInfo.Name = "StsStrpInfo"
         Me.StsStrpInfo.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.StsStrpInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.StsStrpInfo.Size = New System.Drawing.Size(593, 24)
+        Me.StsStrpInfo.Size = New System.Drawing.Size(592, 24)
         Me.StsStrpInfo.TabIndex = 0
         '
         'stsLblTime
@@ -146,7 +152,7 @@ Partial Class frmKlock
         Me.MnStrpMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmFile, Me.MnItmHelp})
         Me.MnStrpMain.Location = New System.Drawing.Point(0, 0)
         Me.MnStrpMain.Name = "MnStrpMain"
-        Me.MnStrpMain.Size = New System.Drawing.Size(593, 24)
+        Me.MnStrpMain.Size = New System.Drawing.Size(592, 24)
         Me.MnStrpMain.TabIndex = 1
         Me.MnStrpMain.Text = "MenuStrip1"
         '
@@ -236,7 +242,7 @@ Partial Class frmKlock
         'LblTimeTime
         '
         Me.LblTimeTime.AutoSize = True
-        Me.LblTimeTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblTimeTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblTimeTime.Location = New System.Drawing.Point(6, 19)
         Me.LblTimeTime.Name = "LblTimeTime"
         Me.LblTimeTime.Size = New System.Drawing.Size(359, 24)
@@ -586,8 +592,7 @@ Partial Class frmKlock
         '
         'btnHide
         '
-        Me.btnHide.Enabled = False
-        Me.btnHide.Location = New System.Drawing.Point(510, 211)
+        Me.btnHide.Location = New System.Drawing.Point(510, 193)
         Me.btnHide.Name = "btnHide"
         Me.btnHide.Size = New System.Drawing.Size(75, 23)
         Me.btnHide.TabIndex = 3
@@ -596,7 +601,7 @@ Partial Class frmKlock
         '
         'btnClose
         '
-        Me.btnClose.Location = New System.Drawing.Point(429, 211)
+        Me.btnClose.Location = New System.Drawing.Point(429, 193)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
         Me.btnClose.TabIndex = 4
@@ -606,7 +611,7 @@ Partial Class frmKlock
         'btnHelp
         '
         Me.btnHelp.Enabled = False
-        Me.btnHelp.Location = New System.Drawing.Point(348, 211)
+        Me.btnHelp.Location = New System.Drawing.Point(348, 193)
         Me.btnHelp.Name = "btnHelp"
         Me.btnHelp.Size = New System.Drawing.Size(75, 23)
         Me.btnHelp.TabIndex = 5
@@ -624,11 +629,41 @@ Partial Class frmKlock
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
+        'NtfyIcnKlock
+        '
+        Me.NtfyIcnKlock.ContextMenuStrip = Me.CntxtMnStrpKlock
+        Me.NtfyIcnKlock.Icon = CType(resources.GetObject("NtfyIcnKlock.Icon"), System.Drawing.Icon)
+        Me.NtfyIcnKlock.Text = "Klock"
+        '
+        'CntxtMnStrpKlock
+        '
+        Me.CntxtMnStrpKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TlStrpMnItmShow, Me.TlStrpMnItmTime, Me.TlStrpMnItmExit})
+        Me.CntxtMnStrpKlock.Name = "CntxtMnStrpKlock"
+        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(112, 70)
+        '
+        'TlStrpMnItmShow
+        '
+        Me.TlStrpMnItmShow.Name = "TlStrpMnItmShow"
+        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(111, 22)
+        Me.TlStrpMnItmShow.Text = "Show"
+        '
+        'TlStrpMnItmTime
+        '
+        Me.TlStrpMnItmTime.Name = "TlStrpMnItmTime"
+        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(111, 22)
+        Me.TlStrpMnItmTime.Text = "Time"
+        '
+        'TlStrpMnItmExit
+        '
+        Me.TlStrpMnItmExit.Name = "TlStrpMnItmExit"
+        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(111, 22)
+        Me.TlStrpMnItmExit.Text = "Exit"
+        '
         'frmKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(593, 279)
+        Me.ClientSize = New System.Drawing.Size(592, 251)
         Me.Controls.Add(Me.btnHelp)
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnHide)
@@ -662,6 +697,7 @@ Partial Class frmKlock
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
         Me.GroupBox6.ResumeLayout(False)
+        Me.CntxtMnStrpKlock.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -722,5 +758,10 @@ Partial Class frmKlock
     Friend WithEvents TxtBxCountDowndCommand As System.Windows.Forms.TextBox
     Friend WithEvents btnCountDownLoadCommand As System.Windows.Forms.Button
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents NtfyIcnKlock As System.Windows.Forms.NotifyIcon
+    Friend WithEvents CntxtMnStrpKlock As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents TlStrpMnItmShow As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents TlStrpMnItmExit As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents TlStrpMnItmTime As System.Windows.Forms.ToolStripMenuItem
 
 End Class

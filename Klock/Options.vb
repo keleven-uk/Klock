@@ -33,7 +33,7 @@
         ChckBxClearSplit.Checked = My.Settings.usrTimerClearSplit
 
         TbPgGlobal.BackColor = My.Settings.usrFormColour
-        TbPgCountDown.BackColor = My.Settings.usrFormColour
+        TbPgTime.BackColor = My.Settings.usrFormColour
         TbPgTimer.BackColor = My.Settings.usrFormColour
 
     End Sub
@@ -111,4 +111,21 @@ End Sub
         End If
     End Sub
 
+    ' ************************************************************************************* time options *****************************
+
+    Private Sub ChckBxTmSwatch_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chckBxTimeSwatch.CheckedChanged
+        If ChckBxTimeSwatch.Checked Then
+            My.Settings.usrTimeSwatchCentibeats = True
+        Else
+            My.Settings.usrTimeSwatchCentibeats = False
+        End If
+    End Sub
+
+    Private Sub ChckBxTimeNetSeconds_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeNetSeconds.CheckedChanged
+        If ChckBxTimeNetSeconds.Checked Then
+            My.Settings.usrTimeNETSeconds = True
+        Else
+            My.Settings.usrTimeNETSeconds = False
+        End If
+    End Sub
 End Class

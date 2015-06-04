@@ -149,6 +149,30 @@ Namespace My
                 Me("usrTimerClearSplit") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property usrTimeSwatchCentibeats() As Boolean
+            Get
+                Return CType(Me("usrTimeSwatchCentibeats"),Boolean)
+            End Get
+            Set
+                Me("usrTimeSwatchCentibeats") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property usrTimeNETSeconds() As Boolean
+            Get
+                Return CType(Me("usrTimeNETSeconds"),Boolean)
+            End Get
+            Set
+                Me("usrTimeNETSeconds") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

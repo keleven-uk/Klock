@@ -35,13 +35,15 @@ Partial Class frmOptions
         Me.lblDefaultColour = New System.Windows.Forms.Label()
         Me.TabCntrlKlock = New System.Windows.Forms.TabControl()
         Me.TbPgGlobal = New System.Windows.Forms.TabPage()
-        Me.TbPgCountDown = New System.Windows.Forms.TabPage()
+        Me.TbPgTime = New System.Windows.Forms.TabPage()
+        Me.chckBxTimeSwatch = New System.Windows.Forms.CheckBox()
         Me.TbPgTimer = New System.Windows.Forms.TabPage()
-        Me.ChckBxTimerHigh = New System.Windows.Forms.CheckBox()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.ChckBxClearSplit = New System.Windows.Forms.CheckBox()
+        Me.ChckBxTimerHigh = New System.Windows.Forms.CheckBox()
+        Me.ChckBxTimeNetSeconds = New System.Windows.Forms.CheckBox()
         Me.TabCntrlKlock.SuspendLayout()
         Me.TbPgGlobal.SuspendLayout()
+        Me.TbPgTime.SuspendLayout()
         Me.TbPgTimer.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -126,7 +128,7 @@ Partial Class frmOptions
         'TabCntrlKlock
         '
         Me.TabCntrlKlock.Controls.Add(Me.TbPgGlobal)
-        Me.TabCntrlKlock.Controls.Add(Me.TbPgCountDown)
+        Me.TabCntrlKlock.Controls.Add(Me.TbPgTime)
         Me.TabCntrlKlock.Controls.Add(Me.TbPgTimer)
         Me.TabCntrlKlock.Location = New System.Drawing.Point(12, 12)
         Me.TabCntrlKlock.Name = "TabCntrlKlock"
@@ -151,15 +153,28 @@ Partial Class frmOptions
         Me.TbPgGlobal.TabIndex = 0
         Me.TbPgGlobal.Text = "Global"
         '
-        'TbPgCountDown
+        'TbPgTime
         '
-        Me.TbPgCountDown.BackColor = System.Drawing.SystemColors.Control
-        Me.TbPgCountDown.Location = New System.Drawing.Point(4, 22)
-        Me.TbPgCountDown.Name = "TbPgCountDown"
-        Me.TbPgCountDown.Padding = New System.Windows.Forms.Padding(3)
-        Me.TbPgCountDown.Size = New System.Drawing.Size(516, 259)
-        Me.TbPgCountDown.TabIndex = 1
-        Me.TbPgCountDown.Text = "CountDown"
+        Me.TbPgTime.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgTime.Controls.Add(Me.ChckBxTimeNetSeconds)
+        Me.TbPgTime.Controls.Add(Me.chckBxTimeSwatch)
+        Me.TbPgTime.Location = New System.Drawing.Point(4, 22)
+        Me.TbPgTime.Name = "TbPgTime"
+        Me.TbPgTime.Padding = New System.Windows.Forms.Padding(3)
+        Me.TbPgTime.Size = New System.Drawing.Size(516, 259)
+        Me.TbPgTime.TabIndex = 1
+        Me.TbPgTime.Text = "Time"
+        '
+        'chckBxTimeSwatch
+        '
+        Me.chckBxTimeSwatch.AutoSize = True
+        Me.chckBxTimeSwatch.Location = New System.Drawing.Point(22, 25)
+        Me.chckBxTimeSwatch.Name = "chckBxTimeSwatch"
+        Me.chckBxTimeSwatch.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimeSwatch.Size = New System.Drawing.Size(188, 17)
+        Me.chckBxTimeSwatch.TabIndex = 0
+        Me.chckBxTimeSwatch.Text = "Swatch Time to display Centibeats"
+        Me.chckBxTimeSwatch.UseVisualStyleBackColor = True
         '
         'TbPgTimer
         '
@@ -172,27 +187,6 @@ Partial Class frmOptions
         Me.TbPgTimer.TabIndex = 2
         Me.TbPgTimer.Text = "Timer"
         '
-        'ChckBxTimerHigh
-        '
-        Me.ChckBxTimerHigh.AutoSize = True
-        Me.ChckBxTimerHigh.Location = New System.Drawing.Point(16, 26)
-        Me.ChckBxTimerHigh.Name = "ChckBxTimerHigh"
-        Me.ChckBxTimerHigh.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxTimerHigh.Size = New System.Drawing.Size(154, 17)
-        Me.ChckBxTimerHigh.TabIndex = 0
-        Me.ChckBxTimerHigh.Text = "Timer to show MilliSeconds"
-        Me.ChckBxTimerHigh.UseVisualStyleBackColor = True
-        '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(362, 0)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(81, 17)
-        Me.CheckBox1.TabIndex = 9
-        Me.CheckBox1.Text = "CheckBox1"
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        '
         'ChckBxClearSplit
         '
         Me.ChckBxClearSplit.AutoSize = True
@@ -204,12 +198,33 @@ Partial Class frmOptions
         Me.ChckBxClearSplit.Text = "Clear to clear split"
         Me.ChckBxClearSplit.UseVisualStyleBackColor = True
         '
+        'ChckBxTimerHigh
+        '
+        Me.ChckBxTimerHigh.AutoSize = True
+        Me.ChckBxTimerHigh.Location = New System.Drawing.Point(16, 26)
+        Me.ChckBxTimerHigh.Name = "ChckBxTimerHigh"
+        Me.ChckBxTimerHigh.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxTimerHigh.Size = New System.Drawing.Size(154, 17)
+        Me.ChckBxTimerHigh.TabIndex = 0
+        Me.ChckBxTimerHigh.Text = "Timer to show MilliSeconds"
+        Me.ChckBxTimerHigh.UseVisualStyleBackColor = True
+        '
+        'ChckBxTimeNetSeconds
+        '
+        Me.ChckBxTimeNetSeconds.AutoSize = True
+        Me.ChckBxTimeNetSeconds.Location = New System.Drawing.Point(16, 48)
+        Me.ChckBxTimeNetSeconds.Name = "ChckBxTimeNetSeconds"
+        Me.ChckBxTimeNetSeconds.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxTimeNetSeconds.Size = New System.Drawing.Size(194, 17)
+        Me.ChckBxTimeNetSeconds.TabIndex = 1
+        Me.ChckBxTimeNetSeconds.Text = "New Earth Time to display Seconds"
+        Me.ChckBxTimeNetSeconds.UseVisualStyleBackColor = True
+        '
         'frmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(544, 356)
-        Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.TabCntrlKlock)
         Me.Controls.Add(Me.btnOptionsClose)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
@@ -220,10 +235,11 @@ Partial Class frmOptions
         Me.TabCntrlKlock.ResumeLayout(False)
         Me.TbPgGlobal.ResumeLayout(False)
         Me.TbPgGlobal.PerformLayout()
+        Me.TbPgTime.ResumeLayout(False)
+        Me.TbPgTime.PerformLayout()
         Me.TbPgTimer.ResumeLayout(False)
         Me.TbPgTimer.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents btnOptionsClose As System.Windows.Forms.Button
@@ -238,9 +254,10 @@ Partial Class frmOptions
     Friend WithEvents lblDefaultColour As System.Windows.Forms.Label
     Friend WithEvents TabCntrlKlock As System.Windows.Forms.TabControl
     Friend WithEvents TbPgGlobal As System.Windows.Forms.TabPage
-    Friend WithEvents TbPgCountDown As System.Windows.Forms.TabPage
+    Friend WithEvents TbPgTime As System.Windows.Forms.TabPage
     Friend WithEvents TbPgTimer As System.Windows.Forms.TabPage
     Friend WithEvents ChckBxTimerHigh As System.Windows.Forms.CheckBox
     Friend WithEvents ChckBxClearSplit As System.Windows.Forms.CheckBox
-    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimeSwatch As System.Windows.Forms.CheckBox
+    Friend WithEvents ChckBxTimeNetSeconds As System.Windows.Forms.CheckBox
 End Class
