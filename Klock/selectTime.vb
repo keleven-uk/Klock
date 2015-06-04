@@ -24,6 +24,9 @@
         RomanTime
         MorseTime
         BrailleTime
+        SemaphoreTime
+        NancyBlackettTime
+        BarcodeTime
         TrueHexTime
         BinaryTime
         OctTime
@@ -83,9 +86,15 @@
                 Case TimeTypes.RomanTime
                     innerTime = getRomanTime()
                 Case TimeTypes.MorseTime
-                    innerTime = getCodeTime(MORSE)
+                    innerTime = getMorseTime()
                 Case TimeTypes.BrailleTime
-                    innerTime = getCodeTime(BRAILLE)
+                    innerTime = getBrailleTime()
+                Case TimeTypes.SemaphoreTime
+                    innerTime = getSemaphoreTime()
+                Case TimeTypes.NancyBlackettTime
+                    innerTime = getNancyBlackettTime()
+                Case TimeTypes.BarcodeTime
+                    innerTime = getBarcodeTime()
                 Case TimeTypes.TrueHexTime
                     innerTime = getTrueHexTime()
                 Case TimeTypes.BinaryTime
@@ -139,6 +148,12 @@
                     TimeTitle = "Time as Morse Code"
                 Case TimeTypes.BrailleTime
                     TimeTitle = "Time as Braille"
+                Case TimeTypes.SemaphoreTime
+                    TimeTitle = "Time as Semaphore"
+                Case TimeTypes.NancyBlackettTime
+                    TimeTitle = "Time as Nancy Blackett Semaphore"
+                Case TimeTypes.BarcodeTime
+                    TimeTitle = "Time in a Barcode"
                 Case TimeTypes.TrueHexTime
                     TimeTitle = "Time as True Hexdecimal [i.e. 16 hours]"
                 Case TimeTypes.BinaryTime
@@ -289,8 +304,34 @@
 
     End Function
 
-    Private Function getwordsTime() As String
+    Private Function getSemaphoreTime() As String
+        '   returns local time, that can be displayed using a semaphore font.
 
+        getSemaphoreTime = getLocalTime()
+    End Function
+
+    Private Function getNancyBlackettTime() As String
+        '   returns local time, that can be displayed using a Nancy Blackey semaphore font.
+        '   See http://www.allthingsransome.net/downloads/nbsemaphore.html
+        '   same as sepaphore, but without the flags really.
+
+        getNancyBlackettTime = getLocalTime()
+    End Function
+
+    Private Function getBrailleTime() As String
+        '   returns local time, that can be displayed using a Braille font.
+
+        getBrailleTime = getLocalTime()
+    End Function
+
+    Private Function getBarcodeTime() As String
+        '   returns local time, that can be displayed using a BarcodeTime font.
+
+        getBarcodeTime = getLocalTime()
+    End Function
+
+    Private Function getwordsTime() As String
+        '   return the time in words.
 
         Dim hour As Integer = Now.Hour
         Dim mins As Integer = Now.Minute
@@ -434,7 +475,7 @@
         Dim min As Integer = Math.Floor((noOfHexSecs - (hrs * 4096)) / 16)
         Dim sec As Integer = noOfHexSecs Mod 16
 
-        If frmKlock.usrsettings.usrTimeHexIntuitorFormat Then
+        If frmKlock.usrSettings.usrTimeHexIntuitorFormat Then
             getTrueHexTime = String.Format("{0}_{1}_{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
         Else
             getTrueHexTime = String.Format(".{0}{1}{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
@@ -545,10 +586,8 @@
         toRoman = result
     End Function
 
-    Private Function getCodeTime(code As String) As String
+    Private Function getMorseTime() As String
         '   Returns the current [local] time with each digit represented by a different encoding.
-        '   code = "MORSE"   - returns time in morse code.
-        '   code = "BRAILLE" - returns time in braille.
 
         Dim hours As Integer = Now().Hour
         Dim mins As Integer = Now().Minute
@@ -559,53 +598,53 @@
         Dim codeSecs As String = ""
 
         If hours < 9 Then
-            codeHours = toCode(hours, code)
+            codeHours = toCode(hours)
         Else
-            codeHours = String.Format("{0} {1}", toCode(Int(hours / 10), code), toCode(hours Mod 10, code))
+            codeHours = String.Format("{0} {1}", toCode(Int(hours / 10)), toCode(hours Mod 10))
         End If
 
         If mins < 9 Then
-            codeMins = toCode(mins, code)
+            codeMins = toCode(mins)
         Else
-            codeMins = String.Format("{0} {1}", toCode(Int(mins / 10), code), toCode(mins Mod 10, code))
+            codeMins = String.Format("{0} {1}", toCode(Int(mins / 10)), toCode(mins Mod 10))
         End If
 
         If secs < 9 Then
-            codeSecs = toCode(secs, code)
+            codeSecs = toCode(secs)
         Else
-            codeSecs = String.Format("{0} {1}", toCode(Int(secs / 10), code), toCode(secs Mod 10, code))
+            codeSecs = String.Format("{0} {1}", toCode(Int(secs / 10)), toCode(secs Mod 10))
         End If
 
-        getCodeTime = String.Format("{0}  {1}  {2} ", codeHours, codeMins, codeSecs)
+        getMorseTime = String.Format("{0}  {1}  {2} ", codeHours, codeMins, codeSecs)
     End Function
 
-    Private Function toCode(time As String, code As String) As String
+    Private Function toCode(time As String) As String
         '   code = "MORSE"   - returns string in morse code.
-        '   code = "BRAILLE" - returns string in braille.
+
 
         Dim result As String = ""
 
         Select Case time
             Case 1
-                result = IIf(code = MORSE, "·----", ChrW(10241))
+                result = "·----"
             Case 2
-                result = IIf(code = MORSE, "··---", ChrW(10243))
+                result = "··---"
             Case 3
-                result = IIf(code = MORSE, "···--", ChrW(10249))
+                result = "···--"
             Case 4
-                result = IIf(code = MORSE, "····-", ChrW(10265))
+                result = "····-"
             Case 5
-                result = IIf(code = MORSE, "·····", ChrW(10257))
+                result = "·····"
             Case 6
-                result = IIf(code = MORSE, "-····", ChrW(10251))
+                result = "-····"
             Case 7
-                result = IIf(code = MORSE, "--···", ChrW(10267))
+                result = "--···"
             Case 8
-                result = IIf(code = MORSE, "---··", ChrW(10259))
+                result = "---··"
             Case 9
-                result = IIf(code = MORSE, "----·", ChrW(10250))
+                result = "----·"
             Case 0
-                result = IIf(code = MORSE, "-----", ChrW(10266))
+                result = "-----"
         End Select
 
         toCode = result

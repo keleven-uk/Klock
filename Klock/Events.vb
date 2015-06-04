@@ -25,6 +25,12 @@
     Private _eSecondReminder As Boolean
     Private _eThirdReminder As Boolean
 
+
+    Public Sub New()
+
+        MyBase.New()
+    End Sub
+
     Public Overrides Function ToString() As String
 
         Dim first As String = Me.Eventname().PadRight(14, " ")

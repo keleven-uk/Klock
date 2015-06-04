@@ -4,6 +4,8 @@
     Public weddingAnniversaryGifts As New Dictionary(Of Integer, String)
 
     Public Sub New()
+
+        MyBase.New()
         Me.PopulateGifts()
     End Sub
 

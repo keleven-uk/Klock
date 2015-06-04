@@ -180,6 +180,7 @@
     </Compile>
     <Compile Include="Simple3Des.vb" />
     <Compile Include="Timer.vb" />
+    <Compile Include="UserFonts.vb" />
     <Compile Include="UserSettings.vb" />
     <Compile Include="Voice.vb" />
   </ItemGroup>

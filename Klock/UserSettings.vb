@@ -92,7 +92,6 @@ Public Class UserSettings
     Private _usrMemoFile As String = "Memo.bin"
 
     Private _usrMemoUseDefaultPassword As Boolean = False
-    Private _usrMemoAllowEmptyPassword As Boolean = False
     Private _usrMemoDefaultPassword As String = "klock"
     Private _usrMemoDecyptTimeOut As Integer = 30
 
@@ -623,15 +622,6 @@ Public Class UserSettings
         End Set
     End Property
 
-    Public Property usrMemoAllowEmptyPassword() As Boolean
-        Get
-            Return _usrMemoAllowEmptyPassword
-        End Get
-        Set(ByVal value As Boolean)
-            _usrMemoAllowEmptyPassword = value
-        End Set
-    End Property
-
     Public Property usrMemoFile() As String
         Get
             Return _usrMemoFile
@@ -785,7 +775,6 @@ Public Class UserSettings
                               <Memo>
                                   <MemoFileName><%= usrMemoFile() %></MemoFileName>
                                   <MemoUseDefaultPassword><%= usrMemoUseDefaultPassword() %></MemoUseDefaultPassword>
-                                  <MemoAllowEmptyPassword><%= usrMemoAllowEmptyPassword() %></MemoAllowEmptyPassword>
                                   <MemoDefaultPassword><%= usrMemoDefaultPassword() %></MemoDefaultPassword>
                                   <MemoDecyptTimeOut><%= usrMemoDecyptTimeOut() %></MemoDecyptTimeOut>
                               </Memo>
@@ -926,7 +915,6 @@ Public Class UserSettings
                               <Memo>
                                   <MemoFileName><%= usrMemoFile() %></MemoFileName>
                                   <MemoUseDefaultPassword>false</MemoUseDefaultPassword>
-                                  <MemoAllowEmptyPassword>false</MemoAllowEmptyPassword>
                                   <MemoDefaultPassword>"klock"</MemoDefaultPassword>
                                   <MemoDecyptTimeOut>30</MemoDecyptTimeOut>
                               </Memo>
@@ -1116,7 +1104,6 @@ Public Class UserSettings
             Dim memo = elem.Element("Memo")
             Me.usrMemoFile = readElement(memo, "MemoFileName", usrMemoFile())
             Me.usrMemoUseDefaultPassword = CType(readElement(memo, "MemoUseDefaultPassword", usrMemoUseDefaultPassword()), Boolean)
-            Me.usrMemoAllowEmptyPassword = CType(readElement(memo, "MemoAllowEmptyPassword", usrMemoAllowEmptyPassword()), Boolean)
             Me.usrMemoDefaultPassword = readElement(memo, "MemoDefaultPassword", usrMemoDefaultPassword())
             Me.usrMemoDecyptTimeOut = CType(readElement(memo, "MemoDecyptTimeOut", usrMemoDecyptTimeOut()), Integer)
 

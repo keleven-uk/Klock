@@ -7,7 +7,7 @@ Module InfoCommon
         '   Calls the info form and populates the labels deping upon how it called.
 
         Select Case mode
-            Case "DaylightSaving"
+            Case "Daylight Saving"
                 ' Get the local time zone and the current  year.
                 Dim localZone As TimeZone = TimeZone.CurrentTimeZone
                 Dim currentDate As DateTime = DateTime.Now
@@ -27,7 +27,7 @@ Module InfoCommon
                 frmInfo.Label3.Text = "Daylight saving time for " & currentYear
                 frmInfo.Label4.Text = String.Format(" Move the clocks forward {0} Hour on {1} at {2}", daylight.Delta.Hours, daylight.Start.ToLongDateString, daylight.Start.ToShortTimeString)
                 frmInfo.Label5.Text = String.Format(" Move the clocks back {0} Hour on {1} at {2}", daylight.Delta.Hours, daylight.End.ToLongDateString, daylight.End.ToShortTimeString)
-            Case "Culture"
+            Case "Current Culture"
                 frmInfo.Text = "Info - Current Culture"
                 frmInfo.GroupBox1.Text = "Current Culture"
 
@@ -36,7 +36,7 @@ Module InfoCommon
                 frmInfo.Label3.Text = "Full Date Time Pattern : " & CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern
                 frmInfo.Label4.Text = "Currency Symbol : " & CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol
                 frmInfo.Label5.Text = "First Day of the Week : " & CultureInfo.CurrentCulture.DateTimeFormat.DayNames(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek)
-            Case "OS"
+            Case "Operating System"
                 frmInfo.Text = "Info - Operating System"
                 frmInfo.GroupBox1.Text = "Operating System"
 
@@ -45,7 +45,7 @@ Module InfoCommon
                 frmInfo.Label3.Text = "OS Full Name : " & My.Computer.Info.OSFullName
                 frmInfo.Label4.Text = "OS Platform : " & My.Computer.Info.OSPlatform
                 frmInfo.Label5.Text = "OS Version : " & My.Computer.Info.OSVersion
-            Case "PowerSource"
+            Case "Power Source"
                 frmInfo.Text = "Info - Power Source"
                 frmInfo.GroupBox1.Text = "Power Source"
 

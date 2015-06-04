@@ -31,7 +31,7 @@ Module FEMcommon
     End Sub
 
     Public Sub btnNew()
-        '   Sets up to add new friend / Event.
+        '   Sets up to add new friend, event or memo.
 
         frmKlock.btnClear.Enabled = True
         frmKlock.btnAdd.Enabled = True
@@ -59,7 +59,6 @@ Module FEMcommon
             Case 7
                 frmKlock.TxtBxMemoName.Focus()
 
-                frmKlock.btnMemoDecrypt.Enabled = True
                 frmKlock.ChckBxMemoEncypt.Enabled = True
 
                 frmKlock.MemoClearText()
@@ -68,7 +67,7 @@ Module FEMcommon
     End Sub
 
     Public Sub btnAdd()
-        '   Adds a new friend / Event to listview box and saves a new friend / Event file.
+        '   Adds a new friend, event or memo to listview box and saves a new friend, event or memo file.
 
         frmKlock.btnNew.Enabled = True
         frmKlock.btnDelete.Enabled = True
@@ -173,7 +172,7 @@ Module FEMcommon
 
     Public Sub btnEdit()
         '   allows selected entry in listveiw box to be edited.
-        '   Changed button to "Save", which then will save new data to selected entry and save new friend / Event file.
+        '   Changed button to "Save", which then will save new data to selected entry and save new friend, event or memo file.
 
         PanelTop()
 
@@ -243,7 +242,7 @@ Module FEMcommon
 
     Public Sub btnDelete()
         '   Deletes the currently selected entry form the listviewbox.
-        '   Saves new friend / Event file and display first entry [if exists].
+        '   Saves new friend, event or memo file and display first entry [if exists].
 
         Dim reply As MsgBoxResult
 

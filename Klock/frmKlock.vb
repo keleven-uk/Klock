@@ -15,6 +15,7 @@
     Public displayAction As selectAction        '   instance of selectAction, allows different actions to be performed.
     Public usrSettings As UserSettings          '   instance of user settings.
     Public usrVoice As Voice                    '   instance of user voice
+    Public usrFonts As UserFonts                '   instance of user fonts.
     Public myManagedPower As ManagedPower       '   instance of managed Power
 
     Public CountDownTime As Integer             '   Holds number of minutes for the countdown timer.
@@ -31,15 +32,6 @@
 
     Public strHelpPath As String = System.IO.Path.Combine(Application.StartupPath, "klock.chm") '   set up help location
 
-    Public TEXT_WIDTH1 As Single = 400          '   the width bands to determine which font [below] to use - time labels.
-    Public TEXT_WIDTH2 As Single = 500          '
-    Public TEXT_WIDTH3 As Single = 580          '
-
-    Dim txtLrgFont As New Font("Lucida Calligraphy", 17, FontStyle.Regular)     '   large font.
-    Dim txtBigFont As New Font("Lucida Calligraphy", 16, FontStyle.Regular)     '   big font.
-    Dim txtSmlFont As New Font("Lucida Calligraphy", 15, FontStyle.Regular)     '   small font.
-    Dim txtTnyFont As New Font("Lucida Calligraphy", 14, FontStyle.Regular)     '   tiny font.
-
     Public grphcs As Graphics = Me.CreateGraphics   '   create graphic object globably, used to measure time text width
     Public hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}    '   create global, not every time.
 
@@ -52,7 +44,6 @@
     Public knownPostCode As New AutoCompleteStringCollection        '   Auto Complete for friends address post code.
     Public knownCounties As New AutoCompleteStringCollection        '   Auto Complete for friends address county.
 
-
     ' ************************************************************************************** clock routines **************************
     ' Separate clocks are used for each function, to reduce load on main clock
 
@@ -62,6 +53,7 @@
         '   Checks for Caps Lock, Num Lock & Scroll Lock - set message in status bar.
 
         Dim currentSecond As Integer = Now.TimeOfDay.TotalSeconds                       '  so, all use the same time.
+        Dim tmStr As String = ""
 
         If Me.Visible Then                                                              '   Only update if form is visible, can't see if in system tray.
             Me.updateStatusBar()
@@ -70,41 +62,17 @@
             If Me.TbCntrl.SelectedIndex = 0 Then
 
                 Me.displayOneTime.set24Hour = Me.usrSettings.usrTimeOne24Hour
+                tmStr = Me.displayOneTime.getTime()
 
-                Dim tmStr = Me.displayOneTime.getTime()
-                Dim textSize = grphcs.MeasureString(tmStr, txtBigFont)
-
-                Select Case textSize.Width
-                    Case TEXT_WIDTH1 To TEXT_WIDTH2             '   400 to 500
-                        Me.LblTimeOneTime.Font = txtBigFont
-                    Case TEXT_WIDTH2 To TEXT_WIDTH3             '   500 to 580
-                        Me.LblTimeOneTime.Font = txtSmlFont
-                    Case Is > TEXT_WIDTH3                       '   > 580
-                        Me.LblTimeOneTime.Font = txtTnyFont
-                    Case Else                                   '   < 400
-                        Me.LblTimeOneTime.Font = txtLrgFont
-                End Select
-
+                Me.LblTimeOneTime.Font = Me.usrFonts.getFont(tmStr, Me.displayOneTime.getTitle, grphcs)
                 Me.LblTimeOneTime.Text = tmStr                   '   Update local time in desired time format.
 
                 If Me.usrSettings.usrTimeTwoFormats Then
 
                     Me.displayTwoTime.set24Hour = Me.usrSettings.usrTimeTwo24Hour
-
                     tmStr = Me.displayTwoTime.getTime()
-                    textSize = grphcs.MeasureString(tmStr, txtBigFont)
 
-                    Select Case textSize.Width
-                        Case TEXT_WIDTH1 To TEXT_WIDTH2             '   400 to 500
-                            Me.LblTimeTwoTime.Font = txtBigFont
-                        Case TEXT_WIDTH2 To TEXT_WIDTH3             '   500 to 580
-                            Me.LblTimeTwoTime.Font = txtSmlFont
-                        Case Is > TEXT_WIDTH3                       '   > 580
-                            Me.LblTimeTwoTime.Font = txtTnyFont
-                        Case Else                                   '   < 400
-                            Me.LblTimeTwoTime.Font = txtLrgFont
-                    End Select
-
+                    Me.LblTimeTwoTime.Font = Me.usrFonts.getFont(tmStr, Me.displayTwoTime.getTitle, grphcs)
                     Me.LblTimeTwoTime.Text = tmStr              '   display local time in desired time format.
 
                 End If      '   If Me.usrSettings.usrTimeTwoFormats Then
@@ -219,8 +187,11 @@
         '   Also, display result to time and countdown, if there running.  TO DO, should they be on their own settings?
 
         Me.displayOneTime.set24Hour = Me.usrSettings.usrTimeOne24Hour
-
-        Me.NtfyIcnKlock.Text = Me.displayOneTime.getTitle() & " : " & Me.displayOneTime.getTime()    '   set icon tool tip to current time.
+        Try
+            Me.NtfyIcnKlock.Text = Me.displayOneTime.getTitle & " : " & Me.displayOneTime.getTime()    '   set icon tool tip to current time [must be less then 64 chars].
+        Catch ex As Exception
+            Me.displayAction.DisplayReminder("Notification Error", ex.Message)
+        End Try
 
         Dim noSecs As Integer = Me.usrSettings.usrTimeDisplayMinutes * 60
 
@@ -1549,7 +1520,6 @@
 
             If m.memoSecret Then
                 Dim password As String = Me.getMemoPassword()
-
                 If password = "-1" Then Exit Sub '   cancel been pressed - abort.
 
                 Dim des As New Simple3Des(password)
@@ -1590,7 +1560,10 @@
             If Me.M_SHOW = True Then
                 Dim password As String = Me.getMemoPassword()
 
-                If password = "-1" Then Exit Sub '   cancel been pressed - abort.
+                If password = "-1" Then         '   cancel been pressed - abort.
+                    Me.TxtBxMemo.Text = "It's a secret"
+                    Exit Sub
+                End If
 
                 Dim des As New Simple3Des(password)
                 Try
@@ -1608,33 +1581,29 @@
 
     Private Function getMemoPassword() As String
         '   asks a password for the user.
-        '   returns either the passord or the default password is allowed.
-        '   returnds default password if black password is entered, if allowed, else returns "-1"
-        '   returns "-1" if cancel has been pressed.
+        '   returns either the passord or the default password if allowed.
+        '   returns -1 if cancel is pressed - unlikely to be a password.
+
 
         Dim password As String = ""
 
-        If Me.usrSettings.usrMemoUseDefaultPassword Then
-            password = Me.usrSettings.usrMemoDefaultPassword
-        ElseIf frmMemoPassword.ShowDialog() = DialogResult.OK Then
-            password = frmMemoPassword.TxtBxMemoPassword.Text
+        If Me.usrSettings.usrMemoUseDefaultPassword Then                            '   system set up to use default password.
+            password = Me.usrSettings.usrMemoDefaultPassword                        '   return default password.
+        Else                                                                        '   prompt user for passord.
+            frmMemoPassword.ShowDialog()                                            '   display password form.
 
-            If password = "" And Me.usrSettings.usrMemoUseDefaultPassword Then
-                password = Me.usrSettings.usrMemoDefaultPassword
-            Else
-                Me.displayAction.DisplayReminder("Memo Error", "Sorry, Not set up to allow blank passwords")
-                password = "-1"
+            If frmMemoPassword.DialogResult = Windows.Forms.DialogResult.OK Then    '   user pressed ok on password.
+                password = frmMemoPassword.TxtBxMemoPassword.Text                   '   return user entered password.
+            Else                                                                    '   user pressed cancel on password form.
+                password = "-1"                                                     '   return -1 to tell the world, user pressed cancel.
             End If
-        ElseIf frmMemoPassword.ShowDialog() = DialogResult.Cancel Then
-            password = "-1"
-            Me.displayAction.DisplayReminder("Memo Error", "Sorry, You seem to have pressed cancel.")
-        End If
+        End If  '   Me.usrSettings.usrMemoUseDefaultPassword
 
         getMemoPassword = password
     End Function
 
     Private Sub TmrMemo_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TmrMemo.Tick
-        '   if enabled, a secret memo test has been decrypted..
+        '   if enabled, a secret memo test has been decrypted.
         '   The timer fires every second, the sub keeps score of the seconds.
         '   If the number of seconds exceeds the stores value, the memo text is changed to "Its a secret".
 
@@ -1714,7 +1683,9 @@
         Me.displayAction = New selectAction             '   user selected actions
         Me.displayTimer = New Timer                     '   timer stuff
         Me.usrSettings = New UserSettings               '   user settings
+        Me.usrFonts = New UserFonts                     '   user fonts
         Me.usrVoice = New Voice                         '   user voice
+
         Me.myManagedPower = New ManagedPower            '   system power source
 
         Me.HlpPrvdrKlock.HelpNamespace = Me.strHelpPath '   set up help path.
@@ -1919,28 +1890,10 @@
 
     ' ********************************************************************************************************************** info menu stuff *************
 
-    Private Sub DaylightSavingToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DaylightSavingToolStripMenuItem.Click
-        '   Display some information of Daylight Saving.
+    Private Sub InfoMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DaylightSavingToolStripMenuItem.Click, CultureToolStripMenuItem.Click, OSToolStripMenuItem.Click, PowerSourceToolStripMenuItem.Click
+        '   Display some information.
 
-        InfoCommon.displayInfo("DaylightSaving")
-    End Sub
-
-    Private Sub CultureToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CultureToolStripMenuItem.Click
-        '   Display some information of PC Culture [language, currency etc].
-
-        InfoCommon.displayInfo("Culture")
-    End Sub
-
-    Private Sub OSToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OSToolStripMenuItem.Click
-        '   Display some information on the Operating System.
-
-        InfoCommon.displayInfo("OS")
-    End Sub
-
-    Private Sub PowerSourceToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PowerSourceToolStripMenuItem.Click
-        '   Display some information on the Power Source.
-
-        InfoCommon.displayInfo("PowerSource")
+        InfoCommon.displayInfo(sender.ToString)
     End Sub
 
     ' ****************************************************************************************************** context Strip Menu **************************

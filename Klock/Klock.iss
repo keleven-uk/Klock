@@ -50,11 +50,12 @@ Name: all; Description: Klock Program + source; Types: full
 
 
 [Files]
-Source: "bin\Release\Klock.exe"             ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
-Source: "bin\Release\Sounds\*"              ; DestDir: "{app}\Sounds"; Components : exe; Flags: ignoreversion
-Source: "klock.chm"                         ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
-Source: "License.txt"                       ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
-Source: "History.txt"                       ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
+Source: "bin\Release\Klock.exe" ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
+Source: "bin\Release\Sounds\*"  ; DestDir: "{app}\Sounds"; Components : exe; Flags: ignoreversion
+Source: "bin\Release\fonts\*"   ; DestDir: "{app}\fonts" ; Components : exe; Flags: ignoreversion
+Source: "klock.chm"             ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
+Source: "License.txt"           ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
+Source: "History.txt"           ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 
 ;  include source if directed :: NB needs a clean CVS checkout :: recursesubdirs for recursion
 ;  install into My Documents foler.

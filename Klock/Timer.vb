@@ -10,6 +10,11 @@
 
     Private stopWatch As New Stopwatch()
 
+    Public Sub New()
+
+        MyBase.New()
+    End Sub
+
     Public ReadOnly Property getHighElapsedTime() As String
         '   Returns the elapsed time to the milliseconds - HH:MM:SS:MS
 

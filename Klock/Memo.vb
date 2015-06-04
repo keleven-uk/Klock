@@ -8,6 +8,11 @@
     Private _memoSecret As Boolean
     Private _memoPassword As String
 
+    Public Sub New()
+
+        MyBase.New()
+    End Sub
+
 
     Public Overrides Function ToString() As String
 

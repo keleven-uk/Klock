@@ -33,6 +33,11 @@
     Const WM_SYSCOMMAND As Integer = &H112
     Const SC_SCREENSAVE As Integer = &HF140
 
+    Public Sub New()
+
+        MyBase.New()
+    End Sub
+
     Public Sub PlaySound(ByVal s As String)
         '   play a sound file.  Uses some fancy code of www.vbforums.com, allows volume to be changed.
         '   When using multimedia API (e.g. mciSendString) calls to play multimedia files,

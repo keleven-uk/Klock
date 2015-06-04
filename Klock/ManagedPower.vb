@@ -6,6 +6,11 @@ Public Class ManagedPower
 
     Dim sysPowerStatus As SystemPowerStatus
 
+    Public Sub New()
+
+        MyBase.New()
+    End Sub
+
     Public Function powerSource() As String
 
         Dim text As String = ""

@@ -253,42 +253,42 @@ Partial Class frmKlock
         'StsStrpInfo
         '
         Me.StsStrpInfo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsLblTime, Me.StsLblDate, Me.StsLblKeys})
-        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 242)
+        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 240)
         Me.StsStrpInfo.Name = "StsStrpInfo"
         Me.StsStrpInfo.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.StsStrpInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.StsStrpInfo.Size = New System.Drawing.Size(696, 22)
+        Me.StsStrpInfo.Size = New System.Drawing.Size(696, 24)
         Me.StsStrpInfo.SizingGrip = False
         Me.StsStrpInfo.TabIndex = 0
         '
         'stsLblTime
         '
         Me.stsLblTime.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.stsLblTime.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.stsLblTime.Name = "stsLblTime"
-        Me.stsLblTime.Size = New System.Drawing.Size(55, 17)
+        Me.stsLblTime.Size = New System.Drawing.Size(53, 19)
         Me.stsLblTime.Text = "00:00:00"
         '
         'StsLblDate
         '
         Me.StsLblDate.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.StsLblDate.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.StsLblDate.Name = "StsLblDate"
-        Me.StsLblDate.Size = New System.Drawing.Size(72, 17)
+        Me.StsLblDate.Size = New System.Drawing.Size(75, 19)
         Me.StsLblDate.Text = "18 Nov 2012"
         '
         'StsLblKeys
         '
         Me.StsLblKeys.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.StsLblKeys.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.StsLblKeys.Name = "StsLblKeys"
-        Me.StsLblKeys.Size = New System.Drawing.Size(27, 17)
+        Me.StsLblKeys.Size = New System.Drawing.Size(29, 19)
         Me.StsLblKeys.Text = "cns"
         '
         'TmrMain
@@ -310,52 +310,52 @@ Partial Class frmKlock
         Me.MnItmFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmExit, Me.MnItmOptions})
         Me.MnItmFile.Name = "MnItmFile"
         Me.MnItmFile.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.F), System.Windows.Forms.Keys)
-        Me.MnItmFile.Size = New System.Drawing.Size(35, 20)
+        Me.MnItmFile.Size = New System.Drawing.Size(37, 20)
         Me.MnItmFile.Text = "&File"
         '
         'MnItmExit
         '
         Me.MnItmExit.Name = "MnItmExit"
         Me.MnItmExit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.MnItmExit.Size = New System.Drawing.Size(162, 22)
+        Me.MnItmExit.Size = New System.Drawing.Size(159, 22)
         Me.MnItmExit.Text = "E&xit"
         '
         'MnItmOptions
         '
         Me.MnItmOptions.Name = "MnItmOptions"
         Me.MnItmOptions.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.O), System.Windows.Forms.Keys)
-        Me.MnItmOptions.Size = New System.Drawing.Size(162, 22)
+        Me.MnItmOptions.Size = New System.Drawing.Size(159, 22)
         Me.MnItmOptions.Text = "&Options"
         '
         'InfoToolStripMenuItem
         '
         Me.InfoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DaylightSavingToolStripMenuItem, Me.CultureToolStripMenuItem, Me.OSToolStripMenuItem, Me.PowerSourceToolStripMenuItem})
         Me.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem"
-        Me.InfoToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
+        Me.InfoToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
         Me.InfoToolStripMenuItem.Text = "&Info"
         '
         'DaylightSavingToolStripMenuItem
         '
         Me.DaylightSavingToolStripMenuItem.Name = "DaylightSavingToolStripMenuItem"
-        Me.DaylightSavingToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.DaylightSavingToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.DaylightSavingToolStripMenuItem.Text = "Daylight Saving"
         '
         'CultureToolStripMenuItem
         '
         Me.CultureToolStripMenuItem.Name = "CultureToolStripMenuItem"
-        Me.CultureToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.CultureToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.CultureToolStripMenuItem.Text = "Culture"
         '
         'OSToolStripMenuItem
         '
         Me.OSToolStripMenuItem.Name = "OSToolStripMenuItem"
-        Me.OSToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.OSToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.OSToolStripMenuItem.Text = "Operating System"
         '
         'PowerSourceToolStripMenuItem
         '
         Me.PowerSourceToolStripMenuItem.Name = "PowerSourceToolStripMenuItem"
-        Me.PowerSourceToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.PowerSourceToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.PowerSourceToolStripMenuItem.Text = "Power Source"
         '
         'MnItmHelp
@@ -363,28 +363,28 @@ Partial Class frmKlock
         Me.MnItmHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmSubHelp, Me.MnItmLicense, Me.MnItmAbout})
         Me.MnItmHelp.Name = "MnItmHelp"
         Me.MnItmHelp.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.H), System.Windows.Forms.Keys)
-        Me.MnItmHelp.Size = New System.Drawing.Size(40, 20)
+        Me.MnItmHelp.Size = New System.Drawing.Size(44, 20)
         Me.MnItmHelp.Text = "&Help"
         '
         'MnItmSubHelp
         '
         Me.MnItmSubHelp.Name = "MnItmSubHelp"
         Me.MnItmSubHelp.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
-        Me.MnItmSubHelp.Size = New System.Drawing.Size(157, 22)
+        Me.MnItmSubHelp.Size = New System.Drawing.Size(153, 22)
         Me.MnItmSubHelp.Text = "Hel&p"
         '
         'MnItmLicense
         '
         Me.MnItmLicense.Name = "MnItmLicense"
         Me.MnItmLicense.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.L), System.Windows.Forms.Keys)
-        Me.MnItmLicense.Size = New System.Drawing.Size(157, 22)
+        Me.MnItmLicense.Size = New System.Drawing.Size(153, 22)
         Me.MnItmLicense.Text = "&License"
         '
         'MnItmAbout
         '
         Me.MnItmAbout.Name = "MnItmAbout"
         Me.MnItmAbout.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.A), System.Windows.Forms.Keys)
-        Me.MnItmAbout.Size = New System.Drawing.Size(157, 22)
+        Me.MnItmAbout.Size = New System.Drawing.Size(153, 22)
         Me.MnItmAbout.Text = "&About"
         '
         'TbCntrl
@@ -1810,7 +1810,7 @@ Partial Class frmKlock
         Me.ChckBxMemoEncypt.Location = New System.Drawing.Point(150, 19)
         Me.ChckBxMemoEncypt.Name = "ChckBxMemoEncypt"
         Me.ChckBxMemoEncypt.Size = New System.Drawing.Size(62, 19)
-        Me.ChckBxMemoEncypt.TabIndex = 13
+        Me.ChckBxMemoEncypt.TabIndex = 2
         Me.ChckBxMemoEncypt.Text = "Encypt"
         Me.ChckBxMemoEncypt.UseVisualStyleBackColor = True
         '
@@ -1821,7 +1821,7 @@ Partial Class frmKlock
         Me.TxtBxMemo.Name = "TxtBxMemo"
         Me.TxtBxMemo.ReadOnly = True
         Me.TxtBxMemo.Size = New System.Drawing.Size(372, 63)
-        Me.TxtBxMemo.TabIndex = 12
+        Me.TxtBxMemo.TabIndex = 3
         '
         'Label2
         '
@@ -1874,7 +1874,7 @@ Partial Class frmKlock
         Me.btnHide.Location = New System.Drawing.Point(575, 193)
         Me.btnHide.Name = "btnHide"
         Me.btnHide.Size = New System.Drawing.Size(75, 23)
-        Me.btnHide.TabIndex = 3
+        Me.btnHide.TabIndex = 33
         Me.btnHide.Text = "Hide"
         Me.btnHide.UseVisualStyleBackColor = True
         '

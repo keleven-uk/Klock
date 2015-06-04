@@ -158,7 +158,6 @@ Public Class frmOptions
         Me.NmrcUpDwnEventsInterval.Value = frmKlock.usrSettings.usrEventsTimerInterval
 
         Me.ChckBxMemoDefaultPassword.Checked = frmKlock.usrSettings.usrMemoUseDefaultPassword
-        Me.ChckBxMemoAllowEmpty.Checked = frmKlock.usrSettings.usrMemoAllowEmptyPassword
         Me.TxtBxMemoDefaultPassword.Text = frmKlock.usrSettings.usrMemoDefaultPassword
 
         Me.NmrcUpDwnMemoDecrypt.Value = frmKlock.usrSettings.usrMemoDecyptTimeOut
@@ -246,7 +245,6 @@ Public Class frmOptions
 
         frmKlock.usrSettings.usrMemoFile = Me.TxtBxOptionsMemoFile.Text
         frmKlock.usrSettings.usrMemoUseDefaultPassword = Me.ChckBxMemoDefaultPassword.Checked
-        frmKlock.usrSettings.usrMemoAllowEmptyPassword = Me.ChckBxMemoAllowEmpty.Checked
         frmKlock.usrSettings.usrMemoDefaultPassword = Me.TxtBxMemoDefaultPassword.Text
         frmKlock.usrSettings.usrMemoDecyptTimeOut = Me.NmrcUpDwnMemoDecrypt.Value
 
@@ -584,7 +582,6 @@ Public Class frmOptions
 
         Me.TxtBxMemoDefaultPassword.Enabled = Me.ChckBxMemoDefaultPassword.Checked
         Me.TxtBxMemoDefaultPassword.ReadOnly = Me.ChckBxMemoDefaultPassword.Checked
-        Me.ChckBxMemoAllowEmpty.Enabled = Me.ChckBxMemoDefaultPassword.Checked
         Me.NmrcUpDwnMemoDecrypt.Enabled = Me.ChckBxMemoDefaultPassword.Checked
     End Sub
 
