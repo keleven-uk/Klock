@@ -210,6 +210,9 @@ Partial Class frmKlock
         Me.tmrEvents = New System.Windows.Forms.Timer(Me.components)
         Me.btnEventsCheck = New System.Windows.Forms.Button()
         Me.TmrMemo = New System.Windows.Forms.Timer(Me.components)
+        Me.TimeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TextKlockToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DisplayTwoTimeFormatsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -253,7 +256,7 @@ Partial Class frmKlock
         'StsStrpInfo
         '
         Me.StsStrpInfo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsLblTime, Me.StsLblDate, Me.StsLblKeys})
-        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 240)
+        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 218)
         Me.StsStrpInfo.Name = "StsStrpInfo"
         Me.StsStrpInfo.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.StsStrpInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -298,7 +301,7 @@ Partial Class frmKlock
         '
         'MnStrpMain
         '
-        Me.MnStrpMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmFile, Me.InfoToolStripMenuItem, Me.MnItmHelp})
+        Me.MnStrpMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmFile, Me.TimeToolStripMenuItem, Me.InfoToolStripMenuItem, Me.MnItmHelp})
         Me.MnStrpMain.Location = New System.Drawing.Point(0, 0)
         Me.MnStrpMain.Name = "MnStrpMain"
         Me.MnStrpMain.Size = New System.Drawing.Size(696, 24)
@@ -431,10 +434,10 @@ Partial Class frmKlock
         'LblTimeTwoTime
         '
         Me.LblTimeTwoTime.AutoSize = True
-        Me.LblTimeTwoTime.Font = New System.Drawing.Font("Lucida Calligraphy", 16.0!)
+        Me.LblTimeTwoTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!)
         Me.LblTimeTwoTime.Location = New System.Drawing.Point(6, 16)
         Me.LblTimeTwoTime.Name = "LblTimeTwoTime"
-        Me.LblTimeTwoTime.Size = New System.Drawing.Size(506, 28)
+        Me.LblTimeTwoTime.Size = New System.Drawing.Size(415, 26)
         Me.LblTimeTwoTime.TabIndex = 0
         Me.LblTimeTwoTime.Text = "twelve minutes past eleven in the evening"
         '
@@ -468,10 +471,10 @@ Partial Class frmKlock
         'LblTimeOneTime
         '
         Me.LblTimeOneTime.AutoSize = True
-        Me.LblTimeOneTime.Font = New System.Drawing.Font("Lucida Calligraphy", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblTimeOneTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblTimeOneTime.Location = New System.Drawing.Point(6, 19)
         Me.LblTimeOneTime.Name = "LblTimeOneTime"
-        Me.LblTimeOneTime.Size = New System.Drawing.Size(506, 28)
+        Me.LblTimeOneTime.Size = New System.Drawing.Size(415, 26)
         Me.LblTimeOneTime.TabIndex = 0
         Me.LblTimeOneTime.Text = "twelve minutes past eleven in the evening"
         '
@@ -1227,10 +1230,10 @@ Partial Class frmKlock
         'lblReminderText
         '
         Me.lblReminderText.AutoSize = True
-        Me.lblReminderText.Font = New System.Drawing.Font("Lucida Calligraphy", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblReminderText.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblReminderText.Location = New System.Drawing.Point(6, 19)
         Me.lblReminderText.Name = "lblReminderText"
-        Me.lblReminderText.Size = New System.Drawing.Size(224, 28)
+        Me.lblReminderText.Size = New System.Drawing.Size(186, 26)
         Me.lblReminderText.TabIndex = 0
         Me.lblReminderText.Text = "Reminder Not Set"
         '
@@ -1620,12 +1623,11 @@ Partial Class frmKlock
         '
         'LstBxFriends
         '
-        Me.LstBxFriends.Font = New System.Drawing.Font("Lucida Sans Typewriter", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LstBxFriends.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LstBxFriends.FormattingEnabled = True
-        Me.LstBxFriends.ItemHeight = 12
         Me.LstBxFriends.Location = New System.Drawing.Point(6, 19)
         Me.LstBxFriends.Name = "LstBxFriends"
-        Me.LstBxFriends.Size = New System.Drawing.Size(227, 88)
+        Me.LstBxFriends.Size = New System.Drawing.Size(227, 82)
         Me.LstBxFriends.Sorted = True
         Me.LstBxFriends.TabIndex = 0
         '
@@ -1749,12 +1751,11 @@ Partial Class frmKlock
         '
         'LstBxEvents
         '
-        Me.LstBxEvents.Font = New System.Drawing.Font("Lucida Sans Typewriter", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LstBxEvents.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LstBxEvents.FormattingEnabled = True
-        Me.LstBxEvents.ItemHeight = 12
         Me.LstBxEvents.Location = New System.Drawing.Point(6, 19)
         Me.LstBxEvents.Name = "LstBxEvents"
-        Me.LstBxEvents.Size = New System.Drawing.Size(227, 88)
+        Me.LstBxEvents.Size = New System.Drawing.Size(227, 82)
         Me.LstBxEvents.Sorted = True
         Me.LstBxEvents.TabIndex = 0
         '
@@ -1860,18 +1861,17 @@ Partial Class frmKlock
         '
         'LstBxMemo
         '
-        Me.LstBxMemo.Font = New System.Drawing.Font("Lucida Sans Typewriter", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LstBxMemo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LstBxMemo.FormattingEnabled = True
-        Me.LstBxMemo.ItemHeight = 12
         Me.LstBxMemo.Location = New System.Drawing.Point(6, 19)
         Me.LstBxMemo.Name = "LstBxMemo"
-        Me.LstBxMemo.Size = New System.Drawing.Size(227, 88)
+        Me.LstBxMemo.Size = New System.Drawing.Size(227, 82)
         Me.LstBxMemo.Sorted = True
         Me.LstBxMemo.TabIndex = 0
         '
         'btnHide
         '
-        Me.btnHide.Location = New System.Drawing.Point(575, 193)
+        Me.btnHide.Location = New System.Drawing.Point(572, 189)
         Me.btnHide.Name = "btnHide"
         Me.btnHide.Size = New System.Drawing.Size(75, 23)
         Me.btnHide.TabIndex = 33
@@ -1880,7 +1880,7 @@ Partial Class frmKlock
         '
         'btnClose
         '
-        Me.btnClose.Location = New System.Drawing.Point(491, 193)
+        Me.btnClose.Location = New System.Drawing.Point(491, 189)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
         Me.btnClose.TabIndex = 4
@@ -1889,7 +1889,7 @@ Partial Class frmKlock
         '
         'btnHelp
         '
-        Me.btnHelp.Location = New System.Drawing.Point(404, 193)
+        Me.btnHelp.Location = New System.Drawing.Point(410, 189)
         Me.btnHelp.Name = "btnHelp"
         Me.btnHelp.Size = New System.Drawing.Size(75, 23)
         Me.btnHelp.TabIndex = 5
@@ -1957,7 +1957,7 @@ Partial Class frmKlock
         '
         'btnNew
         '
-        Me.btnNew.Location = New System.Drawing.Point(16, 198)
+        Me.btnNew.Location = New System.Drawing.Point(18, 189)
         Me.btnNew.Name = "btnNew"
         Me.btnNew.Size = New System.Drawing.Size(42, 23)
         Me.btnNew.TabIndex = 6
@@ -1967,7 +1967,7 @@ Partial Class frmKlock
         'btnAdd
         '
         Me.btnAdd.Enabled = False
-        Me.btnAdd.Location = New System.Drawing.Point(65, 198)
+        Me.btnAdd.Location = New System.Drawing.Point(66, 189)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(42, 23)
         Me.btnAdd.TabIndex = 7
@@ -1977,7 +1977,7 @@ Partial Class frmKlock
         'btnClear
         '
         Me.btnClear.Enabled = False
-        Me.btnClear.Location = New System.Drawing.Point(114, 198)
+        Me.btnClear.Location = New System.Drawing.Point(114, 189)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(42, 23)
         Me.btnClear.TabIndex = 8
@@ -1987,7 +1987,7 @@ Partial Class frmKlock
         'btnEdit
         '
         Me.btnEdit.Enabled = False
-        Me.btnEdit.Location = New System.Drawing.Point(163, 198)
+        Me.btnEdit.Location = New System.Drawing.Point(162, 189)
         Me.btnEdit.Name = "btnEdit"
         Me.btnEdit.Size = New System.Drawing.Size(42, 23)
         Me.btnEdit.TabIndex = 9
@@ -1997,7 +1997,7 @@ Partial Class frmKlock
         'btnDelete
         '
         Me.btnDelete.Enabled = False
-        Me.btnDelete.Location = New System.Drawing.Point(212, 198)
+        Me.btnDelete.Location = New System.Drawing.Point(211, 189)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(49, 23)
         Me.btnDelete.TabIndex = 10
@@ -2011,7 +2011,7 @@ Partial Class frmKlock
         'btnEventsCheck
         '
         Me.btnEventsCheck.Enabled = False
-        Me.btnEventsCheck.Location = New System.Drawing.Point(267, 198)
+        Me.btnEventsCheck.Location = New System.Drawing.Point(267, 189)
         Me.btnEventsCheck.Name = "btnEventsCheck"
         Me.btnEventsCheck.Size = New System.Drawing.Size(49, 23)
         Me.btnEventsCheck.TabIndex = 16
@@ -2022,11 +2022,32 @@ Partial Class frmKlock
         '
         Me.TmrMemo.Interval = 1000
         '
+        'TimeToolStripMenuItem
+        '
+        Me.TimeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TextKlockToolStripMenuItem, Me.DisplayTwoTimeFormatsToolStripMenuItem})
+        Me.TimeToolStripMenuItem.Name = "TimeToolStripMenuItem"
+        Me.TimeToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
+        Me.TimeToolStripMenuItem.Text = "Time"
+        '
+        'TextKlockToolStripMenuItem
+        '
+        Me.TextKlockToolStripMenuItem.CheckOnClick = True
+        Me.TextKlockToolStripMenuItem.Name = "TextKlockToolStripMenuItem"
+        Me.TextKlockToolStripMenuItem.Size = New System.Drawing.Size(214, 22)
+        Me.TextKlockToolStripMenuItem.Text = "Text Klock"
+        '
+        'DisplayTwoTimeFormatsToolStripMenuItem
+        '
+        Me.DisplayTwoTimeFormatsToolStripMenuItem.CheckOnClick = True
+        Me.DisplayTwoTimeFormatsToolStripMenuItem.Name = "DisplayTwoTimeFormatsToolStripMenuItem"
+        Me.DisplayTwoTimeFormatsToolStripMenuItem.Size = New System.Drawing.Size(214, 22)
+        Me.DisplayTwoTimeFormatsToolStripMenuItem.Text = "Display Two Time Formats"
+        '
         'frmKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(696, 264)
+        Me.ClientSize = New System.Drawing.Size(696, 242)
         Me.Controls.Add(Me.btnEventsCheck)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnEdit)
@@ -2291,5 +2312,8 @@ Partial Class frmKlock
     Friend WithEvents ChckBxMemoEncypt As System.Windows.Forms.CheckBox
     Friend WithEvents btnMemoDecrypt As System.Windows.Forms.Button
     Friend WithEvents TmrMemo As System.Windows.Forms.Timer
+    Friend WithEvents TimeToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents TextKlockToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DisplayTwoTimeFormatsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

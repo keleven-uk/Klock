@@ -1754,8 +1754,9 @@
         If Me.usrSettings.usrSavePosition Then
             Me.usrSettings.usrFormTop = Me.Top
             Me.usrSettings.usrFormLeft = Me.Left
-            Me.usrSettings.writeSettings()
         End If
+
+        Me.usrSettings.writeSettings()      '   save settings, not sure if anything has changed.
 
         grphcs.Dispose()
     End Sub
@@ -1803,6 +1804,8 @@
             Me.GroupBox14.Visible = False
             Me.GroupBox15.Visible = False
         End If
+
+        Me.DisplayTwoTimeFormatsToolStripMenuItem.Checked = Me.usrSettings.usrTimeTwoFormats    '   Set menu check accordingly.
 
         If Me.reloadFriends Then
             IOcommon.loadFriends()
@@ -1891,6 +1894,37 @@
         Me.CmbBxTimeTwo.SelectedIndex = Me.usrSettings.usrTimeTWODefaultFormat
     End Sub
 
+    ' ********************************************************************************************************************** time menu stuff *************
+
+    Private Sub TextKlockToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles TextKlockToolStripMenuItem.Click
+        '   if chosen from menus, switch on a text klock - appears in a seperate window.
+        '   Will hide main window when created.
+
+        Me.NtfyIcnKlock.Visible = True
+        Me.Visible = False
+
+        frmTextKlock.Show()
+
+    End Sub
+
+    Private Sub DisplayTwoTimeFormatsToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles DisplayTwoTimeFormatsToolStripMenuItem.Click
+        '   If chosen from menus, switch on two time formats.
+
+        If Me.DisplayTwoTimeFormatsToolStripMenuItem.Checked Then
+            Me.usrSettings.usrTimeTwoFormats = True
+            Me.CmbBxTimeTwo.Visible = True
+            Me.LblTimeTwoTime.Visible = True
+            Me.GroupBox14.Visible = True                    '   sorry i don't name groupboxs
+            Me.GroupBox15.Visible = True
+        Else
+            Me.usrSettings.usrTimeTwoFormats = False
+            Me.CmbBxTimeTwo.Visible = False
+            Me.LblTimeTwoTime.Visible = False
+            Me.GroupBox14.Visible = False
+            Me.GroupBox15.Visible = False
+        End If
+    End Sub
+
     ' ********************************************************************************************************************** info menu stuff *************
 
     Private Sub InfoMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DaylightSavingToolStripMenuItem.Click, CultureToolStripMenuItem.Click, OSToolStripMenuItem.Click, PowerSourceToolStripMenuItem.Click
@@ -1919,6 +1953,8 @@
 
 
     ' ********************************************************************************************************************************* END **************
+
+
 
 
 End Class

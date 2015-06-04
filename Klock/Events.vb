@@ -64,7 +64,7 @@
     End Function
 
     Public Function NoOfYears() As Integer
-        '   returns the number of years foe the event - mainly used for Birthdays and Anniversaries.
+        '   returns the number of years for the event - mainly used for Birthdays and Anniversaries.
 
         Dim e As Date = Me.EventDate
         Dim dd As Double = 0

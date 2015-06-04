@@ -88,7 +88,7 @@
         Dim message As String = ""
 
         '                                                   remember the event name is held in title case.
-        If e.EventName = "Btneventnotificationtest" Then
+        If e.EventName = "btnEventNotificationTest" Then
             title = "Event Notification test"
             message = String.Format(" Opacity = {0}", frmKlock.usrSettings.usrEventNotificationOpacity)
         Else
