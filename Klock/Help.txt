@@ -15,7 +15,8 @@ Countdown
 Implements a simple countdown timer [between 1 and 90 minutes].
 The time for the countdown can be either entered directly of the up/down controls can be used.
 The timer can be paused during countdown and stopped before the end is reached.
-A sound can be played at the end of the countdown, this sound can be user selected [a .wav file].
+At the end of the countdown, either a sound can be played, a reminder displayed, a system command [system shut down or re-boot]
+or a external program can br run - or any combination of the four.
 
 
 Timer
@@ -28,13 +29,28 @@ A split function allows for given time to be remembered.
 Reminder
 
 Implements a reminder option.
-When a given time is reached a reminder is displayed on screen.
-Today's date is default, but a future date can also be selected.
+Today's date is default, but a future date can also be selected.  A time can also be added to the reminder date.
+If no date is added, the reminder will fire at midnight.
+At the end of the countdownhen the reminder is due  either a sound can be played, a reminder displayed, 
+a system command [system shut down or re-boot] or a external program can br run - or any combination of the four.
+
+
+Friends
+
+Implements a simple contact [Freinds] database.
+Friends can be added, edited or deleted.
+Each friend can have up to three e-mails and telephone numbers, an address, a date of birth, a web site
+and a memo section for notes.
+
+The friends filename and location can be changed in the option screen.
+A Zip archive can then be save and re-loaded of this file
+
+Pressing F12 with the Friends tab visable, will show the total number of friends klock knows about.
 
 
 
 The button bar contains three buttons -
-help  - will display a simple help screen, depending upon the tab being currently viewed.
+help  - will display a simple help screen, depending upon the tab being currently viewed [not yet implemented].
 Close - Quits the application.
 Hide  - Switches the application to the system area.
 
@@ -43,11 +59,11 @@ Hide  - Switches the application to the system area.
 When the program is running in the system area, the following options are available.
 If hovered over, the current time will be displayed.
 Right clicked on the icon will display a pop up menu.
-This will allow the application to be restored,
-The application can be exited or the current time to be displayed in a minimum window.
+This will allow the application to be restored, the option scr4een to be displayed,
+the application can be exited or toggle the displaying of time in a notification window.
 
 If the application is in the task bar, any display messages
-[i.e. a reminder becoming due] will  be displayed in the minimum window.
+[i.e. a reminder becoming due] will be displayed in a notification window [as will errors etc].
 
 
 The status bar contains [after the the time & date] the legend cns.
@@ -56,9 +72,20 @@ The n represents Num Lock.
 The S represents Scroll Lock.
 The letter will be upper case if the key is activated, otherwise lower case.
 
+
 The application contains a options screen [file / Options] which allows various coloursand fonts to be changed.
 
+NB: If the option is checked to start on windows start up, it only operates for the current user.
 
 
+Program partially tested on Windows XP & Windows 7 [both 32 & 64 bit].
 
-Program tested on Windows XP & Windows 7 [both 32 & 64 bit].
+
+The notification windows [or toast] is written by jmcilhinney and can be found at 
+http://www.vbforums.com/showthread.php?351757-Animated-Window-Effects-with-quot-Toast-quot-popup-demo
+
+The archive [zip] stuff uses a dll called DotNetZip - see http://DotNetZip.codeplex.com.
+This comes under the Microsoft Public License (Ms-PL) - which is included in the application folder.
+
+
+Much of the code for the friends tab was inspired from reading Mastering Visual Basic 2010 by Evangelos Petroutsos.

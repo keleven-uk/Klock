@@ -50,8 +50,11 @@ Public Class frmOptions
         Me.ChckBxTimerHigh.Checked = My.Settings.usrTimerHigh
         Me.ChckBxClearSplit.Checked = My.Settings.usrTimerClearSplit
 
+        Me.chckBxTimeTwoFormats.Checked = My.Settings.usrTimeTwoFormats
+
         Me.chckBxTimeSwatch.Checked = My.Settings.usrTimeSwatchCentibeats
         Me.ChckBxTimeNetSeconds.Checked = My.Settings.usrTimeNETSeconds
+        Me.ChckBxTimeHexIntuitor.Checked = My.Settings.usrTimeHexIntuitor
         Me.ChckBxTimeHourPips.Checked = My.Settings.usrTimeHourPips
         Me.ChckBxTimeHourlyChimes.Checked = My.Settings.usrTimeHourlyChimes
         Me.ChckBxTimeHalfChimes.Checked = My.Settings.usrTimeHalfChimes
@@ -108,8 +111,11 @@ Public Class frmOptions
         My.Settings.usrTimerHigh = Me.ChckBxTimerHigh.Checked
         My.Settings.usrTimerClearSplit = Me.ChckBxClearSplit.Checked
 
+        My.Settings.usrTimeTwoFormats = Me.chckBxTimeTwoFormats.Checked
+
         My.Settings.usrTimeSwatchCentibeats = Me.chckBxTimeSwatch.Checked
         My.Settings.usrTimeNETSeconds = Me.ChckBxTimeNetSeconds.Checked
+        My.Settings.usrTimeHexIntuitor = Me.ChckBxTimeHexIntuitor.Checked
         My.Settings.usrTimeHourPips = Me.ChckBxTimeHourPips.Checked
         My.Settings.usrTimeHourlyChimes = Me.ChckBxTimeHourlyChimes.Checked
         My.Settings.usrTimeHalfChimes = Me.ChckBxTimeHalfChimes.Checked
@@ -273,18 +279,21 @@ Public Class frmOptions
     '---------------------------------------------------------- Sound Volume ---------------------------------------------------------------
 
     Private Sub TrckBrOptionsVolume_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrckBrOptionsVolume.Scroll
+        '   Set system volume.
 
         My.Settings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
 
     End Sub
 
     Private Sub btnOptionsTestVolume_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsTestVolume.Click
+        '   Play a sound to test system volume.
 
         Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.mp3")
 
     End Sub
 
     Private Sub ChckBxTimeToast_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeToast.CheckedChanged
+        '   If checkbox to enable notification message every nth minutes if checked, enables the minute counter.
 
         If Me.ChckBxTimeToast.Checked Then
             Me.UpDwnTimeDisplay.Enabled = True
@@ -296,6 +305,7 @@ Public Class frmOptions
     '---------------------------------------------------------- Friends Options  ---------------------------------------------------------------
 
     Private Sub btnOptionsFriendsDirectory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFriendsDirectory.Click
+        '   Promt user to the location of the frinds file - Default to Application Path \data.
 
         If Me.FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
             Me.TxtBxOptionsFriendsDirectory.Text = Me.FolderBrowserDialog1.SelectedPath
@@ -303,6 +313,7 @@ Public Class frmOptions
     End Sub
 
     Private Sub btnOptionsFriendsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFriendsFile.Click
+        '   Prompt user for the filename of the friends file - Default to freinds.bin
 
         Me.OpenFileDialog1.Filter = "All Files|*.*"
         Me.OpenFileDialog1.InitialDirectory = Me.TxtBxOptionsFriendsDirectory.Text
@@ -314,12 +325,15 @@ Public Class frmOptions
     End Sub
 
     Private Sub btnOptionsFriendsPathReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFriendsPathReset.Click
+        '   Reset the location of the friends file to that of the application, plust \Data
 
-        Me.TxtBxOptionsFriendsDirectory.Text = Application.StartupPath & "\data"
+        Me.TxtBxOptionsFriendsDirectory.Text = Application.StartupPath & "\Data"
         Me.TxtBxOptionsFriendsFile.Text = "Friends.bin"
     End Sub
 
     Private Sub btnArchieveFriendsDirectory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsDirectory.Click
+        '   Prompt user for location of the archive file.
+        '   If file exixts, enable load button.  Enable save button as well
 
         If Me.FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
             Me.TxtBxArchieveFriendsDirectory.Text = Me.FolderBrowserDialog1.SelectedPath
@@ -334,6 +348,9 @@ Public Class frmOptions
     End Sub
 
     Private Sub btnArchieveFriendsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsFile.Click
+        '   Prompt user for file name of the archive file.
+        '   If file exixts, enable load button.  Enable save button as well
+
 
         Me.OpenFileDialog1.Filter = "All Files|*.*"
         Me.OpenFileDialog1.InitialDirectory = Me.TxtBxArchieveFriendsDirectory.Text
@@ -354,13 +371,12 @@ Public Class frmOptions
     End Sub
 
     Private Sub btnArchieveFriendsSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsSave.Click
-
+        '   Saves the friends file to archive [zip].
+        '   If the archieve already exists, it will only be overwritten on user prompt.
 
         Dim zippath As String = Me.TxtBxArchieveFriendsDirectory.Text & "\" & Me.TxtBxArchieveFriendsFile.Text
-        Dim friendspath As String = Me.TxtBxOptionsFriendsDirectory.Text & "\" & Me.TxtBxOptionsFriendsFile.Text
 
-
-        If My.Computer.FileSystem.FileExists(zippath) Then
+        If My.Computer.FileSystem.FileExists(zippath) Then      '   file already exists, prompt user.
             Dim reply As MsgBoxResult
 
             reply = MsgBox("This will over write existing archieve file", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
@@ -373,11 +389,10 @@ Public Class frmOptions
 
         Using zip As ZipFile = New ZipFile
 
-            zip.AddDirectory(Me.TxtBxOptionsFriendsDirectory.Text)
+            zip.AddDirectory(Me.TxtBxOptionsFriendsDirectory.Text)      '   add directory to archieve.
 
             Try
-                zip.Save(zippath)
-                Me.displayAction.DisplayReminder("Saving File", "Archived file saved.")
+                zip.Save(zippath)                                       '   save archive
             Catch ex As Exception
                 Me.displayAction.DisplayReminder("Saving File Error", "Error archieving Friends File. " & ex.Message)
             End Try
@@ -386,28 +401,41 @@ Public Class frmOptions
     End Sub
 
     Private Sub btnArchieveFriendsLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsLoad.Click
+        '   Load the friends file from archive.
+        '   The file will only be overwritten, if it exists, on user prompt.
+        '   If the path does not exist, it will be created.
 
         Dim zippath As String = Me.TxtBxArchieveFriendsDirectory.Text & "\" & Me.TxtBxArchieveFriendsFile.Text
         Dim reply As MsgBoxResult
+        Dim extract As Boolean
 
+        Using zip As ZipFile = ZipFile.Read(zippath)        '   
 
+            Dim entry As ZipEntry
 
-        Try
-            Using zip As ZipFile = ZipFile.Read(zippath)
-                Dim entry As ZipEntry
-                For Each entry In zip
-                    If My.Computer.FileSystem.FileExists(entry.FileName) Then
-                        reply = MsgBox("This will over write existing data", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
+            For Each entry In zip                           '   for each file in the zipfile.
 
-                        If reply = MsgBoxResult.No Then     '   Not to over write, exit sub.
-                            entry.Extract(Me.TxtBxOptionsFriendsDirectory.Text)
-                        End If      '   if reply
-                    End If          '   if my.computer
-                Next                '   for each entry in zip
-            End Using
-        Catch ex As Exception
-            Me.displayAction.DisplayReminder("Saving File Error", "Error archieving Friends File. " & ex.Message)
-        End Try
+                extract = True                              '   set to extract initially.
+
+                If My.Computer.FileSystem.FileExists(entry.FileName) Then
+                    reply = MsgBox("This will over write existing data", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
+
+                    If reply = MsgBoxResult.No Then         '   Not to over write, do not extract.
+                        extract = False
+                    End If      '   if reply
+                End If          '   if my.computer
+
+                If extract Then                             '   extract file.
+                    Try                                     '   catch extract error, if any.
+                        entry.Extract(Me.TxtBxOptionsFriendsDirectory.Text)
+                    Catch ex As Exception
+                        Me.displayAction.DisplayReminder("Saving File Error", "Error archieving Friends File. " & ex.Message)
+                    End Try
+                End If          '   if extract
+
+            Next                '   for each entry in zip
+
+        End Using
 
     End Sub
 End Class

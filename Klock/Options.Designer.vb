@@ -56,6 +56,7 @@ Partial Class frmOptions
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TbPgTime = New System.Windows.Forms.TabPage()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.ChckBxTimeHexIntuitor = New System.Windows.Forms.CheckBox()
         Me.ChckBxTimeNetSeconds = New System.Windows.Forms.CheckBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.chckBxTimeSwatch = New System.Windows.Forms.CheckBox()
@@ -96,6 +97,7 @@ Partial Class frmOptions
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.chckBxTimeTwoFormats = New System.Windows.Forms.CheckBox()
         Me.TabCntrlOptions.SuspendLayout()
         Me.TbPgGlobal.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
@@ -439,22 +441,35 @@ Partial Class frmOptions
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.chckBxTimeTwoFormats)
+        Me.GroupBox3.Controls.Add(Me.ChckBxTimeHexIntuitor)
         Me.GroupBox3.Controls.Add(Me.ChckBxTimeNetSeconds)
         Me.GroupBox3.Controls.Add(Me.Label6)
         Me.GroupBox3.Controls.Add(Me.chckBxTimeSwatch)
         Me.GroupBox3.Controls.Add(Me.UpDwnTimeDisplay)
         Me.GroupBox3.Controls.Add(Me.ChckBxTimeToast)
-        Me.GroupBox3.Location = New System.Drawing.Point(16, 142)
+        Me.GroupBox3.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(356, 111)
+        Me.GroupBox3.Size = New System.Drawing.Size(356, 125)
         Me.GroupBox3.TabIndex = 5
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Settings"
         '
+        'ChckBxTimeHexIntuitor
+        '
+        Me.ChckBxTimeHexIntuitor.AutoSize = True
+        Me.ChckBxTimeHexIntuitor.Location = New System.Drawing.Point(9, 102)
+        Me.ChckBxTimeHexIntuitor.Name = "ChckBxTimeHexIntuitor"
+        Me.ChckBxTimeHexIntuitor.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxTimeHexIntuitor.Size = New System.Drawing.Size(290, 17)
+        Me.ChckBxTimeHexIntuitor.TabIndex = 7
+        Me.ChckBxTimeHexIntuitor.Text = "Use Intuitor-hextime formatting i.e. Underscore seperator"
+        Me.ChckBxTimeHexIntuitor.UseVisualStyleBackColor = True
+        '
         'ChckBxTimeNetSeconds
         '
         Me.ChckBxTimeNetSeconds.AutoSize = True
-        Me.ChckBxTimeNetSeconds.Location = New System.Drawing.Point(91, 63)
+        Me.ChckBxTimeNetSeconds.Location = New System.Drawing.Point(105, 79)
         Me.ChckBxTimeNetSeconds.Name = "ChckBxTimeNetSeconds"
         Me.ChckBxTimeNetSeconds.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ChckBxTimeNetSeconds.Size = New System.Drawing.Size(194, 17)
@@ -465,7 +480,7 @@ Partial Class frmOptions
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(6, 16)
+        Me.Label6.Location = New System.Drawing.Point(22, 36)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(174, 13)
         Me.Label6.TabIndex = 5
@@ -474,7 +489,7 @@ Partial Class frmOptions
         'chckBxTimeSwatch
         '
         Me.chckBxTimeSwatch.AutoSize = True
-        Me.chckBxTimeSwatch.Location = New System.Drawing.Point(97, 40)
+        Me.chckBxTimeSwatch.Location = New System.Drawing.Point(111, 56)
         Me.chckBxTimeSwatch.Name = "chckBxTimeSwatch"
         Me.chckBxTimeSwatch.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chckBxTimeSwatch.Size = New System.Drawing.Size(188, 17)
@@ -484,7 +499,7 @@ Partial Class frmOptions
         '
         'UpDwnTimeDisplay
         '
-        Me.UpDwnTimeDisplay.Location = New System.Drawing.Point(186, 14)
+        Me.UpDwnTimeDisplay.Location = New System.Drawing.Point(202, 36)
         Me.UpDwnTimeDisplay.Maximum = New Decimal(New Integer() {60, 0, 0, 0})
         Me.UpDwnTimeDisplay.Name = "UpDwnTimeDisplay"
         Me.UpDwnTimeDisplay.Size = New System.Drawing.Size(38, 20)
@@ -496,7 +511,7 @@ Partial Class frmOptions
         Me.ChckBxTimeToast.AutoSize = True
         Me.ChckBxTimeToast.Checked = True
         Me.ChckBxTimeToast.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChckBxTimeToast.Location = New System.Drawing.Point(232, 17)
+        Me.ChckBxTimeToast.Location = New System.Drawing.Point(246, 37)
         Me.ChckBxTimeToast.Name = "ChckBxTimeToast"
         Me.ChckBxTimeToast.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ChckBxTimeToast.Size = New System.Drawing.Size(53, 17)
@@ -510,7 +525,7 @@ Partial Class frmOptions
         Me.GroupBox1.Controls.Add(Me.ChckBxTimeQuarterChimes)
         Me.GroupBox1.Controls.Add(Me.ChckBxTimeHourlyChimes)
         Me.GroupBox1.Controls.Add(Me.ChckBxTimeHourPips)
-        Me.GroupBox1.Location = New System.Drawing.Point(16, 20)
+        Me.GroupBox1.Location = New System.Drawing.Point(6, 137)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(356, 116)
         Me.GroupBox1.TabIndex = 4
@@ -520,7 +535,7 @@ Partial Class frmOptions
         'ChckBxTimeHalfChimes
         '
         Me.ChckBxTimeHalfChimes.AutoSize = True
-        Me.ChckBxTimeHalfChimes.Location = New System.Drawing.Point(177, 65)
+        Me.ChckBxTimeHalfChimes.Location = New System.Drawing.Point(191, 65)
         Me.ChckBxTimeHalfChimes.Name = "ChckBxTimeHalfChimes"
         Me.ChckBxTimeHalfChimes.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ChckBxTimeHalfChimes.Size = New System.Drawing.Size(108, 17)
@@ -531,7 +546,7 @@ Partial Class frmOptions
         'ChckBxTimeQuarterChimes
         '
         Me.ChckBxTimeQuarterChimes.AutoSize = True
-        Me.ChckBxTimeQuarterChimes.Location = New System.Drawing.Point(161, 88)
+        Me.ChckBxTimeQuarterChimes.Location = New System.Drawing.Point(175, 88)
         Me.ChckBxTimeQuarterChimes.Name = "ChckBxTimeQuarterChimes"
         Me.ChckBxTimeQuarterChimes.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ChckBxTimeQuarterChimes.Size = New System.Drawing.Size(124, 17)
@@ -542,7 +557,7 @@ Partial Class frmOptions
         'ChckBxTimeHourlyChimes
         '
         Me.ChckBxTimeHourlyChimes.AutoSize = True
-        Me.ChckBxTimeHourlyChimes.Location = New System.Drawing.Point(192, 42)
+        Me.ChckBxTimeHourlyChimes.Location = New System.Drawing.Point(206, 42)
         Me.ChckBxTimeHourlyChimes.Name = "ChckBxTimeHourlyChimes"
         Me.ChckBxTimeHourlyChimes.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ChckBxTimeHourlyChimes.Size = New System.Drawing.Size(93, 17)
@@ -555,7 +570,7 @@ Partial Class frmOptions
         Me.ChckBxTimeHourPips.AutoSize = True
         Me.ChckBxTimeHourPips.Checked = True
         Me.ChckBxTimeHourPips.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChckBxTimeHourPips.Location = New System.Drawing.Point(114, 19)
+        Me.ChckBxTimeHourPips.Location = New System.Drawing.Point(128, 19)
         Me.ChckBxTimeHourPips.Name = "ChckBxTimeHourPips"
         Me.ChckBxTimeHourPips.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ChckBxTimeHourPips.Size = New System.Drawing.Size(171, 17)
@@ -855,6 +870,17 @@ Partial Class frmOptions
         Me.OpenFileDialog1.CheckFileExists = False
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
+        'chckBxTimeTwoFormats
+        '
+        Me.chckBxTimeTwoFormats.AutoSize = True
+        Me.chckBxTimeTwoFormats.Location = New System.Drawing.Point(149, 14)
+        Me.chckBxTimeTwoFormats.Name = "chckBxTimeTwoFormats"
+        Me.chckBxTimeTwoFormats.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimeTwoFormats.Size = New System.Drawing.Size(150, 17)
+        Me.chckBxTimeTwoFormats.TabIndex = 8
+        Me.chckBxTimeTwoFormats.Text = "Display Two Time Formats"
+        Me.chckBxTimeTwoFormats.UseVisualStyleBackColor = True
+        '
         'frmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -978,4 +1004,6 @@ Partial Class frmOptions
     Friend WithEvents btnArchieveFriendsDirectory As System.Windows.Forms.Button
     Friend WithEvents btnArchieveFriendsLoad As System.Windows.Forms.Button
     Friend WithEvents btnArchieveFriendsSave As System.Windows.Forms.Button
+    Friend WithEvents ChckBxTimeHexIntuitor As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimeTwoFormats As System.Windows.Forms.CheckBox
 End Class

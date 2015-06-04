@@ -1,4 +1,95 @@
 ------------------------------------------------------------------------
+r20 | Keleven | 2013-05-19 16:22:11 +0100 (Sun, 19 May 2013) | 10 lines
+
+[Klock.vb]
+The data directory for storing the friends data, is not now hard coded - it can be user configured.
+
+[Options.vb]
+Changes for the user selection of the friends file name and directory.
+Added the ability to save friends file to archive file [zip].
+Added logic for setting the friends file name and directory.
+Added logic for setting the friends achieve file name and directory.
+
+NB :: The archiving has not been fuuly tested.
+------------------------------------------------------------------------
+r19 | Media | 2013-04-29 22:21:14 +0100 (Mon, 29 Apr 2013) | 11 lines
+
+[klock.vb]
+Switched some of the error message box to display as notification windows.
+
+[klock.iss]
+Added un-install entry, so that registry items for the run on windows start are removed.
+
+[options.vb]
+Fixed bug in test notification button code, called the notification incorrectly.
+
+[selectaction.vb]
+Switched some of the error message box to display as notification windows.
+------------------------------------------------------------------------
+r18 | Media | 2013-04-25 21:22:23 +0100 (Thu, 25 Apr 2013) | 14 lines
+
+[klock.vb]
+Don't bother updating form, if running in system tray.
+Added update of title and notifications for countdown, timer and reminders.  This can be set for each.
+Checks for data directory and creates if necessary.
+
+[options.vb]
+Added user options to add countdown, timer and reminder to form title and notifications.
+Added options to run klock on windows start up [and registry entries].
+Added option to start klock minimised.
+
+[selectTime.vb]
+Amended fuzzytime so that one in the afternoon now read about oneish in the afternoon [same for all hours].
+
+
+------------------------------------------------------------------------
+r17 | Media | 2013-04-18 21:30:15 +0100 (Thu, 18 Apr 2013) | 3 lines
+
+[klock.vb]
+Completed logic for friends tab.
+Friends can be added(saved in friends.bin), edited and deleted.
+------------------------------------------------------------------------
+r16 | Media | 2013-04-17 20:51:42 +0100 (Wed, 17 Apr 2013) | 6 lines
+
+[person.vb]
+Added file.  Contains the class info for a Person[friend].
+
+[klock.vb]
+Added all the gui work for the friends tab.
+Added auto complete stuff for the friends text boxes.
+------------------------------------------------------------------------
+r15 | Keleven | 2013-03-28 22:08:17 +0000 (Thu, 28 Mar 2013) | 5 lines
+
+V 1.0.0 - contains the tabs Time / Countdown / Timer / Reminder.
+
+V 1.0.1 - will contain the tab for contacts [Now called Friends].
+
+
+------------------------------------------------------------------------
+r14 | Keleven | 2013-03-28 20:56:34 +0000 (Thu, 28 Mar 2013) | 6 lines
+
+[klock.vb]
+Gave the reminder section its own timer.  Moved reminder checking code from main timer into the reminder timer.
+Finally got the file filter logic right on the open dialogues [i hope].
+Changed the logic in the action calling sub [both countdown and reminder] - setting the checked to false calls the appropriate checkchanged sub, this disables the controls better.
+Further bugs squashed.
+
+------------------------------------------------------------------------
+r13 | Keleven | 2013-03-17 20:49:16 +0000 (Sun, 17 Mar 2013) | 12 lines
+
+[timer.vb]
+Added try catch clauses to the get time routines.
+
+[selectTime.vb]
+Changed if/then/else to IIF
+
+[klock.vb]
+Changed if/then/else to IIF
+Further cleaning of code and removal of duplicate code in time and countdowns actions.
+Removal of duplicate subs - made one sub handle several events.
+
+
+------------------------------------------------------------------------
 r12 | Keleven | 2013-03-02 23:16:42 +0000 (Sat, 02 Mar 2013) | 3 lines
 
 [Klock.vb]

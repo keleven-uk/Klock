@@ -16,7 +16,8 @@ Public Class frmKlock
     '   Dim fs As FileStream = New FileStream("debug.log", FileMode.Create)
     '   Dim sw As New StreamWriter(fs)
 
-    Public displayTime As selectTime            '   instance of selectTime, allows different time formats.
+    Public displayOneTime As selectTime         '   instance of selectTime, allows different time formats.
+    Public displayTwoTime As selectTime         '   instance of selectTime, allows different time formats.
     Public displayTimer As Timer                '   instance of timer, a wrapper of the stopwatch class.
     Public displayAction As selectAction        '   instance of selectAction, allows different actions to be performed.
 
@@ -24,6 +25,8 @@ Public Class frmKlock
     Public ReminderDateTime As DateTime         '   Holds the date [and time] of the set reminder.
 
     Public ADDING As Boolean = False
+
+    Public reloadFriends As Boolean = True      '   if true, friends file will re-loaded
 
     Public knownFirstNames As New AutoCompleteStringCollection      '   Auto Complete for friends first name.
     Public knownMiddleNames As New AutoCompleteStringCollection     '   Auto Complete for friends middle name.
@@ -49,8 +52,13 @@ Public Class frmKlock
             Me.updateStatusBar()
             Me.updateTitleText()
 
-            Me.LblTimeTime.Text = Me.displayTime.getTime()                              '   display local time in desired time format.
-            Me.TmrMain.Interval = Me.displayTime.getClockTick()
+            Me.LblTimeOneTime.Text = Me.displayOneTime.getTime()                              '   display local time in desired time format.
+
+            If My.Settings.usrTimeTwoFormats Then
+                Me.LblTimeTwoTime.Text = Me.displayTwoTime.getTime()                          '   display local time in desired time format.
+            End If
+
+            Me.TmrMain.Interval = Me.displayOneTime.getClockTick()
         Else
             Me.NotificationDispaly(currentSecond)                                       '   display a notification, if desired
         End If
@@ -143,7 +151,7 @@ Public Class frmKlock
         '   Also, display result to time and countfown, if there running.  TODO, should they be on their own settings?
 
         If Me.NtfyIcnKlock.Visible Then                     '   if in system tray,
-            Me.NtfyIcnKlock.Text = displayTime.getTime()    '   set icon tool tip to current time.
+            Me.NtfyIcnKlock.Text = displayOneTime.getTime()    '   set icon tool tip to current time.
 
             Dim noSecs As Integer = My.Settings.usrTimeDisplayMinutes * 60
 
@@ -169,7 +177,7 @@ Public Class frmKlock
                     End If
                 End If
 
-                Me.displayAction.DisplayReminder("Time", displayTime.getTime()) ' display current time as a toast notification,if desired
+                Me.displayAction.DisplayReminder("Time", displayOneTime.getTime()) ' display current time as a toast notification,if desired
 
             End If          '   If My.Settings.usrTimeDislayMinimised 
         End If              '   If Me.NtfyIcnKlock.Visible Then
@@ -241,6 +249,13 @@ Public Class frmKlock
                 Me.Text = "Klock - reminds you of your friends"
                 Me.FriendsButtonsVisible(True)
 
+                If Me.reloadFriends Then
+                    Me.loadFriends()
+                    Me.blankFriendsDate()
+                    Me.LoadAutoCompleteStuff()
+                    Me.reloadFriends = False        ' do not reload, in not necserry
+                End If
+
                 If Me.LstBxFriends.Items.Count > 0 Then
                     Me.btnFriendsDelete.Enabled = True
                     Me.btnFriendsEdit.Enabled = True
@@ -272,19 +287,28 @@ Public Class frmKlock
 
         Dim names = System.Enum.GetNames(GetType(selectTime.TimeTypes))
 
-        Me.CmbBxTime.Items.AddRange(names)
+        Me.CmbBxTimeOne.Items.AddRange(names)
+        Me.CmbBxTimeTwo.Items.AddRange(names)
 
-        Me.CmbBxTime.SelectedIndex = 0      '   until I know how to do this at design time :o)
+        Me.CmbBxTimeOne.SelectedIndex = 0      '   until I know how to do this at design time :o)
+        Me.CmbBxTimeTwo.SelectedIndex = 1
 
     End Sub
 
-    Private Sub CmbBxTime_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxTime.SelectedIndexChanged
+    'TODO :: following two subs should be combined
+    Private Sub CmbBxTimeOne_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxTimeOne.SelectedIndexChanged
         '   Inform displayTime of the chosen time format.
 
-        Me.displayTime.setType = CmbBxTime.SelectedIndex
+        Me.displayOneTime.setType = CmbBxTimeOne.SelectedIndex
 
     End Sub
 
+    Private Sub CmbBxTimeTwo_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxTimeTwo.SelectedIndexChanged
+        '   Inform displayTime of the chosen time format.
+
+        Me.displayTwoTime.setType = CmbBxTimeTwo.SelectedIndex
+
+    End Sub
     '   ************************************************************************************************** timer ***************************************
 
     Private Sub btnTimerStart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerStart.Click
@@ -432,7 +456,6 @@ Public Class frmKlock
         '   Selects countdown action controls if checked.
 
         Me.CmbBxCountDownSystem.Enabled = Not Me.CmbBxCountDownSystem.Enabled
-        Me.btnCountdownSystemAbort.Enabled = Not Me.btnCountdownSystemAbort.Enabled
     End Sub
 
     Private Sub ChckBxCountDownCommand_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxCountDownCommand.CheckedChanged
@@ -617,7 +640,6 @@ Public Class frmKlock
         '   Selects countdown action controls if checked.
 
         Me.CmbBxReminderSystem.Enabled = Not Me.CmbBxReminderSystem.Enabled
-        Me.btnReminderSystemAbort.Enabled = Not Me.btnReminderSystemAbort.Enabled
     End Sub
 
     Private Sub chckBXReminderCommand_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chckBXReminderCommand.CheckedChanged
@@ -819,6 +841,7 @@ Public Class frmKlock
     Private Sub btnFriendsNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsNew.Click
         '   Sets up to add new friend.
 
+        Me.pnlFriends.ScrollControlIntoView(Me.lblFriendsFirstName)     '   scrool friends pannel back to top.
         Me.btnFriendsClear.Enabled = True
         Me.btnFriendsNew.Enabled = False
         Me.btnFriendsEdit.Enabled = False
@@ -832,6 +855,8 @@ Public Class frmKlock
 
     Private Sub btnFriendsClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsClear.Click
         '   Clears everything [not sure when called].
+
+        Me.pnlFriends.ScrollControlIntoView(Me.lblFriendsFirstName)     '   scrool friends pannel back to top.
 
         Me.ADDING = False
 
@@ -889,6 +914,8 @@ Public Class frmKlock
         '   allows selected entry in listveiw box to be edited.
         '   Changed button to "Save", which then will save new data to selected entry and save new friends file.
 
+        Me.pnlFriends.ScrollControlIntoView(Me.lblFriendsFirstName)     '   scrool friends pannel back to top.
+
         If Me.btnFriendsEdit.Text = "Edit" Then
             Me.txtbxFriendsFirstName.Focus()
             Me.btnFriendsEdit.Text = "Save"
@@ -942,6 +969,8 @@ Public Class frmKlock
 
     Private Sub FriendsClearText()
         '   Clears all date entry fields.
+
+        Me.pnlFriends.ScrollControlIntoView(Me.lblFriendsFirstName)     '   scrool friends pannel back to top.
 
         Me.txtbxFriendsFirstName.Text = ""
         Me.txtbxFriendsMiddleName.Text = ""
@@ -998,6 +1027,8 @@ Public Class frmKlock
 
     Private Sub showFriends(ByVal pos As Integer)
         '   Populates the text boxes on the form with the person at the specified position of the listview box.
+
+        Me.pnlFriends.ScrollControlIntoView(Me.lblFriendsFirstName)     '   scrool friends pannel back to top.
 
         If pos >= 0 Then
             Dim p As Person = CType(Me.LstBxFriends.Items.Item(pos), Person)
@@ -1304,7 +1335,8 @@ Public Class frmKlock
         '   Apply current setting on form load.
 
         Me.startTime = My.Computer.Clock.TickCount      '   used for app running time.
-        Me.displayTime = New selectTime
+        Me.displayOneTime = New selectTime
+        Me.displayTwoTime = New selectTime
         Me.displayAction = New selectAction
         Me.displayTimer = New Timer
 
@@ -1315,10 +1347,7 @@ Public Class frmKlock
         Me.setActionTypes()
         Me.setTitleText()
 
-        Me.loadFriends()
-        Me.FriendsButtonsVisible(False)
-        Me.blankFriendsDate()
-        Me.LoadAutoCompleteStuff()
+        Me.reloadFriends = True     '   set to re-load friends file.
 
     End Sub
 
@@ -1339,7 +1368,7 @@ Public Class frmKlock
         '   The rest of the codes is so that enter is handled correctly when inputting a new friend.  Pressing enter or hitting
         '   the tab key will do the same thine, that is move focus to the next data entry box.
 
-        If e.KeyCode = Keys.F5 Then
+        If e.KeyCode = Keys.F12 Then
             '   MessageBox.Show(String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
             Me.displayAction.DisplayReminder("Friends", String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
             e.Handled = True
@@ -1406,6 +1435,17 @@ Public Class frmKlock
         Me.TlStrpMnItmTime.Checked = My.Settings.usrTimeDisplayMinimised
         Me.ChckBxReminderTimeCheck.Checked = My.Settings.usrReminderTimeChecked
 
+        If My.Settings.usrTimeTwoFormats Then               '   switch on second time format, if desired.
+            Me.CmbBxTimeTwo.Visible = True
+            Me.LblTimeTwoTime.Visible = True
+            Me.GroupBox14.Visible = True                    '   sorry i don't name groupboxs
+            Me.GroupBox15.Visible = True
+        Else
+            Me.CmbBxTimeTwo.Visible = False
+            Me.LblTimeTwoTime.Visible = False
+            Me.GroupBox14.Visible = False
+            Me.GroupBox15.Visible = False
+        End If
     End Sub
 
     Sub setActionTypes()
@@ -1465,6 +1505,7 @@ Public Class frmKlock
 
         frmOptions.ShowDialog()
         Me.setSettings()
+        Me.reloadFriends = True     '   set to re-load friends file.
     End Sub
 
     ' ****************************************************************************************************** context Strip Menu **************************

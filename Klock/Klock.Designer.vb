@@ -39,10 +39,14 @@ Partial Class frmKlock
         Me.MnItmAbout = New System.Windows.Forms.ToolStripMenuItem()
         Me.TbCntrl = New System.Windows.Forms.TabControl()
         Me.TbPgTime = New System.Windows.Forms.TabPage()
+        Me.GroupBox15 = New System.Windows.Forms.GroupBox()
+        Me.LblTimeTwoTime = New System.Windows.Forms.Label()
+        Me.GroupBox14 = New System.Windows.Forms.GroupBox()
+        Me.CmbBxTimeTwo = New System.Windows.Forms.ComboBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.LblTimeTime = New System.Windows.Forms.Label()
+        Me.LblTimeOneTime = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.CmbBxTime = New System.Windows.Forms.ComboBox()
+        Me.CmbBxTimeOne = New System.Windows.Forms.ComboBox()
         Me.TbPgCountDown = New System.Windows.Forms.TabPage()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.btnCountdownSystemAbort = New System.Windows.Forms.Button()
@@ -100,7 +104,7 @@ Partial Class frmKlock
         Me.btnReminderSet = New System.Windows.Forms.Button()
         Me.TbPgFriends = New System.Windows.Forms.TabPage()
         Me.GroupBox13 = New System.Windows.Forms.GroupBox()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.pnlFriends = New System.Windows.Forms.Panel()
         Me.DtPckrFriendsDOB = New System.Windows.Forms.DateTimePicker()
         Me.txtbxFriendsNotes = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -131,9 +135,9 @@ Partial Class frmKlock
         Me.txtbxFriendsLastName = New System.Windows.Forms.TextBox()
         Me.txtbxFriendsMiddleName = New System.Windows.Forms.TextBox()
         Me.txtbxFriendsFirstName = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblFriendsLastName = New System.Windows.Forms.Label()
+        Me.lblFriendsMiddleName = New System.Windows.Forms.Label()
+        Me.lblFriendsFirstName = New System.Windows.Forms.Label()
         Me.GroupBox12 = New System.Windows.Forms.GroupBox()
         Me.LstBxFriends = New System.Windows.Forms.ListBox()
         Me.btnHide = New System.Windows.Forms.Button()
@@ -158,6 +162,8 @@ Partial Class frmKlock
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
         Me.TbPgTime.SuspendLayout()
+        Me.GroupBox15.SuspendLayout()
+        Me.GroupBox14.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.TbPgCountDown.SuspendLayout()
@@ -175,7 +181,7 @@ Partial Class frmKlock
         Me.GroupBox9.SuspendLayout()
         Me.TbPgFriends.SuspendLayout()
         Me.GroupBox13.SuspendLayout()
-        Me.Panel1.SuspendLayout()
+        Me.pnlFriends.SuspendLayout()
         Me.GroupBox12.SuspendLayout()
         Me.CntxtMnStrpKlock.SuspendLayout()
         Me.SuspendLayout()
@@ -224,6 +230,7 @@ Partial Class frmKlock
         'TmrMain
         '
         Me.TmrMain.Enabled = True
+        Me.TmrMain.Interval = 1000
         '
         'MnStrpMain
         '
@@ -302,6 +309,8 @@ Partial Class frmKlock
         'TbPgTime
         '
         Me.TbPgTime.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgTime.Controls.Add(Me.GroupBox15)
+        Me.TbPgTime.Controls.Add(Me.GroupBox14)
         Me.TbPgTime.Controls.Add(Me.GroupBox2)
         Me.TbPgTime.Controls.Add(Me.GroupBox1)
         Me.TbPgTime.Location = New System.Drawing.Point(4, 22)
@@ -311,43 +320,80 @@ Partial Class frmKlock
         Me.TbPgTime.TabIndex = 0
         Me.TbPgTime.Text = "Fuzzy Time"
         '
+        'GroupBox15
+        '
+        Me.GroupBox15.Controls.Add(Me.LblTimeTwoTime)
+        Me.GroupBox15.Location = New System.Drawing.Point(115, 69)
+        Me.GroupBox15.Name = "GroupBox15"
+        Me.GroupBox15.Size = New System.Drawing.Size(550, 57)
+        Me.GroupBox15.TabIndex = 4
+        Me.GroupBox15.TabStop = False
+        '
+        'LblTimeTwoTime
+        '
+        Me.LblTimeTwoTime.AutoSize = True
+        Me.LblTimeTwoTime.Font = New System.Drawing.Font("Franklin Gothic Book", 18.0!)
+        Me.LblTimeTwoTime.Location = New System.Drawing.Point(6, 16)
+        Me.LblTimeTwoTime.Name = "LblTimeTwoTime"
+        Me.LblTimeTwoTime.Size = New System.Drawing.Size(444, 30)
+        Me.LblTimeTwoTime.TabIndex = 0
+        Me.LblTimeTwoTime.Text = "twelve minutes past eleven in the evening"
+        '
+        'GroupBox14
+        '
+        Me.GroupBox14.Controls.Add(Me.CmbBxTimeTwo)
+        Me.GroupBox14.Location = New System.Drawing.Point(6, 69)
+        Me.GroupBox14.Name = "GroupBox14"
+        Me.GroupBox14.Size = New System.Drawing.Size(103, 57)
+        Me.GroupBox14.TabIndex = 3
+        Me.GroupBox14.TabStop = False
+        '
+        'CmbBxTimeTwo
+        '
+        Me.CmbBxTimeTwo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CmbBxTimeTwo.FormattingEnabled = True
+        Me.CmbBxTimeTwo.Location = New System.Drawing.Point(6, 19)
+        Me.CmbBxTimeTwo.Name = "CmbBxTimeTwo"
+        Me.CmbBxTimeTwo.Size = New System.Drawing.Size(86, 21)
+        Me.CmbBxTimeTwo.TabIndex = 0
+        '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.LblTimeTime)
+        Me.GroupBox2.Controls.Add(Me.LblTimeOneTime)
         Me.GroupBox2.Location = New System.Drawing.Point(115, 6)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(550, 57)
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         '
-        'LblTimeTime
+        'LblTimeOneTime
         '
-        Me.LblTimeTime.AutoSize = True
-        Me.LblTimeTime.Font = New System.Drawing.Font("Franklin Gothic Book", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblTimeTime.Location = New System.Drawing.Point(6, 19)
-        Me.LblTimeTime.Name = "LblTimeTime"
-        Me.LblTimeTime.Size = New System.Drawing.Size(444, 30)
-        Me.LblTimeTime.TabIndex = 0
-        Me.LblTimeTime.Text = "twelve minutes past eleven in the evening"
+        Me.LblTimeOneTime.AutoSize = True
+        Me.LblTimeOneTime.Font = New System.Drawing.Font("Franklin Gothic Book", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblTimeOneTime.Location = New System.Drawing.Point(6, 19)
+        Me.LblTimeOneTime.Name = "LblTimeOneTime"
+        Me.LblTimeOneTime.Size = New System.Drawing.Size(444, 30)
+        Me.LblTimeOneTime.TabIndex = 0
+        Me.LblTimeOneTime.Text = "twelve minutes past eleven in the evening"
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.CmbBxTime)
+        Me.GroupBox1.Controls.Add(Me.CmbBxTimeOne)
         Me.GroupBox1.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(103, 57)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         '
-        'CmbBxTime
+        'CmbBxTimeOne
         '
-        Me.CmbBxTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxTime.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.CmbBxTime.FormattingEnabled = True
-        Me.CmbBxTime.Location = New System.Drawing.Point(6, 19)
-        Me.CmbBxTime.Name = "CmbBxTime"
-        Me.CmbBxTime.Size = New System.Drawing.Size(86, 21)
-        Me.CmbBxTime.TabIndex = 0
+        Me.CmbBxTimeOne.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CmbBxTimeOne.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.CmbBxTimeOne.FormattingEnabled = True
+        Me.CmbBxTimeOne.Location = New System.Drawing.Point(6, 19)
+        Me.CmbBxTimeOne.Name = "CmbBxTimeOne"
+        Me.CmbBxTimeOne.Size = New System.Drawing.Size(86, 21)
+        Me.CmbBxTimeOne.TabIndex = 0
         '
         'TbPgCountDown
         '
@@ -944,54 +990,54 @@ Partial Class frmKlock
         '
         'GroupBox13
         '
-        Me.GroupBox13.Controls.Add(Me.Panel1)
+        Me.GroupBox13.Controls.Add(Me.pnlFriends)
         Me.GroupBox13.Location = New System.Drawing.Point(251, 6)
         Me.GroupBox13.Name = "GroupBox13"
         Me.GroupBox13.Size = New System.Drawing.Size(413, 122)
         Me.GroupBox13.TabIndex = 1
         Me.GroupBox13.TabStop = False
         '
-        'Panel1
+        'pnlFriends
         '
-        Me.Panel1.AutoScroll = True
-        Me.Panel1.Controls.Add(Me.DtPckrFriendsDOB)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsNotes)
-        Me.Panel1.Controls.Add(Me.Label15)
-        Me.Panel1.Controls.Add(Me.Label14)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsHomePage)
-        Me.Panel1.Controls.Add(Me.Label13)
-        Me.Panel1.Controls.Add(Me.Label12)
-        Me.Panel1.Controls.Add(Me.Label11)
-        Me.Panel1.Controls.Add(Me.Label10)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsAddressCounty)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsAddressPostCode)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsAddressCity)
-        Me.Panel1.Controls.Add(Me.Label9)
-        Me.Panel1.Controls.Add(Me.Label8)
-        Me.Panel1.Controls.Add(Me.Label7)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsAddressLine2)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsAddressLine1)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsAddressNo)
-        Me.Panel1.Controls.Add(Me.Label6)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsTelephone3)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsTelephone2)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsTelephone1)
-        Me.Panel1.Controls.Add(Me.Label5)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsEmail3)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsEmail2)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsEmail1)
-        Me.Panel1.Controls.Add(Me.Label4)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsLastName)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsMiddleName)
-        Me.Panel1.Controls.Add(Me.txtbxFriendsFirstName)
-        Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Controls.Add(Me.Label2)
-        Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(3, 16)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(407, 103)
-        Me.Panel1.TabIndex = 0
+        Me.pnlFriends.AutoScroll = True
+        Me.pnlFriends.Controls.Add(Me.DtPckrFriendsDOB)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsNotes)
+        Me.pnlFriends.Controls.Add(Me.Label15)
+        Me.pnlFriends.Controls.Add(Me.Label14)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsHomePage)
+        Me.pnlFriends.Controls.Add(Me.Label13)
+        Me.pnlFriends.Controls.Add(Me.Label12)
+        Me.pnlFriends.Controls.Add(Me.Label11)
+        Me.pnlFriends.Controls.Add(Me.Label10)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsAddressCounty)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsAddressPostCode)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsAddressCity)
+        Me.pnlFriends.Controls.Add(Me.Label9)
+        Me.pnlFriends.Controls.Add(Me.Label8)
+        Me.pnlFriends.Controls.Add(Me.Label7)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsAddressLine2)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsAddressLine1)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsAddressNo)
+        Me.pnlFriends.Controls.Add(Me.Label6)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsTelephone3)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsTelephone2)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsTelephone1)
+        Me.pnlFriends.Controls.Add(Me.Label5)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsEmail3)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsEmail2)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsEmail1)
+        Me.pnlFriends.Controls.Add(Me.Label4)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsLastName)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsMiddleName)
+        Me.pnlFriends.Controls.Add(Me.txtbxFriendsFirstName)
+        Me.pnlFriends.Controls.Add(Me.lblFriendsLastName)
+        Me.pnlFriends.Controls.Add(Me.lblFriendsMiddleName)
+        Me.pnlFriends.Controls.Add(Me.lblFriendsFirstName)
+        Me.pnlFriends.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlFriends.Location = New System.Drawing.Point(3, 16)
+        Me.pnlFriends.Name = "pnlFriends"
+        Me.pnlFriends.Size = New System.Drawing.Size(407, 103)
+        Me.pnlFriends.TabIndex = 0
         '
         'DtPckrFriendsDOB
         '
@@ -1248,32 +1294,32 @@ Partial Class frmKlock
         Me.txtbxFriendsFirstName.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsFirstName.TabIndex = 3
         '
-        'Label3
+        'lblFriendsLastName
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(257, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(67, 15)
-        Me.Label3.TabIndex = 2
-        Me.Label3.Text = "Last Name"
+        Me.lblFriendsLastName.AutoSize = True
+        Me.lblFriendsLastName.Location = New System.Drawing.Point(257, 0)
+        Me.lblFriendsLastName.Name = "lblFriendsLastName"
+        Me.lblFriendsLastName.Size = New System.Drawing.Size(67, 15)
+        Me.lblFriendsLastName.TabIndex = 2
+        Me.lblFriendsLastName.Text = "Last Name"
         '
-        'Label2
+        'lblFriendsMiddleName
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(134, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(82, 15)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Middle Name"
+        Me.lblFriendsMiddleName.AutoSize = True
+        Me.lblFriendsMiddleName.Location = New System.Drawing.Point(134, 0)
+        Me.lblFriendsMiddleName.Name = "lblFriendsMiddleName"
+        Me.lblFriendsMiddleName.Size = New System.Drawing.Size(82, 15)
+        Me.lblFriendsMiddleName.TabIndex = 1
+        Me.lblFriendsMiddleName.Text = "Middle Name"
         '
-        'Label1
+        'lblFriendsFirstName
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(3, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(67, 15)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "First Name"
+        Me.lblFriendsFirstName.AutoSize = True
+        Me.lblFriendsFirstName.Location = New System.Drawing.Point(3, 0)
+        Me.lblFriendsFirstName.Name = "lblFriendsFirstName"
+        Me.lblFriendsFirstName.Size = New System.Drawing.Size(67, 15)
+        Me.lblFriendsFirstName.TabIndex = 0
+        Me.lblFriendsFirstName.Text = "First Name"
         '
         'GroupBox12
         '
@@ -1454,6 +1500,9 @@ Partial Class frmKlock
         Me.MnStrpMain.PerformLayout()
         Me.TbCntrl.ResumeLayout(False)
         Me.TbPgTime.ResumeLayout(False)
+        Me.GroupBox15.ResumeLayout(False)
+        Me.GroupBox15.PerformLayout()
+        Me.GroupBox14.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
@@ -1478,8 +1527,8 @@ Partial Class frmKlock
         Me.GroupBox9.ResumeLayout(False)
         Me.TbPgFriends.ResumeLayout(False)
         Me.GroupBox13.ResumeLayout(False)
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
+        Me.pnlFriends.ResumeLayout(False)
+        Me.pnlFriends.PerformLayout()
         Me.GroupBox12.ResumeLayout(False)
         Me.CntxtMnStrpKlock.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -1504,9 +1553,9 @@ Partial Class frmKlock
     Friend WithEvents TbPgCountDown As System.Windows.Forms.TabPage
     Friend WithEvents TbPgTimer As System.Windows.Forms.TabPage
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents CmbBxTime As System.Windows.Forms.ComboBox
+    Friend WithEvents CmbBxTimeOne As System.Windows.Forms.ComboBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents LblTimeTime As System.Windows.Forms.Label
+    Friend WithEvents LblTimeOneTime As System.Windows.Forms.Label
     Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
@@ -1577,13 +1626,13 @@ Partial Class frmKlock
     Friend WithEvents GroupBox12 As System.Windows.Forms.GroupBox
     Friend WithEvents LstBxFriends As System.Windows.Forms.ListBox
     Friend WithEvents GroupBox13 As System.Windows.Forms.GroupBox
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents pnlFriends As System.Windows.Forms.Panel
     Friend WithEvents txtbxFriendsLastName As System.Windows.Forms.TextBox
     Friend WithEvents txtbxFriendsMiddleName As System.Windows.Forms.TextBox
     Friend WithEvents txtbxFriendsFirstName As System.Windows.Forms.TextBox
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents lblFriendsLastName As System.Windows.Forms.Label
+    Friend WithEvents lblFriendsMiddleName As System.Windows.Forms.Label
+    Friend WithEvents lblFriendsFirstName As System.Windows.Forms.Label
     Friend WithEvents txtbxFriendsEmail3 As System.Windows.Forms.TextBox
     Friend WithEvents txtbxFriendsEmail2 As System.Windows.Forms.TextBox
     Friend WithEvents txtbxFriendsEmail1 As System.Windows.Forms.TextBox
@@ -1616,5 +1665,9 @@ Partial Class frmKlock
     Friend WithEvents btnFriendsEdit As System.Windows.Forms.Button
     Friend WithEvents btnFriendsDelete As System.Windows.Forms.Button
     Friend WithEvents DtPckrFriendsDOB As System.Windows.Forms.DateTimePicker
+    Friend WithEvents GroupBox15 As System.Windows.Forms.GroupBox
+    Friend WithEvents LblTimeTwoTime As System.Windows.Forms.Label
+    Friend WithEvents GroupBox14 As System.Windows.Forms.GroupBox
+    Friend WithEvents CmbBxTimeTwo As System.Windows.Forms.ComboBox
 
 End Class

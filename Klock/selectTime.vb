@@ -14,6 +14,9 @@
         JulianTime
         DecimalTime
         NetTime
+        HexTime
+        MetricTime
+        UnixTime
     End Enum
 
     Private innerTime As String     '   local version of reformatted time.
@@ -48,6 +51,12 @@
                     innerTime = getDecimalTime()
                 Case TimeTypes.NetTime
                     innerTime = getNetTime()
+                Case TimeTypes.HexTime
+                    innerTime = getHexTime()
+                Case TimeTypes.MetricTime
+                    innerTime = getMetricTime()
+                Case TimeTypes.UnixTime
+                    innerTime = getUnixTime()
             End Select
 
             Return innerTime
@@ -92,27 +101,18 @@
     ' ***************************************************************************************** time types **********************
 
     Private Function getFuzzyTime() As String
-        '   returns the time as a string, depending on the value of displayFuzzy.
-
-        '   displayFuzzy set to True  :: getTime returns time as five past ten.
-        '   displayFuzzy set to False :: getTime returns time as 10:05:00.
-
+        '   returns the time has fuzzy time i.e. ten past three in the aftrernoon.
 
         Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
-        Dim hour As Integer = 0
-        Dim mins As Integer = 0
-        Dim nrms As Integer = 0
+        Dim hour As Integer = Now.Hour
+        Dim mins As Integer = Now.Minute
+        Dim nrms As Integer = mins - (mins Mod 5)           '   gets nearest five minutes.
         Dim ampm As String = ""
         Dim sRtn As String = ""
 
-        hour = Now.Hour
-        mins = Now.Minute
+        ampm = IIf(hour < 12, "in the morning", "pm")      '   if hour less then 12, in the morning else afternoon
 
-        ampm = IIf(hour < 12, " in the morning", "pm")      '   if hour less then 12, in the morning else afternoon
-
-        nrms = mins - (mins Mod 5)                          '   gets nearest five minutes.
-
-        If (mins Mod 5) > 2 Then                            '   closer to next five minutes, go to next.
+        If (mins Mod 5) > 2 Then                           '   closer to next five minutes, go to next.
             nrms += 5
         End If
 
@@ -121,27 +121,27 @@
             Case 0
                 sRtn = ""
             Case 5
-                sRtn = "five past "
+                sRtn = "five past"
             Case 10
-                sRtn = "ten past "
+                sRtn = "ten past"
             Case 15
-                sRtn = "quarter past "
+                sRtn = "quarter past"
             Case 20
-                sRtn = "twenty past "
+                sRtn = "twenty past"
             Case 25
-                sRtn = "twenty-five past "
+                sRtn = "twenty-five past"
             Case 30
-                sRtn = "half past "
+                sRtn = "half past"
             Case 35
-                sRtn = "twenty-five to "
+                sRtn = "twenty-five to"
             Case 40
-                sRtn = "twenty to "
+                sRtn = "twenty to"
             Case 45
-                sRtn = "quarter to "
+                sRtn = "quarter to"
             Case 50
-                sRtn = "ten to "
+                sRtn = "ten to"
             Case 55
-                sRtn = "five to "
+                sRtn = "five to"
             Case 60
                 sRtn = ""
         End Select
@@ -150,21 +150,31 @@
             hour += 1
         End If
 
-        If (hour = 12) And (sRtn = "") Then      '   fix for noon.
-            ampm = " Noon"
+        '   generate ouput string according to the hour of the day.
+        '   This looks more complicated then it should be, maybe seperate if then's would be better and use exit sub's inside each.
+
+        '   if the hour is 0 or 24 and no minites - it must be midnight.
+        '   if the hour is 12 and no minutes - it must be noon.
+
+        '   if "pm" then afternoon, subtract 12 - only use 12 hour clock.
+
+        If (hour = 12) And (sRtn = "") Then
+            getFuzzyTime = "about Noon"
+        ElseIf (hour = 0) And (sRtn = "") Then
+            getFuzzyTime = "about Midnight"
         ElseIf (hour = 24) And (sRtn = "") Then
-            ampm = " Midnight"
-        End If
-
-        If ampm = "pm" Then
-            hour -= 12
-            ampm = IIf(hour >= 5, " in the evening", " in the afternoon")   '   if greater then five in the afternoon then evening.
-        End If
-
-        If sRtn = "" Then
-            getFuzzyTime = "about " + hours(hour) + "ish" + ampm
+            getFuzzyTime = "about Midnight"
         Else
-            getFuzzyTime = sRtn + hours(hour) + ampm
+            If ampm = "pm" Then
+                hour -= 12
+                ampm = IIf(hour >= 5, "in the evening", "in the afternoon")   '   if greater then five in the afternoon then evening.
+            End If
+
+            If sRtn = "" Then
+                getFuzzyTime = String.Format("about {0} ish {1}", hours(hour), ampm)
+            Else
+                getFuzzyTime = String.Format("{0} {1} {2}", sRtn, hours(hour), ampm)
+            End If
         End If
 
     End Function
@@ -173,6 +183,14 @@
         '   returns local time
 
         getLocalTime = Now.ToLocalTime.ToLongTimeString
+
+    End Function
+
+    Private Function getBinarylTime() As String
+        '   returns local time as a 64 bit number.
+
+        getBinarylTime = Now.ToBinary.ToString
+
     End Function
 
     Private Function getUTCTime() As String
@@ -185,12 +203,9 @@
         '   This is then encoded into a string. 
 
         Dim UTCplus1 As DateTime = Now.ToUniversalTime.AddHours(1)
-        Dim noOfSeconds As Integer = 0
-        Dim noOfBeats As Double = 0
+        Dim noOfSeconds As Integer = (UTCplus1.Hour * 3600) + (UTCplus1.Minute * 60) + (UTCplus1.Second)
+        Dim noOfBeats As Double = noOfSeconds * 0.01157    ' 1000 beats per day
         Dim noOfCentibeats As Double = 0
-
-        noOfSeconds = (UTCplus1.Hour * 3600) + (UTCplus1.Minute * 60) + (UTCplus1.Second)
-        noOfBeats = noOfSeconds * 0.01157    ' 1000 beats per day
 
         If My.Settings.usrTimeSwatchCentibeats Then
             noOfCentibeats = noOfSeconds Mod 86.4
@@ -233,14 +248,10 @@
         '   Formulae pinched from http://en.wikipedia.org/wiki/Julian_day 
 
         Dim UTC As DateTime = Now.ToUniversalTime
-        Dim a As Double = 0
-        Dim y As Double = 0
-        Dim m As Double = 0
+        Dim a As Double = (14 - UTC.Month) / 12
+        Dim y As Double = UTC.Year + 4800 - a
+        Dim m As Double = UTC.Month + (12 * a) - 3
         Dim jt As Double = 0
-
-        a = (14 - UTC.Month) / 12
-        y = UTC.Year + 4800 - a
-        m = UTC.Month + (12 * a) - 3
 
         jt = UTC.Day + ((153 * m + 2) / 5) + (365 * y) + (y / 4) - (y / 100) + (y / 400) - 32045
         jt = jt + ((UTC.Hour - 12) / 24) + (UTC.Minute / 1440) + (UTC.Second / 86400)
@@ -254,24 +265,67 @@
         '   The day is divided into 10 hours, each hour is then split into 100 minutes of 100 seconds.  
 
         Dim noOfSeconds As Integer = MilliSecondOfTheDay() / 1000
-        Dim NoOfDecSecs As Integer = 0
+        Dim NoOfDecSecs As Integer = noOfSeconds * (100000 / 84600)
 
-        Dim hrs As Integer = 0
-        Dim mins As Integer = 0
-        Dim secs As Integer = 0
-
-        NoOfDecSecs = noOfSeconds * (100000 / 84600)
-
-        hrs = Math.Floor(NoOfDecSecs / 10000)
-        mins = Math.Floor((NoOfDecSecs - (hrs * 10000)) / 100)
-        secs = (NoOfDecSecs - (hrs * 10000) - (mins * 100))
+        Dim hrs As Integer = Math.Floor(NoOfDecSecs / 10000)
+        Dim mins As Integer = Math.Floor((NoOfDecSecs - (hrs * 10000)) / 100)
+        Dim secs As Integer = (NoOfDecSecs - (hrs * 10000) - (mins * 100))
 
         getDecimalTime = String.Format("{0:00} {1:00} {2:00}", hrs, mins, secs)
 
     End Function
 
-    Private Function MilliSecondOfTheDay() As Integer
+    Private Function getHexTime() As String
+        '   Returns the current [local] time in Hexdecimal time.
+        '   The day is divided in 1016 (sixteen) hexadecimal hours, each hour in 10016 (two hundred and fifty-six) 
+        '   hexadecimal minutes and each minute in 1016 (sixteen) hexadecimal seconds.
 
+        Dim noOfSeconds As Integer = MilliSecondOfTheDay() / 1000
+        Dim noOfHexSecs As Integer = Math.Round(noOfSeconds * (65536 / 84600)) '    a Hexadecimal second is larger then a normal second
+
+        Dim hrs As Integer = Math.Floor(noOfHexSecs / 4096)
+        Dim min As Integer = Math.Floor((noOfHexSecs - (hrs * 4096)) / 16)
+        Dim sec As Integer = noOfHexSecs Mod 16
+
+        If My.Settings.usrTimeHexIntuitor Then
+            getHexTime = String.Format("{0}_{1}_{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
+        Else
+            getHexTime = String.Format(".{0}{1}{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
+        End If
+
+
+    End Function
+
+
+    Private Function getMetricTime() As String
+        '   Returns the current [local] time in Metric time.
+        '   Metric time is the measure of time interval using the metric system, which defines the second as the base unit of time, 
+        '   and multiple and submultiple units formed with metric prefixes, such as kiloseconds and milliseconds.
+        '   Only Kiloseconds are used here.
+
+        Dim noOfSeconds As Integer = MilliSecondOfTheDay() / 1000
+
+        Dim noOfK As Double = noOfSeconds / 1000
+
+        getMetricTime = String.Format("{0:##.000} Kiloseconds", noOfK)
+
+    End Function
+
+    Private Function getUnixTime() As String
+        '   Returns UTC in Unix time.
+        '   Unix time, or POSIX time, is a system for describing instants in time, defined as the number of seconds 
+        '   elapsed since midnight Coordinated Universal Time (UTC) of Thursday, January 1, 1970
+
+        Dim tday As Date = Now.ToUniversalTime()
+        Dim epoc As Date = #1/1/1970#
+        Dim secs As Integer = tday.Subtract(epoc).TotalSeconds
+
+        getUnixTime = String.Format("{0}", secs)
+
+    End Function
+
+    Private Function MilliSecondOfTheDay() As Integer
+        '       Returns the total number of milliseconds since midnight.
 
         Dim ts As New TimeSpan(0, Now.Hour, Now.Minute, Now.Second, Now.Millisecond)
 
