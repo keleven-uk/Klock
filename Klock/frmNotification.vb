@@ -42,9 +42,10 @@ Public Class frmNotification
         'Make sure the exit button is set properly
         btnExit.Image = My.Resources.btnHigh
 
+        Me.Width = 335
+        Me.Height = 78
+
         If mode = "R" Then
-            Me.Width = 335
-            Me.Height = 78
 
             '   set the for colour and opacity for the form {form opacity is 0 [0%] - 1.0 [100%]}
             Me.BackColor = frmKlock.usrSettings.usrNotificationbackColour
@@ -62,12 +63,15 @@ Public Class frmNotification
             Me.lblMessage2.Text = message2
         Else
             Me.lifeTimer.Enabled = False        '   is event - don't need timer.
-            Me.Width = 335
-            Me.Height = 120
 
             '   set the for colour and opacity for the form {form opacity is 0 [0%] - 1.0 [100%]}
-            Me.BackColor = frmKlock.usrSettings.usrFirstEventNotificationbackColour
             Me.Opacity = frmKlock.usrSettings.usrEventNotificationOpacity / 100
+
+            If message1.StartsWith("First") Then Me.BackColor = frmKlock.usrSettings.usrFirstEventNotificationbackColour
+            If message1.StartsWith("Second") Then Me.BackColor = frmKlock.usrSettings.usrSecondEventNotificationbackColour
+            If message1.StartsWith("Third") Then Me.BackColor = frmKlock.usrSettings.usrThirdEventNotificationbackColour
+
+            Me.btnExit.BackColor = Me.BackColor
 
             Me.lblMessage1.Font = frmKlock.usrSettings.usrEventNotificationFont
             Me.lblMessage1.ForeColor = frmKlock.usrSettings.usrEventNotificationFontColour
@@ -147,7 +151,7 @@ Public Class frmNotification
     Private Sub NotificationForm_MouseHover(sender As System.Object, e As System.EventArgs) Handles MyBase.MouseHover, lblMessage1.MouseHover, lblMessage2.MouseHover
 
         For Each openForm As frmNotification In frmNotification.openForms
-            openForm.lifeTimer.Stop()
+            If mode = "R" Then openForm.lifeTimer.Stop() '   timer only used for reminders.
         Next
 
     End Sub
@@ -155,7 +159,7 @@ Public Class frmNotification
     Private Sub NotificationForm_MouseLeave(sender As System.Object, e As System.EventArgs) Handles MyBase.MouseLeave, lblMessage1.MouseLeave, lblMessage2.MouseHover
 
         For Each openForm As frmNotification In frmNotification.openForms
-            openForm.lifeTimer.Start()
+            If mode = "R" Then openForm.lifeTimer.Start() '   timer only used for reminders.
         Next
 
     End Sub

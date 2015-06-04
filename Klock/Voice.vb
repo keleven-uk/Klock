@@ -1,7 +1,7 @@
 ﻿Public Class Voice
-    '   A wrapper class arouunf SAPI - Microsoft's speech API.
+    '   A wrapper class around SAPI - Microsoft's speech API.
 
-    '    When the class in created, the SPAI object is created, is successfull voice.actice will return Truw, if failed it return false.
+    '    When the class in created, the SPAI object is created, is successful voice.actice will return True, if failed it return false.
     '   To produce speech, just pass a string to Voice.say
 
 
@@ -14,7 +14,7 @@
 
     Sub New()
         '   Created a new instance on the voice.
-        '   This tries to creats a SPAI objects.  _active is set accordingly.
+        '   This tries to create a SPAI objects.  _active is set accordingly.
 
         MyBase.New()
 
@@ -34,7 +34,7 @@
 
 
     Public Property Active() As Boolean
-        '   Returns True if the voice is active i.e. created succesfully.  Returns false otherwise.
+        '   Returns True if the voice is active i.e. created successfully.  Returns false otherwise.
         Get
             Return _active
         End Get
@@ -44,7 +44,7 @@
     End Property
 
     Public Sub Say(ByVal s As String)
-        '   Useses the SAPI engine to speak the string s.
+        '   Uses's the SAPI engine to speak the string s.
 
         If Me.Active Then SAPI.Speak(s)
     End Sub

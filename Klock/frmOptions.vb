@@ -41,7 +41,7 @@ Public Class frmOptions
 
     Private Sub showArchiveButtons(ByVal b As Boolean)
         '   either show of hide the archive buttons.
-        '   not enought space on tab for buttons.
+        '   not enough space on tab for buttons.
 
         Me.btnArchiveLoad.Visible = b
         Me.btnArchiveSave.Visible = b
@@ -78,6 +78,9 @@ Public Class frmOptions
         Me.TxtBxOptionsFriendsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
 
         '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
+
+        Me.CmbBxDefaultTimeFormat.SelectedIndex = frmKlock.usrSettings.usrTimeDefaultFormat
+        Me.CmbBxDefaultTimeTwoFormat.SelectedIndex = frmKlock.usrSettings.usrTimeTWODefaultFormat
 
         Me.chckBxTimeTwoFormats.Checked = frmKlock.usrSettings.usrTimeTwoFormats
 
@@ -166,7 +169,10 @@ Public Class frmOptions
             frmKlock.usrSettings.usrFormLeft = frmKlock.Left
         End If
 
-        '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
+        '-------------------------------------------------------------------------------------------------------- Time Settings --------------
+
+        frmKlock.usrSettings.usrTimeDefaultFormat = Me.CmbBxDefaultTimeFormat.SelectedIndex
+        frmKlock.usrSettings.usrTimeTWODefaultFormat = Me.CmbBxDefaultTimeTwoFormat.SelectedIndex
 
         frmKlock.usrSettings.usrTimeTwoFormats = Me.chckBxTimeTwoFormats.Checked
 
@@ -222,6 +228,7 @@ Public Class frmOptions
         frmKlock.usrSettings.usrEventsThirdReminder = Me.NmrcUpDwnThirdReminder.Value
         frmKlock.usrSettings.usrEventsTimerInterval = Me.NmrcUpDwnEventsInterval.Value
 
+
         frmKlock.usrSettings.writeSettings()
         frmKlock.setSettings()
 
@@ -229,7 +236,7 @@ Public Class frmOptions
     End Sub
 
     Private Sub btnOptionsCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsCancel.Click
-        '   when canceled, close but not save.
+        '   when cancelled, close but not save.
 
         Me.Close()
     End Sub
@@ -294,6 +301,14 @@ Public Class frmOptions
     End Sub
 
     '-----------------------------------------------------------Time---------------------------------------------------------------
+
+
+    Private Sub chckBxTimeTwoFormats_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chckBxTimeTwoFormats.CheckedChanged
+        '   Only disply two time default format if needed.
+
+        Me.lblTimeTwo.Enabled = Me.chckBxTimeTwoFormats.Checked
+        Me.CmbBxDefaultTimeTwoFormat.Enabled = Me.chckBxTimeTwoFormats.Checked
+    End Sub
 
     Private Sub ChckBxTimeHourPips_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeHourPips.CheckedChanged
         '   It the pips are selected, disable all chimes.
@@ -377,7 +392,11 @@ Public Class frmOptions
     Private Sub btnEventNotificationTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventNotificationTest.Click
         '   Display a test event notification, showing the current event notification opacity.
 
-        Me.displayAction.DisplayEvent("Event Notification Test", String.Format(" Opacity = {0}", frmKlock.usrSettings.usrEventNotificationOpacity))
+        Dim ev As New Events
+
+        ev.EventName = "btnEventNotificationTest"
+
+        Me.displayAction.DisplayEvent(ev)
     End Sub
 
 
@@ -396,7 +415,7 @@ Public Class frmOptions
         End If
     End Sub
 
-    Private Sub btnFirstEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub btnFirstEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFirstEventNotificationColour.Click
         '   Set the First Event Notification main colour.
 
         Me.ClrDlgFormColour.Color = frmKlock.usrSettings.usrFirstEventNotificationbackColour   '   current First Event Notification colour
@@ -406,7 +425,7 @@ Public Class frmOptions
         End If
     End Sub
 
-    Private Sub btnSecondEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub btnSecondEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSecondEventNotificationColour.Click
         '   Set the Second Event Notification main colour.
 
         Me.ClrDlgFormColour.Color = frmKlock.usrSettings.usrSecondEventNotificationbackColour   '   current Second Event Notification colour
@@ -416,7 +435,7 @@ Public Class frmOptions
         End If
     End Sub
 
-    Private Sub btnThirdEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub btnThirdEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnThirdEventNotificationColour.Click
         '   Set the Third Event Notification main colour.
 
         Me.ClrDlgFormColour.Color = frmKlock.usrSettings.usrThirdEventNotificationbackColour   '   current Third Event Notification colour
@@ -575,7 +594,6 @@ Public Class frmOptions
 
         Try
             output.CopyHere(input.Items, 4)                                     '   save Archive
-            Me.displayAction.DisplayReminder("Saving File", "Archive saved Okay. ")
         Catch ex As Exception
             Me.displayAction.DisplayReminder("Saving File Error", "Error archieving Friends File. " & ex.Message)
         End Try
@@ -610,5 +628,6 @@ Public Class frmOptions
         End Try
 
     End Sub
+
 
 End Class

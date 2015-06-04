@@ -1,7 +1,7 @@
 ﻿Imports System.Globalization
 
 <Serializable()> Public Class Events
-    ' 
+    '
 
     Enum EventTypes
         Birthdays
@@ -46,7 +46,7 @@
     End Function
 
     Public Function DaysToGo() As Integer
-        '   returns the interavl to the event in days.
+        '   returns the interval to the event in days.
 
         Dim e As Date = Me.EventDate
 
@@ -64,6 +64,22 @@
 
         DaysToGo = d
     End Function
+
+    Public Function NoOfYears() As Integer
+        '   returns the number of years foe the event - mainly used for Birthdays and Anniversaries.
+
+        Dim e As Date = Me.EventDate
+        Dim dd As Double = 0
+        Dim ey = e.Year
+
+        If ey < Now().Year Then
+            dd = DateDiff(DateInterval.Year, e, Now())
+        End If
+
+        NoOfYears = dd
+
+    End Function
+
 
     Public Property EventName() As String
         Get

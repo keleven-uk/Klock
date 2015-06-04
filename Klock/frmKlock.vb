@@ -8,8 +8,10 @@ Imports System.Runtime.Serialization.Formatters.Binary
 Public Class frmKlock
 
     '   Main Klock application.       K. Scott    November 2012
-
-
+    '
+    '   March 2013  V1.01 - added contacts tab              [build 14]
+    '   June 2013   V1.02 - added user settings             [build 23]
+    '   July 2013   V1.03 - added reminder & events tab     [build 30]
 
     Public startTime As Integer
 
@@ -29,8 +31,6 @@ Public Class frmKlock
 
     Public reloadFriends As Boolean = True      '   if true, friends file will be re-loaded
     Public reloadEvents As Boolean = True       '   if true, events file will be re-loaded.
-
-    Public epoc As Date = #1/1/1970#            '   used to set time picker to 0:00 i.e. midnight.
 
     Public strHelpPath As String = System.IO.Path.Combine(Application.StartupPath, "klock.chm") '   set up help location
 
@@ -112,7 +112,7 @@ Public Class frmKlock
                 Me.updateWorldKlock()
             End If
 
-            Me.TmrMain.Interval = Me.displayOneTime.getClockTick()
+            'Me.TmrMain.Interval = Me.displayOneTime.getClockTick()
         Else
             Me.NotificationDispaly(currentSecond)                                       '   display a notification, if desired
         End If
@@ -261,7 +261,7 @@ Public Class frmKlock
                 Me.displayAction.DisplayReminder("World Klock :: " & Me.CmbBxWorldKlockTimeZones.SelectedItem.ToString, wctext)
             End If
 
-        End If          '   If Me.usrsettings.usrTimeDislayMinimised 
+        End If          '   If Me.usrsettings.usrTimeDislayMinimised
 
     End Sub
 
@@ -293,7 +293,7 @@ Public Class frmKlock
     ' ******************************************************************************************************************* Reminder clock ******************
 
     Private Sub tmrReminder_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrReminder.Tick
-        '   If enabled, a reminder has been set - clocks ticks every 10 minute
+        '   If enabled, a reminder has been set.
 
         If Now() > Me.ReminderDateTime Then
             Me.ReminderAction()
@@ -413,9 +413,13 @@ Public Class frmKlock
 
         Me.CmbBxTimeOne.Items.AddRange(names)
         Me.CmbBxTimeTwo.Items.AddRange(names)
+        frmOptions.CmbBxDefaultTimeFormat.Items.AddRange(names)
+        frmOptions.CmbBxDefaultTimeTwoFormat.Items.AddRange(names)
 
-        Me.CmbBxTimeOne.SelectedIndex = 0      '   until I know how to do this at design time :o)
-        Me.CmbBxTimeTwo.SelectedIndex = 1
+        Me.CmbBxTimeOne.SelectedIndex = Me.usrSettings.usrTimeDefaultFormat
+        Me.CmbBxTimeTwo.SelectedIndex = Me.usrSettings.usrTimeTWODefaultFormat
+        frmOptions.CmbBxDefaultTimeFormat.SelectedIndex = Me.usrSettings.usrTimeDefaultFormat
+        frmOptions.CmbBxDefaultTimeTwoFormat.SelectedIndex = Me.usrSettings.usrTimeTWODefaultFormat
 
     End Sub
 
@@ -538,7 +542,7 @@ Public Class frmKlock
 
         Me.CountDownTime = 30 * 60                                  '   30 minutes in seconds.
         Me.lblCountDownTime.Text = Me.minsToString(CountDownTime)
-        Me.btnCountDownStart_Click(sender, e)                       '   call click sub to strat countdown.
+        Me.btnCountDownStart_Click(sender, e)                       '   call click sub to start countdown.
     End Sub
 
     Private Sub btnCountdown60_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdown60.Click
@@ -546,7 +550,7 @@ Public Class frmKlock
 
         Me.CountDownTime = 60 * 60                                  '   60 minutes in seconds.
         Me.lblCountDownTime.Text = Me.minsToString(CountDownTime)
-        Me.btnCountDownStart_Click(sender, e)                       '   call click sub to strat countdown.
+        Me.btnCountDownStart_Click(sender, e)                       '   call click sub to start countdown.
     End Sub
 
     Private Sub btnCountdown90_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdown90.Click
@@ -1550,8 +1554,6 @@ Public Class frmKlock
         If Not My.Computer.FileSystem.DirectoryExists(FriendsDirectory) Then
             Me.displayAction.DisplayReminder("Data", "Creating " & FriendsDirectory)
             My.Computer.FileSystem.CreateDirectory(FriendsDirectory)
-        Else
-            Me.displayAction.DisplayReminder("Data", "Using " & FriendsDirectory)
         End If
     End Sub
 
@@ -1571,6 +1573,7 @@ Public Class frmKlock
         Me.btnEventsClear.Visible = b
         Me.btnEventsEdit.Visible = b
         Me.btnEventsDelete.Visible = b
+        Me.btnEventsCheck.Visible = b
     End Sub
 
     Private Sub btnEventsNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventsNew.Click
@@ -1600,6 +1603,7 @@ Public Class frmKlock
         Me.btnEventsEdit.Enabled = True
         Me.btnEventsClear.Enabled = True
         Me.btnEventsAdd.Enabled = False
+        Me.btnEventsCheck.Enabled = True
 
         Me.EventsClearText()
         Me.EventsReadOnlyText(True)
@@ -1608,7 +1612,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnEventsClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventsClear.Click
-        '   Cleares everything [not sure when called]
+        '   Clears everything [not sure when called]
 
         Me.ScrollEventsPanelTop()
 
@@ -1623,12 +1627,14 @@ Public Class frmKlock
         If Me.LstBxEvents.Items.Count > 0 Then
             Me.btnEventsDelete.Enabled = True
             Me.btnEventsEdit.Enabled = True
+            Me.btnEventsCheck.Enabled = True
             Me.showEvents(0)
             Me.tmrEvents.Interval = Me.usrSettings.usrEventsTimerInterval * 60      '   interval is held in minutes
             Me.tmrEvents.Enabled = True                                             '   enable events timer.
         Else
             Me.btnEventsEdit.Enabled = False
             Me.btnEventsDelete.Enabled = False
+            Me.btnEventsCheck.Enabled = False
             Me.EventsClearText()
             Me.tmrEvents.Enabled = False                                           '   disable events timer.
         End If
@@ -1666,7 +1672,7 @@ Public Class frmKlock
 
     Private Sub btnEventsDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventsDelete.Click
         '   Deletes the currently selected entry form the listviewbox.
-        '   Saves new evenst file and display first entry [if exists].
+        '   Saves new events file and display first entry [if exists].
 
         Dim reply As MsgBoxResult
 
@@ -1684,14 +1690,22 @@ Public Class frmKlock
         If Me.LstBxEvents.Items.Count > 0 Then                                      '   If entries in list view box, after delete.
             Me.btnEventsDelete.Enabled = True
             Me.btnEventsEdit.Enabled = True
+            Me.btnEventsCheck.Enabled = True
             Me.showEvents(0)
             Me.tmrEvents.Interval = Me.usrSettings.usrEventsTimerInterval * 60      '   interval is held in minutes
             Me.tmrEvents.Enabled = True                                             '   enable events timer.
         Else                                                                        '   No entries in listview box after delete.
             Me.btnEventsDelete.Enabled = False
             Me.btnEventsEdit.Enabled = False
+            Me.btnEventsCheck.Enabled = False
             Me.tmrEvents.Enabled = False                                             '   enable events timer.
         End If
+    End Sub
+
+    Private Sub btnEventsCheck_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventsCheck.Click
+        '   force a check of the events.
+
+        Me.checkEvents()
     End Sub
 
     Private Sub ChckBxEventRecuring_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxEventRecuring.CheckedChanged
@@ -1718,7 +1732,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub EventsClearText()
-        '   Clears all date entry dields.
+        '   Clears all date entry fields.
 
         Me.TxtBxEventsName.Text = ""
         Me.txtbxEventNotes.Text = ""
@@ -1743,7 +1757,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub ScrollEventsPanelTop()
-        '   Scroll events pannel back to top.
+        '   Scroll events panel back to top.
 
         Me.pnlEvents.ScrollControlIntoView(Me.lblEventsName)
     End Sub
@@ -1865,8 +1879,10 @@ Public Class frmKlock
 
         If Me.LstBxEvents.Items.Count > 0 Then
             Me.tmrEvents.Enabled = True
+            Me.btnEventsCheck.Enabled = True
         Else
             Me.tmrEvents.Enabled = False
+            Me.btnEventsCheck.Enabled = False
         End If
 
 
@@ -1884,24 +1900,27 @@ Public Class frmKlock
         '   for each event, check if the number of days to go is under the reminder limit, if so then display a message
         '   and set the reminder to false (not to display again).
 
-        Me.displayAction.DisplayReminder("Events", "Checking Events ")
-
         Dim e As Events
+        Dim reSave As Boolean = False
 
         For Each e In LstBxEvents.Items        '   Create list.
 
-            If e.EventThirdReminder And (e.DaysToGo < Me.usrSettings.usrEventsThirdReminder) Then
-                Me.displayAction.DisplayEvent("Event Reminder", e.EventName & " in " & e.DaysToGo.ToString & " DAYS")
-                MessageBox.Show(e.EventName & "in " & e.DaysToGo.ToString & " DAYS", "Event Reminder")
-                e.EventThirdReminder = False
-            ElseIf e.EventSecondreminder And (e.DaysToGo < Me.usrSettings.usrEventsSecondReminder) Then
-                Me.displayAction.DisplayEvent("Event Reminder", e.EventName & " in " & e.DaysToGo.ToString & " DAYS")
-                e.EventSecondreminder = False
-            ElseIf e.EventFirstReminder And (e.DaysToGo < Me.usrSettings.usrEventsFirstReminder) Then
-                Me.displayAction.DisplayEvent("Event Reminder", e.EventName & " in " & e.DaysToGo.ToString & " DAYS")
+            If e.EventFirstReminder And (e.DaysToGo < Me.usrSettings.usrEventsFirstReminder) Then
+                Me.displayAction.DisplayEvent(e)
                 e.EventFirstReminder = False
+                reSave = True
+            ElseIf e.EventSecondreminder And (e.DaysToGo < Me.usrSettings.usrEventsSecondReminder) Then
+                Me.displayAction.DisplayEvent(e)
+                e.EventSecondreminder = False
+                reSave = True
+            ElseIf e.EventThirdReminder And (e.DaysToGo < Me.usrSettings.usrEventsThirdReminder) Then
+                Me.displayAction.DisplayEvent(e)
+                e.EventThirdReminder = False
+                reSave = True
             End If
         Next
+
+        If reSave Then Me.saveEvents()
     End Sub
 
     ' ********************************************************************************************************************************* World Klock ******
@@ -1986,7 +2005,7 @@ Public Class frmKlock
         Me.eventsButtonsVisible(False)
 
         '   For the moment, we will load both friends and events file at form load.
-        '   We need to load events file to see if any evenst need to be parsed.
+        '   We need to load events file to see if any events need to be parsed.
         '   if this causes a delay, friends file can be loaded on entering the friends tab [as before].
 
         Me.loadFriends()                                '   load friends file - if there.
@@ -2077,7 +2096,7 @@ Public Class frmKlock
             Me.Left = Me.usrsettings.usrFormLeft
         End If
 
-        If Me.usrsettings.usrTimerHigh Then
+        If Me.usrSettings.usrTimerHigh Then
             Me.lblTimerTime.Text = "00:00:00:00"
             Me.lblTimerSplit.Text = "00:00:00:00"
         Else
@@ -2104,7 +2123,7 @@ Public Class frmKlock
             Me.loadFriends()
             Me.blankFriendsDate()
             Me.LoadAutoCompleteStuff()
-            Me.reloadFriends = False        ' do not reload, in not necserry
+            Me.reloadFriends = False        ' do not reload, in not necessary
 
             If Me.TbCntrl.SelectedIndex = 5 And Me.LstBxFriends.Items.Count > 0 Then
                 Me.btnFriendsDelete.Enabled = True
@@ -2116,9 +2135,9 @@ Public Class frmKlock
     End Sub
 
     Sub setActionTypes()
-        '   Loads the different action types and load into combo box.   
+        '   Loads the different action types and load into combo box.
         '   Loads the different system action types and load into combo box.
-        '   Also use this sub to load the event types and periods into thies respective combo boxes.
+        '   Also use this sub to load the event types and periods into there respective combo boxes.
 
 
         Dim actionNames = System.Enum.GetNames(GetType(selectAction.ActionTypes))
@@ -2180,17 +2199,14 @@ Public Class frmKlock
 
         frmOptions.ShowDialog()
 
-        '   try updating setting from options form.
-        'Me.reloadFriends = True             '   set to re-load friends file.
-        'Me.usrsettings.writeSettings()      '   write new options to settings file.
-        'Me.setSettings()                    '   Apply new Settings.
-
+        Me.CmbBxTimeOne.SelectedIndex = Me.usrSettings.usrTimeDefaultFormat
+        Me.CmbBxTimeTwo.SelectedIndex = Me.usrSettings.usrTimeTWODefaultFormat
     End Sub
 
     Private Sub DaylightSavingToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DaylightSavingToolStripMenuItem.Click
         '   Display some information of Daylight Saving.
 
-        ' Get the local time zone and the current  year. 
+        ' Get the local time zone and the current  year.
         Dim localZone As TimeZone = TimeZone.CurrentTimeZone
         Dim currentDate As DateTime = DateTime.Now
         Dim currentYear As Integer = currentDate.Year
@@ -2279,6 +2295,7 @@ Public Class frmKlock
 
 
     ' ********************************************************************************************************************************* END **************
+
 
 
 

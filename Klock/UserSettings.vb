@@ -34,6 +34,8 @@ Public Class UserSettings
     Private _usrOptionsSavePath As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock")
     Private _usrOptionsSaveFile As String = "klock.xml"
     '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
+    Private _usrTimeDefaultFormat As Integer = 0
+    Private _usrTimeTwoDefaultFormat As Integer = 1
     Private _usrTimeTwoFormats As Boolean = False
     Private _usrTimeSwatchCentibeats As Boolean = False
     Private _usrTimeNETSeconds As Boolean = False
@@ -188,7 +190,23 @@ Public Class UserSettings
     End Property
 
     '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
+    Public Property usrTimeTWODefaultFormat() As Integer
+        Get
+            Return _usrTimeTwoDefaultFormat
+        End Get
+        Set(ByVal value As Integer)
+            _usrTimeTwoDefaultFormat = value
+        End Set
+    End Property
 
+    Public Property usrTimeDefaultFormat() As Integer
+        Get
+            Return _usrTimeDefaultFormat
+        End Get
+        Set(ByVal value As Integer)
+            _usrTimeDefaultFormat = value
+        End Set
+    End Property
     Public Property usrTimeTwoFormats() As Boolean
         Get
             Return _usrTimeTwoFormats
@@ -537,7 +555,7 @@ Public Class UserSettings
         End Set
     End Property
 
-    '-------------------------------------------------------------------------------------------------------- Setting Methods ------------
+    '-------------------------------------------------------------------------------------------------------- file methods ------------
 
     Public Sub writeSettings()
         '   Writes all settings out to a XML file.  
@@ -574,6 +592,8 @@ Public Class UserSettings
                                   <usrOptionsSavePath><%= usrOptionsSavePath() %></usrOptionsSavePath>
                               </Global>
                               <Time>
+                                  <TimeDefaultFormat><%= usrTimeDefaultFormat() %></TimeDefaultFormat>
+                                  <TimeTwoDefaultFormat><%= usrTimeTwoDefaultFormat() %></TimeTwoDefaultFormat>
                                   <TimeTwoFormats><%= usrTimeTwoFormats() %></TimeTwoFormats>
                                   <TimeSwatchCentibeats><%= usrTimeSwatchCentibeats() %></TimeSwatchCentibeats>
                                   <TimeNETSeconds><%= usrTimeNETSeconds() %></TimeNETSeconds>
@@ -701,6 +721,8 @@ Public Class UserSettings
                                   <usrOptionsSavePath><%= usrOptionsSavePath() %></usrOptionsSavePath>
                               </Global>
                               <Time>
+                                  <TimeDefaultFormat>0</TimeDefaultFormat>
+                                  <TimeTwoDefaultFormat>1</TimeTwoDefaultFormat>
                                   <TimeTwoFormats>false</TimeTwoFormats>
                                   <TimeSwatchCentibeats>false</TimeSwatchCentibeats>
                                   <TimeNETSeconds>false</TimeNETSeconds>
@@ -755,15 +777,15 @@ Public Class UserSettings
                                       <EventNotificationFontStyle>0</EventNotificationFontStyle>
                                   </EventNotificationFont>
                                   <EventNotificationFontColour>
-                                      <EventNotificationFontColourR>0</EventNotificationFontColourR>
-                                      <EventNotificationFontColourG>0</EventNotificationFontColourG>
-                                      <EventNotificationFontColourB>0</EventNotificationFontColourB>
+                                      <EventNotificationFontColourR>128</EventNotificationFontColourR>
+                                      <EventNotificationFontColourG>255</EventNotificationFontColourG>
+                                      <EventNotificationFontColourB>255</EventNotificationFontColourB>
                                       <EventNotificationFontColourA>255</EventNotificationFontColourA>
                                   </EventNotificationFontColour>
                                   <FirstEventNotificationColour>
-                                      <FirstNotificationColourR>0</FirstNotificationColourR>
-                                      <FirstNotificationColourG>0</FirstNotificationColourG>
-                                      <FirstNotificationColourB>255</FirstNotificationColourB>
+                                      <FirstNotificationColourR>128</FirstNotificationColourR>
+                                      <FirstNotificationColourG>255</FirstNotificationColourG>
+                                      <FirstNotificationColourB>128</FirstNotificationColourB>
                                       <FirstNotificationColourA>255</FirstNotificationColourA>
                                   </FirstEventNotificationColour>
                                   <SecondEventNotificationColour>
@@ -773,9 +795,9 @@ Public Class UserSettings
                                       <SecondFirstNotificationColourA>255</SecondFirstNotificationColourA>
                                   </SecondEventNotificationColour>
                                   <ThirdEventNotificationColour>
-                                      <ThirdFirstNotificationColourR>255</ThirdFirstNotificationColourR>
+                                      <ThirdFirstNotificationColourR>0</ThirdFirstNotificationColourR>
                                       <ThirdFirstNotificationColourG>0</ThirdFirstNotificationColourG>
-                                      <ThirdFirstNotificationColourB>0</ThirdFirstNotificationColourB>
+                                      <ThirdFirstNotificationColourB>255</ThirdFirstNotificationColourB>
                                       <ThirdFirstNotificationColourA>255</ThirdFirstNotificationColourA>
                                   </ThirdEventNotificationColour>
                                   <EventNotificationOpacity>80</EventNotificationOpacity>
@@ -852,6 +874,8 @@ Public Class UserSettings
             '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
 
             Dim tm = elem.Element("Time")
+            Me.usrTimeDefaultFormat = CType(readElement(tm, "TimeDefaultFormat", usrTimeDefaultFormat()), Integer)
+            Me.usrTimeTWODefaultFormat = CType(readElement(tm, "TimeTwoDefaultFormat", usrTimeTWODefaultFormat()), Integer)
             Me.usrTimeTwoFormats = CType(readElement(tm, "TimeTwoFormats", usrTimeTwoFormats()), Boolean)
             Me.usrTimeSwatchCentibeats = CType(readElement(tm, "TimeSwatchCentibeats", usrTimeSwatchCentibeats()), Boolean)
             Me.usrTimeNETSeconds = CType(readElement(tm, "TimeNETSeconds", usrTimeNETSeconds()), Boolean)

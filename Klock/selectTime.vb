@@ -33,7 +33,7 @@
     Private TimeTitle As String     '   local version of the fancy time title
     Private clockTick As Integer
 
-    '   globably declare arrays, so can be used by more then one sub and also not re-created every call of the sub.
+    '   globally declare arrays, so can be used by more then one sub and also not re-created every call of the sub.
 
     Public hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
     Public units() As String = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
@@ -321,7 +321,7 @@
     Private Function getSwatchTime() As String
         '   returns UTC time as Swatch Time.
         '   Swatch time is made up of 1000 beats per day i.e. 1 beat = 86.4 seconds.
-        '   This is then encoded into a string. 
+        '   This is then encoded into a string.
 
         Dim UTCplus1 As DateTime = Now.ToUniversalTime.AddHours(1)
         Dim noOfSeconds As Integer = (UTCplus1.Hour * 3600) + (UTCplus1.Minute * 60) + (UTCplus1.Second)
@@ -338,7 +338,7 @@
     End Function
 
     Private Function getNetTime() As String
-        '    Returns UTC time as New Earth Time.    
+        '    Returns UTC time as New Earth Time.
         '    New Earth Time [or NET] splits the day into 260 degrees. each degree is
         '    further split into 60 minutes and further into 60 seconds.
         '
@@ -368,7 +368,7 @@
 
     Private Function getJulianTime() As String
         '   returns UTC time as a Julian Date Time.
-        '   Formulae pinched from http://en.wikipedia.org/wiki/Julian_day 
+        '   Formulae pinched from http://en.wikipedia.org/wiki/Julian_day
 
         Dim UTC As DateTime = Now.ToUniversalTime
         Dim a As Double = (14 - UTC.Month) / 12
@@ -385,7 +385,7 @@
 
     Private Function getDecimalTime() As String
         '   Returns the current [local] time in decimal notation.
-        '   The day is divided into 10 hours, each hour is then split into 100 minutes of 100 seconds.  
+        '   The day is divided into 10 hours, each hour is then split into 100 minutes of 100 seconds.
 
         Dim noOfSeconds As Integer = MilliSecondOfTheDay() / 1000
         Dim NoOfDecSecs As Integer = noOfSeconds * (100000 / 84600)
@@ -400,7 +400,7 @@
 
     Private Function getTrueHexTime() As String
         '   Returns the current [local] time in Hexdecimal time.
-        '   The day is divided in 10 (sixteen) hexadecimal hours, each hour in 100 (two hundred and fifty-six) 
+        '   The day is divided in 10 (sixteen) hexadecimal hours, each hour in 100 (two hundred and fifty-six)
         '   hexadecimal minutes and each minute in 10 (sixteen) hexadecimal seconds.
 
         Dim noOfSeconds As Integer = MilliSecondOfTheDay() / 1000
@@ -457,7 +457,7 @@
 
     Private Function getMetricTime() As String
         '   Returns the current [local] time in Metric time.
-        '   Metric time is the measure of time interval using the metric system, which defines the second as the base unit of time, 
+        '   Metric time is the measure of time interval using the metric system, which defines the second as the base unit of time,
         '   and multiple and submultiple units formed with metric prefixes, such as kiloseconds and milliseconds.
         '   Only Kiloseconds are used here.
 
@@ -471,7 +471,7 @@
 
     Private Function getUnixTime() As String
         '   Returns UTC in Unix time.
-        '   Unix time, or POSIX time, is a system for describing instants in time, defined as the number of seconds 
+        '   Unix time, or POSIX time, is a system for describing instants in time, defined as the number of seconds
         '   elapsed since midnight Coordinated Universal Time (UTC) of Thursday, January 1, 1970
 
         Dim tday As Date = Now.ToUniversalTime()
@@ -565,7 +565,7 @@
 
         getPercentTime = String.Format("{0:0#.0000 PMH}", percentSeconds)
     End Function
-                                                                         
+
     Private Function getFlowTime()
         '   Returns the current [local] time as Flow Time.
         '   Flow Time still divides the day into 24 hours, but each hour is divided into 100 minutes of 100 seconds.

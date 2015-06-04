@@ -2,7 +2,6 @@
     '   A class which just presents some enum's and procedures to perform certain actions.
     '   In a class, so they can be used in several place within the program.
 
-
     Enum ActionTypes            '   the types of action that can be performed.
         Sound
         Reminder
@@ -12,7 +11,7 @@
         ScreenSaver
     End Enum
     '                               Speech not handled in this class, just a place holder here.
-    '                               Must be implented in calling programm.
+    '                               Must be implanted in calling programme.
 
     Enum SystemTypes            '   the types of system action that can be performed.
         ShutDown
@@ -35,8 +34,8 @@
     Const SC_SCREENSAVE As Integer = &HF140
 
     Public Sub PlaySound(ByVal s As String)
-        '   play a sound file.  Uses some fancy code of www.vbforums.com, allows volume to be changed.   
-        '   When using multimedia API (e.g. mciSendString) calls to play multimedia files, 
+        '   play a sound file.  Uses some fancy code of www.vbforums.com, allows volume to be changed.
+        '   When using multimedia API (e.g. mciSendString) calls to play multimedia files,
         '   the API call may fail if the path or file name in the command string has embedded spaces.
         '   To work around the long file name limitation use quotes around the path and file name.
 
@@ -57,7 +56,7 @@
     End Sub
 
     Public Sub ScreenSaver()
-        '   call the currently selected screen saver i.e. in windows control pannel.
+        '   call the currently selected screen saver i.e. in windows control panel.
         '   This works my using windows magic.
 
         Dim hWnd As Integer
@@ -68,18 +67,32 @@
 
     End Sub
 
-    Public Sub DisplayReminder(ByVal t As String, ByVal m As String)
+    Public Sub DisplayReminder(ByVal title As String, ByVal message As String)
         '   Display the reminder message
 
-        Dim Notification As New frmNotification(frmKlock.usrSettings.usrNotificationTimeOut, t, m, "R")
+        Dim Notification As New frmNotification(frmKlock.usrSettings.usrNotificationTimeOut, title, message, "R")
 
         Notification.Show()
     End Sub
 
-    Public Sub DisplayEvent(ByVal t As String, ByVal m As String)
+    Public Sub DisplayEvent(ByVal e As Events)
         '   Display the reminder message
 
-        Dim Notification As New frmNotification(frmKlock.usrSettings.usrNotificationTimeOut, t, m, "E")
+        Dim et As New eventThings
+
+        Dim title As String = ""
+        Dim message As String = ""
+
+        '                                                   remember the event name is held in title case.
+        If e.EventName = "Btneventnotificationtest" Then
+            title = "Event Notification test"
+            message = String.Format(" Opacity = {0}", frmKlock.usrSettings.usrEventNotificationOpacity)
+        Else
+            title = et.eventTitle(e)
+            message = et.eventmessage(e)
+        End If
+
+        Dim Notification As New frmNotification(frmKlock.usrSettings.usrNotificationTimeOut, title, message, "E")
 
         Notification.Show()
     End Sub
@@ -132,7 +145,7 @@
 
     Public Sub DoCommand(ByVal s As String)
         '   Performs the external command.
-        '   If the file is executable it will be run. 
+        '   If the file is executable it will be run.
         '   If the file has an association, the host will be run. i.e a .doc file will launch word.
 
         If s = String.Empty Then
@@ -149,5 +162,7 @@
             End If
         End If
     End Sub
+
+
 
 End Class

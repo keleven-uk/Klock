@@ -5,7 +5,7 @@ Public Class frmAbout
     '   Displays an About screen.       K. Scott    November 2012
 
     '   The relevant information is displayed when the form is loaded.
-    '   Disk space and memory usage are displayed every second and can be either 
+    '   Disk space and memory usage are displayed every second and can be either
     '   displayed in text or as a bar chart, depending upon a checkbox.
 
     Private Sub btnAboutClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAboutClose.Click
@@ -34,7 +34,7 @@ Public Class frmAbout
     End Sub
 
     Sub updateTextInfo()
-        '   displays disk and memery usage in text.
+        '   displays disk and memory usage in text.
 
         Dim cdrive As System.IO.DriveInfo
 
