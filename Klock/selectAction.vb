@@ -21,19 +21,24 @@
                         (ByVal lpstrCommand As String, ByVal lpstrReturnString As String, _
                          ByVal uReturnLength As Integer, ByVal hwndCallback As Integer) As Integer
 
+
     Public Sub PlaySound(ByVal s As String)
         '   play a sound file.  Uses some fancy code of www.vbforums.com, allows volume to be changed.   
+        '   When using multimedia API (e.g. mciSendString) calls to play multimedia files, 
+        '   the API call may fail if the path or file name in the command string has embedded spaces.
+        '   To work around the long file name limitation use quotes around the path and file name.
 
         If My.Computer.FileSystem.FileExists(s) Then
-            mciSendString("close mySND", Nothing, 0, 0)
+            mciSendString("close myAudio", Nothing, 0, 0)
 
             Dim fileName1 As String = s
-            mciSendString("open " & fileName1 & " type mpegvideo alias mySND", Nothing, 0, 0)
-            mciSendString("play mySND", Nothing, 0, 0)
+            mciSendString("open " & """" & fileName1 & """" & " type mpegvideo alias myAudio", Nothing, 0, 0)
+            mciSendString("play myAudio", Nothing, 0, 0)
 
             'min Volume is 1, max Volume is 1000
             Dim Volume As Integer = My.Settings.usrSoundVolume
-            mciSendString("setaudio mySND volume to " & Volume, Nothing, 0, 0)
+            mciSendString("setaudio myAudio volume to " & Volume, Nothing, 0, 0)
+
         Else
             DisplayReminder("ERROR", "Sorry, sound file seems to have gone away!!")
         End If      '   if My.Computer.FileSystem.FileExists(s)
@@ -55,7 +60,7 @@
         Select Case s
             Case SystemTypes.ShutDown
                 frmKlock.Text = " Klock is Shutting Down PC"
-                p.Arguments = "0 " & "-t 10 " & "-c ""Shutting Down PC in 10 Seconds"""
+                p.Arguments = "-s " & "-t 10 " & "-c ""Shutting Down PC in 10 Seconds"""
             Case SystemTypes.Restart
                 frmKlock.Text = " Klock is Restsrting PC"
                 p.Arguments = "-r " & "-t 10 " & "-c ""Restarting Down PC in 10 Seconds"""
@@ -74,6 +79,22 @@
             MessageBox.Show("Sorry, there seems to problems :: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
+
+    End Sub
+
+    Public Sub AbortSystemCommand()
+        '   Allows a system command [above] to be aborted.
+
+        Dim p As New ProcessStartInfo
+
+        p.Arguments = "-a "
+
+        Try
+            p.FileName = "shutdown.exe"
+            Process.Start(p)
+        Catch ex As System.ComponentModel.Win32Exception
+            MessageBox.Show("Sorry, there seems to problem with abort :: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
 
     End Sub
 

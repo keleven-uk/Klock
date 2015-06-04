@@ -45,6 +45,7 @@ Partial Class frmKlock
         Me.CmbBxTime = New System.Windows.Forms.ComboBox()
         Me.TbPgCountDown = New System.Windows.Forms.TabPage()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.btnCountdownSystemAbort = New System.Windows.Forms.Button()
         Me.TxtBxCountDowndCommand = New System.Windows.Forms.TextBox()
         Me.btnCountDownLoadCommand = New System.Windows.Forms.Button()
         Me.ChckBxCountDownCommand = New System.Windows.Forms.CheckBox()
@@ -76,6 +77,7 @@ Partial Class frmKlock
         Me.btnTimerStart = New System.Windows.Forms.Button()
         Me.TbPgReminder = New System.Windows.Forms.TabPage()
         Me.GroupBox11 = New System.Windows.Forms.GroupBox()
+        Me.btnReminderSystemAbort = New System.Windows.Forms.Button()
         Me.TxtBxReminderCommand = New System.Windows.Forms.TextBox()
         Me.btnReminderLoadCommand = New System.Windows.Forms.Button()
         Me.chckBXReminderCommand = New System.Windows.Forms.CheckBox()
@@ -313,6 +315,7 @@ Partial Class frmKlock
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.btnCountdownSystemAbort)
         Me.GroupBox5.Controls.Add(Me.TxtBxCountDowndCommand)
         Me.GroupBox5.Controls.Add(Me.btnCountDownLoadCommand)
         Me.GroupBox5.Controls.Add(Me.ChckBxCountDownCommand)
@@ -330,6 +333,17 @@ Partial Class frmKlock
         Me.GroupBox5.Size = New System.Drawing.Size(440, 57)
         Me.GroupBox5.TabIndex = 2
         Me.GroupBox5.TabStop = False
+        '
+        'btnCountdownSystemAbort
+        '
+        Me.btnCountdownSystemAbort.Enabled = False
+        Me.btnCountdownSystemAbort.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCountdownSystemAbort.Location = New System.Drawing.Point(379, 25)
+        Me.btnCountdownSystemAbort.Name = "btnCountdownSystemAbort"
+        Me.btnCountdownSystemAbort.Size = New System.Drawing.Size(50, 20)
+        Me.btnCountdownSystemAbort.TabIndex = 12
+        Me.btnCountdownSystemAbort.Text = "Abort"
+        Me.btnCountdownSystemAbort.UseVisualStyleBackColor = True
         '
         'TxtBxCountDowndCommand
         '
@@ -634,6 +648,7 @@ Partial Class frmKlock
         '
         'GroupBox11
         '
+        Me.GroupBox11.Controls.Add(Me.btnReminderSystemAbort)
         Me.GroupBox11.Controls.Add(Me.TxtBxReminderCommand)
         Me.GroupBox11.Controls.Add(Me.btnReminderLoadCommand)
         Me.GroupBox11.Controls.Add(Me.chckBXReminderCommand)
@@ -651,6 +666,18 @@ Partial Class frmKlock
         Me.GroupBox11.Size = New System.Drawing.Size(440, 57)
         Me.GroupBox11.TabIndex = 3
         Me.GroupBox11.TabStop = False
+        '
+        'btnReminderSystemAbort
+        '
+        Me.btnReminderSystemAbort.Enabled = False
+        Me.btnReminderSystemAbort.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReminderSystemAbort.Location = New System.Drawing.Point(379, 24)
+        Me.btnReminderSystemAbort.Name = "btnReminderSystemAbort"
+        Me.btnReminderSystemAbort.Size = New System.Drawing.Size(50, 20)
+        Me.btnReminderSystemAbort.TabIndex = 12
+        Me.btnReminderSystemAbort.Text = "Abort"
+        Me.btnReminderSystemAbort.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.btnReminderSystemAbort.UseVisualStyleBackColor = True
         '
         'TxtBxReminderCommand
         '
@@ -897,31 +924,31 @@ Partial Class frmKlock
         '
         Me.CntxtMnStrpKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TlStrpMnItmShow, Me.TlStrpMnItmTime, Me.TlStrpMnItmOptions, Me.TlStrpMnItmExit})
         Me.CntxtMnStrpKlock.Name = "CntxtMnStrpKlock"
-        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(153, 114)
+        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(117, 92)
         '
         'TlStrpMnItmShow
         '
         Me.TlStrpMnItmShow.Name = "TlStrpMnItmShow"
-        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(152, 22)
+        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(116, 22)
         Me.TlStrpMnItmShow.Text = "Show"
         '
         'TlStrpMnItmTime
         '
         Me.TlStrpMnItmTime.CheckOnClick = True
         Me.TlStrpMnItmTime.Name = "TlStrpMnItmTime"
-        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(152, 22)
+        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(116, 22)
         Me.TlStrpMnItmTime.Text = "Time"
         '
         'TlStrpMnItmOptions
         '
         Me.TlStrpMnItmOptions.Name = "TlStrpMnItmOptions"
-        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(152, 22)
+        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(116, 22)
         Me.TlStrpMnItmOptions.Text = "Options"
         '
         'TlStrpMnItmExit
         '
         Me.TlStrpMnItmExit.Name = "TlStrpMnItmExit"
-        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(152, 22)
+        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(116, 22)
         Me.TlStrpMnItmExit.Text = "Exit"
         '
         'frmKlock
@@ -1060,5 +1087,7 @@ Partial Class frmKlock
     Friend WithEvents TmPckrRiminder As System.Windows.Forms.DateTimePicker
     Friend WithEvents ChckBxReminderTimeCheck As System.Windows.Forms.CheckBox
     Friend WithEvents TlStrpMnItmOptions As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents btnReminderSystemAbort As System.Windows.Forms.Button
+    Friend WithEvents btnCountdownSystemAbort As System.Windows.Forms.Button
 
 End Class

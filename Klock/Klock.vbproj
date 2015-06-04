@@ -230,14 +230,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="License.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="License.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Help.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Help.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="history.txt" />

@@ -72,25 +72,29 @@ Public Class frmKlock
         '   Depending upon user settings, will play hourly pips or chimes.
         '   The chimes can sound on the hour and every quarter hour if desired.
 
-        Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
-        Dim hour As Integer = 0
 
-        hour = Now.Hour
-
-        If hour > 12 Then
-            hour -= 12
-        End If
 
         If My.Settings.usrTimeHourPips And (Math.Floor(Now.TimeOfDay.TotalSeconds Mod 3600) = 0) Then          '    will this work at midnight???
-            displayAction.PlaySound(Application.StartupPath & "\Sounds\" & hours(hour) & ".wav")               '    Play the Pips on the hour, if desired.
+
+            displayAction.PlaySound(Application.StartupPath & "\Sounds\quarterchime.mp3")               '    Play the Pips on the hour, if desired.
         ElseIf My.Settings.usrTimeHourlyChimes And (Math.Floor(Now.TimeOfDay.TotalSeconds Mod 3600) = 0) Then  '    Play hourly chimes, if desired.
-            displayAction.PlaySound(Application.StartupPath & "\Sounds\quarterchime.wav")
+
+            Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
+            Dim hour As Integer = Now.Hour
+
+            If hour > 12 Then
+                hour -= 12
+            End If
+            displayAction.PlaySound(Application.StartupPath & "\Sounds\" & hours(Hour) & ".mp3")
         ElseIf My.Settings.usrTimeQuarterChimes And (Math.Floor(Now.TimeOfDay.TotalSeconds Mod 900) = 0) Then  '    Play quarter chimes, if desired.
-            displayAction.PlaySound(Application.StartupPath & "\Sounds\quarterchime.wav")
+
+            displayAction.PlaySound(Application.StartupPath & "\Sounds\quarterchime.mp3")
         ElseIf My.Settings.usrTimeHalfChimes And (Math.Floor(Now.TimeOfDay.TotalSeconds Mod 1800) = 0) Then    '    Play half hourly chimes, if desired.
-            displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.wav")
+
+            displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.mp3")
         ElseIf My.Settings.usrTimeThreeQuarterChimes And (Math.Floor(Now.TimeOfDay.TotalSeconds Mod 2700) = 0) Then '    Play three quarter chimes, if desired.
-            displayAction.PlaySound(Application.StartupPath & "\Sounds\threequarterchime.wav")
+
+            displayAction.PlaySound(Application.StartupPath & "\Sounds\threequarterchime.mp3")
         End If
 
     End Sub
@@ -256,7 +260,12 @@ Public Class frmKlock
     ' **************************************************************************************** Countdown ******************************
     Private Sub upDwnCntDownValue_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles upDwnCntDownValue.ValueChanged
         '   when the up down counter has been changed, enable the start button and update the countdown label.
-        Me.btnCountDownStart.Enabled = True
+
+        If Me.upDwnCntDownValue.Value = 0 Then
+            Me.btnCountDownStart.Enabled = False
+        Else
+            Me.btnCountDownStart.Enabled = True
+        End If
 
         CountDownTime = upDwnCntDownValue.Value * 60
         Me.lblCountDownTime.Text = minsToString(CountDownTime)
@@ -338,8 +347,10 @@ Public Class frmKlock
 
         If Me.ChckBxCountDownSystem.Checked Then
             Me.CmbBxCountDownSystem.Enabled = True
+            Me.btnReminderSystemAbort.Enabled = True
         Else
             Me.CmbBxCountDownSystem.Enabled = False
+            Me.btnReminderSystemAbort.Enabled = False
         End If
     End Sub
 
@@ -364,7 +375,7 @@ Public Class frmKlock
     Private Sub btnCountdownLoadSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdownLoadSound.Click
         ' open file dialog to load sound file.
 
-        Me.OpenFileDialog1.Filter = "Sound Files|(*.wav, *.mp3)"
+        Me.OpenFileDialog1.Filter = "All Files|*.*"
         If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
             Me.btnCountDownTestSound.Enabled = True
             Me.TxtBxCountDownAction.Text = Me.OpenFileDialog1.FileName
@@ -397,8 +408,13 @@ Public Class frmKlock
             displayAction.DisplayReminder("CountDown", TxtBxCountDownReminder.Text)
         End If
         If Me.ChckBxCountDownSystem.Checked Then                               '   do system action action.
+            If NtfyIcnKlock.Visible Then                                       '   if main form not visible, then show
+                Me.NtfyIcnKlock.Visible = False                                '   so abort button can be deployed.
+                Me.Visible = True
+            End If
             Me.ChckBxCountDownSystem.Checked = False
             Me.CmbBxCountDownSystem.Enabled = False
+            Me.btnCountdownSystemAbort.Enabled = True                          '   alow system command to be aborted.
             displayAction.DoSystemCommand(CmbBxCountDownSystem.SelectedIndex)
         End If
         If Me.ChckBxCountDownCommand.Checked Then                              '   do run command action.
@@ -408,6 +424,15 @@ Public Class frmKlock
             displayAction.DoCommand(TxtBxCountDowndCommand.Text)
         End If
 
+    End Sub
+
+    Private Sub btnCountdownSystemAbort_Click(sender As System.Object, e As System.EventArgs) Handles btnCountdownSystemAbort.Click
+        '   if abort pressed, perfor system command abort and start clean up.
+
+        displayAction.AbortSystemCommand()
+        Me.btnCountdownSystemAbort.Enabled = False
+
+        CountDownClear()
     End Sub
 
     Sub CountDownClear()
@@ -456,6 +481,7 @@ Public Class frmKlock
 
         Me.ChckBxCountDownSystem.Visible = b
         Me.CmbBxCountDownSystem.Visible = b
+        Me.btnCountdownSystemAbort.Visible = b
     End Sub
 
     Sub CountDownCommand(ByVal b As Boolean)
@@ -519,13 +545,15 @@ Public Class frmKlock
         End If
     End Sub
 
-    Private Sub CmbBxReminderSystem_DropDownClosed(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxReminderSystem.DropDownClosed
+    Private Sub ChckBxReminderSystem_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxReminderSystem.CheckedChanged
         '   Selects countdown action controls if checked.
 
         If Me.ChckBxReminderSystem.Checked Then
             Me.CmbBxReminderSystem.Enabled = True
+            Me.btnReminderSystemAbort.Enabled = True
         Else
             Me.CmbBxReminderSystem.Enabled = False
+            Me.btnReminderSystemAbort.Enabled = False
         End If
     End Sub
 
@@ -582,8 +610,13 @@ Public Class frmKlock
             displayAction.DisplayReminder("Reminder", TxtBxReminderReminder.Text)
         End If
         If Me.ChckBxReminderSystem.Checked Then                                 '   do system action action.
+            If NtfyIcnKlock.Visible Then                                        '   if main form not visible, then show
+                Me.NtfyIcnKlock.Visible = False                                 '   so abort button can be deployed.
+                Me.Visible = True
+            End If
             Me.ChckBxReminderSystem.Checked = False
             Me.CmbBxReminderSystem.Enabled = False
+            Me.btnReminderSystemAbort.Enabled = True                            '   alow system command to be aborted.
             displayAction.DoSystemCommand(CmbBxReminderSystem.SelectedIndex)
         End If
         If Me.chckBXReminderCommand.Checked Then                                '   do run command action.
@@ -595,13 +628,22 @@ Public Class frmKlock
 
     End Sub
 
+    Private Sub btnReminderSystemAbort_Click(sender As System.Object, e As System.EventArgs) Handles btnReminderSystemAbort.Click
+        '   if abort pressed, perfor system command abort and start clean up.
+
+        displayAction.AbortSystemCommand()
+        Me.btnReminderSystemAbort.Enabled = False
+
+        clearReminder()
+    End Sub
+
     Private Sub btnReminderSet_Click(sender As System.Object, e As System.EventArgs) Handles btnReminderSet.Click
 
         Dim d As New DateTime(Me.DtPckrRiminder.Value.Year, _
                          Me.DtPckrRiminder.Value.Month, _
                          Me.DtPckrRiminder.Value.Day, _
                          Me.TmPckrRiminder.Value.Hour, _
-                         Me.TmPckrRiminder.Value.Second, _
+                         Me.TmPckrRiminder.Value.Minute, _
                          0)
 
         Me.btnReminderSet.Enabled = False
@@ -635,10 +677,13 @@ Public Class frmKlock
         Me.btnReminderClear.Enabled = False
 
         Me.DtPckrRiminder.Value = Today
+
         If My.Settings.usrReminderTimeChecked Then
+            Me.ChckBxReminderTimeCheck.Checked = True
             Me.TmPckrRiminder.Enabled = True
             Me.TmPckrRiminder.Value = Now()
         Else
+            Me.ChckBxReminderTimeCheck.Checked = False
             Me.TmPckrRiminder.Enabled = False
             Me.TmPckrRiminder.Value = Today
         End If
@@ -667,6 +712,7 @@ Public Class frmKlock
 
         Me.ChckBxReminderSystem.Visible = b
         Me.CmbBxReminderSystem.Visible = b
+        Me.btnReminderSystemAbort.Visible = b
     End Sub
 
     Private Sub ReminderCommand(ByVal b As Boolean)
@@ -717,7 +763,7 @@ Public Class frmKlock
                                  Me.DtPckrRiminder.Value.Month, _
                                  Me.DtPckrRiminder.Value.Day, _
                                  Me.TmPckrRiminder.Value.Hour, _
-                                 Me.TmPckrRiminder.Value.Second, _
+                                 Me.TmPckrRiminder.Value.Minute, _
                                  0)
 
         If d > Now() Then
@@ -890,6 +936,10 @@ Public Class frmKlock
 
 
     ' *********************************************************************************************************************************
+
+
+
+
 
 
 

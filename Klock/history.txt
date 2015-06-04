@@ -1,4 +1,28 @@
 ------------------------------------------------------------------------
+r10 | Keleven | 2013-02-24 20:02:54 +0000 (Sun, 24 Feb 2013) | 1 line
+
+Changed sound files from .wav to .mp3 to save space.
+------------------------------------------------------------------------
+r9 | Keleven | 2013-02-24 19:34:25 +0000 (Sun, 24 Feb 2013) | 15 lines
+
+Added sounds directory including the hourly sounds for the pip and chimes [in .wav format].
+
+Added the term Me. to component calls.
+
+[Options.vb]
+Added sound volume to global tab.
+Added user settings for Hourly sounds[either pips of chimes], Sounds volume. 
+Screen notification of time, Notification Opacity and time out.
+
+[selectAction.vb]
+Changed method of audio play to mciSendString using API calls from My.Computer.Audio.Play, 
+this allow for the volume to be specified.
+
+[klock.vb]
+Added reminder tab - code and logic.
+Added Hourly sounds [either pips or chimes.
+
+------------------------------------------------------------------------
 r8 | Keleven | 2013-02-04 20:56:31 +0000 (Mon, 04 Feb 2013) | 12 lines
 
 [selectTime.vb]
@@ -20,7 +44,8 @@ Added code to display "toast" messages i.e. a notification window rises form the
 This uses code by user jmcilhinney  at http://www.vbforums.com/showthread.php?351757-Animated-Window-Effects-with-quot-Toast-quot-popup-demo
 
 Finished the right-click menu of the system tray icon.  The item time is now checkable.  
-If checked a toast showing the current chosen time format is display every 5 minutes.  A user property holds this state between runs.
+If checked a toast showing the current chosen time format is display every 5 minutes.  
+A user property holds this state between runs.
 ------------------------------------------------------------------------
 r6 | Keleven | 2013-01-27 19:58:07 +0000 (Sun, 27 Jan 2013) | 9 lines
 
