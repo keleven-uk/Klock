@@ -24,6 +24,7 @@
     ' *************************************************************************************** constructor ***********************
 
     Sub New()
+        MyBase.New()
         setType = TimeTypes.FuzzyTime
     End Sub
     ' *************************************************************************************** time properties *******************
@@ -107,15 +108,11 @@
         hour = Now.Hour
         mins = Now.Minute
 
-        If hour < 12 Then
-            ampm = " in the morning"
-        Else
-            ampm = "pm"
-        End If
+        ampm = IIf(hour < 12, " in the morning", "pm")      '   if hour less then 12, in the morning else afternoon
 
-        nrms = mins - (mins Mod 5)          '   gets nearest five minutes.
+        nrms = mins - (mins Mod 5)                          '   gets nearest five minutes.
 
-        If (mins Mod 5) > 2 Then            '   closer to next five minutes, go to next.
+        If (mins Mod 5) > 2 Then                            '   closer to next five minutes, go to next.
             nrms += 5
         End If
 
@@ -161,11 +158,7 @@
 
         If ampm = "pm" Then
             hour -= 12
-            If hour >= 5 Then
-                ampm = " in the evening"
-            Else
-                ampm = " in the afternoon"
-            End If
+            ampm = IIf(hour >= 5, " in the evening", " in the afternoon")   '   if greater then five in the afternoon then evening.
         End If
 
         getFuzzyTime = sRtn + hours(hour) + ampm
@@ -192,8 +185,6 @@
         Dim noOfCentibeats As Double = 0
 
         noOfSeconds = (UTCplus1.Hour * 3600) + (UTCplus1.Minute * 60) + (UTCplus1.Second)
-
-
         noOfBeats = noOfSeconds * 0.01157    ' 1000 beats per day
 
         If My.Settings.usrTimeSwatchCentibeats Then
@@ -227,7 +218,6 @@
             min = ((noOfSeconds) - (deg * 240)) \ 4
             sec = ((noOfSeconds) - (deg * 240) - (min * 4)) * 15
         End If
-
 
         getNetTime = String.Format("{0} deg {1} min {2} sec", deg, min, sec)
 
@@ -276,6 +266,7 @@
     End Function
 
     Private Function MilliSecondOfTheDay() As Integer
+
 
         Dim ts As New TimeSpan(0, Now.Hour, Now.Minute, Now.Second, Now.Millisecond)
 

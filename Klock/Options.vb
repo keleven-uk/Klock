@@ -2,7 +2,7 @@
 
     '   Displays an Options screen.       K. Scott    November 2012
 
-    '   The settings are saved using applications settings, automatically handeled bu
+    '   The settings are saved using applications settings, automatically handled by
     '   the program.  A save is called when form is closed.
 
     Public displayAction As selectAction
@@ -12,7 +12,7 @@
 
         displayAction = New selectAction
 
-        setSettings()
+        Me.setSettings()
     End Sub
 
     Sub setSettings()
@@ -106,7 +106,7 @@
         Me.ClrDlgFormColour.Color = My.Settings.usrFormColour          '   current main form colour
         If Me.ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
             My.Settings.usrFormColour = Me.ClrDlgFormColour.Color
-            setSettings()
+            Me.setSettings()
         End If
     End Sub
 
@@ -120,13 +120,8 @@
        If FntDlgFont.ShowDialog() = DialogResult.OK Then
             My.Settings.usrFormFont       = FntDlgFont.Font
             My.Settings.usrFormFontColour = FntDlgFont.Color
-            setSettings()
+            Me.setSettings()
         End If
-    End Sub
-
-    Private Sub ChckBxOptionsSavePos_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxOptionsSavePos.CheckedChanged
-        '   If option is checked, save form position.
-
     End Sub
 
 Private Sub btnDefaultColour_Click( ByVal sender As System.Object,  ByVal e As System.EventArgs) Handles btnDefaultColour.Click
@@ -136,14 +131,14 @@ Private Sub btnDefaultColour_Click( ByVal sender As System.Object,  ByVal e As S
         My.Settings.usrFormFont = frmOptions.DefaultFont  
         My.Settings.usrFormFontColour = frmOptions.DefaultForeColor 
 
-        setSettings()
+        Me.setSettings()
 End Sub
 
     '-----------------------------------------------------------Time---------------------------------------------------------------
 
     Private Sub ChckBxTimeHourPips_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxTimeHourPips.CheckedChanged
 
-        If ChckBxTimeHourPips.Checked Then
+        If Me.ChckBxTimeHourPips.Checked Then
             Me.ChckBxTimeHourlyChimes.Enabled = False
             Me.ChckBxTimeHourlyChimes.Checked = False
             Me.ChckBxTimeHalfChimes.Enabled = False
@@ -159,7 +154,7 @@ End Sub
 
     Private Sub ChckBxTimeHourlyChimes_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxTimeHourlyChimes.CheckedChanged
 
-        If ChckBxTimeHourlyChimes.Checked Then
+        If Me.ChckBxTimeHourlyChimes.Checked Then
             Me.ChckBxTimeHourPips.Enabled = False
             Me.ChckBxTimeHourPips.Checked = False
             Me.ChckBxTimeHalfChimes.Enabled = True
@@ -233,7 +228,7 @@ End Sub
 
     Private Sub btnOptionsTestVolume_Click(sender As System.Object, e As System.EventArgs) Handles btnOptionsTestVolume.Click
 
-        displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.mp3")
+        Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.mp3")
 
     End Sub
 End Class

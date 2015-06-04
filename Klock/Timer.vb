@@ -12,17 +12,27 @@
 
     Public ReadOnly Property getHighElapsedTime() As String
         '   Returns the elapsed time to the milliseconds - HH:MM:SS:MS
+
         Get
-            Dim ts As TimeSpan = stopWatch.Elapsed
-            Return String.Format("{0:00}:{1:00}:{2:00}:{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds)
+            Try
+                Dim ts As TimeSpan = stopWatch.Elapsed
+                Return String.Format("{0:00}:{1:00}:{2:00}:{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds)
+            Catch ex As ApplicationException
+                Throw New ApplicationException("Stopwatch not started")
+            End Try
         End Get
     End Property
 
     Public ReadOnly Property getLowElapsedTime() As String
         '   Returns the elapsed time to the second - HH:MM:SS
+
         Get
-            Dim ts As TimeSpan = stopWatch.Elapsed
-            Return String.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds)
+            Try
+                Dim ts As TimeSpan = stopWatch.Elapsed
+                Return String.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds)
+            Catch ex As ApplicationException
+                Throw New ApplicationException("Stopwatch not started")
+            End Try
         End Get
     End Property
 

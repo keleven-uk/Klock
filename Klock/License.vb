@@ -7,7 +7,7 @@ Public Class frmLicence
 
     '   The license used is the GNU General Public License V3.
 
-    '   The licence.txt is held has a embeded resource and read using a stream in the form load.
+    '   The licence.txt is held has a embedded resource and read using a stream in the form load.
     '   see http://support.microsoft.com/kb/319291
 
     Dim _textStreamReader As StreamReader

@@ -35,6 +35,9 @@ Partial Class frmOptions
         Me.lblDefaultColour = New System.Windows.Forms.Label()
         Me.TabCntrlOptions = New System.Windows.Forms.TabControl()
         Me.TbPgGlobal = New System.Windows.Forms.TabPage()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.btnOptionsTestVolume = New System.Windows.Forms.Button()
+        Me.TrckBrOptionsVolume = New System.Windows.Forms.TrackBar()
         Me.TbPgNotification = New System.Windows.Forms.TabPage()
         Me.btnNotificationTest = New System.Windows.Forms.Button()
         Me.NmrcUpDwnNotificationOpacity = New System.Windows.Forms.NumericUpDown()
@@ -61,11 +64,10 @@ Partial Class frmOptions
         Me.TbPgReminder = New System.Windows.Forms.TabPage()
         Me.ChckBxReminderTimeCheck = New System.Windows.Forms.CheckBox()
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.TrckBrOptionsVolume = New System.Windows.Forms.TrackBar()
-        Me.btnOptionsTestVolume = New System.Windows.Forms.Button()
         Me.TabCntrlOptions.SuspendLayout()
         Me.TbPgGlobal.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        CType(Me.TrckBrOptionsVolume, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TbPgNotification.SuspendLayout()
         CType(Me.NmrcUpDwnNotificationOpacity, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NmrcUpDwnNotificationTimeOut, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -73,8 +75,6 @@ Partial Class frmOptions
         Me.GroupBox1.SuspendLayout()
         Me.TbPgTimer.SuspendLayout()
         Me.TbPgReminder.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        CType(Me.TrckBrOptionsVolume, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnOptionsClose
@@ -83,7 +83,7 @@ Partial Class frmOptions
         Me.btnOptionsClose.Name = "btnOptionsClose"
         Me.btnOptionsClose.Size = New System.Drawing.Size(75, 23)
         Me.btnOptionsClose.TabIndex = 0
-        Me.btnOptionsClose.Text = "Close"
+        Me.btnOptionsClose.Text = "OK"
         Me.btnOptionsClose.UseVisualStyleBackColor = True
         '
         'btnOptionsFormColour
@@ -190,6 +190,33 @@ Partial Class frmOptions
         Me.TbPgGlobal.Size = New System.Drawing.Size(378, 259)
         Me.TbPgGlobal.TabIndex = 0
         Me.TbPgGlobal.Text = "Global"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.btnOptionsTestVolume)
+        Me.GroupBox2.Controls.Add(Me.TrckBrOptionsVolume)
+        Me.GroupBox2.Location = New System.Drawing.Point(6, 185)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(366, 68)
+        Me.GroupBox2.TabIndex = 8
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Volume"
+        '
+        'btnOptionsTestVolume
+        '
+        Me.btnOptionsTestVolume.Location = New System.Drawing.Point(271, 19)
+        Me.btnOptionsTestVolume.Name = "btnOptionsTestVolume"
+        Me.btnOptionsTestVolume.Size = New System.Drawing.Size(75, 23)
+        Me.btnOptionsTestVolume.TabIndex = 1
+        Me.btnOptionsTestVolume.Text = "Test"
+        Me.btnOptionsTestVolume.UseVisualStyleBackColor = True
+        '
+        'TrckBrOptionsVolume
+        '
+        Me.TrckBrOptionsVolume.Location = New System.Drawing.Point(13, 19)
+        Me.TrckBrOptionsVolume.Name = "TrckBrOptionsVolume"
+        Me.TrckBrOptionsVolume.Size = New System.Drawing.Size(252, 45)
+        Me.TrckBrOptionsVolume.TabIndex = 0
         '
         'TbPgNotification
         '
@@ -469,33 +496,6 @@ Partial Class frmOptions
         Me.btnOptionsCancel.Text = "Cancel"
         Me.btnOptionsCancel.UseVisualStyleBackColor = True
         '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.btnOptionsTestVolume)
-        Me.GroupBox2.Controls.Add(Me.TrckBrOptionsVolume)
-        Me.GroupBox2.Location = New System.Drawing.Point(6, 185)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(366, 68)
-        Me.GroupBox2.TabIndex = 8
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Volume"
-        '
-        'TrckBrOptionsVolume
-        '
-        Me.TrckBrOptionsVolume.Location = New System.Drawing.Point(13, 19)
-        Me.TrckBrOptionsVolume.Name = "TrckBrOptionsVolume"
-        Me.TrckBrOptionsVolume.Size = New System.Drawing.Size(252, 45)
-        Me.TrckBrOptionsVolume.TabIndex = 0
-        '
-        'btnOptionsTestVolume
-        '
-        Me.btnOptionsTestVolume.Location = New System.Drawing.Point(271, 19)
-        Me.btnOptionsTestVolume.Name = "btnOptionsTestVolume"
-        Me.btnOptionsTestVolume.Size = New System.Drawing.Size(75, 23)
-        Me.btnOptionsTestVolume.TabIndex = 1
-        Me.btnOptionsTestVolume.Text = "Test"
-        Me.btnOptionsTestVolume.UseVisualStyleBackColor = True
-        '
         'frmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -512,6 +512,9 @@ Partial Class frmOptions
         Me.TabCntrlOptions.ResumeLayout(False)
         Me.TbPgGlobal.ResumeLayout(False)
         Me.TbPgGlobal.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        CType(Me.TrckBrOptionsVolume, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TbPgNotification.ResumeLayout(False)
         Me.TbPgNotification.PerformLayout()
         CType(Me.NmrcUpDwnNotificationOpacity, System.ComponentModel.ISupportInitialize).EndInit()
@@ -524,9 +527,6 @@ Partial Class frmOptions
         Me.TbPgTimer.PerformLayout()
         Me.TbPgReminder.ResumeLayout(False)
         Me.TbPgReminder.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
-        CType(Me.TrckBrOptionsVolume, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

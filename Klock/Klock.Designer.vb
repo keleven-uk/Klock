@@ -190,22 +190,22 @@ Partial Class frmKlock
         '
         Me.MnItmFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmExit, Me.MnItmOptions})
         Me.MnItmFile.Name = "MnItmFile"
-        Me.MnItmFile.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.F), System.Windows.Forms.Keys)
+        Me.MnItmFile.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.F), System.Windows.Forms.Keys)
         Me.MnItmFile.Size = New System.Drawing.Size(37, 20)
-        Me.MnItmFile.Text = "File"
+        Me.MnItmFile.Text = "&File"
         '
         'MnItmExit
         '
         Me.MnItmExit.Name = "MnItmExit"
-        Me.MnItmExit.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.MnItmExit.Size = New System.Drawing.Size(155, 22)
+        Me.MnItmExit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
+        Me.MnItmExit.Size = New System.Drawing.Size(159, 22)
         Me.MnItmExit.Text = "E&xit"
         '
         'MnItmOptions
         '
         Me.MnItmOptions.Name = "MnItmOptions"
-        Me.MnItmOptions.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.O), System.Windows.Forms.Keys)
-        Me.MnItmOptions.Size = New System.Drawing.Size(155, 22)
+        Me.MnItmOptions.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.O), System.Windows.Forms.Keys)
+        Me.MnItmOptions.Size = New System.Drawing.Size(159, 22)
         Me.MnItmOptions.Text = "&Options"
         '
         'MnItmHelp
@@ -219,22 +219,22 @@ Partial Class frmKlock
         'MnItmSubHelp
         '
         Me.MnItmSubHelp.Name = "MnItmSubHelp"
-        Me.MnItmSubHelp.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
-        Me.MnItmSubHelp.Size = New System.Drawing.Size(149, 22)
+        Me.MnItmSubHelp.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
+        Me.MnItmSubHelp.Size = New System.Drawing.Size(153, 22)
         Me.MnItmSubHelp.Text = "Hel&p"
         '
         'MnItmLicense
         '
         Me.MnItmLicense.Name = "MnItmLicense"
-        Me.MnItmLicense.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.L), System.Windows.Forms.Keys)
-        Me.MnItmLicense.Size = New System.Drawing.Size(149, 22)
+        Me.MnItmLicense.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.L), System.Windows.Forms.Keys)
+        Me.MnItmLicense.Size = New System.Drawing.Size(153, 22)
         Me.MnItmLicense.Text = "&License"
         '
         'MnItmAbout
         '
         Me.MnItmAbout.Name = "MnItmAbout"
-        Me.MnItmAbout.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.A), System.Windows.Forms.Keys)
-        Me.MnItmAbout.Size = New System.Drawing.Size(149, 22)
+        Me.MnItmAbout.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.A), System.Windows.Forms.Keys)
+        Me.MnItmAbout.Size = New System.Drawing.Size(153, 22)
         Me.MnItmAbout.Text = "&About"
         '
         'TbCntrl

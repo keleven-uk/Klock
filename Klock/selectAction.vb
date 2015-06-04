@@ -62,7 +62,7 @@
                 frmKlock.Text = " Klock is Shutting Down PC"
                 p.Arguments = "-s " & "-t 10 " & "-c ""Shutting Down PC in 10 Seconds"""
             Case SystemTypes.Restart
-                frmKlock.Text = " Klock is Restsrting PC"
+                frmKlock.Text = " Klock is Restarting PC"
                 p.Arguments = "-r " & "-t 10 " & "-c ""Restarting Down PC in 10 Seconds"""
             Case SystemTypes.GUI
                 frmKlock.Text = " Klock is Displaying GUI Interface"
