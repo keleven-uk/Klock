@@ -72,10 +72,8 @@ Public Class UserSettings
     Private _usrThirdEventNotificationbackColour As Color = Color.Red
     Private _usrEventNotificationOpacity As Integer = 80
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
-    Private _usrFriendsDirectory As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock")
     Private _usrFriendsFile As String = "Friends.bin"
     '-------------------------------------------------------------------------------------------------------- Events Settings ------------
-    Private _usrEventsDirectory As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock")
     Private _usrEventsFile As String = "Events.bin"
     Private _usrEventsFirstReminder As Integer = 31
     Private _usrEventsSecondReminder As Integer = 7
@@ -483,15 +481,6 @@ Public Class UserSettings
 
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
-    Public Property usrFriendsDirectory() As String
-        Get
-            Return _usrFriendsDirectory
-        End Get
-        Set(ByVal value As String)
-            _usrFriendsDirectory = value
-        End Set
-    End Property
-
     Public Property usrFriendsFile() As String
         Get
             Return _usrFriendsFile
@@ -502,15 +491,6 @@ Public Class UserSettings
     End Property
 
     '-------------------------------------------------------------------------------------------------------- Events Settings ------------
-
-    Public Property usrEventsDirectory() As String
-        Get
-            Return _usrEventsDirectory
-        End Get
-        Set(ByVal value As String)
-            _usrEventsDirectory = value
-        End Set
-    End Property
 
     Public Property usrEventsFile() As String
         Get
@@ -674,11 +654,9 @@ Public Class UserSettings
                                   <EventNotificationOpacity><%= usrEventNotificationOpacity() %></EventNotificationOpacity>
                               </Notification>
                               <Friends>
-                                  <FriendsDirectory><%= usrFriendsDirectory() %></FriendsDirectory>
                                   <FriendsFileName><%= usrFriendsFile() %></FriendsFileName>
                               </Friends>
                               <Events>
-                                  <EventsDirectory><%= usrEventsDirectory() %></EventsDirectory>
                                   <EventsFileName><%= usrEventsFile() %></EventsFileName>
                                   <EventsFirstReminder><%= usrEventsFirstReminder() %></EventsFirstReminder>
                                   <EventsSecondReminder><%= usrEventsSecondReminder() %></EventsSecondReminder>
@@ -698,9 +676,9 @@ Public Class UserSettings
         Dim xmlSettings = <klock Version=<%= My.Application.Info.Version.ToString() %>>
                               <Global>
                                   <FormColour>
-                                      <FormColourR>240</FormColourR>
-                                      <FormColourG>240</FormColourG>
-                                      <FormColourB>240</FormColourB>
+                                      <FormColourR>224</FormColourR>
+                                      <FormColourG>223</FormColourG>
+                                      <FormColourB>227</FormColourB>
                                       <FormColourA>255</FormColourA>
                                   </FormColour>
                                   <FormFont>
@@ -831,6 +809,8 @@ Public Class UserSettings
         Dim size As Single
         Dim style As FontStyle
         Dim version As String
+
+        Me.checkDataFile()
 
         Try
             Dim elem As XElement = XElement.Load(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
@@ -976,14 +956,12 @@ Public Class UserSettings
             '   values are strings, so need to convert.
 
             Dim frnds = elem.Element("Friends")
-            Me.usrFriendsDirectory = readElement(frnds, "FriendsDirectory", usrFriendsDirectory())
             Me.usrFriendsFile = readElement(frnds, "FriendsFileName", usrFriendsFile())
 
             '-------------------------------------------------------------------------------------------------------- Events Settings ------------
             '   values are strings, so need to convert.
 
             Dim evnts = elem.Element("Events")
-            Me.usrEventsDirectory = readElement(evnts, "EventsDirectory", usrEventsDirectory())
             Me.usrEventsFile = readElement(evnts, "EventsFileName", usrEventsFile())
 
             Me.usrEventsFirstReminder = CType(readElement(evnts, "EventsFirstReminder", usrEventsFirstReminder()), Integer)

@@ -1,8 +1,6 @@
 ﻿Imports Klock.frmOptions
-Imports System
 Imports System.IO
 Imports System.Globalization
-Imports Microsoft.VisualBasic
 Imports System.Runtime.Serialization.Formatters.Binary
 
 
@@ -1446,9 +1444,9 @@ Public Class frmKlock
         '   Save friends to file in data directory.
         '   Creates a list of all entries in the listview box and then writes this list to a binary file.
 
-        checkFriendsDirectory()        '   Check for data directory first, will be created if not there.
+        checkDataDirectory()        '   Check for data directory first, will be created if not there.
 
-        Dim saveFile As FileStream = File.Create(System.IO.Path.Combine(Me.usrSettings.usrFriendsDirectory, Me.usrSettings.usrFriendsFile))
+        Dim saveFile As FileStream = File.Create(System.IO.Path.Combine(Me.usrSettings.usrOptionsSavePath, Me.usrSettings.usrFriendsFile))
 
         saveFile.Seek(0, SeekOrigin.End)
 
@@ -1481,7 +1479,7 @@ Public Class frmKlock
         Dim readFile As FileStream
 
         Try
-            readFile = File.OpenRead(System.IO.Path.Combine(Me.usrSettings.usrFriendsDirectory, Me.usrSettings.usrFriendsFile))
+            readFile = File.OpenRead(System.IO.Path.Combine(Me.usrSettings.usrOptionsSavePath, Me.usrSettings.usrFriendsFile))
             readFile.Seek(0, SeekOrigin.Begin)
         Catch ex As Exception                   '   not there, go away.
             Me.displayAction.DisplayReminder("Friends", "No Friends file found - will create if needed.")
@@ -1544,16 +1542,16 @@ Public Class frmKlock
         End If
     End Sub
 
-    Private Sub checkFriendsDirectory()
+    Private Sub checkDataDirectory()
         '   Check for data directory, which can be user selected [i.e. might not be application starting directory].  if doesn't exist, create it.
 
-        Dim FriendsDirectory As String = Me.usrsettings.usrFriendsDirectory
+        Dim FriendsDirectory As String = Me.usrSettings.usrOptionsSavePath
 
         If Not My.Computer.FileSystem.DirectoryExists(FriendsDirectory) Then
-            Me.displayAction.DisplayReminder("Friends", "Creating " & FriendsDirectory)
+            Me.displayAction.DisplayReminder("Data", "Creating " & FriendsDirectory)
             My.Computer.FileSystem.CreateDirectory(FriendsDirectory)
         Else
-            Me.displayAction.DisplayReminder("Friends", "Using " & FriendsDirectory)
+            Me.displayAction.DisplayReminder("Data", "Using " & FriendsDirectory)
         End If
     End Sub
 
@@ -1801,9 +1799,9 @@ Public Class frmKlock
         '   Save Events to file in data directory.
         '   Creates a list of all entries in the listview box and then writes this list to a binary file.
 
-        checkEventsDirectory()        '   Check for data directory first, will be created if not there.
+        checkDataDirectory()        '   Check for data directory first, will be created if not there.
 
-        Dim saveFile As FileStream = File.Create(System.IO.Path.Combine(Me.usrSettings.usrEventsDirectory, Me.usrSettings.usrEventsFile))
+        Dim saveFile As FileStream = File.Create(System.IO.Path.Combine(Me.usrSettings.usrOptionsSavePath, Me.usrSettings.usrEventsFile))
 
         saveFile.Seek(0, SeekOrigin.End)
 
@@ -1836,7 +1834,7 @@ Public Class frmKlock
         Dim readFile As FileStream
 
         Try
-            readFile = File.OpenRead(System.IO.Path.Combine(Me.usrSettings.usrEventsDirectory, Me.usrSettings.usrEventsFile))
+            readFile = File.OpenRead(System.IO.Path.Combine(Me.usrSettings.usrOptionsSavePath, Me.usrSettings.usrEventsFile))
             readFile.Seek(0, SeekOrigin.Begin)
         Catch ex As Exception                   '   not there, go away.
             Me.displayAction.DisplayReminder("Events", "No Events file found - will create if needed.")
@@ -1878,19 +1876,6 @@ Public Class frmKlock
         '   A new entry has been selected in the listview box, display new entry.
 
         Me.showEvents(Me.LstBxEvents.SelectedIndex)
-    End Sub
-
-    Private Sub checkEventsDirectory()
-        '   Check for data directory, which can be user selected [i.e. might not be application starting directory].  if doesn't exist, create it.
-
-        Dim EventsDirectory As String = Me.usrSettings.usrEventsDirectory
-
-        If Not My.Computer.FileSystem.DirectoryExists(EventsDirectory) Then
-            Me.displayAction.DisplayReminder("Events", "Creating " & EventsDirectory)
-            My.Computer.FileSystem.CreateDirectory(EventsDirectory)
-        Else
-            Me.displayAction.DisplayReminder("Events", "Using " & EventsDirectory)
-        End If
     End Sub
 
     Private Sub checkEvents()

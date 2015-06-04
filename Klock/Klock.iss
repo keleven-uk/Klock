@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Klock"
-#define MyAppVersion "1.0.3.33"
+#define MyAppVersion "1.0.3.34"
 #define MyAppPublisher "keleven"
 #define MyAppURL "www.keleven.co.uk"
 #define MyAppExeName "Klock.exe"
@@ -28,7 +28,7 @@ DefaultGroupName={#MyAppName}
 ;LicenseFile=License.txt
 InfoAfterFile=Help.txt
 OutputDir=C:\My\shed\projects\VB
-OutputBaseFilename=Klock_33
+OutputBaseFilename=Klock_34
 SetupIconFile=Klock.ico
 Compression=lzma
 SolidCompression=yes
@@ -51,9 +51,7 @@ Name: all; Description: Klock Program + source; Types: full
 
 [Files]
 Source: "bin\Release\Klock.exe"             ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
-Source: "bin\Release\Ionic.Zip.Reduced.dll" ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 Source: "bin\Release\Sounds\*"              ; DestDir: "{app}\Sounds"; Components : exe; Flags: ignoreversion
-Source: "Ionic_License.txt"                 ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 Source: "klock.chm"                         ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 Source: "License.txt"                       ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 Source: "History.txt"                       ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion

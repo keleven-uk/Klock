@@ -49,17 +49,12 @@ Partial Class frmOptions
         Me.TrckBrOptionsVolume = New System.Windows.Forms.TrackBar()
         Me.TbPgNotification = New System.Windows.Forms.TabPage()
         Me.GroupBox15 = New System.Windows.Forms.GroupBox()
-        Me.btnThirdEventNotificationColour = New System.Windows.Forms.Button()
-        Me.btnSecondEventNotificationColour = New System.Windows.Forms.Button()
-        Me.btnFirstEventNotificationColour = New System.Windows.Forms.Button()
-        Me.Label23 = New System.Windows.Forms.Label()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.Label21 = New System.Windows.Forms.Label()
         Me.NmrcUpDwnEventNotificationOpacity = New System.Windows.Forms.NumericUpDown()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.btnEventNotificationFont = New System.Windows.Forms.Button()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.PctrBxNotification = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnNotificationTest = New System.Windows.Forms.Button()
         Me.btnNotificationColour = New System.Windows.Forms.Button()
@@ -99,21 +94,19 @@ Partial Class frmOptions
         Me.ChckBxCountdownAdd = New System.Windows.Forms.CheckBox()
         Me.GroupBox12 = New System.Windows.Forms.GroupBox()
         Me.ChckBxWorldKlockAdd = New System.Windows.Forms.CheckBox()
-        Me.TbPgFriends = New System.Windows.Forms.TabPage()
+        Me.TbPgArchive = New System.Windows.Forms.TabPage()
         Me.GroupBox11 = New System.Windows.Forms.GroupBox()
         Me.TxtBxArchiveFile = New System.Windows.Forms.TextBox()
         Me.TxtBxArchiveDirectory = New System.Windows.Forms.TextBox()
         Me.btnArchiveFile = New System.Windows.Forms.Button()
         Me.btnArchiveDirectory = New System.Windows.Forms.Button()
         Me.GroupBox10 = New System.Windows.Forms.GroupBox()
+        Me.label18 = New System.Windows.Forms.Label()
         Me.btnOptionsEventsFile = New System.Windows.Forms.Button()
-        Me.btnOptionsEventsDirectory = New System.Windows.Forms.Button()
         Me.TxtBxOptionsEventsFile = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.TxtBxOptionsEventsDirectory = New System.Windows.Forms.TextBox()
-        Me.lblOptionsSettingsDirectory = New System.Windows.Forms.Label()
         Me.lblOptionsSettingsFile = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btnOptionsPathReset = New System.Windows.Forms.Button()
@@ -141,9 +134,12 @@ Partial Class frmOptions
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.PctrBxFirstEvent = New System.Windows.Forms.PictureBox()
+        Me.btnFirstEventNotificationColour = New System.Windows.Forms.Button()
         Me.PctrBxSecondEvent = New System.Windows.Forms.PictureBox()
+        Me.btnSecondEventNotificationColour = New System.Windows.Forms.Button()
         Me.PctrBxThirdEvent = New System.Windows.Forms.PictureBox()
-        Me.PctrBxNotification = New System.Windows.Forms.PictureBox()
+        Me.btnThirdEventNotificationColour = New System.Windows.Forms.Button()
+        Me.btnEventNotificationTest = New System.Windows.Forms.Button()
         Me.TabCntrlOptions.SuspendLayout()
         Me.TbPgGlobal.SuspendLayout()
         Me.GroupBox13.SuspendLayout()
@@ -155,6 +151,7 @@ Partial Class frmOptions
         Me.GroupBox15.SuspendLayout()
         CType(Me.NmrcUpDwnEventNotificationOpacity, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
+        CType(Me.PctrBxNotification, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NmrcUpDwnNotificationOpacity, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NmrcUpDwnNotificationTimeOut, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TbPgTime.SuspendLayout()
@@ -167,7 +164,7 @@ Partial Class frmOptions
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
         Me.GroupBox12.SuspendLayout()
-        Me.TbPgFriends.SuspendLayout()
+        Me.TbPgArchive.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.GroupBox10.SuspendLayout()
         Me.TbPgEvents.SuspendLayout()
@@ -179,7 +176,6 @@ Partial Class frmOptions
         CType(Me.PctrBxFirstEvent, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PctrBxSecondEvent, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PctrBxThirdEvent, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PctrBxNotification, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnOptionsClose
@@ -272,7 +268,7 @@ Partial Class frmOptions
         Me.TabCntrlOptions.Controls.Add(Me.TbPgNotification)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgTime)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgOtherStuff)
-        Me.TabCntrlOptions.Controls.Add(Me.TbPgFriends)
+        Me.TabCntrlOptions.Controls.Add(Me.TbPgArchive)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgEvents)
         Me.TabCntrlOptions.Location = New System.Drawing.Point(12, 12)
         Me.TabCntrlOptions.Multiline = True
@@ -435,15 +431,7 @@ Partial Class frmOptions
         '
         'GroupBox15
         '
-        Me.GroupBox15.Controls.Add(Me.PctrBxThirdEvent)
-        Me.GroupBox15.Controls.Add(Me.PctrBxSecondEvent)
-        Me.GroupBox15.Controls.Add(Me.PctrBxFirstEvent)
-        Me.GroupBox15.Controls.Add(Me.btnThirdEventNotificationColour)
-        Me.GroupBox15.Controls.Add(Me.btnSecondEventNotificationColour)
-        Me.GroupBox15.Controls.Add(Me.btnFirstEventNotificationColour)
-        Me.GroupBox15.Controls.Add(Me.Label23)
-        Me.GroupBox15.Controls.Add(Me.Label22)
-        Me.GroupBox15.Controls.Add(Me.Label21)
+        Me.GroupBox15.Controls.Add(Me.btnEventNotificationTest)
         Me.GroupBox15.Controls.Add(Me.NmrcUpDwnEventNotificationOpacity)
         Me.GroupBox15.Controls.Add(Me.Label20)
         Me.GroupBox15.Controls.Add(Me.btnEventNotificationFont)
@@ -454,60 +442,6 @@ Partial Class frmOptions
         Me.GroupBox15.TabIndex = 10
         Me.GroupBox15.TabStop = False
         Me.GroupBox15.Text = "Event Notification Appearance"
-        '
-        'btnThirdEventNotificationColour
-        '
-        Me.btnThirdEventNotificationColour.Location = New System.Drawing.Point(144, 215)
-        Me.btnThirdEventNotificationColour.Name = "btnThirdEventNotificationColour"
-        Me.btnThirdEventNotificationColour.Size = New System.Drawing.Size(50, 23)
-        Me.btnThirdEventNotificationColour.TabIndex = 11
-        Me.btnThirdEventNotificationColour.Text = ",,,"
-        Me.btnThirdEventNotificationColour.UseVisualStyleBackColor = True
-        '
-        'btnSecondEventNotificationColour
-        '
-        Me.btnSecondEventNotificationColour.Location = New System.Drawing.Point(144, 186)
-        Me.btnSecondEventNotificationColour.Name = "btnSecondEventNotificationColour"
-        Me.btnSecondEventNotificationColour.Size = New System.Drawing.Size(50, 23)
-        Me.btnSecondEventNotificationColour.TabIndex = 10
-        Me.btnSecondEventNotificationColour.Text = ",,,"
-        Me.btnSecondEventNotificationColour.UseVisualStyleBackColor = True
-        '
-        'btnFirstEventNotificationColour
-        '
-        Me.btnFirstEventNotificationColour.Location = New System.Drawing.Point(144, 157)
-        Me.btnFirstEventNotificationColour.Name = "btnFirstEventNotificationColour"
-        Me.btnFirstEventNotificationColour.Size = New System.Drawing.Size(50, 23)
-        Me.btnFirstEventNotificationColour.TabIndex = 9
-        Me.btnFirstEventNotificationColour.Text = ",,,"
-        Me.btnFirstEventNotificationColour.UseVisualStyleBackColor = True
-        '
-        'Label23
-        '
-        Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(17, 221)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(112, 13)
-        Me.Label23.TabIndex = 8
-        Me.Label23.Text = "Third Reminder Colour"
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(17, 191)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(125, 13)
-        Me.Label22.TabIndex = 7
-        Me.Label22.Text = "Second Reminder Colour"
-        '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(17, 162)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(107, 13)
-        Me.Label21.TabIndex = 6
-        Me.Label21.Text = "First Reminder Colour"
         '
         'NmrcUpDwnEventNotificationOpacity
         '
@@ -562,7 +496,15 @@ Partial Class frmOptions
         Me.GroupBox6.Size = New System.Drawing.Size(320, 253)
         Me.GroupBox6.TabIndex = 9
         Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "General nitification Appearance"
+        Me.GroupBox6.Text = "General Notification Appearance"
+        '
+        'PctrBxNotification
+        '
+        Me.PctrBxNotification.Location = New System.Drawing.Point(215, 19)
+        Me.PctrBxNotification.Name = "PctrBxNotification"
+        Me.PctrBxNotification.Size = New System.Drawing.Size(50, 23)
+        Me.PctrBxNotification.TabIndex = 9
+        Me.PctrBxNotification.TabStop = False
         '
         'Label1
         '
@@ -980,17 +922,17 @@ Partial Class frmOptions
         Me.ChckBxWorldKlockAdd.Text = "Add World Klock to Notification and Title"
         Me.ChckBxWorldKlockAdd.UseVisualStyleBackColor = True
         '
-        'TbPgFriends
+        'TbPgArchive
         '
-        Me.TbPgFriends.BackColor = System.Drawing.SystemColors.Control
-        Me.TbPgFriends.Controls.Add(Me.GroupBox11)
-        Me.TbPgFriends.Controls.Add(Me.GroupBox10)
-        Me.TbPgFriends.Location = New System.Drawing.Point(4, 25)
-        Me.TbPgFriends.Name = "TbPgFriends"
-        Me.TbPgFriends.Padding = New System.Windows.Forms.Padding(3)
-        Me.TbPgFriends.Size = New System.Drawing.Size(660, 265)
-        Me.TbPgFriends.TabIndex = 6
-        Me.TbPgFriends.Text = "archive"
+        Me.TbPgArchive.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgArchive.Controls.Add(Me.GroupBox11)
+        Me.TbPgArchive.Controls.Add(Me.GroupBox10)
+        Me.TbPgArchive.Location = New System.Drawing.Point(4, 25)
+        Me.TbPgArchive.Name = "TbPgArchive"
+        Me.TbPgArchive.Padding = New System.Windows.Forms.Padding(3)
+        Me.TbPgArchive.Size = New System.Drawing.Size(660, 265)
+        Me.TbPgArchive.TabIndex = 6
+        Me.TbPgArchive.Text = "Archive"
         '
         'GroupBox11
         '
@@ -1041,14 +983,12 @@ Partial Class frmOptions
         '
         'GroupBox10
         '
+        Me.GroupBox10.Controls.Add(Me.label18)
         Me.GroupBox10.Controls.Add(Me.btnOptionsEventsFile)
-        Me.GroupBox10.Controls.Add(Me.btnOptionsEventsDirectory)
         Me.GroupBox10.Controls.Add(Me.TxtBxOptionsEventsFile)
         Me.GroupBox10.Controls.Add(Me.Label13)
         Me.GroupBox10.Controls.Add(Me.Label12)
         Me.GroupBox10.Controls.Add(Me.Label11)
-        Me.GroupBox10.Controls.Add(Me.TxtBxOptionsEventsDirectory)
-        Me.GroupBox10.Controls.Add(Me.lblOptionsSettingsDirectory)
         Me.GroupBox10.Controls.Add(Me.lblOptionsSettingsFile)
         Me.GroupBox10.Controls.Add(Me.Label7)
         Me.GroupBox10.Controls.Add(Me.btnOptionsPathReset)
@@ -1063,6 +1003,15 @@ Partial Class frmOptions
         Me.GroupBox10.TabStop = False
         Me.GroupBox10.Text = "Data Files"
         '
+        'label18
+        '
+        Me.label18.AutoSize = True
+        Me.label18.Location = New System.Drawing.Point(6, 16)
+        Me.label18.Name = "label18"
+        Me.label18.Size = New System.Drawing.Size(75, 13)
+        Me.label18.TabIndex = 15
+        Me.label18.Text = "Data Directory"
+        '
         'btnOptionsEventsFile
         '
         Me.btnOptionsEventsFile.Location = New System.Drawing.Point(557, 78)
@@ -1071,15 +1020,6 @@ Partial Class frmOptions
         Me.btnOptionsEventsFile.TabIndex = 14
         Me.btnOptionsEventsFile.Text = "..."
         Me.btnOptionsEventsFile.UseVisualStyleBackColor = True
-        '
-        'btnOptionsEventsDirectory
-        '
-        Me.btnOptionsEventsDirectory.Location = New System.Drawing.Point(353, 75)
-        Me.btnOptionsEventsDirectory.Name = "btnOptionsEventsDirectory"
-        Me.btnOptionsEventsDirectory.Size = New System.Drawing.Size(75, 23)
-        Me.btnOptionsEventsDirectory.TabIndex = 13
-        Me.btnOptionsEventsDirectory.Text = "..."
-        Me.btnOptionsEventsDirectory.UseVisualStyleBackColor = True
         '
         'TxtBxOptionsEventsFile
         '
@@ -1092,7 +1032,7 @@ Partial Class frmOptions
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(6, 104)
+        Me.Label13.Location = New System.Drawing.Point(431, 107)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(64, 13)
         Me.Label13.TabIndex = 11
@@ -1101,7 +1041,7 @@ Partial Class frmOptions
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(6, 62)
+        Me.Label12.Location = New System.Drawing.Point(431, 62)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(59, 13)
         Me.Label12.TabIndex = 10
@@ -1110,28 +1050,11 @@ Partial Class frmOptions
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(6, 20)
+        Me.Label11.Location = New System.Drawing.Point(431, 16)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(60, 13)
         Me.Label11.TabIndex = 9
         Me.Label11.Text = "Friends File"
-        '
-        'TxtBxOptionsEventsDirectory
-        '
-        Me.TxtBxOptionsEventsDirectory.Location = New System.Drawing.Point(6, 78)
-        Me.TxtBxOptionsEventsDirectory.Name = "TxtBxOptionsEventsDirectory"
-        Me.TxtBxOptionsEventsDirectory.ReadOnly = True
-        Me.TxtBxOptionsEventsDirectory.Size = New System.Drawing.Size(341, 20)
-        Me.TxtBxOptionsEventsDirectory.TabIndex = 8
-        '
-        'lblOptionsSettingsDirectory
-        '
-        Me.lblOptionsSettingsDirectory.AutoSize = True
-        Me.lblOptionsSettingsDirectory.Location = New System.Drawing.Point(6, 126)
-        Me.lblOptionsSettingsDirectory.Name = "lblOptionsSettingsDirectory"
-        Me.lblOptionsSettingsDirectory.Size = New System.Drawing.Size(129, 13)
-        Me.lblOptionsSettingsDirectory.TabIndex = 7
-        Me.lblOptionsSettingsDirectory.Text = "Options Settings Directory"
         '
         'lblOptionsSettingsFile
         '
@@ -1206,6 +1129,12 @@ Partial Class frmOptions
         '
         'GroupBox14
         '
+        Me.GroupBox14.Controls.Add(Me.PctrBxThirdEvent)
+        Me.GroupBox14.Controls.Add(Me.btnThirdEventNotificationColour)
+        Me.GroupBox14.Controls.Add(Me.PctrBxSecondEvent)
+        Me.GroupBox14.Controls.Add(Me.btnSecondEventNotificationColour)
+        Me.GroupBox14.Controls.Add(Me.PctrBxFirstEvent)
+        Me.GroupBox14.Controls.Add(Me.btnFirstEventNotificationColour)
         Me.GroupBox14.Controls.Add(Me.Label17)
         Me.GroupBox14.Controls.Add(Me.Label16)
         Me.GroupBox14.Controls.Add(Me.Label15)
@@ -1365,35 +1294,63 @@ Partial Class frmOptions
         '
         'PctrBxFirstEvent
         '
-        Me.PctrBxFirstEvent.Location = New System.Drawing.Point(233, 157)
+        Me.PctrBxFirstEvent.Location = New System.Drawing.Point(592, 33)
         Me.PctrBxFirstEvent.Name = "PctrBxFirstEvent"
         Me.PctrBxFirstEvent.Size = New System.Drawing.Size(50, 23)
-        Me.PctrBxFirstEvent.TabIndex = 12
+        Me.PctrBxFirstEvent.TabIndex = 15
         Me.PctrBxFirstEvent.TabStop = False
+        '
+        'btnFirstEventNotificationColour
+        '
+        Me.btnFirstEventNotificationColour.Location = New System.Drawing.Point(503, 33)
+        Me.btnFirstEventNotificationColour.Name = "btnFirstEventNotificationColour"
+        Me.btnFirstEventNotificationColour.Size = New System.Drawing.Size(50, 23)
+        Me.btnFirstEventNotificationColour.TabIndex = 14
+        Me.btnFirstEventNotificationColour.Text = ",,,"
+        Me.btnFirstEventNotificationColour.UseVisualStyleBackColor = True
         '
         'PctrBxSecondEvent
         '
-        Me.PctrBxSecondEvent.Location = New System.Drawing.Point(233, 186)
+        Me.PctrBxSecondEvent.Location = New System.Drawing.Point(592, 59)
         Me.PctrBxSecondEvent.Name = "PctrBxSecondEvent"
         Me.PctrBxSecondEvent.Size = New System.Drawing.Size(50, 23)
-        Me.PctrBxSecondEvent.TabIndex = 13
+        Me.PctrBxSecondEvent.TabIndex = 18
         Me.PctrBxSecondEvent.TabStop = False
+        '
+        'btnSecondEventNotificationColour
+        '
+        Me.btnSecondEventNotificationColour.Location = New System.Drawing.Point(503, 59)
+        Me.btnSecondEventNotificationColour.Name = "btnSecondEventNotificationColour"
+        Me.btnSecondEventNotificationColour.Size = New System.Drawing.Size(50, 23)
+        Me.btnSecondEventNotificationColour.TabIndex = 17
+        Me.btnSecondEventNotificationColour.Text = ",,,"
+        Me.btnSecondEventNotificationColour.UseVisualStyleBackColor = True
         '
         'PctrBxThirdEvent
         '
-        Me.PctrBxThirdEvent.Location = New System.Drawing.Point(233, 215)
+        Me.PctrBxThirdEvent.Location = New System.Drawing.Point(592, 85)
         Me.PctrBxThirdEvent.Name = "PctrBxThirdEvent"
         Me.PctrBxThirdEvent.Size = New System.Drawing.Size(50, 23)
-        Me.PctrBxThirdEvent.TabIndex = 14
+        Me.PctrBxThirdEvent.TabIndex = 21
         Me.PctrBxThirdEvent.TabStop = False
         '
-        'PctrBxNotification
+        'btnThirdEventNotificationColour
         '
-        Me.PctrBxNotification.Location = New System.Drawing.Point(215, 19)
-        Me.PctrBxNotification.Name = "PctrBxNotification"
-        Me.PctrBxNotification.Size = New System.Drawing.Size(50, 23)
-        Me.PctrBxNotification.TabIndex = 9
-        Me.PctrBxNotification.TabStop = False
+        Me.btnThirdEventNotificationColour.Location = New System.Drawing.Point(503, 85)
+        Me.btnThirdEventNotificationColour.Name = "btnThirdEventNotificationColour"
+        Me.btnThirdEventNotificationColour.Size = New System.Drawing.Size(50, 23)
+        Me.btnThirdEventNotificationColour.TabIndex = 20
+        Me.btnThirdEventNotificationColour.Text = ",,,"
+        Me.btnThirdEventNotificationColour.UseVisualStyleBackColor = True
+        '
+        'btnEventNotificationTest
+        '
+        Me.btnEventNotificationTest.Location = New System.Drawing.Point(144, 172)
+        Me.btnEventNotificationTest.Name = "btnEventNotificationTest"
+        Me.btnEventNotificationTest.Size = New System.Drawing.Size(50, 23)
+        Me.btnEventNotificationTest.TabIndex = 6
+        Me.btnEventNotificationTest.Text = "Test"
+        Me.btnEventNotificationTest.UseVisualStyleBackColor = True
         '
         'frmOptions
         '
@@ -1429,6 +1386,7 @@ Partial Class frmOptions
         CType(Me.NmrcUpDwnEventNotificationOpacity, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
+        CType(Me.PctrBxNotification, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NmrcUpDwnNotificationOpacity, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NmrcUpDwnNotificationTimeOut, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TbPgTime.ResumeLayout(False)
@@ -1447,7 +1405,7 @@ Partial Class frmOptions
         Me.GroupBox9.PerformLayout()
         Me.GroupBox12.ResumeLayout(False)
         Me.GroupBox12.PerformLayout()
-        Me.TbPgFriends.ResumeLayout(False)
+        Me.TbPgArchive.ResumeLayout(False)
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
         Me.GroupBox10.ResumeLayout(False)
@@ -1462,7 +1420,6 @@ Partial Class frmOptions
         CType(Me.PctrBxFirstEvent, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PctrBxSecondEvent, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PctrBxThirdEvent, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PctrBxNotification, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1510,7 +1467,7 @@ Partial Class frmOptions
     Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox8 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox7 As System.Windows.Forms.GroupBox
-    Friend WithEvents TbPgFriends As System.Windows.Forms.TabPage
+    Friend WithEvents TbPgArchive As System.Windows.Forms.TabPage
     Friend WithEvents GroupBox10 As System.Windows.Forms.GroupBox
     Friend WithEvents btnOptionsFriendsFile As System.Windows.Forms.Button
     Friend WithEvents TxtBxOptionsFriendsFile As System.Windows.Forms.TextBox
@@ -1543,7 +1500,6 @@ Partial Class frmOptions
     Friend WithEvents GroupBox13 As System.Windows.Forms.GroupBox
     Friend WithEvents btnSettingsReset As System.Windows.Forms.Button
     Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents lblOptionsSettingsDirectory As System.Windows.Forms.Label
     Friend WithEvents lblOptionsSettingsFile As System.Windows.Forms.Label
     Friend WithEvents TxtBxArchiveFile As System.Windows.Forms.TextBox
     Friend WithEvents TxtBxArchiveDirectory As System.Windows.Forms.TextBox
@@ -1552,12 +1508,10 @@ Partial Class frmOptions
     Friend WithEvents btnArchiveLoad As System.Windows.Forms.Button
     Friend WithEvents btnArchiveSave As System.Windows.Forms.Button
     Friend WithEvents btnOptionsEventsFile As System.Windows.Forms.Button
-    Friend WithEvents btnOptionsEventsDirectory As System.Windows.Forms.Button
     Friend WithEvents TxtBxOptionsEventsFile As System.Windows.Forms.TextBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents TxtBxOptionsEventsDirectory As System.Windows.Forms.TextBox
     Friend WithEvents TbPgEvents As System.Windows.Forms.TabPage
     Friend WithEvents GroupBox14 As System.Windows.Forms.GroupBox
     Friend WithEvents lblThirdReminder As System.Windows.Forms.Label
@@ -1573,18 +1527,17 @@ Partial Class frmOptions
     Friend WithEvents lblEventsInterval As System.Windows.Forms.Label
     Friend WithEvents NmrcUpDwnEventsInterval As System.Windows.Forms.NumericUpDown
     Friend WithEvents GroupBox15 As System.Windows.Forms.GroupBox
-    Friend WithEvents btnThirdEventNotificationColour As System.Windows.Forms.Button
-    Friend WithEvents btnSecondEventNotificationColour As System.Windows.Forms.Button
-    Friend WithEvents btnFirstEventNotificationColour As System.Windows.Forms.Button
-    Friend WithEvents Label23 As System.Windows.Forms.Label
-    Friend WithEvents Label22 As System.Windows.Forms.Label
-    Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents NmrcUpDwnEventNotificationOpacity As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents btnEventNotificationFont As System.Windows.Forms.Button
     Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents PctrBxFirstEvent As System.Windows.Forms.PictureBox
-    Friend WithEvents PctrBxThirdEvent As System.Windows.Forms.PictureBox
-    Friend WithEvents PctrBxSecondEvent As System.Windows.Forms.PictureBox
     Friend WithEvents PctrBxNotification As System.Windows.Forms.PictureBox
+    Friend WithEvents label18 As System.Windows.Forms.Label
+    Friend WithEvents PctrBxThirdEvent As System.Windows.Forms.PictureBox
+    Friend WithEvents btnThirdEventNotificationColour As System.Windows.Forms.Button
+    Friend WithEvents PctrBxSecondEvent As System.Windows.Forms.PictureBox
+    Friend WithEvents btnSecondEventNotificationColour As System.Windows.Forms.Button
+    Friend WithEvents PctrBxFirstEvent As System.Windows.Forms.PictureBox
+    Friend WithEvents btnFirstEventNotificationColour As System.Windows.Forms.Button
+    Friend WithEvents btnEventNotificationTest As System.Windows.Forms.Button
 End Class

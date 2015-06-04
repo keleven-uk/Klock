@@ -1,6 +1,4 @@
-﻿Imports System.IO
-Imports System.IO.Compression
-Imports Ionic.Zip
+﻿Imports Shell32
 
 Public Class frmOptions
 
@@ -76,8 +74,8 @@ Public Class frmOptions
 
         Me.LblOptionSavepath.Text = frmKlock.usrSettings.usrOptionsSavePath
 
-        Me.lblOptionsSettingsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
         Me.lblOptionsSettingsFile.Text = frmKlock.usrSettings.usrOptionsSaveFile
+        Me.TxtBxOptionsFriendsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
 
         '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
 
@@ -132,12 +130,6 @@ Public Class frmOptions
         Me.PctrBxThirdEvent.BackColor = frmKlock.usrSettings.usrThirdEventNotificationbackColour
         '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
-        If frmKlock.usrSettings.usrFriendsDirectory = "" Then
-            Me.TxtBxOptionsFriendsDirectory.Text = System.IO.Path.Combine(Application.StartupPath, "Data")
-        Else
-            Me.TxtBxOptionsFriendsDirectory.Text = frmKlock.usrSettings.usrFriendsDirectory
-        End If
-
         If frmKlock.usrSettings.usrFriendsFile = "" Then
             Me.TxtBxOptionsFriendsFile.Text = "Friends.bin"
         Else
@@ -145,12 +137,6 @@ Public Class frmOptions
         End If
 
         '-------------------------------------------------------------------------------------------------------- Events Settings ------------
-
-        If frmKlock.usrSettings.usrEventsDirectory = "" Then
-            Me.TxtBxOptionsEventsDirectory.Text = System.IO.Path.Combine(Application.StartupPath, "Data")
-        Else
-            Me.TxtBxOptionsEventsDirectory.Text = frmKlock.usrSettings.usrEventsDirectory
-        End If
 
         If frmKlock.usrSettings.usrEventsFile = "" Then
             Me.TxtBxOptionsEventsFile.Text = "Events.bin"
@@ -225,16 +211,14 @@ Public Class frmOptions
 
         '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
-        frmKlock.usrSettings.usrFriendsDirectory = Me.TxtBxOptionsFriendsDirectory.Text
         frmKlock.usrSettings.usrFriendsFile = Me.TxtBxOptionsFriendsFile.Text
 
         '-------------------------------------------------------------------------------------------------------- Events Settings ------------
 
-        frmKlock.usrSettings.usrEventsDirectory = Me.TxtBxOptionsEventsDirectory.Text
         frmKlock.usrSettings.usrEventsFile = Me.TxtBxOptionsEventsFile.Text
 
         frmKlock.usrSettings.usrEventsFirstReminder = Me.NmrcUpDwnFirstReminder.Value
-        frmKlock.usrSettings.usrEventsSecondreminder = Me.NmrcUpDwnSecondReminder.Value
+        frmKlock.usrSettings.usrEventsSecondReminder = Me.NmrcUpDwnSecondReminder.Value
         frmKlock.usrSettings.usrEventsThirdReminder = Me.NmrcUpDwnThirdReminder.Value
         frmKlock.usrSettings.usrEventsTimerInterval = Me.NmrcUpDwnEventsInterval.Value
 
@@ -390,6 +374,12 @@ Public Class frmOptions
         Me.displayAction.DisplayReminder("Notification Test", String.Format(" Opacity = {0}", frmKlock.usrSettings.usrNotificationOpacity))
     End Sub
 
+    Private Sub btnEventNotificationTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventNotificationTest.Click
+        '   Display a test event notification, showing the current event notification opacity.
+
+        Me.displayAction.DisplayEvent("Event Notification Test", String.Format(" Opacity = {0}", frmKlock.usrSettings.usrEventNotificationOpacity))
+    End Sub
+
 
     '-----------------------------------------------------------Event Notification--------------------------------------------------------------
 
@@ -406,7 +396,7 @@ Public Class frmOptions
         End If
     End Sub
 
-    Private Sub btnFirstEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFirstEventNotificationColour.Click
+    Private Sub btnFirstEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         '   Set the First Event Notification main colour.
 
         Me.ClrDlgFormColour.Color = frmKlock.usrSettings.usrFirstEventNotificationbackColour   '   current First Event Notification colour
@@ -416,7 +406,7 @@ Public Class frmOptions
         End If
     End Sub
 
-    Private Sub btnSecondEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSecondEventNotificationColour.Click
+    Private Sub btnSecondEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         '   Set the Second Event Notification main colour.
 
         Me.ClrDlgFormColour.Color = frmKlock.usrSettings.usrSecondEventNotificationbackColour   '   current Second Event Notification colour
@@ -426,7 +416,7 @@ Public Class frmOptions
         End If
     End Sub
 
-    Private Sub btnThirdEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnThirdEventNotificationColour.Click
+    Private Sub btnThirdEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         '   Set the Third Event Notification main colour.
 
         Me.ClrDlgFormColour.Color = frmKlock.usrSettings.usrThirdEventNotificationbackColour   '   current Third Event Notification colour
@@ -469,15 +459,6 @@ Public Class frmOptions
 
     '---------------------------------------------------------- Friends Options  ---------------------------------------------------------------
 
-    Private Sub btnOptionsFriendsDirectory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFriendsDirectory.Click
-        '   Prompt user to the location of the friends file - Default to Application Path \data.
-
-        If Me.FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
-            Me.TxtBxOptionsFriendsDirectory.Text = Me.FolderBrowserDialog1.SelectedPath
-            frmKlock.usrSettings.usrFriendsDirectory = Me.FolderBrowserDialog1.SelectedPath
-        End If
-    End Sub
-
     Private Sub btnOptionsFriendsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFriendsFile.Click
         '   Prompt user for the filename of the friends file - Default to freinds.bin
 
@@ -493,20 +474,11 @@ Public Class frmOptions
 
     '---------------------------------------------------------- Events Options  ---------------------------------------------------------------
 
-    Private Sub btnOptionsEventsDirectory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsEventsDirectory.Click
-        '   Prompt user to the location of the Events file - Default to Application Path \data.
-
-        If Me.FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
-            Me.TxtBxOptionsEventsDirectory.Text = Me.FolderBrowserDialog1.SelectedPath
-            frmKlock.usrSettings.usrEventsDirectory = Me.FolderBrowserDialog1.SelectedPath
-        End If
-    End Sub
-
     Private Sub btnOptionsEventsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsEventsFile.Click
         '   Prompt user for the filename of the Events file - Default to freinds.bin
 
         Me.OpenFileDialog1.Filter = "All Files|*.*"
-        Me.OpenFileDialog1.InitialDirectory = Me.TxtBxOptionsEventsDirectory.Text
+        Me.OpenFileDialog1.InitialDirectory = frmKlock.usrSettings.usrOptionsSavePath
         Me.OpenFileDialog1.FileName = Me.TxtBxOptionsEventsFile.Text
 
         If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
@@ -523,7 +495,6 @@ Public Class frmOptions
         Me.TxtBxOptionsFriendsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
         Me.TxtBxOptionsFriendsFile.Text = "Friends.bin"
 
-        Me.TxtBxOptionsEventsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
         Me.TxtBxOptionsEventsFile.Text = "Events.bin"
     End Sub
 
@@ -570,7 +541,8 @@ Public Class frmOptions
         '   Saves the friends file to Archive [zip].
         '   If the achieve already exists, it will only be overwritten on user prompt.
 
-        Dim zippath As String = System.IO.Path.Combine(Me.TxtBxArchiveDirectory.Text, Me.TxtBxArchiveFile.Text)
+        Dim zippath As String = System.IO.Path.Combine(Me.TxtBxArchiveDirectory.Text, Me.TxtBxArchiveFile.Text) '   path of destination zip file.
+        Dim zipdir As String = frmKlock.usrSettings.usrOptionsSavePath                                          '   path of source directory.
 
         If My.Computer.FileSystem.FileExists(zippath) Then      '   file already exists, prompt user.
             Dim reply As MsgBoxResult
@@ -583,19 +555,30 @@ Public Class frmOptions
             End If
         End If
 
-        Using zip As ZipFile = New ZipFile
+        '1) Lets create an empty Zip File .
+        'The following data represents an empty zip file .
 
-            zip.AddFile(System.IO.Path.Combine(frmKlock.usrSettings.usrFriendsDirectory, frmKlock.usrSettings.usrFriendsFile))
-            zip.AddFile(System.IO.Path.Combine(frmKlock.usrSettings.usrEventsDirectory, frmKlock.usrSettings.usrEventsFile))
-            zip.AddFile(System.IO.Path.Combine(frmKlock.usrSettings.usrOptionsSavePath, frmKlock.usrSettings.usrOptionsSaveFile))
+        Dim startBuffer() As Byte = {80, 75, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+        ' Data for an empty zip file .
+        FileIO.FileSystem.WriteAllBytes(zippath, startBuffer, False)
 
-            Try
-                zip.Save(zippath)                                       '   save Archive
-                Me.displayAction.DisplayReminder("Saving File", "Archive saved Okay. ")
-            Catch ex As Exception
-                Me.displayAction.DisplayReminder("Saving File Error", "Error archieving Friends File. " & ex.Message)
-            End Try
-        End Using
+        'We have successfully made the empty zip file .
+
+        '2) Use the Shell32 to zip your files .
+        ' Declare new shell class
+        Dim sc As New Shell32.Shell()
+        'Declare the folder which contains the files you want to zip .
+        Dim input As Shell32.Folder = sc.NameSpace(zipdir)
+        'Declare  your created empty zip file as folder  .
+        Dim output As Shell32.Folder = sc.NameSpace(zippath)
+        'Copy the files into the empty zip file using the CopyHere command .
+
+        Try
+            output.CopyHere(input.Items, 4)                                     '   save Archive
+            Me.displayAction.DisplayReminder("Saving File", "Archive saved Okay. ")
+        Catch ex As Exception
+            Me.displayAction.DisplayReminder("Saving File Error", "Error archieving Friends File. " & ex.Message)
+        End Try
 
     End Sub
 
@@ -604,45 +587,28 @@ Public Class frmOptions
         '   The file will only be overwritten, if it exists, on user prompt.
         '   If the path does not exist, it will be created.
 
-        Dim zippath As String = System.IO.Path.Combine(Me.TxtBxArchiveDirectory.Text, Me.TxtBxArchiveFile.Text)
-        Dim reply As MsgBoxResult
-        Dim extract As Boolean
+        Dim zippath As String = System.IO.Path.Combine(Me.TxtBxArchiveDirectory.Text, Me.TxtBxArchiveFile.Text) '   path of source sip file.
+        Dim zipdir As String = frmKlock.usrSettings.usrOptionsSavePath                                          '   path of destination directory.
 
-        Using zip As ZipFile = ZipFile.Read(zippath)        '   
+        Dim sc As New Shell32.Shell()
 
-            Dim entry As ZipEntry
+        If Not My.Computer.FileSystem.DirectoryExists(zipdir) Then
+            My.Computer.FileSystem.CreateDirectory(zipdir)
+        End If
 
-            For Each entry In zip                           '   for each file in the zipfile.
+        'Declare the folder where the files will be extracted
+        Dim output As Shell32.Folder = sc.NameSpace(zipdir)
+        'Declare your input zip file as folder  .
+        Dim input As Shell32.Folder = sc.NameSpace(zippath)
+        'Extract the files from the zip file using the CopyHere command .
 
-                extract = True                              '   set to extract initially.
-
-                If My.Computer.FileSystem.FileExists(entry.FileName) Then
-                    reply = MsgBox("This will over write existing data", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
-
-                    If reply = MsgBoxResult.No Then         '   Not to over write, do not extract.
-                        extract = False
-                    End If      '   if reply
-                End If          '   if my.computer
-
-                If extract Then                             '   extract file.
-                    Try                                     '   catch extract error, if any.
-                        entry.Extract(Me.TxtBxOptionsFriendsDirectory.Text)
-                        frmKlock.reloadFriends = True             '   set to re-load friends file.
-                        Me.displayAction.DisplayReminder("Loading File", entry.FileName)
-                    Catch ex As Exception
-                        Me.displayAction.DisplayReminder("Loading File Error", "Error archieving Friends File. " & ex.Message)
-                    End Try
-                End If          '   if extract
-
-            Next                '   for each entry in zip
-
-        End Using
+        Try                                     '   catch extract error, if any.
+            output.CopyHere(input.Items, 4)
+            frmKlock.reloadFriends = True             '   set to re-load friends file.
+        Catch ex As Exception
+            Me.displayAction.DisplayReminder("Loading File Error", "Error archieving Friends File. " & ex.Message)
+        End Try
 
     End Sub
-
-
-
-
-
 
 End Class
