@@ -50,15 +50,20 @@ Public Class frmKlock
         LblTimeTime.Text = displayTime.getTime()                    '   display local time in desired time format.
         TmrMain.Interval = displayTime.getClockTick()
 
-        If Me.NtfyIcnKlock.Visible Then
-            Me.NtfyIcnKlock.Text = displayTime.getTime()
-
-            If TlStrpMnItmTime.Checked And (Now.Second Mod 300) = 0 Then
-                Dim Notification As New frmNotification(5000, "Time", displayTime.getTime())
-
-                Notification.Show()
-            End If
+        If My.Settings.usrTimeHourPips And (Math.Floor(Now.TimeOfDay.TotalSeconds Mod 3600) = 0) Then       '   will this work at midnight???
+            My.Computer.Audio.Play(My.Resources.thepips, 0) '   Play the Pips on the hour, if desired.
         End If
+
+        If Me.NtfyIcnKlock.Visible Then                     '   if in system tray,
+            Me.NtfyIcnKlock.Text = displayTime.getTime()    '   set icon tool tip to current time.
+
+            If My.Settings.usrTimeDisplayMinimised And (Math.Floor(Now.TimeOfDay.TotalSeconds Mod 300) = 0) Then
+                Dim Notification As New frmNotification(5000, "Time :: ", displayTime.getTime())    '   display current time
+                '                                                                                       as a toast notification,
+                Notification.Show()                                                                 '   if desired
+
+            End If          '   If My.Settings.usrTimeDislayMinimised 
+        End If              '   If Me.NtfyIcnKlock.Visible Then
     End Sub
 
     Private Sub tmrTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrTimer.Tick
@@ -239,7 +244,7 @@ Public Class frmKlock
                 CountDownSystem(False)
                 CountDownCommand(False)
             Case 2                                                  '   System action chosen
-               CountDownSound(False)
+                CountDownSound(False)
                 CountDownReminder(False)
                 CountDownSystem(True)
                 CountDownCommand(False)
@@ -493,6 +498,7 @@ Public Class frmKlock
             lblTimerSplit.Text = "00:00:00"
         End If
 
+        Me.TlStrpMnItmTime.Checked = My.Settings.usrTimeDisplayMinimised
     End Sub
 
     Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
@@ -515,7 +521,11 @@ Public Class frmKlock
 
     Private Sub TlStrpMnItmTime_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TlStrpMnItmTime.CheckedChanged
 
-        My.Settings.usrTimeDislayMinimised = Me.TlStrpMnItmTime.Checked
+        If TlStrpMnItmTime.Checked = True Then
+            My.Settings.usrTimeDisplayMinimised = True
+        Else
+            My.Settings.usrTimeDisplayMinimised = False
+        End If
 
     End Sub
 
@@ -523,12 +533,6 @@ Public Class frmKlock
         Me.Close()
     End Sub
 
-    Private Sub TlStrpMnItmTime_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TlStrpMnItmTime.Click
-
-    End Sub
 
     ' *********************************************************************************************************************************
-
-
-
 End Class

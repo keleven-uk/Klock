@@ -36,11 +36,13 @@ Partial Class frmOptions
         Me.TabCntrlKlock = New System.Windows.Forms.TabControl()
         Me.TbPgGlobal = New System.Windows.Forms.TabPage()
         Me.TbPgTime = New System.Windows.Forms.TabPage()
+        Me.ChckBxTimeHourPips = New System.Windows.Forms.CheckBox()
+        Me.ChckBxTimeNetSeconds = New System.Windows.Forms.CheckBox()
         Me.chckBxTimeSwatch = New System.Windows.Forms.CheckBox()
         Me.TbPgTimer = New System.Windows.Forms.TabPage()
         Me.ChckBxClearSplit = New System.Windows.Forms.CheckBox()
         Me.ChckBxTimerHigh = New System.Windows.Forms.CheckBox()
-        Me.ChckBxTimeNetSeconds = New System.Windows.Forms.CheckBox()
+        Me.ChckBxTimeToast = New System.Windows.Forms.CheckBox()
         Me.TabCntrlKlock.SuspendLayout()
         Me.TbPgGlobal.SuspendLayout()
         Me.TbPgTime.SuspendLayout()
@@ -156,6 +158,8 @@ Partial Class frmOptions
         'TbPgTime
         '
         Me.TbPgTime.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgTime.Controls.Add(Me.ChckBxTimeToast)
+        Me.TbPgTime.Controls.Add(Me.ChckBxTimeHourPips)
         Me.TbPgTime.Controls.Add(Me.ChckBxTimeNetSeconds)
         Me.TbPgTime.Controls.Add(Me.chckBxTimeSwatch)
         Me.TbPgTime.Location = New System.Drawing.Point(4, 22)
@@ -165,10 +169,34 @@ Partial Class frmOptions
         Me.TbPgTime.TabIndex = 1
         Me.TbPgTime.Text = "Time"
         '
+        'ChckBxTimeHourPips
+        '
+        Me.ChckBxTimeHourPips.AutoSize = True
+        Me.ChckBxTimeHourPips.Checked = True
+        Me.ChckBxTimeHourPips.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ChckBxTimeHourPips.Location = New System.Drawing.Point(71, 16)
+        Me.ChckBxTimeHourPips.Name = "ChckBxTimeHourPips"
+        Me.ChckBxTimeHourPips.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxTimeHourPips.Size = New System.Drawing.Size(171, 17)
+        Me.ChckBxTimeHourPips.TabIndex = 2
+        Me.ChckBxTimeHourPips.Text = "Sound ""The Pips"" on the Hour"
+        Me.ChckBxTimeHourPips.UseVisualStyleBackColor = True
+        '
+        'ChckBxTimeNetSeconds
+        '
+        Me.ChckBxTimeNetSeconds.AutoSize = True
+        Me.ChckBxTimeNetSeconds.Location = New System.Drawing.Point(48, 103)
+        Me.ChckBxTimeNetSeconds.Name = "ChckBxTimeNetSeconds"
+        Me.ChckBxTimeNetSeconds.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxTimeNetSeconds.Size = New System.Drawing.Size(194, 17)
+        Me.ChckBxTimeNetSeconds.TabIndex = 1
+        Me.ChckBxTimeNetSeconds.Text = "New Earth Time to display Seconds"
+        Me.ChckBxTimeNetSeconds.UseVisualStyleBackColor = True
+        '
         'chckBxTimeSwatch
         '
         Me.chckBxTimeSwatch.AutoSize = True
-        Me.chckBxTimeSwatch.Location = New System.Drawing.Point(22, 25)
+        Me.chckBxTimeSwatch.Location = New System.Drawing.Point(54, 80)
         Me.chckBxTimeSwatch.Name = "chckBxTimeSwatch"
         Me.chckBxTimeSwatch.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chckBxTimeSwatch.Size = New System.Drawing.Size(188, 17)
@@ -209,16 +237,18 @@ Partial Class frmOptions
         Me.ChckBxTimerHigh.Text = "Timer to show MilliSeconds"
         Me.ChckBxTimerHigh.UseVisualStyleBackColor = True
         '
-        'ChckBxTimeNetSeconds
+        'ChckBxTimeToast
         '
-        Me.ChckBxTimeNetSeconds.AutoSize = True
-        Me.ChckBxTimeNetSeconds.Location = New System.Drawing.Point(16, 48)
-        Me.ChckBxTimeNetSeconds.Name = "ChckBxTimeNetSeconds"
-        Me.ChckBxTimeNetSeconds.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxTimeNetSeconds.Size = New System.Drawing.Size(194, 17)
-        Me.ChckBxTimeNetSeconds.TabIndex = 1
-        Me.ChckBxTimeNetSeconds.Text = "New Earth Time to display Seconds"
-        Me.ChckBxTimeNetSeconds.UseVisualStyleBackColor = True
+        Me.ChckBxTimeToast.AutoSize = True
+        Me.ChckBxTimeToast.Checked = True
+        Me.ChckBxTimeToast.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ChckBxTimeToast.Location = New System.Drawing.Point(16, 39)
+        Me.ChckBxTimeToast.Name = "ChckBxTimeToast"
+        Me.ChckBxTimeToast.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxTimeToast.Size = New System.Drawing.Size(226, 17)
+        Me.ChckBxTimeToast.TabIndex = 3
+        Me.ChckBxTimeToast.Text = "Display Time in System Tray [every 5 mins]"
+        Me.ChckBxTimeToast.UseVisualStyleBackColor = True
         '
         'frmOptions
         '
@@ -260,4 +290,6 @@ Partial Class frmOptions
     Friend WithEvents ChckBxClearSplit As System.Windows.Forms.CheckBox
     Friend WithEvents chckBxTimeSwatch As System.Windows.Forms.CheckBox
     Friend WithEvents ChckBxTimeNetSeconds As System.Windows.Forms.CheckBox
+    Friend WithEvents ChckBxTimeHourPips As System.Windows.Forms.CheckBox
+    Friend WithEvents ChckBxTimeToast As System.Windows.Forms.CheckBox
 End Class

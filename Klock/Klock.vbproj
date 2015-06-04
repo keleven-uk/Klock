@@ -245,6 +245,7 @@
     <None Include="Resources\btnHigh.png" />
     <None Include="Resources\btnLow.png" />
     <None Include="Resources\klock.png" />
+    <None Include="Resources\69190__acclivity__thepips.wav" />
     <Content Include="wip.txt" />
     <None Include="Klock.iss" />
   </ItemGroup>

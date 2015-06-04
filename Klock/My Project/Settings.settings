@@ -32,8 +32,11 @@
     <Setting Name="usrTimeNETSeconds" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="usrTimeDislayMinimised" Type="System.Boolean" Scope="User">
+    <Setting Name="usrTimeDisplayMinimised" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="usrTimeHourPips" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

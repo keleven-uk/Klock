@@ -177,12 +177,24 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property usrTimeDislayMinimised() As Boolean
+        Public Property usrTimeDisplayMinimised() As Boolean
             Get
-                Return CType(Me("usrTimeDislayMinimised"),Boolean)
+                Return CType(Me("usrTimeDisplayMinimised"),Boolean)
             End Get
             Set
-                Me("usrTimeDislayMinimised") = value
+                Me("usrTimeDisplayMinimised") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property usrTimeHourPips() As Boolean
+            Get
+                Return CType(Me("usrTimeHourPips"),Boolean)
+            End Get
+            Set
+                Me("usrTimeHourPips") = value
             End Set
         End Property
     End Class

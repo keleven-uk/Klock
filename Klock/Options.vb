@@ -128,4 +128,20 @@ End Sub
             My.Settings.usrTimeNETSeconds = False
         End If
     End Sub
+
+    Private Sub ChckBxTimeHourPips_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeHourPips.CheckedChanged
+        If ChckBxTimeHourPips.Checked Then
+            My.Settings.usrTimeHourPips = True
+        Else
+            My.Settings.usrTimeHourPips = False
+        End If
+    End Sub
+
+    Private Sub ChckBxTimeToast_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeToast.CheckedChanged
+        If ChckBxTimeToast.Checked Then
+            My.Settings.usrTimeDisplayMinimised = True
+        Else
+            My.Settings.usrTimeDisplayMinimised = False
+        End If
+    End Sub
 End Class

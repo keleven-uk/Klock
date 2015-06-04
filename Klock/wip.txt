@@ -3,9 +3,3 @@
 Completed
 ---------
 
-Added code to display "toast" messages i.e. a notification window rises form the system tray.
-This uses code by uyser jmcilhinney  at http://www.vbforums.com/showthread.php?351757-Animated-Window-Effects-with-quot-Toast-quot-popup-demo
-
-Finished the right-click menu of the system tray icon.  The item time is now checkable.
-If checked a toast showing the currecnt chosen time format is display every 5 minutes.
-A user property holds this state between runs.

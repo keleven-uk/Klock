@@ -155,7 +155,7 @@
 
         If (hour = 12) And (nrms = 0) Then      '   fix for noon.
             ampm = " Noon"
-        ElseIf (hour = 24) Then
+        ElseIf (hour = 24) And (nrms = 0) Then
             ampm = " Midnight"
         End If
 
