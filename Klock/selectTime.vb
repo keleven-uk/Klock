@@ -33,6 +33,11 @@
     Private TimeTitle As String     '   local version of the fancy time title
     Private clockTick As Integer
 
+    '   globably declare arrays, so can be used by more then one sub and also not re-created every call of the sub.
+
+    Public hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
+    Public units() As String = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
+    Public tens() As String = {"zero", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"}
 
     ' *************************************************************************************** constructor ***********************
 
@@ -181,7 +186,6 @@
     Private Function getFuzzyTime() As String
         '   returns the current [local] time as fuzzy time i.e. ten past three in the afternoon.
 
-        Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
         Dim hour As Integer = Now.Hour
         Dim mins As Integer = Now.Minute
         Dim nrms As Integer = mins - (mins Mod 5)           '   gets nearest five minutes.
@@ -261,8 +265,7 @@
 
     Private Function getwordsTime() As String
 
-        Dim units() As String = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
-        Dim tens() As String = {"zero", "ten", "eleven", "twelve", "thirteen", "forteen", "fifteen", "sizteen", "seventeen", "eighteen", "nineteen", "tweenty"}
+
         Dim hour As Integer = Now.Hour
         Dim mins As Integer = Now.Minute
         Dim ampm As String = ""
@@ -291,17 +294,17 @@
 
         Select Case mins
             Case 0
-                minsStr = String.Format("{0} o'clock {1}", units(hour), ampm)
+                minsStr = String.Format("{0} o'clock {1}", hours(hour), ampm)
             Case 1 To 9
-                minsStr = String.Format("{0} minutes {1} {2} {3}", units(mins), pasTo, units(hour), ampm)
+                minsStr = String.Format("{0} minutes {1} {2} {3}", units(mins), pasTo, hours(hour), ampm)
             Case 10 To 20
-                minsStr = String.Format("{0} minutes {1} {2} {3}", tens(mins - 9), pasTo, units(hour), ampm)
+                minsStr = String.Format("{0} minutes {1} {2} {3}", tens(mins - 9), pasTo, hours(hour), ampm)
             Case 21 To 29
                 Dim minsTens As Integer = Math.Floor(mins / 10)
                 Dim minsUnits As Integer = mins - (minsTens * 10)
-                minsStr = String.Format("tweenty{0} minutes {1} {2} {3}", units(minsUnits), pasTo, units(hour), ampm)
+                minsStr = String.Format("twenty{0} minutes {1} {2} {3}", units(minsUnits), pasTo, hours(hour), ampm)
             Case Else
-                minsStr = String.Format("thirty minutes {1} {2} {3}", minsStr, pasTo, units(hour), ampm)
+                minsStr = String.Format("thirty minutes {1} {2} {3}", minsStr, pasTo, hours(hour), ampm)
         End Select
 
         getwordsTime = minsStr
@@ -480,7 +483,7 @@
     End Function
 
     Private Function getRomanTime() As String
-        '   Returns the current [local] time in roman numerials.
+        '   Returns the current [local] time in Roman numerals.
 
         Dim hours As Integer = Now().Hour
         Dim mins As Integer = Now().Minute
@@ -529,7 +532,7 @@
 
     Private Function getMarsSolDate()
         '   Returns the current [UTC] time as Mars Sol Date - as http://jtauber.github.io/mars-clock/
-        '   Strange :: DateDiff seems to use american dates and not English [unlike my computer and me].
+        '   Strange :: DateDiff seems to use American dates and not English [unlike my computer and me].
 
         Dim noOfDays As Double = DateDiff(DateInterval.Second, #1/6/2000#, Now.ToUniversalTime) / 86400
 
@@ -538,7 +541,7 @@
 
     Private Function getCoordinatedMarsTime()
         '   Returns the current [UTC] time as Coordinated Mars Time - as http://jtauber.github.io/mars-clock/
-        '   Strange :: DateDiff seems to use american dates and not English [unlike my computer and me].
+        '   Strange :: DateDiff seems to use American dates and not English [unlike my computer and me].
 
         Dim marsSolDate As Double = DateDiff(DateInterval.Second, #1/6/2000#, Now.ToUniversalTime) / 86400
 
@@ -566,7 +569,7 @@
     Private Function getFlowTime()
         '   Returns the current [local] time as Flow Time.
         '   Flow Time still divides the day into 24 hours, but each hour is divided into 100 minutes of 100 seconds.
-        '   A Quick conversion is takes 2/3 of the minute [or secoond] and add it to it's self.
+        '   A Quick conversion is takes 2/3 of the minute [or second] and add it to it's self.
 
         Dim hour As Integer = Now.Hour
         Dim mins As Integer = Now.Minute * (5 / 3)

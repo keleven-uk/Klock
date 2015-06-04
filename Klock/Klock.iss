@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Klock"
-#define MyAppVersion "1.0.2.26"
+#define MyAppVersion "1.0.2.28"
 #define MyAppPublisher "keleven"
 #define MyAppURL "www.keleven.co.uk"
 #define MyAppExeName "Klock.exe"
@@ -25,10 +25,10 @@ SourceDir=C:\My\shed\projects\VB\klock\V1.0.2\Klock
 
 DefaultDirName={pf}\keleven\Klock
 DefaultGroupName={#MyAppName}
-LicenseFile=License.txt
+;LicenseFile=License.txt
 InfoAfterFile=Help.txt
 OutputDir=C:\My\shed\projects\VB
-OutputBaseFilename=Klock_26
+OutputBaseFilename=Klock_28
 SetupIconFile=Klock.ico
 Compression=lzma
 SolidCompression=yes
@@ -41,20 +41,20 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Types]
-Name: full; Description: "Klock Program + source"
 Name: prog; Description: "Klock program only"
+Name: full; Description: "Klock Program + source"
 
 [Components]
-Name: all; Description: Klock Program + source; Types: full
 Name: exe; Description: exe's only; Types: full prog
+Name: all; Description: Klock Program + source; Types: full
+
 
 [Files]
 Source: "bin\Release\Klock.exe"             ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 Source: "bin\Release\Ionic.Zip.Reduced.dll" ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
-Source: "Ionic_License.txt"                 ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 Source: "bin\Release\Sounds\*"              ; DestDir: "{app}\Sounds"; Components : exe; Flags: ignoreversion
-Source: "bin\Release\Help\*"                ; DestDir: "{app}\Help"  ; Components : exe; Flags: ignoreversion
-Source: "help.txt"                          ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
+Source: "Ionic_License.txt"                 ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
+Source: "klock.chm"                         ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 Source: "License.txt"                       ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 Source: "History.txt"                       ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 
@@ -74,6 +74,6 @@ Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Fil
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, "&", "&&")}}"; Flags: nowait postinstall skipifsilent
 
-;	removed registry settings for the run on windows start up - might have been set.
+;  removed registry settings for the run on windows start up - might have been set.
 [Registry]
 Root: HKCU ; subkey : "SOFTWARE\Microsoft\Windows\CurrentVersion\Run" ; ValueType: string; ValueName: "{#MyAppName}"; Flags: uninsdeletevalue

@@ -24,12 +24,6 @@ Public Class ManagedPower
         If sysPowerStatus.BatteryFlag = ManagedPower._BatteryFlag.NoSystemBattery Then
             text = "No System Battery"
         Else
-            ' Check if currently charging
-            Dim fCharging = (ManagedPower._BatteryFlag.Charging = (sysPowerStatus.BatteryFlag & ManagedPower._BatteryFlag.Charging))
-
-            If fCharging Then
-                Dim currentChargingStatus = ManagedPower._BatteryFlag.Charging
-            End If
 
             ' Print out power level
             ' If the power is not High, Low, or Critical, report it as "Medium".
@@ -41,11 +35,6 @@ Public Class ManagedPower
             End If
             text = "Power Status: " & currentPowerLevel
 
-            ' Print out charging status
-            If fCharging Then
-                Dim currentChargingStatus = ManagedPower._BatteryFlag.Charging.ToString()
-                text += " (" + ManagedPower._BatteryFlag.Charging.ToString() + ") "
-            End If
         End If
 
         powerStatus = text
@@ -57,71 +46,13 @@ Public Class ManagedPower
 
         If Not sysPowerStatus.BatteryFlag = ManagedPower._BatteryFlag.NoSystemBattery Then
 
-            Dim fCharging = (ManagedPower._BatteryFlag.Charging = (sysPowerStatus.BatteryFlag & ManagedPower._BatteryFlag.Charging))
-
-            ' Print out charging status
-            If fCharging Then
-                Dim currentChargingStatus = ManagedPower._BatteryFlag.Charging.ToString()
-                text += " (" + ManagedPower._BatteryFlag.Charging.ToString() + ") "
-            End If
-
-            ' Finally print the percentage of the battery life remaining.
+            ' Print the percentage of the battery life remaining.
             Dim currentBatteryPercentage = sysPowerStatus.BatteryLifePercent
             text += Environment.NewLine + "Battery life remaining is " + sysPowerStatus.BatteryLifePercent.ToString() + "%"
 
         End If
 
         chargingStatus = text
-    End Function
-
-
-    Public Overrides Function ToString() As String
-        Dim text As String = ""
-        'Dim sysPowerStatus As SystemPowerStatus
-        '' Get the power status of the system
-        'If ManagedPower.GetSystemPowerStatus(sysPowerStatus) Then
-        '    ' Current power source - AC/DC
-        '    Dim currentPowerStatus = sysPowerStatus.ACLineStatus
-        '    text += "Power source: " + sysPowerStatus.ACLineStatus.ToString() + Environment.NewLine
-
-        '    ' Current power status
-        '    text += "Power status: "
-
-        '    ' Check for unknown
-        '    If sysPowerStatus.BatteryFlag = ManagedPower._BatteryFlag.NoSystemBattery Then
-        '        text += "No System Battery"
-        '    Else
-        '        ' Check if currently charging
-        '        Dim fCharging = (ManagedPower._BatteryFlag.Charging = (sysPowerStatus.BatteryFlag & ManagedPower._BatteryFlag.Charging))
-
-        '        If fCharging Then
-        '            Dim currentChargingStatus = ManagedPower._BatteryFlag.Charging
-        '        End If
-
-        '        ' Print out power level
-        '        ' If the power is not High, Low, or Critical, report it as "Medium".
-        '        Dim currentPowerLevel As String
-        '        If sysPowerStatus.BatteryFlag = 0 Then
-        '            currentPowerLevel = "Medium"
-        '        Else
-        '            currentPowerLevel = sysPowerStatus.BatteryFlag.ToString()
-        '        End If
-        '        text += currentPowerLevel
-
-        '        ' Print out charging status
-        '        If fCharging Then
-        '            Dim currentChargingStatus = ManagedPower._BatteryFlag.Charging.ToString()
-        '            text += " (" + ManagedPower._BatteryFlag.Charging.ToString() + ") "
-        '        End If
-
-        '        ' Finally print the percentage of the battery life remaining.
-        '        Dim currentBatteryPercentage = sysPowerStatus.BatteryLifePercent
-        '        text += Environment.NewLine + "Battery life remaining is " + sysPowerStatus.BatteryLifePercent.ToString() + "%"
-        '    End If
-
-
-        'End If
-        Return text
     End Function
 
     <StructLayout(LayoutKind.Sequential)> _

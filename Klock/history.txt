@@ -1,4 +1,32 @@
 ------------------------------------------------------------------------
+r27 | Media | 2013-07-11 21:35:26 +0100 (Thu, 11 Jul 2013) | 23 lines
+
+Added managedPower.vb - which is a wrapper class around a system call to 
+determine the type of power source and the state of the battery.
+
+[Klock.vb]
+Added code for the above ManagedPower class.
+Added : if running on battery, status labels appear in red.
+Added : Quick start buttons to countdown; these are for 30, 60 & 90 minutes.
+Added : speech to user actions - countdown & reminder.
+Added : New Info window to display power source and battery state.
+Changed : locations of user settings file & default for friends file to be 
+windows local user data directory.
+Bug : not saving form location of close down - Fixed.
+
+[options.vb]
+Added : label to display current directory where settings file is saved.
+
+[UserSettings.vb]
+Added : extra settings to save default directory for settings file.
+Added : the ability to re-writs settings xml file with defaults.
+
+[selectTime.vb]
+Added : New time format; time in words.
+
+[selectAction.vb]
+Added : New action - speech.
+------------------------------------------------------------------------
 r26 | Media | 2013-06-28 21:55:29 +0100 (Fri, 28 Jun 2013) | 26 lines
 
 Stated the help system.  Will consists on a number of html files that are 
@@ -116,7 +144,7 @@ The data directory for storing the friends data, is not now hard coded - it can 
 
 [Options.vb]
 Changes for the user selection of the friends file name and directory.
-Added the ability to save friends file to archive file [zip].
+Added the ability to save friends file to Archive file [zip].
 Added logic for setting the friends file name and directory.
 Added logic for setting the friends achieve file name and directory.
 

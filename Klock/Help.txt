@@ -52,7 +52,7 @@ Each friend can have up to three e-mails and telephone numbers, an address, a da
 and a memo section for notes.
 
 The friends filename and location can be changed in the option screen.
-A Zip archive can then be save and re-loaded of this file
+A Zip Archive can then be save and re-loaded of this file
 
 Pressing F12 with the Friends tab viable, will show the total number of friends klock knows about.
 
@@ -94,7 +94,7 @@ Program partially tested on Windows XP & Windows 7 [both 32 & 64 bit].
 The notification windows [or toast] is written by jmcilhinney and can be found at
 http://www.vbforums.com/showthread.php?351757-Animated-Window-Effects-with-quot-Toast-quot-popup-demo
 
-The archive [zip] stuff uses a dll called DotNetZip - see http://DotNetZip.codeplex.com.
+The Archive [zip] stuff uses a dll called DotNetZip - see http://DotNetZip.codeplex.com.
 This comes under the Microsoft Public License (Ms-PL) - which is included in the application folder.
 
 

@@ -20,7 +20,7 @@ Imports System.Runtime.Serialization.Formatters.Binary
 Public Class UserSettings
 
     '   local versions of the user settings.
-    '   NB : importanat to set default on all user settings will be used if not present in xml file.
+    '   NB : important to set default on all user settings will be used if not present in xml file.
     '-------------------------------------------------------------------------------------------------------- Global Settings -------------
     Private _usrFormColour As Color = Color.LightGray
     Private _usrFormFont As Font = frmOptions.DefaultFont
@@ -31,7 +31,7 @@ Public Class UserSettings
     Private _usrStartMinimised As Boolean = False
     Private _usrRunOnStartup As Boolean = False
     Private _usrSoundVolume As Integer = 100
-    Private _usrOptionsSavePath As String = GetFolderPath(SpecialFolder.LocalApplicationData) & "\klock"
+    Private _usrOptionsSavePath As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock")
     Private _usrOptionsSaveFile As String = "klock.xml"
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
     Private _usrTimerHigh As Boolean = False
@@ -65,7 +65,7 @@ Public Class UserSettings
     Private _usrNotificationTimeOut As Integer = 5000
     Private _usrNotificationOpacity As Integer = 80
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
-    Private _usrFriendsDirectory As String = GetFolderPath(SpecialFolder.LocalApplicationData) & "\klock"
+    Private _usrFriendsDirectory As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock")
     Private _usrFrinedsFile As String = "Friends.bin"
 
 
@@ -162,13 +162,13 @@ Public Class UserSettings
         End Set
     End Property
 
-    Public ReadOnly Property usrOptionsSavePath() As String     '   returns path to save settings file - readonly
+    Public ReadOnly Property usrOptionsSavePath() As String     '   returns path to save settings file - read-only
         Get
             Return _usrOptionsSavePath
         End Get
     End Property
 
-    Public ReadOnly Property usrOptionsSaveFile() As String     '   returns path to save settings file - readonly
+    Public ReadOnly Property usrOptionsSaveFile() As String     '   returns path to save settings file - read-only
         Get
             Return _usrOptionsSaveFile
         End Get
@@ -523,7 +523,7 @@ Public Class UserSettings
                               </Friends>
                           </klock>
 
-        xmlSettings.Save(usrOptionsSavePath() & "/" & usrOptionsSaveFile())
+        xmlSettings.Save(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
 
     End Sub
 
@@ -614,7 +614,7 @@ Public Class UserSettings
                               </Friends>
                           </klock>
 
-        xmlSettings.Save(usrOptionsSavePath() & "/" & usrOptionsSaveFile())
+        xmlSettings.Save(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
 
     End Sub
 
@@ -630,7 +630,7 @@ Public Class UserSettings
         Dim version As String
 
         Try
-            Dim elem As XElement = XElement.Load(usrOptionsSavePath() & "/" & usrOptionsSaveFile())
+            Dim elem As XElement = XElement.Load(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
 
             version = elem.Attribute("Version").Value.ToString
 
@@ -772,7 +772,7 @@ Public Class UserSettings
             My.Computer.FileSystem.CreateDirectory(usrOptionsSavePath())
         End If
 
-        If Not My.Computer.FileSystem.FileExists(usrOptionsSavePath() & "/" & usrOptionsSaveFile()) Then
+        If Not My.Computer.FileSystem.FileExists(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile())) Then
             Me.writeSettings()
         End If
     End Sub

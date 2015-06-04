@@ -8,8 +8,11 @@
         Reminder
         System
         Command
-        speech      '   not handled in this class, must be coded on calling programm.
+        Speech
+        ScreenSaver
     End Enum
+    '                               Speech not handled in this class, just a place holder here.
+    '                               Must be implented in calling programm.
 
     Enum SystemTypes            '   the types of system action that can be performed.
         ShutDown
@@ -18,10 +21,18 @@
         LogOff
     End Enum
 
+    ' used by PlaySound()
     Private Declare Function mciSendString Lib "winmm.dll" Alias "mciSendStringA" _
                         (ByVal lpstrCommand As String, ByVal lpstrReturnString As String, _
                          ByVal uReturnLength As Integer, ByVal hwndCallback As Integer) As Integer
 
+    '   used by ScreenSaver()
+
+    Private Declare Function GetDesktopWindow Lib "user32" () As Integer
+    Private Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hWnd As Integer, ByVal wMsg As Integer, ByVal wParam As Integer, ByRef lParam As Integer) As Integer
+
+    Const WM_SYSCOMMAND As Integer = &H112
+    Const SC_SCREENSAVE As Integer = &HF140
 
     Public Sub PlaySound(ByVal s As String)
         '   play a sound file.  Uses some fancy code of www.vbforums.com, allows volume to be changed.   
@@ -43,6 +54,18 @@
         Else
             DisplayReminder("ERROR", "Sorry, sound file seems to have gone away!!")
         End If      '   if My.Computer.FileSystem.FileExists(s)
+    End Sub
+
+    Public Sub ScreenSaver()
+        '   call the currently selected screen saver i.e. in windows control pannel.
+        '   This works my using windows magic.
+
+        Dim hWnd As Integer
+        Dim rtn As Integer      '   always seems to be zero.
+
+        hWnd = GetDesktopWindow()
+        rtn = SendMessage(hWnd, WM_SYSCOMMAND, SC_SCREENSAVE, 0)
+
     End Sub
 
     Public Sub DisplayReminder(ByVal t As String, ByVal m As String)

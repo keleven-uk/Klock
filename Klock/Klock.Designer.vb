@@ -63,6 +63,7 @@ Partial Class frmKlock
         Me.CmbBxWorldKlockTimeZones = New System.Windows.Forms.ComboBox()
         Me.TbPgCountDown = New System.Windows.Forms.TabPage()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.ChckBxCountdownScreenSaver = New System.Windows.Forms.CheckBox()
         Me.TxtBxCountdownSpeech = New System.Windows.Forms.TextBox()
         Me.ChckBxCountdownSpeech = New System.Windows.Forms.CheckBox()
         Me.btnCountdownSystemAbort = New System.Windows.Forms.Button()
@@ -171,6 +172,7 @@ Partial Class frmKlock
         Me.CntxtMnStrpKlock = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.TlStrpMnItmShow = New System.Windows.Forms.ToolStripMenuItem()
         Me.TlStrpMnItmTime = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TlStrpMnItmHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.TlStrpMnItmOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.TlStrpMnItmExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.tmrReminder = New System.Windows.Forms.Timer(Me.components)
@@ -179,6 +181,8 @@ Partial Class frmKlock
         Me.btnFriendsClear = New System.Windows.Forms.Button()
         Me.btnFriendsEdit = New System.Windows.Forms.Button()
         Me.btnFriendsDelete = New System.Windows.Forms.Button()
+        Me.HlpPrvdrKlock = New System.Windows.Forms.HelpProvider()
+        Me.ChckBxReminderScreenSaver = New System.Windows.Forms.CheckBox()
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -560,6 +564,7 @@ Partial Class frmKlock
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.ChckBxCountdownScreenSaver)
         Me.GroupBox5.Controls.Add(Me.TxtBxCountdownSpeech)
         Me.GroupBox5.Controls.Add(Me.ChckBxCountdownSpeech)
         Me.GroupBox5.Controls.Add(Me.btnCountdownSystemAbort)
@@ -581,6 +586,16 @@ Partial Class frmKlock
         Me.GroupBox5.TabIndex = 2
         Me.GroupBox5.TabStop = False
         '
+        'ChckBxCountdownScreenSaver
+        '
+        Me.ChckBxCountdownScreenSaver.AutoSize = True
+        Me.ChckBxCountdownScreenSaver.Location = New System.Drawing.Point(100, 23)
+        Me.ChckBxCountdownScreenSaver.Name = "ChckBxCountdownScreenSaver"
+        Me.ChckBxCountdownScreenSaver.Size = New System.Drawing.Size(99, 19)
+        Me.ChckBxCountdownScreenSaver.TabIndex = 15
+        Me.ChckBxCountdownScreenSaver.Text = "Screen Saver"
+        Me.ChckBxCountdownScreenSaver.UseVisualStyleBackColor = True
+        '
         'TxtBxCountdownSpeech
         '
         Me.TxtBxCountdownSpeech.Enabled = False
@@ -593,11 +608,11 @@ Partial Class frmKlock
         'ChckBxCountdownSpeech
         '
         Me.ChckBxCountdownSpeech.AutoSize = True
-        Me.ChckBxCountdownSpeech.Location = New System.Drawing.Point(100, 21)
+        Me.ChckBxCountdownSpeech.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxCountdownSpeech.Name = "ChckBxCountdownSpeech"
-        Me.ChckBxCountdownSpeech.Size = New System.Drawing.Size(66, 19)
+        Me.ChckBxCountdownSpeech.Size = New System.Drawing.Size(68, 19)
         Me.ChckBxCountdownSpeech.TabIndex = 13
-        Me.ChckBxCountdownSpeech.Text = "speech"
+        Me.ChckBxCountdownSpeech.Text = "Speech"
         Me.ChckBxCountdownSpeech.UseVisualStyleBackColor = True
         '
         'btnCountdownSystemAbort
@@ -950,6 +965,7 @@ Partial Class frmKlock
         '
         'GroupBox11
         '
+        Me.GroupBox11.Controls.Add(Me.ChckBxReminderScreenSaver)
         Me.GroupBox11.Controls.Add(Me.TxtBxReminderSpeech)
         Me.GroupBox11.Controls.Add(Me.ChckBxReminderSpeech)
         Me.GroupBox11.Controls.Add(Me.btnReminderSystemAbort)
@@ -985,9 +1001,9 @@ Partial Class frmKlock
         Me.ChckBxReminderSpeech.AutoSize = True
         Me.ChckBxReminderSpeech.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxReminderSpeech.Name = "ChckBxReminderSpeech"
-        Me.ChckBxReminderSpeech.Size = New System.Drawing.Size(66, 19)
+        Me.ChckBxReminderSpeech.Size = New System.Drawing.Size(68, 19)
         Me.ChckBxReminderSpeech.TabIndex = 13
-        Me.ChckBxReminderSpeech.Text = "speech"
+        Me.ChckBxReminderSpeech.Text = "Speech"
         Me.ChckBxReminderSpeech.UseVisualStyleBackColor = True
         '
         'btnReminderSystemAbort
@@ -1135,7 +1151,7 @@ Partial Class frmKlock
         '
         Me.ChckBxReminderTimeCheck.AutoSize = True
         Me.ChckBxReminderTimeCheck.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChckBxReminderTimeCheck.Location = New System.Drawing.Point(358, 22)
+        Me.ChckBxReminderTimeCheck.Location = New System.Drawing.Point(414, 22)
         Me.ChckBxReminderTimeCheck.Name = "ChckBxReminderTimeCheck"
         Me.ChckBxReminderTimeCheck.Size = New System.Drawing.Size(15, 14)
         Me.ChckBxReminderTimeCheck.TabIndex = 3
@@ -1146,7 +1162,7 @@ Partial Class frmKlock
         Me.TmPckrRiminder.Checked = False
         Me.TmPckrRiminder.CustomFormat = "HH:mm"
         Me.TmPckrRiminder.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.TmPckrRiminder.Location = New System.Drawing.Point(379, 19)
+        Me.TmPckrRiminder.Location = New System.Drawing.Point(444, 19)
         Me.TmPckrRiminder.Name = "TmPckrRiminder"
         Me.TmPckrRiminder.ShowUpDown = True
         Me.TmPckrRiminder.Size = New System.Drawing.Size(50, 20)
@@ -1156,7 +1172,7 @@ Partial Class frmKlock
         '
         Me.DtPckrRiminder.CustomFormat = """yyyy-MM-dd HH:mm"""
         Me.DtPckrRiminder.ImeMode = System.Windows.Forms.ImeMode.Off
-        Me.DtPckrRiminder.Location = New System.Drawing.Point(217, 19)
+        Me.DtPckrRiminder.Location = New System.Drawing.Point(273, 19)
         Me.DtPckrRiminder.Name = "DtPckrRiminder"
         Me.DtPckrRiminder.Size = New System.Drawing.Size(124, 20)
         Me.DtPckrRiminder.TabIndex = 1
@@ -1164,10 +1180,10 @@ Partial Class frmKlock
         'lblReminderText
         '
         Me.lblReminderText.AutoSize = True
-        Me.lblReminderText.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblReminderText.Font = New System.Drawing.Font("Lucida Calligraphy", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblReminderText.Location = New System.Drawing.Point(6, 19)
         Me.lblReminderText.Name = "lblReminderText"
-        Me.lblReminderText.Size = New System.Drawing.Size(159, 24)
+        Me.lblReminderText.Size = New System.Drawing.Size(224, 28)
         Me.lblReminderText.TabIndex = 0
         Me.lblReminderText.Text = "Reminder Not Set"
         '
@@ -1613,33 +1629,39 @@ Partial Class frmKlock
         '
         'CntxtMnStrpKlock
         '
-        Me.CntxtMnStrpKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TlStrpMnItmShow, Me.TlStrpMnItmTime, Me.TlStrpMnItmOptions, Me.TlStrpMnItmExit})
+        Me.CntxtMnStrpKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TlStrpMnItmShow, Me.TlStrpMnItmTime, Me.TlStrpMnItmHelp, Me.TlStrpMnItmOptions, Me.TlStrpMnItmExit})
         Me.CntxtMnStrpKlock.Name = "CntxtMnStrpKlock"
-        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(123, 92)
+        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(117, 114)
         '
         'TlStrpMnItmShow
         '
         Me.TlStrpMnItmShow.Name = "TlStrpMnItmShow"
-        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(122, 22)
+        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(116, 22)
         Me.TlStrpMnItmShow.Text = "Show"
         '
         'TlStrpMnItmTime
         '
         Me.TlStrpMnItmTime.CheckOnClick = True
         Me.TlStrpMnItmTime.Name = "TlStrpMnItmTime"
-        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(122, 22)
+        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(116, 22)
         Me.TlStrpMnItmTime.Text = "Time"
+        '
+        'TlStrpMnItmHelp
+        '
+        Me.TlStrpMnItmHelp.Name = "TlStrpMnItmHelp"
+        Me.TlStrpMnItmHelp.Size = New System.Drawing.Size(116, 22)
+        Me.TlStrpMnItmHelp.Text = "Help"
         '
         'TlStrpMnItmOptions
         '
         Me.TlStrpMnItmOptions.Name = "TlStrpMnItmOptions"
-        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(122, 22)
+        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(116, 22)
         Me.TlStrpMnItmOptions.Text = "Options"
         '
         'TlStrpMnItmExit
         '
         Me.TlStrpMnItmExit.Name = "TlStrpMnItmExit"
-        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(122, 22)
+        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(116, 22)
         Me.TlStrpMnItmExit.Text = "Exit"
         '
         'tmrReminder
@@ -1694,6 +1716,16 @@ Partial Class frmKlock
         Me.btnFriendsDelete.TabIndex = 10
         Me.btnFriendsDelete.Text = "Delete"
         Me.btnFriendsDelete.UseVisualStyleBackColor = True
+        '
+        'ChckBxReminderScreenSaver
+        '
+        Me.ChckBxReminderScreenSaver.AutoSize = True
+        Me.ChckBxReminderScreenSaver.Location = New System.Drawing.Point(101, 23)
+        Me.ChckBxReminderScreenSaver.Name = "ChckBxReminderScreenSaver"
+        Me.ChckBxReminderScreenSaver.Size = New System.Drawing.Size(99, 19)
+        Me.ChckBxReminderScreenSaver.TabIndex = 15
+        Me.ChckBxReminderScreenSaver.Text = "Screen Saver"
+        Me.ChckBxReminderScreenSaver.UseVisualStyleBackColor = True
         '
         'frmKlock
         '
@@ -1922,5 +1954,9 @@ Partial Class frmKlock
     Friend WithEvents btnCountdown90 As System.Windows.Forms.Button
     Friend WithEvents btnCountdown60 As System.Windows.Forms.Button
     Friend WithEvents btnCountdown30 As System.Windows.Forms.Button
+    Friend WithEvents HlpPrvdrKlock As System.Windows.Forms.HelpProvider
+    Friend WithEvents TlStrpMnItmHelp As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ChckBxCountdownScreenSaver As System.Windows.Forms.CheckBox
+    Friend WithEvents ChckBxReminderScreenSaver As System.Windows.Forms.CheckBox
 
 End Class

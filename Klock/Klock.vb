@@ -31,9 +31,22 @@ Public Class frmKlock
     Public CountDownTime As Integer             '   Holds number of minutes for the countdown timer.
     Public ReminderDateTime As DateTime         '   Holds the date [and time] of the set reminder.
 
-    Public ADDING As Boolean = False
+    Public ADDING As Boolean = False            '   Will be true if addinf friend, flase if editing.
 
     Public reloadFriends As Boolean = True      '   if true, friends file will re-loaded
+
+    Public strHelpPath As String = System.IO.Path.Combine(Application.StartupPath, "klock.chm") '   set up help location
+
+    Public TEXT_WIDTH1 As Single = 400          '   the width bands to determine which font [below] to use - time labels.
+    Public TEXT_WIDTH2 As Single = 500          '
+    Public TEXT_WIDTH3 As Single = 580          '
+
+    Dim txtLrgFont As New Font("Lucida Calligraphy", 17, FontStyle.Regular)     '   large font.
+    Dim txtBigFont As New Font("Lucida Calligraphy", 16, FontStyle.Regular)     '   big font.
+    Dim txtSmlFont As New Font("Lucida Calligraphy", 15, FontStyle.Regular)     '   small font.
+    Dim txtTnyFont As New Font("Lucida Calligraphy", 14, FontStyle.Regular)     '   tiny font.
+
+    Public grphcs As Graphics = Me.CreateGraphics   '   create graphic object globably, used to measure time text width
 
     Public knownFirstNames As New AutoCompleteStringCollection      '   Auto Complete for friends first name.
     Public knownMiddleNames As New AutoCompleteStringCollection     '   Auto Complete for friends middle name.
@@ -46,7 +59,7 @@ Public Class frmKlock
 
 
     ' ************************************************************************************** clock routines **************************
-    ' Seperate clocks are used for each function, to reduce load on main clock
+    ' Separate clocks are used for each function, to reduce load on main clock
 
     Private Sub TmrMain_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TmrMain.Tick
         '   Main clock tick.
@@ -60,11 +73,41 @@ Public Class frmKlock
             Me.updateTitleText()
 
             If Me.TbCntrl.SelectedIndex = 0 Then
-                Me.LblTimeOneTime.Text = Me.displayOneTime.getTime()                    '   Update local time in desired time format.
+
+                Dim tmStr = Me.displayOneTime.getTime()
+                Dim textSize = grphcs.MeasureString(tmStr, txtBigFont)
+
+                Select Case textSize.Width
+                    Case TEXT_WIDTH1 To TEXT_WIDTH2             '   400 to 500
+                        Me.LblTimeOneTime.Font = txtBigFont
+                    Case TEXT_WIDTH2 To TEXT_WIDTH3             '   500 to 580
+                        Me.LblTimeOneTime.Font = txtSmlFont
+                    Case Is > TEXT_WIDTH3                       '   > 580
+                        Me.LblTimeOneTime.Font = txtTnyFont
+                    Case Else                                   '   < 400
+                        Me.LblTimeOneTime.Font = txtLrgFont
+                End Select
+
+                Me.LblTimeOneTime.Text = tmStr                   '   Update local time in desired time format.
             End If
 
-            If Me.TbCntrl.SelectedIndex = 0 And Me.usrsettings.usrTimeTwoFormats Then
-                Me.LblTimeTwoTime.Text = Me.displayTwoTime.getTime()                          '   display local time in desired time format.
+            If Me.TbCntrl.SelectedIndex = 0 And Me.usrSettings.usrTimeTwoFormats Then
+
+                Dim tmStr = Me.displayTwoTime.getTime()
+                Dim textSize = grphcs.MeasureString(tmStr, txtBigFont)
+
+                Select Case textSize.Width
+                    Case TEXT_WIDTH1 To TEXT_WIDTH2             '   400 to 500
+                        Me.LblTimeTwoTime.Font = txtBigFont
+                    Case TEXT_WIDTH2 To TEXT_WIDTH3             '   500 to 580
+                        Me.LblTimeTwoTime.Font = txtSmlFont
+                    Case Is > TEXT_WIDTH3                       '   > 580
+                        Me.LblTimeTwoTime.Font = txtTnyFont
+                    Case Else                                   '   < 400
+                        Me.LblTimeTwoTime.Font = txtLrgFont
+                End Select
+
+                Me.LblTimeTwoTime.Text = tmStr              '   display local time in desired time format.
             End If
 
             If Me.TbCntrl.SelectedIndex = 1 Then                                        '   Update World Klock.
@@ -86,7 +129,7 @@ Public Class frmKlock
 
         Dim strKey As String = "cns"
 
-        '                                               if running on battery, change status info coluor to red as a warning.
+        '                                               if running on battery, change status info colour to red as a warning.
         If Me.myManagedPower.powerSource().Contains("AC") Then
             Me.stsLblTime.ForeColor = Color.Black
             Me.StsLblDate.ForeColor = Color.Black
@@ -97,19 +140,12 @@ Public Class frmKlock
             Me.StsLblKeys.ForeColor = Color.Red
         End If
 
-        Me.stsLblTime.Text = Format(Now, "Long Time")
-        Me.StsLblDate.Text = Format(Now, "Long Date")
-
         If My.Computer.Keyboard.CapsLock.ToString() Then strKey = Replace(strKey, "c", "C")
         If My.Computer.Keyboard.NumLock.ToString() Then strKey = Replace(strKey, "n", "N")
         If My.Computer.Keyboard.ScrollLock.ToString() Then strKey = Replace(strKey, "s", "S")
 
-        If Me.myManagedPower.powerSource().Contains("AC") Then
-            Me.StsLblKeys.ForeColor = Color.Black
-        Else
-            Me.StsLblKeys.ForeColor = Color.Red
-        End If
-
+        Me.stsLblTime.Text = Format(Now, "Long Time")
+        Me.StsLblDate.Text = Format(Now, "Long Date")
         Me.StsLblKeys.Text = strKey
     End Sub
 
@@ -120,7 +156,7 @@ Public Class frmKlock
 
         Dim titletext As String = Me.Text
 
-        If Me.usrSettings.usrTimerAdd And Me.tmrTimer.Enabled Then          ' time is running
+        If Me.usrSettings.usrTimerAdd And Me.tmrTimer.Enabled Then          '   time is running
             If Me.usrSettings.usrTimerHigh Then                             '   are we displaying milliseconds in timer.
                 titletext = titletext & " .::. " & displayTimer.getHighElapsedTime() & " : "
             Else
@@ -147,32 +183,32 @@ Public Class frmKlock
         '   Depending upon user settings, will play hourly pips or chimes.
         '   The chimes can sound on the hour and every quarter hour if desired.
 
-        If Me.usrsettings.usrTimeHourPips And (Math.Floor(m Mod 3600) = 0) Then                    '    will this work at midnight???
+        If Me.usrSettings.usrTimeHourPips And (Math.Floor(m Mod 3600) = 0) Then                                 '    will this work at midnight???
 
-            Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\thepips.mp3")         '    Play the Pips on the hour, if desired.
-        ElseIf Me.usrsettings.usrTimeHourChimes And (Math.Floor(m Mod 3600) = 0) Then            '    Play hourly chimes, if desired.
+            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "\Sounds\thepips.mp3"))  '    Play the Pips on the hour, if desired.
+        ElseIf Me.usrSettings.usrTimeHourChimes And (Math.Floor(m Mod 3600) = 0) Then                           '    Play hourly chimes, if desired.
 
             Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
             Dim hour As Integer = Now.Hour
 
             If hour > 12 Then hour -= 12
 
-            Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\" & hours(hour) & ".mp3")
-        ElseIf Me.usrsettings.usrTimeQuarterChimes And (Math.Floor(m Mod 900) = 0) Then            '    Play quarter chimes, if desired.
+            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "\Sounds\" & hours(hour) & ".mp3"))
+        ElseIf Me.usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 900) = 0) Then            '    Play quarter chimes, if desired.
 
-            Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\quarterchime.mp3")
-        ElseIf Me.usrsettings.usrTimeHalfChimes And (Math.Floor(m Mod 1800) = 0) Then              '    Play half hourly chimes, if desired.
+            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "\Sounds\quarterchime.mp3"))
+        ElseIf Me.usrSettings.usrTimeHalfChimes And (Math.Floor(m Mod 1800) = 0) Then              '    Play half hourly chimes, if desired.
 
-            Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.mp3")
-        ElseIf Me.usrsettings.usrTimeQuarterChimes And (Math.Floor(m Mod 2700) = 0) Then      '    Play three quarter chimes, if desired.
+            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "\Sounds\halfchime.mp3"))
+        ElseIf Me.usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 2700) = 0) Then      '    Play three quarter chimes, if desired.
 
-            Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\threequarterchime.mp3")
+            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "\Sounds\threequarterchime.mp3"))
         End If
 
     End Sub
 
     Private Sub Notificationspeech(ByVal m As Integer)
-        '   if desired, check the status of speak time - shpuild speak time every ?? minutes.
+        '   if desired, check the status of speak time - should speak time every ?? minutes.
 
         Dim noSecs As Integer = Me.usrSettings.usrTimeVoiceMinutes * 60
 
@@ -186,51 +222,50 @@ Public Class frmKlock
         '   If desired, check the status of notifications - should display the time every ?? minutes.
         '   Also, display result to time and countdown, if there running.  TO DO, should they be on their own settings?
 
-        If Me.NtfyIcnKlock.Visible Then                     '   if in system tray,
-            Me.NtfyIcnKlock.Text = Me.displayOneTime.getTitle() & " : " & Me.displayOneTime.getTime()    '   set icon tool tip to current time.
+        Me.NtfyIcnKlock.Text = Me.displayOneTime.getTitle() & " : " & Me.displayOneTime.getTime()    '   set icon tool tip to current time.
 
-            Dim noSecs As Integer = Me.usrsettings.usrTimeDisplayMinutes * 60
+        Dim noSecs As Integer = Me.usrSettings.usrTimeDisplayMinutes * 60
 
-            If Me.usrSettings.usrTimeDisplayMinimised And (Math.Floor(m Mod noSecs) = 0) Then
+        If Me.usrSettings.usrTimeDisplayMinimised And (Math.Floor(m Mod noSecs) = 0) Then
 
-                Me.displayAction.DisplayReminder("Time", displayOneTime.getTime()) ' display current time as a toast notification,if desired
+            Me.displayAction.DisplayReminder("Time", displayOneTime.getTime()) ' display current time as a toast notification,if desired
 
-                If Me.usrSettings.usrTimerAdd And Me.tmrTimer.Enabled Then     ' time is running
-                    If Me.usrSettings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
-                        Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getHighElapsedTime())
-                    Else
-                        Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getLowElapsedTime())
-                    End If
+            If Me.usrSettings.usrTimerAdd And Me.tmrTimer.Enabled Then     ' time is running
+                If Me.usrSettings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
+                    Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getHighElapsedTime())
+                Else
+                    Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getLowElapsedTime())
+                End If
+            End If
+
+            If Me.usrSettings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
+                Me.displayAction.DisplayReminder("Countdown", "Countdown Running :: " & Me.minsToString(Me.CountDownTime))
+            End If
+
+            If Me.usrSettings.usrReminderAdd And Me.tmrReminder.Enabled Then
+                If Me.usrSettings.usrReminderTimeChecked Then
+                    Me.displayAction.DisplayReminder("Reminder", "Reminder set for " & Me.ReminderDateTime.ToLongDateString & " @ " & Me.ReminderDateTime.ToLongTimeString)
+                Else
+                    Me.displayAction.DisplayReminder("Reminder", "Reminder set for " & Me.ReminderDateTime.ToLongDateString)
+                End If
+            End If
+
+            If Me.usrSettings.usrWorldKlockAdd Then
+
+                Dim wctext As String
+
+                If RdBtnWorldClockTimeZoneLongName.Checked Then
+                    Dim TzInfo As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(Me.CmbBxWorldKlockTimeZones.SelectedItem.id)
+                    wctext = TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongDateString & " :: " & TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongTimeString
+                Else
+                    wctext = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongDateString & " :: " & TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongTimeString
                 End If
 
-                If Me.usrSettings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
-                    Me.displayAction.DisplayReminder("Countdown", "Countdown Running :: " & Me.minsToString(Me.CountDownTime))
-                End If
+                Me.displayAction.DisplayReminder("World Klock :: " & Me.CmbBxWorldKlockTimeZones.SelectedItem.ToString, wctext)
+            End If
 
-                If Me.usrSettings.usrReminderAdd And Me.tmrReminder.Enabled Then
-                    If Me.usrSettings.usrReminderTimeChecked Then
-                        Me.displayAction.DisplayReminder("Reminder", "Reminder set for " & Me.ReminderDateTime.ToLongDateString & " @ " & Me.ReminderDateTime.ToLongTimeString)
-                    Else
-                        Me.displayAction.DisplayReminder("Reminder", "Reminder set for " & Me.ReminderDateTime.ToLongDateString)
-                    End If
-                End If
+        End If          '   If Me.usrsettings.usrTimeDislayMinimised 
 
-                If Me.usrSettings.usrWorldKlockAdd Then
-
-                    Dim wctext As String
-
-                    If RdBtnWorldClockTimeZoneLongName.Checked Then
-                        Dim TzInfo As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(Me.CmbBxWorldKlockTimeZones.SelectedItem.id)
-                        wctext = TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongDateString & " :: " & TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongTimeString
-                    Else
-                        wctext = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongDateString & " :: " & TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongTimeString
-                    End If
-
-                    Me.displayAction.DisplayReminder("World Klock :: " & Me.CmbBxWorldKlockTimeZones.SelectedItem.ToString, wctext)
-                End If
-
-            End If          '   If Me.usrsettings.usrTimeDislayMinimised 
-        End If              '   If Me.NtfyIcnKlock.Visible Then
     End Sub
 
     ' *************************************************************************************************************** timer clock ***********************
@@ -277,28 +312,18 @@ Public Class frmKlock
 
         Select Case Me.TbCntrl.SelectedIndex
             Case 0                                              '   time tab
-                Me.Text = "Klock - tells you the time"
                 Me.FriendsButtonsVisible(False)
-                Me.btnHelp.Enabled = True
             Case 1                                              '   World Klock
-                Me.Text = "Klock - tells you the time around the World"
                 Me.FriendsButtonsVisible(False)
                 Me.updateWorldKlock()
-                Me.btnHelp.Enabled = False
             Case 2                                              '   countdown tab
-                Me.Text = "Klock - Countdown the time"
                 Me.FriendsButtonsVisible(False)
-                Me.btnHelp.Enabled = False
             Case 3                                              '   timer tab
-                Me.Text = "Klock - measures the time"
                 Me.FriendsButtonsVisible(False)
-                Me.btnHelp.Enabled = False
             Case 4                                             '   reminder tab
-                Me.Text = "Klock - Reminds you of the time"
                 Me.FriendsButtonsVisible(False)
-                Me.btnHelp.Enabled = False
 
-                If Me.usrsettings.usrReminderTimeChecked Then
+                If Me.usrSettings.usrReminderTimeChecked Then
                     Me.TmPckrRiminder.Enabled = True
                     Me.TmPckrRiminder.Value = Now()
                 Else
@@ -306,9 +331,7 @@ Public Class frmKlock
                     Me.TmPckrRiminder.Value = Today
                 End If
             Case 5                                              '   friends tab
-                Me.Text = "Klock - reminds you of your friends"
                 Me.FriendsButtonsVisible(True)
-                Me.btnHelp.Enabled = False
 
                 If Me.reloadFriends Then
                     Me.loadFriends()
@@ -324,22 +347,23 @@ Public Class frmKlock
                 End If
         End Select
 
+        Me.setTitleText()
     End Sub
 
     Private Sub setTitleText()
         Select Case Me.TbCntrl.SelectedIndex
             Case 0                                              '   time tab
-                Me.Text = "Klock - tells you the time :: " & Me.displayOneTime.getTitle()
+                Me.Text = "Klock - Tells you the time :: " & Me.displayOneTime.getTitle()
             Case 1                                              '   world klock tab
-                Me.Text = "Klock - tells you the time around the World"
+                Me.Text = "Klock - Tells you the time around the World"
             Case 2                                              '   countdown tab
-                Me.Text = "Klock - Countdown the time"
+                Me.Text = "Klock - Countdowns the time"
             Case 3                                              '   timer tab
-                Me.Text = "Klock - measures the time"
+                Me.Text = "Klock - Measures the time"
             Case 4                                              '   reminder tab
                 Me.Text = "Klock - Reminds you of the time"
             Case 5                                              '   friends tab
-                Me.Text = "Klock - reminds you of your friends"
+                Me.Text = "Klock - Reminds you of your friends"
         End Select
     End Sub
 
@@ -455,7 +479,7 @@ Public Class frmKlock
 
     Private Sub btnCountDownStart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownStart.Click
         '   Start the countdown by enabling the timer.
-        '   Also, enable the stop button and countdown label and swith off quick start buttons..
+        '   Also, enable the stop button and countdown label and switch off quick start buttons..
 
         Me.tmrCountDown.Enabled = True
 
@@ -493,7 +517,7 @@ Public Class frmKlock
 
         Me.CountDownTime = 90 * 60                                  '   90 minutes in seconds.
         Me.lblCountDownTime.Text = Me.minsToString(CountDownTime)
-        Me.btnCountDownStart_Click(sender, e)                       '   call click sub to strat countdown.
+        Me.btnCountDownStart_Click(sender, e)                       '   call click sub to start countdown.
     End Sub
 
     Private Sub QuickStartButtons(ByVal b As Boolean)
@@ -514,30 +538,42 @@ Public Class frmKlock
                 Me.CountDownSystem(False)
                 Me.CountDownCommand(False)
                 Me.CountdownSpeech(False)
+                Me.CountdownScreenSaver(False)
             Case 1                                                  '   Reminder chosen
                 Me.CountDownSound(False)
                 Me.CountDownReminder(True)
                 Me.CountDownSystem(False)
                 Me.CountDownCommand(False)
                 Me.CountdownSpeech(False)
+                Me.CountdownScreenSaver(False)
             Case 2                                                  '   System action chosen
                 Me.CountDownSound(False)
                 Me.CountDownReminder(False)
                 Me.CountDownSystem(True)
                 Me.CountDownCommand(False)
                 Me.CountdownSpeech(False)
+                Me.CountdownScreenSaver(False)
             Case 3                                                  '   Run Command chosen
                 Me.CountDownSound(False)
                 Me.CountDownReminder(False)
                 Me.CountDownSystem(False)
                 Me.CountDownCommand(True)
                 Me.CountdownSpeech(False)
+                Me.CountdownScreenSaver(False)
             Case 4                                                  '   Speak chosen
                 Me.CountDownSound(False)
                 Me.CountDownReminder(False)
                 Me.CountDownSystem(False)
                 Me.CountDownCommand(False)
                 Me.CountdownSpeech(True)
+                Me.CountdownScreenSaver(False)
+            Case 5                                                  '   Screen Saver chosen
+                Me.CountDownSound(False)
+                Me.CountDownReminder(False)
+                Me.CountDownSystem(False)
+                Me.CountDownCommand(False)
+                Me.CountdownSpeech(False)
+                Me.CountdownScreenSaver(True)
         End Select
 
     End Sub
@@ -629,9 +665,13 @@ Public Class frmKlock
             Me.ChckBxCountDownCommand.Checked = False
             Me.displayAction.DoCommand(TxtBxCountDowndCommand.Text)
         End If
-        If Me.ChckBxCountdownSpeech.Checked Then                                  '   do speech action.
+        If Me.ChckBxCountdownSpeech.Checked Then                               '   do speech action.
             Me.ChckBxCountdownSpeech.Checked = False
             usrVoice.Say(Me.TxtBxCountdownSpeech.Text)
+        End If
+        If Me.ChckBxCountdownScreenSaver.CheckAlign Then                       '   call screen saver
+            Me.ChckBxCountdownScreenSaver.Checked = False
+            Me.displayAction.ScreenSaver()
         End If
     End Sub
 
@@ -714,6 +754,12 @@ Public Class frmKlock
         Me.ChckBxCountdownSpeech.Visible = b
         Me.TxtBxCountdownSpeech.Visible = b
     End Sub
+
+    Sub CountdownScreenSaver(ByVal b As Boolean)
+        '   set visible to b for all screen saver components
+
+        Me.ChckBxCountdownScreenSaver.Visible = b
+    End Sub
     ' **************************************************************************************************** Reminder ****************************************
 
     Private Sub CmbBxReminderAction_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxReminderAction.SelectedIndexChanged
@@ -725,31 +771,43 @@ Public Class frmKlock
                 Me.ReminderReminder(False)
                 Me.ReminderSystem(False)
                 Me.ReminderCommand(False)
-                Me.reminderSpeech(False)
+                Me.ReminderSpeech(False)
+                Me.ReminderScreenSaver(False)
             Case 1                                                  '   Reminder chosen
                 Me.ReminderSound(False)
                 Me.ReminderReminder(True)
                 Me.ReminderSystem(False)
                 Me.ReminderCommand(False)
-                Me.reminderSpeech(False)
+                Me.ReminderSpeech(False)
+                Me.ReminderScreenSaver(False)
             Case 2                                                  '   System action chosen
                 Me.ReminderSound(False)
                 Me.ReminderReminder(False)
                 Me.ReminderSystem(True)
                 Me.ReminderCommand(False)
-                Me.reminderSpeech(False)
+                Me.ReminderSpeech(False)
+                Me.ReminderScreenSaver(False)
             Case 3                                                  '   Run Command chosen
                 Me.ReminderSound(False)
                 Me.ReminderReminder(False)
                 Me.ReminderSystem(False)
                 Me.ReminderCommand(True)
-                Me.reminderSpeech(False)
+                Me.ReminderSpeech(False)
+                Me.ReminderScreenSaver(False)
             Case 4                                                  '   speech chosen
                 Me.ReminderSound(False)
                 Me.ReminderReminder(False)
                 Me.ReminderSystem(False)
                 Me.ReminderCommand(False)
-                Me.reminderSpeech(True)
+                Me.ReminderSpeech(True)
+                Me.ReminderScreenSaver(False)
+            Case 5                                                  '   Screen Saver chosen
+                Me.ReminderSound(False)
+                Me.ReminderReminder(False)
+                Me.ReminderSystem(False)
+                Me.ReminderCommand(False)
+                Me.ReminderSpeech(False)
+                Me.ReminderScreenSaver(True)
         End Select
     End Sub
 
@@ -842,6 +900,10 @@ Public Class frmKlock
         If Me.ChckBxReminderSpeech.Checked Then                                 '   do speech action.
             Me.ChckBxReminderSpeech.Checked = False
             Me.usrVoice.Say(Me.TxtBxReminderSpeech.Text)
+        End If
+        If Me.ChckBxReminderScreenSaver.Checked Then                           '   call screen saver.
+            Me.ChckBxReminderScreenSaver.Checked = False
+            Me.displayAction.ScreenSaver()
         End If
     End Sub
 
@@ -951,11 +1013,17 @@ Public Class frmKlock
         Me.btnReminderLoadCommand.Visible = b
     End Sub
 
-    Private Sub reminderSpeech(ByVal b As Boolean)
+    Private Sub ReminderSpeech(ByVal b As Boolean)
         '   Sets visible to b for all command components
 
         Me.ChckBxReminderSpeech.Visible = b
         Me.TxtBxReminderSpeech.Visible = b
+    End Sub
+
+    Private Sub ReminderScreenSaver(ByVal b As Boolean)
+        '   Sets visible to b for all screen saver components
+
+        Me.ChckBxReminderScreenSaver.Visible = b
     End Sub
 
     Private Sub reminder_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DtPckrRiminder.ValueChanged, TmPckrRiminder.ValueChanged
@@ -1340,7 +1408,7 @@ Public Class frmKlock
 
         checkFriendsDirectory()        '   Check for data directory first, will be created if not there.
 
-        Dim saveFile As FileStream = File.Create(Me.usrSettings.usrFriendsDirectory & "\" & Me.usrSettings.usrFrinedsFile)
+        Dim saveFile As FileStream = File.Create(System.IO.Path.Combine(Me.usrSettings.usrFriendsDirectory, Me.usrSettings.usrFrinedsFile))
 
         saveFile.Seek(0, SeekOrigin.End)
 
@@ -1373,7 +1441,7 @@ Public Class frmKlock
         Dim readFile As FileStream
 
         Try
-            readFile = File.OpenRead(Me.usrSettings.usrFriendsDirectory & "\" & Me.usrSettings.usrFrinedsFile)
+            readFile = File.OpenRead(System.IO.Path.Combine(Me.usrSettings.usrFriendsDirectory, Me.usrSettings.usrFrinedsFile))
             readFile.Seek(0, SeekOrigin.Begin)
         Catch ex As Exception                   '   not there, go away.
             Me.displayAction.DisplayReminder("Friends", "No friends file found - will create if needed.")
@@ -1522,6 +1590,8 @@ Public Class frmKlock
         Me.usrVoice = New Voice                         '   user voice
         Me.myManagedPower = New ManagedPower            '   system power source
 
+        Me.HlpPrvdrKlock.HelpNamespace = Me.strHelpPath
+
         Me.checkDataDirectory()
 
         Me.InitThemes()                                 '   Not sure if this works :-)
@@ -1554,7 +1624,7 @@ Public Class frmKlock
     Private Sub checkDataDirectory()
         '   Check for data directory, which can be user selected [i.e. might not be application starting directory].  if doesn't exist, create it.
 
-        Dim FriendsDirectory As String = Application.StartupPath & "\Data"
+        Dim FriendsDirectory As String = System.IO.Path.Combine(Application.StartupPath, "Data")
 
         If Not My.Computer.FileSystem.DirectoryExists(FriendsDirectory) Then
             My.Computer.FileSystem.CreateDirectory(FriendsDirectory)
@@ -1616,6 +1686,8 @@ Public Class frmKlock
             Me.usrSettings.usrFormLeft = Me.Left
             Me.usrSettings.writeSettings()
         End If
+
+        grphcs.Dispose()
 
         '   fs.Close()
         '   sw.Close()
@@ -1704,9 +1776,9 @@ Public Class frmKlock
         Me.Visible = False
     End Sub
 
-    Private Sub btnHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHelp.Click
+    Private Sub btnHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHelp.Click, MnItmSubHelp.Click, TlStrpMnItmHelp.Click
 
-        TimeHelp.ShowDialog()
+        Help.ShowHelp(Me, Me.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
     End Sub
 
     ' *************************************************************************************************************************** menu stuff *************
@@ -1721,12 +1793,6 @@ Public Class frmKlock
         '   Display About screen.
 
         frmAbout.ShowDialog()
-    End Sub
-
-    Private Sub helpKlock(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmSubHelp.Click
-        '   Display Help Screen.
-
-        frmHelp.ShowDialog()
     End Sub
 
     Private Sub LicenseKlockk(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmLicense.Click
@@ -1796,7 +1862,7 @@ Public Class frmKlock
 
         frmInfo.Label1.Text = "Computer Name : " & My.Computer.Name.ToString
         frmInfo.Label2.Text = ""
-        frmInfo.Label3.Text = "OS Fule Name : " & My.Computer.Info.OSFullName
+        frmInfo.Label3.Text = "OS Full Name : " & My.Computer.Info.OSFullName
         frmInfo.Label4.Text = "OS Platform : " & My.Computer.Info.OSPlatform
         frmInfo.Label5.Text = "OS Version : " & My.Computer.Info.OSVersion
 
@@ -1840,15 +1906,6 @@ Public Class frmKlock
 
 
     ' ********************************************************************************************************************************* END **************
-
-
-
-
-
-
-
-
-
 
 
 

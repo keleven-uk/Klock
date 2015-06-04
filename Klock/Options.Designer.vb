@@ -90,13 +90,15 @@ Partial Class frmOptions
         Me.ChckBxWorldKlockAdd = New System.Windows.Forms.CheckBox()
         Me.TbPgFriends = New System.Windows.Forms.TabPage()
         Me.GroupBox11 = New System.Windows.Forms.GroupBox()
-        Me.btnArchieveFriendsLoad = New System.Windows.Forms.Button()
-        Me.btnArchieveFriendsSave = New System.Windows.Forms.Button()
-        Me.TxtBxArchieveFriendsFile = New System.Windows.Forms.TextBox()
-        Me.TxtBxArchieveFriendsDirectory = New System.Windows.Forms.TextBox()
-        Me.btnArchieveFriendsFile = New System.Windows.Forms.Button()
-        Me.btnArchieveFriendsDirectory = New System.Windows.Forms.Button()
+        Me.btnarchiveFriendsLoad = New System.Windows.Forms.Button()
+        Me.btnarchiveFriendsSave = New System.Windows.Forms.Button()
+        Me.TxtBxarchiveFriendsFile = New System.Windows.Forms.TextBox()
+        Me.TxtBxarchiveFriendsDirectory = New System.Windows.Forms.TextBox()
+        Me.btnarchiveFriendsFile = New System.Windows.Forms.Button()
+        Me.btnarchiveFriendsDirectory = New System.Windows.Forms.Button()
         Me.GroupBox10 = New System.Windows.Forms.GroupBox()
+        Me.lblOptionsSettingsDirectory = New System.Windows.Forms.Label()
+        Me.lblOptionsSettingsFile = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btnOptionsFriendsPathReset = New System.Windows.Forms.Button()
         Me.btnOptionsFriendsFile = New System.Windows.Forms.Button()
@@ -106,8 +108,6 @@ Partial Class frmOptions
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.lblOptionsSettingsFile = New System.Windows.Forms.Label()
-        Me.lblOptionsSettingsDirectory = New System.Windows.Forms.Label()
         Me.TabCntrlOptions.SuspendLayout()
         Me.TbPgGlobal.SuspendLayout()
         Me.GroupBox13.SuspendLayout()
@@ -305,7 +305,7 @@ Partial Class frmOptions
         Me.GroupBox8.Size = New System.Drawing.Size(648, 68)
         Me.GroupBox8.TabIndex = 12
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = "Behavour"
+        Me.GroupBox8.Text = "Behaviour"
         '
         'ChckBxOptionsRunOnStartup
         '
@@ -828,76 +828,76 @@ Partial Class frmOptions
         Me.TbPgFriends.Padding = New System.Windows.Forms.Padding(3)
         Me.TbPgFriends.Size = New System.Drawing.Size(660, 265)
         Me.TbPgFriends.TabIndex = 6
-        Me.TbPgFriends.Text = "Archieve"
+        Me.TbPgFriends.Text = "archive"
         '
         'GroupBox11
         '
-        Me.GroupBox11.Controls.Add(Me.btnArchieveFriendsLoad)
-        Me.GroupBox11.Controls.Add(Me.btnArchieveFriendsSave)
-        Me.GroupBox11.Controls.Add(Me.TxtBxArchieveFriendsFile)
-        Me.GroupBox11.Controls.Add(Me.TxtBxArchieveFriendsDirectory)
-        Me.GroupBox11.Controls.Add(Me.btnArchieveFriendsFile)
-        Me.GroupBox11.Controls.Add(Me.btnArchieveFriendsDirectory)
+        Me.GroupBox11.Controls.Add(Me.btnarchiveFriendsLoad)
+        Me.GroupBox11.Controls.Add(Me.btnarchiveFriendsSave)
+        Me.GroupBox11.Controls.Add(Me.TxtBxarchiveFriendsFile)
+        Me.GroupBox11.Controls.Add(Me.TxtBxarchiveFriendsDirectory)
+        Me.GroupBox11.Controls.Add(Me.btnarchiveFriendsFile)
+        Me.GroupBox11.Controls.Add(Me.btnarchiveFriendsDirectory)
         Me.GroupBox11.Location = New System.Drawing.Point(6, 150)
         Me.GroupBox11.Name = "GroupBox11"
         Me.GroupBox11.Size = New System.Drawing.Size(648, 103)
         Me.GroupBox11.TabIndex = 1
         Me.GroupBox11.TabStop = False
-        Me.GroupBox11.Text = "Archieve"
+        Me.GroupBox11.Text = "archive"
         '
-        'btnArchieveFriendsLoad
+        'btnarchiveFriendsLoad
         '
-        Me.btnArchieveFriendsLoad.Enabled = False
-        Me.btnArchieveFriendsLoad.Location = New System.Drawing.Point(557, 56)
-        Me.btnArchieveFriendsLoad.Name = "btnArchieveFriendsLoad"
-        Me.btnArchieveFriendsLoad.Size = New System.Drawing.Size(75, 23)
-        Me.btnArchieveFriendsLoad.TabIndex = 5
-        Me.btnArchieveFriendsLoad.Text = "Load"
-        Me.btnArchieveFriendsLoad.UseVisualStyleBackColor = True
+        Me.btnarchiveFriendsLoad.Enabled = False
+        Me.btnarchiveFriendsLoad.Location = New System.Drawing.Point(557, 56)
+        Me.btnarchiveFriendsLoad.Name = "btnarchiveFriendsLoad"
+        Me.btnarchiveFriendsLoad.Size = New System.Drawing.Size(75, 23)
+        Me.btnarchiveFriendsLoad.TabIndex = 5
+        Me.btnarchiveFriendsLoad.Text = "Load"
+        Me.btnarchiveFriendsLoad.UseVisualStyleBackColor = True
         '
-        'btnArchieveFriendsSave
+        'btnarchiveFriendsSave
         '
-        Me.btnArchieveFriendsSave.Enabled = False
-        Me.btnArchieveFriendsSave.Location = New System.Drawing.Point(476, 56)
-        Me.btnArchieveFriendsSave.Name = "btnArchieveFriendsSave"
-        Me.btnArchieveFriendsSave.Size = New System.Drawing.Size(75, 23)
-        Me.btnArchieveFriendsSave.TabIndex = 4
-        Me.btnArchieveFriendsSave.Text = "Save"
-        Me.btnArchieveFriendsSave.UseVisualStyleBackColor = True
+        Me.btnarchiveFriendsSave.Enabled = False
+        Me.btnarchiveFriendsSave.Location = New System.Drawing.Point(476, 56)
+        Me.btnarchiveFriendsSave.Name = "btnarchiveFriendsSave"
+        Me.btnarchiveFriendsSave.Size = New System.Drawing.Size(75, 23)
+        Me.btnarchiveFriendsSave.TabIndex = 4
+        Me.btnarchiveFriendsSave.Text = "Save"
+        Me.btnarchiveFriendsSave.UseVisualStyleBackColor = True
         '
-        'TxtBxArchieveFriendsFile
+        'TxtBxarchiveFriendsFile
         '
-        Me.TxtBxArchieveFriendsFile.Location = New System.Drawing.Point(434, 22)
-        Me.TxtBxArchieveFriendsFile.Name = "TxtBxArchieveFriendsFile"
-        Me.TxtBxArchieveFriendsFile.ReadOnly = True
-        Me.TxtBxArchieveFriendsFile.Size = New System.Drawing.Size(117, 20)
-        Me.TxtBxArchieveFriendsFile.TabIndex = 3
+        Me.TxtBxarchiveFriendsFile.Location = New System.Drawing.Point(434, 22)
+        Me.TxtBxarchiveFriendsFile.Name = "TxtBxarchiveFriendsFile"
+        Me.TxtBxarchiveFriendsFile.ReadOnly = True
+        Me.TxtBxarchiveFriendsFile.Size = New System.Drawing.Size(117, 20)
+        Me.TxtBxarchiveFriendsFile.TabIndex = 3
         '
-        'TxtBxArchieveFriendsDirectory
+        'TxtBxarchiveFriendsDirectory
         '
-        Me.TxtBxArchieveFriendsDirectory.Location = New System.Drawing.Point(6, 20)
-        Me.TxtBxArchieveFriendsDirectory.Name = "TxtBxArchieveFriendsDirectory"
-        Me.TxtBxArchieveFriendsDirectory.ReadOnly = True
-        Me.TxtBxArchieveFriendsDirectory.Size = New System.Drawing.Size(341, 20)
-        Me.TxtBxArchieveFriendsDirectory.TabIndex = 2
+        Me.TxtBxarchiveFriendsDirectory.Location = New System.Drawing.Point(6, 20)
+        Me.TxtBxarchiveFriendsDirectory.Name = "TxtBxarchiveFriendsDirectory"
+        Me.TxtBxarchiveFriendsDirectory.ReadOnly = True
+        Me.TxtBxarchiveFriendsDirectory.Size = New System.Drawing.Size(341, 20)
+        Me.TxtBxarchiveFriendsDirectory.TabIndex = 2
         '
-        'btnArchieveFriendsFile
+        'btnarchiveFriendsFile
         '
-        Me.btnArchieveFriendsFile.Location = New System.Drawing.Point(557, 20)
-        Me.btnArchieveFriendsFile.Name = "btnArchieveFriendsFile"
-        Me.btnArchieveFriendsFile.Size = New System.Drawing.Size(75, 23)
-        Me.btnArchieveFriendsFile.TabIndex = 1
-        Me.btnArchieveFriendsFile.Text = "..."
-        Me.btnArchieveFriendsFile.UseVisualStyleBackColor = True
+        Me.btnarchiveFriendsFile.Location = New System.Drawing.Point(557, 20)
+        Me.btnarchiveFriendsFile.Name = "btnarchiveFriendsFile"
+        Me.btnarchiveFriendsFile.Size = New System.Drawing.Size(75, 23)
+        Me.btnarchiveFriendsFile.TabIndex = 1
+        Me.btnarchiveFriendsFile.Text = "..."
+        Me.btnarchiveFriendsFile.UseVisualStyleBackColor = True
         '
-        'btnArchieveFriendsDirectory
+        'btnarchiveFriendsDirectory
         '
-        Me.btnArchieveFriendsDirectory.Location = New System.Drawing.Point(353, 20)
-        Me.btnArchieveFriendsDirectory.Name = "btnArchieveFriendsDirectory"
-        Me.btnArchieveFriendsDirectory.Size = New System.Drawing.Size(75, 23)
-        Me.btnArchieveFriendsDirectory.TabIndex = 0
-        Me.btnArchieveFriendsDirectory.Text = "..."
-        Me.btnArchieveFriendsDirectory.UseVisualStyleBackColor = True
+        Me.btnarchiveFriendsDirectory.Location = New System.Drawing.Point(353, 20)
+        Me.btnarchiveFriendsDirectory.Name = "btnarchiveFriendsDirectory"
+        Me.btnarchiveFriendsDirectory.Size = New System.Drawing.Size(75, 23)
+        Me.btnarchiveFriendsDirectory.TabIndex = 0
+        Me.btnarchiveFriendsDirectory.Text = "..."
+        Me.btnarchiveFriendsDirectory.UseVisualStyleBackColor = True
         '
         'GroupBox10
         '
@@ -915,6 +915,24 @@ Partial Class frmOptions
         Me.GroupBox10.TabIndex = 0
         Me.GroupBox10.TabStop = False
         Me.GroupBox10.Text = "Data Files"
+        '
+        'lblOptionsSettingsDirectory
+        '
+        Me.lblOptionsSettingsDirectory.AutoSize = True
+        Me.lblOptionsSettingsDirectory.Location = New System.Drawing.Point(6, 56)
+        Me.lblOptionsSettingsDirectory.Name = "lblOptionsSettingsDirectory"
+        Me.lblOptionsSettingsDirectory.Size = New System.Drawing.Size(129, 13)
+        Me.lblOptionsSettingsDirectory.TabIndex = 7
+        Me.lblOptionsSettingsDirectory.Text = "Options Settings Directory"
+        '
+        'lblOptionsSettingsFile
+        '
+        Me.lblOptionsSettingsFile.AutoSize = True
+        Me.lblOptionsSettingsFile.Location = New System.Drawing.Point(431, 56)
+        Me.lblOptionsSettingsFile.Name = "lblOptionsSettingsFile"
+        Me.lblOptionsSettingsFile.Size = New System.Drawing.Size(103, 13)
+        Me.lblOptionsSettingsFile.TabIndex = 6
+        Me.lblOptionsSettingsFile.Text = "Options Settings File"
         '
         'Label7
         '
@@ -981,24 +999,6 @@ Partial Class frmOptions
         '
         Me.OpenFileDialog1.CheckFileExists = False
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
-        '
-        'lblOptionsSettingsFile
-        '
-        Me.lblOptionsSettingsFile.AutoSize = True
-        Me.lblOptionsSettingsFile.Location = New System.Drawing.Point(431, 56)
-        Me.lblOptionsSettingsFile.Name = "lblOptionsSettingsFile"
-        Me.lblOptionsSettingsFile.Size = New System.Drawing.Size(103, 13)
-        Me.lblOptionsSettingsFile.TabIndex = 6
-        Me.lblOptionsSettingsFile.Text = "Options Settings File"
-        '
-        'lblOptionsSettingsDirectory
-        '
-        Me.lblOptionsSettingsDirectory.AutoSize = True
-        Me.lblOptionsSettingsDirectory.Location = New System.Drawing.Point(6, 56)
-        Me.lblOptionsSettingsDirectory.Name = "lblOptionsSettingsDirectory"
-        Me.lblOptionsSettingsDirectory.Size = New System.Drawing.Size(129, 13)
-        Me.lblOptionsSettingsDirectory.TabIndex = 7
-        Me.lblOptionsSettingsDirectory.Text = "Options Settings Directory"
         '
         'frmOptions
         '
@@ -1110,12 +1110,6 @@ Partial Class frmOptions
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents btnOptionsFriendsPathReset As System.Windows.Forms.Button
     Friend WithEvents GroupBox11 As System.Windows.Forms.GroupBox
-    Friend WithEvents TxtBxArchieveFriendsFile As System.Windows.Forms.TextBox
-    Friend WithEvents TxtBxArchieveFriendsDirectory As System.Windows.Forms.TextBox
-    Friend WithEvents btnArchieveFriendsFile As System.Windows.Forms.Button
-    Friend WithEvents btnArchieveFriendsDirectory As System.Windows.Forms.Button
-    Friend WithEvents btnArchieveFriendsLoad As System.Windows.Forms.Button
-    Friend WithEvents btnArchieveFriendsSave As System.Windows.Forms.Button
     Friend WithEvents ChckBxTimeHexIntuitor As System.Windows.Forms.CheckBox
     Friend WithEvents chckBxTimeTwoFormats As System.Windows.Forms.CheckBox
     Friend WithEvents TbPgOtherStuff As System.Windows.Forms.TabPage
@@ -1140,4 +1134,10 @@ Partial Class frmOptions
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents lblOptionsSettingsDirectory As System.Windows.Forms.Label
     Friend WithEvents lblOptionsSettingsFile As System.Windows.Forms.Label
+    Friend WithEvents TxtBxarchiveFriendsFile As System.Windows.Forms.TextBox
+    Friend WithEvents TxtBxarchiveFriendsDirectory As System.Windows.Forms.TextBox
+    Friend WithEvents btnarchiveFriendsFile As System.Windows.Forms.Button
+    Friend WithEvents btnarchiveFriendsDirectory As System.Windows.Forms.Button
+    Friend WithEvents btnarchiveFriendsLoad As System.Windows.Forms.Button
+    Friend WithEvents btnarchiveFriendsSave As System.Windows.Forms.Button
 End Class

@@ -119,12 +119,6 @@
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="FormAnimator.vb" />
     <Compile Include="ManagedPower.vb" />
-    <Compile Include="TimeHelp.Designer.vb">
-      <DependentUpon>TimeHelp.vb</DependentUpon>
-    </Compile>
-    <Compile Include="TimeHelp.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Info.Designer.vb">
       <DependentUpon>Info.vb</DependentUpon>
     </Compile>
@@ -150,12 +144,6 @@
       <DependentUpon>License.vb</DependentUpon>
     </Compile>
     <Compile Include="License.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Help.Designer.vb">
-      <DependentUpon>Help.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Help.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Settings.vb" />
@@ -189,9 +177,6 @@
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TimeHelp.resx">
-      <DependentUpon>TimeHelp.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Info.resx">
       <DependentUpon>Info.vb</DependentUpon>
     </EmbeddedResource>
@@ -203,9 +188,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="License.resx">
       <DependentUpon>License.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Help.resx">
-      <DependentUpon>Help.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -219,6 +201,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="Klock.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

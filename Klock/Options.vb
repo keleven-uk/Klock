@@ -17,7 +17,7 @@ Public Class frmOptions
 
         displayAction = New selectAction
 
-        Me.TxtBxArchieveFriendsFile.Text = "Friends.zip"
+        Me.TxtBxarchiveFriendsFile.Text = "Friends.zip"
 
         Me.lblOptionsSettingsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
         Me.lblOptionsSettingsFile.Text = frmKlock.usrSettings.usrOptionsSaveFile
@@ -30,69 +30,69 @@ Public Class frmOptions
 
         Me.LblOptionSavepath.Text = frmKlock.usrSettings.usrOptionsSavePath
 
-        Me.BackColor = frmKlock.usrsettings.usrFormColour
+        Me.BackColor = frmKlock.usrSettings.usrFormColour
 
-        Me.lblColour.Font = frmKlock.usrsettings.usrFormFont
-        Me.lblColour.ForeColor = frmKlock.usrsettings.usrFormFontColour
+        Me.lblColour.Font = frmKlock.usrSettings.usrFormFont
+        Me.lblColour.ForeColor = frmKlock.usrSettings.usrFormFontColour
 
-        Me.lblFont.Font = frmKlock.usrsettings.usrFormFont
-        Me.lblFont.ForeColor = frmKlock.usrsettings.usrFormFontColour
+        Me.lblFont.Font = frmKlock.usrSettings.usrFormFont
+        Me.lblFont.ForeColor = frmKlock.usrSettings.usrFormFontColour
 
-        Me.lblDefaultColour.Font = frmKlock.usrsettings.usrFormFont
-        Me.lblDefaultColour.ForeColor = frmKlock.usrsettings.usrFormFontColour
+        Me.lblDefaultColour.Font = frmKlock.usrSettings.usrFormFont
+        Me.lblDefaultColour.ForeColor = frmKlock.usrSettings.usrFormFontColour
 
-        Me.TbPgGlobal.BackColor = frmKlock.usrsettings.usrFormColour
+        Me.TbPgGlobal.BackColor = frmKlock.usrSettings.usrFormColour
 
-        Me.ChckBxOptionsSavePos.Checked = frmKlock.usrsettings.usrSavePosition
-        Me.ChckBxOptionsRunOnStartup.Checked = frmKlock.usrsettings.usrRunOnStartup
-        Me.ChckBxOptionsStartupMinimised.Checked = frmKlock.usrsettings.usrStartMinimised
+        Me.ChckBxOptionsSavePos.Checked = frmKlock.usrSettings.usrSavePosition
+        Me.ChckBxOptionsRunOnStartup.Checked = frmKlock.usrSettings.usrRunOnStartup
+        Me.ChckBxOptionsStartupMinimised.Checked = frmKlock.usrSettings.usrStartMinimised
 
         Me.ChckBxTimerHigh.Checked = frmKlock.usrSettings.usrTimerHigh
-        Me.ChckBxClearSplit.Checked = frmKlock.usrsettings.usrTimerClearSplit
+        Me.ChckBxClearSplit.Checked = frmKlock.usrSettings.usrTimerClearSplit
 
-        Me.chckBxTimeTwoFormats.Checked = frmKlock.usrsettings.usrTimeTwoFormats
+        Me.chckBxTimeTwoFormats.Checked = frmKlock.usrSettings.usrTimeTwoFormats
 
-        Me.chckBxTimeSwatch.Checked = frmKlock.usrsettings.usrTimeSwatchCentibeats
-        Me.ChckBxTimeNetSeconds.Checked = frmKlock.usrsettings.usrTimeNETSeconds
-        Me.ChckBxTimeHexIntuitor.Checked = frmKlock.usrsettings.usrTimeHexIntuitorFormat
-        Me.ChckBxTimeHourPips.Checked = frmKlock.usrsettings.usrTimeHourPips
-        Me.ChckBxTimeHourlyChimes.Checked = frmKlock.usrsettings.usrTimeHourChimes
-        Me.ChckBxTimeHalfChimes.Checked = frmKlock.usrsettings.usrTimeHalfChimes
-        Me.ChckBxTimeQuarterChimes.Checked = frmKlock.usrsettings.usrTimeQuarterChimes
-        Me.ChckBxTimeToast.Checked = frmKlock.usrsettings.usrTimeDisplayMinimised
-        Me.UpDwnTimeDisplay.Value = frmKlock.usrsettings.usrTimeDisplayMinutes
+        Me.chckBxTimeSwatch.Checked = frmKlock.usrSettings.usrTimeSwatchCentibeats
+        Me.ChckBxTimeNetSeconds.Checked = frmKlock.usrSettings.usrTimeNETSeconds
+        Me.ChckBxTimeHexIntuitor.Checked = frmKlock.usrSettings.usrTimeHexIntuitorFormat
+        Me.ChckBxTimeHourPips.Checked = frmKlock.usrSettings.usrTimeHourPips
+        Me.ChckBxTimeHourlyChimes.Checked = frmKlock.usrSettings.usrTimeHourChimes
+        Me.ChckBxTimeHalfChimes.Checked = frmKlock.usrSettings.usrTimeHalfChimes
+        Me.ChckBxTimeQuarterChimes.Checked = frmKlock.usrSettings.usrTimeQuarterChimes
+        Me.ChckBxTimeToast.Checked = frmKlock.usrSettings.usrTimeDisplayMinimised
+        Me.UpDwnTimeDisplay.Value = frmKlock.usrSettings.usrTimeDisplayMinutes
         Me.ChckBxOptionsVoice.Checked = frmKlock.usrSettings.usrTimeVoiceMinimised
         Me.UpDwnVoiceDisplay.Value = frmKlock.usrSettings.usrTimeVoiceMinutes
 
-        Me.ChckBxReminderAdd.Checked = frmKlock.usrsettings.usrReminderAdd
-        Me.ChckBxTimerAdd.Checked = frmKlock.usrsettings.usrTimerAdd
-        Me.ChckBxCountdownAdd.Checked = frmKlock.usrsettings.usrCountdownAdd
-        Me.ChckBxWorldKlockAdd.Checked = frmKlock.usrsettings.usrWorldKlockAdd
+        Me.ChckBxReminderAdd.Checked = frmKlock.usrSettings.usrReminderAdd
+        Me.ChckBxTimerAdd.Checked = frmKlock.usrSettings.usrTimerAdd
+        Me.ChckBxCountdownAdd.Checked = frmKlock.usrSettings.usrCountdownAdd
+        Me.ChckBxWorldKlockAdd.Checked = frmKlock.usrSettings.usrWorldKlockAdd
 
-        If frmKlock.usrsettings.usrTimeDisplayMinutes Then
+        If frmKlock.usrSettings.usrTimeDisplayMinutes Then
             Me.UpDwnTimeDisplay.Enabled = True
         Else
             Me.UpDwnTimeDisplay.Enabled = False
         End If
 
-        Me.NmrcUpDwnNotificationTimeOut.Value = frmKlock.usrsettings.usrNotificationTimeOut / 1000
-        Me.NmrcUpDwnNotificationOpacity.Value = frmKlock.usrsettings.usrNotificationOpacity
+        Me.NmrcUpDwnNotificationTimeOut.Value = frmKlock.usrSettings.usrNotificationTimeOut / 1000
+        Me.NmrcUpDwnNotificationOpacity.Value = frmKlock.usrSettings.usrNotificationOpacity
 
         Me.TrckBrOptionsVolume.Minimum = 0
         Me.TrckBrOptionsVolume.Maximum = 1000
         Me.TrckBrOptionsVolume.TickFrequency = 100
-        Me.TrckBrOptionsVolume.Value = frmKlock.usrsettings.usrSoundVolume
+        Me.TrckBrOptionsVolume.Value = frmKlock.usrSettings.usrSoundVolume
 
-        If frmKlock.usrsettings.usrFriendsDirectory = "" Then
-            Me.TxtBxOptionsFriendsDirectory.Text = Application.StartupPath & "\Data"
+        If frmKlock.usrSettings.usrFriendsDirectory = "" Then
+            Me.TxtBxOptionsFriendsDirectory.Text = System.IO.Path.Combine(Application.StartupPath, "Data")
         Else
-            Me.TxtBxOptionsFriendsDirectory.Text = frmKlock.usrsettings.usrFriendsDirectory
+            Me.TxtBxOptionsFriendsDirectory.Text = frmKlock.usrSettings.usrFriendsDirectory
         End If
 
-        If frmKlock.usrsettings.usrFrinedsFile = "" Then
+        If frmKlock.usrSettings.usrFrinedsFile = "" Then
             Me.TxtBxOptionsFriendsFile.Text = "Friends.bin"
         Else
-            Me.TxtBxOptionsFriendsFile.Text = frmKlock.usrsettings.usrFrinedsFile
+            Me.TxtBxOptionsFriendsFile.Text = frmKlock.usrSettings.usrFrinedsFile
         End If
 
     End Sub
@@ -102,45 +102,45 @@ Public Class frmOptions
     Private Sub btnOptionsClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsClose.Click
         '    When closed, save settings.
 
-        frmKlock.usrsettings.usrSavePosition = Me.ChckBxOptionsSavePos.Checked
-        frmKlock.usrsettings.usrRunOnStartup = Me.ChckBxOptionsRunOnStartup.Checked
-        frmKlock.usrsettings.usrStartMinimised = Me.ChckBxOptionsStartupMinimised.Checked
+        frmKlock.usrSettings.usrSavePosition = Me.ChckBxOptionsSavePos.Checked
+        frmKlock.usrSettings.usrRunOnStartup = Me.ChckBxOptionsRunOnStartup.Checked
+        frmKlock.usrSettings.usrStartMinimised = Me.ChckBxOptionsStartupMinimised.Checked
 
         If frmKlock.usrSettings.usrSavePosition Then
             frmKlock.usrSettings.usrFormTop = frmKlock.Top
             frmKlock.usrSettings.usrFormLeft = frmKlock.Left
         End If
 
-        frmKlock.usrsettings.usrTimerHigh = Me.ChckBxTimerHigh.Checked
-        frmKlock.usrsettings.usrTimerClearSplit = Me.ChckBxClearSplit.Checked
+        frmKlock.usrSettings.usrTimerHigh = Me.ChckBxTimerHigh.Checked
+        frmKlock.usrSettings.usrTimerClearSplit = Me.ChckBxClearSplit.Checked
 
-        frmKlock.usrsettings.usrTimeTwoFormats = Me.chckBxTimeTwoFormats.Checked
+        frmKlock.usrSettings.usrTimeTwoFormats = Me.chckBxTimeTwoFormats.Checked
 
-        frmKlock.usrsettings.usrTimeSwatchCentibeats = Me.chckBxTimeSwatch.Checked
-        frmKlock.usrsettings.usrTimeNETSeconds = Me.ChckBxTimeNetSeconds.Checked
-        frmKlock.usrsettings.usrTimeHexIntuitorFormat = Me.ChckBxTimeHexIntuitor.Checked
-        frmKlock.usrsettings.usrTimeHourPips = Me.ChckBxTimeHourPips.Checked
-        frmKlock.usrsettings.usrTimeHourChimes = Me.ChckBxTimeHourlyChimes.Checked
-        frmKlock.usrsettings.usrTimeHalfChimes = Me.ChckBxTimeHalfChimes.Checked
-        frmKlock.usrsettings.usrTimeQuarterChimes = Me.ChckBxTimeQuarterChimes.Checked
-        frmKlock.usrsettings.usrTimeDisplayMinimised = Me.ChckBxTimeToast.Checked
-        frmKlock.usrsettings.usrTimeDisplayMinutes = Me.UpDwnTimeDisplay.Value
+        frmKlock.usrSettings.usrTimeSwatchCentibeats = Me.chckBxTimeSwatch.Checked
+        frmKlock.usrSettings.usrTimeNETSeconds = Me.ChckBxTimeNetSeconds.Checked
+        frmKlock.usrSettings.usrTimeHexIntuitorFormat = Me.ChckBxTimeHexIntuitor.Checked
+        frmKlock.usrSettings.usrTimeHourPips = Me.ChckBxTimeHourPips.Checked
+        frmKlock.usrSettings.usrTimeHourChimes = Me.ChckBxTimeHourlyChimes.Checked
+        frmKlock.usrSettings.usrTimeHalfChimes = Me.ChckBxTimeHalfChimes.Checked
+        frmKlock.usrSettings.usrTimeQuarterChimes = Me.ChckBxTimeQuarterChimes.Checked
+        frmKlock.usrSettings.usrTimeDisplayMinimised = Me.ChckBxTimeToast.Checked
+        frmKlock.usrSettings.usrTimeDisplayMinutes = Me.UpDwnTimeDisplay.Value
         frmKlock.usrSettings.usrTimeVoiceMinimised = Me.ChckBxOptionsVoice.Checked
         frmKlock.usrSettings.usrTimeVoiceMinutes = Me.UpDwnVoiceDisplay.Value
 
-        frmKlock.usrsettings.usrReminderAdd = Me.ChckBxReminderAdd.Checked
-        frmKlock.usrsettings.usrTimerAdd = Me.ChckBxTimerAdd.Checked
-        frmKlock.usrsettings.usrCountdownAdd = Me.ChckBxCountdownAdd.Checked
-        frmKlock.usrsettings.usrWorldKlockAdd = Me.ChckBxWorldKlockAdd.Checked
+        frmKlock.usrSettings.usrReminderAdd = Me.ChckBxReminderAdd.Checked
+        frmKlock.usrSettings.usrTimerAdd = Me.ChckBxTimerAdd.Checked
+        frmKlock.usrSettings.usrCountdownAdd = Me.ChckBxCountdownAdd.Checked
+        frmKlock.usrSettings.usrWorldKlockAdd = Me.ChckBxWorldKlockAdd.Checked
 
-        frmKlock.usrsettings.usrReminderTimeChecked = Me.ChckBxReminderTimeCheck.Checked
+        frmKlock.usrSettings.usrReminderTimeChecked = Me.ChckBxReminderTimeCheck.Checked
 
-        frmKlock.usrsettings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
+        frmKlock.usrSettings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
 
-        frmKlock.usrsettings.usrFriendsDirectory = Me.TxtBxOptionsFriendsDirectory.Text
-        frmKlock.usrsettings.usrFrinedsFile = Me.TxtBxOptionsFriendsFile.Text
+        frmKlock.usrSettings.usrFriendsDirectory = Me.TxtBxOptionsFriendsDirectory.Text
+        frmKlock.usrSettings.usrFrinedsFile = Me.TxtBxOptionsFriendsFile.Text
 
-        frmKlock.usrsettings.writeSettings()
+        frmKlock.usrSettings.writeSettings()
         frmKlock.setSettings()
 
         Me.Close()
@@ -252,9 +252,9 @@ Public Class frmOptions
     Private Sub btnNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNotificationColour.Click
         '   Set the Notification main colour.
 
-        Me.ClrDlgFormColour.Color = frmKlock.usrSettings.usrNotificationBackColour   '   current Notification colour
+        Me.ClrDlgFormColour.Color = frmKlock.usrSettings.usrNotificationbackColour   '   current Notification colour
         If Me.ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
-            frmKlock.usrSettings.usrNotificationBackColour = Me.ClrDlgFormColour.Color
+            frmKlock.usrSettings.usrNotificationbackColour = Me.ClrDlgFormColour.Color
         End If
     End Sub
 
@@ -262,7 +262,7 @@ Public Class frmOptions
         '   Set the Notification main font.
         '   the font colour has to be handled separately.
 
-        Me.FntDlgFont.Font = frmKlock.usrsettings.usrNotificationFont                  '   current Notification font
+        Me.FntDlgFont.Font = frmKlock.usrSettings.usrNotificationFont                  '   current Notification font
         Me.FntDlgFont.Color = frmKlock.usrSettings.usrNotificationFontColour           '   current Notification font colour
 
         If Me.FntDlgFont.ShowDialog() = DialogResult.OK Then
@@ -302,7 +302,7 @@ Public Class frmOptions
     Private Sub btnOptionsTestVolume_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsTestVolume.Click
         '   Play a sound to test system volume.
 
-        Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.mp3")
+        Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\halfchime.mp3"))
 
     End Sub
 
@@ -319,7 +319,7 @@ Public Class frmOptions
     '---------------------------------------------------------- Friends Options  ---------------------------------------------------------------
 
     Private Sub btnOptionsFriendsDirectory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFriendsDirectory.Click
-        '   Promt user to the location of the friends file - Default to Application Path \data.
+        '   Prompt user to the location of the friends file - Default to Application Path \data.
 
         If Me.FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
             Me.TxtBxOptionsFriendsDirectory.Text = Me.FolderBrowserDialog1.SelectedPath
@@ -347,71 +347,71 @@ Public Class frmOptions
         Me.TxtBxOptionsFriendsFile.Text = "Friends.bin"
     End Sub
 
-    Private Sub btnArchieveFriendsDirectory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsDirectory.Click
-        '   Prompt user for location of the archive file.
+    Private Sub btnArchiveFriendsDirectory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnarchiveFriendsDirectory.Click
+        '   Prompt user for location of the Archive file.
         '   If file exists, enable load button.  Enable save button as well
 
         If Me.FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
-            Me.TxtBxArchieveFriendsDirectory.Text = Me.FolderBrowserDialog1.SelectedPath
+            Me.TxtBxarchiveFriendsDirectory.Text = Me.FolderBrowserDialog1.SelectedPath
 
-            Me.btnArchieveFriendsSave.Enabled = True
+            Me.btnarchiveFriendsSave.Enabled = True
 
-            If My.Computer.FileSystem.FileExists(Me.TxtBxArchieveFriendsDirectory.Text & "\" & Me.TxtBxArchieveFriendsFile.Text) Then
-                Me.btnArchieveFriendsLoad.Enabled = True
+            If My.Computer.FileSystem.FileExists(System.IO.Path.Combine(Me.TxtBxarchiveFriendsDirectory.Text, Me.TxtBxarchiveFriendsFile.Text)) Then
+                Me.btnarchiveFriendsLoad.Enabled = True
             End If
 
         End If
     End Sub
 
-    Private Sub btnArchieveFriendsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsFile.Click
-        '   Prompt user for file name of the archive file.
+    Private Sub btnArchiveFriendsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnarchiveFriendsFile.Click
+        '   Prompt user for file name of the Archive file.
         '   If file exists, enable load button.  Enable save button as well
 
 
         Me.OpenFileDialog1.Filter = "All Files|*.*"
-        Me.OpenFileDialog1.InitialDirectory = Me.TxtBxArchieveFriendsDirectory.Text
-        Me.OpenFileDialog1.FileName = Me.TxtBxArchieveFriendsFile.Text
+        Me.OpenFileDialog1.InitialDirectory = Me.TxtBxarchiveFriendsDirectory.Text
+        Me.OpenFileDialog1.FileName = Me.TxtBxarchiveFriendsFile.Text
         Me.OpenFileDialog1.DefaultExt = ".zip"
 
         If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
-            Me.TxtBxArchieveFriendsFile.Text = Me.OpenFileDialog1.SafeFileName
+            Me.TxtBxarchiveFriendsFile.Text = Me.OpenFileDialog1.SafeFileName
 
-            Me.btnArchieveFriendsSave.Enabled = True
+            Me.btnarchiveFriendsSave.Enabled = True
 
-            If My.Computer.FileSystem.FileExists(Me.TxtBxArchieveFriendsDirectory.Text & "\" & Me.TxtBxArchieveFriendsFile.Text) Then
-                Me.btnArchieveFriendsLoad.Enabled = True
+            If My.Computer.FileSystem.FileExists(System.IO.Path.Combine(Me.TxtBxarchiveFriendsDirectory.Text, Me.TxtBxarchiveFriendsFile.Text)) Then
+                Me.btnarchiveFriendsLoad.Enabled = True
             End If
         End If
 
 
     End Sub
 
-    Private Sub btnArchieveFriendsSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsSave.Click
-        '   Saves the friends file to archive [zip].
+    Private Sub btnArchiveFriendsSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnarchiveFriendsSave.Click
+        '   Saves the friends file to Archive [zip].
         '   If the achieve already exists, it will only be overwritten on user prompt.
 
-        Dim zippath As String = Me.TxtBxArchieveFriendsDirectory.Text & "\" & Me.TxtBxArchieveFriendsFile.Text
+        Dim zippath As String = System.IO.Path.Combine(Me.TxtBxarchiveFriendsDirectory.Text, Me.TxtBxarchiveFriendsFile.Text)
 
         If My.Computer.FileSystem.FileExists(zippath) Then      '   file already exists, prompt user.
             Dim reply As MsgBoxResult
 
-            reply = MsgBox("This will over write existing archieve file", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
+            reply = MsgBox("This will over write existing Archive file", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
 
             If reply = MsgBoxResult.No Then     '   Not to over write, exit sub.
-                Me.btnArchieveFriendsSave.Enabled = False
+                Me.btnarchiveFriendsSave.Enabled = False
                 Exit Sub
             End If
         End If
 
         Using zip As ZipFile = New ZipFile
 
-            'zip.AddDirectory(Me.TxtBxOptionsFriendsDirectory.Text)      '   add directory to archieve.
-            zip.AddFile(frmKlock.usrSettings.usrFriendsDirectory & "\" & frmKlock.usrSettings.usrFrinedsFile)
-            zip.AddFile(frmKlock.usrSettings.usrOptionsSavePath & "\" & frmKlock.usrSettings.usrOptionsSaveFile)
+            'zip.AddDirectory(Me.TxtBxOptionsFriendsDirectory.Text)      '   add directory to Archive.
+            zip.AddFile(System.IO.Path.Combine(frmKlock.usrSettings.usrFriendsDirectory, frmKlock.usrSettings.usrFrinedsFile))
+            zip.AddFile(System.IO.Path.Combine(frmKlock.usrSettings.usrOptionsSavePath, frmKlock.usrSettings.usrOptionsSaveFile))
 
             Try
-                zip.Save(zippath)                                       '   save archive
-                Me.displayAction.DisplayReminder("Saving File", "Archieve saved Okay. ")
+                zip.Save(zippath)                                       '   save Archive
+                Me.displayAction.DisplayReminder("Saving File", "Archive saved Okay. ")
             Catch ex As Exception
                 Me.displayAction.DisplayReminder("Saving File Error", "Error archieving Friends File. " & ex.Message)
             End Try
@@ -419,12 +419,12 @@ Public Class frmOptions
 
     End Sub
 
-    Private Sub btnArchieveFriendsLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsLoad.Click
-        '   Load the friends file from archive.
+    Private Sub btnArchiveFriendsLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnarchiveFriendsLoad.Click
+        '   Load the friends file from Archive.
         '   The file will only be overwritten, if it exists, on user prompt.
         '   If the path does not exist, it will be created.
 
-        Dim zippath As String = Me.TxtBxArchieveFriendsDirectory.Text & "\" & Me.TxtBxArchieveFriendsFile.Text
+        Dim zippath As String = System.IO.Path.Combine(Me.TxtBxarchiveFriendsDirectory.Text, Me.TxtBxarchiveFriendsFile.Text)
         Dim reply As MsgBoxResult
         Dim extract As Boolean
 
