@@ -1,4 +1,35 @@
 ------------------------------------------------------------------------
+r28 | Media | 2013-07-25 20:52:31 +0100 (Thu, 25 Jul 2013) | 24 lines
+
+Finally settled on the help System. 
+It will consist of a single complied help page - klock.chm. 
+This file is created using helpNDoc.  
+So, added klock.hnd & klock.chm to project.  
+The previous help system has been removed.
+
+[klock.vb]
+Amended : code to reflect new help system and removal of the old one.
+Added   : Created file path using System.IO.Path.Combine instead of combining strings.
+Added   : stuff to auto-scale the font size on the time labels.
+Removed : duplicate code in sub TbCntrl_SelectedIndexChanged.
+Added   : new action, Run windows Screen Saver, to Countdown & Reminder
+
+[UserSettings.vb & options.vb]
+Added   : Created file path using System.IO.Path.Combine instead of combining string.
+
+[ManagedPower.vb]
+Simplified code and removed duplicate code.
+
+[selectAction.vb]
+Added : user action - run windows screen saver.
+
+[selectTime.vb]
+Moved string arrays globally - so can be used by more then one sub and are not 
+re-created every sub call.
+
+
+
+------------------------------------------------------------------------
 r27 | Media | 2013-07-11 21:35:26 +0100 (Thu, 11 Jul 2013) | 23 lines
 
 Added managedPower.vb - which is a wrapper class around a system call to 
