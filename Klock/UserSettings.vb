@@ -49,10 +49,12 @@ Public Class UserSettings
     Private _usrTimeHalfChimes As Boolean = False
     Private _usrTimeQuarterChimes As Boolean = False
     Private _usrTimeThreeQuartersChimes As Boolean = False
-    Private _usrTimeDisplayMinimised As Boolean = False
+    Private _usrTimeDisplayMinimised As Boolean = False         '   Notification to tell time if klock in system tray
     Private _usrTimeDisplayMinutes As Integer = 15
-    Private _usrTimeVoiceMinimised As Boolean = False
+    Private _usrTimeVoiceMinimised As Boolean = False           '   Voicet to tell time if klock in system tray
     Private _usrTimeVoiceMinutes As Integer = 15
+    Private _usrTimeAgentMinimised As Boolean = False           '   Agent to tell time if klock in system tray
+    Private _usrTimeAgentMinutes As Integer = 15
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
     Private _usrTimerHigh As Boolean = False
     Private _usrTimerClearSplit As Boolean = False
@@ -94,6 +96,9 @@ Public Class UserSettings
     Private _usrMemoUseDefaultPassword As Boolean = False
     Private _usrMemoDefaultPassword As String = "klock"
     Private _usrMemoDecyptTimeOut As Integer = 30
+    '-------------------------------------------------------------------------------------------------------- Memo Settings -------------
+    Private _usrAgentsActive As Boolean = False
+    Private _usrAgentDefault As String = ""
 
     '   run on set up - blank at the moment.
     Public Sub New()
@@ -371,6 +376,24 @@ Public Class UserSettings
         End Set
     End Property
 
+    Public Property usrTimeAgentMinimised() As Boolean
+        Get
+            Return _usrTimeAgentMinimised
+        End Get
+        Set(ByVal value As Boolean)
+            _usrTimeAgentMinimised = value
+        End Set
+    End Property
+
+    Public Property usrTimeAgentMinutes() As Integer
+        Get
+            Return _usrTimeAgentMinutes
+        End Get
+        Set(ByVal value As Integer)
+            _usrTimeAgentMinutes = value
+        End Set
+    End Property
+
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
     Public Property usrTimerHigh() As Boolean
@@ -640,6 +663,26 @@ Public Class UserSettings
         End Set
     End Property
 
+    '-------------------------------------------------------------------------------------------------------- Agent Settings ------------
+
+    Public Property usrAgentsActive() As Boolean
+        Get
+            Return _usrAgentsActive
+        End Get
+        Set(ByVal value As Boolean)
+            _usrAgentsActive = value
+        End Set
+    End Property
+
+    Public Property usrAgentDefault() As String
+        Get
+            Return _usrAgentDefault
+        End Get
+        Set(ByVal value As String)
+            _usrAgentDefault = value
+        End Set
+    End Property
+
     '-------------------------------------------------------------------------------------------------------- file methods ------------
 
     Public Sub writeSettings()
@@ -695,6 +738,8 @@ Public Class UserSettings
                                   <TimeDisplayMinutes><%= usrTimeDisplayMinutes() %></TimeDisplayMinutes>
                                   <TimeVoiceMinimised><%= usrTimeVoiceMinimised() %></TimeVoiceMinimised>
                                   <TimeVoiceMinutes><%= usrTimeVoiceMinutes() %></TimeVoiceMinutes>
+                                  <TimeAgentMinimised><%= usrTimeAgentMinimised() %></TimeAgentMinimised>
+                                  <TimeAgentMinutes><%= usrTimeAgentMinutes() %></TimeAgentMinutes>
                               </Time>
                               <Timer>
                                   <TimerHigh><%= usrTimerHigh() %></TimerHigh>
@@ -778,6 +823,10 @@ Public Class UserSettings
                                   <MemoDefaultPassword><%= usrMemoDefaultPassword() %></MemoDefaultPassword>
                                   <MemoDecyptTimeOut><%= usrMemoDecyptTimeOut() %></MemoDecyptTimeOut>
                               </Memo>
+                              <Agents>
+                                  <AgentsActive><%= usrAgentsActive() %></AgentsActive>
+                                  <AgentDefault><%= usrAgentDefault() %></AgentDefault>
+                              </Agents>
                           </klock>
 
         xmlSettings.Save(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
@@ -833,6 +882,8 @@ Public Class UserSettings
                                   <TimeDisplayMinutes>15</TimeDisplayMinutes>
                                   <TimeVoiceMinimised>false</TimeVoiceMinimised>
                                   <TimeVoiceMinutes>15</TimeVoiceMinutes>
+                                  <TimeAgentMinimised>false</TimeAgentMinimised>
+                                  <TimeAgentMinutes>15</TimeAgentMinutes>
                               </Time>
                               <Timer>
                                   <TimerHigh>false</TimerHigh>
@@ -918,6 +969,10 @@ Public Class UserSettings
                                   <MemoDefaultPassword>"klock"</MemoDefaultPassword>
                                   <MemoDecyptTimeOut>30</MemoDecyptTimeOut>
                               </Memo>
+                              <Agents>
+                                  <AgentsActive>false</AgentsActive>
+                                  <AgentDefault>""</AgentDefault>
+                              </Agents>
                           </klock>
 
 
@@ -993,8 +1048,10 @@ Public Class UserSettings
             Me.usrTimeQuarterChimes = CType(readElement(tm, "TimeQuarterChimes", usrTimeQuarterChimes()), Boolean)
             Me.usrTimeDisplayMinimised = CType(readElement(tm, "TimeDisplayMinimised", usrTimeDisplayMinimised()), Boolean)
             Me.usrTimeDisplayMinutes = CType(readElement(tm, "TimeDisplayMinutes", usrTimeDisplayMinutes()), Integer)
-            Me.usrTimeVoiceMinimised = CType(readElement(tm, "TimeVoiceMinimised", usrTimeDisplayMinutes()), Boolean)
+            Me.usrTimeVoiceMinimised = CType(readElement(tm, "TimeVoiceMinimised", usrTimeVoiceMinutes()), Boolean)
             Me.usrTimeVoiceMinutes = CType(readElement(tm, "TimeVoiceMinutes", usrTimeVoiceMinutes()), Integer)
+            Me.usrTimeAgentMinimised = CType(readElement(tm, "TimeAgentMinimised", usrTimeAgentMinutes()), Boolean)
+            Me.usrTimeAgentMinutes = CType(readElement(tm, "TimeAgentMinutes", usrTimeAgentMinutes()), Integer)
             '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
             Dim tmr = elem.Element("Timer")
@@ -1106,6 +1163,12 @@ Public Class UserSettings
             Me.usrMemoUseDefaultPassword = CType(readElement(memo, "MemoUseDefaultPassword", usrMemoUseDefaultPassword()), Boolean)
             Me.usrMemoDefaultPassword = readElement(memo, "MemoDefaultPassword", usrMemoDefaultPassword())
             Me.usrMemoDecyptTimeOut = CType(readElement(memo, "MemoDecyptTimeOut", usrMemoDecyptTimeOut()), Integer)
+
+            '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
+
+            Dim agnts = elem.Element("Agents")
+            Me.usrAgentsActive = CType(readElement(agnts, "AgentsActive", usrAgentsActive()), Boolean)
+            Me.usrAgentDefault = readElement(agnts, "AgentDefault", usrAgentDefault())
 
             '   If version has changed, some settings might need to be added [will have been set to default].
             If version <> My.Application.Info.Version.ToString() Then

@@ -6,6 +6,8 @@
     '   June 2013       V1.02 - added user settings             [build 23]
     '   July 2013       V1.03 - added reminder & events tab     [build 30]
     '   October 2013    V1.04 - added memo tab                  [build 37]
+    '   November 2013   V1.05 - added Double Agent              [build 43]
+
 
     Public startTime As Integer
 
@@ -17,6 +19,7 @@
     Public usrVoice As Voice                    '   instance of user voice
     Public usrFonts As UserFonts                '   instance of user fonts.
     Public myManagedPower As ManagedPower       '   instance of managed Power
+    Public myAgents As selectAgent              '   instance of MS agents
 
     Public CountDownTime As Integer             '   Holds number of minutes for the countdown timer.
     Public ReminderDateTime As DateTime         '   Holds the date [and time] of the set reminder.
@@ -80,11 +83,16 @@
                 Me.updateWorldKlock() '   Update World Klock.
             End If          '   If Me.TbCntrl.SelectedIndex = 0 [or 1] Then
         Else
-            Me.NotificationDispaly(currentSecond)                                       '   display a notification, if desired
+            If Me.usrSettings.usrAgentsActive Then
+                Me.AgentDisplay(currentSecond)                                              '   display agent speaking the time
+            Else
+                Me.NotificationDisplay(currentSecond)                                       '   display a notification, if desired
+                Me.Notificationspeech(currentSecond)                                        '   Speak time, if desired.
+            End If
         End If          '   If Me.Visible Then
 
         Me.playHourlyChimes(currentSecond)                                              '   Play a hourly chime,  if desired.
-        Me.Notificationspeech(currentSecond)                                            '   Speak time, if desired.
+
     End Sub
 
     Private Sub updateStatusBar()
@@ -179,10 +187,10 @@
 
         Dim noSecs As Integer = Me.usrSettings.usrTimeVoiceMinutes * 60
 
-        If Me.usrSettings.usrTimeVoiceMinimised And (Math.Floor(m Mod noSecs) = 0) Then usrVoice.Say(displayOneTime.getTime())
+        If Me.usrSettings.usrTimeVoiceMinimised And (Math.Floor(m Mod noSecs) = 0) Then Me.usrVoice.Say(displayOneTime.getTime())
     End Sub
 
-    Private Sub NotificationDispaly(ByVal m As Integer)
+    Private Sub NotificationDisplay(ByVal m As Integer)
         '   If desired, check the status of notifications - should display the time every ?? minutes.
         '   Also, display result to time and countdown, if there running.  TO DO, should they be on their own settings?
 
@@ -236,6 +244,13 @@
         End If          '   If Me.usrsettings.usrTimeDislayMinimised
     End Sub
 
+    Private Sub AgentDisplay(ByVal m As Integer)
+        '   if desired, check the status of Agents active - should display agents every ?? minutes.
+
+        Dim noSecs As Integer = Me.usrSettings.usrTimeAgentMinutes * 60
+
+        If Me.usrSettings.usrAgentsActive And (Math.Floor(m Mod noSecs) = 0) Then Me.myAgents.doAction(displayOneTime.getTime())
+    End Sub
     ' *************************************************************************************************************** Timer clock ***********************
     Private Sub tmrTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrTimer.Tick
         '   If enabled, timer is running - update timer label
@@ -1685,6 +1700,7 @@
         Me.usrSettings = New UserSettings               '   user settings
         Me.usrFonts = New UserFonts                     '   user fonts
         Me.usrVoice = New Voice                         '   user voice
+        Me.myAgents = New selectAgent                   '   MS agents
 
         Me.myManagedPower = New ManagedPower            '   system power source
 
@@ -1699,6 +1715,15 @@
         Me.setTitleText()                               '   set app title text
 
         FEMcommon.ButtonsVisible(False)
+
+        If Me.usrSettings.usrAgentsActive And Me.myAgents.agentActive() Then
+
+            If Me.myAgents.loadAgent(Me.usrSettings.usrAgentDefault) Then
+                Me.displayAction.DisplayReminder("Agents", "Agent loaded okay")
+            Else
+                Me.displayAction.DisplayReminder("Agents ERROR", "Agent NOT loaded okay")
+            End If
+        End If
 
         Me.TmrMain.Enabled = True                       '   Turn on main timer now things are sorted out.
     End Sub
@@ -1754,7 +1779,8 @@
             Me.usrSettings.writeSettings()
         End If
 
-        grphcs.Dispose()
+        Me.grphcs.Dispose()
+        Me.myAgents.closeAgent()
     End Sub
 
     Sub setSettings()
@@ -1882,10 +1908,17 @@
         '   Display Settings Screen and apply settings, they may have changed.
         '   Called from main menu [file / options] and system tray right click menu.
 
+        Dim agentName As String = Me.usrSettings.usrAgentDefault
+
         frmOptions.ShowDialog()
 
         Me.CmbBxTimeOne.SelectedIndex = Me.usrSettings.usrTimeDefaultFormat
         Me.CmbBxTimeTwo.SelectedIndex = Me.usrSettings.usrTimeTWODefaultFormat
+
+        If agentName <> Me.usrSettings.usrAgentDefault Then
+            Me.myAgents.closeAgent()
+            Me.myAgents.loadAgent(Me.usrSettings.usrAgentDefault)
+        End If
     End Sub
 
     ' ********************************************************************************************************************** info menu stuff *************

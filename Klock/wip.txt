@@ -3,3 +3,4 @@
 Completed
 ---------
 
+Bug : 12 hour time lable wrong in options - thanks zack.
