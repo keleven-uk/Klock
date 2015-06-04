@@ -36,7 +36,7 @@
             mciSendString("play myAudio", Nothing, 0, 0)
 
             'min Volume is 1, max Volume is 1000
-            Dim Volume As Integer = My.Settings.usrSoundVolume
+            Dim Volume As Integer = frmKlock.usrSettings.usrSoundVolume
             mciSendString("setaudio myAudio volume to " & Volume, Nothing, 0, 0)
 
         Else
@@ -47,7 +47,7 @@
     Public Sub DisplayReminder(ByVal t As String, ByVal m As String)
         '   Display the reminder message
 
-        Dim Notification As New frmNotification(My.Settings.usrNotificationTimeOut, t, m)
+        Dim Notification As New frmNotification(frmKlock.usrSettings.usrNotificationTimeOut, t, m)
 
         Notification.Show()
     End Sub

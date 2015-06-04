@@ -35,18 +35,18 @@ Public Class frmNotification
         btnExit.Image = My.Resources.btnHigh
 
         '   set the for colour and opacity for the form {form opacity is 0 [0%] - 1.0 [100%]}
-        Me.BackColor = My.Settings.usrNotificationBackColour
-        Me.Opacity = My.Settings.usrNotificationOpacity / 100
+        Me.BackColor = frmKlock.usrsettings.usrNotificationbackColour
+        Me.Opacity = frmKlock.usrsettings.usrNotificationOpacity / 100
 
         'Set the time for which the form should be displayed and the message to display in milliseconds.
         Me.lifeTimer.Interval = lifeTime
 
-        Me.lblMessage1.Font = My.Settings.usrNotificationFont
-        Me.lblMessage1.ForeColor = My.Settings.usrNotificationFontColour
+        Me.lblMessage1.Font = frmKlock.usrsettings.usrNotificationFont
+        Me.lblMessage1.ForeColor = frmKlock.usrsettings.usrNotificationFontColour
         Me.lblMessage1.Text = message1
 
-        Me.lblMessage2.Font = My.Settings.usrNotificationFont
-        Me.lblMessage2.ForeColor = My.Settings.usrNotificationFontColour
+        Me.lblMessage2.Font = frmKlock.usrsettings.usrNotificationFont
+        Me.lblMessage2.ForeColor = frmKlock.usrsettings.usrNotificationFontColour
         Me.lblMessage2.Text = message2
 
         'Display the form by sliding up.

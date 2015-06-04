@@ -21,6 +21,9 @@
         BinaryTime
         OctTime
         HexTime
+        PercentTime
+        MarsSolDate
+        CoordinatedMarsTime
     End Enum
 
     Private innerTime As String     '   local version of reformatted time.
@@ -69,6 +72,12 @@
                     innerTime = getOctTime()
                 Case TimeTypes.HexTime
                     innerTime = getHexTime()
+                Case TimeTypes.PercentTime
+                    innerTime = getPercentTime()
+                Case TimeTypes.MarsSolDate
+                    innerTime = getMarsSolDate()
+                Case TimeTypes.CoordinatedMarsTime
+                    innerTime = getCoordinatedMarsTime()
             End Select
 
             Return innerTime
@@ -113,7 +122,7 @@
     ' ***************************************************************************************** time types **********************
 
     Private Function getFuzzyTime() As String
-        '   returns the current [local] time as fuzzy time i.e. ten past three in the aftrernoon.
+        '   returns the current [local] time as fuzzy time i.e. ten past three in the afternoon.
 
         Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
         Dim hour As Integer = Now.Hour
@@ -124,10 +133,7 @@
 
         ampm = IIf(hour < 12, "in the morning", "pm")      '   if hour less then 12, in the morning else afternoon
 
-        If (mins Mod 5) > 2 Then                           '   closer to next five minutes, go to next.
-            nrms += 5
-        End If
-
+        If (mins Mod 5) > 2 Then nrms += 5 '   closer to next five minutes, go to next.
 
         Select Case nrms
             Case 0
@@ -158,14 +164,12 @@
                 sRtn = ""
         End Select
 
-        If nrms > 30 Then
-            hour += 1
-        End If
+        If nrms > 30 Then hour += 1
 
-        '   generate ouput string according to the hour of the day.
-        '   This looks more complicated then it should be, maybe seperate if then's would be better and use exit sub's inside each.
+        '   generate output string according to the hour of the day.
+        '   This looks more complicated then it should be, maybe sperate if then's would be better and use exit sub's inside each.
 
-        '   if the hour is 0 or 24 and no minites - it must be midnight.
+        '   if the hour is 0 or 24 and no minutes - it must be midnight.
         '   if the hour is 12 and no minutes - it must be noon.
 
         '   if "pm" then afternoon, subtract 12 - only use 12 hour clock.
@@ -215,7 +219,7 @@
         Dim noOfBeats As Double = noOfSeconds * 0.01157    ' 1000 beats per day
         Dim noOfCentibeats As Double = 0
 
-        If My.Settings.usrTimeSwatchCentibeats Then
+        If frmKlock.usrSettings.usrTimeSwatchCentibeats Then
             noOfCentibeats = noOfSeconds Mod 86.4
             getSwatchTime = String.Format("@ {0:###}.{1:00} BMT", noOfBeats, noOfCentibeats)
         Else
@@ -235,7 +239,7 @@
         Dim min As Integer = 0
         Dim sec As Integer = 0
 
-        If My.Settings.usrTimeNETSeconds Then
+        If frmKlock.usrSettings.usrTimeNETSeconds Then
             Dim noOfMilliSeconds As Integer = MilliSecondOfTheDay()
 
             deg = Math.Floor(noOfMilliSeconds / 240000)
@@ -297,7 +301,7 @@
         Dim min As Integer = Math.Floor((noOfHexSecs - (hrs * 4096)) / 16)
         Dim sec As Integer = noOfHexSecs Mod 16
 
-        If My.Settings.usrTimeHexIntuitor Then
+        If frmKlock.usrsettings.usrTimeHexIntuitorFormat Then
             getTrueHexTime = String.Format("{0}_{1}_{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
         Else
             getTrueHexTime = String.Format(".{0}{1}{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
@@ -329,7 +333,7 @@
     End Function
 
     Private Function getHexTime() As String
-        '   Returns current [local] time in hex [base 162] format.
+        '   Returns current [local] time in hex [base 16] format.
         '   This is only a hex representation of the current time.
 
         Dim hour As Integer = Now.Hour
@@ -381,8 +385,8 @@
     End Function
 
     Private Function toRoman(time) As String
-        '   given an input integer, returns the roman numeral equvelant.
-        '   NB : only nunmber 0 -> 60.
+        '   given an input integer, returns the Roman numeral equivalent.
+        '   NB : only number 0 -> 60.
         '   This maybe could be written better!!!!
 
         Dim result As String = ""
@@ -417,6 +421,32 @@
 
     End Function
 
+    Private Function getMarsSolDate()
+
+        Dim noOfDays As Double = DateDiff(DateInterval.Second, #6/1/2000#, Now) / 86400
+
+        getMarsSolDate = String.Format("{0:##.000} {1:##.000}", (((noOfDays - 4.5) / 1.027491252) + 44796.0 - 0.00096), noOfDays)
+    End Function
+
+    Private Function getCoordinatedMarsTime()
+
+        Dim noOfDays As Double = DateDiff(DateInterval.Second, #6/1/2000#, Now) / 86400
+        Dim hour As Integer = DateDiff(DateInterval.Hour, #6/1/2000#, Now) Mod 24
+        Dim mins As Integer = DateDiff(DateInterval.Minute, #6/1/2000#, Now) - (hour * 24 * 60)
+        Dim secs As Integer = DateDiff(DateInterval.Second, #6/1/2000#, Now) - (hour * 3600) - (mins * 60)
+
+        getCoordinatedMarsTime = String.Format("{0}:{1}:{2}", hour, mins, secs)
+    End Function
+
+    Private Function getPercentTime()
+
+        Dim noOfSeconds As Integer = MilliSecondOfTheDay() / 1000
+        Dim percentSeconds As Double = noOfSeconds / 86400 * 100
+
+        getPercentTime = String.Format("{0:##.0000 PMH}", percentSeconds)
+    End Function
+                                                                         
+    
     Private Function MilliSecondOfTheDay() As Integer
         '       Returns the total number of milliseconds since midnight.
 

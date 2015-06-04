@@ -24,6 +24,7 @@ Public Class frmKlock
     Public displayTwoTime As selectTime         '   instance of selectTime, allows different time formats.
     Public displayTimer As Timer                '   instance of timer, a wrapper of the stopwatch class.
     Public displayAction As selectAction        '   instance of selectAction, allows different actions to be performed.
+    Public usrsettings As UserSettings          '   instance of user settings.
 
     Public CountDownTime As Integer             '   Holds number of minutes for the countdown timer.
     Public ReminderDateTime As DateTime         '   Holds the date [and time] of the set reminder.
@@ -52,7 +53,7 @@ Public Class frmKlock
 
         Dim currentSecond As Integer = Now.TimeOfDay.TotalSeconds                       '  so, all use the same time.
 
-        If Me.Visible Then                                                              '   Only update if form is visable, can't see if in system tray.
+        If Me.Visible Then                                                              '   Only update if form is visible, can't see if in system tray.
             Me.updateStatusBar()
             Me.updateTitleText()
 
@@ -60,7 +61,7 @@ Public Class frmKlock
                 Me.LblTimeOneTime.Text = Me.displayOneTime.getTime()                    '   Update local time in desired time format.
             End If
 
-            If Me.TbCntrl.SelectedIndex = 0 And My.Settings.usrTimeTwoFormats Then
+            If Me.TbCntrl.SelectedIndex = 0 And Me.usrsettings.usrTimeTwoFormats Then
                 Me.LblTimeTwoTime.Text = Me.displayTwoTime.getTime()                          '   display local time in desired time format.
             End If
 
@@ -84,15 +85,9 @@ Public Class frmKlock
         Me.stsLblTime.Text = Format(Now, "Long Time")
         Me.StsLblDate.Text = Format(Now, "Long Date")
 
-        If My.Computer.Keyboard.CapsLock.ToString() Then
-            strKey = Replace(strKey, "c", "C")
-        End If
-        If My.Computer.Keyboard.NumLock.ToString() Then
-            strKey = Replace(strKey, "n", "N")
-        End If
-        If My.Computer.Keyboard.ScrollLock.ToString() Then
-            strKey = Replace(strKey, "s", "S")
-        End If
+        If My.Computer.Keyboard.CapsLock.ToString() Then strKey = Replace(strKey, "c", "C")
+        If My.Computer.Keyboard.NumLock.ToString() Then strKey = Replace(strKey, "n", "N")
+        If My.Computer.Keyboard.ScrollLock.ToString() Then strKey = Replace(strKey, "s", "S")
 
         Me.StsLblKeys.Text = strKey
     End Sub
@@ -104,20 +99,20 @@ Public Class frmKlock
 
         Dim titletext As String = Me.Text
 
-        If My.Settings.usrTimerAdd And Me.tmrTimer.Enabled Then     ' time is running
-            If My.Settings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
+        If Me.usrsettings.usrTimerAdd And Me.tmrTimer.Enabled Then     ' time is running
+            If Me.usrsettings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
                 titletext = titletext & " .::. " & displayTimer.getHighElapsedTime() & " : "
             Else
                 titletext = titletext & " .::. " & displayTimer.getLowElapsedTime() & " : "
             End If
         End If
 
-        If My.Settings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
+        If Me.usrsettings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
             titletext = titletext & " .::. " & Me.minsToString(Me.CountDownTime)
         End If
 
-        If My.Settings.usrReminderAdd And Me.tmrReminder.Enabled Then
-            If My.Settings.usrReminderTimeChecked Then
+        If Me.usrsettings.usrReminderAdd And Me.tmrReminder.Enabled Then
+            If Me.usrsettings.usrReminderTimeChecked Then
                 titletext = titletext & " .::. Reminder set for " & Me.ReminderDateTime.ToLongDateString & " @ " & Me.ReminderDateTime.ToLongTimeString
             Else
                 titletext = titletext & " .::. Reminder set for " & Me.ReminderDateTime.ToLongDateString
@@ -131,65 +126,64 @@ Public Class frmKlock
         '   Depending upon user settings, will play hourly pips or chimes.
         '   The chimes can sound on the hour and every quarter hour if desired.
 
-        If My.Settings.usrTimeHourPips And (Math.Floor(m Mod 3600) = 0) Then                    '    will this work at midnight???
+        If Me.usrsettings.usrTimeHourPips And (Math.Floor(m Mod 3600) = 0) Then                    '    will this work at midnight???
 
             Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\thepips.mp3")         '    Play the Pips on the hour, if desired.
-        ElseIf My.Settings.usrTimeHourlyChimes And (Math.Floor(m Mod 3600) = 0) Then            '    Play hourly chimes, if desired.
+        ElseIf Me.usrsettings.usrTimeHourChimes And (Math.Floor(m Mod 3600) = 0) Then            '    Play hourly chimes, if desired.
 
             Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
             Dim hour As Integer = Now.Hour
 
-            If hour > 12 Then
-                hour -= 12
-            End If
+            If hour > 12 Then hour -= 12
+
             Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\" & hours(hour) & ".mp3")
-        ElseIf My.Settings.usrTimeQuarterChimes And (Math.Floor(m Mod 900) = 0) Then            '    Play quarter chimes, if desired.
+        ElseIf Me.usrsettings.usrTimeQuarterChimes And (Math.Floor(m Mod 900) = 0) Then            '    Play quarter chimes, if desired.
 
             Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\quarterchime.mp3")
-        ElseIf My.Settings.usrTimeHalfChimes And (Math.Floor(m Mod 1800) = 0) Then              '    Play half hourly chimes, if desired.
+        ElseIf Me.usrsettings.usrTimeHalfChimes And (Math.Floor(m Mod 1800) = 0) Then              '    Play half hourly chimes, if desired.
 
             Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.mp3")
-        ElseIf My.Settings.usrTimeThreeQuarterChimes And (Math.Floor(m Mod 2700) = 0) Then      '    Play three quarter chimes, if desired.
+        ElseIf Me.usrsettings.usrTimeQuarterChimes And (Math.Floor(m Mod 2700) = 0) Then      '    Play three quarter chimes, if desired.
 
             Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\threequarterchime.mp3")
         End If
 
     End Sub
 
-    Private Sub NotificationDispaly(m As Integer)
+    Private Sub NotificationDispaly(ByVal m As Integer)
         '   If desired, check the status of notifications - should display the time every ?? minutes.
-        '   Also, display result to time and countfown, if there running.  TODO, should they be on their own settings?
+        '   Also, display result to time and countdown, if there running.  TO DO, should they be on their own settings?
 
         If Me.NtfyIcnKlock.Visible Then                     '   if in system tray,
             Me.NtfyIcnKlock.Text = displayOneTime.getTime()    '   set icon tool tip to current time.
 
-            Dim noSecs As Integer = My.Settings.usrTimeDisplayMinutes * 60
+            Dim noSecs As Integer = Me.usrsettings.usrTimeDisplayMinutes * 60
 
-            If My.Settings.usrTimeDisplayMinimised And (Math.Floor(m Mod noSecs) = 0) Then
+            If Me.usrsettings.usrTimeDisplayMinimised And (Math.Floor(m Mod noSecs) = 0) Then
 
                 Me.displayAction.DisplayReminder("Time", displayOneTime.getTime()) ' display current time as a toast notification,if desired
 
-                If My.Settings.usrTimerAdd And Me.tmrTimer.Enabled Then     ' time is running
-                    If My.Settings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
+                If Me.usrsettings.usrTimerAdd And Me.tmrTimer.Enabled Then     ' time is running
+                    If Me.usrsettings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
                         Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getHighElapsedTime())
                     Else
                         Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getLowElapsedTime())
                     End If
                 End If
 
-                If My.Settings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
+                If Me.usrsettings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
                     Me.displayAction.DisplayReminder("Countdown", "Countdown Running :: " & Me.minsToString(Me.CountDownTime))
                 End If
 
-                If My.Settings.usrReminderAdd And Me.tmrReminder.Enabled Then
-                    If My.Settings.usrReminderTimeChecked Then
+                If Me.usrsettings.usrReminderAdd And Me.tmrReminder.Enabled Then
+                    If Me.usrsettings.usrReminderTimeChecked Then
                         Me.displayAction.DisplayReminder("Reminder", "Reminder set for " & Me.ReminderDateTime.ToLongDateString & " @ " & Me.ReminderDateTime.ToLongTimeString)
                     Else
                         Me.displayAction.DisplayReminder("Reminder", "Reminder set for " & Me.ReminderDateTime.ToLongDateString)
                     End If
                 End If
 
-                If My.Settings.usrWorldKlockAdd Then
+                If Me.usrsettings.usrWorldKlockAdd Then
 
                     Dim wctext As String
 
@@ -203,7 +197,7 @@ Public Class frmKlock
                     Me.displayAction.DisplayReminder("World Klock :: " & Me.CmbBxWorldKlockTimeZones.SelectedItem.ToString, wctext)
                 End If
 
-            End If          '   If My.Settings.usrTimeDislayMinimised 
+            End If          '   If Me.usrsettings.usrTimeDislayMinimised 
         End If              '   If Me.NtfyIcnKlock.Visible Then
     End Sub
 
@@ -211,7 +205,7 @@ Public Class frmKlock
     Private Sub tmrTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrTimer.Tick
         '   If enabled, timer is running - update timer label
 
-        If My.Settings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
+        If Me.usrsettings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
             Me.lblTimerTime.Text = displayTimer.getHighElapsedTime()
         Else
             Me.lblTimerTime.Text = displayTimer.getLowElapsedTime()
@@ -246,7 +240,7 @@ Public Class frmKlock
 
     '   *************************************************************************************** Global Tab Change ****************************************
 
-    Private Sub TbCntrl_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles TbCntrl.SelectedIndexChanged
+    Private Sub TbCntrl_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TbCntrl.SelectedIndexChanged
         '    Performed when ever the main tab is changed, used for any tab initialisation.
 
         Select Case Me.TbCntrl.SelectedIndex
@@ -266,7 +260,7 @@ Public Class frmKlock
             Case 4                                             '   reminder tab
                 Me.Text = "Klock - Reminds you of the time"
                 Me.FriendsButtonsVisible(False)
-                If My.Settings.usrReminderTimeChecked Then
+                If Me.usrsettings.usrReminderTimeChecked Then
                     Me.TmPckrRiminder.Enabled = True
                     Me.TmPckrRiminder.Value = Now()
                 Else
@@ -281,7 +275,7 @@ Public Class frmKlock
                     Me.loadFriends()
                     Me.blankFriendsDate()
                     Me.LoadAutoCompleteStuff()
-                    Me.reloadFriends = False        ' do not reload, in not necserry
+                    Me.reloadFriends = False        ' do not reload, if not necessary
                 End If
 
                 If Me.LstBxFriends.Items.Count > 0 Then
@@ -379,8 +373,8 @@ Public Class frmKlock
         Me.btnTimerStart.Text = "Start"
         Me.btnTimerStart.Enabled = True
 
-        If My.Settings.usrTimerClearSplit Then
-            If My.Settings.usrTimerHigh Then
+        If Me.usrsettings.usrTimerClearSplit Then
+            If Me.usrsettings.usrTimerHigh Then
                 Me.lblTimerTime.Text = "00:00:00:00"
                 Me.lblTimerSplit.Text = "00:00:00:00"
             Else
@@ -389,7 +383,7 @@ Public Class frmKlock
             End If
             Me.btnTimerSplitClear.Enabled = False
         Else
-            Me.lblTimerTime.Text = IIf(My.Settings.usrTimerHigh, "00:00:00:00", "00:00:00")
+            Me.lblTimerTime.Text = IIf(Me.usrsettings.usrTimerHigh, "00:00:00:00", "00:00:00")
         End If
 
     End Sub
@@ -405,7 +399,7 @@ Public Class frmKlock
     Private Sub btnTimerSplitClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerSplitClear.Click
         '   Clears the split time.
 
-        Me.lblTimerSplit.Text = IIf(My.Settings.usrTimerHigh, "00:00:00:00", "00:00:00")
+        Me.lblTimerSplit.Text = IIf(Me.usrsettings.usrTimerHigh, "00:00:00:00", "00:00:00")
 
         Me.btnTimerSplitClear.Enabled = False
     End Sub
@@ -540,7 +534,7 @@ Public Class frmKlock
                 Me.Visible = True
             End If
             Me.ChckBxCountDownSystem.Checked = False
-            Me.btnCountdownSystemAbort.Enabled = True                          '   alow system command to be aborted.
+            Me.btnCountdownSystemAbort.Enabled = True                          '   Allows system command to be aborted.
             Me.displayAction.DoSystemCommand(CmbBxCountDownSystem.SelectedIndex)
         End If
         If Me.ChckBxCountDownCommand.Checked Then                              '   do run command action.
@@ -550,7 +544,7 @@ Public Class frmKlock
 
     End Sub
 
-    Private Sub btnCountdownSystemAbort_Click(sender As System.Object, e As System.EventArgs) Handles btnCountdownSystemAbort.Click
+    Private Sub btnCountdownSystemAbort_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdownSystemAbort.Click
         '   If abort pressed,  perform system command abort and start clean up.
 
         Me.displayAction.AbortSystemCommand()
@@ -666,7 +660,7 @@ Public Class frmKlock
         Me.TxtBxReminderReminder.Enabled = Not Me.TxtBxReminderReminder.Enabled
     End Sub
 
-    Private Sub ChckBxReminderSystem_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxReminderSystem.CheckedChanged
+    Private Sub ChckBxReminderSystem_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxReminderSystem.CheckedChanged
         '   Selects countdown action controls if checked.
 
         Me.CmbBxReminderSystem.Enabled = Not Me.CmbBxReminderSystem.Enabled
@@ -723,7 +717,7 @@ Public Class frmKlock
                 Me.Visible = True
             End If
             Me.ChckBxReminderSystem.Checked = False
-            Me.btnReminderSystemAbort.Enabled = True                            '   alow system command to be aborted.
+            Me.btnReminderSystemAbort.Enabled = True                            '   Allows system command to be aborted.
             Me.displayAction.DoSystemCommand(CmbBxReminderSystem.SelectedIndex)
         End If
         If Me.chckBXReminderCommand.Checked Then                                '   do run command action.
@@ -733,7 +727,7 @@ Public Class frmKlock
 
     End Sub
 
-    Private Sub btnReminderSystemAbort_Click(sender As System.Object, e As System.EventArgs) Handles btnReminderSystemAbort.Click
+    Private Sub btnReminderSystemAbort_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderSystemAbort.Click
         '   If abort pressed,  perform system command abort and start clean up.
 
         Me.displayAction.AbortSystemCommand()
@@ -742,7 +736,7 @@ Public Class frmKlock
         Me.clearReminder()
     End Sub
 
-    Private Sub btnReminderSet_Click(sender As System.Object, e As System.EventArgs) Handles btnReminderSet.Click
+    Private Sub btnReminderSet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderSet.Click
         '   Set a new reminder.  Sets appropriate text and sets the global reminder date for checking.
         '   Also, enables the reminder timer, which checks if reminder is due every minute..
 
@@ -761,7 +755,7 @@ Public Class frmKlock
         Me.ChckBxReminderTimeCheck.Visible = False
         Me.TmPckrRiminder.Visible = False
 
-        If My.Settings.usrReminderTimeChecked Then
+        If Me.usrsettings.usrReminderTimeChecked Then
             Me.lblReminderText.Text = "Reminder set for " & d.ToLongDateString & " @ " & d.ToShortTimeString
         Else
             Me.lblReminderText.Text = "Reminder set for " & d.ToLongDateString
@@ -770,7 +764,7 @@ Public Class frmKlock
         Me.ReminderDateTime = d            '   set global, so can be checked by reminder timer.
     End Sub
 
-    Private Sub btnReminderClear_Click(sender As System.Object, e As System.EventArgs) Handles btnReminderClear.Click
+    Private Sub btnReminderClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderClear.Click
         '   Clear reminder is pressed.
 
         Me.clearReminder()
@@ -794,7 +788,7 @@ Public Class frmKlock
 
         Me.DtPckrRiminder.Value = Today
 
-        If My.Settings.usrReminderTimeChecked Then
+        If Me.usrsettings.usrReminderTimeChecked Then
             Me.ChckBxReminderTimeCheck.Checked = True
             Me.TmPckrRiminder.Enabled = True
             Me.TmPckrRiminder.Value = Now()
@@ -839,7 +833,7 @@ Public Class frmKlock
         Me.btnReminderLoadCommand.Visible = b
     End Sub
 
-    Private Sub reminder_ValueChanged(sender As System.Object, e As System.EventArgs) Handles DtPckrRiminder.ValueChanged, TmPckrRiminder.ValueChanged
+    Private Sub reminder_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DtPckrRiminder.ValueChanged, TmPckrRiminder.ValueChanged
         '   Checks to see if the reminder date if in the future [> now()], only then enable the set button.
 
         Dim d As New DateTime(Me.DtPckrRiminder.Value.Year, _
@@ -852,15 +846,15 @@ Public Class frmKlock
         Me.btnReminderSet.Enabled = IIf(d > Now(), True, False)
     End Sub
 
-    Private Sub ChckBxReminderTimeCheck_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxReminderTimeCheck.CheckedChanged
+    Private Sub ChckBxReminderTimeCheck_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxReminderTimeCheck.CheckedChanged
         '   Allows the reminder date to include a time component.
 
         If Me.ChckBxReminderTimeCheck.Checked Then
-            My.Settings.usrReminderTimeChecked = True
+            Me.usrsettings.usrReminderTimeChecked = True
             Me.TmPckrRiminder.Enabled = True
             Me.TmPckrRiminder.Value = Now()
         Else
-            My.Settings.usrReminderTimeChecked = False
+            Me.usrsettings.usrReminderTimeChecked = False
             Me.TmPckrRiminder.Enabled = False
             Me.TmPckrRiminder.Value = Today
         End If
@@ -871,7 +865,7 @@ Public Class frmKlock
     Private Sub btnFriendsNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsNew.Click
         '   Sets up to add new friend.
 
-        Me.pnlFriends.ScrollControlIntoView(Me.lblFriendsFirstName)     '   scrool friends pannel back to top.
+        Me.scrollFriendsPanelToTop()
         Me.btnFriendsClear.Enabled = True
         Me.btnFriendsNew.Enabled = False
         Me.btnFriendsEdit.Enabled = False
@@ -886,7 +880,7 @@ Public Class frmKlock
     Private Sub btnFriendsClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsClear.Click
         '   Clears everything [not sure when called].
 
-        Me.pnlFriends.ScrollControlIntoView(Me.lblFriendsFirstName)     '   scrool friends pannel back to top.
+        Me.scrollFriendsPanelToTop()
 
         Me.ADDING = False
 
@@ -944,7 +938,7 @@ Public Class frmKlock
         '   allows selected entry in listveiw box to be edited.
         '   Changed button to "Save", which then will save new data to selected entry and save new friends file.
 
-        Me.pnlFriends.ScrollControlIntoView(Me.lblFriendsFirstName)     '   scrool friends pannel back to top.
+        Me.scrollFriendsPanelToTop()
 
         If Me.btnFriendsEdit.Text = "Edit" Then
             Me.txtbxFriendsFirstName.Focus()
@@ -976,9 +970,7 @@ Public Class frmKlock
 
         reply = MsgBox("Are you sure to DELETE?", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
 
-        If reply = MsgBoxResult.No Then     '   Not to delete, exit sub.
-            Exit Sub
-        End If
+        If reply = MsgBoxResult.No Then Exit Sub '   Not to delete, exit sub.
 
         If Me.LstBxFriends.SelectedIndex > -1 Then          '   If entries in listview box.
             Me.LstBxFriends.Items.RemoveAt(Me.LstBxFriends.SelectedIndex)
@@ -1000,7 +992,7 @@ Public Class frmKlock
     Private Sub FriendsClearText()
         '   Clears all date entry fields.
 
-        Me.pnlFriends.ScrollControlIntoView(Me.lblFriendsFirstName)     '   scrool friends pannel back to top.
+        Me.scrollFriendsPanelToTop()
 
         Me.txtbxFriendsFirstName.Text = ""
         Me.txtbxFriendsMiddleName.Text = ""
@@ -1024,7 +1016,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub FriendsReadOnlyText(ByVal b As Boolean)
-        '   Sets the readonly value on the textboxes.
+        '   Sets the read-only value on the textboxes.
         '   True = can be input or edit.
         '   False = display only
 
@@ -1058,7 +1050,7 @@ Public Class frmKlock
     Private Sub showFriends(ByVal pos As Integer)
         '   Populates the text boxes on the form with the person at the specified position of the listview box.
 
-        Me.pnlFriends.ScrollControlIntoView(Me.lblFriendsFirstName)     '   scrool friends pannel back to top.
+        Me.scrollFriendsPanelToTop()
 
         If pos >= 0 Then
             Dim p As Person = CType(Me.LstBxFriends.Items.Item(pos), Person)
@@ -1206,47 +1198,25 @@ Public Class frmKlock
         '   One array for each textbox.
         '   Each time a friend is added, the contents of the text box is added to the relevant collections.
 
-        If Not Me.knownFirstNames.Contains(p.FirstName) Then
-            Me.knownFirstNames.Add(p.FirstName)
-        End If
+        If Not Me.knownFirstNames.Contains(p.FirstName) Then Me.knownFirstNames.Add(p.FirstName)
+        If Not Me.knownMiddleNames.Contains(p.MiddleName) Then Me.knownMiddleNames.Add(p.MiddleName)
+        If Not Me.knownLastnames.Contains(p.LastName) Then Me.knownLastnames.Add(p.LastName)
+        If Not Me.knownAddress1.Contains(p.Address1) Then Me.knownAddress1.Add(p.Address1)
+        If Not Me.knownAddress2.Contains(p.Address2) Then Me.knownAddress2.Add(p.Address2)
+        If Not Me.knownPostCode.Contains(p.PostCode) Then Me.knownPostCode.Add(p.PostCode)
+        If Not Me.knownCities.Contains(p.City) Then Me.knownCities.Add(p.City)
+        If Not Me.knownCounties.Contains(p.County) Then Me.knownCounties.Add(p.County)
 
-        If Not Me.knownMiddleNames.Add(p.MiddleName) Then
-            Me.knownMiddleNames.Add(p.MiddleName)
-        End If
-
-        If Not Me.knownLastnames.Add(p.LastName) Then
-            Me.knownLastnames.Add(p.LastName)
-        End If
-
-        If Not Me.knownAddress1.Add(p.Address1) Then
-            Me.knownAddress1.Add(p.Address1)
-        End If
-
-        If Not Me.knownAddress2.Add(p.Address2) Then
-            Me.knownAddress2.Add(p.Address2)
-        End If
-
-        If Me.knownPostCode.Add(p.PostCode) Then
-            Me.knownPostCode.Add(p.PostCode)
-        End If
-
-        If Me.knownCities.Add(p.City) Then
-            Me.knownCities.Add(p.City)
-        End If
-
-        If Me.knownCounties.Add(p.County) Then
-            Me.knownCounties.Add(p.County)
-        End If
     End Sub
 
     Private Sub savefriends()
         '   Save friends to file in data directory.
         '   Creates a list of all entries in the listview box and then writes this list to a binary file.
 
-        Dim FriendsDirectory As String = My.Settings.usrFriendsDirectory
-        Dim FriendsFile As String = My.Settings.usrFriendsFile
+        Dim FriendsDirectory As String = Me.usrsettings.usrFriendsDirectory
+        Dim FriendsFile As String = Me.usrsettings.usrFrinedsFile
 
-        checkDataDirectory()        '   Check for data directory first, will be created if not there.
+        checkFriendsDirectory()        '   Check for data directory first, will be created if not there.
 
         Dim saveFile As FileStream = File.Create(FriendsDirectory & "\" & FriendsFile)
 
@@ -1278,8 +1248,8 @@ Public Class frmKlock
         '   Loads friends from file and populate the listview box.
         '   Loads file into a list and then transfers each item in the list to the listview box.
 
-        Dim FriendsDirectory As String = My.Settings.usrFriendsDirectory
-        Dim FriendsFile As String = My.Settings.usrFriendsFile
+        Dim FriendsDirectory As String = Me.usrsettings.usrFriendsDirectory
+        Dim FriendsFile As String = Me.usrsettings.usrFrinedsFile
 
         Dim readFile As FileStream
 
@@ -1347,10 +1317,10 @@ Public Class frmKlock
         End If
     End Sub
 
-    Private Sub checkDataDirectory()
-        '   Check for data directory in application start directory.  if doesn't exist, create it.
+    Private Sub checkFriendsDirectory()
+        '   Check for data directory, which can be user selected [i.e. might not be application starting directory].  if doesn't exist, create it.
 
-        Dim FriendsDirectory As String = My.Settings.usrFriendsDirectory
+        Dim FriendsDirectory As String = Me.usrsettings.usrFriendsDirectory
 
         If Not My.Computer.FileSystem.DirectoryExists(FriendsDirectory) Then
             Me.displayAction.DisplayReminder("Friends", "Creating " & FriendsDirectory)
@@ -1359,32 +1329,45 @@ Public Class frmKlock
             Me.displayAction.DisplayReminder("Friends", "Using " & FriendsDirectory)
         End If
     End Sub
+
+    Private Sub scrollFriendsPanelToTop()
+        '   scroll friends panel back to top.
+
+        Me.pnlFriends.ScrollControlIntoView(Me.lblFriendsFirstName)
+    End Sub
+
+
     ' ********************************************************************************************************************************* World Klock ******
     Private Sub CmbBxWorldKlockTimeZones_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxWorldKlockTimeZones.SelectedIndexChanged
         '   Call update on world klock when a new time zone is chosen.
-        '   This is called from the main timer if the world klock is visable, following sub's don't then need to call this.
+        '   This is called from the main timer if the world klock is visible, following sub's don't then need to call this.
 
         Me.updateWorldKlock()
     End Sub
 
     Private Sub updateWorldKlock()
         '   Update the world klock, with local time and time of chosen time zone.
-        '   Sligthly differnet update, dependoing on wheater long name of id;s are being used for time zones.
+        '   Slightly different update, depending on if long name of id;s are being used for time zones.
+
+        Dim wt As String
+        Dim ct As String
 
         If RdBtnWorldClockTimeZoneLongName.Checked Then
             Dim TzInfo As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(Me.CmbBxWorldKlockTimeZones.SelectedItem.id)
-            Me.LblWorldKlockWorld.Text = "World Time " & TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongDateString & " :: " & TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongTimeString
+            wt = String.Format("  World Time : {0} :: {1}", TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongDateString, TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongTimeString)
         Else
-            Me.LblWorldKlockWorld.Text = "World Time " & TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongDateString & " :: " & TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongTimeString
+            wt = String.Format("  World Time : {0} :: {1}", TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongDateString, TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongTimeString)
         End If
 
-        Me.LblWorldKlockLocal.Text = "Current Time : " & Now.ToLongDateString & " :: " & Now.ToLongTimeString
+        ct = String.Format("Current Time : {0} :: {1}", Now.ToLongDateString, Now.ToLongTimeString)
 
+        Me.LblWorldKlockLocal.Text = ct
+        Me.LblWorldKlockWorld.Text = wt
     End Sub
 
     Private Sub setTimeZones(ByVal pos As Integer)
         '   Load the time zones into the World Klock Combo Box.
-        '   Sligthly differnet update, dependoing on wheater long name of id;s are being used for time zones.
+        '   Slightly different update, depending on if long name of id;s are being used for time zones.
         '   Argument passed in is the position of the current time zone, so it can be restored.
 
         Me.CmbBxWorldKlockTimeZones.Items.Clear()
@@ -1412,10 +1395,15 @@ Public Class frmKlock
         '   Apply current setting on form load.
 
         Me.startTime = My.Computer.Clock.TickCount      '   used for app running time.
-        Me.displayOneTime = New selectTime
-        Me.displayTwoTime = New selectTime
-        Me.displayAction = New selectAction
-        Me.displayTimer = New Timer
+        Me.displayOneTime = New selectTime              '   user selected time I
+        Me.displayTwoTime = New selectTime              '   user selected time II
+        Me.displayAction = New selectAction             '   user selected actions
+        Me.displayTimer = New Timer                     '   timer stuff
+        Me.usrsettings = New UserSettings               '   user settings
+
+        Me.checkDataDirectory()
+
+        Me.InitThemes()                                 '   Not sure if this works :-)
 
         Me.DtPckrFriendsDOB.MaxDate = Now()             '   nobody is born after today :-)
 
@@ -1431,19 +1419,45 @@ Public Class frmKlock
     End Sub
 
 
+    Private Sub InitThemes()
+        If (((Environment.OSVersion.Platform = PlatformID.Win32NT) _
+          AndAlso (Environment.OSVersion.Version.Major >= 5)) _
+          AndAlso (Environment.OSVersion.Version.Minor > 0)) Then
+            If OSFeature.Feature.IsPresent(OSFeature.Themes) Then
+                Application.EnableVisualStyles()
+            End If
+            Application.DoEvents()
+        End If
+    End Sub
+
+    Private Sub checkDataDirectory()
+        '   Check for data directory, which can be user selected [i.e. might not be application starting directory].  if doesn't exist, create it.
+
+        Dim FriendsDirectory As String = Application.StartupPath & "\Data"
+
+        If Not My.Computer.FileSystem.DirectoryExists(FriendsDirectory) Then
+            My.Computer.FileSystem.CreateDirectory(FriendsDirectory)
+        End If
+    End Sub
+
     Private Sub frmKlock_Shown(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Shown
         '   If desired, start klock minimised i.e. in system tray.
         '   Did not seem to work in form load, so stuffed in here.
 
-        If My.Settings.usrStartMinimised Then
+        If Me.usrsettings.usrStartMinimised Then
             Me.NtfyIcnKlock.Visible = True
             Me.Visible = False
         End If
+
+        'If Me.usrsettings.usrStartMinimised Then
+        'Me.NtfyIcnKlock.Visible = True
+        'Me.Visible = False
+        'End If
     End Sub
 
     Private Sub frmKlock_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
         '   Processes key presses at form level, before passed to components.
-        '   Pressing F5, will shown total number of friends.
+        '   Pressing F12, will shown total number of friends.
         '   The rest of the codes is so that enter is handled correctly when inputting a new friend.  Pressing enter or hitting
         '   the tab key will do the same thine, that is move focus to the next data entry box.
 
@@ -1476,9 +1490,9 @@ Public Class frmKlock
     Private Sub frmKlock_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
         '   On form close and if needed, save form position.
 
-        If My.Settings.usrSavePos Then
-            My.Settings.usrFormTop = Me.Top
-            My.Settings.usrFormLeft = Me.Left
+        If Me.usrsettings.usrSavePosition Then
+            Me.usrsettings.usrFormTop = Me.Top
+            Me.usrsettings.usrFormLeft = Me.Left
         End If
 
         '   fs.Close()
@@ -1489,21 +1503,23 @@ Public Class frmKlock
     Sub setSettings()
         '   Apply current settings,
 
-        Me.BackColor = My.Settings.usrFormColour
-        Me.StsStrpInfo.BackColor = My.Settings.usrFormColour
-        Me.MainMenuStrip.BackColor = My.Settings.usrFormColour
+        Me.usrsettings.readSettings()           '   read settings file, if not there a default one will be created.
 
-        Me.TbPgTime.BackColor = My.Settings.usrFormColour
-        Me.TbPgCountDown.BackColor = My.Settings.usrFormColour
-        Me.TbPgTimer.BackColor = My.Settings.usrFormColour
-        Me.TbPgReminder.BackColor = My.Settings.usrFormColour
+        Me.BackColor = Me.usrsettings.usrFormColour
+        Me.StsStrpInfo.BackColor = Me.usrsettings.usrFormColour
+        Me.MainMenuStrip.BackColor = Me.usrsettings.usrFormColour
 
-        If My.Settings.usrSavePos Then
-            Me.Top = My.Settings.usrFormTop
-            Me.Left = My.Settings.usrFormLeft
+        Me.TbPgTime.BackColor = Me.usrsettings.usrFormColour
+        Me.TbPgCountDown.BackColor = Me.usrsettings.usrFormColour
+        Me.TbPgTimer.BackColor = Me.usrsettings.usrFormColour
+        Me.TbPgReminder.BackColor = Me.usrsettings.usrFormColour
+
+        If Me.usrsettings.usrSavePosition Then
+            Me.Top = Me.usrsettings.usrFormTop
+            Me.Left = Me.usrsettings.usrFormLeft
         End If
 
-        If My.Settings.usrTimerHigh Then
+        If Me.usrsettings.usrTimerHigh Then
             Me.lblTimerTime.Text = "00:00:00:00"
             Me.lblTimerSplit.Text = "00:00:00:00"
         Else
@@ -1511,10 +1527,10 @@ Public Class frmKlock
             Me.lblTimerSplit.Text = "00:00:00"
         End If
 
-        Me.TlStrpMnItmTime.Checked = My.Settings.usrTimeDisplayMinimised
-        Me.ChckBxReminderTimeCheck.Checked = My.Settings.usrReminderTimeChecked
+        Me.TlStrpMnItmTime.Checked = Me.usrsettings.usrTimeDisplayMinimised
+        Me.ChckBxReminderTimeCheck.Checked = Me.usrsettings.usrReminderTimeChecked
 
-        If My.Settings.usrTimeTwoFormats Then               '   switch on second time format, if desired.
+        If Me.usrsettings.usrTimeTwoFormats Then               '   switch on second time format, if desired.
             Me.CmbBxTimeTwo.Visible = True
             Me.LblTimeTwoTime.Visible = True
             Me.GroupBox14.Visible = True                    '   sorry i don't name groupboxs
@@ -1597,19 +1613,24 @@ Public Class frmKlock
         '   Called from main menu [file / options] and system tray right click menu.
 
         frmOptions.ShowDialog()
-        Me.reloadFriends = True     '   set to re-load friends file.
-        Me.setSettings()
+
+        '   try updating setting from options form.
+        'Me.reloadFriends = True             '   set to re-load friends file.
+        'Me.usrsettings.writeSettings()      '   write new options to settings file.
+        'Me.setSettings()                    '   Apply new Settings.
 
     End Sub
 
-    Private Sub DaylightSavingToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles DaylightSavingToolStripMenuItem.Click
-        '   Display some information of Daulight Saving.
+    Private Sub DaylightSavingToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DaylightSavingToolStripMenuItem.Click
+        '   Display some information of Daylight Saving.
 
         ' Get the local time zone and the current  year. 
         Dim localZone As TimeZone = TimeZone.CurrentTimeZone
         Dim currentDate As DateTime = DateTime.Now
         Dim currentYear As Integer = currentDate.Year
         Dim daylight As DaylightTime = localZone.GetDaylightChanges(currentYear)
+
+        frmInfo.Text = "Info - Daylight Saving"
 
         If localZone.IsDaylightSavingTime(currentDate) Then
             frmInfo.GroupBox1.Text = "Summer Time"
@@ -1627,14 +1648,30 @@ Public Class frmKlock
     End Sub
 
 
-    Private Sub CultureToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CultureToolStripMenuItem.Click
+    Private Sub CultureToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CultureToolStripMenuItem.Click
 
+        frmInfo.Text = "Info - Current Culture"
+        frmInfo.GroupBox1.Text = "Current Culture"
 
         frmInfo.Label1.Text = "Current Culture Name : " & CultureInfo.CurrentCulture.EnglishName
         frmInfo.Label2.Text = "Three Letter ISO Name : " & CultureInfo.CurrentCulture.ThreeLetterISOLanguageName
         frmInfo.Label3.Text = "Full Date Time Pattern : " & CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern
         frmInfo.Label4.Text = "Currency Symbol : " & CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol
-        frmInfo.Label5.Text = ""
+        frmInfo.Label5.Text = "First Day of the Week : " & CultureInfo.CurrentCulture.DateTimeFormat.DayNames(CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek)
+
+        frmInfo.ShowDialog()
+    End Sub
+
+    Private Sub OSToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles OSToolStripMenuItem.Click
+
+        frmInfo.Text = "Info - Operating System"
+        frmInfo.GroupBox1.Text = "Operating System"
+
+        frmInfo.Label1.Text = "Computer Name : " & My.Computer.Name.ToString
+        frmInfo.Label2.Text = ""
+        frmInfo.Label3.Text = "OS Fule Name : " & My.Computer.Info.OSFullName
+        frmInfo.Label4.Text = "OS Platform : " & My.Computer.Info.OSPlatform
+        frmInfo.Label5.Text = "OS Version : " & My.Computer.Info.OSVersion
 
         frmInfo.ShowDialog()
     End Sub
@@ -1653,12 +1690,13 @@ Public Class frmKlock
     Private Sub TlStrpMnItmTime_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TlStrpMnItmTime.CheckedChanged
         '   if checked, the system tray icon tooltip will be set to correct time [by main clock]
 
-        My.Settings.usrTimeDisplayMinimised = IIf(Me.TlStrpMnItmTime.Checked, True, False)
+        Me.usrsettings.usrTimeDisplayMinimised = IIf(Me.TlStrpMnItmTime.Checked, True, False)
 
     End Sub
 
 
     ' ********************************************************************************************************************************* END **************
+
 
 
 

@@ -40,8 +40,8 @@ Partial Class frmLicence
         'RchTxtBxLicense
         '
         Me.RchTxtBxLicense.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RchTxtBxLicense.Location = New System.Drawing.Point(12, 12)
         Me.RchTxtBxLicense.Name = "RchTxtBxLicense"
         Me.RchTxtBxLicense.ReadOnly = True
@@ -57,6 +57,8 @@ Partial Class frmLicence
         Me.Controls.Add(Me.RchTxtBxLicense)
         Me.Controls.Add(Me.btnLecenseClose)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmLicence"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Licence"

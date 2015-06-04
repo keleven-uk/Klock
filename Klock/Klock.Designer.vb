@@ -170,6 +170,7 @@ Partial Class frmKlock
         Me.btnFriendsClear = New System.Windows.Forms.Button()
         Me.btnFriendsEdit = New System.Windows.Forms.Button()
         Me.btnFriendsDelete = New System.Windows.Forms.Button()
+        Me.OSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -216,8 +217,8 @@ Partial Class frmKlock
         'stsLblTime
         '
         Me.stsLblTime.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.stsLblTime.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.stsLblTime.Name = "stsLblTime"
         Me.stsLblTime.Size = New System.Drawing.Size(53, 19)
@@ -226,8 +227,8 @@ Partial Class frmKlock
         'StsLblDate
         '
         Me.StsLblDate.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.StsLblDate.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.StsLblDate.Name = "StsLblDate"
         Me.StsLblDate.Size = New System.Drawing.Size(75, 19)
@@ -236,8 +237,8 @@ Partial Class frmKlock
         'StsLblKeys
         '
         Me.StsLblKeys.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.StsLblKeys.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.StsLblKeys.Name = "StsLblKeys"
         Me.StsLblKeys.Size = New System.Drawing.Size(29, 19)
@@ -281,7 +282,7 @@ Partial Class frmKlock
         '
         'InfoToolStripMenuItem
         '
-        Me.InfoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DaylightSavingToolStripMenuItem, Me.CultureToolStripMenuItem})
+        Me.InfoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DaylightSavingToolStripMenuItem, Me.CultureToolStripMenuItem, Me.OSToolStripMenuItem})
         Me.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem"
         Me.InfoToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
         Me.InfoToolStripMenuItem.Text = "&Info"
@@ -289,13 +290,13 @@ Partial Class frmKlock
         'DaylightSavingToolStripMenuItem
         '
         Me.DaylightSavingToolStripMenuItem.Name = "DaylightSavingToolStripMenuItem"
-        Me.DaylightSavingToolStripMenuItem.Size = New System.Drawing.Size(156, 22)
+        Me.DaylightSavingToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.DaylightSavingToolStripMenuItem.Text = "Daylight Saving"
         '
         'CultureToolStripMenuItem
         '
         Me.CultureToolStripMenuItem.Name = "CultureToolStripMenuItem"
-        Me.CultureToolStripMenuItem.Size = New System.Drawing.Size(156, 22)
+        Me.CultureToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.CultureToolStripMenuItem.Text = "Culture"
         '
         'MnItmHelp
@@ -487,7 +488,7 @@ Partial Class frmKlock
         Me.RdBtnWorldClockTimeZoneID.AutoSize = True
         Me.RdBtnWorldClockTimeZoneID.Location = New System.Drawing.Point(154, 19)
         Me.RdBtnWorldClockTimeZoneID.Name = "RdBtnWorldClockTimeZoneID"
-        Me.RdBtnWorldClockTimeZoneID.Size = New System.Drawing.Size(109, 16)
+        Me.RdBtnWorldClockTimeZoneID.Size = New System.Drawing.Size(127, 19)
         Me.RdBtnWorldClockTimeZoneID.TabIndex = 1
         Me.RdBtnWorldClockTimeZoneID.Text = "by Standard Name"
         Me.RdBtnWorldClockTimeZoneID.UseVisualStyleBackColor = True
@@ -498,7 +499,7 @@ Partial Class frmKlock
         Me.RdBtnWorldClockTimeZoneLongName.Checked = True
         Me.RdBtnWorldClockTimeZoneLongName.Location = New System.Drawing.Point(29, 19)
         Me.RdBtnWorldClockTimeZoneLongName.Name = "RdBtnWorldClockTimeZoneLongName"
-        Me.RdBtnWorldClockTimeZoneLongName.Size = New System.Drawing.Size(90, 16)
+        Me.RdBtnWorldClockTimeZoneLongName.Size = New System.Drawing.Size(105, 19)
         Me.RdBtnWorldClockTimeZoneLongName.TabIndex = 0
         Me.RdBtnWorldClockTimeZoneLongName.TabStop = True
         Me.RdBtnWorldClockTimeZoneLongName.Text = "by Long Name"
@@ -592,7 +593,7 @@ Partial Class frmKlock
         Me.ChckBxCountDownCommand.AutoSize = True
         Me.ChckBxCountDownCommand.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxCountDownCommand.Name = "ChckBxCountDownCommand"
-        Me.ChckBxCountDownCommand.Size = New System.Drawing.Size(72, 16)
+        Me.ChckBxCountDownCommand.Size = New System.Drawing.Size(84, 19)
         Me.ChckBxCountDownCommand.TabIndex = 9
         Me.ChckBxCountDownCommand.Text = "Command"
         Me.ChckBxCountDownCommand.UseVisualStyleBackColor = True
@@ -612,7 +613,7 @@ Partial Class frmKlock
         Me.ChckBxCountDownSystem.AutoSize = True
         Me.ChckBxCountDownSystem.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxCountDownSystem.Name = "ChckBxCountDownSystem"
-        Me.ChckBxCountDownSystem.Size = New System.Drawing.Size(57, 16)
+        Me.ChckBxCountDownSystem.Size = New System.Drawing.Size(66, 19)
         Me.ChckBxCountDownSystem.TabIndex = 7
         Me.ChckBxCountDownSystem.Text = "System"
         Me.ChckBxCountDownSystem.UseVisualStyleBackColor = True
@@ -631,7 +632,7 @@ Partial Class frmKlock
         Me.ChckBxCountDownReminder.AutoSize = True
         Me.ChckBxCountDownReminder.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxCountDownReminder.Name = "ChckBxCountDownReminder"
-        Me.ChckBxCountDownReminder.Size = New System.Drawing.Size(69, 16)
+        Me.ChckBxCountDownReminder.Size = New System.Drawing.Size(81, 19)
         Me.ChckBxCountDownReminder.TabIndex = 5
         Me.ChckBxCountDownReminder.Text = "Reminder"
         Me.ChckBxCountDownReminder.UseVisualStyleBackColor = True
@@ -671,7 +672,7 @@ Partial Class frmKlock
         Me.ChckBxCountDownSound.AutoSize = True
         Me.ChckBxCountDownSound.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxCountDownSound.Name = "ChckBxCountDownSound"
-        Me.ChckBxCountDownSound.Size = New System.Drawing.Size(53, 16)
+        Me.ChckBxCountDownSound.Size = New System.Drawing.Size(62, 19)
         Me.ChckBxCountDownSound.TabIndex = 1
         Me.ChckBxCountDownSound.Text = "Sound"
         Me.ChckBxCountDownSound.UseVisualStyleBackColor = True
@@ -929,7 +930,7 @@ Partial Class frmKlock
         Me.chckBXReminderCommand.AutoSize = True
         Me.chckBXReminderCommand.Location = New System.Drawing.Point(100, 23)
         Me.chckBXReminderCommand.Name = "chckBXReminderCommand"
-        Me.chckBXReminderCommand.Size = New System.Drawing.Size(72, 16)
+        Me.chckBXReminderCommand.Size = New System.Drawing.Size(84, 19)
         Me.chckBXReminderCommand.TabIndex = 9
         Me.chckBXReminderCommand.Text = "Command"
         Me.chckBXReminderCommand.UseVisualStyleBackColor = True
@@ -949,7 +950,7 @@ Partial Class frmKlock
         Me.ChckBxReminderSystem.AutoSize = True
         Me.ChckBxReminderSystem.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxReminderSystem.Name = "ChckBxReminderSystem"
-        Me.ChckBxReminderSystem.Size = New System.Drawing.Size(57, 16)
+        Me.ChckBxReminderSystem.Size = New System.Drawing.Size(66, 19)
         Me.ChckBxReminderSystem.TabIndex = 7
         Me.ChckBxReminderSystem.Text = "System"
         Me.ChckBxReminderSystem.UseVisualStyleBackColor = True
@@ -968,7 +969,7 @@ Partial Class frmKlock
         Me.ChckBxReminderReminder.AutoSize = True
         Me.ChckBxReminderReminder.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxReminderReminder.Name = "ChckBxReminderReminder"
-        Me.ChckBxReminderReminder.Size = New System.Drawing.Size(69, 16)
+        Me.ChckBxReminderReminder.Size = New System.Drawing.Size(81, 19)
         Me.ChckBxReminderReminder.TabIndex = 5
         Me.ChckBxReminderReminder.Text = "Reminder"
         Me.ChckBxReminderReminder.UseVisualStyleBackColor = True
@@ -1008,7 +1009,7 @@ Partial Class frmKlock
         Me.ChckBxReminderSound.AutoSize = True
         Me.ChckBxReminderSound.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxReminderSound.Name = "ChckBxReminderSound"
-        Me.ChckBxReminderSound.Size = New System.Drawing.Size(53, 16)
+        Me.ChckBxReminderSound.Size = New System.Drawing.Size(62, 19)
         Me.ChckBxReminderSound.TabIndex = 1
         Me.ChckBxReminderSound.Text = "Sound"
         Me.ChckBxReminderSound.UseVisualStyleBackColor = True
@@ -1040,7 +1041,7 @@ Partial Class frmKlock
         Me.ChckBxReminderTimeCheck.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ChckBxReminderTimeCheck.Location = New System.Drawing.Point(358, 22)
         Me.ChckBxReminderTimeCheck.Name = "ChckBxReminderTimeCheck"
-        Me.ChckBxReminderTimeCheck.Size = New System.Drawing.Size(13, 12)
+        Me.ChckBxReminderTimeCheck.Size = New System.Drawing.Size(15, 14)
         Me.ChckBxReminderTimeCheck.TabIndex = 3
         Me.ChckBxReminderTimeCheck.UseVisualStyleBackColor = True
         '
@@ -1162,9 +1163,9 @@ Partial Class frmKlock
         Me.pnlFriends.Controls.Add(Me.lblFriendsMiddleName)
         Me.pnlFriends.Controls.Add(Me.lblFriendsFirstName)
         Me.pnlFriends.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlFriends.Location = New System.Drawing.Point(3, 14)
+        Me.pnlFriends.Location = New System.Drawing.Point(3, 16)
         Me.pnlFriends.Name = "pnlFriends"
-        Me.pnlFriends.Size = New System.Drawing.Size(408, 106)
+        Me.pnlFriends.Size = New System.Drawing.Size(407, 103)
         Me.pnlFriends.TabIndex = 0
         '
         'DtPckrFriendsDOB
@@ -1599,6 +1600,12 @@ Partial Class frmKlock
         Me.btnFriendsDelete.Text = "Delete"
         Me.btnFriendsDelete.UseVisualStyleBackColor = True
         '
+        'OSToolStripMenuItem
+        '
+        Me.OSToolStripMenuItem.Name = "OSToolStripMenuItem"
+        Me.OSToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
+        Me.OSToolStripMenuItem.Text = "Operating System"
+        '
         'frmKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1620,6 +1627,7 @@ Partial Class frmKlock
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.MnStrpMain
+        Me.MaximizeBox = False
         Me.Name = "frmKlock"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Klock"
@@ -1816,5 +1824,6 @@ Partial Class frmKlock
     Friend WithEvents LblWorldKlockLocal As System.Windows.Forms.Label
     Friend WithEvents RdBtnWorldClockTimeZoneID As System.Windows.Forms.RadioButton
     Friend WithEvents RdBtnWorldClockTimeZoneLongName As System.Windows.Forms.RadioButton
+    Friend WithEvents OSToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

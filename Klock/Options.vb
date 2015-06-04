@@ -25,72 +25,69 @@ Public Class frmOptions
     Sub setSettings()
         '   Apply the current settings.
 
-        Me.BackColor = My.Settings.usrFormColour
+        Me.BackColor = frmKlock.usrsettings.usrFormColour
 
-        Me.lblColour.Font = My.Settings.usrFormFont
-        Me.lblColour.ForeColor = My.Settings.usrFormFontColour
+        Me.lblColour.Font = frmKlock.usrsettings.usrFormFont
+        Me.lblColour.ForeColor = frmKlock.usrsettings.usrFormFontColour
 
-        Me.lblFont.Font = My.Settings.usrFormFont
-        Me.lblFont.ForeColor = My.Settings.usrFormFontColour
+        Me.lblFont.Font = frmKlock.usrsettings.usrFormFont
+        Me.lblFont.ForeColor = frmKlock.usrsettings.usrFormFontColour
 
-        Me.lblDefaultColour.Font = My.Settings.usrFormFont
-        Me.lblDefaultColour.ForeColor = My.Settings.usrFormFontColour
+        Me.lblDefaultColour.Font = frmKlock.usrsettings.usrFormFont
+        Me.lblDefaultColour.ForeColor = frmKlock.usrsettings.usrFormFontColour
 
-        Me.TbPgGlobal.BackColor = My.Settings.usrFormColour
-        Me.TbPgTime.BackColor = My.Settings.usrFormColour
-        Me.TbPgTimer.BackColor = My.Settings.usrFormColour
+        Me.TbPgGlobal.BackColor = frmKlock.usrsettings.usrFormColour
+        Me.TbPgTime.BackColor = frmKlock.usrsettings.usrFormColour
+        Me.TbPgTimer.BackColor = frmKlock.usrsettings.usrFormColour
 
-        Me.ChckBxOptionsSavePos.Checked = My.Settings.usrSavePos
-        Me.ChckBxOptionsSavePos.Font = My.Settings.usrFormFont
-        Me.ChckBxOptionsSavePos.ForeColor = My.Settings.usrFormFontColour
+        Me.ChckBxOptionsSavePos.Checked = frmKlock.usrsettings.usrSavePosition
+        Me.ChckBxOptionsRunOnStartup.Checked = frmKlock.usrsettings.usrRunOnStartup
+        Me.ChckBxOptionsStartupMinimised.Checked = frmKlock.usrsettings.usrStartMinimised
 
-        Me.ChckBxOptionsRunOnStartup.Checked = My.Settings.usrRunOnStartup
-        Me.ChckBxOptionsStartupMinimised.Checked = My.Settings.usrStartMinimised
+        Me.ChckBxTimerHigh.Checked = frmKlock.usrsettings.usrTimerHigh
+        Me.ChckBxClearSplit.Checked = frmKlock.usrsettings.usrTimerClearSplit
 
-        Me.ChckBxTimerHigh.Checked = My.Settings.usrTimerHigh
-        Me.ChckBxClearSplit.Checked = My.Settings.usrTimerClearSplit
+        Me.chckBxTimeTwoFormats.Checked = frmKlock.usrsettings.usrTimeTwoFormats
 
-        Me.chckBxTimeTwoFormats.Checked = My.Settings.usrTimeTwoFormats
+        Me.chckBxTimeSwatch.Checked = frmKlock.usrsettings.usrTimeSwatchCentibeats
+        Me.ChckBxTimeNetSeconds.Checked = frmKlock.usrsettings.usrTimeNETSeconds
+        Me.ChckBxTimeHexIntuitor.Checked = frmKlock.usrsettings.usrTimeHexIntuitorFormat
+        Me.ChckBxTimeHourPips.Checked = frmKlock.usrsettings.usrTimeHourPips
+        Me.ChckBxTimeHourlyChimes.Checked = frmKlock.usrsettings.usrTimeHourChimes
+        Me.ChckBxTimeHalfChimes.Checked = frmKlock.usrsettings.usrTimeHalfChimes
+        Me.ChckBxTimeQuarterChimes.Checked = frmKlock.usrsettings.usrTimeQuarterChimes
+        Me.ChckBxTimeToast.Checked = frmKlock.usrsettings.usrTimeDisplayMinimised
+        Me.UpDwnTimeDisplay.Value = frmKlock.usrsettings.usrTimeDisplayMinutes
 
-        Me.chckBxTimeSwatch.Checked = My.Settings.usrTimeSwatchCentibeats
-        Me.ChckBxTimeNetSeconds.Checked = My.Settings.usrTimeNETSeconds
-        Me.ChckBxTimeHexIntuitor.Checked = My.Settings.usrTimeHexIntuitor
-        Me.ChckBxTimeHourPips.Checked = My.Settings.usrTimeHourPips
-        Me.ChckBxTimeHourlyChimes.Checked = My.Settings.usrTimeHourlyChimes
-        Me.ChckBxTimeHalfChimes.Checked = My.Settings.usrTimeHalfChimes
-        Me.ChckBxTimeQuarterChimes.Checked = My.Settings.usrTimeQuarterChimes
-        Me.ChckBxTimeToast.Checked = My.Settings.usrTimeDisplayMinimised
-        Me.UpDwnTimeDisplay.Value = My.Settings.usrTimeDisplayMinutes
+        Me.ChckBxReminderAdd.Checked = frmKlock.usrsettings.usrReminderAdd
+        Me.ChckBxTimerAdd.Checked = frmKlock.usrsettings.usrTimerAdd
+        Me.ChckBxCountdownAdd.Checked = frmKlock.usrsettings.usrCountdownAdd
+        Me.ChckBxWorldKlockAdd.Checked = frmKlock.usrsettings.usrWorldKlockAdd
 
-        Me.ChckBxReminderAdd.Checked = My.Settings.usrReminderAdd
-        Me.ChckBxTimerAdd.Checked = My.Settings.usrTimerAdd
-        Me.ChckBxCountdownAdd.Checked = My.Settings.usrCountdownAdd
-        Me.ChckBxWorldKlockAdd.Checked = My.Settings.usrWorldKlockAdd
-
-        If My.Settings.usrTimeDisplayMinimised Then
+        If frmKlock.usrsettings.usrTimeDisplayMinutes Then
             Me.UpDwnTimeDisplay.Enabled = True
         Else
             Me.UpDwnTimeDisplay.Enabled = False
         End If
 
-        Me.NmrcUpDwnNotificationTimeOut.Value = My.Settings.usrNotificationTimeOut / 1000
-        Me.NmrcUpDwnNotificationOpacity.Value = My.Settings.usrNotificationOpacity
+        Me.NmrcUpDwnNotificationTimeOut.Value = frmKlock.usrsettings.usrNotificationTimeOut / 1000
+        Me.NmrcUpDwnNotificationOpacity.Value = frmKlock.usrsettings.usrNotificationOpacity
 
         Me.TrckBrOptionsVolume.Minimum = 0
         Me.TrckBrOptionsVolume.Maximum = 1000
         Me.TrckBrOptionsVolume.TickFrequency = 100
-        Me.TrckBrOptionsVolume.Value = My.Settings.usrSoundVolume
+        Me.TrckBrOptionsVolume.Value = frmKlock.usrsettings.usrSoundVolume
 
-        If My.Settings.usrFriendsDirectory = "" Then
+        If frmKlock.usrsettings.usrFriendsDirectory = "" Then
             Me.TxtBxOptionsFriendsDirectory.Text = Application.StartupPath & "\Data"
         Else
-            Me.TxtBxOptionsFriendsDirectory.Text = My.Settings.usrFriendsDirectory
+            Me.TxtBxOptionsFriendsDirectory.Text = frmKlock.usrsettings.usrFriendsDirectory
         End If
 
-        If My.Settings.usrFriendsFile = "" Then
+        If frmKlock.usrsettings.usrFrinedsFile = "" Then
             Me.TxtBxOptionsFriendsFile.Text = "Friends.bin"
         Else
-            Me.TxtBxOptionsFriendsFile.Text = My.Settings.usrFriendsFile
+            Me.TxtBxOptionsFriendsFile.Text = frmKlock.usrsettings.usrFrinedsFile
         End If
 
     End Sub
@@ -100,44 +97,44 @@ Public Class frmOptions
     Private Sub btnOptionsClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsClose.Click
         '    When closed, save settings.
 
-        My.Settings.usrSavePos = Me.ChckBxOptionsSavePos.Checked
-        My.Settings.usrRunOnStartup = Me.ChckBxOptionsRunOnStartup.Checked
-        My.Settings.usrStartMinimised = Me.ChckBxOptionsStartupMinimised.Checked
+        frmKlock.usrsettings.usrSavePosition = Me.ChckBxOptionsSavePos.Checked
+        frmKlock.usrsettings.usrRunOnStartup = Me.ChckBxOptionsRunOnStartup.Checked
+        frmKlock.usrsettings.usrStartMinimised = Me.ChckBxOptionsStartupMinimised.Checked
 
-        If My.Settings.usrSavePos Then
-            My.Settings.usrFormTop = frmKlock.Top
-            My.Settings.usrFormLeft = frmKlock.Left
+        If frmKlock.usrsettings.usrSavePosition Then
+            frmKlock.usrsettings.usrFormTop = frmKlock.Top
+            frmKlock.usrsettings.usrFormLeft = frmKlock.Left
         End If
 
-        My.Settings.usrTimerHigh = Me.ChckBxTimerHigh.Checked
-        My.Settings.usrTimerClearSplit = Me.ChckBxClearSplit.Checked
+        frmKlock.usrsettings.usrTimerHigh = Me.ChckBxTimerHigh.Checked
+        frmKlock.usrsettings.usrTimerClearSplit = Me.ChckBxClearSplit.Checked
 
-        My.Settings.usrTimeTwoFormats = Me.chckBxTimeTwoFormats.Checked
+        frmKlock.usrsettings.usrTimeTwoFormats = Me.chckBxTimeTwoFormats.Checked
 
-        My.Settings.usrTimeSwatchCentibeats = Me.chckBxTimeSwatch.Checked
-        My.Settings.usrTimeNETSeconds = Me.ChckBxTimeNetSeconds.Checked
-        My.Settings.usrTimeHexIntuitor = Me.ChckBxTimeHexIntuitor.Checked
-        My.Settings.usrTimeHourPips = Me.ChckBxTimeHourPips.Checked
-        My.Settings.usrTimeHourlyChimes = Me.ChckBxTimeHourlyChimes.Checked
-        My.Settings.usrTimeHalfChimes = Me.ChckBxTimeHalfChimes.Checked
-        My.Settings.usrTimeQuarterChimes = Me.ChckBxTimeQuarterChimes.Checked
-        My.Settings.usrTimeThreeQuarterChimes = Me.ChckBxTimeQuarterChimes.Checked
-        My.Settings.usrTimeDisplayMinimised = Me.ChckBxTimeToast.Checked
-        My.Settings.usrTimeDisplayMinutes = Me.UpDwnTimeDisplay.Value
+        frmKlock.usrsettings.usrTimeSwatchCentibeats = Me.chckBxTimeSwatch.Checked
+        frmKlock.usrsettings.usrTimeNETSeconds = Me.ChckBxTimeNetSeconds.Checked
+        frmKlock.usrsettings.usrTimeHexIntuitorFormat = Me.ChckBxTimeHexIntuitor.Checked
+        frmKlock.usrsettings.usrTimeHourPips = Me.ChckBxTimeHourPips.Checked
+        frmKlock.usrsettings.usrTimeHourChimes = Me.ChckBxTimeHourlyChimes.Checked
+        frmKlock.usrsettings.usrTimeHalfChimes = Me.ChckBxTimeHalfChimes.Checked
+        frmKlock.usrsettings.usrTimeQuarterChimes = Me.ChckBxTimeQuarterChimes.Checked
+        frmKlock.usrsettings.usrTimeDisplayMinimised = Me.ChckBxTimeToast.Checked
+        frmKlock.usrsettings.usrTimeDisplayMinutes = Me.UpDwnTimeDisplay.Value
 
-        My.Settings.usrReminderAdd = Me.ChckBxReminderAdd.Checked
-        My.Settings.usrTimerAdd = Me.ChckBxTimerAdd.Checked
-        My.Settings.usrCountdownAdd = Me.ChckBxCountdownAdd.Checked
-        My.Settings.usrWorldKlockAdd = Me.ChckBxWorldKlockAdd.Checked
+        frmKlock.usrsettings.usrReminderAdd = Me.ChckBxReminderAdd.Checked
+        frmKlock.usrsettings.usrTimerAdd = Me.ChckBxTimerAdd.Checked
+        frmKlock.usrsettings.usrCountdownAdd = Me.ChckBxCountdownAdd.Checked
+        frmKlock.usrsettings.usrWorldKlockAdd = Me.ChckBxWorldKlockAdd.Checked
 
-        My.Settings.usrReminderTimeChecked = Me.ChckBxReminderTimeCheck.Checked
+        frmKlock.usrsettings.usrReminderTimeChecked = Me.ChckBxReminderTimeCheck.Checked
 
-        My.Settings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
+        frmKlock.usrsettings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
 
-        My.Settings.usrFriendsDirectory = Me.TxtBxOptionsFriendsDirectory.Text
-        My.Settings.usrFriendsFile = Me.TxtBxOptionsFriendsFile.Text
+        frmKlock.usrsettings.usrFriendsDirectory = Me.TxtBxOptionsFriendsDirectory.Text
+        frmKlock.usrsettings.usrFrinedsFile = Me.TxtBxOptionsFriendsFile.Text
 
-        My.Settings.Save()
+        frmKlock.usrsettings.writeSettings()
+        frmKlock.setSettings()
 
         Me.Close()
     End Sub
@@ -152,9 +149,9 @@ Public Class frmOptions
     Private Sub btnOptionsFormColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFormColour.Click
         '   Set the form main colour.
 
-        Me.ClrDlgFormColour.Color = My.Settings.usrFormColour          '   current main form colour
+        Me.ClrDlgFormColour.Color = frmKlock.usrSettings.usrFormColour          '   current main form colour
         If Me.ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
-            My.Settings.usrFormColour = Me.ClrDlgFormColour.Color
+            frmKlock.usrSettings.usrFormColour = Me.ClrDlgFormColour.Color
             Me.setSettings()
         End If
     End Sub
@@ -163,12 +160,12 @@ Public Class frmOptions
         '   Set the form main font.
         '   the font colour has to be handled separately.
 
-        FntDlgFont.Font = My.Settings.usrFormFont                  '   current main form font
-        FntDlgFont.Color = My.Settings.usrFormFontColour            '   current main form font colour
+        FntDlgFont.Font = frmKlock.usrSettings.usrFormFont                  '   current main form font
+        FntDlgFont.Color = frmKlock.usrSettings.usrFormFontColour            '   current main form font colour
 
         If FntDlgFont.ShowDialog() = DialogResult.OK Then
-            My.Settings.usrFormFont = FntDlgFont.Font
-            My.Settings.usrFormFontColour = FntDlgFont.Color
+            frmKlock.usrSettings.usrFormFont = FntDlgFont.Font
+            frmKlock.usrSettings.usrFormFontColour = FntDlgFont.Color
             Me.setSettings()
         End If
     End Sub
@@ -176,9 +173,9 @@ Public Class frmOptions
     Private Sub btnDefaultColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDefaultColour.Click
         '   reset all colours and font changes back to form defaults.
 
-        My.Settings.usrFormColour = frmOptions.DefaultBackColor
-        My.Settings.usrFormFont = frmOptions.DefaultFont
-        My.Settings.usrFormFontColour = frmOptions.DefaultForeColor
+        frmKlock.usrSettings.usrFormColour = frmOptions.DefaultBackColor
+        frmKlock.usrSettings.usrFormFont = frmOptions.DefaultFont
+        frmKlock.usrSettings.usrFormFontColour = frmOptions.DefaultForeColor
 
         Me.setSettings()
     End Sub
@@ -240,9 +237,9 @@ Public Class frmOptions
     Private Sub btnNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNotificationColour.Click
         '   Set the Notification main colour.
 
-        Me.ClrDlgFormColour.Color = My.Settings.usrNotificationBackColour   '   current Notification colour
+        Me.ClrDlgFormColour.Color = frmKlock.usrSettings.usrNotificationBackColour   '   current Notification colour
         If Me.ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
-            My.Settings.usrNotificationBackColour = Me.ClrDlgFormColour.Color
+            frmKlock.usrSettings.usrNotificationBackColour = Me.ClrDlgFormColour.Color
         End If
     End Sub
 
@@ -250,12 +247,12 @@ Public Class frmOptions
         '   Set the Notification main font.
         '   the font colour has to be handled separately.
 
-        Me.FntDlgFont.Font = My.Settings.usrNotificationFont                  '   current Notification font
-        Me.FntDlgFont.Color = My.Settings.usrNotificationFontColour           '   current Notification font colour
+        Me.FntDlgFont.Font = frmKlock.usrsettings.usrNotificationFont                  '   current Notification font
+        Me.FntDlgFont.Color = frmKlock.usrSettings.usrNotificationFontColour           '   current Notification font colour
 
         If Me.FntDlgFont.ShowDialog() = DialogResult.OK Then
-            My.Settings.usrNotificationFont = Me.FntDlgFont.Font
-            My.Settings.usrNotificationFontColour = Me.FntDlgFont.Color
+            frmKlock.usrSettings.usrNotificationFont = Me.FntDlgFont.Font
+            frmKlock.usrSettings.usrNotificationFontColour = Me.FntDlgFont.Color
         End If
     End Sub
 
@@ -263,19 +260,19 @@ Public Class frmOptions
         '   set the time out value of the Notification.
         '   The value is displayed in seconds and set in millisecond's..
 
-        My.Settings.usrNotificationTimeOut = Me.NmrcUpDwnNotificationTimeOut.Value * 1000
+        frmKlock.usrSettings.usrNotificationTimeOut = Me.NmrcUpDwnNotificationTimeOut.Value * 1000
     End Sub
 
     Private Sub NmrcUpDwnNotificationOpacity_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NmrcUpDwnNotificationOpacity.ValueChanged
         'Set the Opacity of the Notification.
 
-        My.Settings.usrNotificationOpacity = Me.NmrcUpDwnNotificationOpacity.Value
+        frmKlock.usrSettings.usrNotificationOpacity = Me.NmrcUpDwnNotificationOpacity.Value
     End Sub
 
     Private Sub btnNotificationTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNotificationTest.Click
         '   Display a test notification, showing the current notification opacity.
 
-        Me.displayAction.DisplayReminder("Notification Test", String.Format(" Opacity = {0}", My.Settings.usrNotificationOpacity))
+        Me.displayAction.DisplayReminder("Notification Test", String.Format(" Opacity = {0}", frmKlock.usrSettings.usrNotificationOpacity))
     End Sub
 
     '---------------------------------------------------------- Sound Volume ---------------------------------------------------------------
@@ -283,7 +280,7 @@ Public Class frmOptions
     Private Sub TrckBrOptionsVolume_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrckBrOptionsVolume.Scroll
         '   Set system volume.
 
-        My.Settings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
+        frmKlock.usrSettings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
 
     End Sub
 
@@ -335,7 +332,7 @@ Public Class frmOptions
 
     Private Sub btnArchieveFriendsDirectory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsDirectory.Click
         '   Prompt user for location of the archive file.
-        '   If file exixts, enable load button.  Enable save button as well
+        '   If file exists, enable load button.  Enable save button as well
 
         If Me.FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
             Me.TxtBxArchieveFriendsDirectory.Text = Me.FolderBrowserDialog1.SelectedPath
@@ -351,7 +348,7 @@ Public Class frmOptions
 
     Private Sub btnArchieveFriendsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsFile.Click
         '   Prompt user for file name of the archive file.
-        '   If file exixts, enable load button.  Enable save button as well
+        '   If file exists, enable load button.  Enable save button as well
 
 
         Me.OpenFileDialog1.Filter = "All Files|*.*"
@@ -374,7 +371,7 @@ Public Class frmOptions
 
     Private Sub btnArchieveFriendsSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsSave.Click
         '   Saves the friends file to archive [zip].
-        '   If the archieve already exists, it will only be overwritten on user prompt.
+        '   If the achieve already exists, it will only be overwritten on user prompt.
 
         Dim zippath As String = Me.TxtBxArchieveFriendsDirectory.Text & "\" & Me.TxtBxArchieveFriendsFile.Text
 
@@ -430,6 +427,7 @@ Public Class frmOptions
                 If extract Then                             '   extract file.
                     Try                                     '   catch extract error, if any.
                         entry.Extract(Me.TxtBxOptionsFriendsDirectory.Text)
+                        frmKlock.reloadFriends = True             '   set to re-load friends file.
                     Catch ex As Exception
                         Me.displayAction.DisplayReminder("Saving File Error", "Error archieving Friends File. " & ex.Message)
                     End Try

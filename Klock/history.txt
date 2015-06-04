@@ -1,3 +1,22 @@
+------------------------------------------------------------------------
+r24 | Media | 2013-06-04 21:47:04 +0100 (Tue, 04 Jun 2013) | 1 line
+
+New branch for new user settings.
+------------------------------------------------------------------------
+r23 | Media | 2013-06-04 21:44:47 +0100 (Tue, 04 Jun 2013) | 11 lines
+
+[klock.vb]
+Corrected bug - did not reload friends, if path was changed in options.
+Amended font of friend list view to be Lucida Sans Typewriter, 8.25pt
+Amended font of Fuzzy Time label to be Lucida Calligraphy, 17pt
+
+[selectTime.vb]
+Renamed hexTime to TrueHexTime - Splits day into 16 hours
+Added RomanTime, BinaryTime, OctTime & HexTime - different representations of current time.
+
+[Person.vb]
+Amneded the space padding in Persoon.ToString()
+------------------------------------------------------------------------
 r22 | Media | 2013-05-30 21:52:25 +0100 (Thu, 30 May 2013) | 14 lines
 
 Deleted .exe - should not of been here in the first place.
