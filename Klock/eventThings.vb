@@ -25,7 +25,7 @@
     End Function
 
     Public Function eventmessage(ByVal e As Events) As String
-        '   Set an appropieate message according to the event type.
+        '   Set an appropriate message according to the event type.
 
         Dim s As String = "d"
 
@@ -68,7 +68,7 @@
     End Function
 
     Private Function weddingAnniversary(ByVal n As Integer) As String
-        '   Selects the appropiate wedding gift, if knowm - otherwise returns the year number in words.
+        '   Selects the appropriate wedding gift, if known - otherwise returns the year number in words.
 
         weddingAnniversary = IIf(Me.weddingAnniversaryGifts.ContainsKey(n), Me.weddingAnniversaryGifts(n), Me.toOrdinal(n))
     End Function
@@ -99,7 +99,7 @@
     End Function
 
     Private Sub PopulateGifts()
-        '   A list of traditional and mondern anniversary gifts.
+        '   A list of traditional and modern anniversary gifts.
 
         Me.weddingAnniversaryGifts.Add(1, "Cotton")
         Me.weddingAnniversaryGifts.Add(2, "Paper")

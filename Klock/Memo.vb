@@ -1,5 +1,11 @@
 ﻿Imports System.Globalization
 
+'   A Memo class.
+'   Holds the data for an event and the functions to expose them.
+
+'   the <Serializable()> bit, allows it to be stored easily in a binary file.
+'   the tostring function allows it to be stored in a listbox.
+
 <Serializable()> Public Class Memo
 
 
@@ -12,7 +18,6 @@
 
         MyBase.New()
     End Sub
-
 
     Public Overrides Function ToString() As String
 

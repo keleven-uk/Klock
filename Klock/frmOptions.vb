@@ -536,7 +536,7 @@ Public Class frmOptions
     '---------------------------------------------------------- Friends Options  ---------------------------------------------------------------
 
     Private Sub btnOptionsFriendsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFriendsFile.Click
-        '   Prompt user for the filename of the friends file - Default to freinds.bin
+        '   Prompt user for the filename of the friends file - Default to friends.bin
 
         Me.OpenFileDialog1.Filter = "All Files|*.*"
         Me.OpenFileDialog1.InitialDirectory = Me.TxtBxOptionsFriendsDirectory.Text
@@ -672,7 +672,7 @@ Public Class frmOptions
         Try
             output.CopyHere(input.Items, 4)                                     '   save Archive
         Catch ex As Exception
-            Me.displayAction.DisplayReminder("Saving File Error", "Error archieving Friends File. " & ex.Message)
+            Me.displayAction.DisplayReminder("Saving File Error", "Error archiving Friends File. " & ex.Message)
         End Try
     End Sub
 
@@ -700,7 +700,7 @@ Public Class frmOptions
             output.CopyHere(input.Items, 4)
             frmKlock.reloadFriends = True             '   set to re-load friends file.
         Catch ex As Exception
-            Me.displayAction.DisplayReminder("Loading File Error", "Error archieving Friends File. " & ex.Message)
+            Me.displayAction.DisplayReminder("Loading File Error", "Error archiving Friends File. " & ex.Message)
         End Try
     End Sub
 

@@ -26,9 +26,9 @@ SourceDir=C:\My\shed\projects\VB\klock\V1.0.4\Klock
 DefaultDirName={pf}\keleven\Klock
 DefaultGroupName={#MyAppName}
 ;LicenseFile=License.txt
-InfoAfterFile=Help.txt
+InfoAfterFile=License.txt
 OutputDir=C:\My\shed\projects\VB
-OutputBaseFilename=Klock_40
+OutputBaseFilename=Klock_41_rc1
 SetupIconFile=Klock.ico
 Compression=lzma
 SolidCompression=yes
@@ -55,7 +55,6 @@ Source: "bin\Release\Sounds\*"  ; DestDir: "{app}\Sounds"; Components : exe; Fla
 Source: "bin\Release\fonts\*"   ; DestDir: "{app}\fonts" ; Components : exe; Flags: ignoreversion
 Source: "klock.chm"             ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 Source: "License.txt"           ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
-Source: "History.txt"           ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 
 ;  include source if directed :: NB needs a clean CVS checkout :: recursesubdirs for recursion
 ;  install into My Documents foler.

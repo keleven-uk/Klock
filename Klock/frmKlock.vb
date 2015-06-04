@@ -32,7 +32,7 @@
 
     Public strHelpPath As String = System.IO.Path.Combine(Application.StartupPath, "klock.chm") '   set up help location
 
-    Public grphcs As Graphics = Me.CreateGraphics   '   create graphic object globably, used to measure time text width
+    Public grphcs As Graphics = Me.CreateGraphics   '   create graphic object globally, used to measure time text width
     Public hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}    '   create global, not every time.
 
     Public knownFirstNames As New AutoCompleteStringCollection      '   Auto Complete for friends first name.
@@ -1316,8 +1316,8 @@
     End Sub
 
     ' **************************************************************************************************** Friends & Events Buttons ***********************
-    '   Combined the buttons for both friends and events - they share a lot of funcanaslity.
-    '   Moved the guts of each routing into a seperate module, trying to reduce clutter in main program file.
+    '   Combined the buttons for both friends and events - they share a lot of functionality.
+    '   Moved the guts of each routing into a sperate module, trying to reduce clutter in main program file.
 
     Private Sub btnNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNew.Click
         '   Sets up to add new friend / Event.
@@ -1581,7 +1581,7 @@
 
     Private Function getMemoPassword() As String
         '   asks a password for the user.
-        '   returns either the passord or the default password if allowed.
+        '   returns either the password or the default password if allowed.
         '   returns -1 if cancel is pressed - unlikely to be a password.
 
 
@@ -1589,7 +1589,7 @@
 
         If Me.usrSettings.usrMemoUseDefaultPassword Then                            '   system set up to use default password.
             password = Me.usrSettings.usrMemoDefaultPassword                        '   return default password.
-        Else                                                                        '   prompt user for passord.
+        Else                                                                        '   prompt user for password.
             frmMemoPassword.ShowDialog()                                            '   display password form.
 
             If frmMemoPassword.DialogResult = Windows.Forms.DialogResult.OK Then    '   user pressed ok on password.

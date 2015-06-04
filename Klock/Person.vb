@@ -1,5 +1,14 @@
 ﻿Imports System.Globalization
 
+'   A Person class.
+'   Holds the data for an event and the functions to expose them.
+
+'   the <Serializable()> bit, allows it to be stored easily in a binary file.
+'   the tostring function allows it to be stored in a listbox.
+
+'   Names & Addresses have to be title case i.e. first letter has to be a capital.
+'   Emails have to contain the @ character.
+
 <Serializable()> Public Class Person
 
     ' Creates a TextInfo based on the "en-GB" culture.

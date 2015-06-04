@@ -209,7 +209,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
-      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <Generator>PublicVbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
@@ -220,7 +220,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Klock.chm" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
@@ -262,16 +264,12 @@
     <EmbeddedResource Include="License.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Help.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="history.txt" />
     <Content Include="Klock.ico" />
     <None Include="Resources\btnClicked.png" />
     <None Include="Resources\btnHigh.png" />
     <None Include="Resources\btnLow.png" />
     <None Include="Resources\klock.png" />
-    <None Include="Resources\69190__acclivity__thepips.wav" />
     <Content Include="wip.txt" />
     <None Include="Klock.iss" />
   </ItemGroup>

@@ -313,7 +313,7 @@
     Private Function getNancyBlackettTime() As String
         '   returns local time, that can be displayed using a Nancy Blackey semaphore font.
         '   See http://www.allthingsransome.net/downloads/nbsemaphore.html
-        '   same as sepaphore, but without the flags really.
+        '   same as semaphore, but without the flags really.
 
         getNancyBlackettTime = getLocalTime()
     End Function
@@ -378,7 +378,7 @@
     End Function
 
     Private Function getUTCTime() As String
-        '   returns current [local] time as a Univarsal Current Time.
+        '   returns current [local] time as a Universal Current Time.
 
         If Me.use24Hour Then
             getUTCTime = String.Format("{0:HH:mm:ss}", System.DateTime.Now.ToUniversalTime.ToLongTimeString)
@@ -464,7 +464,7 @@
     End Function
 
     Private Function getTrueHexTime() As String
-        '   Returns the current [local] time in Hexdecimal time.
+        '   Returns the current [local] time in Hexadecimal time.
         '   The day is divided in 10 (sixteen) hexadecimal hours, each hour in 100 (two hundred and fifty-six)
         '   hexadecimal minutes and each minute in 10 (sixteen) hexadecimal seconds.
 
@@ -619,9 +619,8 @@
     End Function
 
     Private Function toCode(time As String) As String
-        '   code = "MORSE"   - returns string in morse code.
-
-
+        '   Returns string in morse code.
+                                                          
         Dim result As String = ""
 
         Select Case time
@@ -648,7 +647,6 @@
         End Select
 
         toCode = result
-
     End Function
 
     Private Function getMarsSolDate()

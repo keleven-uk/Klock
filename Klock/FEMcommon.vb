@@ -5,7 +5,7 @@ Imports System.Runtime.Serialization.Formatters.Binary
 Module FEMcommon
 
     ' **************************************************************************************************** Friends & Events Buttons ***********************
-    '   Code that is common to Freinds, Events & Memo tabs.
+    '   Code that is common to Friends, Events & Memo tabs.
     '   if frmKlock.TbCntrl.SelectedIndex = 5 then operate buttons in friends mode.
     '   if frmKlock.TbCntrl.SelectedIndex = 6 then operate buttons in events mode.
     '   if frmKlock.TbCntrl.SelectedIndex = 7 then operate buttons in memo mode.
@@ -13,7 +13,7 @@ Module FEMcommon
     '   NB :: this saved about 6kb to the executable, but does produce rather long and complex sub routines.
     '       [would be even more now then memo added]
     '
-    '   Moved the guts of each routing into a seperate module, trying to reduce clutter in main program file - [added about 2k to executable].
+    '   Moved the guts of each routing into a sperate module, trying to reduce clutter in main program file - [added about 2k to executable].
 
     Public Sub ButtonsVisible(ByVal b As Boolean)
         '   Switch on the editing buttons.

@@ -20,7 +20,7 @@ Public Class frmAbout
 
         Me.tmrAbout.Enabled = True
 
-        Me.lblVersion.Text = "Klock Version :: " & My.Application.Info.Version.ToString()
+        Me.lblVersion.Text = "Klock Version :: " & My.Application.Info.Version.ToString() & " :: RC1"
         Me.lblCopyright.Text = My.Application.Info.Copyright
         Me.lblDescription.Text = My.Application.Info.Description
         Me.lblTitle.Text = My.Application.Info.Title
@@ -107,7 +107,7 @@ Public Class frmAbout
         Try
             Shell("msinfo32.exe", AppWinStyle.NormalFocus)
         Catch ex As Exception
-            Try                         '   if failes, try hard coded location [I think for windoes XP]
+            Try                         '   if fails, try hard coded location [I think for windoes XP]
                 Shell("C:\Program Files\Common Files\Microsoft Shared\MSInfo\msinfo32.exe", AppWinStyle.NormalFocus)
             Catch ex1 As Exception
                 MessageBox.Show("Cannot find MSinfo! " & ex1.Message, "Error")

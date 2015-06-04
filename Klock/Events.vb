@@ -1,5 +1,14 @@
 ﻿Imports System.Globalization
 
+'   An Event class.
+'   Holds the data for an event and the functions to expose them.
+
+'   the <Serializable()> bit, allows it to be stored easily in a binary file.
+'   the tostring function allows it to be stored in a listbox.
+
+
+'   An event can [has] to one of EventTypes.
+
 <Serializable()> Public Class Events
     '
 
@@ -13,9 +22,6 @@
         OneOffEvent
         Other
     End Enum
-
-    ' Creates a TextInfo based on the "en-GB" culture.
-    Private myTI As TextInfo = New CultureInfo("en-GB", False).TextInfo
 
     Private _eName As String
     Private _eType As Integer
@@ -69,13 +75,12 @@
         NoOfYears = dd
     End Function
 
-
     Public Property EventName() As String
         Get
             Return _eName
         End Get
         Set(ByVal value As String)
-            _eName = Trim(myTI.ToTitleCase(value))
+            _eName = value
         End Set
     End Property
 

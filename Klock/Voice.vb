@@ -1,7 +1,7 @@
 ﻿Public Class Voice
     '   A wrapper class around SAPI - Microsoft's speech API.
 
-    '    When the class in created, the SPAI object is created, is successful voice.actice will return True, if failed it return false.
+    '    When the class in created, the SPAI object is created, is successful voice.active will return True, if failed it return false.
     '   To produce speech, just pass a string to Voice.say
 
 

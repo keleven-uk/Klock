@@ -4,7 +4,7 @@ Module InfoCommon
     '   A generic way of calling the Info form.
 
     Sub displayInfo(ByVal mode As String)
-        '   Calls the info form and populates the labels deping upon how it called.
+        '   Calls the info form and populates the labels depending upon how it called.
 
         Select Case mode
             Case "Daylight Saving"
@@ -54,6 +54,8 @@ Module InfoCommon
                 frmInfo.Label3.Text = frmKlock.myManagedPower.powerStatus()
                 frmInfo.Label4.Text = frmKlock.myManagedPower.chargingStatus()
                 frmInfo.Label5.Text = ""
+
+                frmInfo.TmrInfo.Enabled = True      '   switch on timer.
         End Select
 
         frmInfo.ShowDialog()

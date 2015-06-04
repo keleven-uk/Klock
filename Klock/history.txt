@@ -1,4 +1,25 @@
 ------------------------------------------------------------------------
+r40 | Keleven | 2013-11-18 22:11:08 +0000 (Mon, 18 Nov 2013) | 17 lines
+
+Added sounds & fonts directory to top level.
+
+Added UserFonts.vb :: A class to manage the custom fonts used.  
+Also returns the correct fonts size for a given text width.
+
+[frmKlock.vb]
+Moved some code in to UserFonts.vb
+Fixed a bug, the text files of a notification icon can not exceed 64 characters.
+Moved code that loads the info forms  into one sub.
+Simplified the code for the memo password.
+
+[frmOptions.vb & UserSettings.vb]
+Removed option for blank memo passwords.
+
+[selectTime.vb]
+Added Semaphore Time, Nancy Blackett Time & Barcode Time.
+Amended Braille Time to use fonts instead of Unicode characters.
+
+------------------------------------------------------------------------
 r39 | Media | 2013-10-29 20:37:18 +0000 (Tue, 29 Oct 2013) | 8 lines
 
 Finished the code for Memo, included the encryption bit.
