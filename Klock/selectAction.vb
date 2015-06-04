@@ -52,7 +52,7 @@
             mciSendString("setaudio myAudio volume to " & Volume, Nothing, 0, 0)
 
         Else
-            DisplayReminder("ERROR", "Sorry, sound file seems to have gone away!!")
+            DisplayReminder("ERROR", "Sorry, sound file seems to have gone away!!" & vbCr & s)
         End If      '   if My.Computer.FileSystem.FileExists(s)
     End Sub
 
@@ -71,7 +71,15 @@
     Public Sub DisplayReminder(ByVal t As String, ByVal m As String)
         '   Display the reminder message
 
-        Dim Notification As New frmNotification(frmKlock.usrSettings.usrNotificationTimeOut, t, m)
+        Dim Notification As New frmNotification(frmKlock.usrSettings.usrNotificationTimeOut, t, m, "R")
+
+        Notification.Show()
+    End Sub
+
+    Public Sub DisplayEvent(ByVal t As String, ByVal m As String)
+        '   Display the reminder message
+
+        Dim Notification As New frmNotification(frmKlock.usrSettings.usrNotificationTimeOut, t, m, "E")
 
         Notification.Show()
     End Sub

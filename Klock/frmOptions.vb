@@ -52,6 +52,7 @@ Public Class frmOptions
     Sub setSettings()
         '   Apply the current settings.
 
+        frmKlock.usrSettings.readSettings()     '   re-read settings, so we are always working current.
 
         '-------------------------------------------------------------------------------------------------------- Global Settings -------------
         Me.BackColor = frmKlock.usrSettings.usrFormColour
@@ -123,6 +124,12 @@ Public Class frmOptions
         Me.NmrcUpDwnNotificationTimeOut.Value = frmKlock.usrSettings.usrNotificationTimeOut / 1000
         Me.NmrcUpDwnNotificationOpacity.Value = frmKlock.usrSettings.usrNotificationOpacity
 
+        Me.NmrcUpDwnEventNotificationOpacity.Value = frmKlock.usrSettings.usrEventNotificationOpacity
+
+        Me.PctrBxNotification.BackColor = frmKlock.usrSettings.usrNotificationbackColour
+        Me.PctrBxFirstEvent.BackColor = frmKlock.usrSettings.usrFirstEventNotificationbackColour
+        Me.PctrBxSecondEvent.BackColor = frmKlock.usrSettings.usrSecondEventNotificationbackColour
+        Me.PctrBxThirdEvent.BackColor = frmKlock.usrSettings.usrThirdEventNotificationbackColour
         '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
         If frmKlock.usrSettings.usrFriendsDirectory = "" Then
@@ -213,6 +220,8 @@ Public Class frmOptions
 
         frmKlock.usrSettings.usrNotificationTimeOut = Me.NmrcUpDwnNotificationTimeOut.Value * 1000
         frmKlock.usrSettings.usrNotificationOpacity = Me.NmrcUpDwnNotificationOpacity.Value
+
+        frmKlock.usrSettings.usrEventNotificationOpacity = Me.NmrcUpDwnEventNotificationOpacity.Value
 
         '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
@@ -345,6 +354,7 @@ Public Class frmOptions
         Me.ClrDlgFormColour.Color = frmKlock.usrSettings.usrNotificationbackColour   '   current Notification colour
         If Me.ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
             frmKlock.usrSettings.usrNotificationbackColour = Me.ClrDlgFormColour.Color
+            Me.PctrBxNotification.BackColor = frmKlock.usrSettings.usrNotificationbackColour
         End If
     End Sub
 
@@ -380,6 +390,57 @@ Public Class frmOptions
         Me.displayAction.DisplayReminder("Notification Test", String.Format(" Opacity = {0}", frmKlock.usrSettings.usrNotificationOpacity))
     End Sub
 
+
+    '-----------------------------------------------------------Event Notification--------------------------------------------------------------
+
+    Private Sub btnEventNotificationFont_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventNotificationFont.Click
+        '   Set the Event Notification main font.
+        '   the font colour has to be handled separately.
+
+        Me.FntDlgFont.Font = frmKlock.usrSettings.usrEventNotificationFont                  '   current Event Notification font
+        Me.FntDlgFont.Color = frmKlock.usrSettings.usrEventNotificationFontColour           '   current Event Notification font colour
+
+        If Me.FntDlgFont.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrEventNotificationFont = Me.FntDlgFont.Font
+            frmKlock.usrSettings.usrEventNotificationFontColour = Me.FntDlgFont.Color
+        End If
+    End Sub
+
+    Private Sub btnFirstEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFirstEventNotificationColour.Click
+        '   Set the First Event Notification main colour.
+
+        Me.ClrDlgFormColour.Color = frmKlock.usrSettings.usrFirstEventNotificationbackColour   '   current First Event Notification colour
+        If Me.ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrFirstEventNotificationbackColour = Me.ClrDlgFormColour.Color
+            Me.PctrBxFirstEvent.BackColor = frmKlock.usrSettings.usrFirstEventNotificationbackColour
+        End If
+    End Sub
+
+    Private Sub btnSecondEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSecondEventNotificationColour.Click
+        '   Set the Second Event Notification main colour.
+
+        Me.ClrDlgFormColour.Color = frmKlock.usrSettings.usrSecondEventNotificationbackColour   '   current Second Event Notification colour
+        If Me.ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrSecondEventNotificationbackColour = Me.ClrDlgFormColour.Color
+            Me.PctrBxSecondEvent.BackColor = frmKlock.usrSettings.usrSecondEventNotificationbackColour
+        End If
+    End Sub
+
+    Private Sub btnThirdEventNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnThirdEventNotificationColour.Click
+        '   Set the Third Event Notification main colour.
+
+        Me.ClrDlgFormColour.Color = frmKlock.usrSettings.usrThirdEventNotificationbackColour   '   current Third Event Notification colour
+        If Me.ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrThirdEventNotificationbackColour = Me.ClrDlgFormColour.Color
+            Me.PctrBxThirdEvent.BackColor = frmKlock.usrSettings.usrThirdEventNotificationbackColour
+        End If
+    End Sub
+
+    Private Sub NmrcUpDwnEventNotificationOpacity_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NmrcUpDwnEventNotificationOpacity.ValueChanged
+        'Set the Opacity of the Event Notification.
+
+        frmKlock.usrSettings.usrEventNotificationOpacity = Me.NmrcUpDwnEventNotificationOpacity.Value
+    End Sub
     '---------------------------------------------------------- Sound Volume ---------------------------------------------------------------
 
     Private Sub TrckBrOptionsVolume_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrckBrOptionsVolume.Scroll
@@ -578,6 +639,9 @@ Public Class frmOptions
         End Using
 
     End Sub
+
+
+
 
 
 

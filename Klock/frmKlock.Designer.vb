@@ -166,8 +166,7 @@ Partial Class frmKlock
         Me.TbPgEvents = New System.Windows.Forms.TabPage()
         Me.GroupBox20 = New System.Windows.Forms.GroupBox()
         Me.pnlEvents = New System.Windows.Forms.Panel()
-        Me.lblEventTime = New System.Windows.Forms.Label()
-        Me.DtTmPckrEventsTime = New System.Windows.Forms.DateTimePicker()
+        Me.ChckBxEventOneOff = New System.Windows.Forms.CheckBox()
         Me.txtbxEventNotes = New System.Windows.Forms.TextBox()
         Me.CmbBxEventPeriod = New System.Windows.Forms.ComboBox()
         Me.lblEventRecuring = New System.Windows.Forms.Label()
@@ -207,7 +206,6 @@ Partial Class frmKlock
         Me.btnEventsEdit = New System.Windows.Forms.Button()
         Me.btnEventsDelete = New System.Windows.Forms.Button()
         Me.tmrEvents = New System.Windows.Forms.Timer(Me.components)
-        Me.ChckBxEventOneOff = New System.Windows.Forms.CheckBox()
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -1646,8 +1644,6 @@ Partial Class frmKlock
         '
         Me.pnlEvents.AutoScroll = True
         Me.pnlEvents.Controls.Add(Me.ChckBxEventOneOff)
-        Me.pnlEvents.Controls.Add(Me.lblEventTime)
-        Me.pnlEvents.Controls.Add(Me.DtTmPckrEventsTime)
         Me.pnlEvents.Controls.Add(Me.txtbxEventNotes)
         Me.pnlEvents.Controls.Add(Me.CmbBxEventPeriod)
         Me.pnlEvents.Controls.Add(Me.lblEventRecuring)
@@ -1665,27 +1661,16 @@ Partial Class frmKlock
         Me.pnlEvents.Size = New System.Drawing.Size(407, 103)
         Me.pnlEvents.TabIndex = 0
         '
-        'lblEventTime
+        'ChckBxEventOneOff
         '
-        Me.lblEventTime.AutoSize = True
-        Me.lblEventTime.Location = New System.Drawing.Point(258, 42)
-        Me.lblEventTime.Name = "lblEventTime"
-        Me.lblEventTime.Size = New System.Drawing.Size(68, 15)
-        Me.lblEventTime.TabIndex = 13
-        Me.lblEventTime.Text = "Event Time"
-        '
-        'DtTmPckrEventsTime
-        '
-        Me.DtTmPckrEventsTime.Checked = False
-        Me.DtTmPckrEventsTime.CustomFormat = "HH:mm"
-        Me.DtTmPckrEventsTime.Enabled = False
-        Me.DtTmPckrEventsTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DtTmPckrEventsTime.Location = New System.Drawing.Point(305, 60)
-        Me.DtTmPckrEventsTime.Name = "DtTmPckrEventsTime"
-        Me.DtTmPckrEventsTime.ShowUpDown = True
-        Me.DtTmPckrEventsTime.Size = New System.Drawing.Size(75, 20)
-        Me.DtTmPckrEventsTime.TabIndex = 12
-        Me.DtTmPckrEventsTime.Value = New Date(2013, 7, 29, 0, 0, 0, 0)
+        Me.ChckBxEventOneOff.AutoSize = True
+        Me.ChckBxEventOneOff.Enabled = False
+        Me.ChckBxEventOneOff.Location = New System.Drawing.Point(161, 56)
+        Me.ChckBxEventOneOff.Name = "ChckBxEventOneOff"
+        Me.ChckBxEventOneOff.Size = New System.Drawing.Size(67, 19)
+        Me.ChckBxEventOneOff.TabIndex = 14
+        Me.ChckBxEventOneOff.Text = "One Off"
+        Me.ChckBxEventOneOff.UseVisualStyleBackColor = True
         '
         'txtbxEventNotes
         '
@@ -1701,7 +1686,7 @@ Partial Class frmKlock
         Me.CmbBxEventPeriod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CmbBxEventPeriod.Enabled = False
         Me.CmbBxEventPeriod.FormattingEnabled = True
-        Me.CmbBxEventPeriod.Location = New System.Drawing.Point(134, 60)
+        Me.CmbBxEventPeriod.Location = New System.Drawing.Point(259, 67)
         Me.CmbBxEventPeriod.Name = "CmbBxEventPeriod"
         Me.CmbBxEventPeriod.Size = New System.Drawing.Size(121, 21)
         Me.CmbBxEventPeriod.TabIndex = 10
@@ -1709,7 +1694,7 @@ Partial Class frmKlock
         'lblEventRecuring
         '
         Me.lblEventRecuring.AutoSize = True
-        Me.lblEventRecuring.Location = New System.Drawing.Point(134, 42)
+        Me.lblEventRecuring.Location = New System.Drawing.Point(256, 45)
         Me.lblEventRecuring.Name = "lblEventRecuring"
         Me.lblEventRecuring.Size = New System.Drawing.Size(89, 15)
         Me.lblEventRecuring.TabIndex = 9
@@ -1719,7 +1704,7 @@ Partial Class frmKlock
         '
         Me.ChckBxEventRecuring.AutoSize = True
         Me.ChckBxEventRecuring.Enabled = False
-        Me.ChckBxEventRecuring.Location = New System.Drawing.Point(30, 44)
+        Me.ChckBxEventRecuring.Location = New System.Drawing.Point(30, 56)
         Me.ChckBxEventRecuring.Name = "ChckBxEventRecuring"
         Me.ChckBxEventRecuring.Size = New System.Drawing.Size(76, 19)
         Me.ChckBxEventRecuring.TabIndex = 8
@@ -1738,7 +1723,7 @@ Partial Class frmKlock
         'DtTmPckrEventsDate
         '
         Me.DtTmPckrEventsDate.Enabled = False
-        Me.DtTmPckrEventsDate.Location = New System.Drawing.Point(261, 18)
+        Me.DtTmPckrEventsDate.Location = New System.Drawing.Point(134, 18)
         Me.DtTmPckrEventsDate.Name = "DtTmPckrEventsDate"
         Me.DtTmPckrEventsDate.Size = New System.Drawing.Size(119, 20)
         Me.DtTmPckrEventsDate.TabIndex = 5
@@ -1746,7 +1731,7 @@ Partial Class frmKlock
         'lblEventsDate
         '
         Me.lblEventsDate.AutoSize = True
-        Me.lblEventsDate.Location = New System.Drawing.Point(257, 0)
+        Me.lblEventsDate.Location = New System.Drawing.Point(131, 0)
         Me.lblEventsDate.Name = "lblEventsDate"
         Me.lblEventsDate.Size = New System.Drawing.Size(66, 15)
         Me.lblEventsDate.TabIndex = 4
@@ -1766,7 +1751,7 @@ Partial Class frmKlock
         Me.CmbBxEventTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CmbBxEventTypes.Enabled = False
         Me.CmbBxEventTypes.FormattingEnabled = True
-        Me.CmbBxEventTypes.Location = New System.Drawing.Point(134, 18)
+        Me.CmbBxEventTypes.Location = New System.Drawing.Point(259, 18)
         Me.CmbBxEventTypes.Name = "CmbBxEventTypes"
         Me.CmbBxEventTypes.Size = New System.Drawing.Size(121, 21)
         Me.CmbBxEventTypes.Sorted = True
@@ -1775,7 +1760,7 @@ Partial Class frmKlock
         'lblEventsType
         '
         Me.lblEventsType.AutoSize = True
-        Me.lblEventsType.Location = New System.Drawing.Point(134, 0)
+        Me.lblEventsType.Location = New System.Drawing.Point(256, 0)
         Me.lblEventsType.Name = "lblEventsType"
         Me.lblEventsType.Size = New System.Drawing.Size(66, 15)
         Me.lblEventsType.TabIndex = 2
@@ -1993,16 +1978,9 @@ Partial Class frmKlock
         Me.btnEventsDelete.Text = "Delete"
         Me.btnEventsDelete.UseVisualStyleBackColor = True
         '
-        'ChckBxEventOneOff
+        'tmrEvents
         '
-        Me.ChckBxEventOneOff.AutoSize = True
-        Me.ChckBxEventOneOff.Enabled = False
-        Me.ChckBxEventOneOff.Location = New System.Drawing.Point(30, 69)
-        Me.ChckBxEventOneOff.Name = "ChckBxEventOneOff"
-        Me.ChckBxEventOneOff.Size = New System.Drawing.Size(67, 19)
-        Me.ChckBxEventOneOff.TabIndex = 14
-        Me.ChckBxEventOneOff.Text = "One Off"
-        Me.ChckBxEventOneOff.UseVisualStyleBackColor = True
+        Me.tmrEvents.Interval = 60000
         '
         'frmKlock
         '
@@ -2266,8 +2244,6 @@ Partial Class frmKlock
     Friend WithEvents btnEventsClear As System.Windows.Forms.Button
     Friend WithEvents btnEventsEdit As System.Windows.Forms.Button
     Friend WithEvents btnEventsDelete As System.Windows.Forms.Button
-    Friend WithEvents DtTmPckrEventsTime As System.Windows.Forms.DateTimePicker
-    Friend WithEvents lblEventTime As System.Windows.Forms.Label
     Friend WithEvents tmrEvents As System.Windows.Forms.Timer
     Friend WithEvents ChckBxEventOneOff As System.Windows.Forms.CheckBox
 

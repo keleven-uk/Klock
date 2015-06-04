@@ -46,6 +46,7 @@ Public Class frmKlock
     Dim txtTnyFont As New Font("Lucida Calligraphy", 14, FontStyle.Regular)     '   tiny font.
 
     Public grphcs As Graphics = Me.CreateGraphics   '   create graphic object globably, used to measure time text width
+    Public hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}    '   create global, not every time.
 
     Public knownFirstNames As New AutoCompleteStringCollection      '   Auto Complete for friends first name.
     Public knownMiddleNames As New AutoCompleteStringCollection     '   Auto Complete for friends middle name.
@@ -184,24 +185,23 @@ Public Class frmKlock
 
         If Me.usrSettings.usrTimeHourPips And (Math.Floor(m Mod 3600) = 0) Then                                 '    will this work at midnight???
 
-            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "\Sounds\thepips.mp3"))  '    Play the Pips on the hour, if desired.
+            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\thepips.mp3"))  '    Play the Pips on the hour, if desired.
         ElseIf Me.usrSettings.usrTimeHourChimes And (Math.Floor(m Mod 3600) = 0) Then                           '    Play hourly chimes, if desired.
 
-            Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
             Dim hour As Integer = Now.Hour
 
             If hour > 12 Then hour -= 12
 
-            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "\Sounds\" & hours(hour) & ".mp3"))
+            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\" & hours(hour) & ".mp3"))
         ElseIf Me.usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 900) = 0) Then            '    Play quarter chimes, if desired.
 
-            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "\Sounds\quarterchime.mp3"))
+            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\quarterchime.mp3"))
         ElseIf Me.usrSettings.usrTimeHalfChimes And (Math.Floor(m Mod 1800) = 0) Then              '    Play half hourly chimes, if desired.
 
-            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "\Sounds\halfchime.mp3"))
+            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\halfchime.mp3"))
         ElseIf Me.usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 2700) = 0) Then      '    Play three quarter chimes, if desired.
 
-            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "\Sounds\threequarterchime.mp3"))
+            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\threequarterchime.mp3"))
         End If
 
     End Sub
@@ -267,7 +267,7 @@ Public Class frmKlock
 
     End Sub
 
-    ' *************************************************************************************************************** timer clock ***********************
+    ' *************************************************************************************************************** Timer clock ***********************
     Private Sub tmrTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrTimer.Tick
         '   If enabled, timer is running - update timer label
 
@@ -279,7 +279,7 @@ Public Class frmKlock
 
     End Sub
 
-    ' ******************************************************************************************************************* countdown clock ****************
+    ' ******************************************************************************************************************* Countdown clock ****************
     Private Sub tmrCountDown_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCountDown.Tick
         '   If enabled, countdown is running - clock ticks every second.
 
@@ -292,7 +292,7 @@ Public Class frmKlock
         End If
     End Sub
 
-    ' ******************************************************************************************************************* reminder clock ******************
+    ' ******************************************************************************************************************* Reminder clock ******************
 
     Private Sub tmrReminder_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrReminder.Tick
         '   If enabled, a reminder has been set - clocks ticks every 10 minute
@@ -300,6 +300,24 @@ Public Class frmKlock
         If Now() > Me.ReminderDateTime Then
             Me.ReminderAction()
             Me.clearReminder()                                             '   clear down reminder tab after action.
+        End If
+
+    End Sub
+
+    ' ******************************************************************************************************************* Event clock ******************
+
+    Private Sub tmrEvents_Tick(sender As System.Object, e As System.EventArgs) Handles tmrEvents.Tick
+        '   if enabled, there is events that need checking.
+        '   The timer fires every minute, the sub keeps score of the minutes.
+        '   If the number of minutes exceeds the stores value, the events are checked.
+
+        Static noOfMinutes As Integer = 0
+
+        noOfMinutes += 1
+
+        If noOfMinutes > Me.usrSettings.usrEventsTimerInterval Then
+            noOfMinutes = 0
+            Me.checkEvents()
         End If
 
     End Sub
@@ -351,8 +369,6 @@ Public Class frmKlock
                     Me.showFriends(0)
                 End If
             Case 6                                              '   Events tab
-                Me.DtTmPckrEventsTime.Value = epoc              '   sets value to 00:00 i.e. midnight
-
                 Me.FriendsButtonsVisible(False)
                 Me.eventsButtonsVisible(True)
 
@@ -365,8 +381,6 @@ Public Class frmKlock
                     Me.btnEventsDelete.Enabled = True
                     Me.btnEventsEdit.Enabled = True
                     Me.showEvents(0)
-                    Me.tmrEvents.Interval = Me.usrSettings.usrEventsTimerInterval * 60      '   interval is held in minutes
-                    Me.tmrEvents.Enabled = True                                             '   enable events timer.
                 End If
         End Select
 
@@ -1470,7 +1484,7 @@ Public Class frmKlock
             readFile = File.OpenRead(System.IO.Path.Combine(Me.usrSettings.usrFriendsDirectory, Me.usrSettings.usrFriendsFile))
             readFile.Seek(0, SeekOrigin.Begin)
         Catch ex As Exception                   '   not there, go away.
-            Me.displayAction.DisplayReminder("Friends", "No friends file found - will create if needed.")
+            Me.displayAction.DisplayReminder("Friends", "No Friends file found - will create if needed.")
             Exit Sub
         End Try
 
@@ -1712,7 +1726,6 @@ Public Class frmKlock
         Me.txtbxEventNotes.Text = ""
 
         Me.DtTmPckrEventsDate.Value = Today
-        Me.DtTmPckrEventsTime.Value = epoc
 
         Me.ChckBxEventRecuring.Checked = False
         Me.ChckBxEventOneOff.Checked = False
@@ -1728,7 +1741,6 @@ Public Class frmKlock
         Me.ChckBxEventOneOff.Enabled = b
         Me.DtTmPckrEventsDate.Enabled = b
         Me.ChckBxEventRecuring.Enabled = b
-        Me.DtTmPckrEventsTime.Enabled = b
         Me.txtbxEventNotes.ReadOnly = Not b
     End Sub
 
@@ -1751,7 +1763,6 @@ Public Class frmKlock
             Me.ChckBxEventRecuring.Checked = e.EventRecuring
             Me.ChckBxEventOneOff.Checked = e.EventOneOff
             Me.CmbBxEventPeriod.SelectedIndex = e.EventPeriod
-            Me.DtTmPckrEventsTime.Value = e.EventTime
             Me.txtbxEventNotes.Text = e.EventNotes
 
             Me.LstBxEvents.SelectedIndex = pos
@@ -1771,11 +1782,10 @@ Public Class frmKlock
             e.EventRecuring = Me.ChckBxEventRecuring.Checked
             e.EventOneOff = Me.ChckBxEventOneOff.Checked
             e.EventPeriod = Me.CmbBxEventPeriod.SelectedIndex
-            e.EventTime = Me.DtTmPckrEventsTime.Value
             e.EventNotes = Me.txtbxEventNotes.Text
-            e.EventFirstReminder = False
-            e.EventSecondreminder = False
-            e.EventThirdReminder = False
+            e.EventFirstReminder = True
+            e.EventSecondreminder = True
+            e.EventThirdReminder = True
 
             If mode = "ADD" Then
                 Me.LstBxEvents.Items.Add(e)                             '   populate listview
@@ -1809,7 +1819,7 @@ Public Class frmKlock
         Try
             Formatter.Serialize(saveFile, AL)   '   Write list to binary file.
         Catch ex As Exception
-            Me.displayAction.DisplayReminder("Events Error", "Error saving Friends File." & vbCrLf & ex.Message)
+            Me.displayAction.DisplayReminder("Events Error", "Error saving Events File." & vbCrLf & ex.Message)
         End Try
 
 
@@ -1829,7 +1839,7 @@ Public Class frmKlock
             readFile = File.OpenRead(System.IO.Path.Combine(Me.usrSettings.usrEventsDirectory, Me.usrSettings.usrEventsFile))
             readFile.Seek(0, SeekOrigin.Begin)
         Catch ex As Exception                   '   not there, go away.
-            Me.displayAction.DisplayReminder("Events", "No friends file found - will create if needed.")
+            Me.displayAction.DisplayReminder("Events", "No Events file found - will create if needed.")
             Exit Sub
         End Try
 
@@ -1841,7 +1851,7 @@ Public Class frmKlock
         Try
             AL = Formatter.Deserialize(readFile)        '   loads file into the list.
         Catch ex As Exception
-            Me.displayAction.DisplayReminder("Events Error", "Error loading Friends File. " & ex.Message)
+            Me.displayAction.DisplayReminder("Events Error", "Error Events Friends File. " & ex.Message)
             Exit Sub
         End Try
 
@@ -1854,6 +1864,13 @@ Public Class frmKlock
 
         readFile.Close()
         Formatter = Nothing
+
+        If Me.LstBxEvents.Items.Count > 0 Then
+            Me.tmrEvents.Enabled = True
+        Else
+            Me.tmrEvents.Enabled = False
+        End If
+
 
     End Sub
 
@@ -1874,6 +1891,32 @@ Public Class frmKlock
         Else
             Me.displayAction.DisplayReminder("Events", "Using " & EventsDirectory)
         End If
+    End Sub
+
+    Private Sub checkEvents()
+        '   For each event, check if a reminder is due.
+
+        '   for each event, check if the number of days to go is under the reminder limit, if so then display a message
+        '   and set the reminder to false (not to display again).
+
+        Me.displayAction.DisplayReminder("Events", "Checking Events ")
+
+        Dim e As Events
+
+        For Each e In LstBxEvents.Items        '   Create list.
+
+            If e.EventThirdReminder And (e.DaysToGo < Me.usrSettings.usrEventsThirdReminder) Then
+                Me.displayAction.DisplayEvent("Event Reminder", e.EventName & " in " & e.DaysToGo.ToString & " DAYS")
+                MessageBox.Show(e.EventName & "in " & e.DaysToGo.ToString & " DAYS", "Event Reminder")
+                e.EventThirdReminder = False
+            ElseIf e.EventSecondreminder And (e.DaysToGo < Me.usrSettings.usrEventsSecondReminder) Then
+                Me.displayAction.DisplayEvent("Event Reminder", e.EventName & " in " & e.DaysToGo.ToString & " DAYS")
+                e.EventSecondreminder = False
+            ElseIf e.EventFirstReminder And (e.DaysToGo < Me.usrSettings.usrEventsFirstReminder) Then
+                Me.displayAction.DisplayEvent("Event Reminder", e.EventName & " in " & e.DaysToGo.ToString & " DAYS")
+                e.EventFirstReminder = False
+            End If
+        Next
     End Sub
 
     ' ********************************************************************************************************************************* World Klock ******
@@ -1956,7 +1999,18 @@ Public Class frmKlock
 
         Me.FriendsButtonsVisible(False)
         Me.eventsButtonsVisible(False)
-        Me.reloadFriends = True                         '   set to re-load friends file.
+
+        '   For the moment, we will load both friends and events file at form load.
+        '   We need to load events file to see if any evenst need to be parsed.
+        '   if this causes a delay, friends file can be loaded on entering the friends tab [as before].
+
+        Me.loadFriends()                                '   load friends file - if there.
+        Me.loadEvents()                                 '   load events file - if there.
+
+        If Me.LstBxEvents.Items.Count > 0 Then Me.checkEvents()
+
+        Me.reloadFriends = False                        '   set to re-load friends file to false.
+        Me.reloadEvents = False                         '   set to re-load events file to false.
 
         Me.TmrMain.Enabled = True                       '   Turn on main timer now things are sorted out.
     End Sub
@@ -2240,12 +2294,6 @@ Public Class frmKlock
 
 
     ' ********************************************************************************************************************************* END **************
-
-
-
-
-
-
 
 
 

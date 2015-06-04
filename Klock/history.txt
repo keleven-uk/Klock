@@ -1,4 +1,41 @@
 ------------------------------------------------------------------------
+r32 | Media | 2013-08-15 21:17:33 +0100 (Thu, 15 Aug 2013) | 5 lines
+
+Further code added for Events - still not completed.
+
+It seems that some of the settings are not saving [but some are].  Needs further investigation.
+
+
+------------------------------------------------------------------------
+r31 | Media | 2013-07-31 21:45:26 +0100 (Wed, 31 Jul 2013) | 11 lines
+
+This is the first version to contain the Events tab.
+
+tabs are now - Fuzzy Time / World Klock / Countdown / Timer / Reminders / Friends / Events.
+
+New file added - Events.vb - class wrapper for the event object.
+
+New Events code added to frmKlock.vb, frmOptions.vb & UserSettings.vb.
+
+The code for the Events is closely based on the code for Friends.
+
+All the code should be there - needs testing.  This version is committed to protect the code base.
+------------------------------------------------------------------------
+r30 | Media | 2013-07-26 19:31:44 +0100 (Fri, 26 Jul 2013) | 1 line
+
+New branch for reminder tab.
+------------------------------------------------------------------------
+r29 | Media | 2013-07-26 19:30:22 +0100 (Fri, 26 Jul 2013) | 8 lines
+
+Renamed
+
+About.vb   -> frmAbout.vb
+Info.vb    -> frmInfo.vb
+Klock      -> frmKlock.vb
+License.vb -> frmLicense.vb
+Options.vb -> frmOptions.vb
+
+------------------------------------------------------------------------
 r28 | Media | 2013-07-25 20:52:31 +0100 (Thu, 25 Jul 2013) | 24 lines
 
 Finally settled on the help System. 
@@ -26,8 +63,6 @@ Added : user action - run windows screen saver.
 [selectTime.vb]
 Moved string arrays globally - so can be used by more then one sub and are not 
 re-created every sub call.
-
-
 
 ------------------------------------------------------------------------
 r27 | Media | 2013-07-11 21:35:26 +0100 (Thu, 11 Jul 2013) | 23 lines

@@ -64,6 +64,13 @@ Public Class UserSettings
     Private _usrNotificationFontColour As Color = Color.Black
     Private _usrNotificationTimeOut As Integer = 5000
     Private _usrNotificationOpacity As Integer = 80
+
+    Private _usrEventNotificationFont As Font = frmOptions.DefaultFont
+    Private _usrEventNotificationFontColour As Color = Color.Black
+    Private _usrFirstEventNotificationbackColour As Color = Color.Green
+    Private _usrSecondEventNotificationbackColour As Color = Color.Yellow
+    Private _usrThirdEventNotificationbackColour As Color = Color.Red
+    Private _usrEventNotificationOpacity As Integer = 80
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
     Private _usrFriendsDirectory As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock")
     Private _usrFriendsFile As String = "Friends.bin"
@@ -419,6 +426,61 @@ Public Class UserSettings
         End Set
     End Property
 
+
+    Public Property usrEventNotificationFont() As Font
+        Get
+            Return _usrEventNotificationFont
+        End Get
+        Set(ByVal value As Font)
+            _usrEventNotificationFont = value
+        End Set
+    End Property
+
+    Public Property usrEventNotificationFontColour() As Color
+        Get
+            Return _usrEventNotificationFontColour
+        End Get
+        Set(ByVal value As Color)
+            _usrEventNotificationFontColour = value
+        End Set
+    End Property
+
+    Public Property usrFirstEventNotificationbackColour() As Color
+        Get
+            Return _usrFirstEventNotificationbackColour
+        End Get
+        Set(ByVal value As Color)
+            _usrFirstEventNotificationbackColour = value
+        End Set
+    End Property
+
+    Public Property usrSecondEventNotificationbackColour() As Color
+        Get
+            Return _usrSecondEventNotificationbackColour
+        End Get
+        Set(ByVal value As Color)
+            _usrSecondEventNotificationbackColour = value
+        End Set
+    End Property
+
+    Public Property usrThirdEventNotificationbackColour() As Color
+        Get
+            Return _usrThirdEventNotificationbackColour
+        End Get
+        Set(ByVal value As Color)
+            _usrThirdEventNotificationbackColour = value
+        End Set
+    End Property
+
+    Public Property usrEventNotificationOpacity() As Integer
+        Get
+            Return _usrEventNotificationOpacity
+        End Get
+        Set(ByVal value As Integer)
+            _usrEventNotificationOpacity = value
+        End Set
+    End Property
+
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
     Public Property usrFriendsDirectory() As String
@@ -580,6 +642,36 @@ Public Class UserSettings
                                   </NotificationFontColour>
                                   <NotificationTimeOut><%= usrNotificationTimeOut() %></NotificationTimeOut>
                                   <NotificationOpacity><%= usrNotificationOpacity() %></NotificationOpacity>
+                                  <EventNotificationFont>
+                                      <EventNotificationFontName><%= usrEventNotificationFont().Name %></EventNotificationFontName>
+                                      <EventNotificationFontSize><%= usrEventNotificationFont().Size %></EventNotificationFontSize>
+                                      <EventNotificationFontStyle><%= 0 %></EventNotificationFontStyle>
+                                  </EventNotificationFont>
+                                  <EventNotificationFontColour>
+                                      <EventNotificationFontColourR><%= usrEventNotificationFontColour().R %></EventNotificationFontColourR>
+                                      <EventNotificationFontColourG><%= usrEventNotificationFontColour().G %></EventNotificationFontColourG>
+                                      <EventNotificationFontColourB><%= usrEventNotificationFontColour().B %></EventNotificationFontColourB>
+                                      <EventNotificationFontColourA><%= usrEventNotificationFontColour().A %></EventNotificationFontColourA>
+                                  </EventNotificationFontColour>
+                                  <FirstEventNotificationColour>
+                                      <FirstEventNotificationColourR><%= usrFirstEventNotificationbackColour().R %></FirstEventNotificationColourR>
+                                      <FirstEventNotificationColourG><%= usrFirstEventNotificationbackColour().G %></FirstEventNotificationColourG>
+                                      <FirstEventNotificationColourB><%= usrFirstEventNotificationbackColour().B %></FirstEventNotificationColourB>
+                                      <FirstEventNotificationColourA><%= usrFirstEventNotificationbackColour().A %></FirstEventNotificationColourA>
+                                  </FirstEventNotificationColour>
+                                  <SecondEventNotificationColour>
+                                      <SecondEventNotificationColourR><%= usrSecondEventNotificationbackColour().R %></SecondEventNotificationColourR>
+                                      <SecondEventNotificationColourG><%= usrSecondEventNotificationbackColour().G %></SecondEventNotificationColourG>
+                                      <SecondEventNotificationColourB><%= usrSecondEventNotificationbackColour().B %></SecondEventNotificationColourB>
+                                      <SecondEventNotificationColourA><%= usrSecondEventNotificationbackColour().A %></SecondEventNotificationColourA>
+                                  </SecondEventNotificationColour>
+                                  <ThirdEventNotificationColour>
+                                      <ThirdEventNotificationColourR><%= usrThirdEventNotificationbackColour().R %></ThirdEventNotificationColourR>
+                                      <ThirdEventNotificationColourG><%= usrThirdEventNotificationbackColour().G %></ThirdEventNotificationColourG>
+                                      <ThirdEventNotificationColourB><%= usrThirdEventNotificationbackColour().B %></ThirdEventNotificationColourB>
+                                      <ThirdEventNotificationColourA><%= usrThirdEventNotificationbackColour().A %></ThirdEventNotificationColourA>
+                                  </ThirdEventNotificationColour>
+                                  <EventNotificationOpacity><%= usrEventNotificationOpacity() %></EventNotificationOpacity>
                               </Notification>
                               <Friends>
                                   <FriendsDirectory><%= usrFriendsDirectory() %></FriendsDirectory>
@@ -679,6 +771,36 @@ Public Class UserSettings
                                   </NotificationFontColour>
                                   <NotificationTimeOut>5000</NotificationTimeOut>
                                   <NotificationOpacity>80</NotificationOpacity>
+                                  <EventNotificationFont>
+                                      <EventNotificationFontName>Microsoft Sans Serif</EventNotificationFontName>
+                                      <EventNotificationFontSize>8.25</EventNotificationFontSize>
+                                      <EventNotificationFontStyle>0</EventNotificationFontStyle>
+                                  </EventNotificationFont>
+                                  <EventNotificationFontColour>
+                                      <EventNotificationFontColourR>0</EventNotificationFontColourR>
+                                      <EventNotificationFontColourG>0</EventNotificationFontColourG>
+                                      <EventNotificationFontColourB>0</EventNotificationFontColourB>
+                                      <EventNotificationFontColourA>255</EventNotificationFontColourA>
+                                  </EventNotificationFontColour>
+                                  <FirstEventNotificationColour>
+                                      <FirstNotificationColourR>0</FirstNotificationColourR>
+                                      <FirstNotificationColourG>0</FirstNotificationColourG>
+                                      <FirstNotificationColourB>255</FirstNotificationColourB>
+                                      <FirstNotificationColourA>255</FirstNotificationColourA>
+                                  </FirstEventNotificationColour>
+                                  <SecondEventNotificationColour>
+                                      <SecondFirstNotificationColourR>0</SecondFirstNotificationColourR>
+                                      <SecondFirstNotificationColourG>255</SecondFirstNotificationColourG>
+                                      <SecondFirstNotificationColourB>0</SecondFirstNotificationColourB>
+                                      <SecondFirstNotificationColourA>255</SecondFirstNotificationColourA>
+                                  </SecondEventNotificationColour>
+                                  <ThirdEventNotificationColour>
+                                      <ThirdFirstNotificationColourR>255</ThirdFirstNotificationColourR>
+                                      <ThirdFirstNotificationColourG>0</ThirdFirstNotificationColourG>
+                                      <ThirdFirstNotificationColourB>0</ThirdFirstNotificationColourB>
+                                      <ThirdFirstNotificationColourA>255</ThirdFirstNotificationColourA>
+                                  </ThirdEventNotificationColour>
+                                  <EventNotificationOpacity>80</EventNotificationOpacity>
                               </Notification>
                               <Friends>
                                   <FriendsDirectory><%= usrOptionsSavePath() %></FriendsDirectory>
@@ -812,6 +934,43 @@ Public Class UserSettings
 
             Me.usrNotificationTimeOut = CType(readElement(ntfctn, "NotificationTimeOut", usrNotificationTimeOut()), Integer)
             Me.usrNotificationOpacity = CType(readElement(ntfctn, "NotificationOpacity", usrNotificationOpacity()), Integer)
+
+
+            Dim entfctnFnt = ntfctn.Element("EventNotificationFont")
+            name = readElement(entfctnFnt, "EventNotificationFontName", usrEventNotificationFont().Name)       '   already a string
+            size = CType(readElement(entfctnFnt, "EventNotificationFontSize", usrEventNotificationFont().Size), Single)
+            style = CType(readElement(entfctnFnt, "EventNotificationFontStyle", 0), FontStyle)
+            Me.usrEventNotificationFont() = New Font(name, size, style)
+
+            Dim entfctnFntClr = ntfctn.Element("EventNotificationFontColour")
+            r = CType(readElement(entfctnFntClr, "EventNotificationFontColourR", usrEventNotificationFontColour().R), Byte)
+            g = CType(readElement(entfctnFntClr, "EventNotificationFontColourG", usrEventNotificationFontColour().G), Byte)
+            b = CType(readElement(entfctnFntClr, "EventNotificationFontColourB", usrEventNotificationFontColour().B), Byte)
+            a = CType(readElement(entfctnFntClr, "EventNotificationFontColourA", usrEventNotificationFontColour().A), Byte)
+            Me.usrEventNotificationFontColour = Color.FromArgb(a, r, g, b)
+
+            Dim fentfctnClr = ntfctn.Element("FirstEventNotificationColour")
+            r = CType(readElement(fentfctnClr, "FirstEventNotificationColourR", usrFirstEventNotificationbackColour().R), Byte)
+            g = CType(readElement(fentfctnClr, "FirstEventNotificationColourG", usrFirstEventNotificationbackColour().G), Byte)
+            b = CType(readElement(fentfctnClr, "FirstEventNotificationColourB", usrFirstEventNotificationbackColour().B), Byte)
+            a = CType(readElement(fentfctnClr, "FirstEventNotificationColourA", usrFirstEventNotificationbackColour().A), Byte)
+            Me.usrFirstEventNotificationbackColour = Color.FromArgb(a, r, g, b)
+
+            Dim sentfctnClr = ntfctn.Element("SecondEventNotificationColour")
+            r = CType(readElement(sentfctnClr, "SecondEventNotificationColourR", usrSecondEventNotificationbackColour().R), Byte)
+            g = CType(readElement(sentfctnClr, "SecondEventNotificationColourG", usrSecondEventNotificationbackColour().G), Byte)
+            b = CType(readElement(sentfctnClr, "SecondEventNotificationColourB", usrSecondEventNotificationbackColour().B), Byte)
+            a = CType(readElement(sentfctnClr, "SecondEventNotificationColourA", usrSecondEventNotificationbackColour().A), Byte)
+            Me.usrSecondEventNotificationbackColour = Color.FromArgb(a, r, g, b)
+
+            Dim tentfctnClr = ntfctn.Element("ThirdEventNotificationColour")
+            r = CType(readElement(tentfctnClr, "ThirdEventNotificationColourR", usrThirdEventNotificationbackColour().R), Byte)
+            g = CType(readElement(tentfctnClr, "ThirdEventNotificationColourG", usrThirdEventNotificationbackColour().G), Byte)
+            b = CType(readElement(tentfctnClr, "ThirdEventNotificationColourB", usrThirdEventNotificationbackColour().B), Byte)
+            a = CType(readElement(tentfctnClr, "ThirdEventNotificationColourA", usrThirdEventNotificationbackColour().A), Byte)
+            Me.usrThirdEventNotificationbackColour = Color.FromArgb(a, r, g, b)
+
+            Me.usrEventNotificationOpacity = CType(readElement(tentfctnClr, "EventNotificationOpacity", usrEventNotificationOpacity()), Integer)
 
             '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
             '   values are strings, so need to convert.

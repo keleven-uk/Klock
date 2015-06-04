@@ -24,30 +24,60 @@ Public Class frmNotification
     Private Shared Function SetForegroundWindow(ByVal hWnd As IntPtr) As Boolean
     End Function
 
+    Dim mode As String
+
     'Creates a new Notification form object that is displayed for the specified length of time.
-    Public Sub New(ByVal lifeTime As Integer, ByVal message1 As String, ByVal message2 As String)
+    Public Sub New(ByVal lifeTime As Integer, ByVal message1 As String, ByVal message2 As String, ByVal m As String)
+        '   Mode can be either R for reminder, E for Event.
+        '   Reminder are closed by the timer [using the value from the time out] - ** this is original code **
+        '   Event are to be closed by buttons, only visible in event mode.
+
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
 
+        mode = m
+
         'Make sure the exit button is set properly
         btnExit.Image = My.Resources.btnHigh
 
-        '   set the for colour and opacity for the form {form opacity is 0 [0%] - 1.0 [100%]}
-        Me.BackColor = frmKlock.usrsettings.usrNotificationbackColour
-        Me.Opacity = frmKlock.usrsettings.usrNotificationOpacity / 100
+        If mode = "R" Then
+            Me.Width = 335
+            Me.Height = 78
 
-        'Set the time for which the form should be displayed and the message to display in milliseconds.
-        Me.lifeTimer.Interval = lifeTime
+            '   set the for colour and opacity for the form {form opacity is 0 [0%] - 1.0 [100%]}
+            Me.BackColor = frmKlock.usrSettings.usrNotificationbackColour
+            Me.Opacity = frmKlock.usrSettings.usrNotificationOpacity / 100
 
-        Me.lblMessage1.Font = frmKlock.usrsettings.usrNotificationFont
-        Me.lblMessage1.ForeColor = frmKlock.usrsettings.usrNotificationFontColour
-        Me.lblMessage1.Text = message1
+            'Set the time for which the form should be displayed and the message to display in milliseconds.
+            Me.lifeTimer.Interval = lifeTime
 
-        Me.lblMessage2.Font = frmKlock.usrsettings.usrNotificationFont
-        Me.lblMessage2.ForeColor = frmKlock.usrsettings.usrNotificationFontColour
-        Me.lblMessage2.Text = message2
+            Me.lblMessage1.Font = frmKlock.usrSettings.usrNotificationFont
+            Me.lblMessage1.ForeColor = frmKlock.usrSettings.usrNotificationFontColour
+            Me.lblMessage1.Text = message1
+
+            Me.lblMessage2.Font = frmKlock.usrSettings.usrNotificationFont
+            Me.lblMessage2.ForeColor = frmKlock.usrSettings.usrNotificationFontColour
+            Me.lblMessage2.Text = message2
+        Else
+            Me.lifeTimer.Enabled = False        '   is event - don't need timer.
+            Me.Width = 335
+            Me.Height = 120
+
+            '   set the for colour and opacity for the form {form opacity is 0 [0%] - 1.0 [100%]}
+            Me.BackColor = frmKlock.usrSettings.usrFirstEventNotificationbackColour
+            Me.Opacity = frmKlock.usrSettings.usrEventNotificationOpacity / 100
+
+            Me.lblMessage1.Font = frmKlock.usrSettings.usrEventNotificationFont
+            Me.lblMessage1.ForeColor = frmKlock.usrSettings.usrEventNotificationFontColour
+            Me.lblMessage1.Text = message1
+
+            Me.lblMessage2.Font = frmKlock.usrSettings.usrEventNotificationFont
+            Me.lblMessage2.ForeColor = frmKlock.usrSettings.usrEventNotificationFontColour
+            Me.lblMessage2.Text = message2
+        End If
+
 
         'Display the form by sliding up.
         Me.animator = New FormAnimator(Me, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up, 500)
@@ -74,8 +104,8 @@ Public Class frmNotification
         'Add this form from the open form list.
         frmNotification.openForms.Add(Me)
 
-        'Start counting down the form's lifetime.
-        Me.lifeTimer.Start()
+        'Start counting down the form's lifetime [only if reminder].
+        If mode = "R" Then Me.lifeTimer.Start()
     End Sub
 
     Private Sub NotificationForm_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated

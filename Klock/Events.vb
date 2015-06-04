@@ -28,7 +28,6 @@
     Private _eName As String
     Private _eType As Integer
     Private _eDate As String
-    Private _eTime As String
     Private _eRecuring As Boolean
     Private _eOneOff As Boolean
     Private _ePeriod As Integer
@@ -42,7 +41,7 @@
         Dim first As String = Me.Eventname().PadRight(14, " ")
         Dim second As String = Me.EventDate().PadRight(10, " ")
 
-        Return String.Format("{0} {1} {2}", Me.DaysToGo(), first, second)
+        Return String.Format("{0:000} {1} {2}", Me.DaysToGo(), first, second)
 
     End Function
 
@@ -90,15 +89,6 @@
         End Get
         Set(ByVal value As String)
             _eDate = value
-        End Set
-    End Property
-
-    Public Property EventTime() As String
-        Get
-            Return _eTime
-        End Get
-        Set(ByVal value As String)
-            _eTime = value
         End Set
     End Property
 
