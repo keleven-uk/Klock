@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Klock"
-#define MyAppVersion "6"
+#define MyAppVersion "7"
 #define MyAppPublisher "keleven"
 #define MyAppURL "www.keleven.co.uk"
 #define MyAppExeName "Klock.exe"
@@ -11,7 +11,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId=F632D072-055C-434e-9E16-22192757D0BB
+AppId=E8F8204E-34B6-4B79-A927-C1E505BAA617
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}

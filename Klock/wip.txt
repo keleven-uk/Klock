@@ -3,11 +3,9 @@
 Completed
 ---------
 
-New time modules - UTC, Swatch, Julian, decimal & NET
+Added code to display "toast" messages i.e. a notification window rises form the system tray.
+This uses code by uyser jmcilhinney  at http://www.vbforums.com/showthread.php?351757-Animated-Window-Effects-with-quot-Toast-quot-popup-demo
 
-Added system tray icon and associated right click menu [coded for menu items show and exit]
-Added code to hide button to show tray icon and hide main form, show in tray icon menu reverses.
-
-Actions called by countdown timer seem to now work.
-
-Changed logic on action combo box - looks better.
+Finished the right-click menu of the system tray icon.  The item time is now checkable.
+If checked a toast showing the currecnt chosen time format is display every 5 minutes.
+A user property holds this state between runs.

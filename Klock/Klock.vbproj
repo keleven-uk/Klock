@@ -113,6 +113,13 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="FormAnimator.vb" />
+    <Compile Include="frmNotification.designer.vb">
+      <DependentUpon>frmNotification.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmNotification.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="selectAction.vb" />
     <Compile Include="selectTime.vb" />
     <Compile Include="Options.Designer.vb">
@@ -161,6 +168,9 @@
   <ItemGroup>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNotification.resx">
+      <DependentUpon>frmNotification.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Options.resx">
       <DependentUpon>Options.vb</DependentUpon>
@@ -231,6 +241,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Klock.ico" />
+    <None Include="Resources\btnClicked.png" />
+    <None Include="Resources\btnHigh.png" />
+    <None Include="Resources\btnLow.png" />
+    <None Include="Resources\klock.png" />
     <Content Include="wip.txt" />
     <None Include="Klock.iss" />
   </ItemGroup>

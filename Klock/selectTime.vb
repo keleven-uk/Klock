@@ -10,14 +10,16 @@
         FuzzyTime
         LocalTime
         UTC
-        Swatch
-        Julian
+        SwatchTime
+        JulianTime
         DecimalTime
-        Net
+        NetTime
     End Enum
 
     Private innerTime As String     '   local version of re-formated time.
     Private TimeType As String      '   local version of desired time format
+    Private clockTick As Integer
+
 
     ' *************************************************************************************** constructor ***********************
 
@@ -37,17 +39,40 @@
                     innerTime = getLocalTime()
                 Case TimeTypes.UTC
                     innerTime = getUTCTime()
-                Case TimeTypes.Swatch
+                Case TimeTypes.SwatchTime
                     innerTime = getSwatchTime()
-                Case TimeTypes.Julian
+                Case TimeTypes.JulianTime
                     innerTime = getJulianTime()
                 Case TimeTypes.DecimalTime
                     innerTime = getDecimalTime()
-                Case TimeTypes.Net
+                Case TimeTypes.NetTime
                     innerTime = getNetTime()
             End Select
 
             Return innerTime
+        End Get
+    End Property
+
+    Public ReadOnly Property getClockTick()
+        Get
+            Select Case TimeType
+                Case TimeTypes.FuzzyTime
+                    clockTick = 1000
+                Case TimeTypes.LocalTime
+                    clockTick = 1000
+                Case TimeTypes.UTC
+                    clockTick = 1000
+                Case TimeTypes.SwatchTime
+                    clockTick = 1000
+                Case TimeTypes.JulianTime
+                    clockTick = 1000
+                Case TimeTypes.DecimalTime
+                    clockTick = 1000
+                Case TimeTypes.NetTime
+                    clockTick = 1000
+            End Select
+
+            Return clockTick
         End Get
     End Property
 
@@ -73,9 +98,9 @@
 
 
         Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "siz", "seven", "eight", "nine", "ten", "eleven", "twelve"}
-        Dim hour As Integer
-        Dim mins As Integer
-        Dim nrms As Integer
+        Dim hour As Integer = 0
+        Dim mins As Integer = 0
+        Dim nrms As Integer = 0
         Dim ampm As String = ""
         Dim sRtn As String = ""
 
@@ -129,7 +154,9 @@
         End If
 
         If (hour = 12) And (nrms = 0) Then      '   fix for noon.
-            ampm = "noon"
+            ampm = " Noon"
+        ElseIf (hour = 24) Then
+            ampm = " Midnight"
         End If
 
         If ampm = "pm" Then
@@ -160,9 +187,9 @@
         '   This is then encoded into a string. 
 
         Dim UTCplus1 As DateTime = Now.ToUniversalTime.AddHours(1)
-        Dim noOfSeconds As Integer
-        Dim noOfBeats As Double
-        Dim noOfCentibeats As Double
+        Dim noOfSeconds As Integer = 0
+        Dim noOfBeats As Double = 0
+        Dim noOfCentibeats As Double = 0
 
         noOfSeconds = (UTCplus1.Hour * 3600) + (UTCplus1.Minute * 60) + (UTCplus1.Second)
 
@@ -183,20 +210,19 @@
         '
         '    Only returns NET time in NET 15 second intervals [equals 1 normal second]  }
 
-
-        Dim NowTime As DateTime = Now
-        Dim noOfMilliSeconds As Integer = (NowTime.Hour * 3600000) + (NowTime.Minute * 60000) + (NowTime.Second * 1000) + NowTime.Millisecond
-        Dim noOfSeconds As Integer = (NowTime.Hour * 3600) + (NowTime.Minute * 60) + (NowTime.Second)
-
         Dim deg As Int64 = 0
         Dim min As Integer = 0
         Dim sec As Integer = 0
 
         If My.Settings.usrTimeNETSeconds Then
+            Dim noOfMilliSeconds As Integer = MilliSecondOfTheDay()
+
             deg = Math.Floor(noOfMilliSeconds / 240000)
             min = ((noOfMilliSeconds) - (deg * 240000)) \ 4000
             sec = ((noOfMilliSeconds) - (deg * 240000) - (min * 4000)) \ 100
         Else
+            Dim noOfSeconds As Integer = MilliSecondOfTheDay() / 1000
+
             deg = Math.Floor(noOfSeconds / 240)
             min = ((noOfSeconds) - (deg * 240)) \ 4
             sec = ((noOfSeconds) - (deg * 240) - (min * 4)) * 15
@@ -212,10 +238,10 @@
         '   Formulae pinched from http://en.wikipedia.org/wiki/Julian_day 
 
         Dim UTC As DateTime = Now.ToUniversalTime
-        Dim a As Double
-        Dim y As Double
-        Dim m As Double
-        Dim jt As Double
+        Dim a As Double = 0
+        Dim y As Double = 0
+        Dim m As Double = 0
+        Dim jt As Double = 0
 
         a = (14 - UTC.Month) / 12
         y = UTC.Year + 4800 - a
@@ -232,13 +258,12 @@
         '   Returns the current [local] time in decimal notation.
         '   The day is divided into 10 hours, each hour is then split into 100 minutes of 100 seconds.  
 
-        Dim NowTime As DateTime = Now
-        Dim noOfSeconds As Integer = (NowTime.Hour * 3600) + (NowTime.Minute * 60) + (NowTime.Second)
-        Dim NoOfDecSecs As Integer
+        Dim noOfSeconds As Integer = MilliSecondOfTheDay() / 1000
+        Dim NoOfDecSecs As Integer = 0
 
-        Dim hrs As Integer
-        Dim mins As Integer
-        Dim secs As Integer
+        Dim hrs As Integer = 0
+        Dim mins As Integer = 0
+        Dim secs As Integer = 0
 
         NoOfDecSecs = noOfSeconds * (100000 / 84600)
 
@@ -249,5 +274,13 @@
         getDecimalTime = String.Format("{0:00} {1:00} {2:00}", hrs, mins, secs)
 
     End Function
+
+    Private Function MilliSecondOfTheDay() As Integer
+
+        Dim ts As New TimeSpan(0, Now.Hour, Now.Minute, Now.Second, Now.Millisecond)
+
+        MilliSecondOfTheDay = ts.TotalMilliseconds
+    End Function
+
 
 End Class

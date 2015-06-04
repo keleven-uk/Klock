@@ -173,6 +173,18 @@ Namespace My
                 Me("usrTimeNETSeconds") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property usrTimeDislayMinimised() As Boolean
+            Get
+                Return CType(Me("usrTimeDislayMinimised"),Boolean)
+            End Get
+            Set
+                Me("usrTimeDislayMinimised") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

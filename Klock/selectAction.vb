@@ -34,7 +34,9 @@
         '   Display the reminder message
         '   TODO : a fancy notification.
 
-        MessageBox.Show(s)
+        Dim Notification As New frmNotification(5000, "CountDown", s)
+
+        Notification.Show()
     End Sub
 
     Public Sub DoSystemCommand(ByVal s As String)

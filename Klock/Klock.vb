@@ -48,9 +48,16 @@ Public Class frmKlock
         StsLblKeys.Text = strKey
 
         LblTimeTime.Text = displayTime.getTime()                    '   display local time in desired time format.
+        TmrMain.Interval = displayTime.getClockTick()
 
         If Me.NtfyIcnKlock.Visible Then
             Me.NtfyIcnKlock.Text = displayTime.getTime()
+
+            If TlStrpMnItmTime.Checked And (Now.Second Mod 300) = 0 Then
+                Dim Notification As New frmNotification(5000, "Time", displayTime.getTime())
+
+                Notification.Show()
+            End If
         End If
     End Sub
 
@@ -506,6 +513,12 @@ Public Class frmKlock
         Me.Visible = True
     End Sub
 
+    Private Sub TlStrpMnItmTime_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TlStrpMnItmTime.CheckedChanged
+
+        My.Settings.usrTimeDislayMinimised = Me.TlStrpMnItmTime.Checked
+
+    End Sub
+
     Private Sub TlStrpMnItmExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TlStrpMnItmExit.Click
         Me.Close()
     End Sub
@@ -515,6 +528,7 @@ Public Class frmKlock
     End Sub
 
     ' *********************************************************************************************************************************
+
 
 
 End Class
