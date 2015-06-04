@@ -74,7 +74,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Klock.ico</ApplicationIcon>
@@ -114,6 +114,7 @@
     </Compile>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="FormAnimator.vb" />
+    <Compile Include="Person.vb" />
     <Compile Include="frmNotification.designer.vb">
       <DependentUpon>frmNotification.vb</DependentUpon>
     </Compile>

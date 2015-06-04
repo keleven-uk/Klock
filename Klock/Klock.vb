@@ -22,6 +22,15 @@ Public Class frmKlock
     Public CountDownTime As Integer             '   Holds number of minutes for the countdown timer.
     Public ReminderDateTime As DateTime         '   Holds the date [and time] of the set reminder.
 
+    Public knownFirstNames As New AutoCompleteStringCollection      '   Auto Complete for friends first name.
+    Public knownMiddleNames As New AutoCompleteStringCollection     '   Auto Complete for friends middle name.
+    Public knownLastnames As New AutoCompleteStringCollection       '   Auto Complete for friends last name.
+    Public knownAddress1 As New AutoCompleteStringCollection        '   Auto Complete for friends address line 1.
+    Public knownAddress2 As New AutoCompleteStringCollection        '   Auto Complete for friends address line 2.
+    Public knownCities As New AutoCompleteStringCollection          '   Auto Complete for friends address city.
+    Public knownPostCode As New AutoCompleteStringCollection        '   Auto Complete for friends address post code.
+    Public knownCounties As New AutoCompleteStringCollection        '   Auto Complete for friends address county.
+
     ' ************************************************************************************** clock routines **************************
     ' Seperate clocks are used for each function, to reduce load on main clock
 
@@ -149,11 +158,17 @@ Public Class frmKlock
 
         Select Case Me.TbCntrl.SelectedIndex
             Case 0                                              '   time tab
+                Me.Text = "Klock - tells you the time"
+                Me.FriendsButtonsVisible(False)
             Case 1                                              '   countdown tab
-
+                Me.Text = "Klock - Countdown the time"
+                Me.FriendsButtonsVisible(False)
             Case 2                                              '   timer tab
-
+                Me.Text = "Klock - measures the time"
+                Me.FriendsButtonsVisible(False)
             Case 3                                              '   reminder tab
+                Me.Text = "Klock - Reminds you of the time"
+                Me.FriendsButtonsVisible(False)
                 If My.Settings.usrReminderTimeChecked Then
                     Me.TmPckrRiminder.Enabled = True
                     Me.TmPckrRiminder.Value = Now()
@@ -161,6 +176,9 @@ Public Class frmKlock
                     Me.TmPckrRiminder.Enabled = False
                     Me.TmPckrRiminder.Value = Today
                 End If
+            Case 4
+                Me.Text = "Klock - reminds you of your friends"
+                Me.FriendsButtonsVisible(True)
         End Select
 
     End Sub
@@ -714,6 +732,71 @@ Public Class frmKlock
         End If
     End Sub
 
+    ' **************************************************************************************************** Friends ****************************************
+
+    Private Sub btnFriendsNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsNew.Click
+
+    End Sub
+
+    Private Sub FriendsButtonsVisible(ByVal b As Boolean)
+
+        Me.btnFriendsNew.Visible = b
+        Me.btnFriendsAdd.Visible = b
+        Me.btnFriendsClear.Visible = b
+        Me.btnFriendsEdit.Visible = b
+        Me.btnFriendsDelete.Visible = b
+    End Sub
+
+    Private Sub LoadAutoCompleteStuff()
+
+        Me.txtbxFriendsFirstName.AutoCompleteCustomSource = Me.knownFirstNames
+        Me.txtbxFriendsFirstName.AutoCompleteSource = AutoCompleteSource.CustomSource
+        Me.txtbxFriendsFirstName.AutoCompleteMode = AutoCompleteMode.Append
+
+        Me.txtbxFriendsMiddleName.AutoCompleteCustomSource = Me.knownMiddleNames
+        Me.txtbxFriendsMiddleName.AutoCompleteSource = AutoCompleteSource.CustomSource
+        Me.txtbxFriendsMiddleName.AutoCompleteMode = AutoCompleteMode.Append
+
+        Me.txtbxFriendsLastName.AutoCompleteCustomSource = Me.knownLastnames
+        Me.txtbxFriendsLastName.AutoCompleteSource = AutoCompleteSource.CustomSource
+        Me.txtbxFriendsLastName.AutoCompleteMode = AutoCompleteMode.Append
+
+        Me.txtbxFriendsAddressLine1.AutoCompleteCustomSource = Me.knownAddress1
+        Me.txtbxFriendsAddressLine1.AutoCompleteSource = AutoCompleteSource.CustomSource
+        Me.txtbxFriendsAddressLine1.AutoCompleteMode = AutoCompleteMode.Append
+
+        Me.txtbxFriendsAddressLine2.AutoCompleteCustomSource = Me.knownAddress2
+        Me.txtbxFriendsAddressLine2.AutoCompleteSource = AutoCompleteSource.CustomSource
+        Me.txtbxFriendsAddressLine2.AutoCompleteMode = AutoCompleteMode.Append
+
+        Me.txtbxFriendsAddressCity.AutoCompleteCustomSource = Me.knownCities
+        Me.txtbxFriendsAddressCity.AutoCompleteSource = AutoCompleteSource.CustomSource
+        Me.txtbxFriendsAddressCity.AutoCompleteMode = AutoCompleteMode.Append
+
+        Me.txtbxFriendsAddressPostCode.AutoCompleteCustomSource = Me.knownPostCode
+        Me.txtbxFriendsAddressPostCode.AutoCompleteSource = AutoCompleteSource.CustomSource
+        Me.txtbxFriendsAddressPostCode.AutoCompleteMode = AutoCompleteMode.Append
+
+        Me.txtbxFriendsAddressCounty.AutoCompleteCustomSource = Me.knownCounties
+        Me.txtbxFriendsAddressCounty.AutoCompleteSource = AutoCompleteSource.CustomSource
+        Me.txtbxFriendsAddressCounty.AutoCompleteMode = AutoCompleteMode.Append
+    End Sub
+
+    Private Sub DtPckrFriendsDOB_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DtPckrFriendsDOB.ValueChanged
+
+        Me.normalFriendsDate()
+    End Sub
+
+    Private Sub blankFriendsDate()
+        Me.DtPckrFriendsDOB.Format = DateTimePickerFormat.Custom
+        Me.DtPckrFriendsDOB.CustomFormat = " "
+        Me.DtPckrFriendsDOB.Checked = False
+    End Sub
+
+    Private Sub normalFriendsDate()
+        Me.DtPckrFriendsDOB.Format = DateTimePickerFormat.Long
+        Me.DtPckrFriendsDOB.CustomFormat = Now().Date
+    End Sub
 
     ' ******************************************************************************************************************************** global stuff ******
     Private Sub frmKlock_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -724,9 +807,15 @@ Public Class frmKlock
         Me.displayAction = New selectAction
         Me.displayTimer = New Timer
 
+        Me.DtPckrFriendsDOB.MaxDate = Now()
+
         Me.setSettings()
         Me.setTimeTypes()
         Me.setActionTypes()
+        Me.FriendsButtonsVisible(False)
+        Me.blankFriendsDate()
+        Me.LoadAutoCompleteStuff()
+
     End Sub
 
     Private Sub frmKlock_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
@@ -851,6 +940,8 @@ Public Class frmKlock
 
 
     ' ********************************************************************************************************************************* END **************
+
+
 
 
 End Class
