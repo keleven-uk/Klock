@@ -206,6 +206,8 @@ Partial Class frmKlock
         Me.btnEventsClear = New System.Windows.Forms.Button()
         Me.btnEventsEdit = New System.Windows.Forms.Button()
         Me.btnEventsDelete = New System.Windows.Forms.Button()
+        Me.tmrEvents = New System.Windows.Forms.Timer(Me.components)
+        Me.ChckBxEventOneOff = New System.Windows.Forms.CheckBox()
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -1643,6 +1645,7 @@ Partial Class frmKlock
         'pnlEvents
         '
         Me.pnlEvents.AutoScroll = True
+        Me.pnlEvents.Controls.Add(Me.ChckBxEventOneOff)
         Me.pnlEvents.Controls.Add(Me.lblEventTime)
         Me.pnlEvents.Controls.Add(Me.DtTmPckrEventsTime)
         Me.pnlEvents.Controls.Add(Me.txtbxEventNotes)
@@ -1716,7 +1719,7 @@ Partial Class frmKlock
         '
         Me.ChckBxEventRecuring.AutoSize = True
         Me.ChckBxEventRecuring.Enabled = False
-        Me.ChckBxEventRecuring.Location = New System.Drawing.Point(31, 54)
+        Me.ChckBxEventRecuring.Location = New System.Drawing.Point(30, 44)
         Me.ChckBxEventRecuring.Name = "ChckBxEventRecuring"
         Me.ChckBxEventRecuring.Size = New System.Drawing.Size(76, 19)
         Me.ChckBxEventRecuring.TabIndex = 8
@@ -1990,6 +1993,17 @@ Partial Class frmKlock
         Me.btnEventsDelete.Text = "Delete"
         Me.btnEventsDelete.UseVisualStyleBackColor = True
         '
+        'ChckBxEventOneOff
+        '
+        Me.ChckBxEventOneOff.AutoSize = True
+        Me.ChckBxEventOneOff.Enabled = False
+        Me.ChckBxEventOneOff.Location = New System.Drawing.Point(30, 69)
+        Me.ChckBxEventOneOff.Name = "ChckBxEventOneOff"
+        Me.ChckBxEventOneOff.Size = New System.Drawing.Size(67, 19)
+        Me.ChckBxEventOneOff.TabIndex = 14
+        Me.ChckBxEventOneOff.Text = "One Off"
+        Me.ChckBxEventOneOff.UseVisualStyleBackColor = True
+        '
         'frmKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2254,5 +2268,7 @@ Partial Class frmKlock
     Friend WithEvents btnEventsDelete As System.Windows.Forms.Button
     Friend WithEvents DtTmPckrEventsTime As System.Windows.Forms.DateTimePicker
     Friend WithEvents lblEventTime As System.Windows.Forms.Label
+    Friend WithEvents tmrEvents As System.Windows.Forms.Timer
+    Friend WithEvents ChckBxEventOneOff As System.Windows.Forms.CheckBox
 
 End Class

@@ -30,13 +30,9 @@ Public Class UserSettings
     Private _usrSavePosition As Boolean = False
     Private _usrStartMinimised As Boolean = False
     Private _usrRunOnStartup As Boolean = False
-    Private _usrSoundVolume As Integer = 100
+    Private _usrSoundVolume As Integer = 10
     Private _usrOptionsSavePath As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock")
     Private _usrOptionsSaveFile As String = "klock.xml"
-    '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
-    Private _usrTimerHigh As Boolean = False
-    Private _usrTimerClearSplit As Boolean = False
-    Private _usrTimerAdd As Boolean = False
     '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
     Private _usrTimeTwoFormats As Boolean = False
     Private _usrTimeSwatchCentibeats As Boolean = False
@@ -51,11 +47,15 @@ Public Class UserSettings
     Private _usrTimeDisplayMinutes As Integer = 15
     Private _usrTimeVoiceMinimised As Boolean = False
     Private _usrTimeVoiceMinutes As Integer = 15
+    '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
+    Private _usrTimerHigh As Boolean = False
+    Private _usrTimerClearSplit As Boolean = False
+    Private _usrTimerAdd As Boolean = False
+    '-------------------------------------------------------------------------------------------------------- Countdown Settings ----------
+    Private _usrCountdownAdd As Boolean = False
     '-------------------------------------------------------------------------------------------------------- Reminder Settings -----------
     Private _usrReminderTimeChecked As Boolean = False
     Private _usrReminderAdd As Boolean = False
-    '-------------------------------------------------------------------------------------------------------- Countdown Settings ----------
-    Private _usrCountdownAdd As Boolean = False
     '-------------------------------------------------------------------------------------------------------- World Klock Settings --------
     Private _usrWorldKlockAdd As Boolean = False
     '-------------------------------------------------------------------------------------------------------- Notification Settings -------
@@ -67,9 +67,15 @@ Public Class UserSettings
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
     Private _usrFriendsDirectory As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock")
     Private _usrFriendsFile As String = "Friends.bin"
-    '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
+    '-------------------------------------------------------------------------------------------------------- Events Settings ------------
     Private _usrEventsDirectory As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock")
     Private _usrEventsFile As String = "Events.bin"
+    Private _usrEventsFirstReminder As Integer = 31
+    Private _usrEventsSecondReminder As Integer = 7
+    Private _usrEventsThirdReminder As Integer = 1
+    Private _usrEventsTimerInterval As Integer = 60
+
+
 
     '   run on set up - blank at the moment.
     Public Sub New()
@@ -174,35 +180,6 @@ Public Class UserSettings
         Get
             Return _usrOptionsSaveFile
         End Get
-    End Property
-
-    '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
-
-    Public Property usrTimerHigh() As Boolean
-        Get
-            Return _usrTimerHigh
-        End Get
-        Set(ByVal value As Boolean)
-            _usrTimerHigh = value
-        End Set
-    End Property
-
-    Public Property usrTimerClearSplit() As Boolean
-        Get
-            Return _usrTimerClearSplit
-        End Get
-        Set(ByVal value As Boolean)
-            _usrTimerClearSplit = value
-        End Set
-    End Property
-
-    Public Property usrTimerAdd() As Boolean
-        Get
-            Return _usrTimerAdd
-        End Get
-        Set(ByVal value As Boolean)
-            _usrTimerAdd = value
-        End Set
     End Property
 
     '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
@@ -324,6 +301,46 @@ Public Class UserSettings
         End Set
     End Property
 
+    '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
+
+    Public Property usrTimerHigh() As Boolean
+        Get
+            Return _usrTimerHigh
+        End Get
+        Set(ByVal value As Boolean)
+            _usrTimerHigh = value
+        End Set
+    End Property
+
+    Public Property usrTimerClearSplit() As Boolean
+        Get
+            Return _usrTimerClearSplit
+        End Get
+        Set(ByVal value As Boolean)
+            _usrTimerClearSplit = value
+        End Set
+    End Property
+
+    Public Property usrTimerAdd() As Boolean
+        Get
+            Return _usrTimerAdd
+        End Get
+        Set(ByVal value As Boolean)
+            _usrTimerAdd = value
+        End Set
+    End Property
+
+    '-------------------------------------------------------------------------------------------------------- Countdown Settings ----------
+
+    Public Property usrCountdownAdd() As Boolean
+        Get
+            Return _usrCountdownAdd
+        End Get
+        Set(ByVal value As Boolean)
+            _usrCountdownAdd = value
+        End Set
+    End Property
+
     '-------------------------------------------------------------------------------------------------------- Reminder Settings -----------
 
     Public Property usrReminderTimeChecked() As Boolean
@@ -341,17 +358,6 @@ Public Class UserSettings
         End Get
         Set(ByVal value As Boolean)
             _usrReminderAdd = value
-        End Set
-    End Property
-
-    '-------------------------------------------------------------------------------------------------------- Countdown Settings ----------
-
-    Public Property usrCountdownAdd() As Boolean
-        Get
-            Return _usrCountdownAdd
-        End Get
-        Set(ByVal value As Boolean)
-            _usrCountdownAdd = value
         End Set
     End Property
 
@@ -452,6 +458,43 @@ Public Class UserSettings
             _usrEventsFile = value
         End Set
     End Property
+
+    Public Property usrEventsFirstReminder() As Integer
+        Get
+            Return _usrEventsFirstReminder
+        End Get
+        Set(ByVal value As Integer)
+            _usrEventsFirstReminder = value
+        End Set
+    End Property
+
+    Public Property usrEventsSecondReminder() As Integer
+        Get
+            Return _usrEventsSecondReminder
+        End Get
+        Set(ByVal value As Integer)
+            _usrEventsSecondReminder = value
+        End Set
+    End Property
+
+    Public Property usrEventsThirdReminder() As Integer
+        Get
+            Return _usrEventsThirdReminder
+        End Get
+        Set(ByVal value As Integer)
+            _usrEventsThirdReminder = value
+        End Set
+    End Property
+
+    Public Property usrEventsTimerInterval() As Integer
+        Get
+            Return _usrEventsTimerInterval
+        End Get
+        Set(ByVal value As Integer)
+            _usrEventsTimerInterval = value
+        End Set
+    End Property
+
     '-------------------------------------------------------------------------------------------------------- Setting Methods ------------
 
     Public Sub writeSettings()
@@ -481,7 +524,7 @@ Public Class UserSettings
                                       <FormFontColourA><%= usrFormFontColour().A %></FormFontColourA>
                                   </FormFontColour>
                                   <FormTop><%= usrFormTop() %></FormTop>
-                                  <formleft><%= usrFormLeft() %></formleft>
+                                  <Formleft><%= usrFormLeft() %></Formleft>
                                   <SavePosition><%= usrSavePosition() %></SavePosition>
                                   <StartMinimised><%= usrStartMinimised() %></StartMinimised>
                                   <RunOnStartup><%= usrRunOnStartup() %></RunOnStartup>
@@ -545,6 +588,10 @@ Public Class UserSettings
                               <Events>
                                   <EventsDirectory><%= usrEventsDirectory() %></EventsDirectory>
                                   <EventsFileName><%= usrEventsFile() %></EventsFileName>
+                                  <EventsFirstReminder><%= usrEventsFirstReminder() %></EventsFirstReminder>
+                                  <EventsSecondReminder><%= usrEventsSecondReminder() %></EventsSecondReminder>
+                                  <EventsThirdReminder><%= usrEventsThirdReminder() %></EventsThirdReminder>
+                                  <EventsTimerInterval><%= usrEventsTimerInterval() %></EventsTimerInterval>
                               </Events>
                           </klock>
 
@@ -576,7 +623,7 @@ Public Class UserSettings
                                       <FormFontColourA>255</FormFontColourA>
                                   </FormFontColour>
                                   <FormTop>100</FormTop>
-                                  <formleft>100</formleft>
+                                  <Formleft>100</Formleft>
                                   <SavePosition>false</SavePosition>
                                   <StartMinimised>false</StartMinimised>
                                   <RunOnStartup>false</RunOnStartup>
@@ -640,6 +687,10 @@ Public Class UserSettings
                               <Events>
                                   <EventsDirectory><%= usrOptionsSavePath() %></EventsDirectory>
                                   <EventsFileName>Events.bin</EventsFileName>
+                                  <EventsFirstReminder>7</EventsFirstReminder>
+                                  <EventsSecondReminder>5</EventsSecondReminder>
+                                  <EventsThirdReminder>1</EventsThirdReminder>
+                                  <EventsTimerInterval>60</EventsTimerInterval>
                               </Events>
                           </klock>
 
@@ -753,10 +804,10 @@ Public Class UserSettings
             Me.usrNotificationFont() = New Font(name, size, style)
 
             Dim ntfctnFntClr = ntfctn.Element("NotificationFontColour")
-            r = CType(readElement(ntfctn, "NotificationFontColourR", usrNotificationFontColour().R), Byte)
-            g = CType(readElement(ntfctn, "NotificationFontColourG", usrNotificationFontColour().G), Byte)
-            b = CType(readElement(ntfctn, "NotificationFontColourB", usrNotificationFontColour().B), Byte)
-            a = CType(readElement(ntfctn, "NotificationFontColourA", usrNotificationFontColour().A), Byte)
+            r = CType(readElement(ntfctnFntClr, "NotificationFontColourR", usrNotificationFontColour().R), Byte)
+            g = CType(readElement(ntfctnFntClr, "NotificationFontColourG", usrNotificationFontColour().G), Byte)
+            b = CType(readElement(ntfctnFntClr, "NotificationFontColourB", usrNotificationFontColour().B), Byte)
+            a = CType(readElement(ntfctnFntClr, "NotificationFontColourA", usrNotificationFontColour().A), Byte)
             Me.usrNotificationFontColour = Color.FromArgb(a, r, g, b)
 
             Me.usrNotificationTimeOut = CType(readElement(ntfctn, "NotificationTimeOut", usrNotificationTimeOut()), Integer)
@@ -769,12 +820,19 @@ Public Class UserSettings
             Me.usrFriendsDirectory = readElement(frnds, "FriendsDirectory", usrFriendsDirectory())
             Me.usrFriendsFile = readElement(frnds, "FriendsFileName", usrFriendsFile())
 
-            '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
+            '-------------------------------------------------------------------------------------------------------- Events Settings ------------
             '   values are strings, so need to convert.
 
             Dim evnts = elem.Element("Events")
             Me.usrEventsDirectory = readElement(evnts, "EventsDirectory", usrEventsDirectory())
             Me.usrEventsFile = readElement(evnts, "EventsFileName", usrEventsFile())
+
+            Me.usrEventsFirstReminder = CType(readElement(evnts, "EventsFirstReminder", usrEventsFirstReminder()), Integer)
+            Me.usrEventsSecondReminder = CType(readElement(evnts, "EventsSecondReminder", usrEventsSecondReminder()), Integer)
+            Me.usrEventsThirdReminder = CType(readElement(evnts, "EventsThirdReminder", usrEventsThirdReminder()), Integer)
+            Me.usrEventsTimerInterval = CType(readElement(evnts, "EventsTimerInterval", usrEventsTimerInterval()), Integer)
+
+
 
             '   If version has changed, some settings might need to be added [will have been set to default].
             If version <> My.Application.Info.Version.ToString() Then
@@ -810,7 +868,7 @@ Public Class UserSettings
         End If
 
         If Not My.Computer.FileSystem.FileExists(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile())) Then
-            Me.writeSettings()
+            Me.writeDefaultSettings()
         End If
     End Sub
 End Class

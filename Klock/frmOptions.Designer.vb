@@ -115,6 +115,20 @@ Partial Class frmOptions
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.TbPgEvents = New System.Windows.Forms.TabPage()
+        Me.GroupBox14 = New System.Windows.Forms.GroupBox()
+        Me.lblFirstreminder = New System.Windows.Forms.Label()
+        Me.lblSecondReminder = New System.Windows.Forms.Label()
+        Me.lblThirdReminder = New System.Windows.Forms.Label()
+        Me.NmrcUpDwnFirstReminder = New System.Windows.Forms.NumericUpDown()
+        Me.NmrcUpDwnSecondReminder = New System.Windows.Forms.NumericUpDown()
+        Me.NmrcUpDwnThirdReminder = New System.Windows.Forms.NumericUpDown()
+        Me.NmrcUpDwnEventsInterval = New System.Windows.Forms.NumericUpDown()
+        Me.lblEventsInterval = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
         Me.TabCntrlOptions.SuspendLayout()
         Me.TbPgGlobal.SuspendLayout()
         Me.GroupBox13.SuspendLayout()
@@ -139,6 +153,12 @@ Partial Class frmOptions
         Me.TbPgFriends.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.GroupBox10.SuspendLayout()
+        Me.TbPgEvents.SuspendLayout()
+        Me.GroupBox14.SuspendLayout()
+        CType(Me.NmrcUpDwnFirstReminder, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NmrcUpDwnSecondReminder, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NmrcUpDwnThirdReminder, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NmrcUpDwnEventsInterval, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnOptionsClose
@@ -232,6 +252,7 @@ Partial Class frmOptions
         Me.TabCntrlOptions.Controls.Add(Me.TbPgTime)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgOtherStuff)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgFriends)
+        Me.TabCntrlOptions.Controls.Add(Me.TbPgEvents)
         Me.TabCntrlOptions.Location = New System.Drawing.Point(12, 12)
         Me.TabCntrlOptions.Multiline = True
         Me.TabCntrlOptions.Name = "TabCntrlOptions"
@@ -1073,6 +1094,141 @@ Partial Class frmOptions
         Me.OpenFileDialog1.CheckFileExists = False
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
+        'TbPgEvents
+        '
+        Me.TbPgEvents.Controls.Add(Me.GroupBox14)
+        Me.TbPgEvents.Location = New System.Drawing.Point(4, 25)
+        Me.TbPgEvents.Name = "TbPgEvents"
+        Me.TbPgEvents.Size = New System.Drawing.Size(660, 265)
+        Me.TbPgEvents.TabIndex = 8
+        Me.TbPgEvents.Text = "Events"
+        Me.TbPgEvents.UseVisualStyleBackColor = True
+        '
+        'GroupBox14
+        '
+        Me.GroupBox14.Controls.Add(Me.Label17)
+        Me.GroupBox14.Controls.Add(Me.Label16)
+        Me.GroupBox14.Controls.Add(Me.Label15)
+        Me.GroupBox14.Controls.Add(Me.Label14)
+        Me.GroupBox14.Controls.Add(Me.lblEventsInterval)
+        Me.GroupBox14.Controls.Add(Me.NmrcUpDwnEventsInterval)
+        Me.GroupBox14.Controls.Add(Me.NmrcUpDwnThirdReminder)
+        Me.GroupBox14.Controls.Add(Me.NmrcUpDwnSecondReminder)
+        Me.GroupBox14.Controls.Add(Me.NmrcUpDwnFirstReminder)
+        Me.GroupBox14.Controls.Add(Me.lblThirdReminder)
+        Me.GroupBox14.Controls.Add(Me.lblSecondReminder)
+        Me.GroupBox14.Controls.Add(Me.lblFirstreminder)
+        Me.GroupBox14.Location = New System.Drawing.Point(4, 3)
+        Me.GroupBox14.Name = "GroupBox14"
+        Me.GroupBox14.Size = New System.Drawing.Size(653, 253)
+        Me.GroupBox14.TabIndex = 0
+        Me.GroupBox14.TabStop = False
+        Me.GroupBox14.Text = "Aged days"
+        '
+        'lblFirstreminder
+        '
+        Me.lblFirstreminder.AutoSize = True
+        Me.lblFirstreminder.Location = New System.Drawing.Point(8, 38)
+        Me.lblFirstreminder.Name = "lblFirstreminder"
+        Me.lblFirstreminder.Size = New System.Drawing.Size(74, 13)
+        Me.lblFirstreminder.TabIndex = 0
+        Me.lblFirstreminder.Text = "First Reminder"
+        '
+        'lblSecondReminder
+        '
+        Me.lblSecondReminder.AutoSize = True
+        Me.lblSecondReminder.Location = New System.Drawing.Point(8, 64)
+        Me.lblSecondReminder.Name = "lblSecondReminder"
+        Me.lblSecondReminder.Size = New System.Drawing.Size(92, 13)
+        Me.lblSecondReminder.TabIndex = 1
+        Me.lblSecondReminder.Text = "Second Reminder"
+        '
+        'lblThirdReminder
+        '
+        Me.lblThirdReminder.AutoSize = True
+        Me.lblThirdReminder.Location = New System.Drawing.Point(8, 90)
+        Me.lblThirdReminder.Name = "lblThirdReminder"
+        Me.lblThirdReminder.Size = New System.Drawing.Size(79, 13)
+        Me.lblThirdReminder.TabIndex = 2
+        Me.lblThirdReminder.Text = "Third Reminder"
+        '
+        'NmrcUpDwnFirstReminder
+        '
+        Me.NmrcUpDwnFirstReminder.Location = New System.Drawing.Point(136, 31)
+        Me.NmrcUpDwnFirstReminder.Name = "NmrcUpDwnFirstReminder"
+        Me.NmrcUpDwnFirstReminder.Size = New System.Drawing.Size(46, 20)
+        Me.NmrcUpDwnFirstReminder.TabIndex = 3
+        Me.NmrcUpDwnFirstReminder.Value = New Decimal(New Integer() {7, 0, 0, 0})
+        '
+        'NmrcUpDwnSecondReminder
+        '
+        Me.NmrcUpDwnSecondReminder.Location = New System.Drawing.Point(136, 57)
+        Me.NmrcUpDwnSecondReminder.Name = "NmrcUpDwnSecondReminder"
+        Me.NmrcUpDwnSecondReminder.Size = New System.Drawing.Size(46, 20)
+        Me.NmrcUpDwnSecondReminder.TabIndex = 4
+        Me.NmrcUpDwnSecondReminder.Value = New Decimal(New Integer() {3, 0, 0, 0})
+        '
+        'NmrcUpDwnThirdReminder
+        '
+        Me.NmrcUpDwnThirdReminder.Location = New System.Drawing.Point(136, 83)
+        Me.NmrcUpDwnThirdReminder.Name = "NmrcUpDwnThirdReminder"
+        Me.NmrcUpDwnThirdReminder.Size = New System.Drawing.Size(46, 20)
+        Me.NmrcUpDwnThirdReminder.TabIndex = 5
+        Me.NmrcUpDwnThirdReminder.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'NmrcUpDwnEventsInterval
+        '
+        Me.NmrcUpDwnEventsInterval.Location = New System.Drawing.Point(136, 126)
+        Me.NmrcUpDwnEventsInterval.Name = "NmrcUpDwnEventsInterval"
+        Me.NmrcUpDwnEventsInterval.Size = New System.Drawing.Size(46, 20)
+        Me.NmrcUpDwnEventsInterval.TabIndex = 6
+        Me.NmrcUpDwnEventsInterval.Value = New Decimal(New Integer() {60, 0, 0, 0})
+        '
+        'lblEventsInterval
+        '
+        Me.lblEventsInterval.AutoSize = True
+        Me.lblEventsInterval.Location = New System.Drawing.Point(8, 133)
+        Me.lblEventsInterval.Name = "lblEventsInterval"
+        Me.lblEventsInterval.Size = New System.Drawing.Size(122, 13)
+        Me.lblEventsInterval.TabIndex = 7
+        Me.lblEventsInterval.Text = "Interval to check events"
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(188, 133)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(28, 13)
+        Me.Label14.TabIndex = 8
+        Me.Label14.Text = "mins"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(188, 38)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(29, 13)
+        Me.Label15.TabIndex = 9
+        Me.Label15.Text = "days"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(188, 64)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(29, 13)
+        Me.Label16.TabIndex = 10
+        Me.Label16.Text = "days"
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(188, 90)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(29, 13)
+        Me.Label17.TabIndex = 11
+        Me.Label17.Text = "days"
+        '
         'frmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1127,6 +1283,13 @@ Partial Class frmOptions
         Me.GroupBox11.PerformLayout()
         Me.GroupBox10.ResumeLayout(False)
         Me.GroupBox10.PerformLayout()
+        Me.TbPgEvents.ResumeLayout(False)
+        Me.GroupBox14.ResumeLayout(False)
+        Me.GroupBox14.PerformLayout()
+        CType(Me.NmrcUpDwnFirstReminder, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NmrcUpDwnSecondReminder, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NmrcUpDwnThirdReminder, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NmrcUpDwnEventsInterval, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1222,4 +1385,18 @@ Partial Class frmOptions
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents TxtBxOptionsEventsDirectory As System.Windows.Forms.TextBox
+    Friend WithEvents TbPgEvents As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox14 As System.Windows.Forms.GroupBox
+    Friend WithEvents lblThirdReminder As System.Windows.Forms.Label
+    Friend WithEvents lblSecondReminder As System.Windows.Forms.Label
+    Friend WithEvents lblFirstreminder As System.Windows.Forms.Label
+    Friend WithEvents NmrcUpDwnThirdReminder As System.Windows.Forms.NumericUpDown
+    Friend WithEvents NmrcUpDwnSecondReminder As System.Windows.Forms.NumericUpDown
+    Friend WithEvents NmrcUpDwnFirstReminder As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label17 As System.Windows.Forms.Label
+    Friend WithEvents Label16 As System.Windows.Forms.Label
+    Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents Label14 As System.Windows.Forms.Label
+    Friend WithEvents lblEventsInterval As System.Windows.Forms.Label
+    Friend WithEvents NmrcUpDwnEventsInterval As System.Windows.Forms.NumericUpDown
 End Class

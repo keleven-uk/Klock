@@ -6,9 +6,6 @@ Public Class frmOptions
 
     '   Displays an Options screen.       K. Scott    November 2012
 
-    '   The settings are saved using applications settings, automatically handled by
-    '   the program.  A save is called when form is closed.
-
     Public displayAction As selectAction
 
 
@@ -18,9 +15,6 @@ Public Class frmOptions
         displayAction = New selectAction
 
         Me.TxtBxArchiveFile.Text = "Klock.zip"
-
-        Me.lblOptionsSettingsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
-        Me.lblOptionsSettingsFile.Text = frmKlock.usrSettings.usrOptionsSaveFile
 
         Me.showArchiveButtons(False)
         Me.setSettings()
@@ -42,6 +36,8 @@ Public Class frmOptions
                 Me.showArchiveButtons(False)
             Case 4              '   Archive options
                 Me.showArchiveButtons(True)
+            Case 5              '   Events
+                Me.showArchiveButtons(False)
         End Select
     End Sub
 
@@ -56,27 +52,33 @@ Public Class frmOptions
     Sub setSettings()
         '   Apply the current settings.
 
-        Me.LblOptionSavepath.Text = frmKlock.usrSettings.usrOptionsSavePath
 
+        '-------------------------------------------------------------------------------------------------------- Global Settings -------------
         Me.BackColor = frmKlock.usrSettings.usrFormColour
 
         Me.lblColour.Font = frmKlock.usrSettings.usrFormFont
         Me.lblColour.ForeColor = frmKlock.usrSettings.usrFormFontColour
-
         Me.lblFont.Font = frmKlock.usrSettings.usrFormFont
         Me.lblFont.ForeColor = frmKlock.usrSettings.usrFormFontColour
-
         Me.lblDefaultColour.Font = frmKlock.usrSettings.usrFormFont
         Me.lblDefaultColour.ForeColor = frmKlock.usrSettings.usrFormFontColour
-
         Me.TbPgGlobal.BackColor = frmKlock.usrSettings.usrFormColour
 
         Me.ChckBxOptionsSavePos.Checked = frmKlock.usrSettings.usrSavePosition
         Me.ChckBxOptionsRunOnStartup.Checked = frmKlock.usrSettings.usrRunOnStartup
         Me.ChckBxOptionsStartupMinimised.Checked = frmKlock.usrSettings.usrStartMinimised
 
-        Me.ChckBxTimerHigh.Checked = frmKlock.usrSettings.usrTimerHigh
-        Me.ChckBxClearSplit.Checked = frmKlock.usrSettings.usrTimerClearSplit
+        Me.TrckBrOptionsVolume.Minimum = 0
+        Me.TrckBrOptionsVolume.Maximum = 1000
+        Me.TrckBrOptionsVolume.TickFrequency = 100
+        Me.TrckBrOptionsVolume.Value = frmKlock.usrSettings.usrSoundVolume
+
+        Me.LblOptionSavepath.Text = frmKlock.usrSettings.usrOptionsSavePath
+
+        Me.lblOptionsSettingsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
+        Me.lblOptionsSettingsFile.Text = frmKlock.usrSettings.usrOptionsSaveFile
+
+        '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
 
         Me.chckBxTimeTwoFormats.Checked = frmKlock.usrSettings.usrTimeTwoFormats
 
@@ -92,24 +94,36 @@ Public Class frmOptions
         Me.ChckBxOptionsVoice.Checked = frmKlock.usrSettings.usrTimeVoiceMinimised
         Me.UpDwnVoiceDisplay.Value = frmKlock.usrSettings.usrTimeVoiceMinutes
 
-        Me.ChckBxReminderAdd.Checked = frmKlock.usrSettings.usrReminderAdd
-        Me.ChckBxTimerAdd.Checked = frmKlock.usrSettings.usrTimerAdd
-        Me.ChckBxCountdownAdd.Checked = frmKlock.usrSettings.usrCountdownAdd
-        Me.ChckBxWorldKlockAdd.Checked = frmKlock.usrSettings.usrWorldKlockAdd
-
         If frmKlock.usrSettings.usrTimeDisplayMinutes Then
             Me.UpDwnTimeDisplay.Enabled = True
         Else
             Me.UpDwnTimeDisplay.Enabled = False
         End If
 
+        '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
+
+        Me.ChckBxTimerHigh.Checked = frmKlock.usrSettings.usrTimerHigh
+        Me.ChckBxClearSplit.Checked = frmKlock.usrSettings.usrTimerClearSplit
+        Me.ChckBxTimerAdd.Checked = frmKlock.usrSettings.usrTimerAdd
+
+        '-------------------------------------------------------------------------------------------------------- Countdown Settings ----------
+
+        Me.ChckBxCountdownAdd.Checked = frmKlock.usrSettings.usrCountdownAdd
+
+        '-------------------------------------------------------------------------------------------------------- Reminder Settings -----------
+
+        Me.ChckBxReminderAdd.Checked = frmKlock.usrSettings.usrReminderAdd
+
+        '-------------------------------------------------------------------------------------------------------- World Klock Settings --------
+
+        Me.ChckBxWorldKlockAdd.Checked = frmKlock.usrSettings.usrWorldKlockAdd
+
+        '-------------------------------------------------------------------------------------------------------- Notification Settings -------
+
         Me.NmrcUpDwnNotificationTimeOut.Value = frmKlock.usrSettings.usrNotificationTimeOut / 1000
         Me.NmrcUpDwnNotificationOpacity.Value = frmKlock.usrSettings.usrNotificationOpacity
 
-        Me.TrckBrOptionsVolume.Minimum = 0
-        Me.TrckBrOptionsVolume.Maximum = 1000
-        Me.TrckBrOptionsVolume.TickFrequency = 100
-        Me.TrckBrOptionsVolume.Value = frmKlock.usrSettings.usrSoundVolume
+        '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
         If frmKlock.usrSettings.usrFriendsDirectory = "" Then
             Me.TxtBxOptionsFriendsDirectory.Text = System.IO.Path.Combine(Application.StartupPath, "Data")
@@ -123,6 +137,8 @@ Public Class frmOptions
             Me.TxtBxOptionsFriendsFile.Text = frmKlock.usrSettings.usrFriendsFile
         End If
 
+        '-------------------------------------------------------------------------------------------------------- Events Settings ------------
+
         If frmKlock.usrSettings.usrEventsDirectory = "" Then
             Me.TxtBxOptionsEventsDirectory.Text = System.IO.Path.Combine(Application.StartupPath, "Data")
         Else
@@ -135,6 +151,11 @@ Public Class frmOptions
             Me.TxtBxOptionsEventsFile.Text = frmKlock.usrSettings.usrEventsFile
         End If
 
+        Me.NmrcUpDwnFirstReminder.Value = frmKlock.usrSettings.usrEventsFirstReminder
+        Me.NmrcUpDwnSecondReminder.Value = frmKlock.usrSettings.usrEventsSecondReminder
+        Me.NmrcUpDwnThirdReminder.Value = frmKlock.usrSettings.usrEventsThirdReminder
+        Me.NmrcUpDwnEventsInterval.Value = frmKlock.usrSettings.usrEventsTimerInterval
+
     End Sub
 
     ' ************************************************************************************* global options *****************************
@@ -142,6 +163,7 @@ Public Class frmOptions
     Private Sub btnOptionsClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsClose.Click
         '    When closed, save settings.
 
+        '-------------------------------------------------------------------------------------------------------- Global Settings -------------
         frmKlock.usrSettings.usrSavePosition = Me.ChckBxOptionsSavePos.Checked
         frmKlock.usrSettings.usrRunOnStartup = Me.ChckBxOptionsRunOnStartup.Checked
         frmKlock.usrSettings.usrStartMinimised = Me.ChckBxOptionsStartupMinimised.Checked
@@ -151,8 +173,7 @@ Public Class frmOptions
             frmKlock.usrSettings.usrFormLeft = frmKlock.Left
         End If
 
-        frmKlock.usrSettings.usrTimerHigh = Me.ChckBxTimerHigh.Checked
-        frmKlock.usrSettings.usrTimerClearSplit = Me.ChckBxClearSplit.Checked
+        '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
         frmKlock.usrSettings.usrTimeTwoFormats = Me.chckBxTimeTwoFormats.Checked
 
@@ -167,21 +188,46 @@ Public Class frmOptions
         frmKlock.usrSettings.usrTimeDisplayMinutes = Me.UpDwnTimeDisplay.Value
         frmKlock.usrSettings.usrTimeVoiceMinimised = Me.ChckBxOptionsVoice.Checked
         frmKlock.usrSettings.usrTimeVoiceMinutes = Me.UpDwnVoiceDisplay.Value
+        frmKlock.usrSettings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
 
-        frmKlock.usrSettings.usrReminderAdd = Me.ChckBxReminderAdd.Checked
+        '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
+
+        frmKlock.usrSettings.usrTimerHigh = Me.ChckBxTimerHigh.Checked
+        frmKlock.usrSettings.usrTimerClearSplit = Me.ChckBxClearSplit.Checked
         frmKlock.usrSettings.usrTimerAdd = Me.ChckBxTimerAdd.Checked
+
+        '-------------------------------------------------------------------------------------------------------- Countdown Settings ----------
+
         frmKlock.usrSettings.usrCountdownAdd = Me.ChckBxCountdownAdd.Checked
-        frmKlock.usrSettings.usrWorldKlockAdd = Me.ChckBxWorldKlockAdd.Checked
+
+        '-------------------------------------------------------------------------------------------------------- Reminder Settings -----------
 
         frmKlock.usrSettings.usrReminderTimeChecked = Me.ChckBxReminderTimeCheck.Checked
+        frmKlock.usrSettings.usrReminderAdd = Me.ChckBxReminderAdd.Checked
 
-        frmKlock.usrSettings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
+        '-------------------------------------------------------------------------------------------------------- World Klock Settings --------
+
+        frmKlock.usrSettings.usrWorldKlockAdd = Me.ChckBxWorldKlockAdd.Checked
+
+        '-------------------------------------------------------------------------------------------------------- Notification Settings -------
+
+        frmKlock.usrSettings.usrNotificationTimeOut = Me.NmrcUpDwnNotificationTimeOut.Value * 1000
+        frmKlock.usrSettings.usrNotificationOpacity = Me.NmrcUpDwnNotificationOpacity.Value
+
+        '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
         frmKlock.usrSettings.usrFriendsDirectory = Me.TxtBxOptionsFriendsDirectory.Text
         frmKlock.usrSettings.usrFriendsFile = Me.TxtBxOptionsFriendsFile.Text
 
+        '-------------------------------------------------------------------------------------------------------- Events Settings ------------
+
         frmKlock.usrSettings.usrEventsDirectory = Me.TxtBxOptionsEventsDirectory.Text
         frmKlock.usrSettings.usrEventsFile = Me.TxtBxOptionsEventsFile.Text
+
+        frmKlock.usrSettings.usrEventsFirstReminder = Me.NmrcUpDwnFirstReminder.Value
+        frmKlock.usrSettings.usrEventsSecondreminder = Me.NmrcUpDwnSecondReminder.Value
+        frmKlock.usrSettings.usrEventsThirdReminder = Me.NmrcUpDwnThirdReminder.Value
+        frmKlock.usrSettings.usrEventsTimerInterval = Me.NmrcUpDwnEventsInterval.Value
 
         frmKlock.usrSettings.writeSettings()
         frmKlock.setSettings()
@@ -201,6 +247,7 @@ Public Class frmOptions
         frmKlock.usrSettings.writeDefaultSettings()
         frmKlock.usrSettings.readSettings()
         Me.setSettings()
+        frmKlock.setSettings()
     End Sub
 
 

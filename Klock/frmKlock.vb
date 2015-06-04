@@ -15,11 +15,6 @@ Public Class frmKlock
 
     Public startTime As Integer
 
-    '   Write debug information to test file - i.e. sw.writeLine("   ")
-    '   uncomment following two lines and the close statements in form close.
-    '   Dim fs As FileStream = New FileStream("debug.log", FileMode.Create)
-    '   Dim sw As New StreamWriter(fs)
-
     Public displayOneTime As selectTime         '   instance of selectTime, allows different time formats.
     Public displayTwoTime As selectTime         '   instance of selectTime, allows different time formats.
     Public displayTimer As Timer                '   instance of timer, a wrapper of the stopwatch class.
@@ -360,6 +355,19 @@ Public Class frmKlock
 
                 Me.FriendsButtonsVisible(False)
                 Me.eventsButtonsVisible(True)
+
+                If Me.reloadEvents Then
+                    Me.loadEvents()
+                    Me.reloadEvents = False
+                End If
+
+                If Me.LstBxEvents.Items.Count > 0 Then
+                    Me.btnEventsDelete.Enabled = True
+                    Me.btnEventsEdit.Enabled = True
+                    Me.showEvents(0)
+                    Me.tmrEvents.Interval = Me.usrSettings.usrEventsTimerInterval * 60      '   interval is held in minutes
+                    Me.tmrEvents.Enabled = True                                             '   enable events timer.
+                End If
         End Select
 
         Me.setTitleText()
@@ -1604,10 +1612,13 @@ Public Class frmKlock
             Me.btnEventsDelete.Enabled = True
             Me.btnEventsEdit.Enabled = True
             Me.showEvents(0)
+            Me.tmrEvents.Interval = Me.usrSettings.usrEventsTimerInterval * 60      '   interval is held in minutes
+            Me.tmrEvents.Enabled = True                                             '   enable events timer.
         Else
             Me.btnEventsEdit.Enabled = False
             Me.btnEventsDelete.Enabled = False
             Me.EventsClearText()
+            Me.tmrEvents.Enabled = False                                           '   disable events timer.
         End If
 
         Me.EventsReadOnlyText(False)
@@ -1658,19 +1669,28 @@ Public Class frmKlock
             Me.EventsReadOnlyText(True)
         End If
 
-        If Me.LstBxEvents.Items.Count > 0 Then             '   If entries in list view box, after delete.
+        If Me.LstBxEvents.Items.Count > 0 Then                                      '   If entries in list view box, after delete.
             Me.btnEventsDelete.Enabled = True
             Me.btnEventsEdit.Enabled = True
             Me.showEvents(0)
-        Else                                                '   No entries in listview box after delete.
+            Me.tmrEvents.Interval = Me.usrSettings.usrEventsTimerInterval * 60      '   interval is held in minutes
+            Me.tmrEvents.Enabled = True                                             '   enable events timer.
+        Else                                                                        '   No entries in listview box after delete.
             Me.btnEventsDelete.Enabled = False
             Me.btnEventsEdit.Enabled = False
+            Me.tmrEvents.Enabled = False                                             '   enable events timer.
         End If
     End Sub
 
     Private Sub ChckBxEventRecuring_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxEventRecuring.CheckedChanged
 
         Me.CmbBxEventPeriod.Enabled = ChckBxEventRecuring.Checked
+        Me.ChckBxEventOneOff.Enabled = Not ChckBxEventRecuring.Checked
+    End Sub
+
+    Private Sub ChckBxEventOneOff_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxEventOneOff.CheckedChanged
+
+        Me.ChckBxEventRecuring.Enabled = Not Me.ChckBxEventOneOff.Checked
     End Sub
 
     Private Sub TxtBxEventsName_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TxtBxEventsName.TextChanged
@@ -1695,7 +1715,7 @@ Public Class frmKlock
         Me.DtTmPckrEventsTime.Value = epoc
 
         Me.ChckBxEventRecuring.Checked = False
-
+        Me.ChckBxEventOneOff.Checked = False
     End Sub
 
     Private Sub EventsReadOnlyText(ByVal b As Boolean)
@@ -1705,6 +1725,7 @@ Public Class frmKlock
 
         Me.TxtBxEventsName.ReadOnly = Not b
         Me.CmbBxEventTypes.Enabled = b
+        Me.ChckBxEventOneOff.Enabled = b
         Me.DtTmPckrEventsDate.Enabled = b
         Me.ChckBxEventRecuring.Enabled = b
         Me.DtTmPckrEventsTime.Enabled = b
@@ -1726,9 +1747,9 @@ Public Class frmKlock
             Dim e As Events = CType(Me.LstBxEvents.Items.Item(pos), Events)
 
             Me.TxtBxEventsName.Text = e.EventName
-            Me.CmbBxEventTypes.SelectedIndex = e.EventPeriod
-            Me.DtTmPckrEventsDate.Value = e.EventDate
+            Me.CmbBxEventTypes.SelectedIndex = e.EventType
             Me.ChckBxEventRecuring.Checked = e.EventRecuring
+            Me.ChckBxEventOneOff.Checked = e.EventOneOff
             Me.CmbBxEventPeriod.SelectedIndex = e.EventPeriod
             Me.DtTmPckrEventsTime.Value = e.EventTime
             Me.txtbxEventNotes.Text = e.EventNotes
@@ -1745,12 +1766,16 @@ Public Class frmKlock
 
         Try
             e.EventName = Me.TxtBxEventsName.Text
-            e.EventPeriod = Me.CmbBxEventTypes.SelectedIndex
+            e.EventType = Me.CmbBxEventTypes.SelectedIndex
             e.EventDate = Me.DtTmPckrEventsDate.Value
             e.EventRecuring = Me.ChckBxEventRecuring.Checked
+            e.EventOneOff = Me.ChckBxEventOneOff.Checked
             e.EventPeriod = Me.CmbBxEventPeriod.SelectedIndex
             e.EventTime = Me.DtTmPckrEventsTime.Value
             e.EventNotes = Me.txtbxEventNotes.Text
+            e.EventFirstReminder = False
+            e.EventSecondreminder = False
+            e.EventThirdReminder = False
 
             If mode = "ADD" Then
                 Me.LstBxEvents.Items.Add(e)                             '   populate listview
@@ -1832,6 +1857,12 @@ Public Class frmKlock
 
     End Sub
 
+    Private Sub LstBxEvents_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstBxEvents.SelectedIndexChanged
+        '   A new entry has been selected in the listview box, display new entry.
+
+        Me.showEvents(Me.LstBxEvents.SelectedIndex)
+    End Sub
+
     Private Sub checkEventsDirectory()
         '   Check for data directory, which can be user selected [i.e. might not be application starting directory].  if doesn't exist, create it.
 
@@ -1902,6 +1933,8 @@ Public Class frmKlock
     Private Sub frmKlock_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '   Apply current setting on form load.
 
+        Me.TmrMain.Enabled = False                      '   Turn off main timer while we sort things out.
+
         Me.startTime = My.Computer.Clock.TickCount      '   used for app running time.
         Me.displayOneTime = New selectTime              '   user selected time I
         Me.displayTwoTime = New selectTime              '   user selected time II
@@ -1911,11 +1944,7 @@ Public Class frmKlock
         Me.usrVoice = New Voice                         '   user voice
         Me.myManagedPower = New ManagedPower            '   system power source
 
-        Me.HlpPrvdrKlock.HelpNamespace = Me.strHelpPath
-
-        Me.checkDataDirectory()
-
-        Me.InitThemes()                                 '   Not sure if this works :-)
+        Me.HlpPrvdrKlock.HelpNamespace = Me.strHelpPath '   set up help path.
 
         Me.DtPckrFriendsDOB.MaxDate = Now()             '   nobody is born after today :-)
 
@@ -1929,43 +1958,17 @@ Public Class frmKlock
         Me.eventsButtonsVisible(False)
         Me.reloadFriends = True                         '   set to re-load friends file.
 
-    End Sub
-
-
-    Private Sub InitThemes()
-        If (((Environment.OSVersion.Platform = PlatformID.Win32NT) _
-          AndAlso (Environment.OSVersion.Version.Major >= 5)) _
-          AndAlso (Environment.OSVersion.Version.Minor > 0)) Then
-            If OSFeature.Feature.IsPresent(OSFeature.Themes) Then
-                Application.EnableVisualStyles()
-            End If
-            Application.DoEvents()
-        End If
-    End Sub
-
-    Private Sub checkDataDirectory()
-        '   Check for data directory, which can be user selected [i.e. might not be application starting directory].  if doesn't exist, create it.
-
-        Dim FriendsDirectory As String = System.IO.Path.Combine(Application.StartupPath, "Data")
-
-        If Not My.Computer.FileSystem.DirectoryExists(FriendsDirectory) Then
-            My.Computer.FileSystem.CreateDirectory(FriendsDirectory)
-        End If
+        Me.TmrMain.Enabled = True                       '   Turn on main timer now things are sorted out.
     End Sub
 
     Private Sub frmKlock_Shown(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Shown
         '   If desired, start klock minimised i.e. in system tray.
         '   Did not seem to work in form load, so stuffed in here.
 
-        If Me.usrsettings.usrStartMinimised Then
+        If Me.usrSettings.usrStartMinimised Then
             Me.NtfyIcnKlock.Visible = True
             Me.Visible = False
         End If
-
-        'If Me.usrsettings.usrStartMinimised Then
-        'Me.NtfyIcnKlock.Visible = True
-        'Me.Visible = False
-        'End If
     End Sub
 
     Private Sub frmKlock_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
@@ -2237,6 +2240,8 @@ Public Class frmKlock
 
 
     ' ********************************************************************************************************************************* END **************
+
+
 
 
 
