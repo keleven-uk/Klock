@@ -364,7 +364,7 @@ Public Class frmKlock
     Private Sub btnCountdownLoadSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdownLoadSound.Click
         ' open file dialog to load sound file.
 
-        Me.OpenFileDialog1.Filter = "Sound Files|*.wav"
+        Me.OpenFileDialog1.Filter = "Sound Files|(*.wav, *.mp3)"
         If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
             Me.btnCountDownTestSound.Enabled = True
             Me.TxtBxCountDownAction.Text = Me.OpenFileDialog1.FileName
@@ -550,7 +550,7 @@ Public Class frmKlock
     Private Sub btnReminderLoadSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderLoadSound.Click
         ' open file dialog to load sound file.
 
-        Me.OpenFileDialog1.Filter = "Sound Files|*.wav"
+        Me.OpenFileDialog1.Filter = "Sound Files|(*.wav, *.mp3)"
         If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
             Me.btnReminderTestSound.Enabled = True
             Me.TxtBxReminderAction.Text = Me.OpenFileDialog1.FileName

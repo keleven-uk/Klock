@@ -233,7 +233,7 @@ End Sub
 
     Private Sub btnOptionsTestVolume_Click(sender As System.Object, e As System.EventArgs) Handles btnOptionsTestVolume.Click
 
-        displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.wav")
+        displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.mp3")
 
     End Sub
 End Class

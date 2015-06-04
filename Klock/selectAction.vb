@@ -23,22 +23,19 @@
 
     Public Sub PlaySound(ByVal s As String)
         '   play a sound file.  Uses some fancy code of www.vbforums.com, allows volume to be changed.   
-        '   MUST BE OF TYPE .WAV
 
-        If s.EndsWith(".wav") Then
-            If My.Computer.FileSystem.FileExists(s) Then
-                mciSendString("close myWAV", Nothing, 0, 0)
+        If My.Computer.FileSystem.FileExists(s) Then
+            mciSendString("close mySND", Nothing, 0, 0)
 
-                Dim fileName1 As String = s
-                mciSendString("open " & fileName1 & " type mpegvideo alias myWAV", Nothing, 0, 0)
-                mciSendString("play myWAV", Nothing, 0, 0)
+            Dim fileName1 As String = s
+            mciSendString("open " & fileName1 & " type mpegvideo alias mySND", Nothing, 0, 0)
+            mciSendString("play mySND", Nothing, 0, 0)
 
-                'min Volume is 1, max Volume is 1000
-                Dim Volume As Integer = My.Settings.usrSoundVolume
-                mciSendString("setaudio myWAV volume to " & Volume, Nothing, 0, 0)
-            Else
-                DisplayReminder("ERROR", "Sorry, sound file seems to have gone away!!")
-            End If  '   If s.EndsWith(".wav")
+            'min Volume is 1, max Volume is 1000
+            Dim Volume As Integer = My.Settings.usrSoundVolume
+            mciSendString("setaudio mySND volume to " & Volume, Nothing, 0, 0)
+        Else
+            DisplayReminder("ERROR", "Sorry, sound file seems to have gone away!!")
         End If      '   if My.Computer.FileSystem.FileExists(s)
     End Sub
 
