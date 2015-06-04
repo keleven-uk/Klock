@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="usrFormColour" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">Info</Value>
+      <Value Profile="(Default)">Control</Value>
     </Setting>
     <Setting Name="usrFormFont" Type="System.Drawing.Font" Scope="User">
       <Value Profile="(Default)">Tahoma, 9.75pt</Value>
@@ -37,6 +37,39 @@
     </Setting>
     <Setting Name="usrTimeHourPips" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="usrNotificationBackColour" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Control</Value>
+    </Setting>
+    <Setting Name="usrNotificationFont" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)">Tahoma, 9.75pt</Value>
+    </Setting>
+    <Setting Name="usrNotificationFontColour" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Black</Value>
+    </Setting>
+    <Setting Name="usrNotificationTimeOut" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5000</Value>
+    </Setting>
+    <Setting Name="usrNotificationOpacity" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">80</Value>
+    </Setting>
+    <Setting Name="usrTimeHourlyChimes" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="usrTimeQuarterChimes" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="usrReminderTimeChecked" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="usrTimeHalfChimes" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="usrTimeThreeQuarterChimes" Type="System.String" Scope="User">
+      <Value Profile="(Default)">false</Value>
+    </Setting>
+    <Setting Name="usrSoundVolume" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">100</Value>
     </Setting>
   </Settings>
 </SettingsFile>

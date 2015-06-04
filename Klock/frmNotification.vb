@@ -34,9 +34,19 @@ Public Class frmNotification
         'Make sure the exit button is set properly
         btnExit.Image = My.Resources.btnHigh
 
+        '   set the for colour and opacity for the form {form opacity is 0 [0%] - 1.0 [100%]}
+        Me.BackColor = My.Settings.usrNotificationBackColour
+        Me.Opacity = My.Settings.usrNotificationOpacity / 100
+
         'Set the time for which the form should be displayed and the message to display in milliseconds.
         Me.lifeTimer.Interval = lifeTime
+
+        Me.lblMessage1.Font = My.Settings.usrNotificationFont
+        Me.lblMessage1.ForeColor = My.Settings.usrNotificationFontColour
         Me.lblMessage1.Text = message1
+
+        Me.lblMessage2.Font = My.Settings.usrNotificationFont
+        Me.lblMessage2.ForeColor = My.Settings.usrNotificationFontColour
         Me.lblMessage2.Text = message2
 
         'Display the form by sliding up.
@@ -64,7 +74,7 @@ Public Class frmNotification
         'Add this form from the open form list.
         frmNotification.openForms.Add(Me)
 
-        'Start counting down the form's liftime.
+        'Start counting down the form's lifetime.
         Me.lifeTimer.Start()
     End Sub
 
@@ -121,9 +131,7 @@ Public Class frmNotification
     End Sub
 
     Private Sub NotificationForm_Click(sender As System.Object, e As System.EventArgs) Handles MyBase.Click, lblMessage1.Click, lblMessage2.Click
-
-        MsgBox("Do something with item " & lblMessage1.Text.Substring(lblMessage1.Text.Length - 1))
-
+        Me.Close()
     End Sub
 
     Private Sub btnExit_MouseHover(sender As System.Object, e As System.EventArgs) Handles btnExit.MouseHover

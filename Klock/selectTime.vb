@@ -1,5 +1,5 @@
 ﻿Public Class selectTime
-    '   A class wich allows the cuurent time to be displayes in various formats.
+    '   A class which allows the current time to be displays in various formats.
     '   The formats are held in the enum TimeTypes, these are exported.
 
     '   TimeType is set to the desired time format [from TimeTypes]
@@ -16,7 +16,7 @@
         NetTime
     End Enum
 
-    Private innerTime As String     '   local version of re-formated time.
+    Private innerTime As String     '   local version of reformatted time.
     Private TimeType As String      '   local version of desired time format
     Private clockTick As Integer
 
@@ -97,7 +97,7 @@
         '   displayFuzzy set to False :: getTime returns time as 10:05:00.
 
 
-        Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "siz", "seven", "eight", "nine", "ten", "eleven", "twelve"}
+        Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
         Dim hour As Integer = 0
         Dim mins As Integer = 0
         Dim nrms As Integer = 0
@@ -115,7 +115,7 @@
 
         nrms = mins - (mins Mod 5)          '   gets nearest five minutes.
 
-        If (mins Mod 5) > 2 Then            '   closer to next fivew minutes, go to next.
+        If (mins Mod 5) > 2 Then            '   closer to next five minutes, go to next.
             nrms += 5
         End If
 
@@ -205,7 +205,7 @@
     End Function
 
     Private Function getNetTime() As String
-        '   New Earth Time [or NET] splits the day into 260 degrees. each degree is
+        '    New Earth Time [or NET] splits the day into 260 degrees. each degree is
         '    further split into 60 minutes and further into 60 seconds.
         '
         '    Only returns NET time in NET 15 second intervals [equals 1 normal second]  }

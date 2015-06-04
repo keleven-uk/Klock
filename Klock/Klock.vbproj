@@ -240,6 +240,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="history.txt" />
     <Content Include="Klock.ico" />
     <None Include="Resources\btnClicked.png" />
     <None Include="Resources\btnHigh.png" />

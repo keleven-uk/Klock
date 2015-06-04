@@ -5,8 +5,12 @@
     '   The settings are saved using applications settings, automatically handeled bu
     '   the program.  A save is called when form is closed.
 
+    Public displayAction As selectAction
+
     Private Sub frmOptions_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '   When opened, set settings
+
+        displayAction = New selectAction
 
         setSettings()
     End Sub
@@ -16,25 +20,43 @@
 
         Me.BackColor = My.Settings.usrFormColour
 
-        lblColour.Font = My.Settings.usrFormFont
-        lblColour.ForeColor = My.Settings.usrFormFontColour
+        Me.lblColour.Font = My.Settings.usrFormFont
+        Me.lblColour.ForeColor = My.Settings.usrFormFontColour
 
-        lblFont.Font = My.Settings.usrFormFont
-        lblFont.ForeColor = My.Settings.usrFormFontColour
+        Me.lblFont.Font = My.Settings.usrFormFont
+        Me.lblFont.ForeColor = My.Settings.usrFormFontColour
 
-        lblDefaultColour.Font = My.Settings.usrFormFont
-        lblDefaultColour.ForeColor = My.Settings.usrFormFontColour
+        Me.lblDefaultColour.Font = My.Settings.usrFormFont
+        Me.lblDefaultColour.ForeColor = My.Settings.usrFormFontColour
 
-        ChckBxOptionsSavePos.Checked = My.Settings.usrSavePos
-        ChckBxOptionsSavePos.Font = My.Settings.usrFormFont
-        ChckBxOptionsSavePos.ForeColor = My.Settings.usrFormFontColour
+        Me.TbPgGlobal.BackColor = My.Settings.usrFormColour
+        Me.TbPgTime.BackColor = My.Settings.usrFormColour
+        Me.TbPgTimer.BackColor = My.Settings.usrFormColour
 
-        ChckBxTimerHigh.Checked = My.Settings.usrTimerHigh
-        ChckBxClearSplit.Checked = My.Settings.usrTimerClearSplit
+        Me.ChckBxOptionsSavePos.Checked = My.Settings.usrSavePos
+        Me.ChckBxOptionsSavePos.Font = My.Settings.usrFormFont
+        Me.ChckBxOptionsSavePos.ForeColor = My.Settings.usrFormFontColour
 
-        TbPgGlobal.BackColor = My.Settings.usrFormColour
-        TbPgTime.BackColor = My.Settings.usrFormColour
-        TbPgTimer.BackColor = My.Settings.usrFormColour
+        Me.ChckBxTimerHigh.Checked = My.Settings.usrTimerHigh
+        Me.ChckBxClearSplit.Checked = My.Settings.usrTimerClearSplit
+
+        Me.chckBxTimeSwatch.Checked = My.Settings.usrTimeSwatchCentibeats
+        Me.ChckBxTimeNetSeconds.Checked = My.Settings.usrTimeNETSeconds
+        Me.ChckBxTimeHourPips.Checked = My.Settings.usrTimeHourPips
+        Me.ChckBxTimeHourlyChimes.Checked = My.Settings.usrTimeHourlyChimes
+        Me.ChckBxTimeHalfChimes.Checked = My.Settings.usrTimeHalfChimes
+        Me.ChckBxTimeQuarterChimes.Checked = My.Settings.usrTimeQuarterChimes
+        Me.ChckBxTimeToast.Checked = My.Settings.usrTimeDisplayMinimised
+
+        Me.ChckBxReminderTimeCheck.Checked = My.Settings.usrReminderTimeChecked
+
+        Me.NmrcUpDwnNotificationTimeOut.Value = My.Settings.usrNotificationTimeOut / 1000
+        Me.NmrcUpDwnNotificationOpacity.Value = My.Settings.usrNotificationOpacity
+
+        Me.TrckBrOptionsVolume.Minimum = 0
+        Me.TrckBrOptionsVolume.Maximum = 1000
+        Me.TrckBrOptionsVolume.TickFrequency = 100
+        Me.TrckBrOptionsVolume.Value = My.Settings.usrSoundVolume
 
     End Sub
 
@@ -43,26 +65,54 @@
     Private Sub btnOptionsClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsClose.Click
         '    When closed, save settings.
 
-        My.Settings.usrSavePos = ChckBxOptionsSavePos.Checked
+        My.Settings.usrSavePos = Me.ChckBxOptionsSavePos.Checked
+
+        If My.Settings.usrSavePos Then
+            My.Settings.usrFormTop = frmKlock.Top
+            My.Settings.usrFormLeft = frmKlock.Left
+        End If
+
+        My.Settings.usrTimerHigh = Me.ChckBxTimerHigh.Checked
+        My.Settings.usrTimerClearSplit = Me.ChckBxClearSplit.Checked
+
+        My.Settings.usrTimeSwatchCentibeats = Me.chckBxTimeSwatch.Checked
+        My.Settings.usrTimeNETSeconds = Me.ChckBxTimeNetSeconds.Checked
+        My.Settings.usrTimeHourPips = Me.ChckBxTimeHourPips.Checked
+        My.Settings.usrTimeHourlyChimes = Me.ChckBxTimeHourlyChimes.Checked
+        My.Settings.usrTimeHalfChimes = Me.ChckBxTimeHalfChimes.Checked
+        My.Settings.usrTimeQuarterChimes = Me.ChckBxTimeQuarterChimes.Checked
+        My.Settings.usrTimeThreeQuarterChimes = Me.ChckBxTimeQuarterChimes.Checked
+        My.Settings.usrTimeDisplayMinimised = Me.ChckBxTimeToast.Checked
+
+        My.Settings.usrReminderTimeChecked = Me.ChckBxReminderTimeCheck.Checked
+
+        My.Settings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
+
         My.Settings.Save()
-        Close()
+
+        Me.Close()
     End Sub
 
+    Private Sub btnOptionsCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsCancel.Click
+        '   when canceled, close but not save.
+
+        Me.Close()
+    End Sub
 
 
     Private Sub btnOptionsFormColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFormColour.Click
         '   Set the form main colour.
 
-        ClrDlgFormColour.Color = My.Settings.usrFormColour          '   current main form colour
-        If ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
-            My.Settings.usrFormColour = ClrDlgFormColour.Color
+        Me.ClrDlgFormColour.Color = My.Settings.usrFormColour          '   current main form colour
+        If Me.ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            My.Settings.usrFormColour = Me.ClrDlgFormColour.Color
             setSettings()
         End If
     End Sub
 
     Private Sub btnOptionsFormFont_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFormFont.Click
         '   Set the form main font.
-        '   the font colour has to be handled seperately.
+        '   the font colour has to be handled separately.
 
         FntDlgFont.Font  = My.Settings.usrFormFont                  '   current main form font
         FntDlgFont.Color = My.Settings.usrFormFontColour            '   current main form font colour
@@ -77,10 +127,6 @@
     Private Sub ChckBxOptionsSavePos_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxOptionsSavePos.CheckedChanged
         '   If option is checked, save form position.
 
-        If ChckBxOptionsSavePos.Checked Then
-            My.Settings.usrFormTop = Me.Top
-            My.Settings.usrFormLeft = Me.Left
-        End If
     End Sub
 
 Private Sub btnDefaultColour_Click( ByVal sender As System.Object,  ByVal e As System.EventArgs) Handles btnDefaultColour.Click
@@ -93,55 +139,101 @@ Private Sub btnDefaultColour_Click( ByVal sender As System.Object,  ByVal e As S
         setSettings()
 End Sub
 
-    ' ************************************************************************************* timer options *****************************
+    '-----------------------------------------------------------Time---------------------------------------------------------------
 
-    Private Sub ChckBxTimerHigh_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimerHigh.CheckedChanged
-        If ChckBxTimerHigh.Checked Then
-            My.Settings.usrTimerHigh = True
-        Else
-            My.Settings.usrTimerHigh = False
-        End If
-    End Sub
+    Private Sub ChckBxTimeHourPips_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxTimeHourPips.CheckedChanged
 
-    Private Sub ChckBxClearSplit_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxClearSplit.CheckedChanged
-        If ChckBxClearSplit.Checked Then
-            My.Settings.usrTimerClearSplit = True
-        Else
-            My.Settings.usrTimerClearSplit = False
-        End If
-    End Sub
-
-    ' ************************************************************************************* time options *****************************
-
-    Private Sub ChckBxTmSwatch_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chckBxTimeSwatch.CheckedChanged
-        If ChckBxTimeSwatch.Checked Then
-            My.Settings.usrTimeSwatchCentibeats = True
-        Else
-            My.Settings.usrTimeSwatchCentibeats = False
-        End If
-    End Sub
-
-    Private Sub ChckBxTimeNetSeconds_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeNetSeconds.CheckedChanged
-        If ChckBxTimeNetSeconds.Checked Then
-            My.Settings.usrTimeNETSeconds = True
-        Else
-            My.Settings.usrTimeNETSeconds = False
-        End If
-    End Sub
-
-    Private Sub ChckBxTimeHourPips_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeHourPips.CheckedChanged
         If ChckBxTimeHourPips.Checked Then
-            My.Settings.usrTimeHourPips = True
+            Me.ChckBxTimeHourlyChimes.Enabled = False
+            Me.ChckBxTimeHourlyChimes.Checked = False
+            Me.ChckBxTimeHalfChimes.Enabled = False
+            Me.ChckBxTimeHalfChimes.Checked = False
+            Me.ChckBxTimeQuarterChimes.Enabled = False
+            Me.ChckBxTimeQuarterChimes.Checked = False
         Else
-            My.Settings.usrTimeHourPips = False
+            Me.ChckBxTimeHourlyChimes.Enabled = True
+            Me.ChckBxTimeHalfChimes.Enabled = True
+            Me.ChckBxTimeQuarterChimes.Enabled = True
         End If
     End Sub
 
-    Private Sub ChckBxTimeToast_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeToast.CheckedChanged
-        If ChckBxTimeToast.Checked Then
-            My.Settings.usrTimeDisplayMinimised = True
+    Private Sub ChckBxTimeHourlyChimes_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxTimeHourlyChimes.CheckedChanged
+
+        If ChckBxTimeHourlyChimes.Checked Then
+            Me.ChckBxTimeHourPips.Enabled = False
+            Me.ChckBxTimeHourPips.Checked = False
+            Me.ChckBxTimeHalfChimes.Enabled = True
+            Me.ChckBxTimeQuarterChimes.Enabled = True
         Else
-            My.Settings.usrTimeDisplayMinimised = False
+            Me.ChckBxTimeHourPips.Enabled = True
+            Me.ChckBxTimeHalfChimes.Checked = False
+            Me.ChckBxTimeHalfChimes.Enabled = False
+            Me.ChckBxTimeQuarterChimes.Checked = False
+            Me.ChckBxTimeQuarterChimes.Enabled = False
         End If
+    End Sub
+
+
+    '-----------------------------------------------------------Notification---------------------------------------------------------------
+
+    Private Sub btnNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNotificationColour.Click
+        '   Set the Notification main colour.
+
+        Me.ClrDlgFormColour.Color = My.Settings.usrNotificationBackColour   '   current Notification colour
+        If Me.ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            My.Settings.usrNotificationBackColour = Me.ClrDlgFormColour.Color
+        End If
+    End Sub
+
+    Private Sub btnNotificationFont_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNotificationFont.Click
+        '   Set the Notification main font.
+        '   the font colour has to be handled separately.
+
+        Me.FntDlgFont.Font = My.Settings.usrNotificationFont                  '   current Notification font
+        Me.FntDlgFont.Color = My.Settings.usrNotificationFontColour           '   current Notification font colour
+
+        If Me.FntDlgFont.ShowDialog() = DialogResult.OK Then
+            My.Settings.usrNotificationFont = Me.FntDlgFont.Font
+            My.Settings.usrNotificationFontColour = Me.FntDlgFont.Color
+        End If
+    End Sub
+
+    Private Sub NmrcUpDwnNotificationTimeOut_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NmrcUpDwnNotificationTimeOut.ValueChanged
+        '   set the time out value of the Notification.
+        '   The value is displayed in seconds and set in millisecond's..
+
+        My.Settings.usrNotificationTimeOut = Me.NmrcUpDwnNotificationTimeOut.Value * 1000
+    End Sub
+
+    Private Sub NmrcUpDwnNotificationOpacity_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NmrcUpDwnNotificationOpacity.ValueChanged
+        'Set the Opacity of the Notification.
+
+        My.Settings.usrNotificationOpacity = Me.NmrcUpDwnNotificationOpacity.Value
+    End Sub
+
+    Private Sub btnNotificationTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNotificationTest.Click
+        showNotification("Test", "Notification Test")
+    End Sub
+
+    Private Sub showNotification(ByVal header As String, ByVal message As String)
+
+        Dim Notification As New frmNotification(My.Settings.usrNotificationTimeOut, header, String.Format(" Opacity = {0}", My.Settings.usrNotificationOpacity))
+
+        Notification.Show()
+
+    End Sub
+
+    '---------------------------------------------------------- Sound Volume ---------------------------------------------------------------
+
+    Private Sub TrckBrOptionsVolume_Scroll(sender As System.Object, e As System.EventArgs) Handles TrckBrOptionsVolume.Scroll
+
+        My.Settings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
+
+    End Sub
+
+    Private Sub btnOptionsTestVolume_Click(sender As System.Object, e As System.EventArgs) Handles btnOptionsTestVolume.Click
+
+        displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.wav")
+
     End Sub
 End Class

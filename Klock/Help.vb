@@ -5,25 +5,25 @@ Public Class frmHelp
    
     '   Displays an Help screen.       K. Scott    November 2012
 
-    '   The help.txt is held has a embeded resource and read using a stream in the form load.
+    '   The help.txt is held has a embedded resource and read using a stream in the form load.
     '   see http://support.microsoft.com/kb/319291
 
     Dim _textStreamReader As StreamReader
     Dim _assembly As [Assembly]
 
     Private Sub btnHelpClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHelpClose.Click
-        Close()
+        Me.Close()
     End Sub
 
     Private Sub frmHelp_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        If RchTxtBxHelp.Lines.Count = 0 Then        '   only load text on first load
+        If Me.RchTxtBxHelp.Lines.Count = 0 Then        '   only load text on first load
             Try
                 _assembly = [Assembly].GetExecutingAssembly()
                 _textStreamReader = New StreamReader(_assembly.GetManifestResourceStream("Klock.Help.txt"))
 
                 Try
                     Do
-                        RchTxtBxHelp.AppendText(_textStreamReader.ReadLine() & Environment.NewLine)
+                        Me.RchTxtBxHelp.AppendText(_textStreamReader.ReadLine() & Environment.NewLine)
                     Loop Until _textStreamReader.Peek() = True
                 Catch ex As Exception
                     MessageBox.Show("Error reading stream!  " & ex.Message, "Error")

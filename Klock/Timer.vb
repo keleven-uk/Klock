@@ -1,17 +1,17 @@
 ﻿Public Class Timer
     '   A wrapper class for the native stopwatch class.
     '
-    '   Three procedures are exposed to start, stop amd clear the stopwatch.
+    '   Three procedures are exposed to start, stop and clear the stopwatch.
     '   Two [read only] properties are exposed to read the elapsed time.
-    '       getHighElapsedTime, returns the elapsed time to the millisecong - HH:MM:SS:MS
-    '       hetLowElapsedTime, retuns the elapsed time to the second - HH:MM:SS
+    '       getHighElapsedTime, returns the elapsed time to the milliseconds - HH:MM:SS:MS
+    '       hetLowElapsedTime, returns the elapsed time to the second - HH:MM:SS
 
 
 
     Private stopWatch As New Stopwatch()
 
     Public ReadOnly Property getHighElapsedTime() As String
-        '   Returns the elapsed time to the millisecong - HH:MM:SS:MS
+        '   Returns the elapsed time to the milliseconds - HH:MM:SS:MS
         Get
             Dim ts As TimeSpan = stopWatch.Elapsed
             Return String.Format("{0:00}:{1:00}:{2:00}:{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds)
@@ -19,7 +19,7 @@
     End Property
 
     Public ReadOnly Property getLowElapsedTime() As String
-        '   Retuns the elapsed time to the second - HH:MM:SS
+        '   Returns the elapsed time to the second - HH:MM:SS
         Get
             Dim ts As TimeSpan = stopWatch.Elapsed
             Return String.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds)

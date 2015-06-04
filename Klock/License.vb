@@ -14,12 +14,12 @@ Public Class frmLicence
     Dim _assembly As [Assembly]
 
     Private Sub btnLecenseClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLecenseClose.Click
-        Close()
+        Me.Close()
     End Sub
 
     Private Sub frmLicence_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        If RchTxtBxLicense.Lines.Count = 0 Then        '   only load text on first load
+        If Me.RchTxtBxLicense.Lines.Count = 0 Then        '   only load text on first load
 
             Try
                 _assembly = [Assembly].GetExecutingAssembly()
@@ -27,7 +27,7 @@ Public Class frmLicence
 
                 Try
                     Do
-                        RchTxtBxLicense.AppendText(_textStreamReader.ReadLine() & Environment.NewLine)
+                        Me.RchTxtBxLicense.AppendText(_textStreamReader.ReadLine() & Environment.NewLine)
                     Loop Until _textStreamReader.Peek() = True
                 Catch ex As Exception
                     MessageBox.Show("Error reading stream!" & ex.Message, "Error")

@@ -87,11 +87,5 @@ Namespace My.Resources
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
-        
-        Friend ReadOnly Property thepips() As System.IO.UnmanagedMemoryStream
-            Get
-                Return ResourceManager.GetStream("thepips", resourceCulture)
-            End Get
-        End Property
     End Module
 End Namespace

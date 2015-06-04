@@ -1,0 +1,65 @@
+------------------------------------------------------------------------
+r8 | Keleven | 2013-02-04 20:56:31 +0000 (Mon, 04 Feb 2013) | 12 lines
+
+[selectTime.vb]
+Added midnight fix for fuzzytime.
+
+[Options.vb]
+Added checkbox to time tab for hourly pips.
+Added checkbox to time tab for display current time in toast notification.
+
+[Klock.vb]
+Added to time to play hourly pips if desired.
+Corrected logic for showing toast notification every 5 minutes.
+Added logic to handle time item on system tray strip menu.
+
+------------------------------------------------------------------------
+r7 | Keleven | 2013-02-02 22:02:20 +0000 (Sat, 02 Feb 2013) | 3 lines
+
+Added code to display "toast" messages i.e. a notification window rises form the system tray.  
+This uses code by user jmcilhinney  at http://www.vbforums.com/showthread.php?351757-Animated-Window-Effects-with-quot-Toast-quot-popup-demo
+
+Finished the right-click menu of the system tray icon.  The item time is now checkable.  
+If checked a toast showing the current chosen time format is display every 5 minutes.  A user property holds this state between runs.
+------------------------------------------------------------------------
+r6 | Keleven | 2013-01-27 19:58:07 +0000 (Sun, 27 Jan 2013) | 9 lines
+
+New time modules - UTC, Swatch, Julian, decimal & NET
+
+Added system tray icon and associated right click menu [coded for menu items show and exit]
+
+Added code to hide button to show tray icon and hide main form, show in tray icon menu reverses.
+
+Actions called by countdown timer seem to now work.
+
+Changed logic on action combo box - looks better.
+------------------------------------------------------------------------
+r5 | Keleven | 2013-01-20 20:19:36 +0000 (Sun, 20 Jan 2013) | 3 lines
+
+Finished countdown.
+
+Finished countdown actions - needs testing.
+------------------------------------------------------------------------
+r4 | Keleven | 2013-01-19 20:31:32 +0000 (Sat, 19 Jan 2013) | 3 lines
+
+Added SelectTime.vb, which will contain the various time functions.  Added functions for fuzzytime and local time.
+
+Added Timer.vb, a wrapper class for the stopwatch class.
+------------------------------------------------------------------------
+r3 | Keleven | 2013-01-13 20:59:27 +0000 (Sun, 13 Jan 2013) | 6 lines
+
+Made GUID unique.
+
+Working on time tab.
+
+
+Work in progress as at 13/01/2013
+------------------------------------------------------------------------
+r2 | Keleven | 2012-12-29 22:15:26 +0000 (Sat, 29 Dec 2012) | 1 line
+
+
+------------------------------------------------------------------------
+r1 | Keleven | 2012-12-29 22:15:05 +0000 (Sat, 29 Dec 2012) | 1 line
+
+Version 1 of Klock.
+------------------------------------------------------------------------

@@ -56,7 +56,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Info")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Control")>  _
         Public Property usrFormColour() As Global.System.Drawing.Color
             Get
                 Return CType(Me("usrFormColour"),Global.System.Drawing.Color)
@@ -195,6 +195,138 @@ Namespace My
             End Get
             Set
                 Me("usrTimeHourPips") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Control")>  _
+        Public Property usrNotificationBackColour() As Global.System.Drawing.Color
+            Get
+                Return CType(Me("usrNotificationBackColour"),Global.System.Drawing.Color)
+            End Get
+            Set
+                Me("usrNotificationBackColour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Tahoma, 9.75pt")>  _
+        Public Property usrNotificationFont() As Global.System.Drawing.Font
+            Get
+                Return CType(Me("usrNotificationFont"),Global.System.Drawing.Font)
+            End Get
+            Set
+                Me("usrNotificationFont") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Black")>  _
+        Public Property usrNotificationFontColour() As Global.System.Drawing.Color
+            Get
+                Return CType(Me("usrNotificationFontColour"),Global.System.Drawing.Color)
+            End Get
+            Set
+                Me("usrNotificationFontColour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("5000")>  _
+        Public Property usrNotificationTimeOut() As Integer
+            Get
+                Return CType(Me("usrNotificationTimeOut"),Integer)
+            End Get
+            Set
+                Me("usrNotificationTimeOut") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("80")>  _
+        Public Property usrNotificationOpacity() As Integer
+            Get
+                Return CType(Me("usrNotificationOpacity"),Integer)
+            End Get
+            Set
+                Me("usrNotificationOpacity") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property usrTimeHourlyChimes() As Boolean
+            Get
+                Return CType(Me("usrTimeHourlyChimes"),Boolean)
+            End Get
+            Set
+                Me("usrTimeHourlyChimes") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property usrTimeQuarterChimes() As Boolean
+            Get
+                Return CType(Me("usrTimeQuarterChimes"),Boolean)
+            End Get
+            Set
+                Me("usrTimeQuarterChimes") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property usrReminderTimeChecked() As Boolean
+            Get
+                Return CType(Me("usrReminderTimeChecked"),Boolean)
+            End Get
+            Set
+                Me("usrReminderTimeChecked") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property usrTimeHalfChimes() As Boolean
+            Get
+                Return CType(Me("usrTimeHalfChimes"),Boolean)
+            End Get
+            Set
+                Me("usrTimeHalfChimes") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("false")>  _
+        Public Property usrTimeThreeQuarterChimes() As String
+            Get
+                Return CType(Me("usrTimeThreeQuarterChimes"),String)
+            End Get
+            Set
+                Me("usrTimeThreeQuarterChimes") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100")>  _
+        Public Property usrSoundVolume() As Integer
+            Get
+                Return CType(Me("usrSoundVolume"),Integer)
+            End Get
+            Set
+                Me("usrSoundVolume") = value
             End Set
         End Property
     End Class

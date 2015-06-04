@@ -1,9 +1,9 @@
 ﻿Public Class selectAction
-    '   A class wich just presents some enum's and procedurs to perform certain actions.
+    '   A class which just presents some enum's and procedures to perform certain actions.
     '   In a class, so they can be used in several place within the program.
 
 
-    Enum ActionTypes            '   the types of action that can be performes.
+    Enum ActionTypes            '   the types of action that can be performed.
         Sound
         Reminder
         System
@@ -17,24 +17,35 @@
         LogOff
     End Enum
 
+    Private Declare Function mciSendString Lib "winmm.dll" Alias "mciSendStringA" _
+                        (ByVal lpstrCommand As String, ByVal lpstrReturnString As String, _
+                         ByVal uReturnLength As Integer, ByVal hwndCallback As Integer) As Integer
+
     Public Sub PlaySound(ByVal s As String)
-        '   play a sound file.   
+        '   play a sound file.  Uses some fancy code of www.vbforums.com, allows volume to be changed.   
         '   MUST BE OF TYPE .WAV
 
         If s.EndsWith(".wav") Then
             If My.Computer.FileSystem.FileExists(s) Then
-                My.Computer.Audio.Play(s)
+                mciSendString("close myWAV", Nothing, 0, 0)
+
+                Dim fileName1 As String = s
+                mciSendString("open " & fileName1 & " type mpegvideo alias myWAV", Nothing, 0, 0)
+                mciSendString("play myWAV", Nothing, 0, 0)
+
+                'min Volume is 1, max Volume is 1000
+                Dim Volume As Integer = My.Settings.usrSoundVolume
+                mciSendString("setaudio myWAV volume to " & Volume, Nothing, 0, 0)
             Else
-                MessageBox.Show("Sorry, sound file seems to have gone away!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                DisplayReminder("ERROR", "Sorry, sound file seems to have gone away!!")
             End If  '   If s.EndsWith(".wav")
         End If      '   if My.Computer.FileSystem.FileExists(s)
     End Sub
 
-    Public Sub DisplayReminder(ByVal s As String)
+    Public Sub DisplayReminder(ByVal t As String, ByVal m As String)
         '   Display the reminder message
-        '   TODO : a fancy notification.
 
-        Dim Notification As New frmNotification(5000, "CountDown", s)
+        Dim Notification As New frmNotification(My.Settings.usrNotificationTimeOut, "CountDown", m)
 
         Notification.Show()
     End Sub
@@ -70,7 +81,7 @@
     End Sub
 
     Public Sub DoCommand(ByVal s As String)
-        '   Performs the externam command.
+        '   Performs the external command.
         '   If the file is executable it will be run. 
         '   If the file has an association, the host will be run. i.e a .doc file will launch word.
 
@@ -88,6 +99,5 @@
             End If
         End If
     End Sub
-
 
 End Class

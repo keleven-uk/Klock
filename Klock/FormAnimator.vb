@@ -12,7 +12,7 @@ Public NotInheritable Class FormAnimator
         Centre = &H10
         'Slides out from edge when showing and slides into edge when hiding.  Requires a Direction.
         Slide = &H40000
-        'Fades from transaprent to opaque when showing and from opaque to transparent when hiding.
+        'Fades from transparent to opaque when showing and from opaque to transparent when hiding.
         Blend = &H80000
     End Enum
 

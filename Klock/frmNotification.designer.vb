@@ -45,7 +45,7 @@ Partial Class frmNotification
         '
         'lblMessage2
         '
-        Me.lblMessage2.Font = New System.Drawing.Font("Franklin Gothic Medium", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMessage2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblMessage2.Location = New System.Drawing.Point(60, 39)
         Me.lblMessage2.Name = "lblMessage2"
         Me.lblMessage2.Size = New System.Drawing.Size(265, 28)
@@ -93,7 +93,7 @@ Partial Class frmNotification
         Me.Controls.Add(Me.lblMessage1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "frmNotification"
-        Me.Opacity = 0.66R
+        Me.Opacity = 0.1R
         Me.ShowInTaskbar = False
         Me.TopMost = True
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
