@@ -34,6 +34,7 @@ Public Class frmKlock
     Public knownPostCode As New AutoCompleteStringCollection        '   Auto Complete for friends address post code.
     Public knownCounties As New AutoCompleteStringCollection        '   Auto Complete for friends address county.
 
+
     ' ************************************************************************************** clock routines **************************
     ' Seperate clocks are used for each function, to reduce load on main clock
 
@@ -47,15 +48,18 @@ Public Class frmKlock
         Me.NotificationDispaly(currentSecond)                                        '   display a notification, if desired
         Me.playHourlyChimes(currentSecond)                                           '   Play a hourly chime,  if desired.
 
-        Me.updateStatusBar()
+        If Me.Visible Then          '   Only update if form is visable, can't see if in system tray.
+            Me.updateStatusBar()
+            Me.updateTitleText()
 
-        Me.LblTimeTime.Text = Me.displayTime.getTime()                     '   display local time in desired time format.
-        Me.TmrMain.Interval = Me.displayTime.getClockTick()
+            Me.LblTimeTime.Text = Me.displayTime.getTime()                     '   display local time in desired time format.
+            Me.TmrMain.Interval = Me.displayTime.getClockTick()
+        End If
 
     End Sub
 
     Private Sub updateStatusBar()
-        '    updates the status bar - time, date and status of caps, scroll and num lock keys.
+        '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
         Dim strKey As String = "cns"
 
         Me.stsLblTime.Text = Format(Now, "Long Time")
@@ -72,6 +76,35 @@ Public Class frmKlock
         End If
 
         Me.StsLblKeys.Text = strKey
+    End Sub
+
+    Private Sub updateTitleText()
+
+        Me.setTitleText()
+
+        Dim titletext As String = Me.Text
+
+        If My.Settings.usrTimerAdd And Me.tmrTimer.Enabled Then     ' time is running
+            If My.Settings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
+                titletext = titletext & " .::. " & displayTimer.getHighElapsedTime() & " : "
+            Else
+                titletext = titletext & " .::. " & displayTimer.getLowElapsedTime() & " : "
+            End If
+        End If
+
+        If My.Settings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
+            titletext = titletext & " .::. " & Me.minsToString(Me.CountDownTime)
+        End If
+
+        If My.Settings.usrReminderAdd And Me.tmrReminder.Enabled Then
+            If My.Settings.usrReminderTimeChecked Then
+                titletext = titletext & " .::. Reminder set for " & Me.ReminderDateTime.ToLongDateString & " @ " & Me.ReminderDateTime.ToLongTimeString
+            Else
+                titletext = titletext & " .::. Reminder set for " & Me.ReminderDateTime.ToLongDateString
+            End If
+        End If
+
+        Me.Text = titletext
     End Sub
 
     Private Sub playHourlyChimes(m As Integer)
@@ -104,14 +137,37 @@ Public Class frmKlock
     End Sub
 
     Private Sub NotificationDispaly(m As Integer)
-        '   if desired, check the status of notifications - should display the time every five minutes.
+        '   If desired, check the status of notifications - should display the time every ?? minutes.
+        '   Also, display result to time and countfown, if there running.  TODO, should they be on their own settings?
 
         If Me.NtfyIcnKlock.Visible Then                     '   if in system tray,
             Me.NtfyIcnKlock.Text = displayTime.getTime()    '   set icon tool tip to current time.
 
-            If My.Settings.usrTimeDisplayMinimised And (Math.Floor(m Mod 300) = 0) Then
+            Dim noSecs As Integer = My.Settings.usrTimeDisplayMinutes * 60
 
-                Me.displayAction.DisplayReminder("Time", displayTime.getTime())          ' display current time as a toast notification,if desired
+            If My.Settings.usrTimeDisplayMinimised And (Math.Floor(m Mod noSecs) = 0) Then
+
+                If My.Settings.usrTimerAdd And Me.tmrTimer.Enabled Then     ' time is running
+                    If My.Settings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
+                        Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getHighElapsedTime())
+                    Else
+                        Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getLowElapsedTime())
+                    End If
+                End If
+
+                If My.Settings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
+                    Me.displayAction.DisplayReminder("Countdown", "Countdown Running :: " & Me.minsToString(Me.CountDownTime))
+                End If
+
+                If My.Settings.usrReminderAdd And Me.tmrReminder.Enabled Then
+                    If My.Settings.usrReminderTimeChecked Then
+                        Me.displayAction.DisplayReminder("Reminder", "Reminder set for " & Me.ReminderDateTime.ToLongDateString & " @ " & Me.ReminderDateTime.ToLongTimeString)
+                    Else
+                        Me.displayAction.DisplayReminder("Reminder", "Reminder set for " & Me.ReminderDateTime.ToLongDateString)
+                    End If
+                End If
+
+                Me.displayAction.DisplayReminder("Time", displayTime.getTime()) ' display current time as a toast notification,if desired
 
             End If          '   If My.Settings.usrTimeDislayMinimised 
         End If              '   If Me.NtfyIcnKlock.Visible Then
@@ -119,7 +175,7 @@ Public Class frmKlock
 
     ' *************************************************************************************************************** timer clock ***********************
     Private Sub tmrTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrTimer.Tick
-        '   if enabled, timer is running - update timer label
+        '   If enabled, timer is running - update timer label
 
         If My.Settings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
             Me.lblTimerTime.Text = displayTimer.getHighElapsedTime()
@@ -131,7 +187,7 @@ Public Class frmKlock
 
     ' ******************************************************************************************************************* countdown clock ****************
     Private Sub tmrCountDown_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCountDown.Tick
-        '   if enabled, countdown is running - clock ticks every second.
+        '   If enabled, countdown is running - clock ticks every second.
 
         Me.CountDownTime -= 1                                           '   decrement countdown every second.
         Me.lblCountDownTime.Text = Me.minsToString(Me.CountDownTime)    '   update countdown label.
@@ -145,7 +201,7 @@ Public Class frmKlock
     ' ******************************************************************************************************************* reminder clock ******************
 
     Private Sub tmrReminder_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrReminder.Tick
-        '   if enabled, a reminder has been set - clocks ticks every 10 minute
+        '   If enabled, a reminder has been set - clocks ticks every 10 minute
 
         If Now() > Me.ReminderDateTime Then
             Me.ReminderAction()
@@ -157,7 +213,7 @@ Public Class frmKlock
     '   *************************************************************************************** Global Tab Change ****************************************
 
     Private Sub TbCntrl_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles TbCntrl.SelectedIndexChanged
-        '    performed when ever the main tab is changed, used for any tab initalisation.
+        '    Performed when ever the main tab is changed, used for any tab initialisation.
 
         Select Case Me.TbCntrl.SelectedIndex
             Case 0                                              '   time tab
@@ -192,6 +248,21 @@ Public Class frmKlock
 
     End Sub
 
+    Private Sub setTitleText()
+        Select Case Me.TbCntrl.SelectedIndex
+            Case 0                                              '   time tab
+                Me.Text = "Klock - tells you the time"
+            Case 1                                              '   countdown tab
+                Me.Text = "Klock - Countdown the time"
+            Case 2                                              '   timer tab
+                Me.Text = "Klock - measures the time"
+            Case 3                                              '   reminder tab
+                Me.Text = "Klock - Reminds you of the time"
+            Case 4
+                Me.Text = "Klock - reminds you of your friends"
+        End Select
+    End Sub
+
     '   ************************************************************************************************** time ****************************************
 
     Sub setTimeTypes()
@@ -206,7 +277,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub CmbBxTime_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxTime.SelectedIndexChanged
-        '   inform displayTime of the chosen time format.
+        '   Inform displayTime of the chosen time format.
 
         Me.displayTime.setType = CmbBxTime.SelectedIndex
 
@@ -285,7 +356,7 @@ Public Class frmKlock
 
     ' ************************************************************************************************************ Countdown ******************************
     Private Sub upDwnCntDownValue_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles upDwnCntDownValue.ValueChanged
-        '   when the up down counter has been changed, enable the start button and update the countdown label.
+        '   When the up down counter has been changed, enable the start button and update the countdown label.
 
         Me.btnCountDownStart.Enabled = IIf(Me.upDwnCntDownValue.Value = 0, False, True)
 
@@ -370,13 +441,13 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnCountDownTestSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownTestSound.Click
-        ' play sound in test button is pressed.
+        '   Play sound in test button is pressed.
 
         Me.displayAction.PlaySound(TxtBxCountDownAction.Text)
     End Sub
 
     Private Sub btnCountdownLoadSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdownLoadSound.Click
-        ' open file dialog to load sound file.
+        '   Open file dialog to load sound file.
 
         Me.OpenFileDialog1.FileName = ""
         Me.OpenFileDialog1.Filter = "Sound Files|*.wav; *.mp3"
@@ -388,7 +459,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnCountDownLoadCommand_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownLoadCommand.Click
-        ' open file dialog to load command file.
+        '   Open file dialog to load command file.
 
         Me.OpenFileDialog1.Filter = "All Files|*.*"
         If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
@@ -398,7 +469,7 @@ Public Class frmKlock
 
     Sub CountDownAction()
         '   When Countdown is finished, perform desired action
-        '   Setting the checked to false fires the checkedChange sub, which turns off the appropiate controls.
+        '   Setting the checked to false fires the checkedChange sub, which turns off the appropriate controls.
 
         If Me.ChckBxCountDownSound.Checked Then                                '   do sound action.
             Me.ChckBxCountDownSound.Checked = False
@@ -425,7 +496,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnCountdownSystemAbort_Click(sender As System.Object, e As System.EventArgs) Handles btnCountdownSystemAbort.Click
-        '   if abort pressed,  perform system command abort and start clean up.
+        '   If abort pressed,  perform system command abort and start clean up.
 
         Me.displayAction.AbortSystemCommand()
         Me.btnCountdownSystemAbort.Enabled = False
@@ -452,7 +523,7 @@ Public Class frmKlock
     End Sub
 
     Function minsToString(ByVal m As Integer) As String
-        '   reformat number of seconds in string in minutes and seconds [mm:ss].
+        '   Reformat number of seconds in string in minutes and seconds [mm:ss].
 
         Dim hours As Integer
         Dim mins As Integer
@@ -464,7 +535,7 @@ Public Class frmKlock
     End Function
 
     Sub CountDownSound(ByVal b As Boolean)
-        '   sets visible to b for all sound components
+        '   Sets visible to b for all sound components
 
         Me.ChckBxCountDownSound.Visible = b
         Me.TxtBxCountDownAction.Visible = b
@@ -473,14 +544,14 @@ Public Class frmKlock
     End Sub
 
     Sub CountDownReminder(ByVal b As Boolean)
-        '   sets visible to b for all reminder components
+        '   Sets visible to b for all reminder components
 
         Me.ChckBxCountDownReminder.Visible = b
         Me.TxtBxCountDownReminder.Visible = b
     End Sub
 
     Sub CountDownSystem(ByVal b As Boolean)
-        '   sets visible to b for all system components
+        '   Sets visible to b for all system components
 
         Me.ChckBxCountDownSystem.Visible = b
         Me.CmbBxCountDownSystem.Visible = b
@@ -488,7 +559,7 @@ Public Class frmKlock
     End Sub
 
     Sub CountDownCommand(ByVal b As Boolean)
-        '   sets enable to b for all command components
+        '   Sets enable to b for all command components
 
         Me.ChckBxCountDownCommand.Visible = b
         Me.TxtBxCountDowndCommand.Visible = b
@@ -555,13 +626,13 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnReminderTestSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderTestSound.Click
-        ' play sound in test button is pressed.
+        ' Play sound in test button is pressed.
 
         Me.displayAction.PlaySound(TxtBxReminderAction.Text)
     End Sub
 
     Private Sub btnReminderLoadSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderLoadSound.Click
-        ' open file dialog to load sound file.
+        ' Open file dialog to load sound file.
 
         Me.OpenFileDialog1.FileName = ""
         Me.OpenFileDialog1.Filter = "Sound Files|*.wav; *.mp3"
@@ -572,7 +643,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnReminderLoadCommand_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderLoadCommand.Click
-        ' open file dialog to load command file.
+        ' Open file dialog to load command file.
 
         Me.OpenFileDialog1.Filter = "All Files|*.*"
         If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
@@ -582,7 +653,7 @@ Public Class frmKlock
 
     Sub ReminderAction()
         '   When Reminder is finished, perform desired action
-        '   Setting the checked to false fires the checkedChange sub, which turns off the appropiate controls.
+        '   Setting the checked to false fires the checkedChange sub, which turns off the appropriate controls.
 
         If Me.ChckBxReminderSound.Checked Then                                  '   do sound action.
             Me.ChckBxReminderSound.Checked = False
@@ -609,7 +680,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnReminderSystemAbort_Click(sender As System.Object, e As System.EventArgs) Handles btnReminderSystemAbort.Click
-        '   if abort pressed,  perform system command abort and start clean up.
+        '   If abort pressed,  perform system command abort and start clean up.
 
         Me.displayAction.AbortSystemCommand()
         Me.btnReminderSystemAbort.Enabled = False
@@ -618,7 +689,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnReminderSet_Click(sender As System.Object, e As System.EventArgs) Handles btnReminderSet.Click
-        '   Set a new reminder.  Sets appropiate text and sets the global reminder date for checking.
+        '   Set a new reminder.  Sets appropriate text and sets the global reminder date for checking.
         '   Also, enables the reminder timer, which checks if reminder is due every minute..
 
         Dim d As New DateTime(Me.DtPckrRiminder.Value.Year, _
@@ -646,13 +717,13 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnReminderClear_Click(sender As System.Object, e As System.EventArgs) Handles btnReminderClear.Click
-        '   clear reminder is pressed.
+        '   Clear reminder is pressed.
 
         Me.clearReminder()
     End Sub
 
     Private Sub clearReminder()
-        '   perform the reminder clear.
+        '   Perform the reminder clear.
 
         Me.ChckBxReminderSound.Checked = False
         Me.ChckBxReminderReminder.Checked = False
@@ -683,7 +754,7 @@ Public Class frmKlock
     End Sub
 
     Sub ReminderSound(ByVal b As Boolean)
-        '   sets visible to b for all sound components
+        '   Sets visible to b for all sound components
 
         Me.ChckBxReminderSound.Visible = b
         Me.TxtBxReminderAction.Visible = b
@@ -692,14 +763,14 @@ Public Class frmKlock
     End Sub
 
     Private Sub ReminderReminder(ByVal b As Boolean)
-        '   sets visible to b for all reminder components
+        '   Sets visible to b for all reminder components
 
         Me.ChckBxReminderReminder.Visible = b
         Me.TxtBxReminderReminder.Visible = b
     End Sub
 
     Private Sub ReminderSystem(ByVal b As Boolean)
-        '   sets visible to b for all system components
+        '   Sets visible to b for all system components
 
         Me.ChckBxReminderSystem.Visible = b
         Me.CmbBxReminderSystem.Visible = b
@@ -707,7 +778,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub ReminderCommand(ByVal b As Boolean)
-        '   sets enable to b for all command components
+        '   Sets enable to b for all command components
 
         Me.chckBXReminderCommand.Visible = b
         Me.TxtBxReminderCommand.Visible = b
@@ -715,7 +786,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub reminder_ValueChanged(sender As System.Object, e As System.EventArgs) Handles DtPckrRiminder.ValueChanged, TmPckrRiminder.ValueChanged
-        '   checks to see if the reminder date if in the furire [> now()], only then enable the set button.
+        '   Checks to see if the reminder date if in the future [> now()], only then enable the set button.
 
         Dim d As New DateTime(Me.DtPckrRiminder.Value.Year, _
                          Me.DtPckrRiminder.Value.Month, _
@@ -728,7 +799,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub ChckBxReminderTimeCheck_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxReminderTimeCheck.CheckedChanged
-        '   allows the reminder date to include a time component.
+        '   Allows the reminder date to include a time component.
 
         If Me.ChckBxReminderTimeCheck.Checked Then
             My.Settings.usrReminderTimeChecked = True
@@ -744,6 +815,7 @@ Public Class frmKlock
     ' **************************************************************************************************** Friends ****************************************
 
     Private Sub btnFriendsNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsNew.Click
+        '   Sets up to add new friend.
 
         Me.btnFriendsClear.Enabled = True
         Me.btnFriendsNew.Enabled = False
@@ -757,6 +829,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnFriendsClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsClear.Click
+        '   Clears everything [not sure when called].
 
         Me.ADDING = False
 
@@ -779,6 +852,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub FirstAndLastName_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtbxFriendsFirstName.TextChanged, txtbxFriendsLastName.TextChanged
+        '   Only allow adding if first and last name exist.
 
         If Me.ADDING Then
             If Me.txtbxFriendsFirstName.Text <> "" And Me.txtbxFriendsLastName.Text <> "" Then
@@ -791,6 +865,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnFriendsAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsAdd.Click
+        '   Adds a new friend to listview box and saves a new friends file.
 
         Me.populateFriend("ADD")
 
@@ -804,11 +879,13 @@ Public Class frmKlock
 
         Me.FriendsClearText()
         Me.FriendsReadOnlyText(True)
-        Me.showFriends(0)
-        Me.savefriends()
+        Me.showFriends(0)                       '   Display first friend :: TODO should display new friend ??
+        Me.savefriends()                        '   Saves new friends file.
     End Sub
 
     Private Sub btnFriendsEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsEdit.Click
+        '   allows selected entry in listveiw box to be edited.
+        '   Changed button to "Save", which then will save new data to selected entry and save new friends file.
 
         If Me.btnFriendsEdit.Text = "Edit" Then
             Me.txtbxFriendsFirstName.Focus()
@@ -819,7 +896,7 @@ Public Class frmKlock
 
             Me.FriendsReadOnlyText(False)
         Else
-            Me.populateFriend("EDIT")
+            Me.populateFriend("EDIT")               '   Save new data back to listview box
 
             Me.btnFriendsEdit.Text = "Edit"
             Me.btnFriendsClear.Enabled = False
@@ -828,38 +905,41 @@ Public Class frmKlock
 
             Me.FriendsReadOnlyText(True)
 
-            Me.savefriends()
+            Me.savefriends()                        '   Saves new friends file.
         End If
     End Sub
 
     Private Sub btnFriendsDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFriendsDelete.Click
+        '   Deletes the currently selected entry form the listviewbox.
+        '   Saves new friends file and display first entry [if exists].
 
         Dim reply As MsgBoxResult
 
         reply = MsgBox("Are you sure to DELETE?", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
 
-        If reply = MsgBoxResult.No Then
+        If reply = MsgBoxResult.No Then     '   Not to delete, exit sub.
             Exit Sub
         End If
 
-        If Me.LstBxFriends.SelectedIndex > -1 Then
+        If Me.LstBxFriends.SelectedIndex > -1 Then          '   If entries in listview box.
             Me.LstBxFriends.Items.RemoveAt(Me.LstBxFriends.SelectedIndex)
             Me.savefriends()
             Me.FriendsClearText()
             Me.FriendsReadOnlyText(True)
         End If
 
-        If Me.LstBxFriends.Items.Count > 0 Then
+        If Me.LstBxFriends.Items.Count > 0 Then             '   If entries in list view box, after delete.
             Me.btnFriendsDelete.Enabled = True
             Me.btnFriendsEdit.Enabled = True
             Me.showFriends(0)
-        Else
+        Else                                                '   No entries in listview box after delete.
             Me.btnFriendsDelete.Enabled = False
             Me.btnFriendsEdit.Enabled = False
         End If
     End Sub
 
     Private Sub FriendsClearText()
+        '   Clears all date entry fields.
 
         Me.txtbxFriendsFirstName.Text = ""
         Me.txtbxFriendsMiddleName.Text = ""
@@ -883,6 +963,9 @@ Public Class frmKlock
     End Sub
 
     Private Sub FriendsReadOnlyText(ByVal b As Boolean)
+        '   Sets the readonly value on the textboxes.
+        '   True = can be input or edit.
+        '   False = display only
 
         Me.txtbxFriendsFirstName.ReadOnly = b
         Me.txtbxFriendsMiddleName.ReadOnly = b
@@ -906,11 +989,13 @@ Public Class frmKlock
     End Sub
 
     Private Sub LstBxFriends_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstBxFriends.SelectedIndexChanged
+        '   A new entry has been selected in the listview box, display new entry.
 
         Me.showFriends(Me.LstBxFriends.SelectedIndex)
     End Sub
 
     Private Sub showFriends(ByVal pos As Integer)
+        '   Populates the text boxes on the form with the person at the specified position of the listview box.
 
         If pos >= 0 Then
             Dim p As Person = CType(Me.LstBxFriends.Items.Item(pos), Person)
@@ -945,6 +1030,8 @@ Public Class frmKlock
     End Sub
 
     Private Sub populateFriend(ByVal mode As String)
+        '   populates the person class with the corresponding data from the form.
+        '   If adding, the person is added to the list view box, if not the current entry is updated.
 
         Dim p As New Person
 
@@ -967,17 +1054,17 @@ Public Class frmKlock
             p.Notes = Me.txtbxFriendsNotes.Text
             p.WebPage = Me.txtbxFriendsHomePage.Text
 
-            If Me.DtPckrFriendsDOB.Format = DateTimePickerFormat.Long Then
+            If Me.DtPckrFriendsDOB.Format = DateTimePickerFormat.Long Then  ' if no date selected, save as an empty string i.e." ".
                 p.DOB = Me.DtPckrFriendsDOB.Value.Date.ToString
             Else
                 p.DOB = " "
             End If
 
             If mode = "ADD" Then
-                Me.LstBxFriends.Items.Add(p)
-                Me.FriendsAddToKnown(p)
+                Me.LstBxFriends.Items.Add(p)                                '   Populate listview.
+                Me.FriendsAddToKnown(p)                                     '   Populate autocomplete collections.
             Else    '   mode = "EDIT"
-                Me.LstBxFriends.Items(Me.LstBxFriends.SelectedIndex) = p
+                Me.LstBxFriends.Items(Me.LstBxFriends.SelectedIndex) = p    '   Update listview.
             End If
 
         Catch ex As Exception
@@ -985,6 +1072,7 @@ Public Class frmKlock
         End Try
     End Sub
     Private Sub FriendsButtonsVisible(ByVal b As Boolean)
+        '   Switch on the friends editing buttons.
 
         Me.btnFriendsNew.Visible = b
         Me.btnFriendsAdd.Visible = b
@@ -994,6 +1082,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub LoadAutoCompleteStuff()
+        '   Attach the relevant auto complete collections to the text boxes.
 
         Me.txtbxFriendsFirstName.AutoCompleteCustomSource = Me.knownFirstNames
         Me.txtbxFriendsFirstName.AutoCompleteSource = AutoCompleteSource.CustomSource
@@ -1029,22 +1118,30 @@ Public Class frmKlock
     End Sub
 
     Private Sub DtPckrFriendsDOB_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DtPckrFriendsDOB.ValueChanged
+        '   If the value of the date picker is altered, reset then date format back to long.
 
         Me.normalFriendsDate()
     End Sub
 
     Private Sub blankFriendsDate()
+        '   To achieve a blank date in the date picker, a custom format has to be set to ""
+
         Me.DtPckrFriendsDOB.Format = DateTimePickerFormat.Custom
         Me.DtPckrFriendsDOB.CustomFormat = " "
         Me.DtPckrFriendsDOB.Checked = False
     End Sub
 
     Private Sub normalFriendsDate()
+        '   To display a date in the date picker, the custom format has to be removed.
+
         Me.DtPckrFriendsDOB.Format = DateTimePickerFormat.Long
         Me.DtPckrFriendsDOB.CustomFormat = Now().Date
     End Sub
 
     Private Sub FriendsAddToKnown(ByVal p As Person)
+        '   A number of collections are maintained for the auto complete.
+        '   One array for each textbox.
+        '   Each time a friend is added, the contents of the text box is added to the relevant collections.
 
         If Not Me.knownFirstNames.Contains(p.FirstName) Then
             Me.knownFirstNames.Add(p.FirstName)
@@ -1080,8 +1177,13 @@ Public Class frmKlock
     End Sub
 
     Private Sub savefriends()
+        '   Save friends to file in data directory.
+        '   Creates a list of all entries in the listview box and then writes this list to a binary file.
 
-        Dim saveFile As FileStream = File.Create("Friends.bin")
+        checkDataDirectory()        '   Check for data directory first, will be created if not there.
+
+
+        Dim saveFile As FileStream = File.Create(Application.StartupPath & "\data\Friends.bin")
 
         saveFile.Seek(0, SeekOrigin.End)
 
@@ -1090,12 +1192,12 @@ Public Class frmKlock
 
         Dim Formatter As BinaryFormatter = New BinaryFormatter
 
-        For Each p In LstBxFriends.Items
+        For Each p In LstBxFriends.Items        '   Create list.
             AL.Add(p)
         Next
 
         Try
-            Formatter.Serialize(saveFile, AL)
+            Formatter.Serialize(saveFile, AL)   '   Write list to binary file.
         Catch ex As Exception
             Me.displayAction.DisplayReminder("Friends Error", "Error saving Friends File." & vbCrLf & ex.Message)
         End Try
@@ -1108,13 +1210,15 @@ Public Class frmKlock
     End Sub
 
     Private Sub loadFriends()
+        '   Loads friends from file and populate the listview box.
+        '   Loads file into a list and then transfers each item in the list to the listview box.
 
         Dim readFile As FileStream
 
         Try
-            readFile = File.OpenRead("Friends.bin")
+            readFile = File.OpenRead(Application.StartupPath & "\data\Friends.bin")
             readFile.Seek(0, SeekOrigin.Begin)
-        Catch ex As Exception
+        Catch ex As Exception                   '   not there, go away.
             Me.displayAction.DisplayReminder("Friends", "No friends file found - will create if needed.")
             Exit Sub
         End Try
@@ -1125,19 +1229,19 @@ Public Class frmKlock
         Dim Formatter As BinaryFormatter = New BinaryFormatter
 
         Try
-            AL = Formatter.Deserialize(readFile)
+            AL = Formatter.Deserialize(readFile)        '   loads file into the list.
         Catch ex As Exception
             Me.displayAction.DisplayReminder("Friends Error", "Error loading Friends File." & vbCrLf & ex.Message)
             Exit Sub
         End Try
 
-
+        '   If got to here, have successfully read and decoded friends file.
         Me.LstBxFriends.Items.Clear()
         Me.knownCities.Clear()
 
-        For Each p In AL
-            Me.LstBxFriends.Items.Add(p)
-            Me.FriendsAddToKnown(p)
+        For Each p In AL                    '   For each item in the list.
+            Me.LstBxFriends.Items.Add(p)    '   Populate listview.
+            Me.FriendsAddToKnown(p)         '   Populate autocomplete collections.
         Next
 
         readFile.Close()
@@ -1146,7 +1250,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub txtbxFriendsAddressPostCode_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtbxFriendsAddressPostCode.KeyPress
-        '   post code contains only upper case letters and numbers.
+        '   Post code may only contain upper case letters and numbers.
 
         If Char.IsLetterOrDigit(e.KeyChar) Then
 
@@ -1162,7 +1266,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub FriendsTelephone1_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtbxFriendsTelephone1.KeyPress, txtbxFriendsTelephone2.KeyPress, txtbxFriendsTelephone3.KeyPress
-        '   Telephone numbers ony contain numbers.
+        '   Telephone numbers may only contain numbers.
 
         If Char.IsNumber(e.KeyChar) Then
 
@@ -1175,11 +1279,22 @@ Public Class frmKlock
         End If
     End Sub
 
+    Private Sub checkDataDirectory()
+        '   Check for data directory in application start directory.  if doesn't exist, create it.
+
+        If Not My.Computer.FileSystem.DirectoryExists(Application.StartupPath & "\data") Then
+            Me.displayAction.DisplayReminder("Friends", "Creating " & Application.StartupPath & "\data")
+            My.Computer.FileSystem.CreateDirectory(Application.StartupPath & "\data")
+        Else
+            Me.displayAction.DisplayReminder("Friends", "Using " & Application.StartupPath & "\data")
+        End If
+    End Sub
+
     ' ******************************************************************************************************************************** global stuff ******
     Private Sub frmKlock_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '   Apply current setting on form load.
 
-        Me.startTime = My.Computer.Clock.TickCount      '   used for app rinning time.
+        Me.startTime = My.Computer.Clock.TickCount      '   used for app running time.
         Me.displayTime = New selectTime
         Me.displayAction = New selectAction
         Me.displayTimer = New Timer
@@ -1189,6 +1304,7 @@ Public Class frmKlock
         Me.setSettings()
         Me.setTimeTypes()
         Me.setActionTypes()
+        Me.setTitleText()
 
         Me.loadFriends()
         Me.FriendsButtonsVisible(False)
@@ -1197,23 +1313,41 @@ Public Class frmKlock
 
     End Sub
 
+
+    Private Sub frmKlock_Shown(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Shown
+        '   If desired, start klock minimised i.e. in system tray.
+        '   Did not seem to work in form load, so stuffed in here.
+
+        If My.Settings.usrStartMinimised Then
+            Me.NtfyIcnKlock.Visible = True
+            Me.Visible = False
+        End If
+    End Sub
+
     Private Sub frmKlock_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
+        '   Processes key presses at form level, before passed to components.
+        '   Pressing F5, will shown total number of friends.
+        '   The rest of the codes is so that enter is handled correctly when inputting a new friend.  Pressing enter or hitting
+        '   the tab key will do the same thine, that is move focus to the next data entry box.
 
         If e.KeyCode = Keys.F5 Then
-            MessageBox.Show(String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
+            '   MessageBox.Show(String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
+            Me.displayAction.DisplayReminder("Friends", String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
             e.Handled = True
+        End If
+
+        If Me.TbCntrl.SelectedIndex <> 4 Then   '   if not friends tab - ignore reminder of sub.
+            Exit Sub
         End If
 
         If e.KeyCode = Keys.Enter And Not (e.Alt Or e.Control) Then
             e.SuppressKeyPress = True
+
             ' Make sure that the active control is a TextBox control
             ' Do not use the Enter key as tab when a button has the focus!
-            If Me.ActiveControl.GetType Is GetType(TextBox) Or _
-                    Me.ActiveControl.GetType Is GetType(CheckBox) Or _
-                    Me.ActiveControl.GetType Is GetType(DateTimePicker) Then
-                ' Use Shift + Enter to move backwords through the tab order
+            If Me.ActiveControl.GetType Is GetType(TextBox) Or Me.ActiveControl.GetType Is GetType(CheckBox) Or Me.ActiveControl.GetType Is GetType(DateTimePicker) Then
 
-                If e.Shift Then
+                If e.Shift Then                      ' Use Shift + Enter to move backwards through the tab order
                     Me.ProcessTabKey(False)
                 Else
                     Me.ProcessTabKey(True)
@@ -1223,7 +1357,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub frmKlock_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        '   on close and if needed, save form position.
+        '   On form close and if needed, save form position.
 
         If My.Settings.usrSavePos Then
             My.Settings.usrFormTop = Me.Top
@@ -1284,7 +1418,7 @@ Public Class frmKlock
 
 
     Private Sub btnHide_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHide.Click
-        '   hides main form and call system tray icon.
+        '   Hides main form and call system tray icon.
 
         Me.NtfyIcnKlock.Visible = True
         Me.Visible = False
@@ -1328,8 +1462,8 @@ Public Class frmKlock
     ' menu loads when right clicking on tray icon
 
     Private Sub TlStrpMnItmShow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TlStrpMnItmShow.Click, NtfyIcnKlock.MouseDoubleClick
-        '   hide system tray icon and show main form.
-        '   Called from system tray right click menu and double cliccking the tray icon.
+        '   Hide system tray icon and show main form.
+        '   Called from system tray right click menu and double clicking the tray icon.
 
         Me.NtfyIcnKlock.Visible = False
         Me.Visible = True
@@ -1344,8 +1478,6 @@ Public Class frmKlock
 
 
     ' ********************************************************************************************************************************* END **************
-
-
 
 
 

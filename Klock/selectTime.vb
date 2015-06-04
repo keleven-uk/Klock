@@ -150,9 +150,9 @@
             hour += 1
         End If
 
-        If (hour = 12) And (nrms = 0) Then      '   fix for noon.
+        If (hour = 12) And (sRtn = "") Then      '   fix for noon.
             ampm = " Noon"
-        ElseIf (hour = 24) And (nrms = 0) Then
+        ElseIf (hour = 24) And (sRtn = "") Then
             ampm = " Midnight"
         End If
 
@@ -161,7 +161,12 @@
             ampm = IIf(hour >= 5, " in the evening", " in the afternoon")   '   if greater then five in the afternoon then evening.
         End If
 
-        getFuzzyTime = sRtn + hours(hour) + ampm
+        If sRtn = "" Then
+            getFuzzyTime = "about " + hours(hour) + "ish" + ampm
+        Else
+            getFuzzyTime = sRtn + hours(hour) + ampm
+        End If
+
     End Function
 
     Private Function getLocalTime() As String

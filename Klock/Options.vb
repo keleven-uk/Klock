@@ -37,6 +37,9 @@
         Me.ChckBxOptionsSavePos.Font = My.Settings.usrFormFont
         Me.ChckBxOptionsSavePos.ForeColor = My.Settings.usrFormFontColour
 
+        Me.ChckBxOptionsRunOnStartup.Checked = My.Settings.usrRunOnStartup
+        Me.ChckBxOptionsStartupMinimised.Checked = My.Settings.usrStartMinimised
+
         Me.ChckBxTimerHigh.Checked = My.Settings.usrTimerHigh
         Me.ChckBxClearSplit.Checked = My.Settings.usrTimerClearSplit
 
@@ -47,8 +50,17 @@
         Me.ChckBxTimeHalfChimes.Checked = My.Settings.usrTimeHalfChimes
         Me.ChckBxTimeQuarterChimes.Checked = My.Settings.usrTimeQuarterChimes
         Me.ChckBxTimeToast.Checked = My.Settings.usrTimeDisplayMinimised
+        Me.UpDwnTimeDisplay.Value = My.Settings.usrTimeDisplayMinutes
 
-        Me.ChckBxReminderTimeCheck.Checked = My.Settings.usrReminderTimeChecked
+        Me.ChckBxReminderAdd.Checked = My.Settings.usrReminderAdd
+        Me.ChckBxTimerAdd.Checked = My.Settings.usrTimerAdd
+        Me.ChckBxCountdownAdd.Checked = My.Settings.usrCountdownAdd
+
+        If My.Settings.usrTimeDisplayMinimised Then
+            Me.UpDwnTimeDisplay.Enabled = True
+        Else
+            Me.UpDwnTimeDisplay.Enabled = False
+        End If
 
         Me.NmrcUpDwnNotificationTimeOut.Value = My.Settings.usrNotificationTimeOut / 1000
         Me.NmrcUpDwnNotificationOpacity.Value = My.Settings.usrNotificationOpacity
@@ -66,6 +78,8 @@
         '    When closed, save settings.
 
         My.Settings.usrSavePos = Me.ChckBxOptionsSavePos.Checked
+        My.Settings.usrRunOnStartup = Me.ChckBxOptionsRunOnStartup.Checked
+        My.Settings.usrStartMinimised = Me.ChckBxOptionsStartupMinimised.Checked
 
         If My.Settings.usrSavePos Then
             My.Settings.usrFormTop = frmKlock.Top
@@ -83,6 +97,11 @@
         My.Settings.usrTimeQuarterChimes = Me.ChckBxTimeQuarterChimes.Checked
         My.Settings.usrTimeThreeQuarterChimes = Me.ChckBxTimeQuarterChimes.Checked
         My.Settings.usrTimeDisplayMinimised = Me.ChckBxTimeToast.Checked
+        My.Settings.usrTimeDisplayMinutes = Me.UpDwnTimeDisplay.Value
+
+        My.Settings.usrReminderAdd = Me.ChckBxReminderAdd.Checked
+        My.Settings.usrTimerAdd = Me.ChckBxTimerAdd.Checked
+        My.Settings.usrCountdownAdd = Me.ChckBxCountdownAdd.Checked
 
         My.Settings.usrReminderTimeChecked = Me.ChckBxReminderTimeCheck.Checked
 
@@ -230,5 +249,26 @@ End Sub
 
         Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.mp3")
 
+    End Sub
+
+    Private Sub ChckBxTimeToast_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeToast.CheckedChanged
+
+        If Me.ChckBxTimeToast.Checked Then
+            Me.UpDwnTimeDisplay.Enabled = True
+        Else
+            Me.UpDwnTimeDisplay.Enabled = False
+        End If
+    End Sub
+
+    Private Sub ChckBxOptionsRunOnStartup_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxOptionsRunOnStartup.CheckedChanged
+
+        If Me.ChckBxOptionsRunOnStartup.Checked Then
+            My.Computer.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True).SetValue(Application.ProductName, Application.ExecutablePath)
+        Else
+            My.Computer.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True).DeleteValue(Application.ProductName)
+        End If
+
+        'You can add it to current user in the following key
+        'HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
     End Sub
 End Class
