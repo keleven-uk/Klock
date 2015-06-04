@@ -40,9 +40,6 @@ Public Class frmKlock
         Me.LblTimeTime.Text = Me.displayTime.getTime()                     '   display local time in desired time format.
         Me.TmrMain.Interval = Me.displayTime.getClockTick()
 
-        If Me.btnReminderClear.Enabled Then                             '   a reminder is set, so check.
-            Me.checkReminder()                                          '   [clear is only enabled once the reminder has been set]
-        End If
     End Sub
 
     Private Sub updateStatusBar()
@@ -65,23 +62,13 @@ Public Class frmKlock
         Me.StsLblKeys.Text = strKey
     End Sub
 
-    Private Sub checkReminder()
-        '   check the state of reminders.
-
-        If Now() > Me.ReminderDateTime Then
-            Me.ReminderAction()
-            Me.clearReminder()                                             '   clear down reminder tab after action.
-        End If
-
-    End Sub
-
     Private Sub playHourlyChimes(m As Integer)
         '   Depending upon user settings, will play hourly pips or chimes.
         '   The chimes can sound on the hour and every quarter hour if desired.
 
         If My.Settings.usrTimeHourPips And (Math.Floor(m Mod 3600) = 0) Then          '    will this work at midnight???
 
-            Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\quarterchime.mp3")     '    Play the Pips on the hour, if desired.
+            Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\thepips.mp3")     '    Play the Pips on the hour, if desired.
         ElseIf My.Settings.usrTimeHourlyChimes And (Math.Floor(m Mod 3600) = 0) Then             '    Play hourly chimes, if desired.
 
             Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
@@ -132,15 +119,27 @@ Public Class frmKlock
 
     ' ******************************************************************************************************************* countdown clock ****************
     Private Sub tmrCountDown_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCountDown.Tick
-        '   if enabled, countdown is running - clock ticks ever second.
+        '   if enabled, countdown is running - clock ticks every second.
 
         Me.CountDownTime -= 1                                           '   decrement countdown every second.
         Me.lblCountDownTime.Text = Me.minsToString(Me.CountDownTime)    '   update countdown label.
 
         If Me.CountDownTime = 0 Then                                    '   countdown has finished.
-            Me.CountDownClear()                                         '   clear down countdown.
             Me.CountDownAction()                                        '   perform action.
+            Me.CountDownClear()                                         '   clear down countdown.
         End If
+    End Sub
+
+    ' ******************************************************************************************************************* reminder clock ******************
+
+    Private Sub tmrReminder_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrReminder.Tick
+        '   if enabled, a reminder has been set - clocks ticks every 10 minute
+
+        If Now() > Me.ReminderDateTime Then
+            Me.ReminderAction()
+            Me.clearReminder()                                             '   clear down reminder tab after action.
+        End If
+
     End Sub
 
     '   *************************************************************************************** Global Tab Change ****************************************
@@ -261,7 +260,7 @@ Public Class frmKlock
     Private Sub upDwnCntDownValue_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles upDwnCntDownValue.ValueChanged
         '   when the up down counter has been changed, enable the start button and update the countdown label.
 
-        Me.btnCountDownStart.Enabled = IIf(Me.upDwnCntDownValue.Value = 0, True, False)
+        Me.btnCountDownStart.Enabled = IIf(Me.upDwnCntDownValue.Value = 0, False, True)
 
         Me.CountDownTime = Me.upDwnCntDownValue.Value * 60
         Me.lblCountDownTime.Text = Me.minsToString(CountDownTime)
@@ -333,7 +332,7 @@ Public Class frmKlock
         '   Selects countdown action controls if checked.
 
         Me.CmbBxCountDownSystem.Enabled = Not Me.CmbBxCountDownSystem.Enabled
-        Me.btnReminderSystemAbort.Enabled = Not Me.btnReminderSystemAbort.Enabled
+        Me.btnCountdownSystemAbort.Enabled = Not Me.btnCountdownSystemAbort.Enabled
     End Sub
 
     Private Sub ChckBxCountDownCommand_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxCountDownCommand.CheckedChanged
@@ -352,7 +351,8 @@ Public Class frmKlock
     Private Sub btnCountdownLoadSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdownLoadSound.Click
         ' open file dialog to load sound file.
 
-        Me.OpenFileDialog1.Filter = "All Files|*.*"
+        Me.OpenFileDialog1.FileName = ""
+        Me.OpenFileDialog1.Filter = "Sound Files|*.wav; *.mp3"
         If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
             Me.btnCountDownTestSound.Enabled = True
             Me.TxtBxCountDownAction.Text = Me.OpenFileDialog1.FileName
@@ -371,13 +371,14 @@ Public Class frmKlock
 
     Sub CountDownAction()
         '   When Countdown is finished, perform desired action
+        '   Setting the checked to false fires the checkedChange sub, which turns off the appropiate controls.
 
         If Me.ChckBxCountDownSound.Checked Then                                '   do sound action.
-            Me.CountDownSound(False)
+            Me.ChckBxCountDownSound.Checked = False
             Me.displayAction.PlaySound(TxtBxCountDownAction.Text)
         End If
         If Me.ChckBxCountDownReminder.Checked Then                             '   do reminder action.
-            Me.CountDownReminder(False)
+            Me.ChckBxCountDownReminder.Checked = False
             Me.displayAction.DisplayReminder("CountDown", TxtBxCountDownReminder.Text)
         End If
         If Me.ChckBxCountDownSystem.Checked Then                               '   do system action action.
@@ -385,12 +386,12 @@ Public Class frmKlock
                 Me.NtfyIcnKlock.Visible = False                                '   so abort button can be deployed.
                 Me.Visible = True
             End If
-            Me.CountDownSystem(False)
-            Me.btnCountdownSystemAbort.Visible = True                          '   alow system command to be aborted.
+            Me.ChckBxCountDownSystem.Checked = False
+            Me.btnCountdownSystemAbort.Enabled = True                          '   alow system command to be aborted.
             Me.displayAction.DoSystemCommand(CmbBxCountDownSystem.SelectedIndex)
         End If
         If Me.ChckBxCountDownCommand.Checked Then                              '   do run command action.
-            Me.CountDownCommand(False)
+            Me.ChckBxCountDownCommand.Checked = False
             Me.displayAction.DoCommand(TxtBxCountDowndCommand.Text)
         End If
 
@@ -407,6 +408,11 @@ Public Class frmKlock
 
     Sub CountDownClear()
         '   Clear down Countdown.
+
+        Me.ChckBxCountDownSound.Checked = False
+        Me.ChckBxCountDownReminder.Checked = False
+        Me.ChckBxCountDownSystem.Checked = False
+        Me.ChckBxCountDownCommand.Checked = False
 
         Me.tmrCountDown.Enabled = False
         Me.lblCountDownTime.Text = "00:00"
@@ -482,7 +488,7 @@ Public Class frmKlock
                 Me.ReminderSound(False)
                 Me.ReminderReminder(False)
                 Me.ReminderSystem(True)
-                ReminderCommand(False)
+                Me.ReminderCommand(False)
             Case 3                                                  '   Run Command chosen
                 Me.ReminderSound(False)
                 Me.ReminderReminder(False)
@@ -530,7 +536,8 @@ Public Class frmKlock
     Private Sub btnReminderLoadSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderLoadSound.Click
         ' open file dialog to load sound file.
 
-        Me.OpenFileDialog1.Filter = "Sound Files|(*.wav, *.mp3)"
+        Me.OpenFileDialog1.FileName = ""
+        Me.OpenFileDialog1.Filter = "Sound Files|*.wav; *.mp3"
         If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
             Me.btnReminderTestSound.Enabled = True
             Me.TxtBxReminderAction.Text = Me.OpenFileDialog1.FileName
@@ -548,13 +555,14 @@ Public Class frmKlock
 
     Sub ReminderAction()
         '   When Reminder is finished, perform desired action
+        '   Setting the checked to false fires the checkedChange sub, which turns off the appropiate controls.
 
         If Me.ChckBxReminderSound.Checked Then                                  '   do sound action.
-            Me.ReminderSound(False)
+            Me.ChckBxReminderSound.Checked = False
             Me.displayAction.PlaySound(TxtBxReminderAction.Text)
         End If
         If Me.ChckBxReminderReminder.Checked Then                               '   do reminder action.
-            Me.ReminderReminder(False)
+            Me.ChckBxReminderReminder.Checked = False
             Me.displayAction.DisplayReminder("Reminder", TxtBxReminderReminder.Text)
         End If
         If Me.ChckBxReminderSystem.Checked Then                                 '   do system action action.
@@ -562,12 +570,12 @@ Public Class frmKlock
                 Me.NtfyIcnKlock.Visible = False                                 '   so abort button can be deployed.
                 Me.Visible = True
             End If
-            Me.ReminderSystem(False)
-            Me.btnReminderSystemAbort.Visible = True                            '   alow system command to be aborted.
+            Me.ChckBxReminderSystem.Checked = False
+            Me.btnReminderSystemAbort.Enabled = True                            '   alow system command to be aborted.
             Me.displayAction.DoSystemCommand(CmbBxReminderSystem.SelectedIndex)
         End If
         If Me.chckBXReminderCommand.Checked Then                                '   do run command action.
-            Me.ReminderCommand(False)
+            Me.chckBXReminderCommand.Checked = False
             Me.displayAction.DoCommand(TxtBxReminderCommand.Text)
         End If
 
@@ -583,8 +591,8 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnReminderSet_Click(sender As System.Object, e As System.EventArgs) Handles btnReminderSet.Click
-        '   Set a new reminder.  Sets appropiate text and sets the gloab reminder date for checking.
-        '   Also, enables the reminder clear button, this is used to enable checking of the date.
+        '   Set a new reminder.  Sets appropiate text and sets the global reminder date for checking.
+        '   Also, enables the reminder timer, which checks if reminder is due every minute..
 
         Dim d As New DateTime(Me.DtPckrRiminder.Value.Year, _
                          Me.DtPckrRiminder.Value.Month, _
@@ -593,21 +601,21 @@ Public Class frmKlock
                          Me.TmPckrRiminder.Value.Minute, _
                          0)
 
+        Me.tmrReminder.Enabled = True       '   start reminder timer.
+
         Me.btnReminderSet.Enabled = False
-        Me.btnReminderClear.Enabled = True          '   important!!
+        Me.btnReminderClear.Enabled = True
         Me.DtPckrRiminder.Visible = False
         Me.ChckBxReminderTimeCheck.Visible = False
         Me.TmPckrRiminder.Visible = False
 
-
-
         If My.Settings.usrReminderTimeChecked Then
-            Me.lblReminderText.Text = "Reminder set for " & d.ToLongDateString & " : " & d.ToShortTimeString
+            Me.lblReminderText.Text = "Reminder set for " & d.ToLongDateString & " @ " & d.ToShortTimeString
         Else
             Me.lblReminderText.Text = "Reminder set for " & d.ToLongDateString
         End If
 
-        Me.ReminderDateTime = d            '   set global, so can be checked by main timer.
+        Me.ReminderDateTime = d            '   set global, so can be checked by reminder timer.
     End Sub
 
     Private Sub btnReminderClear_Click(sender As System.Object, e As System.EventArgs) Handles btnReminderClear.Click
@@ -619,11 +627,18 @@ Public Class frmKlock
     Private Sub clearReminder()
         '   perform the reminder clear.
 
+        Me.ChckBxReminderSound.Checked = False
+        Me.ChckBxReminderReminder.Checked = False
+        Me.ChckBxReminderSystem.Checked = False
+        Me.chckBXReminderCommand.Checked = False
+
         Me.DtPckrRiminder.Visible = True
         Me.ChckBxReminderTimeCheck.Visible = True
         Me.TmPckrRiminder.Visible = True
 
         Me.btnReminderClear.Enabled = False
+
+        Me.tmrReminder.Enabled = False      '   stop reminder timer.
 
         Me.DtPckrRiminder.Value = Today
 
@@ -836,5 +851,6 @@ Public Class frmKlock
 
 
     ' ********************************************************************************************************************************* END **************
+
 
 End Class

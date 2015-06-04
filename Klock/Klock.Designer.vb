@@ -110,6 +110,7 @@ Partial Class frmKlock
         Me.TlStrpMnItmTime = New System.Windows.Forms.ToolStripMenuItem()
         Me.TlStrpMnItmOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.TlStrpMnItmExit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tmrReminder = New System.Windows.Forms.Timer(Me.components)
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -356,6 +357,7 @@ Partial Class frmKlock
         'btnCountDownLoadCommand
         '
         Me.btnCountDownLoadCommand.Enabled = False
+        Me.btnCountDownLoadCommand.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCountDownLoadCommand.Location = New System.Drawing.Point(379, 24)
         Me.btnCountDownLoadCommand.Name = "btnCountDownLoadCommand"
         Me.btnCountDownLoadCommand.Size = New System.Drawing.Size(50, 20)
@@ -415,6 +417,7 @@ Partial Class frmKlock
         'btnCountdownLoadSound
         '
         Me.btnCountdownLoadSound.Enabled = False
+        Me.btnCountdownLoadSound.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCountdownLoadSound.Location = New System.Drawing.Point(323, 23)
         Me.btnCountdownLoadSound.Name = "btnCountdownLoadSound"
         Me.btnCountdownLoadSound.Size = New System.Drawing.Size(50, 20)
@@ -425,6 +428,7 @@ Partial Class frmKlock
         'btnCountDownTestSound
         '
         Me.btnCountDownTestSound.Enabled = False
+        Me.btnCountDownTestSound.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCountDownTestSound.Location = New System.Drawing.Point(379, 23)
         Me.btnCountDownTestSound.Name = "btnCountDownTestSound"
         Me.btnCountDownTestSound.Size = New System.Drawing.Size(50, 20)
@@ -690,6 +694,7 @@ Partial Class frmKlock
         'btnReminderLoadCommand
         '
         Me.btnReminderLoadCommand.Enabled = False
+        Me.btnReminderLoadCommand.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnReminderLoadCommand.Location = New System.Drawing.Point(379, 24)
         Me.btnReminderLoadCommand.Name = "btnReminderLoadCommand"
         Me.btnReminderLoadCommand.Size = New System.Drawing.Size(50, 20)
@@ -749,6 +754,7 @@ Partial Class frmKlock
         'btnReminderLoadSound
         '
         Me.btnReminderLoadSound.Enabled = False
+        Me.btnReminderLoadSound.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnReminderLoadSound.Location = New System.Drawing.Point(323, 23)
         Me.btnReminderLoadSound.Name = "btnReminderLoadSound"
         Me.btnReminderLoadSound.Size = New System.Drawing.Size(50, 20)
@@ -759,6 +765,7 @@ Partial Class frmKlock
         'btnReminderTestSound
         '
         Me.btnReminderTestSound.Enabled = False
+        Me.btnReminderTestSound.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnReminderTestSound.Location = New System.Drawing.Point(379, 23)
         Me.btnReminderTestSound.Name = "btnReminderTestSound"
         Me.btnReminderTestSound.Size = New System.Drawing.Size(50, 20)
@@ -924,32 +931,36 @@ Partial Class frmKlock
         '
         Me.CntxtMnStrpKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TlStrpMnItmShow, Me.TlStrpMnItmTime, Me.TlStrpMnItmOptions, Me.TlStrpMnItmExit})
         Me.CntxtMnStrpKlock.Name = "CntxtMnStrpKlock"
-        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(117, 92)
+        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(123, 92)
         '
         'TlStrpMnItmShow
         '
         Me.TlStrpMnItmShow.Name = "TlStrpMnItmShow"
-        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(116, 22)
+        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(122, 22)
         Me.TlStrpMnItmShow.Text = "Show"
         '
         'TlStrpMnItmTime
         '
         Me.TlStrpMnItmTime.CheckOnClick = True
         Me.TlStrpMnItmTime.Name = "TlStrpMnItmTime"
-        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(116, 22)
+        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(122, 22)
         Me.TlStrpMnItmTime.Text = "Time"
         '
         'TlStrpMnItmOptions
         '
         Me.TlStrpMnItmOptions.Name = "TlStrpMnItmOptions"
-        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(116, 22)
+        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(122, 22)
         Me.TlStrpMnItmOptions.Text = "Options"
         '
         'TlStrpMnItmExit
         '
         Me.TlStrpMnItmExit.Name = "TlStrpMnItmExit"
-        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(116, 22)
+        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(122, 22)
         Me.TlStrpMnItmExit.Text = "Exit"
+        '
+        'tmrReminder
+        '
+        Me.tmrReminder.Interval = 1000
         '
         'frmKlock
         '
@@ -1089,5 +1100,6 @@ Partial Class frmKlock
     Friend WithEvents TlStrpMnItmOptions As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents btnReminderSystemAbort As System.Windows.Forms.Button
     Friend WithEvents btnCountdownSystemAbort As System.Windows.Forms.Button
+    Friend WithEvents tmrReminder As System.Windows.Forms.Timer
 
 End Class
