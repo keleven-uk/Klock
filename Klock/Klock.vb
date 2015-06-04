@@ -6,21 +6,24 @@ Public Class frmKlock
 
     '   Main Klock application.       K. Scott    November 2012
 
-    '   A VB 2010 template, a starter for future projects.
+
 
     Public startTime As Integer
 
     '   Write debug onformation to test file - i.e. sw.writeLine("   ")
     '   uncomment following two lines and the close statements in form close.
+
     '   Dim fs As FileStream = New FileStream("debug.log", FileMode.Create)
     '   Dim sw As New StreamWriter(fs)
 
     Public displayTime As selectTime
+    Public displayAction As selectAction
     Public displayTimer As Timer
 
-    ' ************************************************************************************** timer routines **************************
-    ' Seperate timers are used for each function, to reduce load on main timer
+    Public CountDownTime As Integer
 
+    ' ************************************************************************************** clock routines **************************
+    ' Seperate clocks are used for each function, to reduce load on main clock
 
     Private Sub TmrMain_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TmrMain.Tick
         '   Main clock tick.
@@ -43,30 +46,50 @@ Public Class frmKlock
         End If
 
         StsLblKeys.Text = strKey
-        LblTimeTime.Text = displayTime.getTime()
+
+        LblTimeTime.Text = displayTime.getTime()                    '   display local time in desired time format.
 
     End Sub
 
     Private Sub tmrTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrTimer.Tick
         '   if enabled, timer is running - update timer label
 
-        lblTimerTime.Text = displayTimer.getHighElapsedTime()
+        If My.Settings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
+            lblTimerTime.Text = displayTimer.getHighElapsedTime()
+        Else
+            lblTimerTime.Text = displayTimer.getLowElapsedTime()
+        End If
+
+    End Sub
+
+    Private Sub tmrCountDown_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCountDown.Tick
+        '   if enabled, countdown is running - clock ticks ever second.
+
+        CountDownTime -= 1                                      '   decrement countdown every second.
+        lblCountDownTime.Text = minsToString(CountDownTime)     '   update countdown label.
+
+        If CountDownTime = 0 Then                               '   countdown has finished.
+            CountDownClear()                                    '   clear down countdown.
+            CountDownAction()                                   '   perform action.
+        End If
     End Sub
 
     '   ********************************************************************************* time ****************************************
 
     Sub setTimeTypes()
+        '   Loads the different time format types and load into combo box.
 
         Dim names = System.Enum.GetNames(GetType(selectTime.TimeTypes))
 
         CmbBxTime.Items.AddRange(names)
 
         Me.CmbBxTime.SelectedIndex = 0      '   until I know how to do this at design time :o)
-        Me.CmbBxCountDownAction.SelectedIndex = 0
 
     End Sub
 
     Private Sub CmbBxTime_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxTime.SelectedIndexChanged
+        '   inform displayTime of the chosen time format.
+
         displayTime.setType = CmbBxTime.SelectedIndex
 
     End Sub
@@ -74,6 +97,8 @@ Public Class frmKlock
     '   ********************************************************************************* timer ***************************************
 
     Private Sub btnTimerStart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerStart.Click
+        '   Start the timer
+
         displayTimer.startStopWatch()
 
         tmrTimer.Enabled = True
@@ -85,6 +110,8 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnTimerStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerStop.Click
+        '   Stop the timer, allows to be resumed by renaming the start button.
+
         displayTimer.stopStopWatch()
 
         tmrTimer.Enabled = False
@@ -97,6 +124,8 @@ Public Class frmKlock
     End Sub
 
     Private Sub btnTimerClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerClear.Click
+        '   Clears down the countdown, if enables also clear split time.
+
         displayTimer.clearStopWatch()
 
         btnTimerClear.Enabled = False
@@ -105,24 +134,261 @@ Public Class frmKlock
         btnTimerStart.Text = "Start"
         btnTimerStart.Enabled = True
 
-        lblTimerTime.Text = "00:00"
+        If My.Settings.usrTimerClearSplit Then
+            If My.Settings.usrTimerHigh Then
+                lblTimerTime.Text = "00:00:00:00"
+                lblTimerSplit.Text = "00:00:00:00"
+            Else
+                lblTimerTime.Text = "00:00:00"
+                lblTimerSplit.Text = "00:00:00"
+            End If
+            btnTimerSplitClear.Enabled = False
+        Else
+            If My.Settings.usrTimerHigh Then
+                lblTimerTime.Text = "00:00:00:00"
+            Else
+                lblTimerTime.Text = "00:00:00"
+            End If
+        End If
 
     End Sub
 
     Private Sub btnTimerSplit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerSplit.Click
+        '   Copies time to spli time.
+
         lblTimerSplit.Text = lblTimerTime.Text
 
         btnTimerSplitClear.Enabled = True
     End Sub
 
     Private Sub btnTimerSplitClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerSplitClear.Click
+        '   Clears the split time.
 
-        lblTimerSplit.Text = "00:00:00"
+        If My.Settings.usrTimerHigh Then
+            lblTimerSplit.Text = "00:00:00:00"
+        Else
+            lblTimerSplit.Text = "00:00:00"
+        End If
 
         btnTimerSplitClear.Enabled = False
     End Sub
 
+    ' **************************************************************************************** CountDown ******************************
+    Sub setActionTypes()
+        '   Loads the different action types and load into combo box.   
+        '   Loads the different system action types and load into combo box.
+
+        Dim actionNames = System.Enum.GetNames(GetType(selectAction.ActionTypes))
+        Dim systemNames = System.Enum.GetNames(GetType(selectAction.SystemTypes))
+
+        CmbBxCountDownAction.Items.AddRange(actionNames)
+        CmbBxCountDownSystem.Items.AddRange(systemNames)
+
+        Me.CmbBxCountDownAction.SelectedIndex = 0       '   until I know how to do this at design time :o)
+
+    End Sub
+
+    Private Sub upDwnCntDownValue_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles upDwnCntDownValue.ValueChanged
+        '   when the up down counter has been changed, enable the start button and update the countdown label.
+        btnCountDownStart.Enabled = True
+
+        CountDownTime = upDwnCntDownValue.Value * 60
+        lblCountDownTime.Text = minsToString(CountDownTime)
+    End Sub
+
+    Private Sub btnCountDownStart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownStart.Click
+        '   Start the countdown by enabling the timer.
+        '   Also, enable the stop button and coundown label.
+
+        tmrCountDown.Enabled = True
+
+        btnCountDownStart.Enabled = False
+        btnCountDownStop.Enabled = True
+        upDwnCntDownValue.Enabled = False
+        lblCountDownTime.Enabled = True
+    End Sub
+
+    Private Sub btnCountDownStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownStop.Click
+        '   Clear the countdown.
+
+        CountDownClear()
+    End Sub
+
+    Private Sub CmbBxCountDownAction_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxCountDownAction.SelectedIndexChanged
+        '   Depending on the position of the action combo box, enable the apporiota action controls.
+
+        Select Case Me.CmbBxCountDownAction.SelectedIndex
+            Case 0                                                  '   Sound chosen
+                ChckBxCountDownSound.Visible = True
+                TxtBxAction.Visible = True
+                btnCountdownLoadSound.Visible = True
+                btnCountDownTestSound.Visible = True
+
+                ChckBxCountDownReminder.Visible = False
+                TxtBxCountDownReminder.Visible = False
+
+                ChckBxCountDownSystem.Visible = False
+                CmbBxCountDownSystem.Visible = False
+
+                ChckBxCountDownCommand.Visible = False
+                TxtBxCountDowndCommand.Visible = False
+                btnCountDownLoadCommand.Visible = False
+            Case 1                                                  '   Reminder chosen
+                ChckBxCountDownSound.Visible = False
+                TxtBxAction.Visible = False
+                btnCountdownLoadSound.Visible = False
+                btnCountDownTestSound.Visible = False
+
+                ChckBxCountDownReminder.Visible = True
+                TxtBxCountDownReminder.Visible = True
+
+                ChckBxCountDownSystem.Visible = False
+                CmbBxCountDownSystem.Visible = False
+
+                ChckBxCountDownCommand.Visible = False
+                TxtBxCountDowndCommand.Visible = False
+                btnCountDownLoadCommand.Visible = False
+            Case 2                                                  '   System action chosen
+                ChckBxCountDownSound.Visible = False
+                TxtBxAction.Visible = False
+                btnCountdownLoadSound.Visible = False
+                btnCountDownTestSound.Visible = False
+
+                ChckBxCountDownReminder.Visible = False
+                TxtBxCountDownReminder.Visible = False
+
+                ChckBxCountDownSystem.Visible = True
+                CmbBxCountDownSystem.Visible = True
+
+                ChckBxCountDownCommand.Visible = False
+                TxtBxCountDowndCommand.Visible = False
+                btnCountDownLoadCommand.Visible = False
+            Case 3                                                  '   Run Command chosen
+                ChckBxCountDownSound.Visible = False
+                TxtBxAction.Visible = False
+                btnCountdownLoadSound.Visible = False
+                btnCountDownTestSound.Visible = False
+
+                ChckBxCountDownReminder.Visible = False
+                TxtBxCountDownReminder.Visible = False
+
+                ChckBxCountDownSystem.Visible = False
+                CmbBxCountDownSystem.Visible = False
+
+                ChckBxCountDownCommand.Visible = True
+                TxtBxCountDowndCommand.Visible = True
+                btnCountDownLoadCommand.Visible = True
+        End Select
+
+    End Sub
+
+
+    Private Sub ChckBxCountDownSound_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxCountDownSound.CheckedChanged
+        '   Selects sound action conrols if checked.
+
+        If ChckBxCountDownSound.Checked Then
+            TxtBxAction.Enabled = True
+            btnCountdownLoadSound.Enabled = True
+        Else
+            TxtBxAction.Enabled = False
+            btnCountdownLoadSound.Enabled = False
+            btnCountDownTestSound.Enabled = False
+        End If
+
+    End Sub
+
+    Private Sub ChckBxCountDownReminder_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxCountDownReminder.CheckedChanged
+        '   Selects reminder action conrols if checked.
+
+        If ChckBxCountDownReminder.Checked Then
+            TxtBxCountDownReminder.Enabled = True
+        Else
+            TxtBxCountDownReminder.Enabled = False
+        End If
+    End Sub
+
+    Private Sub ChckBxCountDownSystem_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxCountDownSystem.CheckedChanged
+        '   Selects countdown action conrols if checked.
+
+        If ChckBxCountDownSystem.Checked Then
+            CmbBxCountDownSystem.Enabled = True
+        Else
+            CmbBxCountDownSystem.Enabled = False
+        End If
+    End Sub
+
+    Private Sub ChckBxCountDownCommand_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxCountDownCommand.CheckedChanged
+        '   Selects run command action conrols if checked.
+
+        If ChckBxCountDownCommand.Checked Then
+            TxtBxCountDowndCommand.Enabled = True
+            btnCountDownLoadCommand.Enabled = True
+        Else
+            TxtBxCountDowndCommand.Enabled = False
+            btnCountDownLoadCommand.Enabled = False
+        End If
+    End Sub
+
+    Private Sub btnCountDownTestSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownTestSound.Click
+        ' play sound in test button is pressed.
+
+        displayAction.PlaySound(TxtBxAction.Text)
+    End Sub
+
+    Private Sub btnCountdownLoadSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdownLoadSound.Click
+        ' open file dialof to load sound file.
+
+        If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+            btnCountDownTestSound.Enabled = True
+            TxtBxAction.Text = OpenFileDialog1.FileName
+        End If
+
+    End Sub
+
+    Sub CountDownAction()
+        '   When CountDown is finished, perform desired action
+
+        If ChckBxCountDownSound.Checked Then                                '   do sound action.
+            displayAction.PlaySound(TxtBxAction.Text)
+        End If
+        If ChckBxCountDownReminder.Checked Then                             '   do reminder action.
+            displayAction.DisplayReminder(TxtBxCountDownReminder.Text)
+        End If
+        If ChckBxCountDownSystem.Checked Then                               '   do system action action.
+            displayAction.DoSystemCommand(CmbBxCountDownSystem.SelectedIndex)
+        End If
+        If ChckBxCountDownCommand.Checked Then                              '   do run command action.
+            displayAction.DoCommand(TxtBxCountDowndCommand.Text)
+        End If
+    End Sub
+
+    Sub CountDownClear()
+        '   Clear down CountDown.
+
+        tmrCountDown.Enabled = False
+        lblCountDownTime.Text = "00:00"
+        lblCountDownTime.Enabled = False
+        upDwnCntDownValue.Enabled = True
+        upDwnCntDownValue.Value = 0
+
+        btnCountDownStart.Enabled = False
+        btnCountDownStop.Enabled = False
+    End Sub
+
+    Function minsToString(ByVal m As Integer) As String
+        '   re-format number of seconds in string in minuts and seconds [mm:ss].
+
+        Dim hours As Integer
+        Dim mins As Integer
+
+        hours = m \ 60
+        mins = m - (hours * 60)
+
+        minsToString = String.Format("{0:00}:{1:00}", hours, mins)
+    End Function
+
     ' ********************************************************************************************************************************
+
 
     Private Sub MnItmExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmExit.Click
         '   Close application.
@@ -160,10 +426,12 @@ Public Class frmKlock
 
         startTime = My.Computer.Clock.TickCount
         displayTime = New selectTime
+        displayAction = New selectAction
         displayTimer = New Timer
 
         setSettings()
         setTimeTypes()
+        setActionTypes()
     End Sub
 
     Private Sub frmKlock_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
@@ -194,13 +462,27 @@ Public Class frmKlock
             Me.Top = My.Settings.usrFormTop
             Me.Left = My.Settings.usrFormLeft
         End If
+
+        If My.Settings.usrTimerHigh Then
+            lblTimerTime.Text = "00:00:00:00"
+            lblTimerSplit.Text = "00:00:00:00"
+        Else
+            lblTimerTime.Text = "00:00:00"
+            lblTimerSplit.Text = "00:00:00"
+        End If
+
     End Sub
 
     Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
         Close()
     End Sub
 
+    
     ' *********************************************************************************************************************************
+
+
+
+
 
 
 

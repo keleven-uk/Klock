@@ -125,6 +125,30 @@ Namespace My
                 Me("usrSavePos") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property usrTimerHigh() As Boolean
+            Get
+                Return CType(Me("usrTimerHigh"),Boolean)
+            End Get
+            Set
+                Me("usrTimerHigh") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property usrTimerClearSplit() As Boolean
+            Get
+                Return CType(Me("usrTimerClearSplit"),Boolean)
+            End Get
+            Set
+                Me("usrTimerClearSplit") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

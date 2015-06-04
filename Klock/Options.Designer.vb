@@ -33,11 +33,21 @@ Partial Class frmOptions
         Me.ChckBxOptionsSavePos = New System.Windows.Forms.CheckBox()
         Me.btnDefaultColour = New System.Windows.Forms.Button()
         Me.lblDefaultColour = New System.Windows.Forms.Label()
+        Me.TabCntrlKlock = New System.Windows.Forms.TabControl()
+        Me.TbPgGlobal = New System.Windows.Forms.TabPage()
+        Me.TbPgCountDown = New System.Windows.Forms.TabPage()
+        Me.TbPgTimer = New System.Windows.Forms.TabPage()
+        Me.ChckBxTimerHigh = New System.Windows.Forms.CheckBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.ChckBxClearSplit = New System.Windows.Forms.CheckBox()
+        Me.TabCntrlKlock.SuspendLayout()
+        Me.TbPgGlobal.SuspendLayout()
+        Me.TbPgTimer.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnOptionsClose
         '
-        Me.btnOptionsClose.Location = New System.Drawing.Point(299, 227)
+        Me.btnOptionsClose.Location = New System.Drawing.Point(461, 313)
         Me.btnOptionsClose.Name = "btnOptionsClose"
         Me.btnOptionsClose.Size = New System.Drawing.Size(75, 23)
         Me.btnOptionsClose.TabIndex = 0
@@ -46,7 +56,7 @@ Partial Class frmOptions
         '
         'btnOptionsFormColour
         '
-        Me.btnOptionsFormColour.Location = New System.Drawing.Point(299, 17)
+        Me.btnOptionsFormColour.Location = New System.Drawing.Point(277, 17)
         Me.btnOptionsFormColour.Name = "btnOptionsFormColour"
         Me.btnOptionsFormColour.Size = New System.Drawing.Size(75, 23)
         Me.btnOptionsFormColour.TabIndex = 1
@@ -56,7 +66,7 @@ Partial Class frmOptions
         'lblColour
         '
         Me.lblColour.AutoSize = True
-        Me.lblColour.Location = New System.Drawing.Point(12, 17)
+        Me.lblColour.Location = New System.Drawing.Point(16, 22)
         Me.lblColour.Name = "lblColour"
         Me.lblColour.Size = New System.Drawing.Size(129, 13)
         Me.lblColour.TabIndex = 2
@@ -64,7 +74,7 @@ Partial Class frmOptions
         '
         'btnOptionsFormFont
         '
-        Me.btnOptionsFormFont.Location = New System.Drawing.Point(299, 46)
+        Me.btnOptionsFormFont.Location = New System.Drawing.Point(277, 55)
         Me.btnOptionsFormFont.Name = "btnOptionsFormFont"
         Me.btnOptionsFormFont.Size = New System.Drawing.Size(75, 23)
         Me.btnOptionsFormFont.TabIndex = 3
@@ -74,7 +84,7 @@ Partial Class frmOptions
         'lblFont
         '
         Me.lblFont.AutoSize = True
-        Me.lblFont.Location = New System.Drawing.Point(12, 46)
+        Me.lblFont.Location = New System.Drawing.Point(16, 65)
         Me.lblFont.Name = "lblFont"
         Me.lblFont.Size = New System.Drawing.Size(120, 13)
         Me.lblFont.TabIndex = 4
@@ -88,7 +98,7 @@ Partial Class frmOptions
         '
         Me.ChckBxOptionsSavePos.AutoSize = True
         Me.ChckBxOptionsSavePos.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ChckBxOptionsSavePos.Location = New System.Drawing.Point(12, 142)
+        Me.ChckBxOptionsSavePos.Location = New System.Drawing.Point(19, 145)
         Me.ChckBxOptionsSavePos.Name = "ChckBxOptionsSavePos"
         Me.ChckBxOptionsSavePos.Size = New System.Drawing.Size(163, 17)
         Me.ChckBxOptionsSavePos.TabIndex = 5
@@ -97,7 +107,7 @@ Partial Class frmOptions
         '
         'btnDefaultColour
         '
-        Me.btnDefaultColour.Location = New System.Drawing.Point(299, 75)
+        Me.btnDefaultColour.Location = New System.Drawing.Point(277, 94)
         Me.btnDefaultColour.Name = "btnDefaultColour"
         Me.btnDefaultColour.Size = New System.Drawing.Size(75, 23)
         Me.btnDefaultColour.TabIndex = 6
@@ -107,30 +117,111 @@ Partial Class frmOptions
         'lblDefaultColour
         '
         Me.lblDefaultColour.AutoSize = True
-        Me.lblDefaultColour.Location = New System.Drawing.Point(12, 75)
+        Me.lblDefaultColour.Location = New System.Drawing.Point(16, 104)
         Me.lblDefaultColour.Name = "lblDefaultColour"
         Me.lblDefaultColour.Size = New System.Drawing.Size(120, 13)
         Me.lblDefaultColour.TabIndex = 7
         Me.lblDefaultColour.Text = "Reset to default Colours"
         '
+        'TabCntrlKlock
+        '
+        Me.TabCntrlKlock.Controls.Add(Me.TbPgGlobal)
+        Me.TabCntrlKlock.Controls.Add(Me.TbPgCountDown)
+        Me.TabCntrlKlock.Controls.Add(Me.TbPgTimer)
+        Me.TabCntrlKlock.Location = New System.Drawing.Point(12, 12)
+        Me.TabCntrlKlock.Name = "TabCntrlKlock"
+        Me.TabCntrlKlock.SelectedIndex = 0
+        Me.TabCntrlKlock.Size = New System.Drawing.Size(524, 285)
+        Me.TabCntrlKlock.TabIndex = 8
+        '
+        'TbPgGlobal
+        '
+        Me.TbPgGlobal.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgGlobal.Controls.Add(Me.lblColour)
+        Me.TbPgGlobal.Controls.Add(Me.ChckBxOptionsSavePos)
+        Me.TbPgGlobal.Controls.Add(Me.btnDefaultColour)
+        Me.TbPgGlobal.Controls.Add(Me.lblDefaultColour)
+        Me.TbPgGlobal.Controls.Add(Me.lblFont)
+        Me.TbPgGlobal.Controls.Add(Me.btnOptionsFormFont)
+        Me.TbPgGlobal.Controls.Add(Me.btnOptionsFormColour)
+        Me.TbPgGlobal.Location = New System.Drawing.Point(4, 22)
+        Me.TbPgGlobal.Name = "TbPgGlobal"
+        Me.TbPgGlobal.Padding = New System.Windows.Forms.Padding(3)
+        Me.TbPgGlobal.Size = New System.Drawing.Size(516, 259)
+        Me.TbPgGlobal.TabIndex = 0
+        Me.TbPgGlobal.Text = "Global"
+        '
+        'TbPgCountDown
+        '
+        Me.TbPgCountDown.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgCountDown.Location = New System.Drawing.Point(4, 22)
+        Me.TbPgCountDown.Name = "TbPgCountDown"
+        Me.TbPgCountDown.Padding = New System.Windows.Forms.Padding(3)
+        Me.TbPgCountDown.Size = New System.Drawing.Size(516, 259)
+        Me.TbPgCountDown.TabIndex = 1
+        Me.TbPgCountDown.Text = "CountDown"
+        '
+        'TbPgTimer
+        '
+        Me.TbPgTimer.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgTimer.Controls.Add(Me.ChckBxClearSplit)
+        Me.TbPgTimer.Controls.Add(Me.ChckBxTimerHigh)
+        Me.TbPgTimer.Location = New System.Drawing.Point(4, 22)
+        Me.TbPgTimer.Name = "TbPgTimer"
+        Me.TbPgTimer.Size = New System.Drawing.Size(516, 259)
+        Me.TbPgTimer.TabIndex = 2
+        Me.TbPgTimer.Text = "Timer"
+        '
+        'ChckBxTimerHigh
+        '
+        Me.ChckBxTimerHigh.AutoSize = True
+        Me.ChckBxTimerHigh.Location = New System.Drawing.Point(16, 26)
+        Me.ChckBxTimerHigh.Name = "ChckBxTimerHigh"
+        Me.ChckBxTimerHigh.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxTimerHigh.Size = New System.Drawing.Size(154, 17)
+        Me.ChckBxTimerHigh.TabIndex = 0
+        Me.ChckBxTimerHigh.Text = "Timer to show MilliSeconds"
+        Me.ChckBxTimerHigh.UseVisualStyleBackColor = True
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(362, 0)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(81, 17)
+        Me.CheckBox1.TabIndex = 9
+        Me.CheckBox1.Text = "CheckBox1"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'ChckBxClearSplit
+        '
+        Me.ChckBxClearSplit.AutoSize = True
+        Me.ChckBxClearSplit.Location = New System.Drawing.Point(61, 62)
+        Me.ChckBxClearSplit.Name = "ChckBxClearSplit"
+        Me.ChckBxClearSplit.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxClearSplit.Size = New System.Drawing.Size(109, 17)
+        Me.ChckBxClearSplit.TabIndex = 1
+        Me.ChckBxClearSplit.Text = "Clear to clear split"
+        Me.ChckBxClearSplit.UseVisualStyleBackColor = True
+        '
         'frmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(386, 262)
-        Me.Controls.Add(Me.lblDefaultColour)
-        Me.Controls.Add(Me.btnDefaultColour)
-        Me.Controls.Add(Me.ChckBxOptionsSavePos)
-        Me.Controls.Add(Me.lblFont)
-        Me.Controls.Add(Me.btnOptionsFormFont)
-        Me.Controls.Add(Me.lblColour)
-        Me.Controls.Add(Me.btnOptionsFormColour)
+        Me.ClientSize = New System.Drawing.Size(544, 356)
+        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.TabCntrlKlock)
         Me.Controls.Add(Me.btnOptionsClose)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmOptions"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Options"
+        Me.TabCntrlKlock.ResumeLayout(False)
+        Me.TbPgGlobal.ResumeLayout(False)
+        Me.TbPgGlobal.PerformLayout()
+        Me.TbPgTimer.ResumeLayout(False)
+        Me.TbPgTimer.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -145,4 +236,11 @@ Partial Class frmOptions
     Friend WithEvents ChckBxOptionsSavePos As System.Windows.Forms.CheckBox
     Friend WithEvents btnDefaultColour As System.Windows.Forms.Button
     Friend WithEvents lblDefaultColour As System.Windows.Forms.Label
+    Friend WithEvents TabCntrlKlock As System.Windows.Forms.TabControl
+    Friend WithEvents TbPgGlobal As System.Windows.Forms.TabPage
+    Friend WithEvents TbPgCountDown As System.Windows.Forms.TabPage
+    Friend WithEvents TbPgTimer As System.Windows.Forms.TabPage
+    Friend WithEvents ChckBxTimerHigh As System.Windows.Forms.CheckBox
+    Friend WithEvents ChckBxClearSplit As System.Windows.Forms.CheckBox
+    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
 End Class

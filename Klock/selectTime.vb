@@ -1,13 +1,18 @@
 ﻿Public Class selectTime
+    '   A class wich allows the cuurent time to be displayes in various formats.
+    '   The formats are held in the enum TimeTypes, these are exported.
 
-    Enum TimeTypes
+    '   TimeType is set to the desired time format [from TimeTypes]
+    '   getTime is then called and this will return the current time is the desired time format.
+
+
+    Enum TimeTypes                  '   types of time format available :: new ones add in here.
         FuzzyTime
         LocalTime
-        NetTime
     End Enum
 
-    Private innerTime As String
-    Private TimeType As String
+    Private innerTime As String     '   local version of re-formated time.
+    Private TimeType As String      '   local version of desired time format
 
     ' *************************************************************************************** constructor ***********************
 
@@ -17,14 +22,14 @@
     ' *************************************************************************************** time properties *******************
 
     Public ReadOnly Property getTime() As String
+        '   returns local time in desired time format. [read only]
+
         Get
             Select Case TimeType
                 Case TimeTypes.FuzzyTime
                     innerTime = getFuzzyTime()
                 Case TimeTypes.LocalTime
                     innerTime = getLocalTime()
-                Case TimeTypes.NetTime
-                    innerTime = getNetTime()
             End Select
 
             Return innerTime
@@ -32,6 +37,8 @@
     End Property
 
     Public Property setType() As String
+        '   used to set desired time format.
+
         Set(ByVal value As String)
             TimeType = value
         End Set
@@ -123,6 +130,8 @@
     End Function
 
     Private Function getLocalTime() As String
+        '   returns local time
+
         getLocalTime = Now.ToLocalTime.ToLongTimeString
     End Function
 

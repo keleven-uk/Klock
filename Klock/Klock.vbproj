@@ -113,6 +113,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="selectAction.vb" />
     <Compile Include="selectTime.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="Options.Designer.vb">

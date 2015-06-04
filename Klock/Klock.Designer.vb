@@ -45,10 +45,17 @@ Partial Class frmKlock
         Me.CmbBxTime = New System.Windows.Forms.ComboBox()
         Me.TbPgCountDown = New System.Windows.Forms.TabPage()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.TxtBxCountDowndCommand = New System.Windows.Forms.TextBox()
+        Me.btnCountDownLoadCommand = New System.Windows.Forms.Button()
+        Me.ChckBxCountDownCommand = New System.Windows.Forms.CheckBox()
+        Me.CmbBxCountDownSystem = New System.Windows.Forms.ComboBox()
+        Me.ChckBxCountDownSystem = New System.Windows.Forms.CheckBox()
+        Me.TxtBxCountDownReminder = New System.Windows.Forms.TextBox()
+        Me.ChckBxCountDownReminder = New System.Windows.Forms.CheckBox()
         Me.btnCountdownLoadSound = New System.Windows.Forms.Button()
         Me.btnCountDownTestSound = New System.Windows.Forms.Button()
         Me.TxtBxAction = New System.Windows.Forms.TextBox()
-        Me.ChckBxCountDownAction = New System.Windows.Forms.CheckBox()
+        Me.ChckBxCountDownSound = New System.Windows.Forms.CheckBox()
         Me.CmbBxCountDownAction = New System.Windows.Forms.ComboBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.upDwnCntDownValue = New System.Windows.Forms.NumericUpDown()
@@ -58,10 +65,11 @@ Partial Class frmKlock
         Me.btnCountDownStart = New System.Windows.Forms.Button()
         Me.TbPgTimer = New System.Windows.Forms.TabPage()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.btnTimerSplitClear = New System.Windows.Forms.Button()
         Me.lblTimerSplit = New System.Windows.Forms.Label()
-        Me.btnTimerSplit = New System.Windows.Forms.Button()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.lblTimerTime = New System.Windows.Forms.Label()
+        Me.btnTimerSplit = New System.Windows.Forms.Button()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.btnTimerClear = New System.Windows.Forms.Button()
         Me.btnTimerStop = New System.Windows.Forms.Button()
@@ -70,7 +78,8 @@ Partial Class frmKlock
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnHelp = New System.Windows.Forms.Button()
         Me.tmrTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.btnTimerSplitClear = New System.Windows.Forms.Button()
+        Me.tmrCountDown = New System.Windows.Forms.Timer(Me.components)
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -268,16 +277,90 @@ Partial Class frmKlock
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.TxtBxCountDowndCommand)
+        Me.GroupBox5.Controls.Add(Me.btnCountDownLoadCommand)
+        Me.GroupBox5.Controls.Add(Me.ChckBxCountDownCommand)
+        Me.GroupBox5.Controls.Add(Me.CmbBxCountDownSystem)
+        Me.GroupBox5.Controls.Add(Me.ChckBxCountDownSystem)
+        Me.GroupBox5.Controls.Add(Me.TxtBxCountDownReminder)
+        Me.GroupBox5.Controls.Add(Me.ChckBxCountDownReminder)
         Me.GroupBox5.Controls.Add(Me.btnCountdownLoadSound)
         Me.GroupBox5.Controls.Add(Me.btnCountDownTestSound)
         Me.GroupBox5.Controls.Add(Me.TxtBxAction)
-        Me.GroupBox5.Controls.Add(Me.ChckBxCountDownAction)
+        Me.GroupBox5.Controls.Add(Me.ChckBxCountDownSound)
         Me.GroupBox5.Controls.Add(Me.CmbBxCountDownAction)
         Me.GroupBox5.Location = New System.Drawing.Point(115, 69)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(440, 57)
         Me.GroupBox5.TabIndex = 2
         Me.GroupBox5.TabStop = False
+        '
+        'TxtBxCountDowndCommand
+        '
+        Me.TxtBxCountDowndCommand.Enabled = False
+        Me.TxtBxCountDowndCommand.Location = New System.Drawing.Point(190, 24)
+        Me.TxtBxCountDowndCommand.Name = "TxtBxCountDowndCommand"
+        Me.TxtBxCountDowndCommand.Size = New System.Drawing.Size(183, 20)
+        Me.TxtBxCountDowndCommand.TabIndex = 11
+        '
+        'btnCountDownLoadCommand
+        '
+        Me.btnCountDownLoadCommand.Enabled = False
+        Me.btnCountDownLoadCommand.Location = New System.Drawing.Point(379, 24)
+        Me.btnCountDownLoadCommand.Name = "btnCountDownLoadCommand"
+        Me.btnCountDownLoadCommand.Size = New System.Drawing.Size(50, 20)
+        Me.btnCountDownLoadCommand.TabIndex = 10
+        Me.btnCountDownLoadCommand.Text = "..."
+        Me.btnCountDownLoadCommand.UseVisualStyleBackColor = True
+        '
+        'ChckBxCountDownCommand
+        '
+        Me.ChckBxCountDownCommand.AutoSize = True
+        Me.ChckBxCountDownCommand.Location = New System.Drawing.Point(111, 23)
+        Me.ChckBxCountDownCommand.Name = "ChckBxCountDownCommand"
+        Me.ChckBxCountDownCommand.Size = New System.Drawing.Size(73, 17)
+        Me.ChckBxCountDownCommand.TabIndex = 9
+        Me.ChckBxCountDownCommand.Text = "Command"
+        Me.ChckBxCountDownCommand.UseVisualStyleBackColor = True
+        '
+        'CmbBxCountDownSystem
+        '
+        Me.CmbBxCountDownSystem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CmbBxCountDownSystem.Enabled = False
+        Me.CmbBxCountDownSystem.FormattingEnabled = True
+        Me.CmbBxCountDownSystem.Location = New System.Drawing.Point(174, 23)
+        Me.CmbBxCountDownSystem.Name = "CmbBxCountDownSystem"
+        Me.CmbBxCountDownSystem.Size = New System.Drawing.Size(100, 21)
+        Me.CmbBxCountDownSystem.TabIndex = 8
+        '
+        'ChckBxCountDownSystem
+        '
+        Me.ChckBxCountDownSystem.AutoSize = True
+        Me.ChckBxCountDownSystem.Location = New System.Drawing.Point(111, 23)
+        Me.ChckBxCountDownSystem.Name = "ChckBxCountDownSystem"
+        Me.ChckBxCountDownSystem.Size = New System.Drawing.Size(60, 17)
+        Me.ChckBxCountDownSystem.TabIndex = 7
+        Me.ChckBxCountDownSystem.Text = "System"
+        Me.ChckBxCountDownSystem.UseVisualStyleBackColor = True
+        '
+        'TxtBxCountDownReminder
+        '
+        Me.TxtBxCountDownReminder.Enabled = False
+        Me.TxtBxCountDownReminder.Location = New System.Drawing.Point(188, 24)
+        Me.TxtBxCountDownReminder.Name = "TxtBxCountDownReminder"
+        Me.TxtBxCountDownReminder.Size = New System.Drawing.Size(241, 20)
+        Me.TxtBxCountDownReminder.TabIndex = 6
+        Me.TxtBxCountDownReminder.Text = "Finished counting, now Sir!"
+        '
+        'ChckBxCountDownReminder
+        '
+        Me.ChckBxCountDownReminder.AutoSize = True
+        Me.ChckBxCountDownReminder.Location = New System.Drawing.Point(111, 23)
+        Me.ChckBxCountDownReminder.Name = "ChckBxCountDownReminder"
+        Me.ChckBxCountDownReminder.Size = New System.Drawing.Size(71, 17)
+        Me.ChckBxCountDownReminder.TabIndex = 5
+        Me.ChckBxCountDownReminder.Text = "Reminder"
+        Me.ChckBxCountDownReminder.UseVisualStyleBackColor = True
         '
         'btnCountdownLoadSound
         '
@@ -301,31 +384,29 @@ Partial Class frmKlock
         '
         'TxtBxAction
         '
-        Me.TxtBxAction.Location = New System.Drawing.Point(160, 23)
+        Me.TxtBxAction.Enabled = False
+        Me.TxtBxAction.Location = New System.Drawing.Point(174, 23)
         Me.TxtBxAction.Name = "TxtBxAction"
         Me.TxtBxAction.Size = New System.Drawing.Size(143, 20)
         Me.TxtBxAction.TabIndex = 2
         '
-        'ChckBxCountDownAction
+        'ChckBxCountDownSound
         '
-        Me.ChckBxCountDownAction.AutoSize = True
-        Me.ChckBxCountDownAction.Enabled = False
-        Me.ChckBxCountDownAction.Location = New System.Drawing.Point(97, 23)
-        Me.ChckBxCountDownAction.Name = "ChckBxCountDownAction"
-        Me.ChckBxCountDownAction.Size = New System.Drawing.Size(57, 17)
-        Me.ChckBxCountDownAction.TabIndex = 1
-        Me.ChckBxCountDownAction.Text = "Sound"
-        Me.ChckBxCountDownAction.UseVisualStyleBackColor = True
+        Me.ChckBxCountDownSound.AutoSize = True
+        Me.ChckBxCountDownSound.Location = New System.Drawing.Point(111, 23)
+        Me.ChckBxCountDownSound.Name = "ChckBxCountDownSound"
+        Me.ChckBxCountDownSound.Size = New System.Drawing.Size(57, 17)
+        Me.ChckBxCountDownSound.TabIndex = 1
+        Me.ChckBxCountDownSound.Text = "Sound"
+        Me.ChckBxCountDownSound.UseVisualStyleBackColor = True
         '
         'CmbBxCountDownAction
         '
         Me.CmbBxCountDownAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxCountDownAction.Enabled = False
         Me.CmbBxCountDownAction.FormattingEnabled = True
-        Me.CmbBxCountDownAction.Items.AddRange(New Object() {"Sound", "Reminder", "System", "Command"})
         Me.CmbBxCountDownAction.Location = New System.Drawing.Point(18, 19)
         Me.CmbBxCountDownAction.Name = "CmbBxCountDownAction"
-        Me.CmbBxCountDownAction.Size = New System.Drawing.Size(57, 21)
+        Me.CmbBxCountDownAction.Size = New System.Drawing.Size(76, 21)
         Me.CmbBxCountDownAction.TabIndex = 0
         '
         'GroupBox4
@@ -340,7 +421,6 @@ Partial Class frmKlock
         '
         'upDwnCntDownValue
         '
-        Me.upDwnCntDownValue.Enabled = False
         Me.upDwnCntDownValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.upDwnCntDownValue.Location = New System.Drawing.Point(18, 16)
         Me.upDwnCntDownValue.Maximum = New Decimal(New Integer() {90, 0, 0, 0})
@@ -411,6 +491,16 @@ Partial Class frmKlock
         Me.GroupBox8.TabIndex = 2
         Me.GroupBox8.TabStop = False
         '
+        'btnTimerSplitClear
+        '
+        Me.btnTimerSplitClear.Enabled = False
+        Me.btnTimerSplitClear.Location = New System.Drawing.Point(298, 22)
+        Me.btnTimerSplitClear.Name = "btnTimerSplitClear"
+        Me.btnTimerSplitClear.Size = New System.Drawing.Size(75, 23)
+        Me.btnTimerSplitClear.TabIndex = 2
+        Me.btnTimerSplitClear.Text = "Clear"
+        Me.btnTimerSplitClear.UseVisualStyleBackColor = True
+        '
         'lblTimerSplit
         '
         Me.lblTimerSplit.AutoSize = True
@@ -421,17 +511,6 @@ Partial Class frmKlock
         Me.lblTimerSplit.Size = New System.Drawing.Size(151, 39)
         Me.lblTimerSplit.TabIndex = 1
         Me.lblTimerSplit.Text = "00:00:00"
-        '
-        'btnTimerSplit
-        '
-        Me.btnTimerSplit.Enabled = False
-        Me.btnTimerSplit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnTimerSplit.Location = New System.Drawing.Point(298, 19)
-        Me.btnTimerSplit.Name = "btnTimerSplit"
-        Me.btnTimerSplit.Size = New System.Drawing.Size(75, 23)
-        Me.btnTimerSplit.TabIndex = 0
-        Me.btnTimerSplit.Text = "Split"
-        Me.btnTimerSplit.UseVisualStyleBackColor = True
         '
         'GroupBox7
         '
@@ -453,6 +532,17 @@ Partial Class frmKlock
         Me.lblTimerTime.Size = New System.Drawing.Size(151, 39)
         Me.lblTimerTime.TabIndex = 0
         Me.lblTimerTime.Text = "00:00:00"
+        '
+        'btnTimerSplit
+        '
+        Me.btnTimerSplit.Enabled = False
+        Me.btnTimerSplit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnTimerSplit.Location = New System.Drawing.Point(298, 19)
+        Me.btnTimerSplit.Name = "btnTimerSplit"
+        Me.btnTimerSplit.Size = New System.Drawing.Size(75, 23)
+        Me.btnTimerSplit.TabIndex = 0
+        Me.btnTimerSplit.Text = "Split"
+        Me.btnTimerSplit.UseVisualStyleBackColor = True
         '
         'GroupBox6
         '
@@ -526,15 +616,13 @@ Partial Class frmKlock
         'tmrTimer
         '
         '
-        'btnTimerSplitClear
+        'tmrCountDown
         '
-        Me.btnTimerSplitClear.Enabled = False
-        Me.btnTimerSplitClear.Location = New System.Drawing.Point(298, 22)
-        Me.btnTimerSplitClear.Name = "btnTimerSplitClear"
-        Me.btnTimerSplitClear.Size = New System.Drawing.Size(75, 23)
-        Me.btnTimerSplitClear.TabIndex = 2
-        Me.btnTimerSplitClear.Text = "Clear"
-        Me.btnTimerSplitClear.UseVisualStyleBackColor = True
+        Me.tmrCountDown.Interval = 1000
+        '
+        'OpenFileDialog1
+        '
+        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
         'frmKlock
         '
@@ -610,7 +698,7 @@ Partial Class frmKlock
     Friend WithEvents btnCountdownLoadSound As System.Windows.Forms.Button
     Friend WithEvents btnCountDownTestSound As System.Windows.Forms.Button
     Friend WithEvents TxtBxAction As System.Windows.Forms.TextBox
-    Friend WithEvents ChckBxCountDownAction As System.Windows.Forms.CheckBox
+    Friend WithEvents ChckBxCountDownSound As System.Windows.Forms.CheckBox
     Friend WithEvents btnHide As System.Windows.Forms.Button
     Friend WithEvents btnClose As System.Windows.Forms.Button
     Friend WithEvents btnHelp As System.Windows.Forms.Button
@@ -625,5 +713,14 @@ Partial Class frmKlock
     Friend WithEvents btnTimerStart As System.Windows.Forms.Button
     Friend WithEvents tmrTimer As System.Windows.Forms.Timer
     Friend WithEvents btnTimerSplitClear As System.Windows.Forms.Button
+    Friend WithEvents tmrCountDown As System.Windows.Forms.Timer
+    Friend WithEvents ChckBxCountDownReminder As System.Windows.Forms.CheckBox
+    Friend WithEvents TxtBxCountDownReminder As System.Windows.Forms.TextBox
+    Friend WithEvents ChckBxCountDownSystem As System.Windows.Forms.CheckBox
+    Friend WithEvents CmbBxCountDownSystem As System.Windows.Forms.ComboBox
+    Friend WithEvents ChckBxCountDownCommand As System.Windows.Forms.CheckBox
+    Friend WithEvents TxtBxCountDowndCommand As System.Windows.Forms.TextBox
+    Friend WithEvents btnCountDownLoadCommand As System.Windows.Forms.Button
+    Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
 
 End Class
