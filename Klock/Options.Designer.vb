@@ -66,6 +66,9 @@ Partial Class frmOptions
         Me.ChckBxTimeQuarterChimes = New System.Windows.Forms.CheckBox()
         Me.ChckBxTimeHourlyChimes = New System.Windows.Forms.CheckBox()
         Me.ChckBxTimeHourPips = New System.Windows.Forms.CheckBox()
+        Me.TbPgCountdown = New System.Windows.Forms.TabPage()
+        Me.GroupBox9 = New System.Windows.Forms.GroupBox()
+        Me.ChckBxCountdownAdd = New System.Windows.Forms.CheckBox()
         Me.TbPgTimer = New System.Windows.Forms.TabPage()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.ChckBxTimerAdd = New System.Windows.Forms.CheckBox()
@@ -75,10 +78,24 @@ Partial Class frmOptions
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.ChckBxReminderAdd = New System.Windows.Forms.CheckBox()
         Me.ChckBxReminderTimeCheck = New System.Windows.Forms.CheckBox()
-        Me.TbPgCountdown = New System.Windows.Forms.TabPage()
-        Me.GroupBox9 = New System.Windows.Forms.GroupBox()
-        Me.ChckBxCountdownAdd = New System.Windows.Forms.CheckBox()
+        Me.TbPgFriends = New System.Windows.Forms.TabPage()
+        Me.GroupBox11 = New System.Windows.Forms.GroupBox()
+        Me.btnArchieveFriendsLoad = New System.Windows.Forms.Button()
+        Me.btnArchieveFriendsSave = New System.Windows.Forms.Button()
+        Me.TxtBxArchieveFriendsFile = New System.Windows.Forms.TextBox()
+        Me.TxtBxArchieveFriendsDirectory = New System.Windows.Forms.TextBox()
+        Me.btnArchieveFriendsFile = New System.Windows.Forms.Button()
+        Me.btnArchieveFriendsDirectory = New System.Windows.Forms.Button()
+        Me.GroupBox10 = New System.Windows.Forms.GroupBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.btnOptionsFriendsPathReset = New System.Windows.Forms.Button()
+        Me.btnOptionsFriendsFile = New System.Windows.Forms.Button()
+        Me.TxtBxOptionsFriendsFile = New System.Windows.Forms.TextBox()
+        Me.btnOptionsFriendsDirectory = New System.Windows.Forms.Button()
+        Me.TxtBxOptionsFriendsDirectory = New System.Windows.Forms.TextBox()
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.TabCntrlOptions.SuspendLayout()
         Me.TbPgGlobal.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
@@ -93,12 +110,15 @@ Partial Class frmOptions
         Me.GroupBox3.SuspendLayout()
         CType(Me.UpDwnTimeDisplay, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
+        Me.TbPgCountdown.SuspendLayout()
+        Me.GroupBox9.SuspendLayout()
         Me.TbPgTimer.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.TbPgReminder.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
-        Me.TbPgCountdown.SuspendLayout()
-        Me.GroupBox9.SuspendLayout()
+        Me.TbPgFriends.SuspendLayout()
+        Me.GroupBox11.SuspendLayout()
+        Me.GroupBox10.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnOptionsClose
@@ -192,6 +212,7 @@ Partial Class frmOptions
         Me.TabCntrlOptions.Controls.Add(Me.TbPgCountdown)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgTimer)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgReminder)
+        Me.TabCntrlOptions.Controls.Add(Me.TbPgFriends)
         Me.TabCntrlOptions.Location = New System.Drawing.Point(12, 12)
         Me.TabCntrlOptions.Name = "TabCntrlOptions"
         Me.TabCntrlOptions.SelectedIndex = 0
@@ -221,6 +242,7 @@ Partial Class frmOptions
         Me.GroupBox8.Size = New System.Drawing.Size(366, 68)
         Me.GroupBox8.TabIndex = 12
         Me.GroupBox8.TabStop = False
+        Me.GroupBox8.Text = "Behavour"
         '
         'ChckBxOptionsRunOnStartup
         '
@@ -257,6 +279,7 @@ Partial Class frmOptions
         Me.GroupBox7.Size = New System.Drawing.Size(366, 99)
         Me.GroupBox7.TabIndex = 11
         Me.GroupBox7.TabStop = False
+        Me.GroupBox7.Text = "Apperance [Not Implemented]"
         '
         'btnOptionsTestVolume
         '
@@ -309,9 +332,10 @@ Partial Class frmOptions
         Me.GroupBox6.Controls.Add(Me.Label4)
         Me.GroupBox6.Location = New System.Drawing.Point(4, 3)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(371, 201)
+        Me.GroupBox6.Size = New System.Drawing.Size(371, 253)
         Me.GroupBox6.TabIndex = 9
         Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Appearance"
         '
         'Label1
         '
@@ -425,6 +449,7 @@ Partial Class frmOptions
         Me.GroupBox3.Size = New System.Drawing.Size(356, 111)
         Me.GroupBox3.TabIndex = 5
         Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Settings"
         '
         'ChckBxTimeNetSeconds
         '
@@ -538,6 +563,38 @@ Partial Class frmOptions
         Me.ChckBxTimeHourPips.Text = "Sound ""The Pips"" on the Hour"
         Me.ChckBxTimeHourPips.UseVisualStyleBackColor = True
         '
+        'TbPgCountdown
+        '
+        Me.TbPgCountdown.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgCountdown.Controls.Add(Me.GroupBox9)
+        Me.TbPgCountdown.Location = New System.Drawing.Point(4, 22)
+        Me.TbPgCountdown.Name = "TbPgCountdown"
+        Me.TbPgCountdown.Padding = New System.Windows.Forms.Padding(3)
+        Me.TbPgCountdown.Size = New System.Drawing.Size(378, 259)
+        Me.TbPgCountdown.TabIndex = 5
+        Me.TbPgCountdown.Text = "Countdown"
+        '
+        'GroupBox9
+        '
+        Me.GroupBox9.Controls.Add(Me.ChckBxCountdownAdd)
+        Me.GroupBox9.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox9.Name = "GroupBox9"
+        Me.GroupBox9.Size = New System.Drawing.Size(366, 247)
+        Me.GroupBox9.TabIndex = 0
+        Me.GroupBox9.TabStop = False
+        Me.GroupBox9.Text = "Settings"
+        '
+        'ChckBxCountdownAdd
+        '
+        Me.ChckBxCountdownAdd.AutoSize = True
+        Me.ChckBxCountdownAdd.Location = New System.Drawing.Point(6, 19)
+        Me.ChckBxCountdownAdd.Name = "ChckBxCountdownAdd"
+        Me.ChckBxCountdownAdd.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxCountdownAdd.Size = New System.Drawing.Size(214, 17)
+        Me.ChckBxCountdownAdd.TabIndex = 0
+        Me.ChckBxCountdownAdd.Text = "Add Countdown to Notification and Title"
+        Me.ChckBxCountdownAdd.UseVisualStyleBackColor = True
+        '
         'TbPgTimer
         '
         Me.TbPgTimer.BackColor = System.Drawing.SystemColors.Control
@@ -555,9 +612,10 @@ Partial Class frmOptions
         Me.GroupBox4.Controls.Add(Me.ChckBxClearSplit)
         Me.GroupBox4.Location = New System.Drawing.Point(12, 3)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(363, 117)
+        Me.GroupBox4.Size = New System.Drawing.Size(363, 253)
         Me.GroupBox4.TabIndex = 2
         Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Settings"
         '
         'ChckBxTimerAdd
         '
@@ -608,9 +666,10 @@ Partial Class frmOptions
         Me.GroupBox5.Controls.Add(Me.ChckBxReminderTimeCheck)
         Me.GroupBox5.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(372, 76)
+        Me.GroupBox5.Size = New System.Drawing.Size(372, 253)
         Me.GroupBox5.TabIndex = 1
         Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Settings"
         '
         'ChckBxReminderAdd
         '
@@ -634,36 +693,153 @@ Partial Class frmOptions
         Me.ChckBxReminderTimeCheck.Text = "Time checked"
         Me.ChckBxReminderTimeCheck.UseVisualStyleBackColor = True
         '
-        'TbPgCountdown
+        'TbPgFriends
         '
-        Me.TbPgCountdown.BackColor = System.Drawing.SystemColors.Control
-        Me.TbPgCountdown.Controls.Add(Me.GroupBox9)
-        Me.TbPgCountdown.Location = New System.Drawing.Point(4, 22)
-        Me.TbPgCountdown.Name = "TbPgCountdown"
-        Me.TbPgCountdown.Padding = New System.Windows.Forms.Padding(3)
-        Me.TbPgCountdown.Size = New System.Drawing.Size(378, 259)
-        Me.TbPgCountdown.TabIndex = 5
-        Me.TbPgCountdown.Text = "Countdown"
+        Me.TbPgFriends.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgFriends.Controls.Add(Me.GroupBox11)
+        Me.TbPgFriends.Controls.Add(Me.GroupBox10)
+        Me.TbPgFriends.Location = New System.Drawing.Point(4, 22)
+        Me.TbPgFriends.Name = "TbPgFriends"
+        Me.TbPgFriends.Padding = New System.Windows.Forms.Padding(3)
+        Me.TbPgFriends.Size = New System.Drawing.Size(378, 259)
+        Me.TbPgFriends.TabIndex = 6
+        Me.TbPgFriends.Text = "Friends"
         '
-        'GroupBox9
+        'GroupBox11
         '
-        Me.GroupBox9.Controls.Add(Me.ChckBxCountdownAdd)
-        Me.GroupBox9.Location = New System.Drawing.Point(6, 6)
-        Me.GroupBox9.Name = "GroupBox9"
-        Me.GroupBox9.Size = New System.Drawing.Size(366, 89)
-        Me.GroupBox9.TabIndex = 0
-        Me.GroupBox9.TabStop = False
+        Me.GroupBox11.Controls.Add(Me.btnArchieveFriendsLoad)
+        Me.GroupBox11.Controls.Add(Me.btnArchieveFriendsSave)
+        Me.GroupBox11.Controls.Add(Me.TxtBxArchieveFriendsFile)
+        Me.GroupBox11.Controls.Add(Me.TxtBxArchieveFriendsDirectory)
+        Me.GroupBox11.Controls.Add(Me.btnArchieveFriendsFile)
+        Me.GroupBox11.Controls.Add(Me.btnArchieveFriendsDirectory)
+        Me.GroupBox11.Location = New System.Drawing.Point(6, 89)
+        Me.GroupBox11.Name = "GroupBox11"
+        Me.GroupBox11.Size = New System.Drawing.Size(366, 164)
+        Me.GroupBox11.TabIndex = 1
+        Me.GroupBox11.TabStop = False
+        Me.GroupBox11.Text = "Archieve"
         '
-        'ChckBxCountdownAdd
+        'btnArchieveFriendsLoad
         '
-        Me.ChckBxCountdownAdd.AutoSize = True
-        Me.ChckBxCountdownAdd.Location = New System.Drawing.Point(6, 19)
-        Me.ChckBxCountdownAdd.Name = "ChckBxCountdownAdd"
-        Me.ChckBxCountdownAdd.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxCountdownAdd.Size = New System.Drawing.Size(214, 17)
-        Me.ChckBxCountdownAdd.TabIndex = 0
-        Me.ChckBxCountdownAdd.Text = "Add Countdown to Notification and Title"
-        Me.ChckBxCountdownAdd.UseVisualStyleBackColor = True
+        Me.btnArchieveFriendsLoad.Enabled = False
+        Me.btnArchieveFriendsLoad.Location = New System.Drawing.Point(202, 56)
+        Me.btnArchieveFriendsLoad.Name = "btnArchieveFriendsLoad"
+        Me.btnArchieveFriendsLoad.Size = New System.Drawing.Size(75, 23)
+        Me.btnArchieveFriendsLoad.TabIndex = 5
+        Me.btnArchieveFriendsLoad.Text = "Load"
+        Me.btnArchieveFriendsLoad.UseVisualStyleBackColor = True
+        '
+        'btnArchieveFriendsSave
+        '
+        Me.btnArchieveFriendsSave.Enabled = False
+        Me.btnArchieveFriendsSave.Location = New System.Drawing.Point(91, 56)
+        Me.btnArchieveFriendsSave.Name = "btnArchieveFriendsSave"
+        Me.btnArchieveFriendsSave.Size = New System.Drawing.Size(75, 23)
+        Me.btnArchieveFriendsSave.TabIndex = 4
+        Me.btnArchieveFriendsSave.Text = "Save"
+        Me.btnArchieveFriendsSave.UseVisualStyleBackColor = True
+        '
+        'TxtBxArchieveFriendsFile
+        '
+        Me.TxtBxArchieveFriendsFile.Location = New System.Drawing.Point(248, 20)
+        Me.TxtBxArchieveFriendsFile.Name = "TxtBxArchieveFriendsFile"
+        Me.TxtBxArchieveFriendsFile.ReadOnly = True
+        Me.TxtBxArchieveFriendsFile.Size = New System.Drawing.Size(66, 20)
+        Me.TxtBxArchieveFriendsFile.TabIndex = 3
+        '
+        'TxtBxArchieveFriendsDirectory
+        '
+        Me.TxtBxArchieveFriendsDirectory.Location = New System.Drawing.Point(6, 20)
+        Me.TxtBxArchieveFriendsDirectory.Name = "TxtBxArchieveFriendsDirectory"
+        Me.TxtBxArchieveFriendsDirectory.ReadOnly = True
+        Me.TxtBxArchieveFriendsDirectory.Size = New System.Drawing.Size(190, 20)
+        Me.TxtBxArchieveFriendsDirectory.TabIndex = 2
+        '
+        'btnArchieveFriendsFile
+        '
+        Me.btnArchieveFriendsFile.Location = New System.Drawing.Point(320, 19)
+        Me.btnArchieveFriendsFile.Name = "btnArchieveFriendsFile"
+        Me.btnArchieveFriendsFile.Size = New System.Drawing.Size(40, 20)
+        Me.btnArchieveFriendsFile.TabIndex = 1
+        Me.btnArchieveFriendsFile.Text = "..."
+        Me.btnArchieveFriendsFile.UseVisualStyleBackColor = True
+        '
+        'btnArchieveFriendsDirectory
+        '
+        Me.btnArchieveFriendsDirectory.Location = New System.Drawing.Point(202, 19)
+        Me.btnArchieveFriendsDirectory.Name = "btnArchieveFriendsDirectory"
+        Me.btnArchieveFriendsDirectory.Size = New System.Drawing.Size(40, 20)
+        Me.btnArchieveFriendsDirectory.TabIndex = 0
+        Me.btnArchieveFriendsDirectory.Text = "..."
+        Me.btnArchieveFriendsDirectory.UseVisualStyleBackColor = True
+        '
+        'GroupBox10
+        '
+        Me.GroupBox10.Controls.Add(Me.Label7)
+        Me.GroupBox10.Controls.Add(Me.btnOptionsFriendsPathReset)
+        Me.GroupBox10.Controls.Add(Me.btnOptionsFriendsFile)
+        Me.GroupBox10.Controls.Add(Me.TxtBxOptionsFriendsFile)
+        Me.GroupBox10.Controls.Add(Me.btnOptionsFriendsDirectory)
+        Me.GroupBox10.Controls.Add(Me.TxtBxOptionsFriendsDirectory)
+        Me.GroupBox10.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox10.Name = "GroupBox10"
+        Me.GroupBox10.Size = New System.Drawing.Size(366, 77)
+        Me.GroupBox10.TabIndex = 0
+        Me.GroupBox10.TabStop = False
+        Me.GroupBox10.Text = "Data Files"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(6, 50)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(185, 13)
+        Me.Label7.TabIndex = 5
+        Me.Label7.Text = "Reset path back to Application Folder"
+        '
+        'btnOptionsFriendsPathReset
+        '
+        Me.btnOptionsFriendsPathReset.Location = New System.Drawing.Point(202, 46)
+        Me.btnOptionsFriendsPathReset.Name = "btnOptionsFriendsPathReset"
+        Me.btnOptionsFriendsPathReset.Size = New System.Drawing.Size(40, 20)
+        Me.btnOptionsFriendsPathReset.TabIndex = 4
+        Me.btnOptionsFriendsPathReset.Text = "..."
+        Me.btnOptionsFriendsPathReset.UseVisualStyleBackColor = True
+        '
+        'btnOptionsFriendsFile
+        '
+        Me.btnOptionsFriendsFile.Location = New System.Drawing.Point(320, 18)
+        Me.btnOptionsFriendsFile.Name = "btnOptionsFriendsFile"
+        Me.btnOptionsFriendsFile.Size = New System.Drawing.Size(40, 20)
+        Me.btnOptionsFriendsFile.TabIndex = 3
+        Me.btnOptionsFriendsFile.Text = "..."
+        Me.btnOptionsFriendsFile.UseVisualStyleBackColor = True
+        '
+        'TxtBxOptionsFriendsFile
+        '
+        Me.TxtBxOptionsFriendsFile.Location = New System.Drawing.Point(248, 18)
+        Me.TxtBxOptionsFriendsFile.Name = "TxtBxOptionsFriendsFile"
+        Me.TxtBxOptionsFriendsFile.ReadOnly = True
+        Me.TxtBxOptionsFriendsFile.Size = New System.Drawing.Size(66, 20)
+        Me.TxtBxOptionsFriendsFile.TabIndex = 2
+        '
+        'btnOptionsFriendsDirectory
+        '
+        Me.btnOptionsFriendsDirectory.Location = New System.Drawing.Point(202, 17)
+        Me.btnOptionsFriendsDirectory.Name = "btnOptionsFriendsDirectory"
+        Me.btnOptionsFriendsDirectory.Size = New System.Drawing.Size(40, 20)
+        Me.btnOptionsFriendsDirectory.TabIndex = 1
+        Me.btnOptionsFriendsDirectory.Text = "..."
+        Me.btnOptionsFriendsDirectory.UseVisualStyleBackColor = True
+        '
+        'TxtBxOptionsFriendsDirectory
+        '
+        Me.TxtBxOptionsFriendsDirectory.Location = New System.Drawing.Point(6, 18)
+        Me.TxtBxOptionsFriendsDirectory.Name = "TxtBxOptionsFriendsDirectory"
+        Me.TxtBxOptionsFriendsDirectory.ReadOnly = True
+        Me.TxtBxOptionsFriendsDirectory.Size = New System.Drawing.Size(190, 20)
+        Me.TxtBxOptionsFriendsDirectory.TabIndex = 0
         '
         'btnOptionsCancel
         '
@@ -673,6 +849,11 @@ Partial Class frmOptions
         Me.btnOptionsCancel.TabIndex = 9
         Me.btnOptionsCancel.Text = "Cancel"
         Me.btnOptionsCancel.UseVisualStyleBackColor = True
+        '
+        'OpenFileDialog1
+        '
+        Me.OpenFileDialog1.CheckFileExists = False
+        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
         'frmOptions
         '
@@ -685,7 +866,7 @@ Partial Class frmOptions
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmOptions"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Options"
         Me.TabCntrlOptions.ResumeLayout(False)
         Me.TbPgGlobal.ResumeLayout(False)
@@ -707,15 +888,20 @@ Partial Class frmOptions
         CType(Me.UpDwnTimeDisplay, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.TbPgCountdown.ResumeLayout(False)
+        Me.GroupBox9.ResumeLayout(False)
+        Me.GroupBox9.PerformLayout()
         Me.TbPgTimer.ResumeLayout(False)
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         Me.TbPgReminder.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
-        Me.TbPgCountdown.ResumeLayout(False)
-        Me.GroupBox9.ResumeLayout(False)
-        Me.GroupBox9.PerformLayout()
+        Me.TbPgFriends.ResumeLayout(False)
+        Me.GroupBox11.ResumeLayout(False)
+        Me.GroupBox11.PerformLayout()
+        Me.GroupBox10.ResumeLayout(False)
+        Me.GroupBox10.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -775,4 +961,21 @@ Partial Class frmOptions
     Friend WithEvents TbPgCountdown As System.Windows.Forms.TabPage
     Friend WithEvents GroupBox9 As System.Windows.Forms.GroupBox
     Friend WithEvents ChckBxCountdownAdd As System.Windows.Forms.CheckBox
+    Friend WithEvents TbPgFriends As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox10 As System.Windows.Forms.GroupBox
+    Friend WithEvents btnOptionsFriendsFile As System.Windows.Forms.Button
+    Friend WithEvents TxtBxOptionsFriendsFile As System.Windows.Forms.TextBox
+    Friend WithEvents btnOptionsFriendsDirectory As System.Windows.Forms.Button
+    Friend WithEvents TxtBxOptionsFriendsDirectory As System.Windows.Forms.TextBox
+    Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
+    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents btnOptionsFriendsPathReset As System.Windows.Forms.Button
+    Friend WithEvents GroupBox11 As System.Windows.Forms.GroupBox
+    Friend WithEvents TxtBxArchieveFriendsFile As System.Windows.Forms.TextBox
+    Friend WithEvents TxtBxArchieveFriendsDirectory As System.Windows.Forms.TextBox
+    Friend WithEvents btnArchieveFriendsFile As System.Windows.Forms.Button
+    Friend WithEvents btnArchieveFriendsDirectory As System.Windows.Forms.Button
+    Friend WithEvents btnArchieveFriendsLoad As System.Windows.Forms.Button
+    Friend WithEvents btnArchieveFriendsSave As System.Windows.Forms.Button
 End Class

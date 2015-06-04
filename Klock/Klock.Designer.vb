@@ -183,11 +183,11 @@ Partial Class frmKlock
         'StsStrpInfo
         '
         Me.StsStrpInfo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsLblTime, Me.StsLblDate, Me.StsLblKeys})
-        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 235)
+        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 233)
         Me.StsStrpInfo.Name = "StsStrpInfo"
         Me.StsStrpInfo.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.StsStrpInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.StsStrpInfo.Size = New System.Drawing.Size(696, 22)
+        Me.StsStrpInfo.Size = New System.Drawing.Size(696, 24)
         Me.StsStrpInfo.SizingGrip = False
         Me.StsStrpInfo.TabIndex = 0
         '
@@ -198,7 +198,7 @@ Partial Class frmKlock
                     Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.stsLblTime.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.stsLblTime.Name = "stsLblTime"
-        Me.stsLblTime.Size = New System.Drawing.Size(55, 17)
+        Me.stsLblTime.Size = New System.Drawing.Size(53, 19)
         Me.stsLblTime.Text = "00:00:00"
         '
         'StsLblDate
@@ -208,7 +208,7 @@ Partial Class frmKlock
                     Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.StsLblDate.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.StsLblDate.Name = "StsLblDate"
-        Me.StsLblDate.Size = New System.Drawing.Size(72, 17)
+        Me.StsLblDate.Size = New System.Drawing.Size(75, 19)
         Me.StsLblDate.Text = "18 Nov 2012"
         '
         'StsLblKeys
@@ -218,7 +218,7 @@ Partial Class frmKlock
                     Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.StsLblKeys.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.StsLblKeys.Name = "StsLblKeys"
-        Me.StsLblKeys.Size = New System.Drawing.Size(27, 17)
+        Me.StsLblKeys.Size = New System.Drawing.Size(29, 19)
         Me.StsLblKeys.Text = "cns"
         '
         'TmrMain
@@ -239,21 +239,21 @@ Partial Class frmKlock
         Me.MnItmFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmExit, Me.MnItmOptions})
         Me.MnItmFile.Name = "MnItmFile"
         Me.MnItmFile.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.F), System.Windows.Forms.Keys)
-        Me.MnItmFile.Size = New System.Drawing.Size(35, 20)
+        Me.MnItmFile.Size = New System.Drawing.Size(37, 20)
         Me.MnItmFile.Text = "&File"
         '
         'MnItmExit
         '
         Me.MnItmExit.Name = "MnItmExit"
         Me.MnItmExit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.MnItmExit.Size = New System.Drawing.Size(162, 22)
+        Me.MnItmExit.Size = New System.Drawing.Size(159, 22)
         Me.MnItmExit.Text = "E&xit"
         '
         'MnItmOptions
         '
         Me.MnItmOptions.Name = "MnItmOptions"
         Me.MnItmOptions.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.O), System.Windows.Forms.Keys)
-        Me.MnItmOptions.Size = New System.Drawing.Size(162, 22)
+        Me.MnItmOptions.Size = New System.Drawing.Size(159, 22)
         Me.MnItmOptions.Text = "&Options"
         '
         'MnItmHelp
@@ -261,28 +261,28 @@ Partial Class frmKlock
         Me.MnItmHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmSubHelp, Me.MnItmLicense, Me.MnItmAbout})
         Me.MnItmHelp.Name = "MnItmHelp"
         Me.MnItmHelp.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.H), System.Windows.Forms.Keys)
-        Me.MnItmHelp.Size = New System.Drawing.Size(40, 20)
+        Me.MnItmHelp.Size = New System.Drawing.Size(44, 20)
         Me.MnItmHelp.Text = "&Help"
         '
         'MnItmSubHelp
         '
         Me.MnItmSubHelp.Name = "MnItmSubHelp"
         Me.MnItmSubHelp.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
-        Me.MnItmSubHelp.Size = New System.Drawing.Size(157, 22)
+        Me.MnItmSubHelp.Size = New System.Drawing.Size(153, 22)
         Me.MnItmSubHelp.Text = "Hel&p"
         '
         'MnItmLicense
         '
         Me.MnItmLicense.Name = "MnItmLicense"
         Me.MnItmLicense.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.L), System.Windows.Forms.Keys)
-        Me.MnItmLicense.Size = New System.Drawing.Size(157, 22)
+        Me.MnItmLicense.Size = New System.Drawing.Size(153, 22)
         Me.MnItmLicense.Text = "&License"
         '
         'MnItmAbout
         '
         Me.MnItmAbout.Name = "MnItmAbout"
         Me.MnItmAbout.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.A), System.Windows.Forms.Keys)
-        Me.MnItmAbout.Size = New System.Drawing.Size(157, 22)
+        Me.MnItmAbout.Size = New System.Drawing.Size(153, 22)
         Me.MnItmAbout.Text = "&About"
         '
         'TbCntrl
@@ -1292,6 +1292,7 @@ Partial Class frmKlock
         Me.LstBxFriends.Location = New System.Drawing.Point(6, 19)
         Me.LstBxFriends.Name = "LstBxFriends"
         Me.LstBxFriends.Size = New System.Drawing.Size(227, 94)
+        Me.LstBxFriends.Sorted = True
         Me.LstBxFriends.TabIndex = 0
         '
         'btnHide
@@ -1324,6 +1325,7 @@ Partial Class frmKlock
         '
         'tmrTimer
         '
+        Me.tmrTimer.Interval = 1000
         '
         'tmrCountDown
         '
@@ -1343,31 +1345,31 @@ Partial Class frmKlock
         '
         Me.CntxtMnStrpKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TlStrpMnItmShow, Me.TlStrpMnItmTime, Me.TlStrpMnItmOptions, Me.TlStrpMnItmExit})
         Me.CntxtMnStrpKlock.Name = "CntxtMnStrpKlock"
-        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(123, 92)
+        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(117, 92)
         '
         'TlStrpMnItmShow
         '
         Me.TlStrpMnItmShow.Name = "TlStrpMnItmShow"
-        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(122, 22)
+        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(116, 22)
         Me.TlStrpMnItmShow.Text = "Show"
         '
         'TlStrpMnItmTime
         '
         Me.TlStrpMnItmTime.CheckOnClick = True
         Me.TlStrpMnItmTime.Name = "TlStrpMnItmTime"
-        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(122, 22)
+        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(116, 22)
         Me.TlStrpMnItmTime.Text = "Time"
         '
         'TlStrpMnItmOptions
         '
         Me.TlStrpMnItmOptions.Name = "TlStrpMnItmOptions"
-        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(122, 22)
+        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(116, 22)
         Me.TlStrpMnItmOptions.Text = "Options"
         '
         'TlStrpMnItmExit
         '
         Me.TlStrpMnItmExit.Name = "TlStrpMnItmExit"
-        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(122, 22)
+        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(116, 22)
         Me.TlStrpMnItmExit.Text = "Exit"
         '
         'tmrReminder

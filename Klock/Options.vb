@@ -1,4 +1,8 @@
-﻿Public Class frmOptions
+﻿Imports System.IO
+Imports System.IO.Compression
+Imports Ionic.Zip
+
+Public Class frmOptions
 
     '   Displays an Options screen.       K. Scott    November 2012
 
@@ -7,10 +11,13 @@
 
     Public displayAction As selectAction
 
+
     Private Sub frmOptions_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '   When opened, set settings
 
         displayAction = New selectAction
+
+        Me.TxtBxArchieveFriendsFile.Text = "Friends.zip"
 
         Me.setSettings()
     End Sub
@@ -70,6 +77,18 @@
         Me.TrckBrOptionsVolume.TickFrequency = 100
         Me.TrckBrOptionsVolume.Value = My.Settings.usrSoundVolume
 
+        If My.Settings.usrFriendsDirectory = "" Then
+            Me.TxtBxOptionsFriendsDirectory.Text = Application.StartupPath & "\Data"
+        Else
+            Me.TxtBxOptionsFriendsDirectory.Text = My.Settings.usrFriendsDirectory
+        End If
+
+        If My.Settings.usrFriendsFile = "" Then
+            Me.TxtBxOptionsFriendsFile.Text = "Friends.bin"
+        Else
+            Me.TxtBxOptionsFriendsFile.Text = My.Settings.usrFriendsFile
+        End If
+
     End Sub
 
     ' ************************************************************************************* global options *****************************
@@ -107,6 +126,9 @@
 
         My.Settings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
 
+        My.Settings.usrFriendsDirectory = Me.TxtBxOptionsFriendsDirectory.Text
+        My.Settings.usrFriendsFile = Me.TxtBxOptionsFriendsFile.Text
+
         My.Settings.Save()
 
         Me.Close()
@@ -133,25 +155,25 @@
         '   Set the form main font.
         '   the font colour has to be handled separately.
 
-        FntDlgFont.Font  = My.Settings.usrFormFont                  '   current main form font
+        FntDlgFont.Font = My.Settings.usrFormFont                  '   current main form font
         FntDlgFont.Color = My.Settings.usrFormFontColour            '   current main form font colour
-        
-       If FntDlgFont.ShowDialog() = DialogResult.OK Then
-            My.Settings.usrFormFont       = FntDlgFont.Font
+
+        If FntDlgFont.ShowDialog() = DialogResult.OK Then
+            My.Settings.usrFormFont = FntDlgFont.Font
             My.Settings.usrFormFontColour = FntDlgFont.Color
             Me.setSettings()
         End If
     End Sub
 
-Private Sub btnDefaultColour_Click( ByVal sender As System.Object,  ByVal e As System.EventArgs) Handles btnDefaultColour.Click
+    Private Sub btnDefaultColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDefaultColour.Click
         '   reset all colours and font changes back to form defaults.
 
-        My.Settings.usrFormColour = frmOptions.DefaultBackColor 
-        My.Settings.usrFormFont = frmOptions.DefaultFont  
-        My.Settings.usrFormFontColour = frmOptions.DefaultForeColor 
+        My.Settings.usrFormColour = frmOptions.DefaultBackColor
+        My.Settings.usrFormFont = frmOptions.DefaultFont
+        My.Settings.usrFormFontColour = frmOptions.DefaultForeColor
 
         Me.setSettings()
-End Sub
+    End Sub
 
     Private Sub ChckBxOptionsRunOnStartup_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxOptionsRunOnStartup.CheckedChanged
         '   Sets or deletes the registry key required for running on windows start up.
@@ -166,13 +188,11 @@ End Sub
         Catch ex As Exception
             Me.displayAction.DisplayReminder("Registry Error :: Cant write entry to Registry", ex.Message)
         End Try
-
     End Sub
 
     '-----------------------------------------------------------Time---------------------------------------------------------------
-    '   Can only selext either pips or chimes to be heard on the hour, but not both - can have none though.
 
-    Private Sub ChckBxTimeHourPips_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxTimeHourPips.CheckedChanged
+    Private Sub ChckBxTimeHourPips_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeHourPips.CheckedChanged
         '   It the pips are selected, disable all chimes.
 
         If Me.ChckBxTimeHourPips.Checked Then
@@ -189,7 +209,7 @@ End Sub
         End If
     End Sub
 
-    Private Sub ChckBxTimeHourlyChimes_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ChckBxTimeHourlyChimes.CheckedChanged
+    Private Sub ChckBxTimeHourlyChimes_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeHourlyChimes.CheckedChanged
         '   if chimes are selected, disable the pips.
 
         If Me.ChckBxTimeHourlyChimes.Checked Then
@@ -206,15 +226,6 @@ End Sub
         End If
     End Sub
 
-    Private Sub ChckBxTimeToast_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeToast.CheckedChanged
-        '   if set [and klock is minimised] display time in a notification window.
-
-        If Me.ChckBxTimeToast.Checked Then
-            Me.UpDwnTimeDisplay.Enabled = True
-        Else
-            Me.UpDwnTimeDisplay.Enabled = False
-        End If
-    End Sub
 
     '-----------------------------------------------------------Notification---------------------------------------------------------------
 
@@ -254,25 +265,149 @@ End Sub
     End Sub
 
     Private Sub btnNotificationTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNotificationTest.Click
-        '   Display a test notification, showinf the current notification opacity.
+        '   Display a test notification, showing the current notification opacity.
 
         Me.displayAction.DisplayReminder("Notification Test", String.Format(" Opacity = {0}", My.Settings.usrNotificationOpacity))
     End Sub
 
     '---------------------------------------------------------- Sound Volume ---------------------------------------------------------------
 
-    Private Sub TrckBrOptionsVolume_Scroll(sender As System.Object, e As System.EventArgs) Handles TrckBrOptionsVolume.Scroll
-        '   Sets global sound volume.
+    Private Sub TrckBrOptionsVolume_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrckBrOptionsVolume.Scroll
 
         My.Settings.usrSoundVolume = Me.TrckBrOptionsVolume.Value
 
     End Sub
 
-    Private Sub btnOptionsTestVolume_Click(sender As System.Object, e As System.EventArgs) Handles btnOptionsTestVolume.Click
-        '   Plays a sounbd to test volume.
+    Private Sub btnOptionsTestVolume_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsTestVolume.Click
 
         Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\halfchime.mp3")
 
     End Sub
 
+    Private Sub ChckBxTimeToast_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxTimeToast.CheckedChanged
+
+        If Me.ChckBxTimeToast.Checked Then
+            Me.UpDwnTimeDisplay.Enabled = True
+        Else
+            Me.UpDwnTimeDisplay.Enabled = False
+        End If
+    End Sub
+
+    '---------------------------------------------------------- Friends Options  ---------------------------------------------------------------
+
+    Private Sub btnOptionsFriendsDirectory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFriendsDirectory.Click
+
+        If Me.FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
+            Me.TxtBxOptionsFriendsDirectory.Text = Me.FolderBrowserDialog1.SelectedPath
+        End If
+    End Sub
+
+    Private Sub btnOptionsFriendsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFriendsFile.Click
+
+        Me.OpenFileDialog1.Filter = "All Files|*.*"
+        Me.OpenFileDialog1.InitialDirectory = Me.TxtBxOptionsFriendsDirectory.Text
+        Me.OpenFileDialog1.FileName = Me.TxtBxOptionsFriendsFile.Text
+
+        If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+            Me.TxtBxOptionsFriendsFile.Text = Me.OpenFileDialog1.SafeFileName
+        End If
+    End Sub
+
+    Private Sub btnOptionsFriendsPathReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFriendsPathReset.Click
+
+        Me.TxtBxOptionsFriendsDirectory.Text = Application.StartupPath & "\data"
+        Me.TxtBxOptionsFriendsFile.Text = "Friends.bin"
+    End Sub
+
+    Private Sub btnArchieveFriendsDirectory_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsDirectory.Click
+
+        If Me.FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
+            Me.TxtBxArchieveFriendsDirectory.Text = Me.FolderBrowserDialog1.SelectedPath
+
+            Me.btnArchieveFriendsSave.Enabled = True
+
+            If My.Computer.FileSystem.FileExists(Me.TxtBxArchieveFriendsDirectory.Text & "\" & Me.TxtBxArchieveFriendsFile.Text) Then
+                Me.btnArchieveFriendsLoad.Enabled = True
+            End If
+
+        End If
+    End Sub
+
+    Private Sub btnArchieveFriendsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsFile.Click
+
+        Me.OpenFileDialog1.Filter = "All Files|*.*"
+        Me.OpenFileDialog1.InitialDirectory = Me.TxtBxArchieveFriendsDirectory.Text
+        Me.OpenFileDialog1.FileName = Me.TxtBxArchieveFriendsFile.Text
+        Me.OpenFileDialog1.DefaultExt = ".zip"
+
+        If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+            Me.TxtBxArchieveFriendsFile.Text = Me.OpenFileDialog1.SafeFileName
+
+            Me.btnArchieveFriendsSave.Enabled = True
+
+            If My.Computer.FileSystem.FileExists(Me.TxtBxArchieveFriendsDirectory.Text & "\" & Me.TxtBxArchieveFriendsFile.Text) Then
+                Me.btnArchieveFriendsLoad.Enabled = True
+            End If
+        End If
+
+
+    End Sub
+
+    Private Sub btnArchieveFriendsSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsSave.Click
+
+
+        Dim zippath As String = Me.TxtBxArchieveFriendsDirectory.Text & "\" & Me.TxtBxArchieveFriendsFile.Text
+        Dim friendspath As String = Me.TxtBxOptionsFriendsDirectory.Text & "\" & Me.TxtBxOptionsFriendsFile.Text
+
+
+        If My.Computer.FileSystem.FileExists(zippath) Then
+            Dim reply As MsgBoxResult
+
+            reply = MsgBox("This will over write existing archieve file", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
+
+            If reply = MsgBoxResult.No Then     '   Not to over write, exit sub.
+                Me.btnArchieveFriendsSave.Enabled = False
+                Exit Sub
+            End If
+        End If
+
+        Using zip As ZipFile = New ZipFile
+
+            zip.AddDirectory(Me.TxtBxOptionsFriendsDirectory.Text)
+
+            Try
+                zip.Save(zippath)
+                Me.displayAction.DisplayReminder("Saving File", "Archived file saved.")
+            Catch ex As Exception
+                Me.displayAction.DisplayReminder("Saving File Error", "Error archieving Friends File. " & ex.Message)
+            End Try
+        End Using
+
+    End Sub
+
+    Private Sub btnArchieveFriendsLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchieveFriendsLoad.Click
+
+        Dim zippath As String = Me.TxtBxArchieveFriendsDirectory.Text & "\" & Me.TxtBxArchieveFriendsFile.Text
+        Dim reply As MsgBoxResult
+
+
+
+        Try
+            Using zip As ZipFile = ZipFile.Read(zippath)
+                Dim entry As ZipEntry
+                For Each entry In zip
+                    If My.Computer.FileSystem.FileExists(entry.FileName) Then
+                        reply = MsgBox("This will over write existing data", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
+
+                        If reply = MsgBoxResult.No Then     '   Not to over write, exit sub.
+                            entry.Extract(Me.TxtBxOptionsFriendsDirectory.Text)
+                        End If      '   if reply
+                    End If          '   if my.computer
+                Next                '   for each entry in zip
+            End Using
+        Catch ex As Exception
+            Me.displayAction.DisplayReminder("Saving File Error", "Error archieving Friends File. " & ex.Message)
+        End Try
+
+    End Sub
 End Class

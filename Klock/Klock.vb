@@ -43,23 +43,24 @@ Public Class frmKlock
         '   Sets current time & date to the status bar.
         '   Checks for Caps Lock, Num Lock & Scroll Lock - set message in status bar.
 
-        Dim currentSecond As Integer = Now.TimeOfDay.TotalSeconds                    '  so, all use the same time.
+        Dim currentSecond As Integer = Now.TimeOfDay.TotalSeconds                       '  so, all use the same time.
 
-        Me.NotificationDispaly(currentSecond)                                        '   display a notification, if desired
-        Me.playHourlyChimes(currentSecond)                                           '   Play a hourly chime,  if desired.
-
-        If Me.Visible Then          '   Only update if form is visable, can't see if in system tray.
+        If Me.Visible Then                                                              '   Only update if form is visable, can't see if in system tray.
             Me.updateStatusBar()
             Me.updateTitleText()
 
-            Me.LblTimeTime.Text = Me.displayTime.getTime()                     '   display local time in desired time format.
+            Me.LblTimeTime.Text = Me.displayTime.getTime()                              '   display local time in desired time format.
             Me.TmrMain.Interval = Me.displayTime.getClockTick()
+        Else
+            Me.NotificationDispaly(currentSecond)                                       '   display a notification, if desired
         End If
 
+        Me.playHourlyChimes(currentSecond)                                              '   Play a hourly chime,  if desired.
     End Sub
 
     Private Sub updateStatusBar()
         '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
+
         Dim strKey As String = "cns"
 
         Me.stsLblTime.Text = Format(Now, "Long Time")
@@ -79,6 +80,7 @@ Public Class frmKlock
     End Sub
 
     Private Sub updateTitleText()
+        '   Updates application title.
 
         Me.setTitleText()
 
@@ -111,10 +113,10 @@ Public Class frmKlock
         '   Depending upon user settings, will play hourly pips or chimes.
         '   The chimes can sound on the hour and every quarter hour if desired.
 
-        If My.Settings.usrTimeHourPips And (Math.Floor(m Mod 3600) = 0) Then          '    will this work at midnight???
+        If My.Settings.usrTimeHourPips And (Math.Floor(m Mod 3600) = 0) Then                    '    will this work at midnight???
 
-            Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\thepips.mp3")     '    Play the Pips on the hour, if desired.
-        ElseIf My.Settings.usrTimeHourlyChimes And (Math.Floor(m Mod 3600) = 0) Then             '    Play hourly chimes, if desired.
+            Me.displayAction.PlaySound(Application.StartupPath & "\Sounds\thepips.mp3")         '    Play the Pips on the hour, if desired.
+        ElseIf My.Settings.usrTimeHourlyChimes And (Math.Floor(m Mod 3600) = 0) Then            '    Play hourly chimes, if desired.
 
             Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
             Dim hour As Integer = Now.Hour
@@ -1180,10 +1182,12 @@ Public Class frmKlock
         '   Save friends to file in data directory.
         '   Creates a list of all entries in the listview box and then writes this list to a binary file.
 
+        Dim FriendsDirectory As String = My.Settings.usrFriendsDirectory
+        Dim FriendsFile As String = My.Settings.usrFriendsFile
+
         checkDataDirectory()        '   Check for data directory first, will be created if not there.
 
-
-        Dim saveFile As FileStream = File.Create(Application.StartupPath & "\data\Friends.bin")
+        Dim saveFile As FileStream = File.Create(FriendsDirectory & "\" & FriendsFile)
 
         saveFile.Seek(0, SeekOrigin.End)
 
@@ -1213,10 +1217,13 @@ Public Class frmKlock
         '   Loads friends from file and populate the listview box.
         '   Loads file into a list and then transfers each item in the list to the listview box.
 
+        Dim FriendsDirectory As String = My.Settings.usrFriendsDirectory
+        Dim FriendsFile As String = My.Settings.usrFriendsFile
+
         Dim readFile As FileStream
 
         Try
-            readFile = File.OpenRead(Application.StartupPath & "\data\Friends.bin")
+            readFile = File.OpenRead(FriendsDirectory & "\" & FriendsFile)
             readFile.Seek(0, SeekOrigin.Begin)
         Catch ex As Exception                   '   not there, go away.
             Me.displayAction.DisplayReminder("Friends", "No friends file found - will create if needed.")
@@ -1231,7 +1238,7 @@ Public Class frmKlock
         Try
             AL = Formatter.Deserialize(readFile)        '   loads file into the list.
         Catch ex As Exception
-            Me.displayAction.DisplayReminder("Friends Error", "Error loading Friends File." & vbCrLf & ex.Message)
+            Me.displayAction.DisplayReminder("Friends Error", "Error loading Friends File. " & ex.Message)
             Exit Sub
         End Try
 
@@ -1282,11 +1289,13 @@ Public Class frmKlock
     Private Sub checkDataDirectory()
         '   Check for data directory in application start directory.  if doesn't exist, create it.
 
-        If Not My.Computer.FileSystem.DirectoryExists(Application.StartupPath & "\data") Then
-            Me.displayAction.DisplayReminder("Friends", "Creating " & Application.StartupPath & "\data")
-            My.Computer.FileSystem.CreateDirectory(Application.StartupPath & "\data")
+        Dim FriendsDirectory As String = My.Settings.usrFriendsDirectory
+
+        If Not My.Computer.FileSystem.DirectoryExists(FriendsDirectory) Then
+            Me.displayAction.DisplayReminder("Friends", "Creating " & FriendsDirectory)
+            My.Computer.FileSystem.CreateDirectory(FriendsDirectory)
         Else
-            Me.displayAction.DisplayReminder("Friends", "Using " & Application.StartupPath & "\data")
+            Me.displayAction.DisplayReminder("Friends", "Using " & FriendsDirectory)
         End If
     End Sub
 

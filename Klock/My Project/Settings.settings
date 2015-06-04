@@ -65,8 +65,8 @@
     <Setting Name="usrTimeHalfChimes" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="usrTimeThreeQuarterChimes" Type="System.String" Scope="User">
-      <Value Profile="(Default)">false</Value>
+    <Setting Name="usrTimeThreeQuarterChimes" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="usrSoundVolume" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100</Value>
@@ -88,6 +88,12 @@
     </Setting>
     <Setting Name="usrCountdownAdd" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="usrFriendsDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="usrFriendsFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
