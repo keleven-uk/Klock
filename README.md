@@ -1,3 +1,0 @@
-# Klock
-
-A Klock Readme
