@@ -5,10 +5,6 @@
     '   TimeType is set to the desired time format [from TimeTypes]
     '   getTime is then called and this will return the current time is the desired time format.
 
-    '   set constants up for code type - so can't get them wrong!!
-    Const MORSE As String = "Morse"
-    Const BRAILLE As String = "Braille"
-
     Enum TimeTypes                  '   types of time format available :: new ones add in here.
         FuzzyTime
         LocalTime
@@ -394,7 +390,7 @@
 
         Dim UTCplus1 As DateTime = Now.ToUniversalTime.AddHours(1)
         Dim noOfSeconds As Integer = (UTCplus1.Hour * 3600) + (UTCplus1.Minute * 60) + (UTCplus1.Second)
-        Dim noOfBeats As Double = noOfSeconds * 0.01157    ' 1000 beats per day
+        Dim noOfBeats As Double = noOfSeconds / 86.4    ' 1000 beats per day
         Dim noOfCentibeats As Double = 0
 
         If frmKlock.usrSettings.usrTimeSwatchCentibeats Then
@@ -407,7 +403,7 @@
 
     Private Function getNetTime() As String
         '    Returns UTC time as New Earth Time.
-        '    New Earth Time [or NET] splits the day into 260 degrees. each degree is
+        '    New Earth Time [or NET] splits the day into 360 degrees. each degree is
         '    further split into 60 minutes and further into 60 seconds.
         '
         '    Only returns NET time in NET 15 second intervals [equals 1 normal second]  }
@@ -438,23 +434,24 @@
         '   Formulae pinched from http://en.wikipedia.org/wiki/Julian_day
 
         Dim UTC As DateTime = Now.ToUniversalTime
-        Dim a As Double = (14 - UTC.Month) / 12
+        Dim a As Double = Math.Floor((14 - UTC.Month) / 12)
         Dim y As Double = UTC.Year + 4800 - a
         Dim m As Double = UTC.Month + (12 * a) - 3
         Dim jt As Double = 0
 
-        jt = UTC.Day + ((153 * m + 2) / 5) + (365 * y) + (y / 4) - (y / 100) + (y / 400) - 32045
+        jt = UTC.Day + Math.Floor((153 * m + 2) / 5) + (365 * y) + Math.Floor(y / 4) - Math.Floor(y / 100) + Math.Floor(y / 400) - 32045
         jt = jt + ((UTC.Hour - 12) / 24) + (UTC.Minute / 1440) + (UTC.Second / 86400)
 
-        getJulianTime = String.Format("{0:#######.#######}", jt)
+        getJulianTime = String.Format("{0:#######.#####}", jt)
     End Function
 
     Private Function getDecimalTime() As String
         '   Returns the current [local] time in decimal notation.
         '   The day is divided into 10 hours, each hour is then split into 100 minutes of 100 seconds.
+        '   NB :: 86400 normal seconds in a day.
 
         Dim noOfSeconds As Integer = MilliSecondOfTheDay() / 1000
-        Dim NoOfDecSecs As Integer = noOfSeconds * (100000 / 84600)
+        Dim NoOfDecSecs As Integer = noOfSeconds * (100000 / 86400)
 
         Dim hrs As Integer = Math.Floor(NoOfDecSecs / 10000)
         Dim mins As Integer = Math.Floor((NoOfDecSecs - (hrs * 10000)) / 100)

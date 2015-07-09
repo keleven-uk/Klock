@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Klock"
-#define MyAppVersion "1.0.6.47"
+#define MyAppVersion "1.0.1.0"
 #define MyAppPublisher "keleven"
 #define MyAppURL "www.keleven.co.uk"
 #define MyAppExeName "Klock.exe"
@@ -21,14 +21,14 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 
 ;  all source files here
-SourceDir=C:\My\shed\projects\VB\klock\V1.0.6\Klock
+SourceDir=C:\My\shed\Dropbox\my\projects\klock.net\Klock
 
 DefaultDirName={pf}\keleven\Klock
 DefaultGroupName={#MyAppName}
 ;LicenseFile=License.txt
 InfoAfterFile=License.txt
-OutputDir=C:\My\shed\projects\VB
-OutputBaseFilename=Klock_47
+OutputDir=C:\My\shed\Dropbox\my\projects
+OutputBaseFilename=Klock_1010
 SetupIconFile=Klock.ico
 Compression=lzma
 SolidCompression=yes
@@ -58,7 +58,7 @@ Source: "License.txt"           ; DestDir: "{app}"       ; Components : exe; Fla
 
 ;  include source if directed :: NB needs a clean CVS checkout :: recursesubdirs for recursion
 ;  install into My Documents foler.
-Source: "C:\My\shed\projects\VB\clean_Klock\*" ; DestDir: "{userdocs}\Keleven_source\Klock" ; Components : all; Flags: ignoreversion recursesubdirs
+Source: "*" ; DestDir: "{userdocs}\Keleven_source\Klock" ; Components : all; Flags: ignoreversion recursesubdirs
 
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files

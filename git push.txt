@@ -1,0 +1,4 @@
+git remote add origin https://github.com/keleven-uk/Klock.git
+git push -u origin master
+
+git log --stat

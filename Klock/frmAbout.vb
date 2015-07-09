@@ -20,7 +20,7 @@ Public Class frmAbout
 
         Me.tmrAbout.Enabled = True
 
-        Me.lblVersion.Text = "Klock Version :: " & My.Application.Info.Version.ToString() & " :: RC1"
+        Me.lblVersion.Text = "Klock Version :: " & My.Application.Info.Version.ToString()
         Me.lblCopyright.Text = My.Application.Info.Copyright
         Me.lblDescription.Text = My.Application.Info.Description
         Me.lblTitle.Text = My.Application.Info.Title
@@ -137,4 +137,7 @@ Public Class frmAbout
         getUpTime = String.Format("{0} days  {1:00} hrs  {2:00} mins  {3:00} secs", noDays, noHours, noMin, noSec)
     End Function
 
+    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
+
+    End Sub
 End Class

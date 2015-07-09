@@ -8,6 +8,7 @@
     '   October 2013    V1.0.4 - added memo tab                  [build 37]
     '   November 2013   V1.0.5 - added Double Agent              [build 44] :: parked for now
     '   July 2014       V1.0.6 - added Text Klock                [build 46] :: copied from V1.0.4
+    '   July 2015       V1.1.0 - Moved to VS2013 & GitHub        no build numbers now.
 
 
     Public startTime As Integer
@@ -68,7 +69,7 @@
                 tmStr = Me.displayOneTime.getTime()
 
                 Me.LblTimeOneTime.Font = Me.usrFonts.getFont(tmStr, Me.displayOneTime.getTitle, grphcs)
-                Me.LblTimeOneTime.Text = tmStr                   '   Update local time in desired time format.
+                Me.LblTimeOneTime.Text = tmStr             '   Update local time in desired time format.
 
                 If Me.usrSettings.usrTimeTwoFormats Then
 
@@ -1651,8 +1652,10 @@
 
     Private Sub setTimeZones(ByVal pos As Integer)
         '   Load the time zones into the World Klock Combo Box.
-        '   Slightly different update, depending on if long name of id;s are being used for time zones.
+        '   Slightly different update, depending on if long name of id's are being used for time zones.
         '   Argument passed in is the position of the current time zone, so it can be restored.
+
+        Dim f As System.TimeZoneInfo
 
         Me.CmbBxWorldKlockTimeZones.Items.Clear()
 
