@@ -244,7 +244,7 @@
     Private Sub tmrTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrTimer.Tick
         '   If enabled, timer is running - update timer label
 
-        Me.lblTimerTime.Text = IIf(Me.usrSettings.usrTimerHigh, displayTimer.getHighElapsedTime(), displayTimer.getLowElapsedTime())
+        Me.lblTimerTime.Text = If(Me.usrSettings.usrTimerHigh, displayTimer.getHighElapsedTime(), displayTimer.getLowElapsedTime())
     End Sub
 
     ' ******************************************************************************************************************* Countdown clock ****************
@@ -460,7 +460,7 @@
             End If
             Me.btnTimerSplitClear.Enabled = False
         Else
-            Me.lblTimerTime.Text = IIf(Me.usrSettings.usrTimerHigh, "00:00:00:00", "00:00:00")
+            Me.lblTimerTime.Text = If(Me.usrSettings.usrTimerHigh, "00:00:00:00", "00:00:00")
         End If
     End Sub
 
@@ -475,7 +475,7 @@
     Private Sub btnTimerSplitClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerSplitClear.Click
         '   Clears the split time.
 
-        Me.lblTimerSplit.Text = IIf(Me.usrSettings.usrTimerHigh, "00:00:00:00", "00:00:00")
+        Me.lblTimerSplit.Text = If(Me.usrSettings.usrTimerHigh, "00:00:00:00", "00:00:00")
 
         Me.btnTimerSplitClear.Enabled = False
     End Sub
@@ -484,7 +484,7 @@
     Private Sub upDwnCntDownValue_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles upDwnCntDownValue.ValueChanged
         '   When the up down counter has been changed, enable the start button and update the countdown label.
 
-        Me.btnCountDownStart.Enabled = IIf(Me.upDwnCntDownValue.Value = 0, False, True)
+        Me.btnCountDownStart.Enabled = If(Me.upDwnCntDownValue.Value = 0, False, True)
 
         Me.CountDownTime = Me.upDwnCntDownValue.Value * 60
         Me.lblCountDownTime.Text = Me.minsToString(CountDownTime)
@@ -724,7 +724,7 @@
         hours = m \ 60
         mins = m - (hours * 60)
 
-        minsToString = String.Format("{0:00}:{1:00}", hours, mins)
+        Return String.Format("{0:00}:{1:00}", hours, mins)
     End Function
 
     Sub CountDownSound(ByVal b As Boolean)
@@ -1047,7 +1047,7 @@
                          Me.TmPckrRiminder.Value.Minute, _
                          0)
 
-        Me.btnReminderSet.Enabled = IIf(d > Now(), True, False)
+        Me.btnReminderSet.Enabled = If(d > Now(), True, False)
     End Sub
 
     Private Sub ChckBxReminderTimeCheck_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxReminderTimeCheck.CheckedChanged
@@ -1603,7 +1603,7 @@
             End If
         End If  '   Me.usrSettings.usrMemoUseDefaultPassword
 
-        getMemoPassword = password
+        Return password
     End Function
 
     Private Sub TmrMemo_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TmrMemo.Tick
@@ -1950,7 +1950,7 @@
     Private Sub TlStrpMnItmTime_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TlStrpMnItmTime.CheckedChanged
         '   if checked, the system tray icon tooltip will be set to correct time [by main clock]
 
-        Me.usrSettings.usrTimeDisplayMinimised = IIf(Me.TlStrpMnItmTime.Checked, True, False)
+        Me.usrSettings.usrTimeDisplayMinimised = If(Me.TlStrpMnItmTime.Checked, True, False)
 
     End Sub
 

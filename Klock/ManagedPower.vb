@@ -19,7 +19,7 @@ Public Class ManagedPower
             text += "Power source: " + sysPowerStatus.ACLineStatus.ToString() + Environment.NewLine
         End If
 
-        powerSource = text
+        Return text
     End Function
 
     Public Function powerStatus() As String
@@ -42,7 +42,7 @@ Public Class ManagedPower
 
         End If
 
-        powerStatus = text
+        Return text
     End Function
 
     Public Function chargingStatus() As String
@@ -57,7 +57,7 @@ Public Class ManagedPower
 
         End If
 
-        chargingStatus = text
+        Return text
     End Function
 
     <StructLayout(LayoutKind.Sequential)> _

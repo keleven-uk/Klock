@@ -226,7 +226,7 @@
         Dim ampm As String = ""
         Dim sRtn As String = ""
 
-        ampm = IIf(hour < 12, "in the morning", "pm")      '   if hour less then 12, in the morning else afternoon
+        ampm = If(hour < 12, "in the morning", "pm")      '   if hour less then 12, in the morning else afternoon
 
         If (mins Mod 5) > 2 Then nrms += 5 '   closer to next five minutes, go to next.
 
@@ -278,13 +278,13 @@
         Else
             If ampm = "pm" Then
                 hour -= 12
-                ampm = IIf(hour >= 5, "in the evening", "in the afternoon")   '   if greater then five in the afternoon then evening.
+                ampm = If(hour >= 5, "in the evening", "in the afternoon")   '   if greater then five in the afternoon then evening.
             End If
 
             If sRtn = "" Then
-                getFuzzyTime = String.Format("about {0} ish {1}", hours(hour), ampm)
+                Return String.Format("about {0} ish {1}", hours(hour), ampm)
             Else
-                getFuzzyTime = String.Format("{0} {1} {2}", sRtn, hours(hour), ampm)
+                Return String.Format("{0} {1} {2}", sRtn, hours(hour), ampm)
             End If
         End If
     End Function
@@ -293,9 +293,9 @@
         '   returns local time
 
         If Me.use24Hour Then
-            getLocalTime = String.Format("{0:HH:mm:ss}", System.DateTime.Now.ToLocalTime)
+            Return String.Format("{0:HH:mm:ss}", System.DateTime.Now.ToLocalTime)
         Else
-            getLocalTime = String.Format("{0:hh:mm:ss tt}", System.DateTime.Now.ToLocalTime)
+            Return String.Format("{0:hh:mm:ss tt}", System.DateTime.Now.ToLocalTime)
         End If
 
     End Function
@@ -303,7 +303,7 @@
     Private Function getSemaphoreTime() As String
         '   returns local time, that can be displayed using a semaphore font.
 
-        getSemaphoreTime = getLocalTime()
+        Return getLocalTime()
     End Function
 
     Private Function getNancyBlackettTime() As String
@@ -311,19 +311,19 @@
         '   See http://www.allthingsransome.net/downloads/nbsemaphore.html
         '   same as semaphore, but without the flags really.
 
-        getNancyBlackettTime = getLocalTime()
+        Return getLocalTime()
     End Function
 
     Private Function getBrailleTime() As String
         '   returns local time, that can be displayed using a Braille font.
 
-        getBrailleTime = getLocalTime()
+        Return getLocalTime()
     End Function
 
     Private Function getBarcodeTime() As String
         '   returns local time, that can be displayed using a BarcodeTime font.
 
-        getBarcodeTime = getLocalTime()
+        Return getLocalTime()
     End Function
 
     Private Function getwordsTime() As String
@@ -334,7 +334,7 @@
         Dim ampm As String = ""
         Dim pasTo As String = "past"
 
-        ampm = IIf(hour < 12, "in the morning", "pm")      '   if hour less then 12, in the morning else afternoon
+        ampm = If(hour < 12, "in the morning", "pm")      '   if hour less then 12, in the morning else afternoon
 
         If mins > 30 Then            '   past the half hour - minuted to the hour.
             hour += 1
@@ -350,7 +350,7 @@
 
         If ampm = "pm" Then
             hour -= 12
-            ampm = IIf(hour >= 5, "in the evening", "in the afternoon")   '   if greater then five in the afternoon then evening.
+            ampm = If(hour >= 5, "in the evening", "in the afternoon")   '   if greater then five in the afternoon then evening.
         End If
 
         Dim minsStr As String = ""
@@ -370,16 +370,16 @@
                 minsStr = String.Format("thirty minutes {1} {2} {3}", minsStr, pasTo, hours(hour), ampm)
         End Select
 
-        getwordsTime = minsStr
+        Return minsStr
     End Function
 
     Private Function getUTCTime() As String
         '   returns current [local] time as a Universal Current Time.
 
         If Me.use24Hour Then
-            getUTCTime = String.Format("{0:HH:mm:ss}", System.DateTime.Now.ToUniversalTime.ToLongTimeString)
+            Return String.Format("{0:HH:mm:ss}", System.DateTime.Now.ToUniversalTime.ToLongTimeString)
         Else
-            getUTCTime = String.Format("{0:hh:mm:ss tt}", System.DateTime.Now.ToUniversalTime.ToLongTimeString)
+            Return String.Format("{0:hh:mm:ss tt}", System.DateTime.Now.ToUniversalTime.ToLongTimeString)
         End If
     End Function
 
@@ -395,9 +395,9 @@
 
         If frmKlock.usrSettings.usrTimeSwatchCentibeats Then
             noOfCentibeats = noOfSeconds Mod 86.4
-            getSwatchTime = String.Format("@ {0:###}.{1:00} BMT", noOfBeats, noOfCentibeats)
+            Return String.Format("@ {0:###}.{1:00} BMT", noOfBeats, noOfCentibeats)
         Else
-            getSwatchTime = String.Format("@ {0:###} BMT", noOfBeats)
+            Return String.Format("@ {0:###} BMT", noOfBeats)
         End If
     End Function
 
@@ -426,7 +426,7 @@
             sec = ((noOfSeconds) - (deg * 240) - (min * 4)) * 15
         End If
 
-        getNetTime = String.Format("{0} deg {1} min {2} sec", deg, min, sec)
+        Return String.Format("{0} deg {1} min {2} sec", deg, min, sec)
     End Function
 
     Private Function getJulianTime() As String
@@ -442,7 +442,7 @@
         jt = UTC.Day + Math.Floor((153 * m + 2) / 5) + (365 * y) + Math.Floor(y / 4) - Math.Floor(y / 100) + Math.Floor(y / 400) - 32045
         jt = jt + ((UTC.Hour - 12) / 24) + (UTC.Minute / 1440) + (UTC.Second / 86400)
 
-        getJulianTime = String.Format("{0:#######.#####}", jt)
+        Return String.Format("{0:#######.#####}", jt)
     End Function
 
     Private Function getDecimalTime() As String
@@ -457,7 +457,7 @@
         Dim mins As Integer = Math.Floor((NoOfDecSecs - (hrs * 10000)) / 100)
         Dim secs As Integer = (NoOfDecSecs - (hrs * 10000) - (mins * 100))
 
-        getDecimalTime = String.Format("{0:00} {1:00} {2:00}", hrs, mins, secs)
+        Return String.Format("{0:00} {1:00} {2:00}", hrs, mins, secs)
     End Function
 
     Private Function getTrueHexTime() As String
@@ -473,9 +473,9 @@
         Dim sec As Integer = noOfHexSecs Mod 16
 
         If frmKlock.usrSettings.usrTimeHexIntuitorFormat Then
-            getTrueHexTime = String.Format("{0}_{1}_{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
+            Return String.Format("{0}_{1}_{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
         Else
-            getTrueHexTime = String.Format(".{0}{1}{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
+            Return String.Format(".{0}{1}{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
         End If
     End Function
 
@@ -487,7 +487,7 @@
         Dim mins As Integer = Now.Minute
         Dim secs As Integer = Now.Second
 
-        getBinaryTime = String.Format("{0}:{1}:{2}", Convert.ToString(hour, 2), Convert.ToString(mins, 2), Convert.ToString(secs, 2))
+        Return String.Format("{0}:{1}:{2}", Convert.ToString(hour, 2), Convert.ToString(mins, 2), Convert.ToString(secs, 2))
     End Function
 
     Private Function getOctTime() As String
@@ -498,7 +498,7 @@
         Dim mins As Integer = Now.Minute
         Dim secs As Integer = Now.Second
 
-        getOctTime = String.Format("{0}:{1}:{2}", Convert.ToString(hour, 8).PadLeft(2, "0"c), Convert.ToString(mins, 8).PadLeft(2, "0"c), Convert.ToString(secs, 8).PadLeft(2, "0"c))
+        Return String.Format("{0}:{1}:{2}", Convert.ToString(hour, 8).PadLeft(2, "0"c), Convert.ToString(mins, 8).PadLeft(2, "0"c), Convert.ToString(secs, 8).PadLeft(2, "0"c))
     End Function
 
     Private Function getHexTime() As String
@@ -509,7 +509,7 @@
         Dim mins As Integer = Now.Minute
         Dim secs As Integer = Now.Second
 
-        getHexTime = String.Format("{0}:{1}:{2}", Convert.ToString(hour, 16).PadLeft(2, "0"c), Convert.ToString(mins, 16).PadLeft(2, "0"c), Convert.ToString(secs, 16).PadLeft(2, "0"c))
+        Return String.Format("{0}:{1}:{2}", Convert.ToString(hour, 16).PadLeft(2, "0"c), Convert.ToString(mins, 16).PadLeft(2, "0"c), Convert.ToString(secs, 16).PadLeft(2, "0"c))
     End Function
 
     Private Function getMetricTime() As String
@@ -522,7 +522,7 @@
 
         Dim noOfK As Double = noOfSeconds / 1000
 
-        getMetricTime = String.Format("{0:##.000} Kiloseconds", noOfK)
+        Return String.Format("{0:##.000} Kiloseconds", noOfK)
     End Function
 
     Private Function getUnixTime() As String
@@ -534,7 +534,7 @@
         Dim epoc As Date = #1/1/1970#
         Dim secs As Integer = tday.Subtract(epoc).TotalSeconds
 
-        getUnixTime = String.Format("{0}", secs)
+        Return String.Format("{0}", secs)
     End Function
 
     Private Function getRomanTime() As String
@@ -544,7 +544,7 @@
         Dim mins As Integer = Now().Minute
         Dim secs As Integer = Now().Second
 
-        getRomanTime = String.Format("{0} {1} {2}", Me.toRoman(hours), Me.toRoman(mins), Me.toRoman(secs))
+        Return String.Format("{0} {1} {2}", Me.toRoman(hours), Me.toRoman(mins), Me.toRoman(secs))
     End Function
 
     Private Function toRoman(time As Integer) As String
@@ -580,7 +580,7 @@
             End Select
         Loop Until time < 1
 
-        toRoman = result
+        Return result
     End Function
 
     Private Function getMorseTime() As String
@@ -612,7 +612,7 @@
             codeSecs = String.Format("{0} {1}", toCode(Int(secs / 10)), toCode(secs Mod 10))
         End If
 
-        getMorseTime = String.Format("{0}  {1}  {2} ", codeHours, codeMins, codeSecs)
+        Return String.Format("{0}  {1}  {2} ", codeHours, codeMins, codeSecs)
     End Function
 
     Private Function toCode(time As String) As String
@@ -643,7 +643,7 @@
                 result = "-----"
         End Select
 
-        toCode = result
+        Return result
     End Function
 
     Private Function getMarsSolDate()
@@ -652,7 +652,7 @@
 
         Dim noOfDays As Double = DateDiff(DateInterval.Second, #1/6/2000#, Now.ToUniversalTime) / 86400
 
-        getMarsSolDate = String.Format("{0:##.00000}", (((noOfDays) / 1.027491252) + 44796.0 - 0.00096))
+        Return String.Format("{0:##.00000}", (((noOfDays) / 1.027491252) + 44796.0 - 0.00096))
     End Function
 
     Private Function getCoordinatedMarsTime()
@@ -669,7 +669,7 @@
         Dim min As Double = (mtc - hour) * 60
         Dim secs As Integer = (min - Int(min)) * 60
 
-        getCoordinatedMarsTime = String.Format("{0:00}:{1:00}:{2:00}", hour, min, secs)
+        Return String.Format("{0:00}:{1:00}:{2:00}", hour, min, secs)
     End Function
 
     Private Function getPercentTime()
@@ -679,7 +679,7 @@
         Dim noOfSeconds As Integer = MilliSecondOfTheDay() / 1000
         Dim percentSeconds As Double = noOfSeconds / 86400 * 100
 
-        getPercentTime = String.Format("{0:0#.0000 PMH}", percentSeconds)
+        Return String.Format("{0:0#.0000 PMH}", percentSeconds)
     End Function
 
     Private Function getFlowTime()
@@ -691,7 +691,7 @@
         Dim mins As Integer = Now.Minute * (5 / 3)
         Dim secs As Integer = Now.Second * (5 / 3)
 
-        getFlowTime = String.Format("{0:00}:{1:00}:{2:00}", hour, mins, secs)
+        Return String.Format("{0:00}:{1:00}:{2:00}", hour, mins, secs)
     End Function
 
     Private Function MilliSecondOfTheDay() As Integer
@@ -699,7 +699,7 @@
 
         Dim ts As New TimeSpan(0, Now.Hour, Now.Minute, Now.Second, Now.Millisecond)
 
-        MilliSecondOfTheDay = ts.TotalMilliseconds
+        Return ts.TotalMilliseconds
 
     End Function
 

@@ -60,7 +60,7 @@
 
         Dim d As Double = DateDiff(DateInterval.Day, Now(), dd) + 1
 
-        DaysToGo = d
+        Return d
     End Function
 
     Public Function NoOfYears() As Integer
@@ -72,7 +72,7 @@
 
         If ey < Now().Year Then dd = DateDiff(DateInterval.Year, e, Now())
 
-        NoOfYears = dd
+        Return dd
     End Function
 
     Public Property EventName() As String

@@ -21,7 +21,7 @@
             s = "Third reminder"
         End If
 
-        eventTitle = s
+        Return s
     End Function
 
     Public Function eventmessage(ByVal e As Events) As String
@@ -64,13 +64,13 @@
                 s = e.EventName + e.EventType.ToString
         End Select
 
-        eventmessage = s
+        Return s
     End Function
 
     Private Function weddingAnniversary(ByVal n As Integer) As String
         '   Selects the appropriate wedding gift, if known - otherwise returns the year number in words.
 
-        weddingAnniversary = IIf(Me.weddingAnniversaryGifts.ContainsKey(n), Me.weddingAnniversaryGifts(n), Me.toOrdinal(n))
+        Return If(Me.weddingAnniversaryGifts.ContainsKey(n), Me.weddingAnniversaryGifts(n), Me.toOrdinal(n))
     End Function
 
 
@@ -92,10 +92,10 @@
             ten = n / 10
             unit = (n = unit) / 10
 
-            s = IIf(unit = 0, tens(ten) + "th", tens(ten) + units(unit))
+            s = If(unit = 0, tens(ten) + "th", tens(ten) + units(unit))
         End If
 
-        toOrdinal = s
+        Return s
     End Function
 
     Private Sub PopulateGifts()

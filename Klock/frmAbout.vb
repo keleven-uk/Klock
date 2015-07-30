@@ -119,7 +119,7 @@ Public Class frmAbout
     Function getUpTime(ByVal type As Char) As String
         '   Determines the up time of either System or Application - depending on argument S or A.
 
-        Dim noTicks As Double = IIf(type = "A", My.Computer.Clock.TickCount - frmKlock.startTime, Environment.TickCount)
+        Dim noTicks As Double = If(type = "A", My.Computer.Clock.TickCount - frmKlock.startTime, Environment.TickCount)
         Dim noDays As Integer
         Dim noHours As Integer
         Dim noMin As Integer
@@ -134,7 +134,7 @@ Public Class frmAbout
         noTicks = noTicks - (noMin * 60)
         noSec = noTicks                             '   no of secs
 
-        getUpTime = String.Format("{0} days  {1:00} hrs  {2:00} mins  {3:00} secs", noDays, noHours, noMin, noSec)
+        Return String.Format("{0} days  {1:00} hrs  {2:00} mins  {3:00} secs", noDays, noHours, noMin, noSec)
     End Function
 
     Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter

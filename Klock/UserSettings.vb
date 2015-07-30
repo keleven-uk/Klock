@@ -1132,7 +1132,7 @@ Public Class UserSettings
             r = d
         End Try
 
-        readElement = r
+        Return r
     End Function
 
     Private Sub checkDataFile()

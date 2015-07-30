@@ -228,7 +228,7 @@ Module IOcommon
                 file = frmKlock.usrSettings.usrOptionsSaveFile
         End Select
 
-        getPath = System.IO.Path.Combine(dir, file)
+        Return System.IO.Path.Combine(dir, file)
     End Function
 
 End Module

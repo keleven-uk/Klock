@@ -82,7 +82,7 @@ Public Class frmOptions
         Me.TrckBrOptionsVolume.TickFrequency = 100
         Me.TrckBrOptionsVolume.Value = frmKlock.usrSettings.usrSoundVolume
 
-        Me.TxtBxOptionsSettingsFile.Text = IIf(frmKlock.usrSettings.usrFriendsFile = "", "Klock.xml", frmKlock.usrSettings.usrOptionsSaveFile)
+        Me.TxtBxOptionsSettingsFile.Text = If(frmKlock.usrSettings.usrFriendsFile = "", "Klock.xml", frmKlock.usrSettings.usrOptionsSaveFile)
         Me.TxtBxOptionsFriendsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
 
         '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
@@ -144,15 +144,15 @@ Public Class frmOptions
         Me.PctrBxThirdEvent.BackColor = frmKlock.usrSettings.usrThirdEventNotificationbackColour
         '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
-        Me.TxtBxOptionsFriendsFile.Text = IIf(frmKlock.usrSettings.usrFriendsFile = "", "Friends.bin", frmKlock.usrSettings.usrFriendsFile)
+        Me.TxtBxOptionsFriendsFile.Text = If(frmKlock.usrSettings.usrFriendsFile = "", "Friends.bin", frmKlock.usrSettings.usrFriendsFile)
 
         '-------------------------------------------------------------------------------------------------------- Events Settings ------------
 
-        Me.TxtBxOptionsEventsFile.Text = IIf(frmKlock.usrSettings.usrEventsFile = "", "Events.bin", frmKlock.usrSettings.usrEventsFile)
+        Me.TxtBxOptionsEventsFile.Text = If(frmKlock.usrSettings.usrEventsFile = "", "Events.bin", frmKlock.usrSettings.usrEventsFile)
 
         '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
 
-        Me.TxtBxOptionsMemoFile.Text = IIf(frmKlock.usrSettings.usrMemoFile = "", "Memo.bin", frmKlock.usrSettings.usrMemoFile)
+        Me.TxtBxOptionsMemoFile.Text = If(frmKlock.usrSettings.usrMemoFile = "", "Memo.bin", frmKlock.usrSettings.usrMemoFile)
 
         Me.NmrcUpDwnFirstReminder.Value = frmKlock.usrSettings.usrEventsFirstReminder
         Me.NmrcUpDwnSecondReminder.Value = frmKlock.usrSettings.usrEventsSecondReminder

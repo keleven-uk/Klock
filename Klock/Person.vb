@@ -45,7 +45,7 @@
         Dim second As String = Me.FirstName().PadRight(10, " ")
         Dim third As String = Me.EMail1()
 
-        toString = String.Format("{0}{1}", first, second)
+        Return String.Format("{0}{1}", first, second)
     End Function
 
     Public Property FirstName() As String

@@ -56,7 +56,7 @@
             End Select
         End If
 
-        getFont = rtnFont
+        Return rtnFont
     End Function
 
 End Class
