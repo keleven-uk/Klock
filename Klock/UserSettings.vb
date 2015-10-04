@@ -38,6 +38,7 @@ Public Class UserSettings
     Private _usrTimeDefaultFormat As Integer = 0
     Private _usrTimeTwoDefaultFormat As Integer = 1
     Private _usrTimeTwoFormats As Boolean = False
+    Private _usrTimeIdleTime As Boolean = False
     Private _usrTimeSystem24Hour As Boolean = True
     Private _usrTimeOne24Hour As Boolean = True
     Private _usrTimeTwo24Hour As Boolean = True
@@ -70,7 +71,8 @@ Public Class UserSettings
     Private _usrNotificationFontColour As Color = Color.Black
     Private _usrNotificationTimeOut As Integer = 5000
     Private _usrNotificationOpacity As Integer = 80
-
+    '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
+    Private _usrDisableMonitorSleep As Boolean = False
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
     Private _usrFriendsFile As String = "Friends.bin"
     '-------------------------------------------------------------------------------------------------------- Events Settings ------------
@@ -209,15 +211,6 @@ Public Class UserSettings
     End Property
 
     '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
-    Public Property usrTimeTWODefaultFormat() As Integer
-        Get
-            Return _usrTimeTwoDefaultFormat
-        End Get
-        Set(ByVal value As Integer)
-            _usrTimeTwoDefaultFormat = value
-        End Set
-    End Property
-
     Public Property usrTimeDefaultFormat() As Integer
         Get
             Return _usrTimeDefaultFormat
@@ -227,12 +220,30 @@ Public Class UserSettings
         End Set
     End Property
 
+    Public Property usrTimeTWODefaultFormat() As Integer
+        Get
+            Return _usrTimeTwoDefaultFormat
+        End Get
+        Set(ByVal value As Integer)
+            _usrTimeTwoDefaultFormat = value
+        End Set
+    End Property
+
     Public Property usrTimeTwoFormats() As Boolean
         Get
             Return _usrTimeTwoFormats
         End Get
         Set(ByVal value As Boolean)
             _usrTimeTwoFormats = value
+        End Set
+    End Property
+
+    Public Property usrTimeIdleTime() As Boolean
+        Get
+            Return _usrTimeIdleTime
+        End Get
+        Set(ByVal value As Boolean)
+            _usrTimeIdleTime = value
         End Set
     End Property
 
@@ -543,7 +554,15 @@ Public Class UserSettings
             _usrEventNotificationOpacity = value
         End Set
     End Property
-
+    '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
+    Public Property usrDisableMonitorSleep() As Boolean
+        Get
+            Return _usrDisableMonitorSleep
+        End Get
+        Set(ByVal value As Boolean)
+            _usrDisableMonitorSleep = value
+        End Set
+    End Property
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
     Public Property usrFriendsFile() As String
@@ -681,6 +700,7 @@ Public Class UserSettings
                                   <TimeDefaultFormat><%= usrTimeDefaultFormat() %></TimeDefaultFormat>
                                   <TimeTwoDefaultFormat><%= usrTimeTWODefaultFormat() %></TimeTwoDefaultFormat>
                                   <TimeTwoFormats><%= usrTimeTwoFormats() %></TimeTwoFormats>
+                                  <TimeIdleTime><%= usrTimeIdleTime() %></TimeIdleTime>
                                   <TimeSystem24Hour><%= usrTimeSystem24Hour() %></TimeSystem24Hour>
                                   <TimeOne24Hour><%= usrTimeOne24Hour() %></TimeOne24Hour>
                                   <TimeTimeTwo24Hour><%= usrTimeTwo24Hour() %></TimeTimeTwo24Hour>
@@ -732,6 +752,9 @@ Public Class UserSettings
                                   <NotificationTimeOut><%= usrNotificationTimeOut() %></NotificationTimeOut>
                                   <NotificationOpacity><%= usrNotificationOpacity() %></NotificationOpacity>
                               </Notification>
+                              <Monitor>
+                                  <DisableMonitorSleep><%= usrDisableMonitorSleep() %></DisableMonitorSleep>
+                              </Monitor>
                               <Friends>
                                   <FriendsFileName><%= usrFriendsFile() %></FriendsFileName>
                               </Friends>
@@ -819,6 +842,7 @@ Public Class UserSettings
                                   <TimeDefaultFormat>0</TimeDefaultFormat>
                                   <TimeTwoDefaultFormat>1</TimeTwoDefaultFormat>
                                   <TimeTwoFormats>false</TimeTwoFormats>
+                                  <TimeIdleTime>false</TimeIdleTime>
                                   <TimeSystem24Hour>true</TimeSystem24Hour>
                                   <TimeOne24Hour>true</TimeOne24Hour>
                                   <TimeTwo24Hour>true</TimeTwo24Hour>
@@ -870,6 +894,9 @@ Public Class UserSettings
                                   <NotificationTimeOut>5000</NotificationTimeOut>
                                   <NotificationOpacity>80</NotificationOpacity>
                               </Notification>
+                              <Monitor>
+                                  <DisableMonitorSleep>false</DisableMonitorSleep>
+                              </Monitor>
                               <Friends>
                                   <FriendsDirectory><%= usrOptionsSavePath() %></FriendsDirectory>
                                   <FriendsFileName>Friends.bin</FriendsFileName>
@@ -981,6 +1008,7 @@ Public Class UserSettings
             Me.usrTimeDefaultFormat = CType(readElement(tm, "TimeDefaultFormat", usrTimeDefaultFormat()), Integer)
             Me.usrTimeTWODefaultFormat = CType(readElement(tm, "TimeTwoDefaultFormat", usrTimeTWODefaultFormat()), Integer)
             Me.usrTimeTwoFormats = CType(readElement(tm, "TimeTwoFormats", usrTimeTwoFormats()), Boolean)
+            Me.usrTimeIdleTime = CType(readElement(tm, "TimeIdleTime", usrTimeIdleTime()), Boolean)
             Me.usrTimeSystem24Hour = CType(readElement(tm, "TimeSystem24Hour", usrTimeSystem24Hour()), Boolean)
             Me.usrTimeOne24Hour = CType(readElement(tm, "TimeOne24Hour", usrTimeOne24Hour()), Boolean)
             Me.usrTimeTwo24Hour = CType(readElement(tm, "TimeTwo24Hour", usrTimeTwo24Hour()), Boolean)
@@ -1045,6 +1073,11 @@ Public Class UserSettings
 
             Me.usrNotificationTimeOut = CType(readElement(ntfctn, "NotificationTimeOut", usrNotificationTimeOut()), Integer)
             Me.usrNotificationOpacity = CType(readElement(ntfctn, "NotificationOpacity", usrNotificationOpacity()), Integer)
+
+            '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
+
+            Dim mntr = elem.Element("Monitor")
+            Me.usrDisableMonitorSleep = CType(readElement(mntr, "DisableMonitorSleep", usrDisableMonitorSleep()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
             '   values are strings, so need to convert.

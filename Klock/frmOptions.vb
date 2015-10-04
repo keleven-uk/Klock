@@ -91,6 +91,7 @@ Public Class frmOptions
         Me.CmbBxDefaultTimeTwoFormat.SelectedIndex = frmKlock.usrSettings.usrTimeTWODefaultFormat
 
         Me.chckBxTimeTwoFormats.Checked = frmKlock.usrSettings.usrTimeTwoFormats
+        Me.chckBxIdleTime.Checked = frmKlock.usrSettings.usrTimeIdleTime
 
         Me.chckBxTimeSwatch.Checked = frmKlock.usrSettings.usrTimeSwatchCentibeats
         Me.ChckBxTimeNetSeconds.Checked = frmKlock.usrSettings.usrTimeNETSeconds
@@ -142,6 +143,11 @@ Public Class frmOptions
         Me.PctrBxFirstEvent.BackColor = frmKlock.usrSettings.usrFirstEventNotificationbackColour
         Me.PctrBxSecondEvent.BackColor = frmKlock.usrSettings.usrSecondEventNotificationbackColour
         Me.PctrBxThirdEvent.BackColor = frmKlock.usrSettings.usrThirdEventNotificationbackColour
+
+        '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
+
+        Me.ChckBxDisableMonitorSleep.Checked = frmKlock.usrSettings.usrDisableMonitorSleep
+
         '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
         Me.TxtBxOptionsFriendsFile.Text = If(frmKlock.usrSettings.usrFriendsFile = "", "Friends.bin", frmKlock.usrSettings.usrFriendsFile)
@@ -186,6 +192,7 @@ Public Class frmOptions
         frmKlock.usrSettings.usrTimeTWODefaultFormat = Me.CmbBxDefaultTimeTwoFormat.SelectedIndex
 
         frmKlock.usrSettings.usrTimeTwoFormats = Me.chckBxTimeTwoFormats.Checked
+        frmKlock.usrSettings.usrTimeIdleTime = Me.chckBxIdleTime.Checked
 
         frmKlock.usrSettings.usrTimeSwatchCentibeats = Me.chckBxTimeSwatch.Checked
         frmKlock.usrSettings.usrTimeNETSeconds = Me.ChckBxTimeNetSeconds.Checked
@@ -229,6 +236,10 @@ Public Class frmOptions
         frmKlock.usrSettings.usrNotificationOpacity = Me.NmrcUpDwnNotificationOpacity.Value
 
         frmKlock.usrSettings.usrEventNotificationOpacity = Me.NmrcUpDwnEventNotificationOpacity.Value
+
+        '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
+
+        frmKlock.usrSettings.usrDisableMonitorSleep = Me.ChckBxDisableMonitorSleep.Checked
 
         '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
@@ -535,6 +546,18 @@ Public Class frmOptions
         Me.UpDwnTimeDisplay.Enabled = Me.ChckBxTimeToast.Checked
     End Sub
 
+    '---------------------------------------------------------- Monitor Options  ---------------------------------------------------------------
+
+    Private Sub ChckBxDisableMonitorSleep_CheckedChanged(sender As Object, e As EventArgs) Handles ChckBxDisableMonitorSleep.CheckedChanged
+        '   if checkbox is enabled, then disallow the monitor from goinf to sleep.
+        '   oter wise allow monitor to go to sleep as system [OS] default.
+
+        If Me.ChckBxDisableMonitorSleep.Checked Then
+            KlockThings.KeepMonitorActive()
+        Else
+            KlockThings.RestoreMonitorSettings()
+        End If
+    End Sub
     '---------------------------------------------------------- Friends Options  ---------------------------------------------------------------
 
     Private Sub btnOptionsFriendsFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFriendsFile.Click
@@ -705,5 +728,6 @@ Public Class frmOptions
             Me.displayAction.DisplayReminder("Loading File Error", "Error archiving Friends File. " & ex.Message)
         End Try
     End Sub
+
 
 End Class

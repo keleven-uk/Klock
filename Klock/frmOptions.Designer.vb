@@ -77,6 +77,7 @@ Partial Class frmOptions
         Me.ChckBxTimeTimeOne24 = New System.Windows.Forms.CheckBox()
         Me.ChckBxTimeSystem24 = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.chckBxIdleTime = New System.Windows.Forms.CheckBox()
         Me.lblTimeTwo = New System.Windows.Forms.Label()
         Me.CmbBxDefaultTimeTwoFormat = New System.Windows.Forms.ComboBox()
         Me.Label21 = New System.Windows.Forms.Label()
@@ -97,6 +98,8 @@ Partial Class frmOptions
         Me.ChckBxTimeHourlyChimes = New System.Windows.Forms.CheckBox()
         Me.ChckBxTimeHourPips = New System.Windows.Forms.CheckBox()
         Me.TbPgOtherStuff = New System.Windows.Forms.TabPage()
+        Me.GroupBox19 = New System.Windows.Forms.GroupBox()
+        Me.ChckBxDisableMonitorSleep = New System.Windows.Forms.CheckBox()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.ChckBxReminderAdd = New System.Windows.Forms.CheckBox()
         Me.ChckBxReminderTimeCheck = New System.Windows.Forms.CheckBox()
@@ -184,6 +187,7 @@ Partial Class frmOptions
         CType(Me.UpDwnTimeDisplay, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TbPgOtherStuff.SuspendLayout()
+        Me.GroupBox19.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
@@ -747,6 +751,7 @@ Partial Class frmOptions
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.chckBxIdleTime)
         Me.GroupBox3.Controls.Add(Me.lblTimeTwo)
         Me.GroupBox3.Controls.Add(Me.CmbBxDefaultTimeTwoFormat)
         Me.GroupBox3.Controls.Add(Me.Label21)
@@ -767,6 +772,17 @@ Partial Class frmOptions
         Me.GroupBox3.TabIndex = 5
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Settings"
+        '
+        'chckBxIdleTime
+        '
+        Me.chckBxIdleTime.AutoSize = True
+        Me.chckBxIdleTime.Location = New System.Drawing.Point(193, 45)
+        Me.chckBxIdleTime.Name = "chckBxIdleTime"
+        Me.chckBxIdleTime.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxIdleTime.Size = New System.Drawing.Size(106, 17)
+        Me.chckBxIdleTime.TabIndex = 16
+        Me.chckBxIdleTime.Text = "Display Idle Time"
+        Me.chckBxIdleTime.UseVisualStyleBackColor = True
         '
         'lblTimeTwo
         '
@@ -972,6 +988,7 @@ Partial Class frmOptions
         'TbPgOtherStuff
         '
         Me.TbPgOtherStuff.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgOtherStuff.Controls.Add(Me.GroupBox19)
         Me.TbPgOtherStuff.Controls.Add(Me.GroupBox5)
         Me.TbPgOtherStuff.Controls.Add(Me.GroupBox4)
         Me.TbPgOtherStuff.Controls.Add(Me.GroupBox9)
@@ -982,6 +999,27 @@ Partial Class frmOptions
         Me.TbPgOtherStuff.Size = New System.Drawing.Size(660, 265)
         Me.TbPgOtherStuff.TabIndex = 7
         Me.TbPgOtherStuff.Text = "Other Stuff"
+        '
+        'GroupBox19
+        '
+        Me.GroupBox19.Controls.Add(Me.ChckBxDisableMonitorSleep)
+        Me.GroupBox19.Location = New System.Drawing.Point(6, 218)
+        Me.GroupBox19.Name = "GroupBox19"
+        Me.GroupBox19.Size = New System.Drawing.Size(648, 41)
+        Me.GroupBox19.TabIndex = 3
+        Me.GroupBox19.TabStop = False
+        Me.GroupBox19.Text = "Monitor"
+        '
+        'ChckBxDisableMonitorSleep
+        '
+        Me.ChckBxDisableMonitorSleep.AutoSize = True
+        Me.ChckBxDisableMonitorSleep.Location = New System.Drawing.Point(52, 18)
+        Me.ChckBxDisableMonitorSleep.Name = "ChckBxDisableMonitorSleep"
+        Me.ChckBxDisableMonitorSleep.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxDisableMonitorSleep.Size = New System.Drawing.Size(172, 17)
+        Me.ChckBxDisableMonitorSleep.TabIndex = 0
+        Me.ChckBxDisableMonitorSleep.Text = "Disable Monitor Going to Sleep"
+        Me.ChckBxDisableMonitorSleep.UseVisualStyleBackColor = True
         '
         'GroupBox5
         '
@@ -1663,6 +1701,8 @@ Partial Class frmOptions
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.TbPgOtherStuff.ResumeLayout(False)
+        Me.GroupBox19.ResumeLayout(False)
+        Me.GroupBox19.PerformLayout()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
@@ -1832,4 +1872,7 @@ Partial Class frmOptions
     Friend WithEvents ChckBxTimeTimeTwo24 As System.Windows.Forms.CheckBox
     Friend WithEvents ChckBxTimeTimeOne24 As System.Windows.Forms.CheckBox
     Friend WithEvents ChckBxTimeSystem24 As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxIdleTime As CheckBox
+    Friend WithEvents GroupBox19 As GroupBox
+    Friend WithEvents ChckBxDisableMonitorSleep As CheckBox
 End Class

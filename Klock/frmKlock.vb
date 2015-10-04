@@ -83,7 +83,7 @@
             ElseIf Me.TbCntrl.SelectedIndex = 1 Then
                 Me.updateWorldKlock() '   Update World Klock.
             End If          '   If Me.TbCntrl.SelectedIndex = 0 [or 1] Then
-        Else
+        Else                '   else If Me.Visible Then
             Me.NotificationDispaly(currentSecond)                                       '   display a notification, if desired
         End If          '   If Me.Visible Then
 
@@ -120,6 +120,15 @@
         '   Me.stsLblTime.Text = Format(Now, "Long Time")
         Me.StsLblDate.Text = Format(Now, "Long Date")
         Me.StsLblKeys.Text = strKey
+
+        '   Works out idle time, but only if needed
+
+        If Me.usrSettings.usrTimeIdleTime Then
+            Me.stsLbIdkeTime.Visible = True
+            Me.stsLbIdkeTime.Text = KlockThings.idleTime()
+        Else
+            Me.stsLbIdkeTime.Visible = False
+        End If
     End Sub
 
     Private Sub updateTitleText()
@@ -931,11 +940,11 @@
         '   Set a new reminder.  Sets appropriate text and sets the global reminder date for checking.
         '   Also, enables the reminder timer, which checks if reminder is due every minute..
 
-        Dim d As New DateTime(Me.DtPckrRiminder.Value.Year, _
-                         Me.DtPckrRiminder.Value.Month, _
-                         Me.DtPckrRiminder.Value.Day, _
-                         Me.TmPckrRiminder.Value.Hour, _
-                         Me.TmPckrRiminder.Value.Minute, _
+        Dim d As New DateTime(Me.DtPckrRiminder.Value.Year,
+                         Me.DtPckrRiminder.Value.Month,
+                         Me.DtPckrRiminder.Value.Day,
+                         Me.TmPckrRiminder.Value.Hour,
+                         Me.TmPckrRiminder.Value.Minute,
                          0)
 
         Me.tmrReminder.Enabled = True       '   start reminder timer.
@@ -1040,11 +1049,11 @@
     Private Sub reminder_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DtPckrRiminder.ValueChanged, TmPckrRiminder.ValueChanged
         '   Checks to see if the reminder date if in the future [> now()], only then enable the set button.
 
-        Dim d As New DateTime(Me.DtPckrRiminder.Value.Year, _
-                         Me.DtPckrRiminder.Value.Month, _
-                         Me.DtPckrRiminder.Value.Day, _
-                         Me.TmPckrRiminder.Value.Hour, _
-                         Me.TmPckrRiminder.Value.Minute, _
+        Dim d As New DateTime(Me.DtPckrRiminder.Value.Year,
+                         Me.DtPckrRiminder.Value.Month,
+                         Me.DtPckrRiminder.Value.Day,
+                         Me.TmPckrRiminder.Value.Hour,
+                         Me.TmPckrRiminder.Value.Minute,
                          0)
 
         Me.btnReminderSet.Enabled = If(d > Now(), True, False)
@@ -1795,6 +1804,9 @@
 
         Me.TlStrpMnItmTime.Checked = Me.usrSettings.usrTimeDisplayMinimised
         Me.ChckBxReminderTimeCheck.Checked = Me.usrSettings.usrReminderTimeChecked
+        Me.DisplayTwoTimeFormatsToolStripMenuItem.Checked = Me.usrSettings.usrTimeTwoFormats
+        Me.DisplayIdleTime.Checked = Me.usrSettings.usrTimeIdleTime
+        Me.MonitorDisableSleep.Checked = Me.usrSettings.usrDisableMonitorSleep
 
         If Me.usrSettings.usrTimeTwoFormats Then               '   switch on second time format, if desired.
             Me.CmbBxTimeTwo.Visible = True
@@ -1809,6 +1821,7 @@
         End If
 
         Me.DisplayTwoTimeFormatsToolStripMenuItem.Checked = Me.usrSettings.usrTimeTwoFormats    '   Set menu check accordingly.
+        Me.DisplayIdleTime.Checked = Me.usrSettings.usrTimeIdleTime                             '   
 
         If Me.reloadFriends Then
             IOcommon.loadFriends()
@@ -1893,8 +1906,8 @@
 
         frmOptions.ShowDialog()
 
-        Me.CmbBxTimeOne.SelectedIndex = Me.usrSettings.usrTimeDefaultFormat
-        Me.CmbBxTimeTwo.SelectedIndex = Me.usrSettings.usrTimeTWODefaultFormat
+        Me.setSettings()
+
     End Sub
 
     ' ********************************************************************************************************************** time menu stuff *************
@@ -1925,6 +1938,29 @@
             Me.LblTimeTwoTime.Visible = False
             Me.GroupBox14.Visible = False
             Me.GroupBox15.Visible = False
+        End If
+    End Sub
+
+    Private Sub DisplayIdleTimeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DisplayIdleTime.Click
+        '   If chosen from menus, display idle time in status bar.
+
+        If Me.DisplayIdleTime.Checked Then
+            Me.usrSettings.usrTimeIdleTime = True
+        Else
+            Me.usrSettings.usrTimeIdleTime = False
+        End If
+    End Sub
+
+
+    ' ********************************************************************************************************************** monitor menu stuff *************
+
+    Private Sub DisableSleepToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MonitorDisableSleep.Click
+        '   If chosen from menus, disable the monitor from going to sleep.
+
+        If Me.MonitorDisableSleep.Checked Then
+            KlockThings.KeepMonitorActive()
+        Else
+            KlockThings.RestoreMonitorSettings()
         End If
     End Sub
 
