@@ -1,8 +1,4 @@
-﻿Imports System.IO
-Imports System.Globalization
-Imports System.Runtime.Serialization.Formatters.Binary
-
-Module FEMcommon
+﻿Module FEMcommon
 
     ' **************************************************************************************************** Friends & Events Buttons ***********************
     '   Code that is common to Friends, Events & Memo tabs.

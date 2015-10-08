@@ -14,6 +14,11 @@
     Private Sub frmTextKlock_FormClosed(sender As System.Object, e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
 
         Me.tmrTextKlock.Enabled = False
+
+        frmKlock.NtfyIcnKlock.Visible = False
+        frmKlock.Visible = True
+
+        frmKlock.TextKlockToolStripMenuItem.Checked = False
     End Sub
 
     Private Sub tmrTextKlock_Tick(sender As System.Object, e As System.EventArgs) Handles tmrTextKlock.Tick
