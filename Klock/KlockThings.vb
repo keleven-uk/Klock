@@ -2,6 +2,11 @@
 Imports Microsoft.Win32         'For System Events
 
 Module KlockThings
+    '
+    '   A module of klock helper functions and procedures.
+    '   placed here, to keep in one place and out of the way.
+    '
+
 
     '   -------------------------------------------------------- Idle Time ----------------------------------------------------------------------------
     '   used for idle time [includes structure]
@@ -29,7 +34,7 @@ Module KlockThings
         idleTime = String.Format("Idle Time :: {0:00}:{1:00}:{2:00}", hms.Hours, hms.Minutes, hms.Seconds)
     End Function
 
-    '   -------------------------------------------------------------- Monito going to sleep ----------------------------------------------------------------------
+    '   -------------------------------------------------------------- Monitor going to sleep ----------------------------------------------------------------------
     '   Preventing Your Monitor from Going to Sleep
     '   http://www.codeguru.com/columns/vb/preventing-your-monitor-from-going-to-sleep-with-visual-studio-2012.htm
 
@@ -59,16 +64,52 @@ Module KlockThings
 
         SetThreadExecutionState(EXECUTION_STATE.ES_DISPLAY_REQUIRED + EXECUTION_STATE.ES_CONTINUOUS) 'Do not Go To Sleep
         frmKlock.stsLbIdkeTime.ForeColor = Color.Blue
-        frmKlock.usrSettings.usrDisableMonitorSleep = True
     End Sub
 
     Public Sub RestoreMonitorSettings()
 
         SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS) 'Restore Previous Settings, ie, Go To Sleep Again
         frmKlock.stsLbIdkeTime.ForeColor = Color.Black
-        frmKlock.usrSettings.usrDisableMonitorSleep = False
     End Sub
 
+    '
+    '------------------------------------------------------------------------------------------------- setTitletext ---------------------------------------------
+    '
+    Public Sub setTitleText()
+        'Sets the title of the application according to whch tab is open.
 
+        Select Case frmKlock.TbCntrl.SelectedIndex
+            Case 0                                              '   time tab
+                frmKlock.Text = "Klock - Tells you the time :: " & frmKlock.displayOneTime.getTitle()
+            Case 1                                              '   world klock tab
+                frmKlock.Text = "Klock - Tells you the time around the World"
+            Case 2                                              '   countdown tab
+                frmKlock.Text = "Klock - Countdowns the time"
+            Case 3                                              '   timer tab
+                frmKlock.Text = "Klock - Measures the time"
+            Case 4                                              '   reminder tab
+                frmKlock.Text = "Klock - Reminds you of the time"
+            Case 5                                              '   friends tab
+                frmKlock.Text = "Klock - Reminds you of your friends"
+            Case 6                                              '   events tab
+                frmKlock.Text = "Klock - Reminds you of important events."
+            Case 7                                              '   Memo tab
+                frmKlock.Text = "Klock - Reminds you of Memoranda."
+        End Select
+    End Sub
 
+    '
+    ' --------------------------------------------------------------------------------------------mins to string --------------------------------------------
+    '
+    Function minsToString(ByVal m As Integer) As String
+        '   Reformat number of seconds in string in minutes and seconds [mm:ss].
+
+        Dim hours As Integer
+        Dim mins As Integer
+
+        hours = m \ 60
+        mins = m - (hours * 60)
+
+        Return String.Format("{0:00}:{1:00}", hours, mins)
+    End Function
 End Module

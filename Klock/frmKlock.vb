@@ -9,6 +9,7 @@
     '   November 2013   V1.0.5 - added Double Agent              [build 44] :: parked for now
     '   July 2014       V1.0.6 - added Text Klock                [build 46] :: copied from V1.0.4
     '   July 2015       V1.1.0 - Moved to VS2013 & GitHub        no build numbers now.
+    '   September 2015  V1.1.1 - Moved to VS2015, added idele time & disabele monitor sleep
 
 
     Public startTime As Integer
@@ -121,9 +122,9 @@
         Me.StsLblDate.Text = Format(Now, "Long Date")
         Me.StsLblKeys.Text = strKey
 
-        '   Works out idle time, but only if needed
+        '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleepimg.
 
-        If Me.usrSettings.usrTimeIdleTime Then
+        If Me.usrSettings.usrTimeIdleTime Or Me.usrSettings.usrDisableMonitorSleep Then
             Me.stsLbIdkeTime.Visible = True
             Me.stsLbIdkeTime.Text = KlockThings.idleTime()
         Else
@@ -134,7 +135,7 @@
     Private Sub updateTitleText()
         '   Updates application title.
 
-        Me.setTitleText()
+        setTitleText()
 
         Dim titletext As String = Me.Text
 
@@ -147,7 +148,7 @@
         End If
 
         If Me.usrSettings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
-            titletext = titletext & " .::. " & Me.minsToString(Me.CountDownTime)
+            titletext = titletext & " .::. " & minsToString(Me.CountDownTime)
         End If
 
         If Me.usrSettings.usrReminderAdd And Me.tmrReminder.Enabled Then
@@ -221,7 +222,7 @@
             End If
 
             If Me.usrSettings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
-                Me.displayAction.DisplayReminder("Countdown", "Countdown Running :: " & Me.minsToString(Me.CountDownTime))
+                Me.displayAction.DisplayReminder("Countdown", "Countdown Running :: " & minsToString(Me.CountDownTime))
             End If
 
             If Me.usrSettings.usrReminderAdd And Me.tmrReminder.Enabled Then
@@ -261,7 +262,7 @@
         '   If enabled, countdown is running - clock ticks every second.
 
         Me.CountDownTime -= 1                                           '   decrement countdown every second.
-        Me.lblCountDownTime.Text = Me.minsToString(Me.CountDownTime)    '   update countdown label.
+        Me.lblCountDownTime.Text = minsToString(Me.CountDownTime)    '   update countdown label.
 
         If Me.CountDownTime = 0 Then                                    '   countdown has finished.
             Me.CountDownAction()                                        '   perform action.
@@ -365,28 +366,7 @@
                 End If
         End Select
 
-        Me.setTitleText()
-    End Sub
-
-    Private Sub setTitleText()
-        Select Case Me.TbCntrl.SelectedIndex
-            Case 0                                              '   time tab
-                Me.Text = "Klock - Tells you the time :: " & Me.displayOneTime.getTitle()
-            Case 1                                              '   world klock tab
-                Me.Text = "Klock - Tells you the time around the World"
-            Case 2                                              '   countdown tab
-                Me.Text = "Klock - Countdowns the time"
-            Case 3                                              '   timer tab
-                Me.Text = "Klock - Measures the time"
-            Case 4                                              '   reminder tab
-                Me.Text = "Klock - Reminds you of the time"
-            Case 5                                              '   friends tab
-                Me.Text = "Klock - Reminds you of your friends"
-            Case 6                                              '   events tab
-                Me.Text = "Klock - Reminds you of important events."
-            Case 7                                              '   Memo tab
-                Me.Text = "Klock - Reminds you of Memoranda."
-        End Select
+        setTitleText()
     End Sub
 
     '   ************************************************************************************************** time ****************************************
@@ -496,7 +476,7 @@
         Me.btnCountDownStart.Enabled = If(Me.upDwnCntDownValue.Value = 0, False, True)
 
         Me.CountDownTime = Me.upDwnCntDownValue.Value * 60
-        Me.lblCountDownTime.Text = Me.minsToString(CountDownTime)
+        Me.lblCountDownTime.Text = minsToString(CountDownTime)
     End Sub
 
     Private Sub btnCountDownStart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownStart.Click
@@ -522,7 +502,7 @@
         '   runs the countdown for 30 minutes form the quick start button.
 
         Me.CountDownTime = 30 * 60                                  '   30 minutes in seconds.
-        Me.lblCountDownTime.Text = Me.minsToString(CountDownTime)
+        Me.lblCountDownTime.Text = minsToString(CountDownTime)
         Me.btnCountDownStart_Click(sender, e)                       '   call click sub to start countdown.
     End Sub
 
@@ -530,7 +510,7 @@
         '   runs the countdown for 60 minutes form the quick start button.
 
         Me.CountDownTime = 60 * 60                                  '   60 minutes in seconds.
-        Me.lblCountDownTime.Text = Me.minsToString(CountDownTime)
+        Me.lblCountDownTime.Text = minsToString(CountDownTime)
         Me.btnCountDownStart_Click(sender, e)                       '   call click sub to start countdown.
     End Sub
 
@@ -538,16 +518,16 @@
         '   runs the countdown for 90 minutes form the quick start button.
 
         Me.CountDownTime = 90 * 60                                  '   90 minutes in seconds.
-        Me.lblCountDownTime.Text = Me.minsToString(CountDownTime)
+        Me.lblCountDownTime.Text = minsToString(CountDownTime)
         Me.btnCountDownStart_Click(sender, e)                       '   call click sub to start countdown.
     End Sub
 
     Private Sub QuickStartButtons(ByVal b As Boolean)
         '   toggles the quick start buttons on/off.
 
-        btnCountdown30.Enabled = b
-        btnCountdown60.Enabled = b
-        btnCountdown90.Enabled = b
+        Me.btnCountdown30.Enabled = b
+        Me.btnCountdown60.Enabled = b
+        Me.btnCountdown90.Enabled = b
     End Sub
 
     Private Sub CmbBxCountDownAction_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxCountDownAction.SelectedIndexChanged
@@ -723,18 +703,6 @@
 
         Me.QuickStartButtons(True)
     End Sub
-
-    Function minsToString(ByVal m As Integer) As String
-        '   Reformat number of seconds in string in minutes and seconds [mm:ss].
-
-        Dim hours As Integer
-        Dim mins As Integer
-
-        hours = m \ 60
-        mins = m - (hours * 60)
-
-        Return String.Format("{0:00}:{1:00}", hours, mins)
-    End Function
 
     Sub CountDownSound(ByVal b As Boolean)
         '   Sets visible to b for all sound components
@@ -1711,7 +1679,8 @@
         Me.setTimeTypes()                               '   load time types into combo box.
         Me.setActionTypes()                             '   load action types into combo box.
         Me.setTimeZones(0)                              '   load time zones into combo box, making index 0 active.
-        Me.setTitleText()                               '   set app title text
+
+        setTitleText()                                  '   set app title text
 
         FEMcommon.ButtonsVisible(False)
 
@@ -1731,6 +1700,8 @@
     Private Sub frmKlock_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
         '   Processes key presses at form level, before passed to components.
         '   Pressing F12, will shown total number of friends.
+        '   Pressing F7, will disable the monitor from goinmg to sleep.
+        '   Pressing F8, will restore system settings for the monitor.
         '   The rest of the codes is so that enter is handled correctly when inputting a new friend.  Pressing enter or hitting
         '   the tab key will do the same thine, that is move focus to the next data entry box.
 
@@ -1738,9 +1709,17 @@
             '   MessageBox.Show(String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
             Me.displayAction.DisplayReminder("Friends", String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
             e.Handled = True
+        ElseIf e.KeyCode = Keys.F7 Then
+            KlockThings.KeepMonitorActive()
+            Me.usrSettings.usrDisableMonitorSleep = True
+            e.Handled = True
+        ElseIf e.KeyCode = Keys.F8 Then
+            Me.usrSettings.usrDisableMonitorSleep = False
+            KlockThings.RestoreMonitorSettings()
+            e.Handled = True
         End If
 
-        If Me.TbCntrl.SelectedIndex <> 4 Then   '   if not friends tab - ignore reminder of sub.
+        If Me.TbCntrl.SelectedIndex <> 5 Then   '   if not friends tab - ignore reminder of sub.
             Exit Sub
         End If
 
@@ -1904,6 +1883,8 @@
         '   Display Settings Screen and apply settings, they may have changed.
         '   Called from main menu [file / options] and system tray right click menu.
 
+        Me.usrSettings.writeSettings()      '   save settings, not sure if anything has changed.
+
         frmOptions.ShowDialog()
 
         Me.setSettings()
@@ -1944,11 +1925,7 @@
     Private Sub DisplayIdleTimeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DisplayIdleTime.Click
         '   If chosen from menus, display idle time in status bar.
 
-        If Me.DisplayIdleTime.Checked Then
-            Me.usrSettings.usrTimeIdleTime = True
-        Else
-            Me.usrSettings.usrTimeIdleTime = False
-        End If
+        Me.usrSettings.usrTimeIdleTime = Me.DisplayIdleTime.Checked
     End Sub
 
 
@@ -1958,8 +1935,10 @@
         '   If chosen from menus, disable the monitor from going to sleep.
 
         If Me.MonitorDisableSleep.Checked Then
+            Me.usrSettings.usrDisableMonitorSleep = True
             KlockThings.KeepMonitorActive()
         Else
+            Me.usrSettings.usrDisableMonitorSleep = False
             KlockThings.RestoreMonitorSettings()
         End If
     End Sub

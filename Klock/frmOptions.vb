@@ -18,7 +18,6 @@ Public Class frmOptions
         Me.LblOptionSavepath.Text = System.IO.Path.Combine(frmKlock.usrSettings.usrOptionsSavePath(), frmKlock.usrSettings.usrOptionsSaveFile())
 
         Me.CmbBxDefaultTab.Items.AddRange(tabs)
-        Me.CmbBxDefaultTab.SelectedIndex = frmKlock.usrSettings.usrDefaultTab
 
         Me.TabCntrlOptions.SelectedIndex = 0
 
@@ -61,6 +60,8 @@ Public Class frmOptions
         '   Apply the current settings.
 
         frmKlock.usrSettings.readSettings()     '   re-read settings, so we are always working current.
+
+        Me.CmbBxDefaultTab.SelectedIndex = frmKlock.usrSettings.usrDefaultTab
 
         '-------------------------------------------------------------------------------------------------------- Global Settings -------------
         Me.BackColor = frmKlock.usrSettings.usrFormColour
@@ -175,6 +176,8 @@ Public Class frmOptions
 
     Private Sub btnOptionsClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsClose.Click
         '    When closed, save settings.
+
+        frmKlock.usrSettings.usrDefaultTab = Me.CmbBxDefaultTab.SelectedIndex
 
         '-------------------------------------------------------------------------------------------------------- Global Settings -------------
         frmKlock.usrSettings.usrSavePosition = Me.ChckBxOptionsSavePos.Checked
@@ -417,6 +420,11 @@ Public Class frmOptions
         Me.ChckBxTimeTimeTwo24.Checked = Not Me.ChckBxTimeTimeTwo12.Checked
     End Sub
 
+    Private Sub chckBxIdleTime_CheckedChanged(sender As Object, e As EventArgs) Handles chckBxIdleTime.CheckedChanged
+
+        frmKlock.DisplayIdleTime.Checked = Me.chckBxIdleTime.Checked
+    End Sub
+
     '-----------------------------------------------------------Notification---------------------------------------------------------------
 
     Private Sub btnNotificationColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNotificationColour.Click
@@ -553,8 +561,10 @@ Public Class frmOptions
         '   oter wise allow monitor to go to sleep as system [OS] default.
 
         If Me.ChckBxDisableMonitorSleep.Checked Then
+            frmKlock.usrSettings.usrDisableMonitorSleep = True
             KlockThings.KeepMonitorActive()
         Else
+            frmKlock.usrSettings.usrDisableMonitorSleep = False
             KlockThings.RestoreMonitorSettings()
         End If
     End Sub
