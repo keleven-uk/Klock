@@ -1,3 +1,19 @@
+commit 10cd52e7f228c22fa6180d1cdf4d5b67e2581e1d
+Author: kevin scott <klock@keleven.co.uk>
+Date:   Sun Oct 4 22:24:13 2015 +0100
+
+    The amendmened files form the last push.
+
+ Klock/Klock.vbproj               |    1 +
+ Klock/My Project/AssemblyInfo.vb |    6 +-
+ Klock/UserSettings.vb            |   49 +-
+ Klock/frmKlock.Designer.vb       |   80 +-
+ Klock/frmKlock.vb                |   62 +-
+ Klock/frmOptions.Designer.vb     |   43 +
+ Klock/frmOptions.vb              |   24 +
+ log.txt                          | 1614 ++++++++++++++++++++++++++++++++++++++
+ 8 files changed, 1834 insertions(+), 45 deletions(-)
+
 commit 5b2b0deccdaa9c477c3b2141b46b80797a231eb6
 Author: kevin scott <klock@keleven.co.uk>
 Date:   Sun Oct 4 22:19:06 2015 +0100
