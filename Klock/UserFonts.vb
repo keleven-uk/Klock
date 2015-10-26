@@ -41,7 +41,7 @@
             rtnFont = New Font(pfc.Families(1), 26, FontStyle.Regular)
         ElseIf mode = "Time in a Barcode" Then
             rtnFont = New Font(pfc.Families(0), 26, FontStyle.Regular)
-        Else
+        Else                                                                '   text is either time in words or a remionder countdown text.
             Dim textSize = g.MeasureString(tmStr, txtBigFont)
 
             Select Case textSize.Width

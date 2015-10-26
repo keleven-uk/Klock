@@ -669,7 +669,7 @@ Public Class frmOptions
     End Sub
 
     Private Sub btnArchiveSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchiveSave.Click
-        '   Saves the friends file to Archive [zip].
+        '   Saves the friends, events, memo & settings files to Archive [zip].
         '   If the achieve already exists, it will only be overwritten on user prompt.
 
         Dim zippath As String = System.IO.Path.Combine(Me.TxtBxArchiveDirectory.Text, Me.TxtBxArchiveFile.Text) '   path of destination zip file.
@@ -706,8 +706,9 @@ Public Class frmOptions
 
         Try
             output.CopyHere(input.Items, 4)                                     '   save Archive
+            Me.displayAction.DisplayReminder("Saving File Okay", "Archiving Data Files Successful.")
         Catch ex As Exception
-            Me.displayAction.DisplayReminder("Saving File Error", "Error archiving Friends File. " & ex.Message)
+            Me.displayAction.DisplayReminder("Saving File Error", "Error archiving Data Files. " & ex.Message)
         End Try
     End Sub
 
@@ -734,8 +735,9 @@ Public Class frmOptions
         Try                                           '   catch extract error, if any.
             output.CopyHere(input.Items, 4)
             frmKlock.reloadFriends = True             '   set to re-load friends file.
+            Me.displayAction.DisplayReminder("Loading File Okay", "Loading Data Files Successful.")
         Catch ex As Exception
-            Me.displayAction.DisplayReminder("Loading File Error", "Error archiving Friends File. " & ex.Message)
+            Me.displayAction.DisplayReminder("Loading File Error", "Error Loading Data Files. " & ex.Message)
         End Try
     End Sub
 

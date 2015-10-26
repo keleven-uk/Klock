@@ -29,7 +29,7 @@ Public Class ListViewColumnSorter
         listviewY = CType(y, ListViewItem)
 
         ' Compare the two items.
-        Select Case frmKlock.TbCntrl.SelectedIndex
+        Select Case frmNECAudit.tabCntrlAudit.SelectedIndex
             Case 0, 1, 2, 3
                 compareResult = ObjectCompare.Compare(listviewX.SubItems(ColumnToSort).Text, listviewY.SubItems(ColumnToSort).Text)
             Case 4
@@ -43,15 +43,12 @@ Public Class ListViewColumnSorter
                 End Select
         End Select
 
-        ' Calculate the correct return value based on the object 
-        ' comparison.
+        ' Calculate the correct return value based on the object comparison.
         If (OrderOfSort = SortOrder.Ascending) Then
-            ' Ascending sort is selected, return typical result of 
-            ' compare operation.
+            ' Ascending sort is selected, return typical result of compare operation.
             Return compareResult
         ElseIf (OrderOfSort = SortOrder.Descending) Then
-            ' Descending sort is selected, return negative result of 
-            ' compare operation.
+            ' Descending sort is selected, return negative result of compare operation.
             Return (-compareResult)
         Else
             ' Return '0' to indicate that they are equal.
@@ -79,7 +76,6 @@ Public Class ListViewColumnSorter
         End Get
     End Property
 End Class
-
 
 
 

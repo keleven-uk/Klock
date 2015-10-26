@@ -37,6 +37,9 @@ Partial Class frmKlock
         Me.TimeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TextKlockToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DisplayTwoTimeFormatsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DisplayIdleTime = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MonitorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MonitorDisableSleep = New System.Windows.Forms.ToolStripMenuItem()
         Me.InfoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DaylightSavingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CultureToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -132,6 +135,7 @@ Partial Class frmKlock
         Me.TbPgFriends = New System.Windows.Forms.TabPage()
         Me.GroupBox13 = New System.Windows.Forms.GroupBox()
         Me.pnlFriends = New System.Windows.Forms.Panel()
+        Me.ChckBxAddToEvents = New System.Windows.Forms.CheckBox()
         Me.DtPckrFriendsDOB = New System.Windows.Forms.DateTimePicker()
         Me.txtbxFriendsNotes = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -214,9 +218,7 @@ Partial Class frmKlock
         Me.tmrEvents = New System.Windows.Forms.Timer(Me.components)
         Me.btnEventsCheck = New System.Windows.Forms.Button()
         Me.TmrMemo = New System.Windows.Forms.Timer(Me.components)
-        Me.DisplayIdleTime = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MonitorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MonitorDisableSleep = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnPrint = New System.Windows.Forms.Button()
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -355,15 +357,36 @@ Partial Class frmKlock
         '
         Me.TextKlockToolStripMenuItem.CheckOnClick = True
         Me.TextKlockToolStripMenuItem.Name = "TextKlockToolStripMenuItem"
-        Me.TextKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.TextKlockToolStripMenuItem.Size = New System.Drawing.Size(214, 22)
         Me.TextKlockToolStripMenuItem.Text = "Text Klock"
         '
         'DisplayTwoTimeFormatsToolStripMenuItem
         '
         Me.DisplayTwoTimeFormatsToolStripMenuItem.CheckOnClick = True
         Me.DisplayTwoTimeFormatsToolStripMenuItem.Name = "DisplayTwoTimeFormatsToolStripMenuItem"
-        Me.DisplayTwoTimeFormatsToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.DisplayTwoTimeFormatsToolStripMenuItem.Size = New System.Drawing.Size(214, 22)
         Me.DisplayTwoTimeFormatsToolStripMenuItem.Text = "Display Two Time Formats"
+        '
+        'DisplayIdleTime
+        '
+        Me.DisplayIdleTime.CheckOnClick = True
+        Me.DisplayIdleTime.Name = "DisplayIdleTime"
+        Me.DisplayIdleTime.Size = New System.Drawing.Size(214, 22)
+        Me.DisplayIdleTime.Text = "Display Idle Time"
+        '
+        'MonitorToolStripMenuItem
+        '
+        Me.MonitorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MonitorDisableSleep})
+        Me.MonitorToolStripMenuItem.Name = "MonitorToolStripMenuItem"
+        Me.MonitorToolStripMenuItem.Size = New System.Drawing.Size(62, 20)
+        Me.MonitorToolStripMenuItem.Text = "Monitor"
+        '
+        'MonitorDisableSleep
+        '
+        Me.MonitorDisableSleep.CheckOnClick = True
+        Me.MonitorDisableSleep.Name = "MonitorDisableSleep"
+        Me.MonitorDisableSleep.Size = New System.Drawing.Size(143, 22)
+        Me.MonitorDisableSleep.Text = "Disable Sleep"
         '
         'InfoToolStripMenuItem
         '
@@ -1326,6 +1349,7 @@ Partial Class frmKlock
         'pnlFriends
         '
         Me.pnlFriends.AutoScroll = True
+        Me.pnlFriends.Controls.Add(Me.ChckBxAddToEvents)
         Me.pnlFriends.Controls.Add(Me.DtPckrFriendsDOB)
         Me.pnlFriends.Controls.Add(Me.txtbxFriendsNotes)
         Me.pnlFriends.Controls.Add(Me.Label15)
@@ -1364,6 +1388,17 @@ Partial Class frmKlock
         Me.pnlFriends.Name = "pnlFriends"
         Me.pnlFriends.Size = New System.Drawing.Size(407, 103)
         Me.pnlFriends.TabIndex = 0
+        '
+        'ChckBxAddToEvents
+        '
+        Me.ChckBxAddToEvents.AutoSize = True
+        Me.ChckBxAddToEvents.Enabled = False
+        Me.ChckBxAddToEvents.Location = New System.Drawing.Point(270, 278)
+        Me.ChckBxAddToEvents.Name = "ChckBxAddToEvents"
+        Me.ChckBxAddToEvents.Size = New System.Drawing.Size(99, 19)
+        Me.ChckBxAddToEvents.TabIndex = 33
+        Me.ChckBxAddToEvents.Text = "Add to Events"
+        Me.ChckBxAddToEvents.UseVisualStyleBackColor = True
         '
         'DtPckrFriendsDOB
         '
@@ -2046,7 +2081,7 @@ Partial Class frmKlock
         'btnEventsCheck
         '
         Me.btnEventsCheck.Enabled = False
-        Me.btnEventsCheck.Location = New System.Drawing.Point(267, 189)
+        Me.btnEventsCheck.Location = New System.Drawing.Point(321, 189)
         Me.btnEventsCheck.Name = "btnEventsCheck"
         Me.btnEventsCheck.Size = New System.Drawing.Size(49, 23)
         Me.btnEventsCheck.TabIndex = 16
@@ -2057,32 +2092,21 @@ Partial Class frmKlock
         '
         Me.TmrMemo.Interval = 1000
         '
-        'DisplayIdleTime
+        'btnPrint
         '
-        Me.DisplayIdleTime.CheckOnClick = True
-        Me.DisplayIdleTime.Name = "DisplayIdleTime"
-        Me.DisplayIdleTime.Size = New System.Drawing.Size(213, 22)
-        Me.DisplayIdleTime.Text = "Display Idle Time"
-        '
-        'MonitorToolStripMenuItem
-        '
-        Me.MonitorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MonitorDisableSleep})
-        Me.MonitorToolStripMenuItem.Name = "MonitorToolStripMenuItem"
-        Me.MonitorToolStripMenuItem.Size = New System.Drawing.Size(62, 20)
-        Me.MonitorToolStripMenuItem.Text = "Monitor"
-        '
-        'MonitorDisableSleep
-        '
-        Me.MonitorDisableSleep.CheckOnClick = True
-        Me.MonitorDisableSleep.Name = "MonitorDisableSleep"
-        Me.MonitorDisableSleep.Size = New System.Drawing.Size(152, 22)
-        Me.MonitorDisableSleep.Text = "Disable Sleep"
+        Me.btnPrint.Location = New System.Drawing.Point(266, 189)
+        Me.btnPrint.Name = "btnPrint"
+        Me.btnPrint.Size = New System.Drawing.Size(49, 23)
+        Me.btnPrint.TabIndex = 34
+        Me.btnPrint.Text = "Print"
+        Me.btnPrint.UseVisualStyleBackColor = True
         '
         'frmKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(696, 242)
+        Me.Controls.Add(Me.btnPrint)
         Me.Controls.Add(Me.btnEventsCheck)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnEdit)
@@ -2354,4 +2378,6 @@ Partial Class frmKlock
     Friend WithEvents DisplayIdleTime As ToolStripMenuItem
     Friend WithEvents MonitorToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MonitorDisableSleep As ToolStripMenuItem
+    Friend WithEvents ChckBxAddToEvents As CheckBox
+    Friend WithEvents btnPrint As Button
 End Class

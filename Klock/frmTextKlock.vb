@@ -216,4 +216,28 @@
             If sRtn = "" Then lblISH.Enabled = True
         End If
     End Sub
+
+    Private Sub frmTextKlock_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        '   Processes key presses at form level, before passed to components.
+        '   Pressing F1, will open klock's help.
+        '   Pressing alt + F6, will close the text klock.
+
+        Select Case e.KeyCode
+            Case Keys.F1
+                Help.ShowHelp(Me, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
+                e.Handled = True
+            Case Keys.F6 And (e.Alt)
+                Me.tmrTextKlock.Enabled = False
+
+                frmKlock.NtfyIcnKlock.Visible = False
+                frmKlock.Visible = True
+
+                frmKlock.TextKlockToolStripMenuItem.Checked = False
+
+                Me.Close()
+
+                e.Handled = True
+        End Select
+
+    End Sub
 End Class

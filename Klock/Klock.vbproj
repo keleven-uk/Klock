@@ -137,8 +137,6 @@
     <Compile Include="InfoCommon.vb" />
     <Compile Include="IOcommon.vb" />
     <Compile Include="KlockThings.vb" />
-    <Compile Include="ListViewColumnSorter.vb" />
-    <Compile Include="ListViewPrint.vb" />
     <Compile Include="ManagedPower.vb" />
     <Compile Include="frmInfo.Designer.vb">
       <DependentUpon>frmInfo.vb</DependentUpon>

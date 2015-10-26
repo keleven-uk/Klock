@@ -515,7 +515,7 @@ Partial Class frmTextKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(314, 198)
+        Me.ClientSize = New System.Drawing.Size(314, 197)
         Me.Controls.Add(Me.lbl8)
         Me.Controls.Add(Me.lbl6)
         Me.Controls.Add(Me.lbl5)

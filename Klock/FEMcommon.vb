@@ -1,4 +1,6 @@
-﻿Module FEMcommon
+﻿Imports System.Drawing.Printing
+
+Module FEMcommon
 
     ' **************************************************************************************************** Friends & Events Buttons ***********************
     '   Code that is common to Friends, Events & Memo tabs.
@@ -11,8 +13,14 @@
     '
     '   Moved the guts of each routing into a sperate module, trying to reduce clutter in main program file - [added about 2k to executable].
 
-    Public Sub ButtonsVisible(ByVal b As Boolean)
+
+    Public Sub ButtonsVisible(ByVal b As Boolean, noFriends As Integer, noEvents As Integer, noMemo As Integer)
         '   Switch on the editing buttons.
+        '   Only enable print button, if items exist to print.
+        '   Only enable check button, if events exist to check.
+
+        Dim enablePrint As Boolean = noFriends <> 0 Or noEvents <> 0 Or noMemo <> 0
+        Dim enableCheck As Boolean = noEvents <> 0
 
         frmKlock.btnNew.Visible = b
         frmKlock.btnAdd.Visible = b
@@ -21,10 +29,55 @@
         frmKlock.btnDelete.Visible = b
         frmKlock.btnEventsCheck.Visible = b
 
-        If frmKlock.TbCntrl.SelectedIndex = 5 Then frmKlock.btnEventsCheck.Visible = False
-        If frmKlock.TbCntrl.SelectedIndex = 6 Then frmKlock.btnEventsCheck.Visible = b
-        If frmKlock.TbCntrl.SelectedIndex = 7 Then frmKlock.btnEventsCheck.Visible = False
+        frmKlock.btnPrint.Visible = If(frmKlock.TbCntrl.SelectedIndex > 4 And enablePrint, True, False)
+        frmKlock.btnEventsCheck.Visible = If(frmKlock.TbCntrl.SelectedIndex = 6 And enableCheck, True, False)
     End Sub
+
+    Public Sub btnPrint()
+        '   Sets up to print list box.
+        '   printDialog goes strieght to printer
+        '   printPreview produces a preview on screen first - better for debugging.
+        '   TODO :: maybe an option.
+
+        'Dim printDialog As New PrintDialog
+
+        'Dim result As DialogResult = printDialog.ShowDialog()
+
+        'If result = DialogResult.OK Then docToPrint.Print()
+
+        Dim PrintPreview As New PrintPreviewDialog
+
+        PrintPreview.Document = docToPrint
+        PrintPreview.ShowDialog()
+
+    End Sub
+
+    '
+    '   ************************************************************************************************ print the listbox's ********************************
+    '
+    Private WithEvents docToPrint As New PrintDocument
+
+    Private Sub printItems(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles docToPrint.PrintPage
+
+        Dim printFont As New Font("Arial", 15, System.Drawing.FontStyle.Regular)
+        Dim crntView As ListBox = frmKlock.LstBxFriends                             '   just to give a default.
+        Dim yPosition As Integer = 40
+
+        Select Case frmKlock.TbCntrl.SelectedIndex
+            Case 5
+                crntView = frmKlock.LstBxFriends
+            Case 6
+                crntView = frmKlock.LstBxEvents
+            Case 7
+                crntView = frmKlock.LstBxMemo
+        End Select
+
+        For Each item As Object In crntView.Items
+            e.Graphics.DrawString(item.ToString, printFont, System.Drawing.Brushes.Black, 25, yPosition)
+            yPosition += 40
+        Next
+    End Sub
+
 
     Public Sub btnNew()
         '   Sets up to add new friend, event or memo.
@@ -34,6 +87,7 @@
         frmKlock.btnNew.Enabled = False
         frmKlock.btnEdit.Enabled = False
         frmKlock.btnDelete.Enabled = False
+        frmKlock.btnPrint.Visible = False
 
         PanelTop()
 
@@ -70,6 +124,7 @@
         frmKlock.btnEdit.Enabled = True
         frmKlock.btnClear.Enabled = False
         frmKlock.btnAdd.Enabled = False
+        frmKlock.btnPrint.Visible = False
 
         Select Case frmKlock.TbCntrl.SelectedIndex
             Case 5
@@ -77,9 +132,20 @@
 
                 frmKlock.F_ADDING = False
 
+                If frmKlock.ChckBxAddToEvents.Checked Then      '   add DOB to events
+
+                    frmKlock.TxtBxEventsName.Text = frmKlock.txtbxFriendsFirstName.Text & "'s Birthday"
+                    frmKlock.CmbBxEventTypes.SelectedIndex = 2
+                    frmKlock.DtTmPckrEventsDate.Value = frmKlock.DtPckrFriendsDOB.Value.ToShortDateString
+                    frmKlock.txtbxEventNotes.Text = "Added from Friends tab."
+
+                    frmKlock.populateEvents("ADD")
+                    IOcommon.saveEvents()
+                End If
+
                 frmKlock.FriendsClearText()
                 frmKlock.FriendsReadOnlyText(True)
-                frmKlock.showFriends(0)                       '   Display first friend :: TODO should display new friend ??
+                frmKlock.showFriends(0)                         '   Display first friend :: TODO should display new friend ??
                 IOcommon.saveFriends()
             Case 6
                 frmKlock.populateEvents("ADD")
@@ -112,6 +178,7 @@
         frmKlock.btnClear.Enabled = False
         frmKlock.btnAdd.Enabled = False
         frmKlock.btnNew.Enabled = True
+        frmKlock.btnPrint.Visible = True
 
         PanelTop()
 
@@ -171,6 +238,8 @@
         '   Changed button to "Save", which then will save new data to selected entry and save new friend, event or memo file.
 
         PanelTop()
+
+        frmKlock.btnPrint.Visible = False
 
         Select Case frmKlock.TbCntrl.SelectedIndex
             Case 5
@@ -234,6 +303,8 @@
                     IOcommon.saveMemo()
                 End If
         End Select
+
+        frmKlock.btnPrint.Visible = True
     End Sub
 
     Public Sub btnDelete()
@@ -244,6 +315,8 @@
 
         reply = MsgBox("Are you sure to DELETE?", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
         If reply = MsgBoxResult.No Then Exit Sub '   Not to delete, exit sub.
+
+        frmKlock.btnPrint.Visible = False
 
         Select Case frmKlock.TbCntrl.SelectedIndex
             Case 5
@@ -314,6 +387,8 @@
                 frmKlock.pnlMemo.ScrollControlIntoView(frmKlock.lblMemoName)
         End Select
     End Sub
+
+
 
 End Module
 

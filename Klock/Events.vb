@@ -55,6 +55,7 @@
         Dim ey = Now().Year
 
         If em < Now().Month Then ey += 1
+        If em = Now().Month And ed < Now.Day Then ey += 1
 
         Dim dd As New Date(ey, em, ed)
 

@@ -1,3 +1,42 @@
+commit 344504e57f71ebcebbc7780ccaf16ca48f66f80c
+Merge: 450f77e 31aff2a
+Author: kevin scott <klock@keleven.co.uk>
+Date:   Fri Oct 9 19:41:15 2015 +0100
+
+    Merge branch 'master' of https://github.com/keleven-uk/Klock
+
+commit 450f77e5b7edf5b3095946e95f73fc143a936c31
+Author: kevin scott <klock@keleven.co.uk>
+Date:   Fri Oct 9 19:40:33 2015 +0100
+
+    Amended help file and install script.
+
+ Klock/Klock.chm | Bin 614204 -> 530470 bytes
+ Klock/Klock.iss |  24 ++++++++++++------------
+ Klock/klock.hnd | Bin 8843264 -> 9211904 bytes
+ log.txt         |  16 ++++++++++++++++
+ 4 files changed, 28 insertions(+), 12 deletions(-)
+
+commit 31aff2a0898d9270d0ae7d99118b5ca373ab7932
+Author: kevin scott <klock@keleven.co.uk>
+Date:   Thu Oct 8 20:01:55 2015 +0100
+
+    Corrected the code for idle time and disalow monitor going to sleep.
+    Prevent monitor gopinmf to sellp can be togglres with F7/F8 - F7 to
+    prevent, F8 to restore.
+    Moved a couple of helper function to KlockThings.vb from Klock.vb
+
+ Klock/FEMcommon.vb    |   6 +---
+ Klock/Klock.chm       | Bin 614204 -> 530470 bytes
+ Klock/Klock.iss       |  24 +++++++-------
+ Klock/KlockThings.vb  |  47 +++++++++++++++++++++++++--
+ Klock/frmKlock.vb     |  87 +++++++++++++++++++-------------------------------
+ Klock/frmOptions.vb   |  12 ++++++-
+ Klock/frmTextKlock.vb |   5 +++
+ Klock/klock.hnd       | Bin 8843264 -> 9211904 bytes
+ log.txt               |  16 ++++++++++
+ 9 files changed, 122 insertions(+), 75 deletions(-)
+
 commit 10cd52e7f228c22fa6180d1cdf4d5b67e2581e1d
 Author: kevin scott <klock@keleven.co.uk>
 Date:   Sun Oct 4 22:24:13 2015 +0100

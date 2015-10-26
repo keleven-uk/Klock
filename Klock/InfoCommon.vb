@@ -6,6 +6,8 @@ Module InfoCommon
     Sub displayInfo(ByVal mode As String)
         '   Calls the info form and populates the labels depending upon how it called.
 
+        'MessageBox.Show(mode)
+
         Select Case mode
             Case "Daylight Saving"
                 ' Get the local time zone and the current  year.
@@ -28,6 +30,7 @@ Module InfoCommon
                 frmInfo.Label4.Text = String.Format(" Move the clocks forward {0} Hour on {1} at {2}", daylight.Delta.Hours, daylight.Start.ToLongDateString, daylight.Start.ToShortTimeString)
                 frmInfo.Label5.Text = String.Format(" Move the clocks back {0} Hour on {1} at {2}", daylight.Delta.Hours, daylight.End.ToLongDateString, daylight.End.ToShortTimeString)
             Case "Current Culture"
+            Case "Culture"                  '   seems to have changed in windows 10
                 frmInfo.Text = "Info - Current Culture"
                 frmInfo.GroupBox1.Text = "Current Culture"
 

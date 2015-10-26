@@ -278,6 +278,20 @@
         If Now() > Me.ReminderDateTime Then
             Me.ReminderAction()
             Me.clearReminder()                                             '   clear down reminder tab after action.
+        Else
+            Dim hms As TimeSpan = Me.ReminderDateTime.Subtract(Now())
+            Dim tmStr As String = ""
+
+            If Me.ChckBxReminderTimeCheck.Checked Then                      '   tack on the remining time
+                tmStr = String.Format("Reminder set for {0} @ {1} : {2:%d}d {2:%h}h {2:%m}m {2:%s}s", Me.ReminderDateTime.ToLongDateString, Me.ReminderDateTime.ToShortTimeString, hms)
+
+                Me.lblReminderText.Font = Me.usrFonts.getFont(tmStr, "Reminder", grphcs)
+                Me.lblReminderText.Text = tmStr
+            Else
+                tmStr = String.Format("Reminder set for {0} : {1:%d}d {1:%h}h {1:%m}m {1:%s}s", Me.ReminderDateTime.ToLongDateString, hms)
+                Me.lblReminderText.Font = Me.usrFonts.getFont(tmStr, "Reminder", grphcs)
+                Me.lblReminderText.Text = tmStr
+            End If
         End If
     End Sub
 
@@ -305,16 +319,16 @@
 
         Select Case Me.TbCntrl.SelectedIndex
             Case 0                                              '   time tab
-                FEMcommon.ButtonsVisible(False)
+                FEMcommon.ButtonsVisible(False, 0, 0, 0)
             Case 1                                              '   World Klock
-                FEMcommon.ButtonsVisible(False)
+                FEMcommon.ButtonsVisible(False, 0, 0, 0)
                 Me.updateWorldKlock()
             Case 2                                              '   countdown tab
-                FEMcommon.ButtonsVisible(False)
+                FEMcommon.ButtonsVisible(False, 0, 0, 0)
             Case 3                                              '   timer tab
-                FEMcommon.ButtonsVisible(False)
+                FEMcommon.ButtonsVisible(False, 0, 0, 0)
             Case 4                                              '   reminder tab
-                FEMcommon.ButtonsVisible(False)
+                FEMcommon.ButtonsVisible(False, 0, 0, 0)
 
                 If Me.usrSettings.usrReminderTimeChecked Then
                     Me.TmPckrRiminder.Enabled = True
@@ -323,8 +337,8 @@
                     Me.TmPckrRiminder.Enabled = False
                     Me.TmPckrRiminder.Value = Today
                 End If
-            Case 5                                              '   friends tab
-                FEMcommon.ButtonsVisible(True)
+            Case 5                                              '   friends tab         NB: only pass the listbox count of the relevent tab - saves stuff.
+                FEMcommon.ButtonsVisible(True, Me.LstBxFriends.Items.Count, 0, 0)
 
                 If Me.reloadFriends Then
                     IOcommon.loadFriends()
@@ -339,7 +353,7 @@
                     Me.showFriends(0)
                 End If
             Case 6                                              '   Events tab
-                FEMcommon.ButtonsVisible(True)
+                FEMcommon.ButtonsVisible(True, 0, Me.LstBxEvents.Items.Count, 0)
 
                 If Me.reloadEvents Then
                     IOcommon.loadEvents()
@@ -352,7 +366,7 @@
                     Me.showEvents(0)
                 End If
             Case 7                                              '   Memo tab
-                FEMcommon.ButtonsVisible(True)
+                FEMcommon.ButtonsVisible(True, 0, 0, Me.LstBxMemo.Items.Count)
 
                 If Me.reloadMemo Then
                     IOcommon.loadMemo()
@@ -923,10 +937,10 @@
         Me.ChckBxReminderTimeCheck.Visible = False
         Me.TmPckrRiminder.Visible = False
 
-        If Me.usrSettings.usrReminderTimeChecked Then
-            Me.lblReminderText.Text = "Reminder set for " & d.ToLongDateString & " @ " & d.ToShortTimeString
+        If Me.ChckBxReminderTimeCheck.Checked Then
+            Me.lblReminderText.Text = String.Format("Reminder set for {0} @ {1}", Me.ReminderDateTime.ToLongDateString, Me.ReminderDateTime.ToShortTimeString)
         Else
-            Me.lblReminderText.Text = "Reminder set for " & d.ToLongDateString
+            Me.lblReminderText.Text = String.Format("Reminder set for {0}", Me.ReminderDateTime.ToLongDateString)
         End If
 
         Me.ReminderDateTime = d            '   set global, so can be checked by reminder timer.
@@ -946,15 +960,13 @@
         Me.ChckBxReminderSystem.Checked = False
         Me.chckBXReminderCommand.Checked = False
 
-        Me.DtPckrRiminder.Visible = True
-        Me.ChckBxReminderTimeCheck.Visible = True
-        Me.TmPckrRiminder.Visible = True
-
         Me.btnReminderClear.Enabled = False
 
         Me.tmrReminder.Enabled = False      '   stop reminder timer.
 
-        Me.DtPckrRiminder.Value = Today
+        Me.DtPckrRiminder.Visible = True
+        Me.ChckBxReminderTimeCheck.Visible = True
+        Me.TmPckrRiminder.Visible = True
 
         If Me.usrSettings.usrReminderTimeChecked Then
             Me.ChckBxReminderTimeCheck.Checked = True
@@ -1028,14 +1040,12 @@
     End Sub
 
     Private Sub ChckBxReminderTimeCheck_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxReminderTimeCheck.CheckedChanged
-        '   Allows the reminder date to include a time component.
+        '   Allows the reminder date to include a time component.  But, not change options.
 
         If Me.ChckBxReminderTimeCheck.Checked Then
-            Me.usrSettings.usrReminderTimeChecked = True
             Me.TmPckrRiminder.Enabled = True
             Me.TmPckrRiminder.Value = Now()
         Else
-            Me.usrSettings.usrReminderTimeChecked = False
             Me.TmPckrRiminder.Enabled = False
             Me.TmPckrRiminder.Value = Today
         End If
@@ -1176,7 +1186,7 @@
             p.WebPage = Me.txtbxFriendsHomePage.Text
 
             If Me.DtPckrFriendsDOB.Format = DateTimePickerFormat.Long Then  ' if no date selected, save as an empty string i.e." ".
-                p.DOB = Me.DtPckrFriendsDOB.Value.Date.ToString
+                p.DOB = Me.DtPckrFriendsDOB.Value.ToShortDateString
             Else
                 p.DOB = " "
             End If
@@ -1233,6 +1243,13 @@
         '   If the value of the date picker is altered, reset then date format back to long.
 
         Me.normalFriendsDate()
+
+        '   only allow to be added to events, if first name and dob contain data - does not check if valid.
+        If Me.DtPckrFriendsDOB.Checked And Me.txtbxFriendsFirstName.Text <> "" Then
+            Me.ChckBxAddToEvents.Enabled = True
+        Else
+            Me.ChckBxAddToEvents.Enabled = False
+        End If
     End Sub
 
     Private Sub blankFriendsDate()
@@ -1332,6 +1349,11 @@
         FEMcommon.btnDelete()
     End Sub
 
+    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+        '   Print the listbox on the current control tab.
+
+        FEMcommon.btnPrint()
+    End Sub
     ' ********************************************************************************************************************************* Events ********
 
     Private Sub btnEventsCheck_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventsCheck.Click
@@ -1383,6 +1405,7 @@
             Dim e As Events = CType(Me.LstBxEvents.Items.Item(pos), Events)
 
             Me.TxtBxEventsName.Text = e.EventName
+            Me.DtTmPckrEventsDate.Value = e.EventDate
             Me.CmbBxEventTypes.SelectedIndex = e.EventType
             Me.txtbxEventNotes.Text = e.EventNotes
 
@@ -1399,7 +1422,7 @@
         Try
             e.EventName = Me.TxtBxEventsName.Text
             e.EventType = Me.CmbBxEventTypes.SelectedIndex
-            e.EventDate = Me.DtTmPckrEventsDate.Value
+            e.EventDate = Me.DtTmPckrEventsDate.Value.ToShortDateString
             e.EventNotes = Me.txtbxEventNotes.Text
             e.EventFirstReminder = True
             e.EventSecondreminder = True
@@ -1682,7 +1705,7 @@
 
         setTitleText()                                  '   set app title text
 
-        FEMcommon.ButtonsVisible(False)
+        FEMcommon.ButtonsVisible(False, 0, 0, 0)
 
         Me.TmrMain.Enabled = True                       '   Turn on main timer now things are sorted out.
     End Sub
@@ -1699,27 +1722,46 @@
 
     Private Sub frmKlock_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
         '   Processes key presses at form level, before passed to components.
-        '   Pressing F12, will shown total number of friends.
-        '   Pressing F7, will disable the monitor from goinmg to sleep.
-        '   Pressing F8, will restore system settings for the monitor.
-        '   The rest of the codes is so that enter is handled correctly when inputting a new friend.  Pressing enter or hitting
-        '   the tab key will do the same thine, that is move focus to the next data entry box.
+        '   Pressing F1, will open klock's help.
+        '   Pressing alt + F2, will open the options screen.
+        '   Pressing alt + F5, will open the text klock.
+        '   Pressing alt + F7, will disable the monitor from goinmg to sleep.
+        '   Pressing alt + F8, will restore system settings for the monitor.
+        '   Pressing alt + F12, will shown total number of friends.
+        '   The rest of the codes is so that enter is handled correctly when inputting a new friend / event / memo.  
+        '   Pressing Enter Or hitting the tab key will do the same thing, that is move focus to the next data entry box.
+        '   
 
-        If e.KeyCode = Keys.F12 Then
-            '   MessageBox.Show(String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
-            Me.displayAction.DisplayReminder("Friends", String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
-            e.Handled = True
-        ElseIf e.KeyCode = Keys.F7 Then
-            KlockThings.KeepMonitorActive()
-            Me.usrSettings.usrDisableMonitorSleep = True
-            e.Handled = True
-        ElseIf e.KeyCode = Keys.F8 Then
-            Me.usrSettings.usrDisableMonitorSleep = False
-            KlockThings.RestoreMonitorSettings()
-            e.Handled = True
-        End If
 
-        If Me.TbCntrl.SelectedIndex <> 5 Then   '   if not friends tab - ignore reminder of sub.
+        Select Case e.KeyCode
+            Case Keys.F1
+                Help.ShowHelp(Me, Me.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
+                e.Handled = True
+            Case Keys.F2 And (e.Alt)
+                Me.usrSettings.writeSettings()      '   save settings, not sure if anything has changed.
+                frmOptions.ShowDialog()
+                Me.setSettings()
+            Case Keys.F5 And (e.Alt)
+                Me.NtfyIcnKlock.Visible = True
+                Me.Visible = False
+                frmTextKlock.Show()
+                e.Handled = True
+            Case Keys.F7 And (e.Alt)
+                KlockThings.KeepMonitorActive()
+                Me.usrSettings.usrDisableMonitorSleep = True
+                e.Handled = True
+            Case Keys.F8 And (e.Alt)
+                Me.usrSettings.usrDisableMonitorSleep = False
+                KlockThings.RestoreMonitorSettings()
+                e.Handled = True
+            Case Keys.F12 And (e.Alt)
+                '   MessageBox.Show(String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
+                Me.displayAction.DisplayReminder("Friends", String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
+                e.Handled = True
+        End Select
+
+
+        If Me.TbCntrl.SelectedIndex < 5 Then   '   if not friends / events / memo tab - ignore reminder of sub.
             Exit Sub
         End If
 
@@ -1747,7 +1789,9 @@
             Me.usrSettings.usrFormLeft = Me.Left
         End If
 
-        Me.usrSettings.writeSettings()      '   save settings, not sure if anything has changed.
+        Me.usrSettings.writeSettings()          '   save settings, not sure if anything has changed.
+
+        KlockThings.RestoreMonitorSettings()    '   restore system monitor sleep setings, just in case been altered.
 
         grphcs.Dispose()
     End Sub
@@ -1968,6 +2012,8 @@
         Me.usrSettings.usrTimeDisplayMinimised = If(Me.TlStrpMnItmTime.Checked, True, False)
 
     End Sub
+
+
 
 
     ' ********************************************************************************************************************************* END **************

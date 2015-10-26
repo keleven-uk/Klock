@@ -4,7 +4,7 @@
     '   Three procedures are exposed to start, stop and clear the stopwatch.
     '   Two [read only] properties are exposed to read the elapsed time.
     '       getHighElapsedTime, returns the elapsed time to the milliseconds - HH:MM:SS:MS
-    '       hetLowElapsedTime, returns the elapsed time to the second - HH:MM:SS
+    '       getLowElapsedTime, returns the elapsed time to the second - HH:MM:SS
 
 
 
