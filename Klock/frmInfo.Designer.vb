@@ -25,6 +25,8 @@ Partial Class frmInfo
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmInfo))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.NmrcUpDwnYear = New System.Windows.Forms.NumericUpDown()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -34,11 +36,14 @@ Partial Class frmInfo
         Me.btnInfoClose = New System.Windows.Forms.Button()
         Me.TmrInfo = New System.Windows.Forms.Timer(Me.components)
         Me.GroupBox1.SuspendLayout()
+        CType(Me.NmrcUpDwnYear, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.NmrcUpDwnYear)
+        Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.Label3)
@@ -46,9 +51,28 @@ Partial Class frmInfo
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(346, 179)
+        Me.GroupBox1.Size = New System.Drawing.Size(346, 218)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'NmrcUpDwnYear
+        '
+        Me.NmrcUpDwnYear.Location = New System.Drawing.Point(136, 169)
+        Me.NmrcUpDwnYear.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
+        Me.NmrcUpDwnYear.Minimum = New Decimal(New Integer() {1700, 0, 0, 0})
+        Me.NmrcUpDwnYear.Name = "NmrcUpDwnYear"
+        Me.NmrcUpDwnYear.Size = New System.Drawing.Size(60, 20)
+        Me.NmrcUpDwnYear.TabIndex = 6
+        Me.NmrcUpDwnYear.Value = New Decimal(New Integer() {2015, 0, 0, 0})
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(68, 171)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(62, 13)
+        Me.Label6.TabIndex = 5
+        Me.Label6.Text = "Select Year"
         '
         'Label5
         '
@@ -98,7 +122,7 @@ Partial Class frmInfo
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.btnInfoClose)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 197)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 236)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(346, 53)
         Me.GroupBox2.TabIndex = 1
@@ -121,7 +145,7 @@ Partial Class frmInfo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(366, 262)
+        Me.ClientSize = New System.Drawing.Size(366, 311)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
@@ -133,6 +157,7 @@ Partial Class frmInfo
         Me.Text = "Info"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        CType(Me.NmrcUpDwnYear, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.ResumeLayout(False)
 
@@ -146,4 +171,6 @@ Partial Class frmInfo
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents TmrInfo As System.Windows.Forms.Timer
+    Friend WithEvents NmrcUpDwnYear As NumericUpDown
+    Friend WithEvents Label6 As Label
 End Class

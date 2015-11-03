@@ -35,8 +35,6 @@
     Public reloadEvents As Boolean = True       '   if true, events file will be re-loaded.
     Public reloadMemo As Boolean = True         '   if true, memo file will be re-loaded.
 
-    Public strHelpPath As String = System.IO.Path.Combine(Application.StartupPath, "klock.chm") '   set up help location
-
     Public grphcs As Graphics = Me.CreateGraphics   '   create graphic object globally, used to measure time text width
     Public hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}    '   create global, not every time.
 
@@ -1694,8 +1692,6 @@
 
         Me.myManagedPower = New ManagedPower            '   system power source
 
-        Me.HlpPrvdrKlock.HelpNamespace = Me.strHelpPath '   set up help path.
-
         Me.DtPckrFriendsDOB.MaxDate = Now()             '   nobody is born after today :-)
 
         Me.setSettings()                                '   load user settings
@@ -1898,11 +1894,6 @@
         Me.Visible = False
     End Sub
 
-    Private Sub btnHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHelp.Click, MnItmSubHelp.Click, TlStrpMnItmHelp.Click
-
-        Help.ShowHelp(Me, Me.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
-    End Sub
-
     ' *************************************************************************************************************************** menu stuff *************
     Private Sub closeKlock(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click, MnItmExit.Click, TlStrpMnItmExit.Click
         '   Close application.
@@ -1911,17 +1902,6 @@
         Me.Close()
     End Sub
 
-    Private Sub aboutKlock(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmAbout.Click
-        '   Display About screen.
-
-        frmAbout.ShowDialog()
-    End Sub
-
-    Private Sub LicenseKlockk(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmLicense.Click
-        '   Display License Screen.
-
-        frmLicence.ShowDialog()
-    End Sub
 
     Private Sub OptionsKlock(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnItmOptions.Click, TlStrpMnItmOptions.Click
         '   Display Settings Screen and apply settings, they may have changed.
@@ -1989,10 +1969,26 @@
 
     ' ********************************************************************************************************************** info menu stuff *************
 
-    Private Sub InfoMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DaylightSavingToolStripMenuItem.Click, CultureToolStripMenuItem.Click, OSToolStripMenuItem.Click, PowerSourceToolStripMenuItem.Click
-        '   Display some information.
+    Private Sub InfoMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DaylightSavingToolStripMenuItem.Click,
+                                                                                                       CultureToolStripMenuItem.Click,
+                                                                                                       OSToolStripMenuItem.Click,
+                                                                                                       PowerSourceToolStripMenuItem.Click,
+                                                                                                       EasterToolStripMenuItem.Click
+        '   A Generic handler for the Info menu.
 
         InfoCommon.displayInfo(sender.ToString)
+    End Sub
+
+    ' ********************************************************************************************************************** help menu stuff *************
+    Private Sub btnHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHelp.Click,
+                                                                                                  MnItmSubHelp.Click,
+                                                                                                  TlStrpMnItmHelp.Click,
+                                                                                                  MnItmLicense.Click,
+                                                                                                  MnItmHistory.Click,
+                                                                                                  MnItmAbout.Click
+        '   A Generic handler for the Help menu.
+
+        HelpCommon.displayInfo(sender.ToString)
     End Sub
 
     ' ****************************************************************************************************** context Strip Menu **************************
@@ -2012,7 +2008,6 @@
         Me.usrSettings.usrTimeDisplayMinimised = If(Me.TlStrpMnItmTime.Checked, True, False)
 
     End Sub
-
 
 
 

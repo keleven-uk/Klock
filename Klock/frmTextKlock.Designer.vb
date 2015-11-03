@@ -65,6 +65,12 @@ Partial Class frmTextKlock
         Me.lbl5 = New System.Windows.Forms.Label()
         Me.lbl6 = New System.Windows.Forms.Label()
         Me.lbl8 = New System.Windows.Forms.Label()
+        Me.StsStrpInfo = New System.Windows.Forms.StatusStrip()
+        Me.stsLblTime = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.StsLblDate = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.StsLblKeys = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.stsLbIdkeTime = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.StsStrpInfo.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblPAST
@@ -421,7 +427,7 @@ Partial Class frmTextKlock
         '
         'tmrTextKlock
         '
-        Me.tmrTextKlock.Interval = 6000
+        Me.tmrTextKlock.Interval = 1000
         '
         'lblMORNING
         '
@@ -511,11 +517,63 @@ Partial Class frmTextKlock
         Me.lbl8.TabIndex = 51
         Me.lbl8.Text = "ZFUPBFTH"
         '
+        'StsStrpInfo
+        '
+        Me.StsStrpInfo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsLblTime, Me.StsLblDate, Me.StsLblKeys, Me.stsLbIdkeTime})
+        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 193)
+        Me.StsStrpInfo.Name = "StsStrpInfo"
+        Me.StsStrpInfo.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
+        Me.StsStrpInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.StsStrpInfo.Size = New System.Drawing.Size(314, 24)
+        Me.StsStrpInfo.SizingGrip = False
+        Me.StsStrpInfo.TabIndex = 52
+        '
+        'stsLblTime
+        '
+        Me.stsLblTime.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.stsLblTime.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
+        Me.stsLblTime.Name = "stsLblTime"
+        Me.stsLblTime.Size = New System.Drawing.Size(53, 19)
+        Me.stsLblTime.Text = "00:00:00"
+        '
+        'StsLblDate
+        '
+        Me.StsLblDate.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.StsLblDate.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
+        Me.StsLblDate.Name = "StsLblDate"
+        Me.StsLblDate.Size = New System.Drawing.Size(75, 19)
+        Me.StsLblDate.Text = "18 Nov 2012"
+        '
+        'StsLblKeys
+        '
+        Me.StsLblKeys.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.StsLblKeys.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
+        Me.StsLblKeys.Name = "StsLblKeys"
+        Me.StsLblKeys.Size = New System.Drawing.Size(29, 19)
+        Me.StsLblKeys.Text = "cns"
+        '
+        'stsLbIdkeTime
+        '
+        Me.stsLbIdkeTime.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.stsLbIdkeTime.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
+        Me.stsLbIdkeTime.Name = "stsLbIdkeTime"
+        Me.stsLbIdkeTime.Size = New System.Drawing.Size(53, 19)
+        Me.stsLbIdkeTime.Text = "00:00:00"
+        '
         'frmTextKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(314, 197)
+        Me.ClientSize = New System.Drawing.Size(314, 217)
+        Me.Controls.Add(Me.StsStrpInfo)
         Me.Controls.Add(Me.lbl8)
         Me.Controls.Add(Me.lbl6)
         Me.Controls.Add(Me.lbl5)
@@ -558,11 +616,13 @@ Partial Class frmTextKlock
         Me.Controls.Add(Me.lblPAST)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
-        Me.MaximumSize = New System.Drawing.Size(330, 236)
-        Me.MinimumSize = New System.Drawing.Size(330, 236)
+        Me.MaximumSize = New System.Drawing.Size(330, 256)
+        Me.MinimumSize = New System.Drawing.Size(330, 256)
         Me.Name = "frmTextKlock"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.Text = "Text Klock"
+        Me.StsStrpInfo.ResumeLayout(False)
+        Me.StsStrpInfo.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -608,4 +668,9 @@ Partial Class frmTextKlock
     Friend WithEvents lbl5 As System.Windows.Forms.Label
     Friend WithEvents lbl6 As System.Windows.Forms.Label
     Friend WithEvents lbl8 As System.Windows.Forms.Label
+    Friend WithEvents StsStrpInfo As StatusStrip
+    Friend WithEvents stsLblTime As ToolStripStatusLabel
+    Friend WithEvents StsLblDate As ToolStripStatusLabel
+    Friend WithEvents StsLblKeys As ToolStripStatusLabel
+    Friend WithEvents stsLbIdkeTime As ToolStripStatusLabel
 End Class

@@ -367,7 +367,7 @@
                 Dim minsUnits As Integer = mins - (minsTens * 10)
                 minsStr = String.Format("twenty{0} minutes {1} {2} {3}", units(minsUnits), pasTo, hours(hour), ampm)
             Case Else
-                minsStr = String.Format("thirty minutes {1} {2} {3}", minsStr, pasTo, hours(hour), ampm)
+                minsStr = String.Format("thirty minutes {0} {1} {2} {3}", minsStr, pasTo, hours(hour), ampm)
         End Select
 
         Return minsStr

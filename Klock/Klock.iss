@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Klock"
-#define MyAppVersion "1.0.1.1"
+#define MyAppVersion "1.1.1.53"
 #define MyAppPublisher "keleven"
 #define MyAppURL "www.keleven.co.uk"
 #define MyAppExeName "Klock.exe"
@@ -21,14 +21,14 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 
 ;  all source files here
-SourceDir=C:\My\shed\my\projects\new\klock.net
+SourceDir=C:\My\shed\my\projects\code\klock.net
 
 DefaultDirName={pf}\keleven\Klock
 DefaultGroupName={#MyAppName}
 ;LicenseFile=License.txt
 InfoAfterFile=Klock\License.txt
 OutputDir=C:\My\shed\my\projects
-OutputBaseFilename=Klock_1011
+OutputBaseFilename=Klock_53
 SetupIconFile=Klock\Klock.ico
 Compression=lzma
 SolidCompression=yes
@@ -50,13 +50,15 @@ Name: all; Description: Klock Program + source; Types: full
 
 
 [Files]
-Source: "Klock\bin\Release\Klock.exe" ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
-Source: "Klock\bin\Release\Sounds\*"  ; DestDir: "{app}\Sounds"; Components : exe; Flags: ignoreversion
-Source: "Klock\bin\Release\fonts\*"   ; DestDir: "{app}\fonts" ; Components : exe; Flags: ignoreversion
+Source: "Klock\bin\Release\Klock.exe" ; DestDir: "{app}" ; Components : exe; Flags: ignoreversion
+Source: "Sounds\*"                    ; DestDir: "{app}\Sounds"; Components : exe; Flags: ignoreversion
+Source: "fonts\*"                     ; DestDir: "{app}\fonts" ; Components : exe; Flags: ignoreversion
 Source: "Klock\klock.chm"             ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
+Source: "Klock\klock.pdf"             ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 Source: "Klock\License.txt"           ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
+Source: "Klock\history.txt"           ; DestDir: "{app}"       ; Components : exe; Flags: ignoreversion
 
-;  include source if directed :: NB needs a clean CVS checkout :: recursesubdirs for recursion
+;  include source if directed :: NB needs a clean git checkout :: recursesubdirs for recursion
 ;  install into My Documents foler.
 Source: "clean\*" ; DestDir: "{userdocs}\Keleven_source\Klock" ; Components : all; Flags: ignoreversion recursesubdirs
 

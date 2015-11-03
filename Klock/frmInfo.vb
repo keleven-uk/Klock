@@ -3,7 +3,7 @@
     '   A display form used to disply infomation to the user.
     '   Currently Daylight Saving, Current Culture, Operating System & Power Source
 
-    '   Called form module InfoCommon.vb
+    '   Called from module InfoCommon.vb
 
 
     Private Sub btnInfoClose_Click(sender As System.Object, e As System.EventArgs) Handles btnInfoClose.Click
@@ -23,5 +23,18 @@
         Me.Label3.Text = frmKlock.myManagedPower.powerStatus()
         Me.Label4.Text = frmKlock.myManagedPower.chargingStatus()
         Me.Label5.Text = ""
+    End Sub
+
+    Private Sub NmrcUpDwnYear_ValueChanged(sender As Object, e As EventArgs) Handles NmrcUpDwnYear.ValueChanged
+        '   If the year has been changed update the data on the form.
+
+        InfoCommon.updateInfo(Me.GroupBox1.Text, Me.NmrcUpDwnYear.Value)
+
+    End Sub
+
+    Private Sub frmInfo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        '   set the year to current year on form load.
+
+        Me.NmrcUpDwnYear.Value = Now().Year
     End Sub
 End Class

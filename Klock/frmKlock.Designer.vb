@@ -42,12 +42,14 @@ Partial Class frmKlock
         Me.MonitorDisableSleep = New System.Windows.Forms.ToolStripMenuItem()
         Me.InfoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DaylightSavingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EasterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CultureToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PowerSourceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmSubHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmLicense = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnItmHistory = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmAbout = New System.Windows.Forms.ToolStripMenuItem()
         Me.TbCntrl = New System.Windows.Forms.TabControl()
         Me.TbPgTime = New System.Windows.Forms.TabPage()
@@ -357,21 +359,21 @@ Partial Class frmKlock
         '
         Me.TextKlockToolStripMenuItem.CheckOnClick = True
         Me.TextKlockToolStripMenuItem.Name = "TextKlockToolStripMenuItem"
-        Me.TextKlockToolStripMenuItem.Size = New System.Drawing.Size(214, 22)
+        Me.TextKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
         Me.TextKlockToolStripMenuItem.Text = "Text Klock"
         '
         'DisplayTwoTimeFormatsToolStripMenuItem
         '
         Me.DisplayTwoTimeFormatsToolStripMenuItem.CheckOnClick = True
         Me.DisplayTwoTimeFormatsToolStripMenuItem.Name = "DisplayTwoTimeFormatsToolStripMenuItem"
-        Me.DisplayTwoTimeFormatsToolStripMenuItem.Size = New System.Drawing.Size(214, 22)
+        Me.DisplayTwoTimeFormatsToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
         Me.DisplayTwoTimeFormatsToolStripMenuItem.Text = "Display Two Time Formats"
         '
         'DisplayIdleTime
         '
         Me.DisplayIdleTime.CheckOnClick = True
         Me.DisplayIdleTime.Name = "DisplayIdleTime"
-        Me.DisplayIdleTime.Size = New System.Drawing.Size(214, 22)
+        Me.DisplayIdleTime.Size = New System.Drawing.Size(213, 22)
         Me.DisplayIdleTime.Text = "Display Idle Time"
         '
         'MonitorToolStripMenuItem
@@ -390,7 +392,7 @@ Partial Class frmKlock
         '
         'InfoToolStripMenuItem
         '
-        Me.InfoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DaylightSavingToolStripMenuItem, Me.CultureToolStripMenuItem, Me.OSToolStripMenuItem, Me.PowerSourceToolStripMenuItem})
+        Me.InfoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DaylightSavingToolStripMenuItem, Me.EasterToolStripMenuItem, Me.CultureToolStripMenuItem, Me.OSToolStripMenuItem, Me.PowerSourceToolStripMenuItem})
         Me.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem"
         Me.InfoToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
         Me.InfoToolStripMenuItem.Text = "&Info"
@@ -400,6 +402,12 @@ Partial Class frmKlock
         Me.DaylightSavingToolStripMenuItem.Name = "DaylightSavingToolStripMenuItem"
         Me.DaylightSavingToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.DaylightSavingToolStripMenuItem.Text = "Daylight Saving"
+        '
+        'EasterToolStripMenuItem
+        '
+        Me.EasterToolStripMenuItem.Name = "EasterToolStripMenuItem"
+        Me.EasterToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
+        Me.EasterToolStripMenuItem.Text = "Easter Dates"
         '
         'CultureToolStripMenuItem
         '
@@ -421,7 +429,7 @@ Partial Class frmKlock
         '
         'MnItmHelp
         '
-        Me.MnItmHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmSubHelp, Me.MnItmLicense, Me.MnItmAbout})
+        Me.MnItmHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmSubHelp, Me.MnItmLicense, Me.MnItmHistory, Me.MnItmAbout})
         Me.MnItmHelp.Name = "MnItmHelp"
         Me.MnItmHelp.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.H), System.Windows.Forms.Keys)
         Me.MnItmHelp.Size = New System.Drawing.Size(44, 20)
@@ -440,6 +448,13 @@ Partial Class frmKlock
         Me.MnItmLicense.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.L), System.Windows.Forms.Keys)
         Me.MnItmLicense.Size = New System.Drawing.Size(153, 22)
         Me.MnItmLicense.Text = "&License"
+        '
+        'MnItmHistory
+        '
+        Me.MnItmHistory.Name = "MnItmHistory"
+        Me.MnItmHistory.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.H), System.Windows.Forms.Keys)
+        Me.MnItmHistory.Size = New System.Drawing.Size(155, 22)
+        Me.MnItmHistory.Text = "&History"
         '
         'MnItmAbout
         '
@@ -2380,4 +2395,6 @@ Partial Class frmKlock
     Friend WithEvents MonitorDisableSleep As ToolStripMenuItem
     Friend WithEvents ChckBxAddToEvents As CheckBox
     Friend WithEvents btnPrint As Button
+    Friend WithEvents EasterToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MnItmHistory As ToolStripMenuItem
 End Class

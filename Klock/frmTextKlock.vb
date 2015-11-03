@@ -9,6 +9,8 @@
         Me.lblIS.Enabled = True
 
         Me.tmrTextKlock.Enabled = True
+
+        Me.updateStatusBar()
     End Sub
 
     Private Sub frmTextKlock_FormClosed(sender As System.Object, e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
@@ -28,6 +30,48 @@
 
         Me.lblIT.Enabled = True
         Me.lblIS.Enabled = True
+
+        Me.updateStatusBar()
+    End Sub
+
+    Private Sub updateStatusBar()
+        '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
+
+        Dim strKey As String = "cns"
+
+        '                                               if running on battery, change status info colour to red as a warning.
+        If frmKlock.myManagedPower.powerSource().Contains("AC") Then
+            Me.stsLblTime.ForeColor = Color.Black
+            Me.StsLblDate.ForeColor = Color.Black
+            Me.StsLblKeys.ForeColor = Color.Black
+        Else
+            Me.stsLblTime.ForeColor = Color.Red
+            Me.StsLblDate.ForeColor = Color.Red
+            Me.StsLblKeys.ForeColor = Color.Red
+        End If
+
+        If My.Computer.Keyboard.CapsLock.ToString() Then strKey = Replace(strKey, "c", "C")
+        If My.Computer.Keyboard.NumLock.ToString() Then strKey = Replace(strKey, "n", "N")
+        If My.Computer.Keyboard.ScrollLock.ToString() Then strKey = Replace(strKey, "s", "S")
+
+        If frmKlock.usrSettings.usrTimeSystem24Hour Then
+            Me.stsLblTime.Text = String.Format("{0:HH:mm:ss}", System.DateTime.Now)
+        Else
+            Me.stsLblTime.Text = String.Format("{0:hh:mm:ss tt}", System.DateTime.Now)
+        End If
+
+        '   Me.stsLblTime.Text = Format(Now, "Long Time")
+        Me.StsLblDate.Text = Format(Now, "Long Date")
+        Me.StsLblKeys.Text = strKey
+
+        '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleepimg.
+
+        If frmKlock.usrSettings.usrTimeIdleTime Or frmKlock.usrSettings.usrDisableMonitorSleep Then
+            Me.stsLbIdkeTime.Visible = True
+            Me.stsLbIdkeTime.Text = KlockThings.idleTime()
+        Else
+            Me.stsLbIdkeTime.Visible = False
+        End If
     End Sub
 
     Private Sub clearlabels()
@@ -220,22 +264,34 @@
     Private Sub frmTextKlock_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         '   Processes key presses at form level, before passed to components.
         '   Pressing F1, will open klock's help.
+        '   Pressing alt + F2, will open the options screen.
         '   Pressing alt + F6, will close the text klock.
+        '   Pressing alt + F7, will disable the monitor from goinmg to sleep.
+        '   Pressing alt + F8, will restore system settings for the monitor.
+
 
         Select Case e.KeyCode
             Case Keys.F1
                 Help.ShowHelp(Me, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
                 e.Handled = True
+            Case Keys.F2 And (e.Alt)
+                frmKlock.usrSettings.writeSettings()      '   save settings, not sure if anything has changed.
+                frmOptions.ShowDialog()
+                frmKlock.setSettings()
             Case Keys.F6 And (e.Alt)
                 Me.tmrTextKlock.Enabled = False
-
                 frmKlock.NtfyIcnKlock.Visible = False
                 frmKlock.Visible = True
-
                 frmKlock.TextKlockToolStripMenuItem.Checked = False
-
                 Me.Close()
-
+                e.Handled = True
+            Case Keys.F7 And (e.Alt)
+                KlockThings.KeepMonitorActive()
+                frmKlock.usrSettings.usrDisableMonitorSleep = True
+                e.Handled = True
+            Case Keys.F8 And (e.Alt)
+                frmKlock.usrSettings.usrDisableMonitorSleep = False
+                KlockThings.RestoreMonitorSettings()
                 e.Handled = True
         End Select
 

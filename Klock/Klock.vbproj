@@ -55,6 +55,7 @@
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
     <WarningsAsErrors>
     </WarningsAsErrors>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -134,6 +135,7 @@
     <Compile Include="frmTextKlock.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="HelpCommon.vb" />
     <Compile Include="InfoCommon.vb" />
     <Compile Include="IOcommon.vb" />
     <Compile Include="KlockThings.vb" />
@@ -237,7 +239,9 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Klock.chm" />
+    <Content Include="Klock.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -278,7 +282,7 @@
     <EmbeddedResource Include="License.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="history.txt" />
+    <EmbeddedResource Include="history.txt" />
     <Content Include="Klock.ico" />
     <None Include="Resources\btnClicked.png" />
     <None Include="Resources\btnHigh.png" />

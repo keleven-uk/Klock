@@ -64,12 +64,14 @@ Module KlockThings
 
         SetThreadExecutionState(EXECUTION_STATE.ES_DISPLAY_REQUIRED + EXECUTION_STATE.ES_CONTINUOUS) 'Do not Go To Sleep
         frmKlock.stsLbIdkeTime.ForeColor = Color.Blue
+        frmTextKlock.stsLbIdkeTime.ForeColor = Color.Blue
     End Sub
 
     Public Sub RestoreMonitorSettings()
 
         SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS) 'Restore Previous Settings, ie, Go To Sleep Again
         frmKlock.stsLbIdkeTime.ForeColor = Color.Black
+        frmTextKlock.stsLbIdkeTime.ForeColor = Color.Black
     End Sub
 
     '
@@ -111,5 +113,16 @@ Module KlockThings
         mins = m - (hours * 60)
 
         Return String.Format("{0:00}:{1:00}", hours, mins)
+    End Function
+
+    Function easterDate(Year_of_easter As Integer) As DateTime
+        '   Calcultates the date of easter sunday fotr a given year.
+        '   see http://aa.usno.navy.mil/faq/docs/easter.php
+
+        Dim y As Integer = Year_of_easter
+        Dim d As Integer = (((255 - 11 * (y Mod 19)) - 21) Mod 30) + 21
+        Dim easter_date = New DateTime(y, 3, 1)
+        easter_date = easter_date.AddDays(+d + (d > 48) + 6 - ((y + y \ 4 + d + (d > 48) + 1) Mod 7))
+        Return (easter_date)
     End Function
 End Module

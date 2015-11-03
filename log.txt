@@ -1,9 +1,71 @@
+The source tree is now held as a git repository https://github.com/keleven-uk/Klock.git,
+ converted from SVN as of build 42.
+I find the git commit number unwieldily, so still include SVN style build numbers.
+
+
+[Build [52] - V1.1.1.52
+
+commit 14b2fe6dfcde2e0f8a6e3fc0a05968ba48fefc4f
+Author: kevin scott <klock@keleven.co.uk>
+Date:   Mon Oct 26 15:51:48 2015 +0000
+
+    [frmklock.vb]
+    When a friend is added, if DOB is entered this can now create an event automatically.
+    When a reminder is set, now displays the remaining time.
+    Changes to how a button is called, for print button.
+    Changed DOB in person to save as short date string.
+    Only allows an event to be added if first text box and date are valid.
+    Added alt + F keys for quick access.
+    
+    [Events.vb]
+    Corrected bug in days to go, if events is this month.
+    
+    [FEMcommon.vb]
+    Added print button.
+    
+    [InfoComon.vb]
+    Changed call to Culture for windows 10.
+    
+    [frmOptions.vb]
+    Added messages, when archive is either saved or loaded.
+    
+    [frmTextKlock.vb]
+    Corrected bug, main form is displayed when textklock is closed.
+    
+    [Help.hd]
+    Updated help for idle time.
+
+ Klock/Events.vb                |   1 +
+ Klock/FEMcommon.vb             |  87 +++++++++++++-
+ Klock/InfoCommon.vb            |   3 +
+ Klock/Klock.chm                | Bin 530470 -> 532568 bytes
+ Klock/Klock.pdf                | Bin 0 -> 2503468 bytes
+ Klock/Klock.vbproj             |   2 -
+ Klock/ListViewColumnSorter.vb  |  12 +-
+ Klock/ListViewPrint.vb         | 259 +++++++++++++++++++++--------------------
+ Klock/Timer.vb                 |   2 +-
+ Klock/UserFonts.vb             |   2 +-
+ Klock/frmKlock.Designer.vb     |  76 ++++++++----
+ Klock/frmKlock.vb              | 134 ++++++++++++++-------
+ Klock/frmOptions.vb            |   8 +-
+ Klock/frmTextKlock.Designer.vb |   2 +-
+ Klock/frmTextKlock.vb          |  24 ++++
+ Klock/klock.hnd                | Bin 9211904 -> 9134080 bytes
+ log.txt                        |  39 +++++++
+ 17 files changed, 431 insertions(+), 220 deletions(-)
+
+
+[Build 51] - V1.1.1.51
+
 commit 344504e57f71ebcebbc7780ccaf16ca48f66f80c
 Merge: 450f77e 31aff2a
 Author: kevin scott <klock@keleven.co.uk>
 Date:   Fri Oct 9 19:41:15 2015 +0100
 
     Merge branch 'master' of https://github.com/keleven-uk/Klock
+
+
+[Build 50] - V1.1.1.50
 
 commit 450f77e5b7edf5b3095946e95f73fc143a936c31
 Author: kevin scott <klock@keleven.co.uk>
@@ -17,13 +79,15 @@ Date:   Fri Oct 9 19:40:33 2015 +0100
  log.txt         |  16 ++++++++++++++++
  4 files changed, 28 insertions(+), 12 deletions(-)
 
+
+[Build 49] - V1.1.1.49
+
 commit 31aff2a0898d9270d0ae7d99118b5ca373ab7932
 Author: kevin scott <klock@keleven.co.uk>
 Date:   Thu Oct 8 20:01:55 2015 +0100
 
-    Corrected the code for idle time and disalow monitor going to sleep.
-    Prevent monitor gopinmf to sellp can be togglres with F7/F8 - F7 to
-    prevent, F8 to restore.
+    Corrected the code for idle time and disallow monitor going to sleep.
+    Prevent monitor going to sleep can be toggled with [Alt] F7/F8 – [Alt] F7 to prevent, [Alt] F8 to restore.
     Moved a couple of helper function to KlockThings.vb from Klock.vb
 
  Klock/FEMcommon.vb    |   6 +---
@@ -37,11 +101,14 @@ Date:   Thu Oct 8 20:01:55 2015 +0100
  log.txt               |  16 ++++++++++
  9 files changed, 122 insertions(+), 75 deletions(-)
 
+
+[Build 48] - V1.1.1.48
+
 commit 10cd52e7f228c22fa6180d1cdf4d5b67e2581e1d
 Author: kevin scott <klock@keleven.co.uk>
 Date:   Sun Oct 4 22:24:13 2015 +0100
 
-    The amendmened files form the last push.
+    The amended files form the last push.
 
  Klock/Klock.vbproj               |    1 +
  Klock/My Project/AssemblyInfo.vb |    6 +-
@@ -53,27 +120,33 @@ Date:   Sun Oct 4 22:24:13 2015 +0100
  log.txt                          | 1614 ++++++++++++++++++++++++++++++++++++++
  8 files changed, 1834 insertions(+), 45 deletions(-)
 
+
+[Build 47] - V1.1.1.47 - Moved to VS 2015.
+
 commit 5b2b0deccdaa9c477c3b2141b46b80797a231eb6
 Author: kevin scott <klock@keleven.co.uk>
 Date:   Sun Oct 4 22:19:06 2015 +0100
 
     Added display idle time in system tray
-    Added disable monitro going to sleep
+    Added disable monitor going to sleep
     
     Amendments to klock.vb, usrSetting.vb & frmOptions
 
  Klock/KlockThings.vb | 74 ++++++++++++++++++++++++++++++++++++++++++++++++++++
  1 file changed, 74 insertions(+)
 
+
+[Build 46] - V1.1.0.46
+
 commit 848ce86c95f5af5b5d447d36029a44b43982354e
 Author: kevin scott <klock@keleven.co.uk>
 Date:   Thu Jul 30 20:13:29 2015 +0100
 
-    Chnaged all IFF for IF, thay are better apparently.
-    	performace increase, only the argument needed is evaluated.
+    Changed all IFF for IF, they are better apparently.
+    	Performance increase, only the argument needed is evaluated.
     
     Amended all function to use Return instead of <function name> =
-    	Alsoe a performance increase and more readability.
+    	Also a performance increase and more readability.
 
  Klock/Events.vb       |  4 +--
  Klock/IOcommon.vb     |  2 +-
@@ -87,6 +160,9 @@ Date:   Thu Jul 30 20:13:29 2015 +0100
  Klock/frmOptions.vb   |  8 +++---
  Klock/selectTime.vb   | 72 +++++++++++++++++++++++++--------------------------
  11 files changed, 64 insertions(+), 64 deletions(-)
+
+
+[Build 45] - V1.1.0.45
 
 commit d3ea48a97c838488d705a6a4c463e98ad326c115
 Author: Kevin Scott <klock@keleven.co.uk>
@@ -117,6 +193,9 @@ Date:   Thu Jul 9 21:25:08 2015 +0100
  git push.txt                     |    4 +
  10 files changed, 1618 insertions(+), 630 deletions(-)
 
+
+[Build 44] - V1.1.0.44
+
 commit 313cc53a0e4071b9728948df93ae0e46c72c3696
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Mon Jun 15 19:37:03 2015 +0100
@@ -129,6 +208,9 @@ Date:   Mon Jun 15 19:37:03 2015 +0100
  README.md         | 123 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
  2 files changed, 169 insertions(+)
 
+
+[Build 43] - V1.1.0.43
+
 commit ceaffebdecadbd32a50e75413f72bb4617b29c2e
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 11 20:04:31 2015 +0100
@@ -136,12 +218,15 @@ Date:   Thu Jun 11 20:04:31 2015 +0100
     Added new files .gitignore & License.
     Licence used is the GNU GENERAL PUBLIC LICENSE V 3.
     
-    Added to prevously empty README file.
+    Added to previously empty README file.
 
  .gitignore | 223 ++++++++++++++++++++++++++++
  LICENSE    | 479 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  README.md  |   3 -
  3 files changed, 702 insertions(+), 3 deletions(-)
+
+
+[Build 42] - V1.1.0.42 - Converted to git from svn. - Moved to VS2013 
 
 commit b72f9d546f9a5812c7857d2de29d5a75b4d8c04e
 Author: keleven-uk <github@keleven.co.uk>
@@ -151,6 +236,9 @@ Date:   Thu Jun 11 19:36:23 2015 +0100
 
  README.md | 3 +++
  1 file changed, 3 insertions(+)
+
+
+[Build 41] - V1.0.6.41 - July 2014
 
 commit 3ab5b3bd9883d9deff2f6e1f70a3ce5ddfc3eebf
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -171,6 +259,9 @@ Date:   Thu Jun 4 22:37:15 2015 +0100
  Klock/textKlock.ico              | Bin 0 -> 32862 bytes
  11 files changed, 1623 insertions(+), 35 deletions(-)
 
+
+[Build 40] - V1.0.6.40 - July 2014
+
 commit bc05000c40f64e1d50670cd9f120bcf065a1e97d
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:35:50 2015 +0100
@@ -187,6 +278,9 @@ Date:   Thu Jun 4 22:35:50 2015 +0100
  Klock/klock.hnd                  | Bin 8761344 -> 8769536 bytes
  8 files changed, 24 insertions(+), 19 deletions(-)
 
+
+[Build 39] - V1.0.6.39 - July 2014
+
 commit 9a7dc0e8e148aa276e36da41692946222acc0792
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:34:08 2015 +0100
@@ -197,7 +291,7 @@ Date:   Thu Jun 4 22:34:08 2015 +0100
     
     NB: this version bypasses the V1.0.5 branch.
     
-    Added the abbilty to sort and print the list views.
+    Added the ability to sort and print the list views. [not sure about this]
 
  Klock/Klock.chm                  | Bin 642956 -> 612310 bytes
  Klock/Klock.iss                  | 150 +------------------------------
@@ -217,6 +311,9 @@ Date:   Thu Jun 4 22:34:08 2015 +0100
  Klock/wip.txt                    |   1 -
  16 files changed, 310 insertions(+), 595 deletions(-)
 
+
+[Build 38] - V1.0.5.38 - November 2013
+
 commit c50cbacaf29b7866e8830ffed611bbe228fc1993
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:30:57 2015 +0100
@@ -232,6 +329,9 @@ Date:   Thu Jun 4 22:30:57 2015 +0100
  Klock/selectAgent.vb             |   2 +
  7 files changed, 198 insertions(+), 15 deletions(-)
 
+
+[Build 37] - V1.0.5.37 - November 2013
+
 commit 4ba616197ce82ad4f2621f2d5a054a701d975485
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:29:24 2015 +0100
@@ -241,14 +341,13 @@ Date:   Thu Jun 4 22:29:24 2015 +0100
     
     [frmKlock.vb, frmOptions.vb & UserSettings.vb)
     
-    Added : code for Agents.
+    Added: code for Agents.
     
-    if Agents are chosen, notification display and notification speech are not
-    called.
+    If Agents are chosen, notification display and notification speech are not called.
     
     [frmOptions.vb]
     
-    Fixed : incorrect text on 12 / 24 hour label  [thanks Zach].
+    Fixed: incorrect text on 12 / 24 hour label  [thanks Zach].
 
  Klock/Klock.iss                  |   4 +-
  Klock/Klock.vbproj               |   3 +
@@ -264,11 +363,14 @@ Date:   Thu Jun 4 22:29:24 2015 +0100
  Klock/wip.txt                    |   1 +
  12 files changed, 510 insertions(+), 28 deletions(-)
 
+
+[Build 36] - V1.0.4.36 - October 2013
+
 commit 48525cc846dfdb11f485c0e89b95610f069eb405
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:26:39 2015 +0100
 
-    Spelt check of sources and slight clean up of code.
+    Spelt check of sources and slight clean-up of code.
 
  Klock/Events.vb                        |  15 +++++---
  Klock/FEMcommon.vb                     |   4 +--
@@ -293,6 +395,9 @@ Date:   Thu Jun 4 22:26:39 2015 +0100
  Klock/selectTime.vb                    |  12 +++----
  21 files changed, 159 insertions(+), 66 deletions(-)
 
+
+[Build 35] - V1.0.4.35 - October 2013
+
 commit f19f723739065ffe584390d73ab9f874297e638e
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:25:05 2015 +0100
@@ -307,10 +412,10 @@ Date:   Thu Jun 4 22:25:05 2015 +0100
     
     Moved some code in to UserFonts.vb
     
-    Fixed a bug, the text files of a notification icon can not exceed 64
+    Fixed a bug, the text files of a notification icon cannot exceed 64
     characters.
     
-    Moved code that loads the info forms  into one sub.
+    Moved code that loads the info forms into one sub.
     
     Simplified the code for the memo password.
     
@@ -348,6 +453,9 @@ Date:   Thu Jun 4 22:25:05 2015 +0100
  fonts/NancyBlackett.ttf      | Bin 0 -> 41836 bytes
  fonts/Semaphore.ttf          | Bin 0 -> 12344 bytes
  23 files changed, 260 insertions(+), 270 deletions(-)
+
+
+[Build 34] - V1.0.4.35 - October 2013
 
 commit 124af388fb3ae98b53ba7700a254b1967c7a87c4
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -389,6 +497,9 @@ Date:   Thu Jun 4 22:22:13 2015 +0100
  Klock/klock.hnd                   | Bin 3493888 -> 7655424 bytes
  Klock/selectTime.vb               | 105 +++++++++-
  25 files changed, 1462 insertions(+), 470 deletions(-)
+
+
+[Build 33] - V1.0.4.33 - October 2013
 
 commit 182438ce99bad06098a461d5361c92821626f55a
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -447,6 +558,9 @@ Date:   Thu Jun 4 22:20:53 2015 +0100
  Klock/selectTime.vb              |  22 +--
  23 files changed, 969 insertions(+), 264 deletions(-)
 
+
+[Build 32] - V1.0.3.32 - July 2013
+
 commit 204b928f26e451ebff0fa77acaa56a1bf17161a4
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:18:37 2015 +0100
@@ -475,6 +589,9 @@ Date:   Thu Jun 4 22:18:37 2015 +0100
  Klock/frmKlock.vb                | 431 +++++++--------------------------------
  Klock/frmOptions.vb              |  22 +-
  8 files changed, 445 insertions(+), 603 deletions(-)
+
+
+[Build 31] - V1.0.3.31 - July 2013
 
 commit e0324346375853889e3c58097ee972d4c56b3052
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -529,6 +646,9 @@ Date:   Thu Jun 4 22:17:18 2015 +0100
  Klock/selectTime.vb              |  18 ++--
  15 files changed, 529 insertions(+), 195 deletions(-)
 
+
+[Build 30] - V1.0.3.30 - July 2013
+
 commit 02d0150cf79472e9523c1e4f00dbc397a8f698c1
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:16:01 2015 +0100
@@ -552,6 +672,9 @@ Date:   Thu Jun 4 22:16:01 2015 +0100
  Klock/frmOptions.vb              | 142 +++++++++--------------
  Klock/klock.hnd                  | Bin 3493888 -> 3493888 bytes
  8 files changed, 183 insertions(+), 295 deletions(-)
+
+
+[build 29] - V1.0.3.29 - July 2013
 
 commit 27ff19caa743ef01cb9d8b2f284be88f35767834
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -598,6 +721,9 @@ Date:   Thu Jun 4 22:12:06 2015 +0100
  Klock/selectAction.vb            |  12 +-
  13 files changed, 734 insertions(+), 236 deletions(-)
 
+
+[Build 28] - V1.0.3.28 - July 2013
+
 commit cd67dc6367a2523beb5b7e9d459212767390ab3c
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:10:33 2015 +0100
@@ -620,6 +746,9 @@ Date:   Thu Jun 4 22:10:33 2015 +0100
  Klock/frmOptions.vb              |  99 ++++++++++++++++------
  Klock/klock.hnd                  | Bin 3194880 -> 3493888 bytes
  11 files changed, 495 insertions(+), 129 deletions(-)
+
+
+[Build 27] - V1.0.3.27 - July 2013
 
 commit ebd9469be8d51a817e12e57c36b589417739def8
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -651,6 +780,9 @@ Date:   Thu Jun 4 22:09:00 2015 +0100
  Klock/frmOptions.vb              | 125 +++++++++++---
  Klock/klock.hnd                  | Bin 3194880 -> 3194880 bytes
  11 files changed, 1086 insertions(+), 154 deletions(-)
+
+
+[Build 26] - V1.0.2.26 - June 2013
 
 commit 25a69ce17e91c59431d0e8d6c6dd1c8687a7411a
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -688,6 +820,9 @@ Date:   Thu Jun 4 22:06:44 2015 +0100
  Klock/history.txt            |   31 +
  Klock/klock.hnd              |  Bin 3194880 -> 3194880 bytes
  19 files changed, 14020 insertions(+), 25 deletions(-)
+
+
+[Build 25] - V1.0.2.25 - June 2013
 
 commit 39d638a77260dd56ea99f0f22387aa5a691a6071
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -753,6 +888,9 @@ Date:   Thu Jun 4 22:05:06 2015 +0100
  Klock/selectAction.vb            |  25 +++-
  Klock/selectTime.vb              |  27 ++--
  16 files changed, 502 insertions(+), 436 deletions(-)
+
+
+[Build 24] - V1.0.2.24 - June 2013
 
 commit 80658e71d76c1a443932538d4d163d3ae75162cd
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -825,6 +963,9 @@ Date:   Thu Jun 4 22:03:14 2015 +0100
  Klock/selectTime.vb                    |   54 ++
  24 files changed, 7642 insertions(+), 569 deletions(-)
 
+
+[Build 23] - V1.0.2.23 - June 2013
+
 commit 0269530fe8e641f15ec09b271accda2c5d847806
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:01:42 2015 +0100
@@ -889,6 +1030,9 @@ Date:   Thu Jun 4 22:01:42 2015 +0100
  Klock/selectTime.vb              |  98 ++++++++-
  16 files changed, 847 insertions(+), 300 deletions(-)
 
+
+[Build 22] - V1.0.2.22 - June 2013
+
 commit 710b8452ba35e4b4b73675d1079fab6c9e88e81f
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:59:51 2015 +0100
@@ -946,6 +1090,9 @@ Date:   Thu Jun 4 21:59:51 2015 +0100
  Klock/selectTime.vb                   |  64 +++-
  20 files changed, 1026 insertions(+), 950 deletions(-)
 
+
+[[Build 21] - V1.0.1.21 - March 2013
+
 commit 87d801acf6a674239d0764fb96e265b32b6c61bf
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:55:45 2015 +0100
@@ -967,7 +1114,7 @@ Date:   Thu Jun 4 21:55:45 2015 +0100
     
     [Person.vb]
     
-    Amneded the space padding in Persoon.ToString()
+    Amended the space padding in Person.ToString()
 
  Klock/Help.txt                   |   6 +
  Klock/Klock.Designer.vb          |  41 +-
@@ -979,6 +1126,9 @@ Date:   Thu Jun 4 21:55:45 2015 +0100
  Klock/history.txt                |  16 +
  Klock/selectTime.vb              | 130 +++++-
  9 files changed, 548 insertions(+), 608 deletions(-)
+
+
+[Build 20] - V1.0.1.20 - March 2013
 
 commit 0063b61af38cf1ba1c599ee55866d0b925752da0
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -1022,6 +1172,9 @@ Date:   Thu Jun 4 21:50:53 2015 +0100
  Klock/app.config                      |   3 +
  Klock/history.txt                     |  22 +++++
  17 files changed, 677 insertions(+), 47 deletions(-)
+
+
+[Build 19] - V1.0.1.19 - March 2013
 
 commit aa41b524bb5bb240ef30edc2299bfdaa44acf797
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -1081,6 +1234,9 @@ Date:   Thu Jun 4 21:48:21 2015 +0100
  Klock/selectTime.vb                   | 174 +++++++++++++++---------
  14 files changed, 620 insertions(+), 227 deletions(-)
 
+
+[Build 18] - V1.0.1.18 - March 2013
+
 commit 4fe14328cae8af8806800c178479d43025d396de
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:45:46 2015 +0100
@@ -1115,6 +1271,9 @@ Date:   Thu Jun 4 21:45:46 2015 +0100
  Klock/app.config                      |   8 +-
  13 files changed, 520 insertions(+), 153 deletions(-)
 
+
+[Build 17] - V1.0.1.17 - March 2013
+
 commit 2a96c0a403b0dcf3ffa68b6ca69be95c3121fa79
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:43:50 2015 +0100
@@ -1145,6 +1304,9 @@ Date:   Thu Jun 4 21:43:50 2015 +0100
  Klock/Options.vb                 | 60 +++++++++++++++++++++-------------------
  Klock/selectAction.vb            |  8 +++---
  7 files changed, 82 insertions(+), 48 deletions(-)
+
+
+[Build 16] - V1.0.1.16 - March 2013
 
 commit 1116f984189c70f0335c503c1e581dfb12d3616e
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -1185,6 +1347,9 @@ Date:   Thu Jun 4 21:42:10 2015 +0100
  Klock/selectTime.vb                      |  11 +-
  10 files changed, 825 insertions(+), 334 deletions(-)
 
+
+Build 15] - V1.0.1.15 - March 2013
+
 commit 0882f8af046be5e9745e51d14f791f3847b5672d
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:40:27 2015 +0100
@@ -1202,6 +1367,9 @@ Date:   Thu Jun 4 21:40:27 2015 +0100
  Klock/Person.vb                  |   4 +-
  Klock/selectAction.vb            |   2 +-
  6 files changed, 415 insertions(+), 10 deletions(-)
+
+
+[Build 14] - V1.0.1.14 - March 2013
 
 commit 981dfbe4a38805a9e39b7565c024d8f3f295ea04
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -1224,6 +1392,9 @@ Date:   Thu Jun 4 21:38:32 2015 +0100
  Klock/My Project/AssemblyInfo.vb |   4 +-
  Klock/Person.vb                  | 219 +++++++++++++++
  6 files changed, 872 insertions(+), 49 deletions(-)
+
+
+[Build 13] - V1.0.0.13 - November 2012
 
 commit af0a1757496c3020922d4ab4d9ed0c6171dc9a99
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -1248,6 +1419,9 @@ Date:   Thu Jun 4 21:33:29 2015 +0100
  Klock/Klock.vb                   | 92 +++++++++++++++++++++++-----------------
  Klock/My Project/AssemblyInfo.vb |  4 +-
  5 files changed, 81 insertions(+), 50 deletions(-)
+
+
+[Build 12] - V1.0.0.12 - November 2012
 
 commit f56e18050937793197fe7c60d7efe555e082b17f
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -1283,6 +1457,9 @@ Date:   Thu Jun 4 21:31:53 2015 +0100
  Klock/selectTime.vb              |  21 +-
  11 files changed, 254 insertions(+), 361 deletions(-)
 
+
+[Build 11] - V1.0.0.11 - November 2012
+
 commit 37557a975ccf2bf893f0347e02a558f0f1d4e4a8
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:30:09 2015 +0100
@@ -1298,6 +1475,9 @@ Date:   Thu Jun 4 21:30:09 2015 +0100
  Klock/My Project/AssemblyInfo.vb |   4 +-
  Klock/history.txt                |  19 ++++++
  4 files changed, 93 insertions(+), 74 deletions(-)
+
+
+[Build 10] - V1.0.0.10 - November 2012
 
 commit 95357412c5a39ae6a8baacfe63976ae7b5329e41
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -1342,6 +1522,9 @@ Date:   Thu Jun 4 21:26:33 2015 +0100
  Klock/selectAction.vb            | 31 ++++++++++++---
  7 files changed, 159 insertions(+), 38 deletions(-)
 
+
+[Build 9] - V1.0.0.6 - November 2012
+
 commit ad15bbeaf932aea7d5f16d73f3bbea9272a83667
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:24:41 2015 +0100
@@ -1383,6 +1566,9 @@ Date:   Thu Jun 4 21:24:41 2015 +0100
  Sounds/two.mp3               | Bin 0 -> 620614 bytes
  Sounds/two.wav               | Bin 4866608 -> 0 bytes
  34 files changed, 14 insertions(+), 17 deletions(-)
+
+
+[Build 8] - V1.0.0.8 - November 2012
 
 commit c73cf1e972b82149267f2625eee23a441413fd0b
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -1455,6 +1641,9 @@ Date:   Thu Jun 4 21:19:39 2015 +0100
  Sounds/two.wav                         | Bin 0 -> 4866608 bytes
  38 files changed, 1672 insertions(+), 369 deletions(-)
 
+
+[Build 7] - V1.0.0.7 - November 2012
+
 commit bf319e6c599e00dd1c36d2885095e9ba9195fb6b
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:16:10 2015 +0100
@@ -1501,6 +1690,9 @@ Date:   Thu Jun 4 21:16:10 2015 +0100
  Klock/wip.txt                                 |   6 -
  22 files changed, 646 insertions(+), 41 deletions(-)
 
+
+[Build 6] - V1.0.0.6 - November 2012
+
 commit aafacf812eba19caecd96f20f44329bf6d1ac776
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:14:07 2015 +0100
@@ -1533,6 +1725,9 @@ Date:   Thu Jun 4 21:14:07 2015 +0100
  Klock/selectTime.vb                    | 89 +++++++++++++++++++++++-----------
  Klock/wip.txt                          | 12 ++---
  13 files changed, 178 insertions(+), 57 deletions(-)
+
+
+[Build 5] - V1.0.0.5 - November 2012
 
 commit fa2b860b2843726ad360bbd414a0e37f2b2d2515
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -1567,6 +1762,9 @@ Date:   Thu Jun 4 21:11:34 2015 +0100
  Klock/wip.txt                         |   13 +
  15 files changed, 2669 insertions(+), 230 deletions(-)
 
+
+[Build 4] - V1.0.0.4 - November 2012
+
 commit 528442789a1427d9baecbab77aeb6a5057343dcb
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:08:12 2015 +0100
@@ -1588,6 +1786,9 @@ Date:   Thu Jun 4 21:08:12 2015 +0100
  Klock/selectAction.vb                 |  77 +++++++++
  Klock/selectTime.vb                   |  21 ++-
  12 files changed, 734 insertions(+), 98 deletions(-)
+ 
+
+[Build 3] - V1.0.0.3 - November 2012
 
 commit daab157607290d080c16af4be0cb28c9a3285c29
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -1607,6 +1808,9 @@ Date:   Thu Jun 4 21:05:58 2015 +0100
  Klock/selectTime.vb     | 148 ++++++++++++++++
  6 files changed, 523 insertions(+), 216 deletions(-)
 
+
+[Build 2] - V1.0.0.2 - November 2012
+
 commit e362ff514186cb920f47ed06348564a9ad8fdd33
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:04:33 2015 +0100
@@ -1623,6 +1827,9 @@ Date:   Thu Jun 4 21:04:33 2015 +0100
  Klock/My Project/AssemblyInfo.vb |   6 +-
  Klock/fuzzyTime.vb               |   3 +
  7 files changed, 459 insertions(+), 11 deletions(-)
+
+
+[Build 1] - V1.0.0.1 - November 2012
 
 commit 4ac0655dcddec340e6448b54cdb00ea5a8e945f0
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
@@ -1667,3 +1874,4 @@ Date:   Thu Jun 4 20:59:48 2015 +0100
  Klock/Settings.vb                        |  11 +
  Klock/app.config                         |  52 +++
  33 files changed, 4198 insertions(+)
+
