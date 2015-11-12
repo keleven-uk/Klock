@@ -9,7 +9,7 @@
     '   November 2013   V1.0.5 - added Double Agent              [build 44] :: parked for now
     '   July 2014       V1.0.6 - added Text Klock                [build 46] :: copied from V1.0.4
     '   July 2015       V1.1.0 - Moved to VS2013 & GitHub        no build numbers now.
-    '   September 2015  V1.1.1 - Moved to VS2015, added idele time & disabele monitor sleep
+    '   September 2015  V1.1.1 - Moved to VS2015, added idile time & disabele monitor sleep
 
 
     Public startTime As Integer
@@ -93,7 +93,7 @@
     Private Sub updateStatusBar()
         '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
 
-        Dim strKey As String = "cns"
+        Dim strKey As String = "cns off"
 
         '                                               if running on battery, change status info colour to red as a warning.
         If Me.myManagedPower.powerSource().Contains("AC") Then
@@ -109,6 +109,7 @@
         If My.Computer.Keyboard.CapsLock.ToString() Then strKey = Replace(strKey, "c", "C")
         If My.Computer.Keyboard.NumLock.ToString() Then strKey = Replace(strKey, "n", "N")
         If My.Computer.Keyboard.ScrollLock.ToString() Then strKey = Replace(strKey, "s", "S")
+        If KlockThings.HaveInternetConnection() Then strKey = Replace(strKey, "off", "ON")
 
         If Me.usrSettings.usrTimeSystem24Hour Then
             Me.stsLblTime.Text = String.Format("{0:HH:mm:ss}", System.DateTime.Now)
@@ -128,6 +129,7 @@
         Else
             Me.stsLbIdkeTime.Visible = False
         End If
+
     End Sub
 
     Private Sub updateTitleText()
@@ -166,7 +168,7 @@
 
         If Me.usrSettings.usrTimeHourPips And (Math.Floor(m Mod 3600) = 0) Then                                 '    will this work at midnight???
 
-            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\thepips.mp3"))  '    Play the Pips on the hour, if desired.
+            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\thepips.mp3"))   '    Play the Pips on the hour, if desired.
         ElseIf Me.usrSettings.usrTimeHourChimes And (Math.Floor(m Mod 3600) = 0) Then                           '    Play hourly chimes, if desired.
 
             Dim hour As Integer = Now.Hour
@@ -1952,6 +1954,20 @@
         Me.usrSettings.usrTimeIdleTime = Me.DisplayIdleTime.Checked
     End Sub
 
+    Private Sub TimeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TimeToolStripMenuItem.Click
+        '   Only enable time servr menu item if connected t the internet.
+
+        InternetTimeToolStripMenuItem.Enabled = KlockThings.HaveInternetConnection()
+    End Sub
+
+    Private Sub InternetTimeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InternetTimeToolStripMenuItem.Click
+        '   If chosen from menus, display the time from an internet time server.
+        '   Although in the time menu, it calls the info form - more designed to display the time date.
+        '   If cuser settings checkInternet is false, will display no inter connection.
+
+
+        InfoCommon.displayInfo(sender.ToString)
+    End Sub
 
     ' ********************************************************************************************************************** monitor menu stuff *************
 
@@ -2006,14 +2022,8 @@
         '   if checked, the system tray icon tooltip will be set to correct time [by main clock]
 
         Me.usrSettings.usrTimeDisplayMinimised = If(Me.TlStrpMnItmTime.Checked, True, False)
-
     End Sub
 
 
-
     ' ********************************************************************************************************************************* END **************
-
-
-
-
 End Class

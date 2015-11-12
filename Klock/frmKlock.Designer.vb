@@ -38,6 +38,7 @@ Partial Class frmKlock
         Me.TextKlockToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DisplayTwoTimeFormatsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DisplayIdleTime = New System.Windows.Forms.ToolStripMenuItem()
+        Me.InternetTimeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MonitorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MonitorDisableSleep = New System.Windows.Forms.ToolStripMenuItem()
         Me.InfoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -299,8 +300,8 @@ Partial Class frmKlock
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.StsLblKeys.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.StsLblKeys.Name = "StsLblKeys"
-        Me.StsLblKeys.Size = New System.Drawing.Size(29, 19)
-        Me.StsLblKeys.Text = "cns"
+        Me.StsLblKeys.Size = New System.Drawing.Size(47, 19)
+        Me.StsLblKeys.Text = "cns off"
         '
         'stsLbIdkeTime
         '
@@ -350,7 +351,7 @@ Partial Class frmKlock
         '
         'TimeToolStripMenuItem
         '
-        Me.TimeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TextKlockToolStripMenuItem, Me.DisplayTwoTimeFormatsToolStripMenuItem, Me.DisplayIdleTime})
+        Me.TimeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TextKlockToolStripMenuItem, Me.DisplayTwoTimeFormatsToolStripMenuItem, Me.DisplayIdleTime, Me.InternetTimeToolStripMenuItem})
         Me.TimeToolStripMenuItem.Name = "TimeToolStripMenuItem"
         Me.TimeToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
         Me.TimeToolStripMenuItem.Text = "Time"
@@ -375,6 +376,12 @@ Partial Class frmKlock
         Me.DisplayIdleTime.Name = "DisplayIdleTime"
         Me.DisplayIdleTime.Size = New System.Drawing.Size(213, 22)
         Me.DisplayIdleTime.Text = "Display Idle Time"
+        '
+        'InternetTimeToolStripMenuItem
+        '
+        Me.InternetTimeToolStripMenuItem.Name = "InternetTimeToolStripMenuItem"
+        Me.InternetTimeToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.InternetTimeToolStripMenuItem.Text = "Internet Time"
         '
         'MonitorToolStripMenuItem
         '
@@ -439,14 +446,14 @@ Partial Class frmKlock
         '
         Me.MnItmSubHelp.Name = "MnItmSubHelp"
         Me.MnItmSubHelp.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
-        Me.MnItmSubHelp.Size = New System.Drawing.Size(153, 22)
+        Me.MnItmSubHelp.Size = New System.Drawing.Size(155, 22)
         Me.MnItmSubHelp.Text = "Hel&p"
         '
         'MnItmLicense
         '
         Me.MnItmLicense.Name = "MnItmLicense"
         Me.MnItmLicense.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.L), System.Windows.Forms.Keys)
-        Me.MnItmLicense.Size = New System.Drawing.Size(153, 22)
+        Me.MnItmLicense.Size = New System.Drawing.Size(155, 22)
         Me.MnItmLicense.Text = "&License"
         '
         'MnItmHistory
@@ -460,7 +467,7 @@ Partial Class frmKlock
         '
         Me.MnItmAbout.Name = "MnItmAbout"
         Me.MnItmAbout.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.A), System.Windows.Forms.Keys)
-        Me.MnItmAbout.Size = New System.Drawing.Size(153, 22)
+        Me.MnItmAbout.Size = New System.Drawing.Size(155, 22)
         Me.MnItmAbout.Text = "&About"
         '
         'TbCntrl
@@ -2397,4 +2404,5 @@ Partial Class frmKlock
     Friend WithEvents btnPrint As Button
     Friend WithEvents EasterToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MnItmHistory As ToolStripMenuItem
+    Friend WithEvents InternetTimeToolStripMenuItem As ToolStripMenuItem
 End Class

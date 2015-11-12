@@ -545,8 +545,8 @@ Partial Class frmTextKlock
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.StsLblDate.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.StsLblDate.Name = "StsLblDate"
-        Me.StsLblDate.Size = New System.Drawing.Size(75, 19)
-        Me.StsLblDate.Text = "18 Nov 2012"
+        Me.StsLblDate.Size = New System.Drawing.Size(109, 19)
+        Me.StsLblDate.Text = "18 November 2012"
         '
         'StsLblKeys
         '
@@ -555,8 +555,8 @@ Partial Class frmTextKlock
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.StsLblKeys.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.StsLblKeys.Name = "StsLblKeys"
-        Me.StsLblKeys.Size = New System.Drawing.Size(29, 19)
-        Me.StsLblKeys.Text = "cns"
+        Me.StsLblKeys.Size = New System.Drawing.Size(47, 19)
+        Me.StsLblKeys.Text = "cns off"
         '
         'stsLbIdkeTime
         '
@@ -565,8 +565,8 @@ Partial Class frmTextKlock
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.stsLbIdkeTime.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.stsLbIdkeTime.Name = "stsLbIdkeTime"
-        Me.stsLbIdkeTime.Size = New System.Drawing.Size(53, 19)
-        Me.stsLbIdkeTime.Text = "00:00:00"
+        Me.stsLbIdkeTime.Size = New System.Drawing.Size(114, 19)
+        Me.stsLbIdkeTime.Text = "Idle Time :: 00:00:00"
         '
         'frmTextKlock
         '

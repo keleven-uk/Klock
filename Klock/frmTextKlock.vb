@@ -37,7 +37,7 @@
     Private Sub updateStatusBar()
         '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
 
-        Dim strKey As String = "cns"
+        Dim strKey As String = "cns off"
 
         '                                               if running on battery, change status info colour to red as a warning.
         If frmKlock.myManagedPower.powerSource().Contains("AC") Then
@@ -53,6 +53,7 @@
         If My.Computer.Keyboard.CapsLock.ToString() Then strKey = Replace(strKey, "c", "C")
         If My.Computer.Keyboard.NumLock.ToString() Then strKey = Replace(strKey, "n", "N")
         If My.Computer.Keyboard.ScrollLock.ToString() Then strKey = Replace(strKey, "s", "S")
+        If KlockThings.HaveInternetConnection() Then strKey = Replace(strKey, "off", "ON")
 
         If frmKlock.usrSettings.usrTimeSystem24Hour Then
             Me.stsLblTime.Text = String.Format("{0:HH:mm:ss}", System.DateTime.Now)
@@ -61,7 +62,7 @@
         End If
 
         '   Me.stsLblTime.Text = Format(Now, "Long Time")
-        Me.StsLblDate.Text = Format(Now, "Long Date")
+        Me.StsLblDate.Text = Format(Now, "short Date")
         Me.StsLblKeys.Text = strKey
 
         '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleepimg.

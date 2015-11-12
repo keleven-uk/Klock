@@ -1,5 +1,16 @@
-﻿Imports System.Runtime.InteropServices 'APIs
-Imports Microsoft.Win32         'For System Events
+﻿'Imports System
+'Imports System.Collections.Generic
+'Imports System.ComponentModel
+'Imports System.Data
+'Imports System.Drawing
+'Imports System.Text
+'Imports System.Windows.Forms
+'Imports System.Net
+'Imports System.Net.Sockets
+'Imports System.Threading
+
+Imports System.Runtime.InteropServices 'APIs
+'Imports Microsoft.Win32         'For System Events
 
 Module KlockThings
     '
@@ -125,4 +136,22 @@ Module KlockThings
         easter_date = easter_date.AddDays(+d + (d > 48) + 6 - ((y + y \ 4 + d + (d > 48) + 1) Mod 7))
         Return (easter_date)
     End Function
+
+
+    Public Function HaveInternetConnection() As Boolean
+        '   Checks to see in connected to the internet by pinging a well know site.
+        '   If checkInternet is set to false, in user settings, no check is made.
+        '   NB if set to false - effectively sheilds klock from a valid internet connection.
+
+        If Not frmKlock.usrSettings.usrCheckInternet Then Return False
+
+        Try
+            Return My.Computer.Network.Ping("www.google.com")
+        Catch
+            Return False
+        End Try
+
+    End Function
 End Module
+
+

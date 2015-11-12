@@ -18,23 +18,36 @@
         '   if the form is loaded as power source, the timer will have been enabled.
         '   So, every six seconds update the labels with the status of the power source.
 
-        Me.Label1.Text = frmKlock.myManagedPower.powerSource()
-        Me.Label2.Text = ""
-        Me.Label3.Text = frmKlock.myManagedPower.powerStatus()
-        Me.Label4.Text = frmKlock.myManagedPower.chargingStatus()
-        Me.Label5.Text = ""
+
+        Select Case Me.Text
+            Case "Info - Power Source"
+                Me.Label1.Text = frmKlock.myManagedPower.powerSource()
+                Me.Label2.Text = ""
+                Me.Label3.Text = frmKlock.myManagedPower.powerStatus()
+                Me.Label4.Text = frmKlock.myManagedPower.chargingStatus()
+                Me.Label5.Text = ""
+
+            Case Else
+
+        End Select
+
     End Sub
 
     Private Sub NmrcUpDwnYear_ValueChanged(sender As Object, e As EventArgs) Handles NmrcUpDwnYear.ValueChanged
         '   If the year has been changed update the data on the form.
 
         InfoCommon.updateInfo(Me.GroupBox1.Text, Me.NmrcUpDwnYear.Value)
-
     End Sub
 
     Private Sub frmInfo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '   set the year to current year on form load.
 
         Me.NmrcUpDwnYear.Value = Now().Year
+    End Sub
+
+    Private Sub BtnQueryServer_Click(sender As Object, e As EventArgs) Handles BtnQueryServer.Click
+        '   Calls the query server routine.  Get the time from an internet time server.
+
+        InfoCommon.queryServer()
     End Sub
 End Class

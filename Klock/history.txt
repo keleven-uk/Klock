@@ -2,6 +2,56 @@ The source tree is now held as a git repository https://github.com/keleven-uk/Kl
  converted from SVN as of build 42.
 I find the git commit number unwieldily, so still include SVN style build numbers.
 
+[Build [53] - V1.1.1.53
+
+commit b00487f76276093a5a9980773404925dc11ae8fb
+Author: kevin scott <coinflip@keleven.co.uk>
+Date:   Tue Nov 3 21:00:21 2015 +0000
+
+    [frmKlock.vb]
+    Removed code that launches help, about form - moved to HelpCommon.vb
+    
+    [KlockThings.vb]
+    Added the colour of the idle time display on the textKlock to
+    KeepMonitorActive() & RestoreMonitorActive()
+    Added function easterDates()
+    
+    [InfoCommon.vb]
+    Moved common code into functions.
+    Added code for the select year for Daylight Saving & Easter Dates.
+    
+    [Klock.iss]
+    Amended issue scripts for current version.
+    Added help.pdf to install.
+    
+    [HelpCommon.vb]
+    File added - contains common code for the Help menu.
+    
+    [frmLicence.vb]
+    Moved code for loading of licence to HelpCommon.vb
+    Also used to load History - selected form HelpCommon.vb
+
+ Klock/HelpCommon.vb              |  59 ++++++
+ Klock/InfoCommon.vb              |  91 ++++++--
+ Klock/Klock.chm                  | Bin 532568 -> 541396 bytes
+ Klock/Klock.iss                  |  16 +-
+ Klock/Klock.pdf                  | Bin 2503468 -> 2697704 bytes
+ Klock/Klock.vbproj               |   8 +-
+ Klock/KlockThings.vb             |  13 ++
+ Klock/My Project/AssemblyInfo.vb |   4 +-
+ Klock/frmInfo.Designer.vb        |  33 ++-
+ Klock/frmInfo.vb                 |  15 +-
+ Klock/frmKlock.Designer.vb       |  27 ++-
+ Klock/frmKlock.vb                |  41 ++--
+ Klock/frmLicense.vb              |  27 +--
+ Klock/frmTextKlock.Designer.vb   |  73 ++++++-
+ Klock/frmTextKlock.resx          |   3 +
+ Klock/frmTextKlock.vb            |  64 +++++-
+ Klock/history.txt                | 433 ++++++++++++++++++++++++++++++++++-----
+ Klock/klock.hnd                  | Bin 9134080 -> 9388032 bytes
+ Klock/selectTime.vb              |   2 +-
+ log.txt                          | 244 ++++++++++++++++++++--
+ 20 files changed, 992 insertions(+), 161 deletions(-)
 
 [Build [52] - V1.1.1.52
 

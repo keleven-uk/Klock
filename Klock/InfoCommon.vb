@@ -17,6 +17,10 @@ Module InfoCommon
             Case "Culture"                  '   seems to have changed in windows 10
                 frmInfo.NmrcUpDwnYear.Visible = False
                 frmInfo.Label6.Visible = False
+                frmInfo.CmbBxTimeServers.Visible = False
+                frmInfo.BtnQueryServer.Visible = False
+                frmInfo.ChckBxSynchKlock.Visible = False
+
                 frmInfo.Text = "Info - Current Culture"
                 frmInfo.GroupBox1.Text = "Current Culture"
 
@@ -28,6 +32,10 @@ Module InfoCommon
             Case "Operating System"
                 frmInfo.NmrcUpDwnYear.Visible = False
                 frmInfo.Label6.Visible = False
+                frmInfo.CmbBxTimeServers.Visible = False
+                frmInfo.BtnQueryServer.Visible = False
+                frmInfo.ChckBxSynchKlock.Visible = False
+
                 frmInfo.Text = "Info - Operating System"
                 frmInfo.GroupBox1.Text = "Operating System"
 
@@ -39,6 +47,10 @@ Module InfoCommon
             Case "Power Source"
                 frmInfo.NmrcUpDwnYear.Visible = False
                 frmInfo.Label6.Visible = False
+                frmInfo.CmbBxTimeServers.Visible = False
+                frmInfo.BtnQueryServer.Visible = False
+                frmInfo.ChckBxSynchKlock.Visible = False
+
                 frmInfo.Text = "Info - Power Source"
                 frmInfo.GroupBox1.Text = "Power Source"
 
@@ -49,7 +61,23 @@ Module InfoCommon
                 frmInfo.Label5.Text = ""
 
                 frmInfo.TmrInfo.Enabled = True      '   switch on timer.
-            Case Else
+            Case "Internet Time"
+
+                frmInfo.NmrcUpDwnYear.Visible = False
+                frmInfo.Label6.Visible = False
+                frmInfo.CmbBxTimeServers.Visible = True
+                frmInfo.CmbBxTimeServers.SelectedIndex = 0
+                frmInfo.BtnQueryServer.Visible = True
+                frmInfo.ChckBxSynchKlock.Visible = True
+
+                frmInfo.Text = "Info - Internet Time"
+                frmInfo.GroupBox1.Text = "Internet Time"
+
+                frmInfo.Label1.Text = ""
+                frmInfo.Label2.Text = ""
+                frmInfo.Label3.Text = ""
+                frmInfo.Label4.Text = ""
+                frmInfo.Label5.Text = ""
 
         End Select
 
@@ -81,6 +109,10 @@ Module InfoCommon
 
         frmInfo.NmrcUpDwnYear.Visible = True
         frmInfo.Label6.Visible = True
+        frmInfo.CmbBxTimeServers.Visible = False
+        frmInfo.BtnQueryServer.Visible = False
+        frmInfo.ChckBxSynchKlock.Visible = False
+
         frmInfo.NmrcUpDwnYear.Value = currentYear
         frmInfo.Text = "Info - Daylight Saving"
 
@@ -103,8 +135,12 @@ Module InfoCommon
 
 
         frmInfo.NmrcUpDwnYear.Visible = True
-        frmInfo.Label6.Visible = True
         frmInfo.NmrcUpDwnYear.Value = currentYear
+        frmInfo.Label6.Visible = True
+        frmInfo.CmbBxTimeServers.Visible = False
+        frmInfo.BtnQueryServer.Visible = False
+        frmInfo.ChckBxSynchKlock.Visible = False
+
         frmInfo.Text = "Info - Easter Dates"
         frmInfo.GroupBox1.Text = "Easter Dates"
 
@@ -113,6 +149,26 @@ Module InfoCommon
         frmInfo.Label3.Text = String.Format("Good Friday   : {0}", KlockThings.easterDate(currentYear).AddDays(-2).ToLongDateString)
         frmInfo.Label4.Text = String.Format("Easter Sunday : {0}", KlockThings.easterDate(currentYear).ToLongDateString)
         frmInfo.Label5.Text = String.Format("Easter Monday : {0}", KlockThings.easterDate(currentYear).AddDays(+1).ToLongDateString)
+    End Sub
+
+
+    Sub queryServer()
+        '   receives the time info from an internet time server.
+        '   See SNTBClient.vb for details and credits.
+
+        Dim sntpTime As InternetTime.SNTPClient
+
+        sntpTime = New InternetTime.SNTPClient(frmInfo.CmbBxTimeServers.SelectedItem)
+        sntpTime.Connect(frmInfo.ChckBxSynchKlock.Checked)
+
+        frmInfo.Text = "Info - Internet Time"
+        frmInfo.GroupBox1.Text = "Internet Time"
+
+        frmInfo.Label1.Text = sntpTime.ToString
+        frmInfo.Label2.Text = ""
+        frmInfo.Label3.Text = ""
+        frmInfo.Label4.Text = ""
+        frmInfo.Label5.Text = ""
     End Sub
 
 End Module

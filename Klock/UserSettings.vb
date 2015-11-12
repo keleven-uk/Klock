@@ -73,6 +73,8 @@ Public Class UserSettings
     Private _usrNotificationOpacity As Integer = 80
     '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
     Private _usrDisableMonitorSleep As Boolean = False
+    '-------------------------------------------------------------------------------------------------------- Internet Settings -----------
+    Private _usrCheckInternet As Boolean = False
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
     Private _usrFriendsFile As String = "Friends.bin"
     '-------------------------------------------------------------------------------------------------------- Events Settings ------------
@@ -563,6 +565,15 @@ Public Class UserSettings
             _usrDisableMonitorSleep = value
         End Set
     End Property
+    '-------------------------------------------------------------------------------------------------------- Internet Settings ------------
+    Public Property usrCheckInternet() As Boolean
+        Get
+            Return _usrCheckInternet
+        End Get
+        Set(ByVal value As Boolean)
+            _usrCheckInternet = value
+        End Set
+    End Property
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
     Public Property usrFriendsFile() As String
@@ -755,6 +766,9 @@ Public Class UserSettings
                               <Monitor>
                                   <DisableMonitorSleep><%= usrDisableMonitorSleep() %></DisableMonitorSleep>
                               </Monitor>
+                              <Internet>
+                                  <CheckInternet><%= usrCheckInternet() %></CheckInternet>
+                              </Internet>
                               <Friends>
                                   <FriendsFileName><%= usrFriendsFile() %></FriendsFileName>
                               </Friends>
@@ -897,6 +911,9 @@ Public Class UserSettings
                               <Monitor>
                                   <DisableMonitorSleep>false</DisableMonitorSleep>
                               </Monitor>
+                              <Internet>
+                                  <CheckInternet>false</CheckInternet>
+                              </Internet>
                               <Friends>
                                   <FriendsDirectory><%= usrOptionsSavePath() %></FriendsDirectory>
                                   <FriendsFileName>Friends.bin</FriendsFileName>
@@ -1078,6 +1095,11 @@ Public Class UserSettings
 
             Dim mntr = elem.Element("Monitor")
             Me.usrDisableMonitorSleep = CType(readElement(mntr, "DisableMonitorSleep", usrDisableMonitorSleep()), Boolean)
+
+            '-------------------------------------------------------------------------------------------------------- Internet Settings ------------
+
+            Dim intrnt = elem.Element("Internet")
+            Me.usrCheckInternet = CType(readElement(intrnt, "CheckInternet", usrCheckInternet()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
             '   values are strings, so need to convert.

@@ -35,6 +35,9 @@ Partial Class frmInfo
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnInfoClose = New System.Windows.Forms.Button()
         Me.TmrInfo = New System.Windows.Forms.Timer(Me.components)
+        Me.CmbBxTimeServers = New System.Windows.Forms.ComboBox()
+        Me.BtnQueryServer = New System.Windows.Forms.Button()
+        Me.ChckBxSynchKlock = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.NmrcUpDwnYear, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -42,6 +45,9 @@ Partial Class frmInfo
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.ChckBxSynchKlock)
+        Me.GroupBox1.Controls.Add(Me.BtnQueryServer)
+        Me.GroupBox1.Controls.Add(Me.CmbBxTimeServers)
         Me.GroupBox1.Controls.Add(Me.NmrcUpDwnYear)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.Label5)
@@ -141,6 +147,34 @@ Partial Class frmInfo
         '
         Me.TmrInfo.Interval = 6000
         '
+        'CmbBxTimeServers
+        '
+        Me.CmbBxTimeServers.FormattingEnabled = True
+        Me.CmbBxTimeServers.Items.AddRange(New Object() {"time-a.nist.gov", "time-b.nist.gov", "time-a.timefreq.bldrdoc.gov", "time-b.timefreq.bldrdoc.gov", "time-c.timefreq.bldrdoc.gov", "utcnist.colorado.edu", "time.nist.gov", "time-nw.nist.gov", "nist1.datum.com"})
+        Me.CmbBxTimeServers.Location = New System.Drawing.Point(9, 187)
+        Me.CmbBxTimeServers.Name = "CmbBxTimeServers"
+        Me.CmbBxTimeServers.Size = New System.Drawing.Size(121, 21)
+        Me.CmbBxTimeServers.TabIndex = 7
+        '
+        'BtnQueryServer
+        '
+        Me.BtnQueryServer.Location = New System.Drawing.Point(136, 187)
+        Me.BtnQueryServer.Name = "BtnQueryServer"
+        Me.BtnQueryServer.Size = New System.Drawing.Size(75, 23)
+        Me.BtnQueryServer.TabIndex = 8
+        Me.BtnQueryServer.Text = "Query"
+        Me.BtnQueryServer.UseVisualStyleBackColor = True
+        '
+        'ChckBxSynchKlock
+        '
+        Me.ChckBxSynchKlock.AutoSize = True
+        Me.ChckBxSynchKlock.Location = New System.Drawing.Point(227, 191)
+        Me.ChckBxSynchKlock.Name = "ChckBxSynchKlock"
+        Me.ChckBxSynchKlock.Size = New System.Drawing.Size(113, 17)
+        Me.ChckBxSynchKlock.TabIndex = 9
+        Me.ChckBxSynchKlock.Text = "Synchronize klock"
+        Me.ChckBxSynchKlock.UseVisualStyleBackColor = True
+        '
         'frmInfo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -173,4 +207,7 @@ Partial Class frmInfo
     Friend WithEvents TmrInfo As System.Windows.Forms.Timer
     Friend WithEvents NmrcUpDwnYear As NumericUpDown
     Friend WithEvents Label6 As Label
+    Friend WithEvents CmbBxTimeServers As ComboBox
+    Friend WithEvents ChckBxSynchKlock As CheckBox
+    Friend WithEvents BtnQueryServer As Button
 End Class

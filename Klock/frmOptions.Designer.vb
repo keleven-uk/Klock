@@ -165,6 +165,8 @@ Partial Class frmOptions
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.GroupBox20 = New System.Windows.Forms.GroupBox()
+        Me.ChckBxChckInternet = New System.Windows.Forms.CheckBox()
         Me.TabCntrlOptions.SuspendLayout()
         Me.TbPgGlobal.SuspendLayout()
         Me.GroupBox17.SuspendLayout()
@@ -207,6 +209,7 @@ Partial Class frmOptions
         Me.TbPgMemo.SuspendLayout()
         Me.GroupBox16.SuspendLayout()
         CType(Me.NmrcUpDwnMemoDecrypt, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox20.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnOptionsClose
@@ -988,6 +991,7 @@ Partial Class frmOptions
         'TbPgOtherStuff
         '
         Me.TbPgOtherStuff.BackColor = System.Drawing.SystemColors.Control
+        Me.TbPgOtherStuff.Controls.Add(Me.GroupBox20)
         Me.TbPgOtherStuff.Controls.Add(Me.GroupBox19)
         Me.TbPgOtherStuff.Controls.Add(Me.GroupBox5)
         Me.TbPgOtherStuff.Controls.Add(Me.GroupBox4)
@@ -1003,9 +1007,9 @@ Partial Class frmOptions
         'GroupBox19
         '
         Me.GroupBox19.Controls.Add(Me.ChckBxDisableMonitorSleep)
-        Me.GroupBox19.Location = New System.Drawing.Point(6, 218)
+        Me.GroupBox19.Location = New System.Drawing.Point(9, 165)
         Me.GroupBox19.Name = "GroupBox19"
-        Me.GroupBox19.Size = New System.Drawing.Size(648, 41)
+        Me.GroupBox19.Size = New System.Drawing.Size(645, 41)
         Me.GroupBox19.TabIndex = 3
         Me.GroupBox19.TabStop = False
         Me.GroupBox19.Text = "Monitor"
@@ -1013,7 +1017,7 @@ Partial Class frmOptions
         'ChckBxDisableMonitorSleep
         '
         Me.ChckBxDisableMonitorSleep.AutoSize = True
-        Me.ChckBxDisableMonitorSleep.Location = New System.Drawing.Point(52, 18)
+        Me.ChckBxDisableMonitorSleep.Location = New System.Drawing.Point(49, 18)
         Me.ChckBxDisableMonitorSleep.Name = "ChckBxDisableMonitorSleep"
         Me.ChckBxDisableMonitorSleep.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ChckBxDisableMonitorSleep.Size = New System.Drawing.Size(172, 17)
@@ -1025,7 +1029,7 @@ Partial Class frmOptions
         '
         Me.GroupBox5.Controls.Add(Me.ChckBxReminderAdd)
         Me.GroupBox5.Controls.Add(Me.ChckBxReminderTimeCheck)
-        Me.GroupBox5.Location = New System.Drawing.Point(6, 165)
+        Me.GroupBox5.Location = New System.Drawing.Point(6, 112)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(648, 47)
         Me.GroupBox5.TabIndex = 1
@@ -1059,7 +1063,7 @@ Partial Class frmOptions
         Me.GroupBox4.Controls.Add(Me.ChckBxTimerAdd)
         Me.GroupBox4.Controls.Add(Me.ChckBxTimerHigh)
         Me.GroupBox4.Controls.Add(Me.ChckBxClearSplit)
-        Me.GroupBox4.Location = New System.Drawing.Point(6, 112)
+        Me.GroupBox4.Location = New System.Drawing.Point(6, 59)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(648, 47)
         Me.GroupBox4.TabIndex = 2
@@ -1102,9 +1106,9 @@ Partial Class frmOptions
         'GroupBox9
         '
         Me.GroupBox9.Controls.Add(Me.ChckBxCountdownAdd)
-        Me.GroupBox9.Location = New System.Drawing.Point(6, 59)
+        Me.GroupBox9.Location = New System.Drawing.Point(334, 6)
         Me.GroupBox9.Name = "GroupBox9"
-        Me.GroupBox9.Size = New System.Drawing.Size(648, 47)
+        Me.GroupBox9.Size = New System.Drawing.Size(320, 47)
         Me.GroupBox9.TabIndex = 0
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "Countdown Settings"
@@ -1125,7 +1129,7 @@ Partial Class frmOptions
         Me.GroupBox12.Controls.Add(Me.ChckBxWorldKlockAdd)
         Me.GroupBox12.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox12.Name = "GroupBox12"
-        Me.GroupBox12.Size = New System.Drawing.Size(648, 47)
+        Me.GroupBox12.Size = New System.Drawing.Size(320, 47)
         Me.GroupBox12.TabIndex = 0
         Me.GroupBox12.TabStop = False
         Me.GroupBox12.Text = "World KlockSettings"
@@ -1653,6 +1657,27 @@ Partial Class frmOptions
         Me.OpenFileDialog1.CheckFileExists = False
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
+        'GroupBox20
+        '
+        Me.GroupBox20.Controls.Add(Me.ChckBxChckInternet)
+        Me.GroupBox20.Location = New System.Drawing.Point(9, 212)
+        Me.GroupBox20.Name = "GroupBox20"
+        Me.GroupBox20.Size = New System.Drawing.Size(645, 41)
+        Me.GroupBox20.TabIndex = 4
+        Me.GroupBox20.TabStop = False
+        Me.GroupBox20.Text = "Internet"
+        '
+        'ChckBxChckInternet
+        '
+        Me.ChckBxChckInternet.AutoSize = True
+        Me.ChckBxChckInternet.Location = New System.Drawing.Point(49, 18)
+        Me.ChckBxChckInternet.Name = "ChckBxChckInternet"
+        Me.ChckBxChckInternet.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxChckInternet.Size = New System.Drawing.Size(172, 17)
+        Me.ChckBxChckInternet.TabIndex = 0
+        Me.ChckBxChckInternet.Text = "Check for Internet Connectivity"
+        Me.ChckBxChckInternet.UseVisualStyleBackColor = True
+        '
         'frmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1730,6 +1755,8 @@ Partial Class frmOptions
         Me.GroupBox16.ResumeLayout(False)
         Me.GroupBox16.PerformLayout()
         CType(Me.NmrcUpDwnMemoDecrypt, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox20.ResumeLayout(False)
+        Me.GroupBox20.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1875,4 +1902,6 @@ Partial Class frmOptions
     Friend WithEvents chckBxIdleTime As CheckBox
     Friend WithEvents GroupBox19 As GroupBox
     Friend WithEvents ChckBxDisableMonitorSleep As CheckBox
+    Friend WithEvents GroupBox20 As GroupBox
+    Friend WithEvents ChckBxChckInternet As CheckBox
 End Class

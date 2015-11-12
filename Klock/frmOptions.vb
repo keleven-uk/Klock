@@ -149,6 +149,10 @@ Public Class frmOptions
 
         Me.ChckBxDisableMonitorSleep.Checked = frmKlock.usrSettings.usrDisableMonitorSleep
 
+        '-------------------------------------------------------------------------------------------------------- Internet Settings ------------
+
+        Me.ChckBxChckInternet.Checked = frmKlock.usrSettings.usrCheckInternet
+
         '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
         Me.TxtBxOptionsFriendsFile.Text = If(frmKlock.usrSettings.usrFriendsFile = "", "Friends.bin", frmKlock.usrSettings.usrFriendsFile)
@@ -243,6 +247,10 @@ Public Class frmOptions
         '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
 
         frmKlock.usrSettings.usrDisableMonitorSleep = Me.ChckBxDisableMonitorSleep.Checked
+
+        '-------------------------------------------------------------------------------------------------------- Internet Settings ------------
+
+        frmKlock.usrSettings.usrCheckInternet = Me.ChckBxChckInternet.Checked
 
         '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
@@ -557,8 +565,8 @@ Public Class frmOptions
     '---------------------------------------------------------- Monitor Options  ---------------------------------------------------------------
 
     Private Sub ChckBxDisableMonitorSleep_CheckedChanged(sender As Object, e As EventArgs) Handles ChckBxDisableMonitorSleep.CheckedChanged
-        '   if checkbox is enabled, then disallow the monitor from goinf to sleep.
-        '   oter wise allow monitor to go to sleep as system [OS] default.
+        '   if checkbox is enabled, then disallow the monitor from going to sleep.
+        '   other wise allow monitor to go to sleep as system [OS] default.
 
         If Me.ChckBxDisableMonitorSleep.Checked Then
             frmKlock.usrSettings.usrDisableMonitorSleep = True
