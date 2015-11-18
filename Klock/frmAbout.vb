@@ -107,7 +107,7 @@ Public Class frmAbout
         Try
             Shell("msinfo32.exe", AppWinStyle.NormalFocus)
         Catch ex As Exception
-            Try                         '   if fails, try hard coded location [I think for windoes XP]
+            Try                         '   if fails, try hard coded location [I think for windows XP]
                 Shell("C:\Program Files\Common Files\Microsoft Shared\MSInfo\msinfo32.exe", AppWinStyle.NormalFocus)
             Catch ex1 As Exception
                 MessageBox.Show("Cannot find MSinfo! " & ex1.Message, "Error")

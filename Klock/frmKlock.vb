@@ -9,7 +9,8 @@
     '   November 2013   V1.0.5 - added Double Agent              [build 44] :: parked for now
     '   July 2014       V1.0.6 - added Text Klock                [build 46] :: copied from V1.0.4
     '   July 2015       V1.1.0 - Moved to VS2013 & GitHub        no build numbers now.
-    '   September 2015  V1.1.1 - Moved to VS2015, added idile time & disabele monitor sleep
+    '   September 2015  V1.1.1 - Moved to VS2015, added idle time & disable monitor sleep
+    '   November 2015   V1.1.2 - added convert tab               [build 56]
 
 
     Public startTime As Integer
@@ -68,7 +69,7 @@
                 tmStr = Me.displayOneTime.getTime()
 
                 Me.LblTimeOneTime.Font = Me.usrFonts.getFont(tmStr, Me.displayOneTime.getTitle, grphcs)
-                Me.LblTimeOneTime.Text = tmStr             '   Update local time in desired time format.
+                Me.LblTimeOneTime.Text = tmStr                                          '   Update local time in desired time format.
 
                 If Me.usrSettings.usrTimeTwoFormats Then
 
@@ -76,15 +77,15 @@
                     tmStr = Me.displayTwoTime.getTime()
 
                     Me.LblTimeTwoTime.Font = Me.usrFonts.getFont(tmStr, Me.displayTwoTime.getTitle, grphcs)
-                    Me.LblTimeTwoTime.Text = tmStr              '   display local time in desired time format.
+                    Me.LblTimeTwoTime.Text = tmStr                                      '   display local time in desired time format.
 
-                End If      '   If Me.usrSettings.usrTimeTwoFormats Then
+                End If                                                                  '   If Me.usrSettings.usrTimeTwoFormats Then
             ElseIf Me.TbCntrl.SelectedIndex = 1 Then
-                Me.updateWorldKlock() '   Update World Klock.
-            End If          '   If Me.TbCntrl.SelectedIndex = 0 [or 1] Then
-        Else                '   else If Me.Visible Then
+                Me.updateWorldKlock()                                                   '   Update World Klock.
+            End If                                                                      '   If Me.TbCntrl.SelectedIndex = 0 [or 1] Then
+        Else                                                                            '   else If Me.Visible Then
             Me.NotificationDispaly(currentSecond)                                       '   display a notification, if desired
-        End If          '   If Me.Visible Then
+        End If                                                                          '   If Me.Visible Then
 
         Me.playHourlyChimes(currentSecond)                                              '   Play a hourly chime,  if desired.
         Me.Notificationspeech(currentSecond)                                            '   Speak time, if desired.
@@ -121,7 +122,7 @@
         Me.StsLblDate.Text = Format(Now, "Long Date")
         Me.StsLblKeys.Text = strKey
 
-        '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleepimg.
+        '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleeping.
 
         If Me.usrSettings.usrTimeIdleTime Or Me.usrSettings.usrDisableMonitorSleep Then
             Me.stsLbIdkeTime.Visible = True
@@ -176,13 +177,13 @@
             If hour > 12 Then hour -= 12
 
             Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\" & hours(hour) & ".mp3"))
-        ElseIf Me.usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 900) = 0) Then            '    Play quarter chimes, if desired.
+        ElseIf Me.usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 900) = 0) Then                         '    Play quarter chimes, if desired.
 
             Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\quarterchime.mp3"))
-        ElseIf Me.usrSettings.usrTimeHalfChimes And (Math.Floor(m Mod 1800) = 0) Then              '    Play half hourly chimes, if desired.
+        ElseIf Me.usrSettings.usrTimeHalfChimes And (Math.Floor(m Mod 1800) = 0) Then                           '    Play half hourly chimes, if desired.
 
             Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\halfchime.mp3"))
-        ElseIf Me.usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 2700) = 0) Then      '    Play three quarter chimes, if desired.
+        ElseIf Me.usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 2700) = 0) Then                        '    Play three quarter chimes, if desired.
 
             Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\threequarterchime.mp3"))
         End If
@@ -211,17 +212,17 @@
 
         If Me.usrSettings.usrTimeDisplayMinimised And (Math.Floor(m Mod noSecs) = 0) Then
 
-            Me.displayAction.DisplayReminder("Time", displayOneTime.getTime()) ' display current time as a toast notification,if desired
+            Me.displayAction.DisplayReminder("Time", displayOneTime.getTime())  '   display current time as a toast notification,if desired
 
-            If Me.usrSettings.usrTimerAdd And Me.tmrTimer.Enabled Then     ' time is running
-                If Me.usrSettings.usrTimerHigh Then                            '   are we displaying milliseconds in timer.
+            If Me.usrSettings.usrTimerAdd And Me.tmrTimer.Enabled Then          '   time is running
+                If Me.usrSettings.usrTimerHigh Then                             '   are we displaying milliseconds in timer.
                     Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getHighElapsedTime())
                 Else
                     Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getLowElapsedTime())
                 End If
             End If
 
-            If Me.usrSettings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
+            If Me.usrSettings.usrCountdownAdd And Me.tmrCountDown.Enabled Then  '   countdown is running.
                 Me.displayAction.DisplayReminder("Countdown", "Countdown Running :: " & minsToString(Me.CountDownTime))
             End If
 
@@ -262,7 +263,7 @@
         '   If enabled, countdown is running - clock ticks every second.
 
         Me.CountDownTime -= 1                                           '   decrement countdown every second.
-        Me.lblCountDownTime.Text = minsToString(Me.CountDownTime)    '   update countdown label.
+        Me.lblCountDownTime.Text = minsToString(Me.CountDownTime)       '   update countdown label.
 
         If Me.CountDownTime = 0 Then                                    '   countdown has finished.
             Me.CountDownAction()                                        '   perform action.
@@ -277,12 +278,12 @@
 
         If Now() > Me.ReminderDateTime Then
             Me.ReminderAction()
-            Me.clearReminder()                                             '   clear down reminder tab after action.
+            Me.clearReminder()                                              '   clear down reminder tab after action.
         Else
             Dim hms As TimeSpan = Me.ReminderDateTime.Subtract(Now())
             Dim tmStr As String = ""
 
-            If Me.ChckBxReminderTimeCheck.Checked Then                      '   tack on the remining time
+            If Me.ChckBxReminderTimeCheck.Checked Then                      '   tack on the remaining time
                 tmStr = String.Format("Reminder set for {0} @ {1} : {2:%d}d {2:%h}h {2:%m}m {2:%s}s", Me.ReminderDateTime.ToLongDateString, Me.ReminderDateTime.ToShortTimeString, hms)
 
                 Me.lblReminderText.Font = Me.usrFonts.getFont(tmStr, "Reminder", grphcs)
@@ -337,7 +338,7 @@
                     Me.TmPckrRiminder.Enabled = False
                     Me.TmPckrRiminder.Value = Today
                 End If
-            Case 5                                              '   friends tab         NB: only pass the listbox count of the relevent tab - saves stuff.
+            Case 5                                              '   friends tab         NB: only pass the list-box count of the relevant tab - saves stuff.
                 FEMcommon.ButtonsVisible(True, Me.LstBxFriends.Items.Count, 0, 0)
 
                 If Me.reloadFriends Then
@@ -378,6 +379,8 @@
                     Me.btnEdit.Enabled = True
                     Me.showMemo(0)
                 End If
+            Case 8                                              '   Convert tab
+                FEMcommon.ButtonsVisible(False, 0, 0, 0)
         End Select
 
         setTitleText()
@@ -635,7 +638,7 @@
     End Sub
 
     Private Sub btnCountdownLoadSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdownLoadSound.Click
-        '   Open file dialog to load sound file.
+        '   Open file dialogue to load sound file.
 
         Me.OpenFileDialog1.FileName = ""
         Me.OpenFileDialog1.Filter = "Sound Files|*.wav; *.mp3"
@@ -646,7 +649,7 @@
     End Sub
 
     Private Sub btnCountDownLoadCommand_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownLoadCommand.Click
-        '   Open file dialog to load command file.
+        '   Open file dialogue to load command file.
 
         Me.OpenFileDialog1.Filter = "All Files|*.*"
         If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
@@ -666,7 +669,7 @@
             Me.ChckBxCountDownReminder.Checked = False
             Me.displayAction.DisplayReminder("CountDown", TxtBxCountDownReminder.Text)
         End If
-        If Me.ChckBxCountDownSystem.Checked Then                               '   do system action action.
+        If Me.ChckBxCountDownSystem.Checked Then                               '   do system action.
             If Me.NtfyIcnKlock.Visible Then                                    '   if main form not visible, then show
                 Me.NtfyIcnKlock.Visible = False                                '   so abort button can be deployed.
                 Me.Visible = True
@@ -886,7 +889,7 @@
             Me.ChckBxReminderReminder.Checked = False
             Me.displayAction.DisplayReminder("Reminder", TxtBxReminderReminder.Text)
         End If
-        If Me.ChckBxReminderSystem.Checked Then                                 '   do system action action.
+        If Me.ChckBxReminderSystem.Checked Then                                 '   do system action.
             If NtfyIcnKlock.Visible Then                                        '   if main form not visible, then show
                 Me.NtfyIcnKlock.Visible = False                                 '   so abort button can be deployed.
                 Me.Visible = True
@@ -962,7 +965,7 @@
 
         Me.btnReminderClear.Enabled = False
 
-        Me.tmrReminder.Enabled = False      '   stop reminder timer.
+        Me.tmrReminder.Enabled = False                              '   stop reminder timer.
 
         Me.DtPckrRiminder.Visible = True
         Me.ChckBxReminderTimeCheck.Visible = True
@@ -1092,7 +1095,7 @@
     End Sub
 
     Public Sub FriendsReadOnlyText(ByVal b As Boolean)
-        '   Sets the read-only value on the textboxes.
+        '   Sets the read-only value on the text-boxes.
         '   True = can be input or edit.
         '   False = display only
 
@@ -1118,13 +1121,13 @@
     End Sub
 
     Private Sub LstBxFriends_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstBxFriends.SelectedIndexChanged
-        '   A new entry has been selected in the listview box, display new entry.
+        '   A new entry has been selected in the list-view box, display new entry.
 
         Me.showFriends(Me.LstBxFriends.SelectedIndex)
     End Sub
 
     Public Sub showFriends(ByVal pos As Integer)
-        '   Populates the text boxes on the form with the person at the specified position of the listview box.
+        '   Populates the text boxes on the form with the person at the specified position of the list-view box.
 
         FEMcommon.PanelTop()
 
@@ -1192,10 +1195,10 @@
             End If
 
             If mode = "ADD" Then
-                Me.LstBxFriends.Items.Add(p)                                '   Populate listview.
+                Me.LstBxFriends.Items.Add(p)                                '   Populate list-view.
                 Me.FriendsAddToKnown(p)                                     '   Populate autocomplete collections.
             Else    '   mode = "EDIT"
-                Me.LstBxFriends.Items(Me.LstBxFriends.SelectedIndex) = p    '   Update listview.
+                Me.LstBxFriends.Items(Me.LstBxFriends.SelectedIndex) = p    '   Update list-view.
             End If
 
         Catch ex As Exception
@@ -1269,7 +1272,7 @@
 
     Public Sub FriendsAddToKnown(ByVal p As Person)
         '   A number of collections are maintained for the auto complete.
-        '   One array for each textbox.
+        '   One array for each text-box.
         '   Each time a friend is added, the contents of the text box is added to the relevant collections.
 
         If Not Me.knownFirstNames.Contains(p.FirstName) Then Me.knownFirstNames.Add(p.FirstName)
@@ -1315,7 +1318,7 @@
 
     ' **************************************************************************************************** Friends & Events Buttons ***********************
     '   Combined the buttons for both friends and events - they share a lot of functionality.
-    '   Moved the guts of each routing into a sperate module, trying to reduce clutter in main program file.
+    '   Moved the guts of each routing into a separate module, trying to reduce clutter in main program file.
 
     Private Sub btnNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNew.Click
         '   Sets up to add new friend / Event.
@@ -1324,7 +1327,7 @@
     End Sub
 
     Private Sub btnFriendsAdd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAdd.Click
-        '   Adds a new friend / Event to listview box and saves a new friend / Event file.
+        '   Adds a new friend / Event to list-view box and saves a new friend / Event file.
 
         FEMcommon.btnAdd()
     End Sub
@@ -1336,21 +1339,21 @@
     End Sub
 
     Private Sub btnFriendsEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEdit.Click
-        '   allows selected entry in listveiw box to be edited.
+        '   allows selected entry in list-view box to be edited.
         '   Changed button to "Save", which then will save new data to selected entry and save new friend / Event file.
 
         FEMcommon.btnEdit()
     End Sub
 
     Private Sub btnFriendsDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
-        '   Deletes the currently selected entry form the listviewbox.
+        '   Deletes the currently selected entry form the list-view box.
         '   Saves new friend / Event file and display first entry [if exists].
 
         FEMcommon.btnDelete()
     End Sub
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
-        '   Print the listbox on the current control tab.
+        '   Print the list-box on the current control tab.
 
         FEMcommon.btnPrint()
     End Sub
@@ -1385,7 +1388,7 @@
     End Sub
 
     Public Sub EventsReadOnlyText(ByVal b As Boolean)
-        '   Sets the read-only value on textboxes.
+        '   Sets the read-only value on text-boxes.
         '   true = can be input of edit.
         '   false = display only
 
@@ -1429,7 +1432,7 @@
             e.EventThirdReminder = True
 
             If mode = "ADD" Then
-                Me.LstBxEvents.Items.Add(e)                             '   populate listview
+                Me.LstBxEvents.Items.Add(e)                             '   populate list-view
             Else
                 Me.LstBxEvents.Items(Me.LstBxEvents.SelectedIndex) = e
             End If
@@ -1439,7 +1442,7 @@
     End Sub
 
     Private Sub LstBxEvents_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstBxEvents.SelectedIndexChanged
-        '   A new entry has been selected in the listview box, display new entry.
+        '   A new entry has been selected in the list-view box, display new entry.
 
         Me.showEvents(Me.LstBxEvents.SelectedIndex)
     End Sub
@@ -1489,7 +1492,7 @@
     End Sub
 
     Public Sub memoReadOnlyText(ByVal b As Boolean)
-        '   Sets the read-only value on textboxes.
+        '   Sets the read-only value on text-boxes.
         '   true = can be input of edit.
         '   false = display only
 
@@ -1498,7 +1501,7 @@
     End Sub
 
     Private Sub LstBxMemo_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstBxMemo.SelectedIndexChanged
-        '   A new memo has been selected in the listview box, display new entry
+        '   A new memo has been selected in the list-view box, display new entry
 
         Dim password As String = ""
 
@@ -1524,7 +1527,7 @@
 
             If m.memoSecret Then
                 Dim password As String = Me.getMemoPassword()
-                If password = "-1" Then Exit Sub '   cancel been pressed - abort.
+                If password = "-1" Then Exit Sub                        '   cancel been pressed - abort.
 
                 Dim des As New Simple3Des(password)
                 m.memoText = des.EncryptData(Me.TxtBxMemo.Text)
@@ -1564,7 +1567,7 @@
             If Me.M_SHOW = True Then
                 Dim password As String = Me.getMemoPassword()
 
-                If password = "-1" Then         '   cancel been pressed - abort.
+                If password = "-1" Then                                 '   cancel been pressed - abort.
                     Me.TxtBxMemo.Text = "It's a secret"
                     Exit Sub
                 End If
@@ -1677,6 +1680,43 @@
         Me.setTimeZones(pos)
     End Sub
 
+    ' ******************************************************************************************************************************** Converter ******
+    '   following sub are in conversionThings.vb
+    Private Sub CmbBxConvertCategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbBxConvertCategory.SelectedIndexChanged
+        '   The convert categories has changed - re-load the conversion items
+
+        Me.CmbBxConvertTo.Items.Clear()
+        unitsLoad("LoadUnits")
+
+        clearTextBoxes()
+    End Sub
+
+    Private Sub CmbBxConvertTo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbBxConvertTo.SelectedIndexChanged
+        '   The convert to has changed, clear the test boxes.
+
+        clearTextBoxes()
+    End Sub
+
+    Private Sub btnConvertStart_Click(sender As Object, e As EventArgs) Handles btnConvertStart.Click
+        '   perform the conversion.
+
+        calculate()
+        Me.btnConvertStart.Enabled = False
+    End Sub
+
+    Private Sub btnConvertAdd_Click(sender As Object, e As EventArgs) Handles btnConvertAdd.Click
+        '   enable more conversion units to be added.
+
+        addUnits()
+    End Sub
+
+    Private Sub TxtBxConvertValue_TextChanged(sender As Object, e As EventArgs) Handles TxtBxConvertValue.TextChanged
+        '   A value has been entered, enable convert button.
+
+
+        Me.btnConvertStart.Enabled = True
+    End Sub
+
     ' ******************************************************************************************************************************** Global Stuff ******
     Private Sub frmKlock_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '   Apply current setting on form load.
@@ -1701,6 +1741,9 @@
         Me.setActionTypes()                             '   load action types into combo box.
         Me.setTimeZones(0)                              '   load time zones into combo box, making index 0 active.
 
+        checkUnitsFile()                                '   check for units file - from conversionThings.ucheckUnitsFile()
+        unitsLoad("LoadCategory")                       '   load conversion units - from conversionThings.unitsLoad()
+
         setTitleText()                                  '   set app title text
 
         FEMcommon.ButtonsVisible(False, 0, 0, 0)
@@ -1723,7 +1766,7 @@
         '   Pressing F1, will open klock's help.
         '   Pressing alt + F2, will open the options screen.
         '   Pressing alt + F5, will open the text klock.
-        '   Pressing alt + F7, will disable the monitor from goinmg to sleep.
+        '   Pressing alt + F7, will disable the monitor from going to sleep.
         '   Pressing alt + F8, will restore system settings for the monitor.
         '   Pressing alt + F12, will shown total number of friends.
         '   The rest of the codes is so that enter is handled correctly when inputting a new friend / event / memo.  
@@ -1789,7 +1832,7 @@
 
         Me.usrSettings.writeSettings()          '   save settings, not sure if anything has changed.
 
-        KlockThings.RestoreMonitorSettings()    '   restore system monitor sleep setings, just in case been altered.
+        KlockThings.RestoreMonitorSettings()    '   restore system monitor sleep settings, just in case been altered.
 
         grphcs.Dispose()
     End Sub
@@ -1912,22 +1955,18 @@
         Me.usrSettings.writeSettings()      '   save settings, not sure if anything has changed.
 
         frmOptions.ShowDialog()
-
-        Me.setSettings()
-
     End Sub
 
     ' ********************************************************************************************************************** time menu stuff *************
 
     Private Sub TextKlockToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles TextKlockToolStripMenuItem.Click
-        '   if chosen from menus, switch on a text klock - appears in a seperate window.
+        '   if chosen from menus, switch on a text klock - appears in a separate window.
         '   Will hide main window when created.
 
         Me.NtfyIcnKlock.Visible = True
         Me.Visible = False
 
         frmTextKlock.Show()
-
     End Sub
 
     Private Sub DisplayTwoTimeFormatsToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles DisplayTwoTimeFormatsToolStripMenuItem.Click
@@ -1955,7 +1994,7 @@
     End Sub
 
     Private Sub TimeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TimeToolStripMenuItem.Click
-        '   Only enable time servr menu item if connected t the internet.
+        '   Only enable time server menu item if connected t the internet.
 
         InternetTimeToolStripMenuItem.Enabled = KlockThings.HaveInternetConnection()
     End Sub
@@ -1963,7 +2002,7 @@
     Private Sub InternetTimeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InternetTimeToolStripMenuItem.Click
         '   If chosen from menus, display the time from an internet time server.
         '   Although in the time menu, it calls the info form - more designed to display the time date.
-        '   If cuser settings checkInternet is false, will display no inter connection.
+        '   If user settings checkInternet is false, will display no internet connection.
 
 
         InfoCommon.displayInfo(sender.ToString)

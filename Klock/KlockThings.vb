@@ -32,7 +32,7 @@ Module KlockThings
     End Structure
 
     Public Function idleTime() As String
-        '   Returns the idle time of the system in a formated string.
+        '   Returns the idle time of the system in a formatted string.
         '   i.e. time since the last keyboard / mouse input.
 
         Dim lii As LASTINPUTINFO
@@ -80,7 +80,7 @@ Module KlockThings
 
     Public Sub RestoreMonitorSettings()
 
-        SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS) 'Restore Previous Settings, ie, Go To Sleep Again
+        SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS) 'Restore Previous Settings, i.e., Go To Sleep Again
         frmKlock.stsLbIdkeTime.ForeColor = Color.Black
         frmTextKlock.stsLbIdkeTime.ForeColor = Color.Black
     End Sub
@@ -89,7 +89,7 @@ Module KlockThings
     '------------------------------------------------------------------------------------------------- setTitletext ---------------------------------------------
     '
     Public Sub setTitleText()
-        'Sets the title of the application according to whch tab is open.
+        'Sets the title of the application according to which tab is open.
 
         Select Case frmKlock.TbCntrl.SelectedIndex
             Case 0                                              '   time tab
@@ -127,7 +127,7 @@ Module KlockThings
     End Function
 
     Function easterDate(Year_of_easter As Integer) As DateTime
-        '   Calcultates the date of easter sunday fotr a given year.
+        '   Calculates the date of Easter Sunday for a given year.
         '   see http://aa.usno.navy.mil/faq/docs/easter.php
 
         Dim y As Integer = Year_of_easter
@@ -141,7 +141,7 @@ Module KlockThings
     Public Function HaveInternetConnection() As Boolean
         '   Checks to see in connected to the internet by pinging a well know site.
         '   If checkInternet is set to false, in user settings, no check is made.
-        '   NB if set to false - effectively sheilds klock from a valid internet connection.
+        '   NB if set to false - effectively shields klock from a valid internet connection.
 
         If Not frmKlock.usrSettings.usrCheckInternet Then Return False
 

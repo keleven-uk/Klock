@@ -112,6 +112,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="conversionThings.vb" />
     <Compile Include="FEMcommon.vb" />
     <Compile Include="Events.vb" />
     <Compile Include="eventThings.vb" />

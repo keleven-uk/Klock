@@ -358,7 +358,7 @@ Public Class frmOptions
     '-----------------------------------------------------------Time---------------------------------------------------------------
 
     Private Sub chckBxTimeTwoFormats_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chckBxTimeTwoFormats.CheckedChanged
-        '   Only disply two time default format if needed.
+        '   Only display two time default format if needed.
 
         Me.lblTimeTwo.Enabled = Me.chckBxTimeTwoFormats.Checked
         Me.CmbBxDefaultTimeTwoFormat.Enabled = Me.chckBxTimeTwoFormats.Checked

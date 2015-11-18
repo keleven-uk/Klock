@@ -123,7 +123,7 @@
                 Case TimeTypes.WordsTime
                     TimeTitle = "Time in Words"
                 Case TimeTypes.UTC
-                    TimeTitle = "Univarsal Current Time"
+                    TimeTitle = "Universal Current Time"
                 Case TimeTypes.SwatchTime
                     TimeTitle = "Swatch Time"
                 Case TimeTypes.JulianTime
@@ -151,13 +151,13 @@
                 Case TimeTypes.BarcodeTime
                     TimeTitle = "Time in a Barcode"
                 Case TimeTypes.TrueHexTime
-                    TimeTitle = "Time as True Hexdecimal [i.e. 16 hours]"
+                    TimeTitle = "Time as True Hexadecimal [i.e. 16 hours]"
                 Case TimeTypes.BinaryTime
                     TimeTitle = "Time as Binary [base 2] format"
                 Case TimeTypes.OctTime
                     TimeTitle = "Time as octal [base 8] format"
                 Case TimeTypes.HexTime
-                    TimeTitle = "Time as Hexdecimal [base 16] format"
+                    TimeTitle = "Time as Hexadecimal [base 16] format"
                 Case TimeTypes.PercentTime
                     TimeTitle = "Time as a percent of the day"
                 Case TimeTypes.MarsSolDate
@@ -226,9 +226,9 @@
         Dim ampm As String = ""
         Dim sRtn As String = ""
 
-        ampm = If(hour < 12, "in the morning", "pm")      '   if hour less then 12, in the morning else afternoon
+        ampm = If(hour < 12, "in the morning", "pm")        '   if hour less then 12, in the morning else afternoon
 
-        If (mins Mod 5) > 2 Then nrms += 5 '   closer to next five minutes, go to next.
+        If (mins Mod 5) > 2 Then nrms += 5                  '   closer to next five minutes, go to next.
 
         Select Case nrms
             Case 0
@@ -262,7 +262,7 @@
         If nrms > 30 Then hour += 1
 
         '   generate output string according to the hour of the day.
-        '   This looks more complicated then it should be, maybe sperate if then's would be better and use exit sub's inside each.
+        '   This looks more complicated then it should be, maybe separate if then's would be better and use exit sub's inside each.
 
         '   if the hour is 0 or 24 and no minutes - it must be midnight.
         '   if the hour is 12 and no minutes - it must be noon.
@@ -334,9 +334,9 @@
         Dim ampm As String = ""
         Dim pasTo As String = "past"
 
-        ampm = If(hour < 12, "in the morning", "pm")      '   if hour less then 12, in the morning else afternoon
+        ampm = If(hour < 12, "in the morning", "pm")        '   if hour less then 12, in the morning else afternoon
 
-        If mins > 30 Then            '   past the half hour - minuted to the hour.
+        If mins > 30 Then                                   '   past the half hour - minuted to the hour.
             hour += 1
             pasTo = "to"
             mins = 60 - mins
@@ -344,7 +344,7 @@
 
 
         '   generate output string according to the hour of the day.
-        '   This looks more complicated then it should be, maybe sperate if then's would be better and use exit sub's inside each.
+        '   This looks more complicated then it should be, maybe separate if then's would be better and use exit sub's inside each.
 
         '   if "pm" then afternoon, subtract 12 - only use 12 hour clock.
 
@@ -616,8 +616,8 @@
     End Function
 
     Private Function toCode(time As String) As String
-        '   Returns string in morse code.
-                                                          
+        '   Returns string in Morse code.
+
         Dim result As String = ""
 
         Select Case time

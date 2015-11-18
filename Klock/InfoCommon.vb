@@ -86,7 +86,7 @@ Module InfoCommon
 
     Sub updateInfo(ByVal mode As String, ByVal year As Integer)
         '   Calls the info form and populates the labels depending upon how it called.
-        '   This is only called for Daylight Saving and Easter Datyes, if the year has been changed.
+        '   This is only called for Daylight Saving and Easter Dates, if the year has been changed.
 
         Select Case mode
             Case "Daylight Saving", "Summer Time", "Winter Time"
@@ -130,7 +130,7 @@ Module InfoCommon
     End Sub
 
     Sub updateEasteDates(ByVal currentYear As Integer)
-        '    Updates the form wirg the easter dates for the current year.
+        '   Updates the form with the Easter dates for the current year.
         '   NB : currentyear can be selected from the form, so could be different from the year in current date.
 
 

@@ -2,8 +2,8 @@
 Imports System.Runtime.Serialization.Formatters.Binary
 
 Module IOcommon
-    '   Friends, Events & Memo share similar routines to reas and save files.
-    '   Moved the sub's into here, will try and reduce the redunandcy.
+    '   Friends, Events & Memo share similar routines to read and save files.
+    '   Moved the sub's into here, will try and reduce the redundancy.
 
     Public Sub saveFriends()
         '   Save friends to file in data directory.
@@ -23,7 +23,7 @@ Module IOcommon
         Next
 
         Try
-            Formatter.Serialize(saveFile, AL)   '   Write list to binary file.
+            Formatter.Serialize(saveFile, AL)           '   Write list to binary file.
         Catch ex As Exception
             frmKlock.displayAction.DisplayReminder("Friends Error", "Error saving Friends File." & vbCrLf & ex.Message)
         End Try
@@ -63,9 +63,9 @@ Module IOcommon
         frmKlock.LstBxFriends.Items.Clear()
         frmKlock.knownCities.Clear()
 
-        For Each p In AL                    '   For each item in the list.
-            frmKlock.LstBxFriends.Items.Add(p)    '   Populate listview.
-            frmKlock.FriendsAddToKnown(p)         '   Populate autocomplete collections.
+        For Each p In AL                            '   For each item in the list.
+            frmKlock.LstBxFriends.Items.Add(p)      '   Populate listview.
+            frmKlock.FriendsAddToKnown(p)           '   Populate autocomplete collections.
         Next
 
         readFile.Close()
@@ -91,7 +91,7 @@ Module IOcommon
         Next
 
         Try
-            Formatter.Serialize(saveFile, AL)   '   Write list to binary file.
+            Formatter.Serialize(saveFile, AL)           '   Write list to binary file.
         Catch ex As Exception
             frmKlock.displayAction.DisplayReminder("Events Error", "Error saving Events File." & vbCrLf & ex.Message)
         End Try
@@ -130,8 +130,8 @@ Module IOcommon
         '   If got to here, have successfully read and decoded friends file.
         frmKlock.LstBxEvents.Items.Clear()
 
-        For Each e In AL                    '   For each item in the list.
-            frmKlock.LstBxEvents.Items.Add(e)     '   Populate listview.
+        For Each e In AL                            '   For each item in the list.
+            frmKlock.LstBxEvents.Items.Add(e)       '   Populate listview.
         Next
 
         readFile.Close()
@@ -165,7 +165,7 @@ Module IOcommon
         Next
 
         Try
-            Formatter.Serialize(saveFile, AL)   '   Write list to binary file.
+            Formatter.Serialize(saveFile, AL)       '   Write list to binary file.
         Catch ex As Exception
             frmKlock.displayAction.DisplayReminder("Memo Error", "Error saving Memo File." & vbCrLf & ex.Message)
         End Try

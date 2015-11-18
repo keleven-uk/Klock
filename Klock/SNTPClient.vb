@@ -65,7 +65,6 @@
 '* - First public release.
 '*/
 
-Imports System
 Imports System.Net
 Imports System.Net.Sockets
 Imports System.Runtime.InteropServices
@@ -83,7 +82,7 @@ Namespace InternetTime
     'Mode field values
     Public Enum _Mode
         SymmetricActive     '1 - Symmetric active
-        SymmetricPassive    '2 - Symmetric pasive
+        SymmetricPassive    '2 - Symmetric passive
         Client              '3 - Client
         Server              '4 - Server
         Broadcast           '5 - Broadcast
@@ -242,8 +241,6 @@ Namespace InternetTime
                 'Isolate bits 0 - 3
                 Dim bVal As Byte = (SNTPData(0) And &H7)
                 Select Case bVal
-                    Case 0, 6, 7
-                        Return _Mode.Unknown
                     Case 1
                         Return _Mode.SymmetricActive
                     Case 2
@@ -254,6 +251,8 @@ Namespace InternetTime
                         Return _Mode.Server
                     Case 5
                         Return _Mode.Broadcast
+                    Case Else
+                        Return _Mode.Unknown
                 End Select
             End Get
         End Property
@@ -525,7 +524,7 @@ Namespace InternetTime
                 Case _Mode.SymmetricActive
                     sb.Append("Symmetric Active")
                 Case _Mode.SymmetricPassive
-                    sb.Append("Symmetric Pasive")
+                    sb.Append("Symmetric Passive")
                 Case _Mode.Client
                     sb.Append("Client")
                 Case _Mode.Server

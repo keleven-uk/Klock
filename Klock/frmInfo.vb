@@ -1,6 +1,6 @@
 ﻿Public Class frmInfo
 
-    '   A display form used to disply infomation to the user.
+    '   A display form used to display information to the user.
     '   Currently Daylight Saving, Current Culture, Operating System & Power Source
 
     '   Called from module InfoCommon.vb

@@ -198,6 +198,19 @@ Partial Class frmKlock
         Me.lblMemoName = New System.Windows.Forms.Label()
         Me.GroupBox21 = New System.Windows.Forms.GroupBox()
         Me.LstBxMemo = New System.Windows.Forms.ListBox()
+        Me.TbPgConvert = New System.Windows.Forms.TabPage()
+        Me.GroupBox24 = New System.Windows.Forms.GroupBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TxtBxConvertResult = New System.Windows.Forms.TextBox()
+        Me.TxtBxConvertValue = New System.Windows.Forms.TextBox()
+        Me.CmbBxConvertTo = New System.Windows.Forms.ComboBox()
+        Me.CmbBxConvertCategory = New System.Windows.Forms.ComboBox()
+        Me.GroupBox23 = New System.Windows.Forms.GroupBox()
+        Me.btnConvertAdd = New System.Windows.Forms.Button()
+        Me.btnConvertStart = New System.Windows.Forms.Button()
         Me.btnHide = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnHelp = New System.Windows.Forms.Button()
@@ -259,6 +272,9 @@ Partial Class frmKlock
         Me.GroupBox22.SuspendLayout()
         Me.pnlMemo.SuspendLayout()
         Me.GroupBox21.SuspendLayout()
+        Me.TbPgConvert.SuspendLayout()
+        Me.GroupBox24.SuspendLayout()
+        Me.GroupBox23.SuspendLayout()
         Me.CntxtMnStrpKlock.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -481,6 +497,7 @@ Partial Class frmKlock
         Me.TbCntrl.Controls.Add(Me.TbPgFriends)
         Me.TbCntrl.Controls.Add(Me.TbPgEvents)
         Me.TbCntrl.Controls.Add(Me.TbPgMemo)
+        Me.TbCntrl.Controls.Add(Me.TbPgConvert)
         Me.TbCntrl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TbCntrl.Location = New System.Drawing.Point(12, 27)
         Me.TbCntrl.Name = "TbCntrl"
@@ -1961,6 +1978,129 @@ Partial Class frmKlock
         Me.LstBxMemo.Sorted = True
         Me.LstBxMemo.TabIndex = 0
         '
+        'TbPgConvert
+        '
+        Me.TbPgConvert.Controls.Add(Me.GroupBox24)
+        Me.TbPgConvert.Controls.Add(Me.GroupBox23)
+        Me.TbPgConvert.Location = New System.Drawing.Point(4, 25)
+        Me.TbPgConvert.Name = "TbPgConvert"
+        Me.TbPgConvert.Size = New System.Drawing.Size(671, 131)
+        Me.TbPgConvert.TabIndex = 8
+        Me.TbPgConvert.Text = "Convert"
+        Me.TbPgConvert.UseVisualStyleBackColor = True
+        '
+        'GroupBox24
+        '
+        Me.GroupBox24.Controls.Add(Me.Label17)
+        Me.GroupBox24.Controls.Add(Me.Label16)
+        Me.GroupBox24.Controls.Add(Me.Label3)
+        Me.GroupBox24.Controls.Add(Me.Label1)
+        Me.GroupBox24.Controls.Add(Me.TxtBxConvertResult)
+        Me.GroupBox24.Controls.Add(Me.TxtBxConvertValue)
+        Me.GroupBox24.Controls.Add(Me.CmbBxConvertTo)
+        Me.GroupBox24.Controls.Add(Me.CmbBxConvertCategory)
+        Me.GroupBox24.Location = New System.Drawing.Point(115, 6)
+        Me.GroupBox24.Name = "GroupBox24"
+        Me.GroupBox24.Size = New System.Drawing.Size(550, 120)
+        Me.GroupBox24.TabIndex = 2
+        Me.GroupBox24.TabStop = False
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(313, 68)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(42, 15)
+        Me.Label17.TabIndex = 7
+        Me.Label17.Text = "Result"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(313, 34)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(99, 15)
+        Me.Label16.TabIndex = 6
+        Me.Label16.Text = "Value To Convert"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(34, 68)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(65, 15)
+        Me.Label3.TabIndex = 5
+        Me.Label3.Text = "Convert To"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(31, 29)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(55, 15)
+        Me.Label1.TabIndex = 4
+        Me.Label1.Text = "Category"
+        '
+        'TxtBxConvertResult
+        '
+        Me.TxtBxConvertResult.Location = New System.Drawing.Point(416, 68)
+        Me.TxtBxConvertResult.Name = "TxtBxConvertResult"
+        Me.TxtBxConvertResult.ReadOnly = True
+        Me.TxtBxConvertResult.Size = New System.Drawing.Size(100, 20)
+        Me.TxtBxConvertResult.TabIndex = 3
+        '
+        'TxtBxConvertValue
+        '
+        Me.TxtBxConvertValue.Location = New System.Drawing.Point(418, 31)
+        Me.TxtBxConvertValue.Name = "TxtBxConvertValue"
+        Me.TxtBxConvertValue.Size = New System.Drawing.Size(98, 20)
+        Me.TxtBxConvertValue.TabIndex = 2
+        '
+        'CmbBxConvertTo
+        '
+        Me.CmbBxConvertTo.FormattingEnabled = True
+        Me.CmbBxConvertTo.Location = New System.Drawing.Point(115, 65)
+        Me.CmbBxConvertTo.Name = "CmbBxConvertTo"
+        Me.CmbBxConvertTo.Size = New System.Drawing.Size(192, 21)
+        Me.CmbBxConvertTo.TabIndex = 1
+        '
+        'CmbBxConvertCategory
+        '
+        Me.CmbBxConvertCategory.FormattingEnabled = True
+        Me.CmbBxConvertCategory.Location = New System.Drawing.Point(115, 31)
+        Me.CmbBxConvertCategory.Name = "CmbBxConvertCategory"
+        Me.CmbBxConvertCategory.Size = New System.Drawing.Size(192, 21)
+        Me.CmbBxConvertCategory.TabIndex = 0
+        '
+        'GroupBox23
+        '
+        Me.GroupBox23.Controls.Add(Me.btnConvertAdd)
+        Me.GroupBox23.Controls.Add(Me.btnConvertStart)
+        Me.GroupBox23.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox23.Name = "GroupBox23"
+        Me.GroupBox23.Size = New System.Drawing.Size(103, 120)
+        Me.GroupBox23.TabIndex = 1
+        Me.GroupBox23.TabStop = False
+        '
+        'btnConvertAdd
+        '
+        Me.btnConvertAdd.Location = New System.Drawing.Point(14, 73)
+        Me.btnConvertAdd.Name = "btnConvertAdd"
+        Me.btnConvertAdd.Size = New System.Drawing.Size(75, 23)
+        Me.btnConvertAdd.TabIndex = 1
+        Me.btnConvertAdd.Text = "Add Units"
+        Me.btnConvertAdd.UseVisualStyleBackColor = True
+        '
+        'btnConvertStart
+        '
+        Me.btnConvertStart.Enabled = False
+        Me.btnConvertStart.Location = New System.Drawing.Point(14, 34)
+        Me.btnConvertStart.Name = "btnConvertStart"
+        Me.btnConvertStart.Size = New System.Drawing.Size(75, 23)
+        Me.btnConvertStart.TabIndex = 0
+        Me.btnConvertStart.Text = "Convert"
+        Me.btnConvertStart.UseVisualStyleBackColor = True
+        '
         'btnHide
         '
         Me.btnHide.Location = New System.Drawing.Point(572, 189)
@@ -2202,6 +2342,10 @@ Partial Class frmKlock
         Me.pnlMemo.ResumeLayout(False)
         Me.pnlMemo.PerformLayout()
         Me.GroupBox21.ResumeLayout(False)
+        Me.TbPgConvert.ResumeLayout(False)
+        Me.GroupBox24.ResumeLayout(False)
+        Me.GroupBox24.PerformLayout()
+        Me.GroupBox23.ResumeLayout(False)
         Me.CntxtMnStrpKlock.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -2405,4 +2549,17 @@ Partial Class frmKlock
     Friend WithEvents EasterToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MnItmHistory As ToolStripMenuItem
     Friend WithEvents InternetTimeToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TbPgConvert As TabPage
+    Friend WithEvents GroupBox24 As GroupBox
+    Friend WithEvents GroupBox23 As GroupBox
+    Friend WithEvents btnConvertStart As Button
+    Friend WithEvents Label17 As Label
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents TxtBxConvertResult As TextBox
+    Friend WithEvents TxtBxConvertValue As TextBox
+    Friend WithEvents CmbBxConvertTo As ComboBox
+    Friend WithEvents CmbBxConvertCategory As ComboBox
+    Friend WithEvents btnConvertAdd As Button
 End Class

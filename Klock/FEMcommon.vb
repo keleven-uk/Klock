@@ -11,7 +11,7 @@ Module FEMcommon
     '   NB :: this saved about 6kb to the executable, but does produce rather long and complex sub routines.
     '       [would be even more now then memo added]
     '
-    '   Moved the guts of each routing into a sperate module, trying to reduce clutter in main program file - [added about 2k to executable].
+    '   Moved the guts of each routing into a separate module, trying to reduce clutter in main program file - [added about 2k to executable].
 
 
     Public Sub ButtonsVisible(ByVal b As Boolean, noFriends As Integer, noEvents As Integer, noMemo As Integer)
@@ -35,7 +35,7 @@ Module FEMcommon
 
     Public Sub btnPrint()
         '   Sets up to print list box.
-        '   printDialog goes strieght to printer
+        '   printDialog goes straight to printer
         '   printPreview produces a preview on screen first - better for debugging.
         '   TODO :: maybe an option.
 

@@ -127,7 +127,7 @@
         Dim ampm As String = ""
         Dim sRtn As String = ""
 
-        If hour < 12 Then     '   if hour less then 12, in the morning else afternoon
+        If hour < 12 Then                                   '   if hour less then 12, in the morning else afternoon
             ampm = "in the morning"
             Me.lblIN.Enabled = True
             Me.lblTHE.Enabled = True
@@ -136,7 +136,7 @@
             ampm = "pm"
         End If
 
-        If (mins Mod 5) > 2 Then nrms += 5 '   closer to next five minutes, go to next.
+        If (mins Mod 5) > 2 Then nrms += 5                  '   closer to next five minutes, go to next.
 
         Select Case nrms
             Case 0
@@ -194,7 +194,7 @@
         If nrms > 30 Then hour += 1
 
         '   generate output string according to the hour of the day.
-        '   This looks more complicated then it should be, maybe sperate if then's would be better and use exit sub's inside each.
+        '   This looks more complicated then it should be, maybe separate if then's would be better and use exit sub's inside each.
 
         '   if the hour is 0 or 24 and no minutes - it must be midnight.
         '   if the hour is 12 and no minutes - it must be noon.
@@ -215,7 +215,7 @@
                 hour -= 12
                 Me.lblIN.Enabled = True
                 Me.lblTHE.Enabled = True
-                If hour >= 5 Then   '   if greater then five in the afternoon then evening.
+                If hour >= 5 Then                               '   if greater then five in the afternoon then evening.
                     ampm = "in the evening"
                     Me.lblEVENING.Enabled = True
                 Else
@@ -267,7 +267,7 @@
         '   Pressing F1, will open klock's help.
         '   Pressing alt + F2, will open the options screen.
         '   Pressing alt + F6, will close the text klock.
-        '   Pressing alt + F7, will disable the monitor from goinmg to sleep.
+        '   Pressing alt + F7, will disable the monitor from going to sleep.
         '   Pressing alt + F8, will restore system settings for the monitor.
 
 

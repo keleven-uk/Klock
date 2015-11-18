@@ -1,3 +1,80 @@
+commit 7a40258eebcc5147045cf2d866a4dac6f7ca6634
+Author: kevin scott <coinflip@keleven.co.uk>
+Date:   Thu Nov 12 23:05:28 2015 +0000
+
+    Delete unused files.
+
+ Klock/About.Designer.vb       |  484 ---------------
+ Klock/About.resx              | 1358 -----------------------------------------
+ Klock/About.vb                |  148 -----
+ Klock/DataButtons.vb          |  261 --------
+ Klock/License.Designer.vb     |   70 ---
+ Klock/License.resx            | 1262 --------------------------------------
+ Klock/License.vb              |   44 --
+ Klock/ListViewColumnSorter.vb |   81 ---
+ Klock/ListViewPrint.vb        |  185 ------
+ Klock/Module1.vb              |    3 -
+ Klock/Options.Designer.vb     | 1143 ----------------------------------
+ Klock/Options.resx            | 1265 --------------------------------------
+ Klock/Options.vb              |  464 --------------
+ Klock/TimeHelp.Designer.vb    |   70 ---
+ Klock/TimeHelp.resx           | 1253 -------------------------------------
+ Klock/TimeHelp.vb             |   26 -
+ Klock/fuzzyTime.vb            |    3 -
+ Sounds/thepips.wav            |  Bin 706412 -> 0 bytes
+ 18 files changed, 8120 deletions(-)
+
+commit 9a66ff613edbdca3fe30071ac91e5c7696142796
+Author: kevin scott <coinflip@keleven.co.uk>
+Date:   Thu Nov 12 22:54:37 2015 +0000
+
+    [frmKlock.vb]
+    Added indecation on internet connectivity to statusbar.
+    Added menu item for internet time.
+    Changed thepips.wav to thepips.mp3.
+    
+    [frmOptions.vb & userOptions.vb]
+    Added option to check for internet connectivity
+    
+    [SNTPClient.vb]
+    Added the actual code that quesries the internt time server.
+    
+    [frmtextKlock.vb]
+    Added indecation of internet connectivity to the status bar.
+    
+    [infoCommon.vb]
+    Added stuff for internet time - added combobos to hold servers and button
+    to run query.  Calls code from SNTPClient.vb to actually acces the time
+    server.
+    
+    [klockThings.vb]
+    Added check for internet connectivity.
+
+ Klock.sln                                |   9 +-
+ Klock/InfoCommon.vb                      |  60 +++-
+ Klock/Klock.chm                          | Bin 541396 -> 541976 bytes
+ Klock/Klock.pdf                          | Bin 2697704 -> 2699928 bytes
+ Klock/Klock.vbproj                       |   8 +-
+ Klock/KlockThings.vb                     |  33 +-
+ Klock/My Project/Application.Designer.vb |   4 +-
+ Klock/My Project/Application.myapp       |   2 +-
+ Klock/My Project/AssemblyInfo.vb         |   4 +-
+ Klock/SNTPClient.vb                      | 593 +++++++++++++++++++++++++++++++
+ Klock/UserSettings.vb                    |  22 ++
+ Klock/frmInfo.Designer.vb                |  37 ++
+ Klock/frmInfo.vb                         |  25 +-
+ Klock/frmKlock.Designer.vb               |  20 +-
+ Klock/frmKlock.vb                        |  28 +-
+ Klock/frmOptions.Designer.vb             |  45 ++-
+ Klock/frmOptions.vb                      |  12 +-
+ Klock/frmTextKlock.Designer.vb           |  12 +-
+ Klock/frmTextKlock.vb                    |   5 +-
+ Klock/history.txt                        |  50 +++
+ Klock/klock.hnd                          | Bin 9388032 -> 17678336 bytes
+ Sounds/thepips.mp3                       | Bin 0 -> 40874 bytes
+ log.txt                                  | 257 ++++----------
+ 23 files changed, 991 insertions(+), 235 deletions(-)
+
 commit b00487f76276093a5a9980773404925dc11ae8fb
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Tue Nov 3 21:00:21 2015 +0000

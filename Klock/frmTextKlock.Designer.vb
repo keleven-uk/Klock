@@ -545,8 +545,8 @@ Partial Class frmTextKlock
             Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.StsLblDate.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.StsLblDate.Name = "StsLblDate"
-        Me.StsLblDate.Size = New System.Drawing.Size(109, 19)
-        Me.StsLblDate.Text = "18 November 2012"
+        Me.StsLblDate.Size = New System.Drawing.Size(63, 19)
+        Me.StsLblDate.Text = "14/1/2015"
         '
         'StsLblKeys
         '
