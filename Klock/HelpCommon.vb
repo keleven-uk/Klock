@@ -1,5 +1,4 @@
 ﻿Imports System.IO
-Imports System.Reflection
 
 Module HelpCommon
     '   A generic way of calling the Help form.
@@ -9,7 +8,7 @@ Module HelpCommon
     '   The licence.txt & history.txt are held has a embedded resource and read using a stream, see http://support.microsoft.com/kb/319291
 
 
-    Sub displayInfo(ByVal mode As String)
+    Public Sub displayInfo(ByVal mode As String)
 
         frmKlock.HlpPrvdrKlock.HelpNamespace = System.IO.Path.Combine(Application.StartupPath, "klock.chm") '   set up help location
 
@@ -17,43 +16,31 @@ Module HelpCommon
             Case "Hel&p", "Help", "System.Windows.Forms.Button, Text: Help"
                 Help.ShowHelp(frmKlock, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
             Case "&License"
-                frmLicence.Text = "License Info"
-                loadStream("Klock.License.txt")
-                frmLicence.ShowDialog()
+                frmHelp.Text = "License Info"
+                loadtextFile("License.txt")
+                frmHelp.ShowDialog()
             Case "&History"
-                frmLicence.Text = "Klock History"
-                loadStream("Klock.history.txt")
-                frmLicence.ShowDialog()
+                frmHelp.Text = "Klock History"
+                loadtextFile("history.txt")
+                frmHelp.ShowDialog()
             Case "&About"
                 frmAbout.ShowDialog()
         End Select
 
     End Sub
 
-    Sub loadStream(ByVal stream As String)
+    Private Sub loadtextFile(ByVal txtFle As String)
+        '   Loads a named text file into the rich text box on frmHelp.
 
-        Dim _textStreamReader As StreamReader
-        Dim _assembly As [Assembly]
+        Try
+            Dim tfLines() As String = File.ReadAllLines(txtFle)             '   file to load
 
-        If frmLicence.RchTxtBxLicense.Lines.Count = 0 Then        '   only load text on first load
+            For Each line As String In tfLines
+                frmHelp.RchTxtBxLicense.AppendText(line & Environment.NewLine)
+            Next
 
-            Try
-                _assembly = [Assembly].GetExecutingAssembly()
-                _textStreamReader = New StreamReader(_assembly.GetManifestResourceStream(stream))
-
-                Try
-                    Do
-                        frmLicence.RchTxtBxLicense.AppendText(_textStreamReader.ReadLine() & Environment.NewLine)
-                    Loop Until _textStreamReader.Peek() = True
-                Catch ex As Exception
-                    MessageBox.Show("Error reading stream!" & ex.Message, "Error")
-                End Try
-
-            Catch ex As Exception
-                MessageBox.Show("Resource wasn't found!" & ex.Message, "Error")
-            End Try
-
-        End If
+        Catch ex As Exception
+            MessageBox.Show("File wasn't found!" & ex.Message, "Error")
+        End Try
     End Sub
-
 End Module

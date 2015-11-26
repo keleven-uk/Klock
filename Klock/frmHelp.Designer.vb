@@ -23,48 +23,48 @@ Partial Class frmHelp
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmHelp))
-        Me.btnHelpClose = New System.Windows.Forms.Button()
-        Me.RchTxtBxHelp = New System.Windows.Forms.RichTextBox()
+        Me.btnLecenseClose = New System.Windows.Forms.Button()
+        Me.RchTxtBxLicense = New System.Windows.Forms.RichTextBox()
         Me.SuspendLayout()
         '
-        'btnHelpClose
+        'btnLecenseClose
         '
-        Me.btnHelpClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnHelpClose.Location = New System.Drawing.Point(325, 227)
-        Me.btnHelpClose.Name = "btnHelpClose"
-        Me.btnHelpClose.Size = New System.Drawing.Size(75, 23)
-        Me.btnHelpClose.TabIndex = 0
-        Me.btnHelpClose.Text = "Close"
-        Me.btnHelpClose.UseVisualStyleBackColor = True
+        Me.btnLecenseClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnLecenseClose.Location = New System.Drawing.Point(447, 326)
+        Me.btnLecenseClose.Name = "btnLecenseClose"
+        Me.btnLecenseClose.Size = New System.Drawing.Size(75, 23)
+        Me.btnLecenseClose.TabIndex = 1
+        Me.btnLecenseClose.Text = "Close"
+        Me.btnLecenseClose.UseVisualStyleBackColor = True
         '
-        'RchTxtBxHelp
+        'RchTxtBxLicense
         '
-        Me.RchTxtBxHelp.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.RchTxtBxLicense.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RchTxtBxHelp.Location = New System.Drawing.Point(12, 12)
-        Me.RchTxtBxHelp.Name = "RchTxtBxHelp"
-        Me.RchTxtBxHelp.ReadOnly = True
-        Me.RchTxtBxHelp.Size = New System.Drawing.Size(388, 209)
-        Me.RchTxtBxHelp.TabIndex = 1
-        Me.RchTxtBxHelp.Text = ""
+        Me.RchTxtBxLicense.Location = New System.Drawing.Point(12, 12)
+        Me.RchTxtBxLicense.Name = "RchTxtBxLicense"
+        Me.RchTxtBxLicense.ReadOnly = True
+        Me.RchTxtBxLicense.Size = New System.Drawing.Size(510, 308)
+        Me.RchTxtBxLicense.TabIndex = 2
+        Me.RchTxtBxLicense.Text = ""
         '
         'frmHelp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(412, 262)
-        Me.Controls.Add(Me.RchTxtBxHelp)
-        Me.Controls.Add(Me.btnHelpClose)
+        Me.ClientSize = New System.Drawing.Size(534, 361)
+        Me.Controls.Add(Me.RchTxtBxLicense)
+        Me.Controls.Add(Me.btnLecenseClose)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmHelp"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Help"
+        Me.Text = "Licence"
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents btnHelpClose As System.Windows.Forms.Button
-    Friend WithEvents RchTxtBxHelp As System.Windows.Forms.RichTextBox
+    Friend WithEvents btnLecenseClose As System.Windows.Forms.Button
+    Friend WithEvents RchTxtBxLicense As System.Windows.Forms.RichTextBox
 End Class

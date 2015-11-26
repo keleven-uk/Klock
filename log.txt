@@ -1,3 +1,42 @@
+commit 74b52a324acf49b18e4739457a9a43a25b80767c
+Author: kevin scott <coinflip@keleven.co.uk>
+Date:   Wed Nov 18 21:25:27 2015 +0000
+
+    The main change, added the convert tab.
+    Also ran Visual Studion spell check on solution.
+    
+    [frmKlock.vb]
+    Added logic for conver tab.
+    
+    [converionThings.vb]
+    Added module in hile helper function for the convert tab.
+
+ Klock/FEMcommon.vb               |   4 +-
+ Klock/IOcommon.vb                |  20 ++---
+ Klock/InfoCommon.vb              |   4 +-
+ Klock/Klock.chm                  | Bin 541976 -> 555600 bytes
+ Klock/Klock.iss                  |   6 +-
+ Klock/Klock.pdf                  | Bin 2699928 -> 2786776 bytes
+ Klock/Klock.vbproj               |   1 +
+ Klock/KlockThings.vb             |  10 +--
+ Klock/My Project/AssemblyInfo.vb |   4 +-
+ Klock/SNTPClient.vb              |   9 +--
+ Klock/UserFonts.vb               |   2 +-
+ Klock/conversionThings.vb        | 141 +++++++++++++++++++++++++++++++++++
+ Klock/frmAbout.vb                |   2 +-
+ Klock/frmInfo.vb                 |   2 +-
+ Klock/frmKlock.Designer.vb       | 157 +++++++++++++++++++++++++++++++++++++++
+ Klock/frmKlock.vb                | 143 ++++++++++++++++++++++-------------
+ Klock/frmLicense.vb              |   4 -
+ Klock/frmOptions.vb              |   2 +-
+ Klock/frmTextKlock.Designer.vb   |   4 +-
+ Klock/frmTextKlock.vb            |  10 +--
+ Klock/history.txt                |  81 ++++++++++++++++++++
+ Klock/klock.hnd                  | Bin 17678336 -> 17883136 bytes
+ Klock/selectTime.vb              |  22 +++---
+ log.txt                          |  77 +++++++++++++++++++
+ 24 files changed, 598 insertions(+), 107 deletions(-)
+
 commit 7a40258eebcc5147045cf2d866a4dac6f7ca6634
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Thu Nov 12 23:05:28 2015 +0000

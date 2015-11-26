@@ -41,9 +41,9 @@
 
     Public Overrides Function toString() As String
 
-        Dim first As String = Me.LastName().PadRight(14, " ")
-        Dim second As String = Me.FirstName().PadRight(10, " ")
-        Dim third As String = Me.EMail1()
+        Dim first As String = LastName().PadRight(14, " ")
+        Dim second As String = FirstName().PadRight(10, " ")
+        Dim third As String = EMail1()
 
         Return String.Format("{0}{1}", first, second)
     End Function

@@ -2,20 +2,20 @@
 
     Private Sub frmTextKlock_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
-        Me.clearlabels()
-        Me.getFuzzyTime()
+        clearlabels()
+        getFuzzyTime()
 
-        Me.lblIT.Enabled = True
-        Me.lblIS.Enabled = True
+        lblIT.Enabled = True
+        lblIS.Enabled = True
 
-        Me.tmrTextKlock.Enabled = True
+        tmrTextKlock.Enabled = True
 
-        Me.updateStatusBar()
+        updateStatusBar()
     End Sub
 
     Private Sub frmTextKlock_FormClosed(sender As System.Object, e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
 
-        Me.tmrTextKlock.Enabled = False
+        tmrTextKlock.Enabled = False
 
         frmKlock.NtfyIcnKlock.Visible = False
         frmKlock.Visible = True
@@ -25,13 +25,13 @@
 
     Private Sub tmrTextKlock_Tick(sender As System.Object, e As System.EventArgs) Handles tmrTextKlock.Tick
 
-        Me.clearlabels()
-        Me.getFuzzyTime()
+        clearlabels()
+        getFuzzyTime()
 
-        Me.lblIT.Enabled = True
-        Me.lblIS.Enabled = True
+        lblIT.Enabled = True
+        lblIS.Enabled = True
 
-        Me.updateStatusBar()
+        updateStatusBar()
     End Sub
 
     Private Sub updateStatusBar()
@@ -41,13 +41,13 @@
 
         '                                               if running on battery, change status info colour to red as a warning.
         If frmKlock.myManagedPower.powerSource().Contains("AC") Then
-            Me.stsLblTime.ForeColor = Color.Black
-            Me.StsLblDate.ForeColor = Color.Black
-            Me.StsLblKeys.ForeColor = Color.Black
+            stsLblTime.ForeColor = Color.Black
+            StsLblDate.ForeColor = Color.Black
+            StsLblKeys.ForeColor = Color.Black
         Else
-            Me.stsLblTime.ForeColor = Color.Red
-            Me.StsLblDate.ForeColor = Color.Red
-            Me.StsLblKeys.ForeColor = Color.Red
+            stsLblTime.ForeColor = Color.Red
+            StsLblDate.ForeColor = Color.Red
+            StsLblKeys.ForeColor = Color.Red
         End If
 
         If My.Computer.Keyboard.CapsLock.ToString() Then strKey = Replace(strKey, "c", "C")
@@ -56,64 +56,64 @@
         If KlockThings.HaveInternetConnection() Then strKey = Replace(strKey, "off", "ON")
 
         If frmKlock.usrSettings.usrTimeSystem24Hour Then
-            Me.stsLblTime.Text = String.Format("{0:HH:mm:ss}", System.DateTime.Now)
+            stsLblTime.Text = String.Format("{0:HH:mm:ss}", System.DateTime.Now)
         Else
-            Me.stsLblTime.Text = String.Format("{0:hh:mm:ss tt}", System.DateTime.Now)
+            stsLblTime.Text = String.Format("{0:hh:mm:ss tt}", System.DateTime.Now)
         End If
 
         '   Me.stsLblTime.Text = Format(Now, "Long Time")
-        Me.StsLblDate.Text = Format(Now, "short Date")
-        Me.StsLblKeys.Text = strKey
+        StsLblDate.Text = Format(Now, "short Date")
+        StsLblKeys.Text = strKey
 
         '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleepimg.
 
         If frmKlock.usrSettings.usrTimeIdleTime Or frmKlock.usrSettings.usrDisableMonitorSleep Then
-            Me.stsLbIdkeTime.Visible = True
-            Me.stsLbIdkeTime.Text = KlockThings.idleTime()
+            stsLbIdkeTime.Visible = True
+            stsLbIdkeTime.Text = KlockThings.idleTime()
         Else
-            Me.stsLbIdkeTime.Visible = False
+            stsLbIdkeTime.Visible = False
         End If
     End Sub
 
     Private Sub clearlabels()
 
-        Me.lbl1.Enabled = False
-        Me.lbl2.Enabled = False
-        Me.lbl3.Enabled = False
-        Me.lbl4.Enabled = False
-        Me.lbl5.Enabled = False
-        Me.lbl7.Enabled = False
-        Me.lblABOUT.Enabled = False
-        Me.lblAFTER.Enabled = False
-        Me.lblE.Enabled = False
-        Me.lblEIGHT.Enabled = False
-        Me.lblELEVEN.Enabled = False
-        Me.lblEVENING.Enabled = False
-        Me.lblFIVE.Enabled = False
-        Me.lblFIVEto.Enabled = False
-        Me.lblFOUR.Enabled = False
-        Me.lblHALF.Enabled = False
-        Me.lblIN.Enabled = False
-        Me.lblIT.Enabled = False
-        Me.lblISH.Enabled = False
-        Me.lblTWENTY.Enabled = False
-        Me.lblK.Enabled = False
-        Me.lblMIDNIGHT.Enabled = False
-        Me.lblNINE.Enabled = False
-        Me.lblNOON.Enabled = False
-        Me.lblONE.Enabled = False
-        Me.lblPAST.Enabled = False
-        Me.lblQUARTER.Enabled = False
-        Me.lblSEVEN.Enabled = False
-        Me.lblSIX.Enabled = False
-        Me.lblTEN.Enabled = False
-        Me.lblTENto.Enabled = False
-        Me.lblTHE.Enabled = False
-        Me.lblTHREE.Enabled = False
-        Me.lblTO.Enabled = False
-        Me.lblTWELVE.Enabled = False
-        Me.lblTWO.Enabled = False
-        Me.lblMORNING.Enabled = False
+        lbl1.Enabled = False
+        lbl2.Enabled = False
+        lbl3.Enabled = False
+        lbl4.Enabled = False
+        lbl5.Enabled = False
+        lbl7.Enabled = False
+        lblABOUT.Enabled = False
+        lblAFTER.Enabled = False
+        lblE.Enabled = False
+        lblEIGHT.Enabled = False
+        lblELEVEN.Enabled = False
+        lblEVENING.Enabled = False
+        lblFIVE.Enabled = False
+        lblFIVEto.Enabled = False
+        lblFOUR.Enabled = False
+        lblHALF.Enabled = False
+        lblIN.Enabled = False
+        lblIT.Enabled = False
+        lblISH.Enabled = False
+        lblTWENTY.Enabled = False
+        lblK.Enabled = False
+        lblMIDNIGHT.Enabled = False
+        lblNINE.Enabled = False
+        lblNOON.Enabled = False
+        lblONE.Enabled = False
+        lblPAST.Enabled = False
+        lblQUARTER.Enabled = False
+        lblSEVEN.Enabled = False
+        lblSIX.Enabled = False
+        lblTEN.Enabled = False
+        lblTENto.Enabled = False
+        lblTHE.Enabled = False
+        lblTHREE.Enabled = False
+        lblTO.Enabled = False
+        lblTWELVE.Enabled = False
+        lblTWO.Enabled = False
+        lblMORNING.Enabled = False
 
     End Sub
 
@@ -129,9 +129,9 @@
 
         If hour < 12 Then                                   '   if hour less then 12, in the morning else afternoon
             ampm = "in the morning"
-            Me.lblIN.Enabled = True
-            Me.lblTHE.Enabled = True
-            Me.lblMORNING.Enabled = True
+            lblIN.Enabled = True
+            lblTHE.Enabled = True
+            lblMORNING.Enabled = True
         Else
             ampm = "pm"
         End If
@@ -143,50 +143,50 @@
                 sRtn = ""
             Case 5
                 sRtn = "five past"
-                Me.lblFIVEto.Enabled = True
-                Me.lblPAST.Enabled = True
+                lblFIVEto.Enabled = True
+                lblPAST.Enabled = True
             Case 10
                 sRtn = "ten past"
-                Me.lblTENto.Enabled = True
-                Me.lblPAST.Enabled = True
+                lblTENto.Enabled = True
+                lblPAST.Enabled = True
             Case 15
                 sRtn = "quarter past"
-                Me.lblQUARTER.Enabled = True
-                Me.lblPAST.Enabled = True
+                lblQUARTER.Enabled = True
+                lblPAST.Enabled = True
             Case 20
                 sRtn = "twenty past"
-                Me.lblTWENTY.Enabled = True
-                Me.lblPAST.Enabled = True
+                lblTWENTY.Enabled = True
+                lblPAST.Enabled = True
             Case 25
                 sRtn = "twenty-five past"
-                Me.lblTWENTY.Enabled = True
-                Me.lblFIVEto.Enabled = True
-                Me.lblPAST.Enabled = True
+                lblTWENTY.Enabled = True
+                lblFIVEto.Enabled = True
+                lblPAST.Enabled = True
             Case 30
                 sRtn = "half past"
-                Me.lblHALF.Enabled = True
-                Me.lblPAST.Enabled = True
+                lblHALF.Enabled = True
+                lblPAST.Enabled = True
             Case 35
                 sRtn = "twenty-five to"
-                Me.lblTWENTY.Enabled = True
-                Me.lblFIVEto.Enabled = True
-                Me.lblTO.Enabled = True
+                lblTWENTY.Enabled = True
+                lblFIVEto.Enabled = True
+                lblTO.Enabled = True
             Case 40
                 sRtn = "twenty to"
-                Me.lblTWENTY.Enabled = True
-                Me.lblTO.Enabled = True
+                lblTWENTY.Enabled = True
+                lblTO.Enabled = True
             Case 45
                 sRtn = "quarter to"
-                Me.lblQUARTER.Enabled = True
-                Me.lblTO.Enabled = True
+                lblQUARTER.Enabled = True
+                lblTO.Enabled = True
             Case 50
                 sRtn = "ten to"
-                Me.lblTENto.Enabled = True
-                Me.lblTO.Enabled = True
+                lblTENto.Enabled = True
+                lblTO.Enabled = True
             Case 55
                 sRtn = "five to"
-                Me.lblFIVEto.Enabled = True
-                Me.lblTO.Enabled = True
+                lblFIVEto.Enabled = True
+                lblTO.Enabled = True
             Case 60
                 sRtn = ""
         End Select
@@ -202,26 +202,26 @@
         '   if "pm" then afternoon, subtract 12 - only use 12 hour clock.
 
         If (hour = 12) And (sRtn = "") Then
-            Me.lblABOUT.Enabled = True
-            Me.lblNOON.Enabled = True
+            lblABOUT.Enabled = True
+            lblNOON.Enabled = True
         ElseIf (hour = 0) And (sRtn = "") Then
-            Me.lblABOUT.Enabled = True
-            Me.lblMIDNIGHT.Enabled = True
+            lblABOUT.Enabled = True
+            lblMIDNIGHT.Enabled = True
         ElseIf (hour = 24) And (sRtn = "") Then
-            Me.lblABOUT.Enabled = True
-            Me.lblMIDNIGHT.Enabled = True
+            lblABOUT.Enabled = True
+            lblMIDNIGHT.Enabled = True
         Else
             If ampm = "pm" Then
                 hour -= 12
-                Me.lblIN.Enabled = True
-                Me.lblTHE.Enabled = True
+                lblIN.Enabled = True
+                lblTHE.Enabled = True
                 If hour >= 5 Then                               '   if greater then five in the afternoon then evening.
                     ampm = "in the evening"
-                    Me.lblEVENING.Enabled = True
+                    lblEVENING.Enabled = True
                 Else
                     ampm = "in the afternoon"
-                    Me.lblAFTER.Enabled = True
-                    Me.lblNOON.Enabled = True
+                    lblAFTER.Enabled = True
+                    lblNOON.Enabled = True
                 End If
             End If
 
@@ -229,31 +229,31 @@
 
             Select Case hour
                 Case 0
-                    Me.lblTWELVE.Enabled = True
+                    lblTWELVE.Enabled = True
                 Case 1
-                    Me.lblONE.Enabled = True
+                    lblONE.Enabled = True
                 Case 2
-                    Me.lblTWO.Enabled = True
+                    lblTWO.Enabled = True
                 Case 3
-                    Me.lblTHREE.Enabled = True
+                    lblTHREE.Enabled = True
                 Case 4
-                    Me.lblFOUR.Enabled = True
+                    lblFOUR.Enabled = True
                 Case 5
-                    Me.lblFIVE.Enabled = True
+                    lblFIVE.Enabled = True
                 Case 6
-                    Me.lblSIX.Enabled = True
+                    lblSIX.Enabled = True
                 Case 7
-                    Me.lblSEVEN.Enabled = True
+                    lblSEVEN.Enabled = True
                 Case 8
-                    Me.lblEIGHT.Enabled = True
+                    lblEIGHT.Enabled = True
                 Case 9
-                    Me.lblNINE.Enabled = True
+                    lblNINE.Enabled = True
                 Case 10
-                    Me.lblTEN.Enabled = True
+                    lblTEN.Enabled = True
                 Case 11
-                    Me.lblELEVEN.Enabled = True
+                    lblELEVEN.Enabled = True
                 Case 12
-                    Me.lblTWELVE.Enabled = True
+                    lblTWELVE.Enabled = True
                 Case Else
 
             End Select
@@ -280,11 +280,11 @@
                 frmOptions.ShowDialog()
                 frmKlock.setSettings()
             Case Keys.F6 And (e.Alt)
-                Me.tmrTextKlock.Enabled = False
+                tmrTextKlock.Enabled = False
                 frmKlock.NtfyIcnKlock.Visible = False
                 frmKlock.Visible = True
                 frmKlock.TextKlockToolStripMenuItem.Checked = False
-                Me.Close()
+                Close()
                 e.Handled = True
             Case Keys.F7 And (e.Alt)
                 KlockThings.KeepMonitorActive()

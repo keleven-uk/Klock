@@ -102,7 +102,7 @@ Module conversionThings
         End If
     End Sub
 
-    Public Sub writeDefaultUnits()
+    Private Sub writeDefaultUnits()
         '   If units file not present, write a default one.
 
         Using uFile As StreamWriter = New StreamWriter(unitsFile)

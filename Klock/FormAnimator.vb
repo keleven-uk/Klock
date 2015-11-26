@@ -1,5 +1,4 @@
-﻿Imports System.ComponentModel
-Imports System.Runtime.InteropServices
+﻿Imports System.Runtime.InteropServices
 
 'Animates a form when it is shown, hidden or closed.
 'MDI child forms do not support the Blend method and only support other methods while being displayed for the first time and when closing.
@@ -49,37 +48,37 @@ Public NotInheritable Class FormAnimator
     Public Property Method() As AnimationMethod
         'Gets or sets the animation method used to show and hide the form.  Roll is used by default if no method is specified.
         Get
-            Return Me._method
+            Return _method
         End Get
         Set(ByVal Value As AnimationMethod)
-            Me._method = Value
+            _method = Value
         End Set
     End Property
 
     Public Property Direction() As AnimationDirection
         'Gets or sets the direction in which the animation is performed.  Roll and Slide only.
         Get
-            Return Me._direction
+            Return _direction
         End Get
         Set(ByVal Value As AnimationDirection)
-            Me._direction = Value
+            _direction = Value
         End Set
     End Property
 
     Public Property Duration() As Integer
         'Gets or sets the number of milliseconds over which the animation is played.
         Get
-            Return Me._duration
+            Return _duration
         End Get
         Set(ByVal Value As Integer)
-            Me._duration = Value
+            _duration = Value
         End Set
     End Property
 
     Public ReadOnly Property Form() As Form
         'Gets the form to be animated.
         Get
-            Return Me._form
+            Return _form
         End Get
     End Property
 
@@ -92,8 +91,8 @@ Public NotInheritable Class FormAnimator
     'No animation will be used unless the Method and/or Direction properties are set independently. The Duration is set to quarter of a second by default.
     'Used when you specify FORM and DURATION.
     Public Sub New(ByVal form As Form)
-        Me._form = form
-        Me._duration = DEFAULT_DURATION
+        _form = form
+        _duration = DEFAULT_DURATION
     End Sub
 
     'Creates a new FormAnimator object for the specified form using the specified method over the specified duration.
@@ -101,8 +100,8 @@ Public NotInheritable Class FormAnimator
     'Used when you specify FORM, METHOD and DURATION.
     Public Sub New(ByVal form As Form, ByVal method As AnimationMethod, ByVal duration As Integer)
         Me.New(form)
-        Me._method = method
-        Me._duration = duration
+        _method = method
+        _duration = duration
     End Sub
 
 
@@ -111,23 +110,23 @@ Public NotInheritable Class FormAnimator
     'Used when you specify FORM, METHOD, DIRECTION and DURATION.
     Public Sub New(ByVal form As Form, ByVal method As AnimationMethod, ByVal direction As AnimationDirection, ByVal duration As Integer)
         Me.New(form, method, duration)
-        Me._direction = direction
+        _direction = direction
     End Sub
 
     Private Sub Form_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles _form.Load
         'MDI child forms do not support transparency so do not try to use the Blend method.
-        If Me._form.MdiParent Is Nothing OrElse Me._method <> AnimationMethod.Blend Then
+        If _form.MdiParent Is Nothing OrElse _method <> AnimationMethod.Blend Then
             'Activate the form.
-            FormAnimator.AnimateWindow(Me._form.Handle, Me._duration, AW_ACTIVATE Or Me._method Or Me._direction)
+            FormAnimator.AnimateWindow(_form.Handle, _duration, AW_ACTIVATE Or _method Or _direction)
         End If
     End Sub
 
     Private Sub Form_VisibleChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles _form.VisibleChanged
         'Do not attempt to animate MDI child forms while showing or hiding as they do not behave as expected.
-        If Me._form.MdiParent Is Nothing Then
-            Dim flags As Integer = Me._method Or Me._direction
+        If _form.MdiParent Is Nothing Then
+            Dim flags As Integer = _method Or _direction
 
-            If Me._form.Visible Then
+            If _form.Visible Then
                 'Activate the form.
                 flags = flags Or AW_ACTIVATE
             Else
@@ -135,16 +134,16 @@ Public NotInheritable Class FormAnimator
                 flags = flags Or AW_HIDE
             End If
 
-            FormAnimator.AnimateWindow(Me._form.Handle, Me._duration, flags)
+            FormAnimator.AnimateWindow(_form.Handle, _duration, flags)
         End If
     End Sub
 
     Private Sub Form_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles _form.Closing
         If Not e.Cancel Then
             'MDI child forms do not support transparency so do not try to use the Blend method.
-            If Me._form.MdiParent Is Nothing OrElse Me._method <> AnimationMethod.Blend Then
+            If _form.MdiParent Is Nothing OrElse _method <> AnimationMethod.Blend Then
                 'Hide the form.
-                FormAnimator.AnimateWindow(Me._form.Handle, Me._duration, AW_HIDE Or Me._method Or Me._direction)
+                FormAnimator.AnimateWindow(_form.Handle, _duration, AW_HIDE Or _method Or _direction)
             End If
         End If
     End Sub

@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Imports System.Reflection
 
-Public Class frmLicence
+Public Class frmHelp
 
     '   Displays an Licence screen.       K. Scott    November 2012.
 
@@ -9,8 +9,8 @@ Public Class frmLicence
 
 
     Private Sub btnLecenseClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLecenseClose.Click
-        Me.RchTxtBxLicense.Clear()
-        Me.Close()
+        RchTxtBxLicense.Clear()
+        Close()
     End Sub
 
 End Class

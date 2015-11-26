@@ -21,7 +21,7 @@
 
     Public Overrides Function ToString() As String
 
-        Dim first As String = Me.memoName().PadRight(14, " ")
+        Dim first As String = memoName().PadRight(14, " ")
 
         Return String.Format("{0}", first)
     End Function

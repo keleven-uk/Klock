@@ -122,7 +122,6 @@
     <Compile Include="frmAbout.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="FormAnimator.vb" />
     <Compile Include="frmMemoPassword.Designer.vb">
       <DependentUpon>frmMemoPassword.vb</DependentUpon>
@@ -163,10 +162,10 @@
     <Compile Include="frmOptions.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmLicense.Designer.vb">
-      <DependentUpon>frmLicense.vb</DependentUpon>
+    <Compile Include="frmHelp.Designer.vb">
+      <DependentUpon>frmHelp.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmLicense.vb">
+    <Compile Include="frmHelp.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Settings.vb" />
@@ -219,8 +218,8 @@
       <DependentUpon>frmOptions.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmLicense.resx">
-      <DependentUpon>frmLicense.vb</DependentUpon>
+    <EmbeddedResource Include="frmHelp.resx">
+      <DependentUpon>frmHelp.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTextKlock.resx">
@@ -241,6 +240,9 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="history.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Klock.chm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -284,12 +286,11 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="License.txt">
+    <Content Include="License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="history.txt" />
     <Content Include="Klock.ico" />
     <None Include="Resources\btnClicked.png" />
     <None Include="Resources\btnHigh.png" />

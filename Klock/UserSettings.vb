@@ -979,7 +979,7 @@ Public Class UserSettings
         Dim style As FontStyle
         Dim version As String
 
-        Me.checkDataFile()
+        checkDataFile()
 
         Try
             Dim elem As XElement = XElement.Load(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
@@ -990,79 +990,79 @@ Public Class UserSettings
 
             Dim glbl = elem.Element("Global")
 
-            Me.usrDefaultTab = CType(readElement(glbl, "DefaultTab", usrDefaultTab()), Integer)
+            usrDefaultTab = CType(readElement(glbl, "DefaultTab", usrDefaultTab()), Integer)
 
             Dim frmClr = glbl.Element("FormColour")
             r = CType(readElement(frmClr, "FormColourR", usrFormColour().R), Byte)
             g = CType(readElement(frmClr, "FormColourG", usrFormColour().G), Byte)
             b = CType(readElement(frmClr, "FormColourB", usrFormColour().B), Byte)
             a = CType(readElement(frmClr, "FormColourA", usrFormColour().A), Byte)
-            Me.usrFormColour = Color.FromArgb(a, r, g, b)
+            usrFormColour = Color.FromArgb(a, r, g, b)
 
             Dim fnt = glbl.Element("FormFont")
             name = readElement(fnt, "FormFontName", usrFormFont().Name)       '   already a string
             size = CType(readElement(fnt, "FormFontSize", usrFormFont().Size), Single)
             style = CType(readElement(fnt, "FormFontStyle", 0), FontStyle)
-            Me.usrFormFont() = New Font(name, size, style)
+            usrFormFont() = New Font(name, size, style)
 
             Dim frmFntClr = glbl.Element("FormFontColour")
             r = CType(readElement(frmFntClr, "FormFontColourR", usrFormFontColour().R), Byte)
             g = CType(readElement(frmFntClr, "FormFontColourG", usrFormFontColour().G), Byte)
             b = CType(readElement(frmFntClr, "FormFontColourB", usrFormFontColour().B), Byte)
             a = CType(readElement(frmFntClr, "FormFontColourA", usrFormFontColour().A), Byte)
-            Me.usrFormFontColour = Color.FromArgb(a, r, g, b)
+            usrFormFontColour = Color.FromArgb(a, r, g, b)
 
-            Me.usrFormTop = CType(readElement(glbl, "FormTop", usrFormTop()), Integer)
-            Me.usrFormLeft = CType(readElement(glbl, "Formleft", usrFormLeft()), Integer)
-            Me.usrSavePosition = CType(readElement(glbl, "SavePosition", usrSavePosition()), Boolean)
-            Me.usrStartMinimised = CType(readElement(glbl, "StartMinimised", usrStartMinimised()), Boolean)
-            Me.usrRunOnStartup = CType(readElement(glbl, "RunOnStartup", usrRunOnStartup()), Boolean)
-            Me.usrSoundVolume = CType(readElement(glbl, "SoundVolume", usrSoundVolume()), Integer)
+            usrFormTop = CType(readElement(glbl, "FormTop", usrFormTop()), Integer)
+            usrFormLeft = CType(readElement(glbl, "Formleft", usrFormLeft()), Integer)
+            usrSavePosition = CType(readElement(glbl, "SavePosition", usrSavePosition()), Boolean)
+            usrStartMinimised = CType(readElement(glbl, "StartMinimised", usrStartMinimised()), Boolean)
+            usrRunOnStartup = CType(readElement(glbl, "RunOnStartup", usrRunOnStartup()), Boolean)
+            usrSoundVolume = CType(readElement(glbl, "SoundVolume", usrSoundVolume()), Integer)
 
             '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
 
             Dim tm = elem.Element("Time")
-            Me.usrTimeDefaultFormat = CType(readElement(tm, "TimeDefaultFormat", usrTimeDefaultFormat()), Integer)
-            Me.usrTimeTWODefaultFormat = CType(readElement(tm, "TimeTwoDefaultFormat", usrTimeTWODefaultFormat()), Integer)
-            Me.usrTimeTwoFormats = CType(readElement(tm, "TimeTwoFormats", usrTimeTwoFormats()), Boolean)
-            Me.usrTimeIdleTime = CType(readElement(tm, "TimeIdleTime", usrTimeIdleTime()), Boolean)
-            Me.usrTimeSystem24Hour = CType(readElement(tm, "TimeSystem24Hour", usrTimeSystem24Hour()), Boolean)
-            Me.usrTimeOne24Hour = CType(readElement(tm, "TimeOne24Hour", usrTimeOne24Hour()), Boolean)
-            Me.usrTimeTwo24Hour = CType(readElement(tm, "TimeTwo24Hour", usrTimeTwo24Hour()), Boolean)
-            Me.usrTimeSwatchCentibeats = CType(readElement(tm, "TimeSwatchCentibeats", usrTimeSwatchCentibeats()), Boolean)
-            Me.usrTimeNETSeconds = CType(readElement(tm, "TimeNETSeconds", usrTimeNETSeconds()), Boolean)
-            Me.usrTimeHexIntuitorFormat = CType(readElement(tm, "TimeHexIntuitorFormat", usrTimeHexIntuitorFormat()), Boolean)
-            Me.usrTimeHourPips = CType(readElement(tm, "TimeHourPips", usrTimeHourPips()), Boolean)
-            Me.usrTimeHourChimes = CType(readElement(tm, "TimeHourChimes", usrTimeHourChimes()), Boolean)
-            Me.usrTimeHalfChimes = CType(readElement(tm, "TimeHalfChimes", usrTimeHalfChimes()), Boolean)
-            Me.usrTimeQuarterChimes = CType(readElement(tm, "TimeQuarterChimes", usrTimeQuarterChimes()), Boolean)
-            Me.usrTimeDisplayMinimised = CType(readElement(tm, "TimeDisplayMinimised", usrTimeDisplayMinimised()), Boolean)
-            Me.usrTimeDisplayMinutes = CType(readElement(tm, "TimeDisplayMinutes", usrTimeDisplayMinutes()), Integer)
-            Me.usrTimeVoiceMinimised = CType(readElement(tm, "TimeVoiceMinimised", usrTimeVoiceMinutes()), Boolean)
-            Me.usrTimeVoiceMinutes = CType(readElement(tm, "TimeVoiceMinutes", usrTimeVoiceMinutes()), Integer)
+            usrTimeDefaultFormat = CType(readElement(tm, "TimeDefaultFormat", usrTimeDefaultFormat()), Integer)
+            usrTimeTWODefaultFormat = CType(readElement(tm, "TimeTwoDefaultFormat", usrTimeTWODefaultFormat()), Integer)
+            usrTimeTwoFormats = CType(readElement(tm, "TimeTwoFormats", usrTimeTwoFormats()), Boolean)
+            usrTimeIdleTime = CType(readElement(tm, "TimeIdleTime", usrTimeIdleTime()), Boolean)
+            usrTimeSystem24Hour = CType(readElement(tm, "TimeSystem24Hour", usrTimeSystem24Hour()), Boolean)
+            usrTimeOne24Hour = CType(readElement(tm, "TimeOne24Hour", usrTimeOne24Hour()), Boolean)
+            usrTimeTwo24Hour = CType(readElement(tm, "TimeTwo24Hour", usrTimeTwo24Hour()), Boolean)
+            usrTimeSwatchCentibeats = CType(readElement(tm, "TimeSwatchCentibeats", usrTimeSwatchCentibeats()), Boolean)
+            usrTimeNETSeconds = CType(readElement(tm, "TimeNETSeconds", usrTimeNETSeconds()), Boolean)
+            usrTimeHexIntuitorFormat = CType(readElement(tm, "TimeHexIntuitorFormat", usrTimeHexIntuitorFormat()), Boolean)
+            usrTimeHourPips = CType(readElement(tm, "TimeHourPips", usrTimeHourPips()), Boolean)
+            usrTimeHourChimes = CType(readElement(tm, "TimeHourChimes", usrTimeHourChimes()), Boolean)
+            usrTimeHalfChimes = CType(readElement(tm, "TimeHalfChimes", usrTimeHalfChimes()), Boolean)
+            usrTimeQuarterChimes = CType(readElement(tm, "TimeQuarterChimes", usrTimeQuarterChimes()), Boolean)
+            usrTimeDisplayMinimised = CType(readElement(tm, "TimeDisplayMinimised", usrTimeDisplayMinimised()), Boolean)
+            usrTimeDisplayMinutes = CType(readElement(tm, "TimeDisplayMinutes", usrTimeDisplayMinutes()), Integer)
+            usrTimeVoiceMinimised = CType(readElement(tm, "TimeVoiceMinimised", usrTimeVoiceMinutes()), Boolean)
+            usrTimeVoiceMinutes = CType(readElement(tm, "TimeVoiceMinutes", usrTimeVoiceMinutes()), Integer)
             '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
             Dim tmr = elem.Element("Timer")
-            Me.usrTimerHigh = CType(readElement(tmr, "TimerHigh", usrTimerHigh()), Boolean)
-            Me.usrTimerClearSplit = CType(readElement(tmr, "TimerClearSplit", usrTimerClearSplit()), Boolean)
-            Me.usrTimerAdd = CType(readElement(tmr, "TimerAdd", usrTimerAdd()), Boolean)
+            usrTimerHigh = CType(readElement(tmr, "TimerHigh", usrTimerHigh()), Boolean)
+            usrTimerClearSplit = CType(readElement(tmr, "TimerClearSplit", usrTimerClearSplit()), Boolean)
+            usrTimerAdd = CType(readElement(tmr, "TimerAdd", usrTimerAdd()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Countdown Settings ----------
 
             Dim cntDwn = elem.Element("Countdown")
-            Me.usrCountdownAdd = CType(readElement(cntDwn, "CountdownAdd", usrCountdownAdd()), Boolean)
+            usrCountdownAdd = CType(readElement(cntDwn, "CountdownAdd", usrCountdownAdd()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Reminder Settings ----------
 
             Dim rmndr = elem.Element("Reminder")
 
-            Me.usrReminderTimeChecked = CType(readElement(rmndr, "ReminderTimeChecked", usrReminderTimeChecked()), Boolean)
-            Me.usrReminderAdd = CType(readElement(rmndr, "ReminderAdd", usrReminderAdd()), Boolean)
+            usrReminderTimeChecked = CType(readElement(rmndr, "ReminderTimeChecked", usrReminderTimeChecked()), Boolean)
+            usrReminderAdd = CType(readElement(rmndr, "ReminderAdd", usrReminderAdd()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- World Klock Settings ----------
 
             Dim wrldKlck = elem.Element("WorldKlock")
-            Me.usrWorldKlockAdd = CType(readElement(wrldKlck, "WorldKlockAdd", usrWorldKlockAdd()), Boolean)
+            usrWorldKlockAdd = CType(readElement(wrldKlck, "WorldKlockAdd", usrWorldKlockAdd()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Notification Settings -------
 
@@ -1073,98 +1073,98 @@ Public Class UserSettings
             g = CType(readElement(ntfctnClr, "NotificationColourG", usrNotificationbackColour().G), Byte)
             b = CType(readElement(ntfctnClr, "NotificationColourB", usrNotificationbackColour().B), Byte)
             a = CType(readElement(ntfctnClr, "NotificationColourA", usrNotificationbackColour().A), Byte)
-            Me.usrNotificationbackColour = Color.FromArgb(a, r, g, b)
+            usrNotificationbackColour = Color.FromArgb(a, r, g, b)
 
             Dim ntfctnFnt = ntfctn.Element("NotificationFont")
             name = readElement(ntfctnFnt, "NotificationFontName", usrNotificationFont().Name)       '   already a string
             size = CType(readElement(ntfctnFnt, "NotificationFontSize", usrNotificationFont().Size), Single)
             style = CType(readElement(ntfctnFnt, "NotificationFontStyle", 0), FontStyle)
-            Me.usrNotificationFont() = New Font(name, size, style)
+            usrNotificationFont() = New Font(name, size, style)
 
             Dim ntfctnFntClr = ntfctn.Element("NotificationFontColour")
             r = CType(readElement(ntfctnFntClr, "NotificationFontColourR", usrNotificationFontColour().R), Byte)
             g = CType(readElement(ntfctnFntClr, "NotificationFontColourG", usrNotificationFontColour().G), Byte)
             b = CType(readElement(ntfctnFntClr, "NotificationFontColourB", usrNotificationFontColour().B), Byte)
             a = CType(readElement(ntfctnFntClr, "NotificationFontColourA", usrNotificationFontColour().A), Byte)
-            Me.usrNotificationFontColour = Color.FromArgb(a, r, g, b)
+            usrNotificationFontColour = Color.FromArgb(a, r, g, b)
 
-            Me.usrNotificationTimeOut = CType(readElement(ntfctn, "NotificationTimeOut", usrNotificationTimeOut()), Integer)
-            Me.usrNotificationOpacity = CType(readElement(ntfctn, "NotificationOpacity", usrNotificationOpacity()), Integer)
+            usrNotificationTimeOut = CType(readElement(ntfctn, "NotificationTimeOut", usrNotificationTimeOut()), Integer)
+            usrNotificationOpacity = CType(readElement(ntfctn, "NotificationOpacity", usrNotificationOpacity()), Integer)
 
             '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
 
             Dim mntr = elem.Element("Monitor")
-            Me.usrDisableMonitorSleep = CType(readElement(mntr, "DisableMonitorSleep", usrDisableMonitorSleep()), Boolean)
+            usrDisableMonitorSleep = CType(readElement(mntr, "DisableMonitorSleep", usrDisableMonitorSleep()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Internet Settings ------------
 
             Dim intrnt = elem.Element("Internet")
-            Me.usrCheckInternet = CType(readElement(intrnt, "CheckInternet", usrCheckInternet()), Boolean)
+            usrCheckInternet = CType(readElement(intrnt, "CheckInternet", usrCheckInternet()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
             '   values are strings, so need to convert.
 
             Dim frnds = elem.Element("Friends")
-            Me.usrFriendsFile = readElement(frnds, "FriendsFileName", usrFriendsFile())
+            usrFriendsFile = readElement(frnds, "FriendsFileName", usrFriendsFile())
 
             '-------------------------------------------------------------------------------------------------------- Events Settings ------------
             '   values are strings, so need to convert.
 
             Dim evnts = elem.Element("Events")
-            Me.usrEventsFile = readElement(evnts, "EventsFileName", usrEventsFile())
+            usrEventsFile = readElement(evnts, "EventsFileName", usrEventsFile())
 
-            Me.usrEventsFirstReminder = CType(readElement(evnts, "EventsFirstReminder", usrEventsFirstReminder()), Integer)
-            Me.usrEventsSecondReminder = CType(readElement(evnts, "EventsSecondReminder", usrEventsSecondReminder()), Integer)
-            Me.usrEventsThirdReminder = CType(readElement(evnts, "EventsThirdReminder", usrEventsThirdReminder()), Integer)
-            Me.usrEventsTimerInterval = CType(readElement(evnts, "EventsTimerInterval", usrEventsTimerInterval()), Integer)
+            usrEventsFirstReminder = CType(readElement(evnts, "EventsFirstReminder", usrEventsFirstReminder()), Integer)
+            usrEventsSecondReminder = CType(readElement(evnts, "EventsSecondReminder", usrEventsSecondReminder()), Integer)
+            usrEventsThirdReminder = CType(readElement(evnts, "EventsThirdReminder", usrEventsThirdReminder()), Integer)
+            usrEventsTimerInterval = CType(readElement(evnts, "EventsTimerInterval", usrEventsTimerInterval()), Integer)
 
             Dim entfctnFnt = evnts.Element("EventNotificationFont")
             name = readElement(entfctnFnt, "EventNotificationFontName", usrEventNotificationFont().Name)       '   already a string
             size = CType(readElement(entfctnFnt, "EventNotificationFontSize", usrEventNotificationFont().Size), Single)
             style = CType(readElement(entfctnFnt, "EventNotificationFontStyle", 0), FontStyle)
-            Me.usrEventNotificationFont() = New Font(name, size, style)
+            usrEventNotificationFont() = New Font(name, size, style)
 
             Dim entfctnFntClr = evnts.Element("EventNotificationFontColour")
             r = CType(readElement(entfctnFntClr, "EventNotificationFontColourR", usrEventNotificationFontColour().R), Byte)
             g = CType(readElement(entfctnFntClr, "EventNotificationFontColourG", usrEventNotificationFontColour().G), Byte)
             b = CType(readElement(entfctnFntClr, "EventNotificationFontColourB", usrEventNotificationFontColour().B), Byte)
             a = CType(readElement(entfctnFntClr, "EventNotificationFontColourA", usrEventNotificationFontColour().A), Byte)
-            Me.usrEventNotificationFontColour = Color.FromArgb(a, r, g, b)
+            usrEventNotificationFontColour = Color.FromArgb(a, r, g, b)
 
             Dim fentfctnClr = evnts.Element("FirstEventNotificationColour")
             r = CType(readElement(fentfctnClr, "FirstEventNotificationColourR", usrFirstEventNotificationbackColour().R), Byte)
             g = CType(readElement(fentfctnClr, "FirstEventNotificationColourG", usrFirstEventNotificationbackColour().G), Byte)
             b = CType(readElement(fentfctnClr, "FirstEventNotificationColourB", usrFirstEventNotificationbackColour().B), Byte)
             a = CType(readElement(fentfctnClr, "FirstEventNotificationColourA", usrFirstEventNotificationbackColour().A), Byte)
-            Me.usrFirstEventNotificationbackColour = Color.FromArgb(a, r, g, b)
+            usrFirstEventNotificationbackColour = Color.FromArgb(a, r, g, b)
 
             Dim sentfctnClr = evnts.Element("SecondEventNotificationColour")
             r = CType(readElement(sentfctnClr, "SecondEventNotificationColourR", usrSecondEventNotificationbackColour().R), Byte)
             g = CType(readElement(sentfctnClr, "SecondEventNotificationColourG", usrSecondEventNotificationbackColour().G), Byte)
             b = CType(readElement(sentfctnClr, "SecondEventNotificationColourB", usrSecondEventNotificationbackColour().B), Byte)
             a = CType(readElement(sentfctnClr, "SecondEventNotificationColourA", usrSecondEventNotificationbackColour().A), Byte)
-            Me.usrSecondEventNotificationbackColour = Color.FromArgb(a, r, g, b)
+            usrSecondEventNotificationbackColour = Color.FromArgb(a, r, g, b)
 
             Dim tentfctnClr = evnts.Element("ThirdEventNotificationColour")
             r = CType(readElement(tentfctnClr, "ThirdEventNotificationColourR", usrThirdEventNotificationbackColour().R), Byte)
             g = CType(readElement(tentfctnClr, "ThirdEventNotificationColourG", usrThirdEventNotificationbackColour().G), Byte)
             b = CType(readElement(tentfctnClr, "ThirdEventNotificationColourB", usrThirdEventNotificationbackColour().B), Byte)
             a = CType(readElement(tentfctnClr, "ThirdEventNotificationColourA", usrThirdEventNotificationbackColour().A), Byte)
-            Me.usrThirdEventNotificationbackColour = Color.FromArgb(a, r, g, b)
+            usrThirdEventNotificationbackColour = Color.FromArgb(a, r, g, b)
 
-            Me.usrEventNotificationOpacity = CType(readElement(evnts, "EventNotificationOpacity", usrEventNotificationOpacity()), Integer)
+            usrEventNotificationOpacity = CType(readElement(evnts, "EventNotificationOpacity", usrEventNotificationOpacity()), Integer)
             '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
             '   values are strings, so need to convert.
 
             Dim memo = elem.Element("Memo")
-            Me.usrMemoFile = readElement(memo, "MemoFileName", usrMemoFile())
-            Me.usrMemoUseDefaultPassword = CType(readElement(memo, "MemoUseDefaultPassword", usrMemoUseDefaultPassword()), Boolean)
-            Me.usrMemoDefaultPassword = readElement(memo, "MemoDefaultPassword", usrMemoDefaultPassword())
-            Me.usrMemoDecyptTimeOut = CType(readElement(memo, "MemoDecyptTimeOut", usrMemoDecyptTimeOut()), Integer)
+            usrMemoFile = readElement(memo, "MemoFileName", usrMemoFile())
+            usrMemoUseDefaultPassword = CType(readElement(memo, "MemoUseDefaultPassword", usrMemoUseDefaultPassword()), Boolean)
+            usrMemoDefaultPassword = readElement(memo, "MemoDefaultPassword", usrMemoDefaultPassword())
+            usrMemoDecyptTimeOut = CType(readElement(memo, "MemoDecyptTimeOut", usrMemoDecyptTimeOut()), Integer)
 
             '   If version has changed, some settings might need to be added [will have been set to default].
             If version <> My.Application.Info.Version.ToString() Then
-                Me.writeSettings()
+                writeSettings()
             End If
 
         Catch ex As Exception
@@ -1199,7 +1199,7 @@ Public Class UserSettings
         End If
 
         If Not My.Computer.FileSystem.FileExists(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile())) Then
-            Me.writeDefaultSettings()
+            writeDefaultSettings()
         End If
     End Sub
 End Class

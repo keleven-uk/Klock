@@ -11,25 +11,25 @@ Public Class frmAbout
     Private Sub btnAboutClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAboutClose.Click
         '   switch off timer when finished.
 
-        Me.tmrAbout.Enabled = False
-        Me.Close()
+        tmrAbout.Enabled = False
+        Close()
     End Sub
 
     Private Sub frmAbout_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '   switch on timer and display static text when form loads.
 
-        Me.tmrAbout.Enabled = True
+        tmrAbout.Enabled = True
 
-        Me.lblVersion.Text = "Klock Version :: " & My.Application.Info.Version.ToString()
-        Me.lblCopyright.Text = My.Application.Info.Copyright
-        Me.lblDescription.Text = My.Application.Info.Description
-        Me.lblTitle.Text = My.Application.Info.Title
+        lblVersion.Text = "Klock Version :: " & My.Application.Info.Version.ToString()
+        lblCopyright.Text = My.Application.Info.Copyright
+        lblDescription.Text = My.Application.Info.Description
+        lblTitle.Text = My.Application.Info.Title
 
-        Me.lblOSFullNameValue.Text = My.Computer.Info.OSFullName
-        Me.lblUserNameValue.Text = My.User.Name
-        Me.lblComputerNameValue.Text = My.Computer.Name
-        Me.lblNetworkAvailableValue.Text = My.Computer.Network.IsAvailable.ToString()
-        Me.lblProcessorNameValue.Text = Microsoft.Win32.Registry.GetValue("HKEY_LOCAL_MACHINE\Hardware\DESCRIPTION\System\CentralProcessor\0", "Identifier", "")
+        lblOSFullNameValue.Text = My.Computer.Info.OSFullName
+        lblUserNameValue.Text = My.User.Name
+        lblComputerNameValue.Text = My.Computer.Name
+        lblNetworkAvailableValue.Text = My.Computer.Network.IsAvailable.ToString()
+        lblProcessorNameValue.Text = Microsoft.Win32.Registry.GetValue("HKEY_LOCAL_MACHINE\Hardware\DESCRIPTION\System\CentralProcessor\0", "Identifier", "")
     End Sub
 
     Sub updateTextInfo()
@@ -39,10 +39,10 @@ Public Class frmAbout
 
         cdrive = My.Computer.FileSystem.GetDriveInfo("c:\")
 
-        Me.lblDriveSizeValue.Text = Format(cdrive.TotalSize, "##,##0") & " \ " & Format(cdrive.AvailableFreeSpace, "##,##0")
+        lblDriveSizeValue.Text = Format(cdrive.TotalSize, "##,##0") & " \ " & Format(cdrive.AvailableFreeSpace, "##,##0")
 
-        Me.lblPhysicalMemoryValue.Text = Format(My.Computer.Info.TotalPhysicalMemory, "##,##0") & " \ " & Format(My.Computer.Info.AvailablePhysicalMemory, "##,##0")
-        Me.lblVirtualMemoryValue.Text = Format(My.Computer.Info.TotalVirtualMemory, "##,##0") & " \ " & Format(My.Computer.Info.AvailableVirtualMemory, "##,##0")
+        lblPhysicalMemoryValue.Text = Format(My.Computer.Info.TotalPhysicalMemory, "##,##0") & " \ " & Format(My.Computer.Info.AvailablePhysicalMemory, "##,##0")
+        lblVirtualMemoryValue.Text = Format(My.Computer.Info.TotalVirtualMemory, "##,##0") & " \ " & Format(My.Computer.Info.AvailableVirtualMemory, "##,##0")
     End Sub
 
     Sub updateBarInfo()
@@ -52,45 +52,45 @@ Public Class frmAbout
 
         cdrive = My.Computer.FileSystem.GetDriveInfo("c:\")
 
-        Me.PrgrsBrDriveSize.Maximum = 100
-        Me.PrgrsBrDriveSize.Value = cdrive.AvailableFreeSpace / cdrive.TotalSize * 100
+        PrgrsBrDriveSize.Maximum = 100
+        PrgrsBrDriveSize.Value = cdrive.AvailableFreeSpace / cdrive.TotalSize * 100
 
-        Me.PrgrsBrPhysicalMemory.Maximum = 100
-        Me.PrgrsBrPhysicalMemory.Value = My.Computer.Info.AvailablePhysicalMemory / My.Computer.Info.TotalPhysicalMemory * 100
+        PrgrsBrPhysicalMemory.Maximum = 100
+        PrgrsBrPhysicalMemory.Value = My.Computer.Info.AvailablePhysicalMemory / My.Computer.Info.TotalPhysicalMemory * 100
 
-        Me.PrgrsBrVirtualMemory.Maximum = 100
-        Me.PrgrsBrVirtualMemory.Value = My.Computer.Info.AvailableVirtualMemory / My.Computer.Info.TotalVirtualMemory * 100
+        PrgrsBrVirtualMemory.Maximum = 100
+        PrgrsBrVirtualMemory.Value = My.Computer.Info.AvailableVirtualMemory / My.Computer.Info.TotalVirtualMemory * 100
     End Sub
 
     Sub enableText(ByVal b As Boolean)
         ' enable / disable text disk and memory usage labels
 
-        Me.lblDriveSizeValue.Visible = b
-        Me.lblDriveSizeValue.Enabled = b
-        Me.lblPhysicalMemoryValue.Visible = b
-        Me.lblPhysicalMemoryValue.Enabled = b
-        Me.lblVirtualMemoryValue.Visible = b
-        Me.lblVirtualMemoryValue.Enabled = b
+        lblDriveSizeValue.Visible = b
+        lblDriveSizeValue.Enabled = b
+        lblPhysicalMemoryValue.Visible = b
+        lblPhysicalMemoryValue.Enabled = b
+        lblVirtualMemoryValue.Visible = b
+        lblVirtualMemoryValue.Enabled = b
     End Sub
 
     Sub enableBar(ByVal b As Boolean)
         '   enable / disable disk and memory usage progress bars.
 
-        Me.PrgrsBrDriveSize.Visible = b
-        Me.PrgrsBrDriveSize.Enabled = b
-        Me.PrgrsBrPhysicalMemory.Visible = b
-        Me.PrgrsBrPhysicalMemory.Enabled = b
-        Me.PrgrsBrVirtualMemory.Visible = b
-        Me.PrgrsBrVirtualMemory.Enabled = b
+        PrgrsBrDriveSize.Visible = b
+        PrgrsBrDriveSize.Enabled = b
+        PrgrsBrPhysicalMemory.Visible = b
+        PrgrsBrPhysicalMemory.Enabled = b
+        PrgrsBrVirtualMemory.Visible = b
+        PrgrsBrVirtualMemory.Enabled = b
     End Sub
 
     Private Sub tmrAbout_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrAbout.Tick
         '   Called every second, updates dynamic text in real time.
 
-        Me.lblAppRunTimeValue.Text = getUpTime("A")
-        Me.lblSystemUpTimeValue.Text = getUpTime("S")
+        lblAppRunTimeValue.Text = getUpTime("A")
+        lblSystemUpTimeValue.Text = getUpTime("S")
 
-        If Me.ChckBxAbtSwap.Checked Then
+        If ChckBxAbtSwap.Checked Then
             enableBar(False)
             enableText(True)
             updateTextInfo()

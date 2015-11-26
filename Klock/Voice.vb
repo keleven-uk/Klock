@@ -21,11 +21,11 @@
 
         Try
             SAPI = CreateObject("SAPI.spvoice")
-            Me.Active() = True
+            Active() = True
 
         Catch ex As Exception                   '   something has gone wrong, display error and set active to false.
-            Me.displayAction.DisplayReminder("Voice Error :: Error with SAPI", ex.Message)
-            Me.Active() = False
+            displayAction.DisplayReminder("Voice Error :: Error with SAPI", ex.Message)
+            Active() = False
         End Try
     End Sub
 
@@ -42,6 +42,6 @@
     Public Sub Say(ByVal s As String)
         '   Uses's the SAPI engine to speak the string s.
 
-        If Me.Active Then SAPI.Speak(s)
+        If Active Then SAPI.Speak(s)
     End Sub
 End Class

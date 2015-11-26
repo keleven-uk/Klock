@@ -36,7 +36,7 @@
     Public reloadEvents As Boolean = True       '   if true, events file will be re-loaded.
     Public reloadMemo As Boolean = True         '   if true, memo file will be re-loaded.
 
-    Public grphcs As Graphics = Me.CreateGraphics   '   create graphic object globally, used to measure time text width
+    Public grphcs As Graphics = CreateGraphics   '   create graphic object globally, used to measure time text width
     Public hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}    '   create global, not every time.
 
     Public knownFirstNames As New AutoCompleteStringCollection      '   Auto Complete for friends first name.
@@ -59,36 +59,36 @@
         Dim currentSecond As Integer = Now.TimeOfDay.TotalSeconds                       '  so, all use the same time.
         Dim tmStr As String = ""
 
-        If Me.Visible Then                                                              '   Only update if form is visible, can't see if in system tray.
-            Me.updateStatusBar()
-            Me.updateTitleText()
+        If Visible Then                                                              '   Only update if form is visible, can't see if in system tray.
+            updateStatusBar()
+            updateTitleText()
 
-            If Me.TbCntrl.SelectedIndex = 0 Then
+            If TbCntrl.SelectedIndex = 0 Then
 
-                Me.displayOneTime.set24Hour = Me.usrSettings.usrTimeOne24Hour
-                tmStr = Me.displayOneTime.getTime()
+                displayOneTime.set24Hour = usrSettings.usrTimeOne24Hour
+                tmStr = displayOneTime.getTime()
 
-                Me.LblTimeOneTime.Font = Me.usrFonts.getFont(tmStr, Me.displayOneTime.getTitle, grphcs)
-                Me.LblTimeOneTime.Text = tmStr                                          '   Update local time in desired time format.
+                LblTimeOneTime.Font = usrFonts.getFont(tmStr, displayOneTime.getTitle, grphcs)
+                LblTimeOneTime.Text = tmStr                                          '   Update local time in desired time format.
 
-                If Me.usrSettings.usrTimeTwoFormats Then
+                If usrSettings.usrTimeTwoFormats Then
 
-                    Me.displayTwoTime.set24Hour = Me.usrSettings.usrTimeTwo24Hour
-                    tmStr = Me.displayTwoTime.getTime()
+                    displayTwoTime.set24Hour = usrSettings.usrTimeTwo24Hour
+                    tmStr = displayTwoTime.getTime()
 
-                    Me.LblTimeTwoTime.Font = Me.usrFonts.getFont(tmStr, Me.displayTwoTime.getTitle, grphcs)
-                    Me.LblTimeTwoTime.Text = tmStr                                      '   display local time in desired time format.
+                    LblTimeTwoTime.Font = usrFonts.getFont(tmStr, displayTwoTime.getTitle, grphcs)
+                    LblTimeTwoTime.Text = tmStr                                      '   display local time in desired time format.
 
                 End If                                                                  '   If Me.usrSettings.usrTimeTwoFormats Then
-            ElseIf Me.TbCntrl.SelectedIndex = 1 Then
-                Me.updateWorldKlock()                                                   '   Update World Klock.
+            ElseIf TbCntrl.SelectedIndex = 1 Then
+                updateWorldKlock()                                                   '   Update World Klock.
             End If                                                                      '   If Me.TbCntrl.SelectedIndex = 0 [or 1] Then
         Else                                                                            '   else If Me.Visible Then
-            Me.NotificationDispaly(currentSecond)                                       '   display a notification, if desired
+            NotificationDispaly(currentSecond)                                       '   display a notification, if desired
         End If                                                                          '   If Me.Visible Then
 
-        Me.playHourlyChimes(currentSecond)                                              '   Play a hourly chime,  if desired.
-        Me.Notificationspeech(currentSecond)                                            '   Speak time, if desired.
+        playHourlyChimes(currentSecond)                                              '   Play a hourly chime,  if desired.
+        Notificationspeech(currentSecond)                                            '   Speak time, if desired.
     End Sub
 
     Private Sub updateStatusBar()
@@ -97,14 +97,14 @@
         Dim strKey As String = "cns off"
 
         '                                               if running on battery, change status info colour to red as a warning.
-        If Me.myManagedPower.powerSource().Contains("AC") Then
-            Me.stsLblTime.ForeColor = Color.Black
-            Me.StsLblDate.ForeColor = Color.Black
-            Me.StsLblKeys.ForeColor = Color.Black
+        If myManagedPower.powerSource().Contains("AC") Then
+            stsLblTime.ForeColor = Color.Black
+            StsLblDate.ForeColor = Color.Black
+            StsLblKeys.ForeColor = Color.Black
         Else
-            Me.stsLblTime.ForeColor = Color.Red
-            Me.StsLblDate.ForeColor = Color.Red
-            Me.StsLblKeys.ForeColor = Color.Red
+            stsLblTime.ForeColor = Color.Red
+            StsLblDate.ForeColor = Color.Red
+            StsLblKeys.ForeColor = Color.Red
         End If
 
         If My.Computer.Keyboard.CapsLock.ToString() Then strKey = Replace(strKey, "c", "C")
@@ -112,23 +112,23 @@
         If My.Computer.Keyboard.ScrollLock.ToString() Then strKey = Replace(strKey, "s", "S")
         If KlockThings.HaveInternetConnection() Then strKey = Replace(strKey, "off", "ON")
 
-        If Me.usrSettings.usrTimeSystem24Hour Then
-            Me.stsLblTime.Text = String.Format("{0:HH:mm:ss}", System.DateTime.Now)
+        If usrSettings.usrTimeSystem24Hour Then
+            stsLblTime.Text = String.Format("{0:HH:mm:ss}", System.DateTime.Now)
         Else
-            Me.stsLblTime.Text = String.Format("{0:hh:mm:ss tt}", System.DateTime.Now)
+            stsLblTime.Text = String.Format("{0:hh:mm:ss tt}", System.DateTime.Now)
         End If
 
         '   Me.stsLblTime.Text = Format(Now, "Long Time")
-        Me.StsLblDate.Text = Format(Now, "Long Date")
-        Me.StsLblKeys.Text = strKey
+        StsLblDate.Text = Format(Now, "Long Date")
+        StsLblKeys.Text = strKey
 
         '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleeping.
 
-        If Me.usrSettings.usrTimeIdleTime Or Me.usrSettings.usrDisableMonitorSleep Then
-            Me.stsLbIdkeTime.Visible = True
-            Me.stsLbIdkeTime.Text = KlockThings.idleTime()
+        If usrSettings.usrTimeIdleTime Or usrSettings.usrDisableMonitorSleep Then
+            stsLbIdkeTime.Visible = True
+            stsLbIdkeTime.Text = KlockThings.idleTime()
         Else
-            Me.stsLbIdkeTime.Visible = False
+            stsLbIdkeTime.Visible = False
         End If
 
     End Sub
@@ -138,114 +138,114 @@
 
         setTitleText()
 
-        Dim titletext As String = Me.Text
+        Dim titletext As String = Text
 
-        If Me.usrSettings.usrTimerAdd And Me.tmrTimer.Enabled Then          '   time is running
-            If Me.usrSettings.usrTimerHigh Then                             '   are we displaying milliseconds in timer.
+        If usrSettings.usrTimerAdd And tmrTimer.Enabled Then          '   time is running
+            If usrSettings.usrTimerHigh Then                             '   are we displaying milliseconds in timer.
                 titletext = titletext & " .::. " & displayTimer.getHighElapsedTime() & " : "
             Else
                 titletext = titletext & " .::. " & displayTimer.getLowElapsedTime() & " : "
             End If
         End If
 
-        If Me.usrSettings.usrCountdownAdd And Me.tmrCountDown.Enabled Then '   countdown is running.
-            titletext = titletext & " .::. " & minsToString(Me.CountDownTime)
+        If usrSettings.usrCountdownAdd And tmrCountDown.Enabled Then '   countdown is running.
+            titletext = titletext & " .::. " & minsToString(CountDownTime)
         End If
 
-        If Me.usrSettings.usrReminderAdd And Me.tmrReminder.Enabled Then
-            If Me.usrSettings.usrReminderTimeChecked Then
-                titletext = titletext & " .::. Reminder set for " & Me.ReminderDateTime.ToLongDateString & " @ " & Me.ReminderDateTime.ToLongTimeString
+        If usrSettings.usrReminderAdd And tmrReminder.Enabled Then
+            If usrSettings.usrReminderTimeChecked Then
+                titletext = titletext & " .::. Reminder set for " & ReminderDateTime.ToLongDateString & " @ " & ReminderDateTime.ToLongTimeString
             Else
-                titletext = titletext & " .::. Reminder set for " & Me.ReminderDateTime.ToLongDateString
+                titletext = titletext & " .::. Reminder set for " & ReminderDateTime.ToLongDateString
             End If
         End If
 
-        Me.Text = titletext
+        Text = titletext
     End Sub
 
     Private Sub playHourlyChimes(ByVal m As Integer)
         '   Depending upon user settings, will play hourly pips or chimes.
         '   The chimes can sound on the hour and every quarter hour if desired.
 
-        If Me.usrSettings.usrTimeHourPips And (Math.Floor(m Mod 3600) = 0) Then                                 '    will this work at midnight???
+        If usrSettings.usrTimeHourPips And (Math.Floor(m Mod 3600) = 0) Then                                 '    will this work at midnight???
 
-            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\thepips.mp3"))   '    Play the Pips on the hour, if desired.
-        ElseIf Me.usrSettings.usrTimeHourChimes And (Math.Floor(m Mod 3600) = 0) Then                           '    Play hourly chimes, if desired.
+            displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\thepips.mp3"))   '    Play the Pips on the hour, if desired.
+        ElseIf usrSettings.usrTimeHourChimes And (Math.Floor(m Mod 3600) = 0) Then                           '    Play hourly chimes, if desired.
 
             Dim hour As Integer = Now.Hour
 
             If hour > 12 Then hour -= 12
 
-            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\" & hours(hour) & ".mp3"))
-        ElseIf Me.usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 900) = 0) Then                         '    Play quarter chimes, if desired.
+            displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\" & hours(hour) & ".mp3"))
+        ElseIf usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 900) = 0) Then                         '    Play quarter chimes, if desired.
 
-            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\quarterchime.mp3"))
-        ElseIf Me.usrSettings.usrTimeHalfChimes And (Math.Floor(m Mod 1800) = 0) Then                           '    Play half hourly chimes, if desired.
+            displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\quarterchime.mp3"))
+        ElseIf usrSettings.usrTimeHalfChimes And (Math.Floor(m Mod 1800) = 0) Then                           '    Play half hourly chimes, if desired.
 
-            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\halfchime.mp3"))
-        ElseIf Me.usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 2700) = 0) Then                        '    Play three quarter chimes, if desired.
+            displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\halfchime.mp3"))
+        ElseIf usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 2700) = 0) Then                        '    Play three quarter chimes, if desired.
 
-            Me.displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\threequarterchime.mp3"))
+            displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\threequarterchime.mp3"))
         End If
     End Sub
 
     Private Sub Notificationspeech(ByVal m As Integer)
         '   if desired, check the status of speak time - should speak time every ?? minutes.
 
-        Dim noSecs As Integer = Me.usrSettings.usrTimeVoiceMinutes * 60
+        Dim noSecs As Integer = usrSettings.usrTimeVoiceMinutes * 60
 
-        If Me.usrSettings.usrTimeVoiceMinimised And (Math.Floor(m Mod noSecs) = 0) Then usrVoice.Say(displayOneTime.getTime())
+        If usrSettings.usrTimeVoiceMinimised And (Math.Floor(m Mod noSecs) = 0) Then usrVoice.Say(displayOneTime.getTime())
     End Sub
 
     Private Sub NotificationDispaly(ByVal m As Integer)
         '   If desired, check the status of notifications - should display the time every ?? minutes.
         '   Also, display result to time and countdown, if there running.  TO DO, should they be on their own settings?
 
-        Me.displayOneTime.set24Hour = Me.usrSettings.usrTimeOne24Hour
+        displayOneTime.set24Hour = usrSettings.usrTimeOne24Hour
         Try
-            Me.NtfyIcnKlock.Text = Me.displayOneTime.getTitle & " : " & Me.displayOneTime.getTime()    '   set icon tool tip to current time [must be less then 64 chars].
+            NtfyIcnKlock.Text = displayOneTime.getTitle & " : " & displayOneTime.getTime()    '   set icon tool tip to current time [must be less then 64 chars].
         Catch ex As Exception
-            Me.displayAction.DisplayReminder("Notification Error", ex.Message)
+            displayAction.DisplayReminder("Notification Error", ex.Message)
         End Try
 
-        Dim noSecs As Integer = Me.usrSettings.usrTimeDisplayMinutes * 60
+        Dim noSecs As Integer = usrSettings.usrTimeDisplayMinutes * 60
 
-        If Me.usrSettings.usrTimeDisplayMinimised And (Math.Floor(m Mod noSecs) = 0) Then
+        If usrSettings.usrTimeDisplayMinimised And (Math.Floor(m Mod noSecs) = 0) Then
 
-            Me.displayAction.DisplayReminder("Time", displayOneTime.getTime())  '   display current time as a toast notification,if desired
+            displayAction.DisplayReminder("Time", displayOneTime.getTime())  '   display current time as a toast notification,if desired
 
-            If Me.usrSettings.usrTimerAdd And Me.tmrTimer.Enabled Then          '   time is running
-                If Me.usrSettings.usrTimerHigh Then                             '   are we displaying milliseconds in timer.
-                    Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getHighElapsedTime())
+            If usrSettings.usrTimerAdd And tmrTimer.Enabled Then          '   time is running
+                If usrSettings.usrTimerHigh Then                             '   are we displaying milliseconds in timer.
+                    displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getHighElapsedTime())
                 Else
-                    Me.displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getLowElapsedTime())
+                    displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getLowElapsedTime())
                 End If
             End If
 
-            If Me.usrSettings.usrCountdownAdd And Me.tmrCountDown.Enabled Then  '   countdown is running.
-                Me.displayAction.DisplayReminder("Countdown", "Countdown Running :: " & minsToString(Me.CountDownTime))
+            If usrSettings.usrCountdownAdd And tmrCountDown.Enabled Then  '   countdown is running.
+                displayAction.DisplayReminder("Countdown", "Countdown Running :: " & minsToString(CountDownTime))
             End If
 
-            If Me.usrSettings.usrReminderAdd And Me.tmrReminder.Enabled Then
-                If Me.usrSettings.usrReminderTimeChecked Then
-                    Me.displayAction.DisplayReminder("Reminder", "Reminder set for " & Me.ReminderDateTime.ToLongDateString & " @ " & Me.ReminderDateTime.ToLongTimeString)
+            If usrSettings.usrReminderAdd And tmrReminder.Enabled Then
+                If usrSettings.usrReminderTimeChecked Then
+                    displayAction.DisplayReminder("Reminder", "Reminder set for " & ReminderDateTime.ToLongDateString & " @ " & ReminderDateTime.ToLongTimeString)
                 Else
-                    Me.displayAction.DisplayReminder("Reminder", "Reminder set for " & Me.ReminderDateTime.ToLongDateString)
+                    displayAction.DisplayReminder("Reminder", "Reminder set for " & ReminderDateTime.ToLongDateString)
                 End If
             End If
 
-            If Me.usrSettings.usrWorldKlockAdd Then
+            If usrSettings.usrWorldKlockAdd Then
 
                 Dim wctext As String
 
                 If RdBtnWorldClockTimeZoneLongName.Checked Then
-                    Dim TzInfo As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(Me.CmbBxWorldKlockTimeZones.SelectedItem.id)
+                    Dim TzInfo As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(CmbBxWorldKlockTimeZones.SelectedItem.id)
                     wctext = TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongDateString & " :: " & TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongTimeString
                 Else
-                    wctext = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongDateString & " :: " & TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongTimeString
+                    wctext = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, CmbBxWorldKlockTimeZones.SelectedItem).ToLongDateString & " :: " & TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, CmbBxWorldKlockTimeZones.SelectedItem).ToLongTimeString
                 End If
 
-                Me.displayAction.DisplayReminder("World Klock :: " & Me.CmbBxWorldKlockTimeZones.SelectedItem.ToString, wctext)
+                displayAction.DisplayReminder("World Klock :: " & CmbBxWorldKlockTimeZones.SelectedItem.ToString, wctext)
             End If
 
         End If          '   If Me.usrsettings.usrTimeDislayMinimised
@@ -255,19 +255,19 @@
     Private Sub tmrTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrTimer.Tick
         '   If enabled, timer is running - update timer label
 
-        Me.lblTimerTime.Text = If(Me.usrSettings.usrTimerHigh, displayTimer.getHighElapsedTime(), displayTimer.getLowElapsedTime())
+        lblTimerTime.Text = If(usrSettings.usrTimerHigh, displayTimer.getHighElapsedTime(), displayTimer.getLowElapsedTime())
     End Sub
 
     ' ******************************************************************************************************************* Countdown clock ****************
     Private Sub tmrCountDown_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCountDown.Tick
         '   If enabled, countdown is running - clock ticks every second.
 
-        Me.CountDownTime -= 1                                           '   decrement countdown every second.
-        Me.lblCountDownTime.Text = minsToString(Me.CountDownTime)       '   update countdown label.
+        CountDownTime -= 1                                           '   decrement countdown every second.
+        lblCountDownTime.Text = minsToString(CountDownTime)       '   update countdown label.
 
-        If Me.CountDownTime = 0 Then                                    '   countdown has finished.
-            Me.CountDownAction()                                        '   perform action.
-            Me.CountDownClear()                                         '   clear down countdown.
+        If CountDownTime = 0 Then                                    '   countdown has finished.
+            CountDownAction()                                        '   perform action.
+            CountDownClear()                                         '   clear down countdown.
         End If
     End Sub
 
@@ -276,22 +276,22 @@
     Private Sub tmrReminder_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrReminder.Tick
         '   If enabled, a reminder has been set.
 
-        If Now() > Me.ReminderDateTime Then
-            Me.ReminderAction()
-            Me.clearReminder()                                              '   clear down reminder tab after action.
+        If Now() > ReminderDateTime Then
+            ReminderAction()
+            clearReminder()                                              '   clear down reminder tab after action.
         Else
-            Dim hms As TimeSpan = Me.ReminderDateTime.Subtract(Now())
+            Dim hms As TimeSpan = ReminderDateTime.Subtract(Now())
             Dim tmStr As String = ""
 
-            If Me.ChckBxReminderTimeCheck.Checked Then                      '   tack on the remaining time
-                tmStr = String.Format("Reminder set for {0} @ {1} : {2:%d}d {2:%h}h {2:%m}m {2:%s}s", Me.ReminderDateTime.ToLongDateString, Me.ReminderDateTime.ToShortTimeString, hms)
+            If ChckBxReminderTimeCheck.Checked Then                      '   tack on the remaining time
+                tmStr = String.Format("Reminder set for {0} @ {1} : {2:%d}d {2:%h}h {2:%m}m {2:%s}s", ReminderDateTime.ToLongDateString, ReminderDateTime.ToShortTimeString, hms)
 
-                Me.lblReminderText.Font = Me.usrFonts.getFont(tmStr, "Reminder", grphcs)
-                Me.lblReminderText.Text = tmStr
+                lblReminderText.Font = usrFonts.getFont(tmStr, "Reminder", grphcs)
+                lblReminderText.Text = tmStr
             Else
-                tmStr = String.Format("Reminder set for {0} : {1:%d}d {1:%h}h {1:%m}m {1:%s}s", Me.ReminderDateTime.ToLongDateString, hms)
-                Me.lblReminderText.Font = Me.usrFonts.getFont(tmStr, "Reminder", grphcs)
-                Me.lblReminderText.Text = tmStr
+                tmStr = String.Format("Reminder set for {0} : {1:%d}d {1:%h}h {1:%m}m {1:%s}s", ReminderDateTime.ToLongDateString, hms)
+                lblReminderText.Font = usrFonts.getFont(tmStr, "Reminder", grphcs)
+                lblReminderText.Text = tmStr
             End If
         End If
     End Sub
@@ -307,9 +307,9 @@
 
         noOfMinutes += 1
 
-        If noOfMinutes > Me.usrSettings.usrEventsTimerInterval Then
+        If noOfMinutes > usrSettings.usrEventsTimerInterval Then
             noOfMinutes = 0
-            Me.checkEvents()
+            checkEvents()
         End If
     End Sub
 
@@ -318,12 +318,12 @@
     Private Sub TbCntrl_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TbCntrl.SelectedIndexChanged
         '    Performed when ever the main tab is changed, used for any tab initialisation.
 
-        Select Case Me.TbCntrl.SelectedIndex
+        Select Case TbCntrl.SelectedIndex
             Case 0                                              '   time tab
                 FEMcommon.ButtonsVisible(False, 0, 0, 0)
             Case 1                                              '   World Klock
                 FEMcommon.ButtonsVisible(False, 0, 0, 0)
-                Me.updateWorldKlock()
+                updateWorldKlock()
             Case 2                                              '   countdown tab
                 FEMcommon.ButtonsVisible(False, 0, 0, 0)
             Case 3                                              '   timer tab
@@ -331,53 +331,53 @@
             Case 4                                              '   reminder tab
                 FEMcommon.ButtonsVisible(False, 0, 0, 0)
 
-                If Me.usrSettings.usrReminderTimeChecked Then
-                    Me.TmPckrRiminder.Enabled = True
-                    Me.TmPckrRiminder.Value = Now()
+                If usrSettings.usrReminderTimeChecked Then
+                    TmPckrRiminder.Enabled = True
+                    TmPckrRiminder.Value = Now()
                 Else
-                    Me.TmPckrRiminder.Enabled = False
-                    Me.TmPckrRiminder.Value = Today
+                    TmPckrRiminder.Enabled = False
+                    TmPckrRiminder.Value = Today
                 End If
             Case 5                                              '   friends tab         NB: only pass the list-box count of the relevant tab - saves stuff.
-                FEMcommon.ButtonsVisible(True, Me.LstBxFriends.Items.Count, 0, 0)
+                FEMcommon.ButtonsVisible(True, LstBxFriends.Items.Count, 0, 0)
 
-                If Me.reloadFriends Then
+                If reloadFriends Then
                     IOcommon.loadFriends()
-                    Me.blankFriendsDate()
-                    Me.LoadAutoCompleteStuff()
-                    Me.reloadFriends = False                    ' do not reload, if not necessary
+                    blankFriendsDate()
+                    LoadAutoCompleteStuff()
+                    reloadFriends = False                    ' do not reload, if not necessary
                 End If
 
-                If Me.LstBxFriends.Items.Count > 0 Then
-                    Me.btnDelete.Enabled = True
-                    Me.btnEdit.Enabled = True
-                    Me.showFriends(0)
+                If LstBxFriends.Items.Count > 0 Then
+                    btnDelete.Enabled = True
+                    btnEdit.Enabled = True
+                    showFriends(0)
                 End If
             Case 6                                              '   Events tab
-                FEMcommon.ButtonsVisible(True, 0, Me.LstBxEvents.Items.Count, 0)
+                FEMcommon.ButtonsVisible(True, 0, LstBxEvents.Items.Count, 0)
 
-                If Me.reloadEvents Then
+                If reloadEvents Then
                     IOcommon.loadEvents()
-                    Me.reloadEvents = False
+                    reloadEvents = False
                 End If
 
-                If Me.LstBxEvents.Items.Count > 0 Then
-                    Me.btnDelete.Enabled = True
-                    Me.btnEdit.Enabled = True
-                    Me.showEvents(0)
+                If LstBxEvents.Items.Count > 0 Then
+                    btnDelete.Enabled = True
+                    btnEdit.Enabled = True
+                    showEvents(0)
                 End If
             Case 7                                              '   Memo tab
-                FEMcommon.ButtonsVisible(True, 0, 0, Me.LstBxMemo.Items.Count)
+                FEMcommon.ButtonsVisible(True, 0, 0, LstBxMemo.Items.Count)
 
-                If Me.reloadMemo Then
+                If reloadMemo Then
                     IOcommon.loadMemo()
-                    Me.reloadMemo = False
+                    reloadMemo = False
                 End If
 
-                If Me.LstBxMemo.Items.Count > 0 Then
-                    Me.btnDelete.Enabled = True
-                    Me.btnEdit.Enabled = True
-                    Me.showMemo(0)
+                If LstBxMemo.Items.Count > 0 Then
+                    btnDelete.Enabled = True
+                    btnEdit.Enabled = True
+                    showMemo(0)
                 End If
             Case 8                                              '   Convert tab
                 FEMcommon.ButtonsVisible(False, 0, 0, 0)
@@ -393,206 +393,206 @@
 
         Dim names = System.Enum.GetNames(GetType(selectTime.TimeTypes))
 
-        Me.CmbBxTimeOne.Items.AddRange(names)
-        Me.CmbBxTimeTwo.Items.AddRange(names)
+        CmbBxTimeOne.Items.AddRange(names)
+        CmbBxTimeTwo.Items.AddRange(names)
         frmOptions.CmbBxDefaultTimeFormat.Items.AddRange(names)
         frmOptions.CmbBxDefaultTimeTwoFormat.Items.AddRange(names)
 
-        Me.CmbBxTimeOne.SelectedIndex = Me.usrSettings.usrTimeDefaultFormat
-        Me.CmbBxTimeTwo.SelectedIndex = Me.usrSettings.usrTimeTWODefaultFormat
-        frmOptions.CmbBxDefaultTimeFormat.SelectedIndex = Me.usrSettings.usrTimeDefaultFormat
-        frmOptions.CmbBxDefaultTimeTwoFormat.SelectedIndex = Me.usrSettings.usrTimeTWODefaultFormat
+        CmbBxTimeOne.SelectedIndex = usrSettings.usrTimeDefaultFormat
+        CmbBxTimeTwo.SelectedIndex = usrSettings.usrTimeTWODefaultFormat
+        frmOptions.CmbBxDefaultTimeFormat.SelectedIndex = usrSettings.usrTimeDefaultFormat
+        frmOptions.CmbBxDefaultTimeTwoFormat.SelectedIndex = usrSettings.usrTimeTWODefaultFormat
     End Sub
 
     'TODO :: following two subs should be combined
     Private Sub CmbBxTimeOne_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxTimeOne.SelectedIndexChanged
         '   Inform displayTime of the chosen time format.
 
-        Me.displayOneTime.setType = CmbBxTimeOne.SelectedIndex
+        displayOneTime.setType = CmbBxTimeOne.SelectedIndex
     End Sub
 
     Private Sub CmbBxTimeTwo_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxTimeTwo.SelectedIndexChanged
         '   Inform displayTime of the chosen time format.
 
-        Me.displayTwoTime.setType = CmbBxTimeTwo.SelectedIndex
+        displayTwoTime.setType = CmbBxTimeTwo.SelectedIndex
     End Sub
     '   ************************************************************************************************** timer ***************************************
 
     Private Sub btnTimerStart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerStart.Click
         '   Start the timer
 
-        Me.displayTimer.startStopWatch()
+        displayTimer.startStopWatch()
 
-        Me.tmrTimer.Enabled = True
+        tmrTimer.Enabled = True
 
-        Me.btnTimerStop.Enabled = True
-        Me.btnTimerSplit.Enabled = True
-        Me.btnTimerStart.Enabled = False
-        Me.btnTimerClear.Enabled = False
+        btnTimerStop.Enabled = True
+        btnTimerSplit.Enabled = True
+        btnTimerStart.Enabled = False
+        btnTimerClear.Enabled = False
     End Sub
 
     Private Sub btnTimerStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerStop.Click
         '   Stop the timer, allows to be resumed by renaming the start button.
 
-        Me.displayTimer.stopStopWatch()
+        displayTimer.stopStopWatch()
 
-        Me.tmrTimer.Enabled = False
+        tmrTimer.Enabled = False
 
-        Me.btnTimerStop.Enabled = False
-        Me.btnTimerClear.Enabled = True
+        btnTimerStop.Enabled = False
+        btnTimerClear.Enabled = True
 
-        Me.btnTimerStart.Text = "Resume"
-        Me.btnTimerStart.Enabled = True
+        btnTimerStart.Text = "Resume"
+        btnTimerStart.Enabled = True
     End Sub
 
     Private Sub btnTimerClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerClear.Click
         '   Clears down the countdown, if enables also clear split time.
 
-        Me.displayTimer.clearStopWatch()
+        displayTimer.clearStopWatch()
 
-        Me.btnTimerClear.Enabled = False
-        Me.btnTimerSplit.Enabled = False
+        btnTimerClear.Enabled = False
+        btnTimerSplit.Enabled = False
 
-        Me.btnTimerStart.Text = "Start"
-        Me.btnTimerStart.Enabled = True
+        btnTimerStart.Text = "Start"
+        btnTimerStart.Enabled = True
 
-        If Me.usrSettings.usrTimerClearSplit Then
-            If Me.usrSettings.usrTimerHigh Then
-                Me.lblTimerTime.Text = "00:00:00:00"
-                Me.lblTimerSplit.Text = "00:00:00:00"
+        If usrSettings.usrTimerClearSplit Then
+            If usrSettings.usrTimerHigh Then
+                lblTimerTime.Text = "00:00:00:00"
+                lblTimerSplit.Text = "00:00:00:00"
             Else
-                Me.lblTimerTime.Text = "00:00:00"
-                Me.lblTimerSplit.Text = "00:00:00"
+                lblTimerTime.Text = "00:00:00"
+                lblTimerSplit.Text = "00:00:00"
             End If
-            Me.btnTimerSplitClear.Enabled = False
+            btnTimerSplitClear.Enabled = False
         Else
-            Me.lblTimerTime.Text = If(Me.usrSettings.usrTimerHigh, "00:00:00:00", "00:00:00")
+            lblTimerTime.Text = If(usrSettings.usrTimerHigh, "00:00:00:00", "00:00:00")
         End If
     End Sub
 
     Private Sub btnTimerSplit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerSplit.Click
         '   Copies time to split time.
 
-        Me.lblTimerSplit.Text = Me.lblTimerTime.Text
+        lblTimerSplit.Text = lblTimerTime.Text
 
-        Me.btnTimerSplitClear.Enabled = True
+        btnTimerSplitClear.Enabled = True
     End Sub
 
     Private Sub btnTimerSplitClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTimerSplitClear.Click
         '   Clears the split time.
 
-        Me.lblTimerSplit.Text = If(Me.usrSettings.usrTimerHigh, "00:00:00:00", "00:00:00")
+        lblTimerSplit.Text = If(usrSettings.usrTimerHigh, "00:00:00:00", "00:00:00")
 
-        Me.btnTimerSplitClear.Enabled = False
+        btnTimerSplitClear.Enabled = False
     End Sub
 
     ' ************************************************************************************************************ Countdown ******************************
     Private Sub upDwnCntDownValue_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles upDwnCntDownValue.ValueChanged
         '   When the up down counter has been changed, enable the start button and update the countdown label.
 
-        Me.btnCountDownStart.Enabled = If(Me.upDwnCntDownValue.Value = 0, False, True)
+        btnCountDownStart.Enabled = If(upDwnCntDownValue.Value = 0, False, True)
 
-        Me.CountDownTime = Me.upDwnCntDownValue.Value * 60
-        Me.lblCountDownTime.Text = minsToString(CountDownTime)
+        CountDownTime = upDwnCntDownValue.Value * 60
+        lblCountDownTime.Text = minsToString(CountDownTime)
     End Sub
 
     Private Sub btnCountDownStart_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownStart.Click
         '   Start the countdown by enabling the timer.
         '   Also, enable the stop button and countdown label and switch off quick start buttons..
 
-        Me.tmrCountDown.Enabled = True
+        tmrCountDown.Enabled = True
 
-        Me.btnCountDownStart.Enabled = False
-        Me.btnCountDownStop.Enabled = True
-        Me.upDwnCntDownValue.Enabled = False
-        Me.lblCountDownTime.Enabled = True
-        Me.QuickStartButtons(False)
+        btnCountDownStart.Enabled = False
+        btnCountDownStop.Enabled = True
+        upDwnCntDownValue.Enabled = False
+        lblCountDownTime.Enabled = True
+        QuickStartButtons(False)
     End Sub
 
     Private Sub btnCountDownStop_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownStop.Click
         '   Clear the countdown.
 
-        Me.CountDownClear()
+        CountDownClear()
     End Sub
 
     Private Sub btnCountdown30_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdown30.Click
         '   runs the countdown for 30 minutes form the quick start button.
 
-        Me.CountDownTime = 30 * 60                                  '   30 minutes in seconds.
-        Me.lblCountDownTime.Text = minsToString(CountDownTime)
-        Me.btnCountDownStart_Click(sender, e)                       '   call click sub to start countdown.
+        CountDownTime = 30 * 60                                  '   30 minutes in seconds.
+        lblCountDownTime.Text = minsToString(CountDownTime)
+        btnCountDownStart_Click(sender, e)                       '   call click sub to start countdown.
     End Sub
 
     Private Sub btnCountdown60_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdown60.Click
         '   runs the countdown for 60 minutes form the quick start button.
 
-        Me.CountDownTime = 60 * 60                                  '   60 minutes in seconds.
-        Me.lblCountDownTime.Text = minsToString(CountDownTime)
-        Me.btnCountDownStart_Click(sender, e)                       '   call click sub to start countdown.
+        CountDownTime = 60 * 60                                  '   60 minutes in seconds.
+        lblCountDownTime.Text = minsToString(CountDownTime)
+        btnCountDownStart_Click(sender, e)                       '   call click sub to start countdown.
     End Sub
 
     Private Sub btnCountdown90_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdown90.Click
         '   runs the countdown for 90 minutes form the quick start button.
 
-        Me.CountDownTime = 90 * 60                                  '   90 minutes in seconds.
-        Me.lblCountDownTime.Text = minsToString(CountDownTime)
-        Me.btnCountDownStart_Click(sender, e)                       '   call click sub to start countdown.
+        CountDownTime = 90 * 60                                  '   90 minutes in seconds.
+        lblCountDownTime.Text = minsToString(CountDownTime)
+        btnCountDownStart_Click(sender, e)                       '   call click sub to start countdown.
     End Sub
 
     Private Sub QuickStartButtons(ByVal b As Boolean)
         '   toggles the quick start buttons on/off.
 
-        Me.btnCountdown30.Enabled = b
-        Me.btnCountdown60.Enabled = b
-        Me.btnCountdown90.Enabled = b
+        btnCountdown30.Enabled = b
+        btnCountdown60.Enabled = b
+        btnCountdown90.Enabled = b
     End Sub
 
     Private Sub CmbBxCountDownAction_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxCountDownAction.SelectedIndexChanged
         '   Depending on the position of the action combo box, enable the appropriate  action controls.
 
-        Select Case Me.CmbBxCountDownAction.SelectedIndex
+        Select Case CmbBxCountDownAction.SelectedIndex
             Case 0                                                  '   Sound chosen
-                Me.CountDownSound(True)
-                Me.CountDownReminder(False)
-                Me.CountDownSystem(False)
-                Me.CountDownCommand(False)
-                Me.CountdownSpeech(False)
-                Me.CountdownScreenSaver(False)
+                CountDownSound(True)
+                CountDownReminder(False)
+                CountDownSystem(False)
+                CountDownCommand(False)
+                CountdownSpeech(False)
+                CountdownScreenSaver(False)
             Case 1                                                  '   Reminder chosen
-                Me.CountDownSound(False)
-                Me.CountDownReminder(True)
-                Me.CountDownSystem(False)
-                Me.CountDownCommand(False)
-                Me.CountdownSpeech(False)
-                Me.CountdownScreenSaver(False)
+                CountDownSound(False)
+                CountDownReminder(True)
+                CountDownSystem(False)
+                CountDownCommand(False)
+                CountdownSpeech(False)
+                CountdownScreenSaver(False)
             Case 2                                                  '   System action chosen
-                Me.CountDownSound(False)
-                Me.CountDownReminder(False)
-                Me.CountDownSystem(True)
-                Me.CountDownCommand(False)
-                Me.CountdownSpeech(False)
-                Me.CountdownScreenSaver(False)
+                CountDownSound(False)
+                CountDownReminder(False)
+                CountDownSystem(True)
+                CountDownCommand(False)
+                CountdownSpeech(False)
+                CountdownScreenSaver(False)
             Case 3                                                  '   Run Command chosen
-                Me.CountDownSound(False)
-                Me.CountDownReminder(False)
-                Me.CountDownSystem(False)
-                Me.CountDownCommand(True)
-                Me.CountdownSpeech(False)
-                Me.CountdownScreenSaver(False)
+                CountDownSound(False)
+                CountDownReminder(False)
+                CountDownSystem(False)
+                CountDownCommand(True)
+                CountdownSpeech(False)
+                CountdownScreenSaver(False)
             Case 4                                                  '   Speak chosen
-                Me.CountDownSound(False)
-                Me.CountDownReminder(False)
-                Me.CountDownSystem(False)
-                Me.CountDownCommand(False)
-                Me.CountdownSpeech(True)
-                Me.CountdownScreenSaver(False)
+                CountDownSound(False)
+                CountDownReminder(False)
+                CountDownSystem(False)
+                CountDownCommand(False)
+                CountdownSpeech(True)
+                CountdownScreenSaver(False)
             Case 5                                                  '   Screen Saver chosen
-                Me.CountDownSound(False)
-                Me.CountDownReminder(False)
-                Me.CountDownSystem(False)
-                Me.CountDownCommand(False)
-                Me.CountdownSpeech(False)
-                Me.CountdownScreenSaver(True)
+                CountDownSound(False)
+                CountDownReminder(False)
+                CountDownSystem(False)
+                CountDownCommand(False)
+                CountdownSpeech(False)
+                CountdownScreenSaver(True)
         End Select
     End Sub
 
@@ -601,59 +601,59 @@
         '   Selects sound action controls if checked.
         '   NB :: every time the checkbox changes, this toggles the state of the enables flag.
 
-        Me.TxtBxCountDownAction.Enabled = Not Me.TxtBxCountDownAction.Enabled
-        Me.btnCountdownLoadSound.Enabled = Not Me.btnCountdownLoadSound.Enabled
-        Me.btnCountDownTestSound.Enabled = Not Me.btnCountDownTestSound.Enabled
+        TxtBxCountDownAction.Enabled = Not TxtBxCountDownAction.Enabled
+        btnCountdownLoadSound.Enabled = Not btnCountdownLoadSound.Enabled
+        btnCountDownTestSound.Enabled = Not btnCountDownTestSound.Enabled
     End Sub
 
     Private Sub ChckBxCountDownReminder_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxCountDownReminder.CheckedChanged
         '   Selects reminder action controls if checked.
 
-        Me.TxtBxCountDownReminder.Enabled = Not Me.TxtBxCountDownReminder.Enabled
+        TxtBxCountDownReminder.Enabled = Not TxtBxCountDownReminder.Enabled
     End Sub
 
     Private Sub ChckBxCountDownSystem_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxCountDownSystem.CheckedChanged
         '   Selects countdown action controls if checked.
 
-        Me.CmbBxCountDownSystem.Enabled = Not Me.CmbBxCountDownSystem.Enabled
+        CmbBxCountDownSystem.Enabled = Not CmbBxCountDownSystem.Enabled
     End Sub
 
     Private Sub ChckBxCountDownCommand_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxCountDownCommand.CheckedChanged
         '   Selects run command action controls if checked.
 
-        Me.TxtBxCountDowndCommand.Enabled = Not Me.TxtBxCountDowndCommand.Enabled
-        Me.btnCountDownLoadCommand.Enabled = Not Me.btnCountDownLoadCommand.Enabled
+        TxtBxCountDowndCommand.Enabled = Not TxtBxCountDowndCommand.Enabled
+        btnCountDownLoadCommand.Enabled = Not btnCountDownLoadCommand.Enabled
     End Sub
 
     Private Sub ChckBxCountdownspeech_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxCountdownSpeech.CheckedChanged
         '   Selects speech action controls if desired.
 
-        Me.TxtBxCountdownSpeech.Enabled = Not Me.TxtBxCountdownSpeech.Enabled
+        TxtBxCountdownSpeech.Enabled = Not TxtBxCountdownSpeech.Enabled
     End Sub
 
     Private Sub btnCountDownTestSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownTestSound.Click
         '   Play sound in test button is pressed.
 
-        Me.displayAction.PlaySound(TxtBxCountDownAction.Text)
+        displayAction.PlaySound(TxtBxCountDownAction.Text)
     End Sub
 
     Private Sub btnCountdownLoadSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdownLoadSound.Click
         '   Open file dialogue to load sound file.
 
-        Me.OpenFileDialog1.FileName = ""
-        Me.OpenFileDialog1.Filter = "Sound Files|*.wav; *.mp3"
-        If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
-            Me.btnCountDownTestSound.Enabled = True
-            Me.TxtBxCountDownAction.Text = Me.OpenFileDialog1.FileName
+        OpenFileDialog1.FileName = ""
+        OpenFileDialog1.Filter = "Sound Files|*.wav; *.mp3"
+        If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+            btnCountDownTestSound.Enabled = True
+            TxtBxCountDownAction.Text = OpenFileDialog1.FileName
         End If
     End Sub
 
     Private Sub btnCountDownLoadCommand_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountDownLoadCommand.Click
         '   Open file dialogue to load command file.
 
-        Me.OpenFileDialog1.Filter = "All Files|*.*"
-        If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
-            Me.TxtBxCountDowndCommand.Text = Me.OpenFileDialog1.FileName
+        OpenFileDialog1.Filter = "All Files|*.*"
+        If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+            TxtBxCountDowndCommand.Text = OpenFileDialog1.FileName
         End If
     End Sub
 
@@ -661,158 +661,158 @@
         '   When Countdown is finished, perform desired action
         '   Setting the checked to false fires the checkedChange sub, which turns off the appropriate controls.
 
-        If Me.ChckBxCountDownSound.Checked Then                                '   do sound action.
-            Me.ChckBxCountDownSound.Checked = False
-            Me.displayAction.PlaySound(TxtBxCountDownAction.Text)
+        If ChckBxCountDownSound.Checked Then                                '   do sound action.
+            ChckBxCountDownSound.Checked = False
+            displayAction.PlaySound(TxtBxCountDownAction.Text)
         End If
-        If Me.ChckBxCountDownReminder.Checked Then                             '   do reminder action.
-            Me.ChckBxCountDownReminder.Checked = False
-            Me.displayAction.DisplayReminder("CountDown", TxtBxCountDownReminder.Text)
+        If ChckBxCountDownReminder.Checked Then                             '   do reminder action.
+            ChckBxCountDownReminder.Checked = False
+            displayAction.DisplayReminder("CountDown", TxtBxCountDownReminder.Text)
         End If
-        If Me.ChckBxCountDownSystem.Checked Then                               '   do system action.
-            If Me.NtfyIcnKlock.Visible Then                                    '   if main form not visible, then show
-                Me.NtfyIcnKlock.Visible = False                                '   so abort button can be deployed.
-                Me.Visible = True
+        If ChckBxCountDownSystem.Checked Then                               '   do system action.
+            If NtfyIcnKlock.Visible Then                                    '   if main form not visible, then show
+                NtfyIcnKlock.Visible = False                                '   so abort button can be deployed.
+                Visible = True
             End If
-            Me.ChckBxCountDownSystem.Checked = False
-            Me.btnCountdownSystemAbort.Enabled = True                          '   Allows system command to be aborted.
-            Me.displayAction.DoSystemCommand(CmbBxCountDownSystem.SelectedIndex)
+            ChckBxCountDownSystem.Checked = False
+            btnCountdownSystemAbort.Enabled = True                          '   Allows system command to be aborted.
+            displayAction.DoSystemCommand(CmbBxCountDownSystem.SelectedIndex)
         End If
-        If Me.ChckBxCountDownCommand.Checked Then                              '   do run command action.
-            Me.ChckBxCountDownCommand.Checked = False
-            Me.displayAction.DoCommand(TxtBxCountDowndCommand.Text)
+        If ChckBxCountDownCommand.Checked Then                              '   do run command action.
+            ChckBxCountDownCommand.Checked = False
+            displayAction.DoCommand(TxtBxCountDowndCommand.Text)
         End If
-        If Me.ChckBxCountdownSpeech.Checked Then                               '   do speech action.
-            Me.ChckBxCountdownSpeech.Checked = False
-            usrVoice.Say(Me.TxtBxCountdownSpeech.Text)
+        If ChckBxCountdownSpeech.Checked Then                               '   do speech action.
+            ChckBxCountdownSpeech.Checked = False
+            usrVoice.Say(TxtBxCountdownSpeech.Text)
         End If
-        If Me.ChckBxCountdownScreenSaver.CheckAlign Then                       '   call screen saver
-            Me.ChckBxCountdownScreenSaver.Checked = False
-            Me.displayAction.ScreenSaver()
+        If ChckBxCountdownScreenSaver.CheckAlign Then                       '   call screen saver
+            ChckBxCountdownScreenSaver.Checked = False
+            displayAction.ScreenSaver()
         End If
     End Sub
 
     Private Sub btnCountdownSystemAbort_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCountdownSystemAbort.Click
         '   If abort pressed,  perform system command abort and start clean up.
 
-        Me.displayAction.AbortSystemCommand()
-        Me.btnCountdownSystemAbort.Enabled = False
+        displayAction.AbortSystemCommand()
+        btnCountdownSystemAbort.Enabled = False
 
-        Me.CountDownClear()
+        CountDownClear()
     End Sub
 
     Sub CountDownClear()
         '   Clear down Countdown.
 
-        Me.ChckBxCountDownSound.Checked = False
-        Me.ChckBxCountDownReminder.Checked = False
-        Me.ChckBxCountDownSystem.Checked = False
-        Me.ChckBxCountDownCommand.Checked = False
+        ChckBxCountDownSound.Checked = False
+        ChckBxCountDownReminder.Checked = False
+        ChckBxCountDownSystem.Checked = False
+        ChckBxCountDownCommand.Checked = False
 
-        Me.tmrCountDown.Enabled = False
-        Me.lblCountDownTime.Text = "00:00"
-        Me.lblCountDownTime.Enabled = False
-        Me.upDwnCntDownValue.Enabled = True
-        Me.upDwnCntDownValue.Value = 0
+        tmrCountDown.Enabled = False
+        lblCountDownTime.Text = "00:00"
+        lblCountDownTime.Enabled = False
+        upDwnCntDownValue.Enabled = True
+        upDwnCntDownValue.Value = 0
 
-        Me.btnCountDownStart.Enabled = False
-        Me.btnCountDownStop.Enabled = False
+        btnCountDownStart.Enabled = False
+        btnCountDownStop.Enabled = False
 
-        Me.QuickStartButtons(True)
+        QuickStartButtons(True)
     End Sub
 
     Sub CountDownSound(ByVal b As Boolean)
         '   Sets visible to b for all sound components
 
-        Me.ChckBxCountDownSound.Visible = b
-        Me.TxtBxCountDownAction.Visible = b
-        Me.btnCountdownLoadSound.Visible = b
-        Me.btnCountDownTestSound.Visible = b
+        ChckBxCountDownSound.Visible = b
+        TxtBxCountDownAction.Visible = b
+        btnCountdownLoadSound.Visible = b
+        btnCountDownTestSound.Visible = b
     End Sub
 
     Sub CountDownReminder(ByVal b As Boolean)
         '   Sets visible to b for all reminder components
 
-        Me.ChckBxCountDownReminder.Visible = b
-        Me.TxtBxCountDownReminder.Visible = b
+        ChckBxCountDownReminder.Visible = b
+        TxtBxCountDownReminder.Visible = b
     End Sub
 
     Sub CountDownSystem(ByVal b As Boolean)
         '   Sets visible to b for all system components
 
-        Me.ChckBxCountDownSystem.Visible = b
-        Me.CmbBxCountDownSystem.Visible = b
-        Me.btnCountdownSystemAbort.Visible = b
+        ChckBxCountDownSystem.Visible = b
+        CmbBxCountDownSystem.Visible = b
+        btnCountdownSystemAbort.Visible = b
     End Sub
 
     Sub CountDownCommand(ByVal b As Boolean)
         '   Sets visible to b for all command components
 
-        Me.ChckBxCountDownCommand.Visible = b
-        Me.TxtBxCountDowndCommand.Visible = b
-        Me.btnCountDownLoadCommand.Visible = b
+        ChckBxCountDownCommand.Visible = b
+        TxtBxCountDowndCommand.Visible = b
+        btnCountDownLoadCommand.Visible = b
     End Sub
 
     Sub CountdownSpeech(ByVal b As Boolean)
         '   sets visible to b for all speech components
 
-        Me.ChckBxCountdownSpeech.Visible = b
-        Me.TxtBxCountdownSpeech.Visible = b
+        ChckBxCountdownSpeech.Visible = b
+        TxtBxCountdownSpeech.Visible = b
     End Sub
 
     Sub CountdownScreenSaver(ByVal b As Boolean)
         '   set visible to b for all screen saver components
 
-        Me.ChckBxCountdownScreenSaver.Visible = b
+        ChckBxCountdownScreenSaver.Visible = b
     End Sub
     ' **************************************************************************************************** Reminder ****************************************
 
     Private Sub CmbBxReminderAction_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxReminderAction.SelectedIndexChanged
         '   Depending on the position of the action combo box, enable the appropriate action controls.
 
-        Select Case Me.CmbBxReminderAction.SelectedIndex
+        Select Case CmbBxReminderAction.SelectedIndex
             Case 0                                                  '   Sound chosen
-                Me.ReminderSound(True)
-                Me.ReminderReminder(False)
-                Me.ReminderSystem(False)
-                Me.ReminderCommand(False)
-                Me.ReminderSpeech(False)
-                Me.ReminderScreenSaver(False)
+                ReminderSound(True)
+                ReminderReminder(False)
+                ReminderSystem(False)
+                ReminderCommand(False)
+                ReminderSpeech(False)
+                ReminderScreenSaver(False)
             Case 1                                                  '   Reminder chosen
-                Me.ReminderSound(False)
-                Me.ReminderReminder(True)
-                Me.ReminderSystem(False)
-                Me.ReminderCommand(False)
-                Me.ReminderSpeech(False)
-                Me.ReminderScreenSaver(False)
+                ReminderSound(False)
+                ReminderReminder(True)
+                ReminderSystem(False)
+                ReminderCommand(False)
+                ReminderSpeech(False)
+                ReminderScreenSaver(False)
             Case 2                                                  '   System action chosen
-                Me.ReminderSound(False)
-                Me.ReminderReminder(False)
-                Me.ReminderSystem(True)
-                Me.ReminderCommand(False)
-                Me.ReminderSpeech(False)
-                Me.ReminderScreenSaver(False)
+                ReminderSound(False)
+                ReminderReminder(False)
+                ReminderSystem(True)
+                ReminderCommand(False)
+                ReminderSpeech(False)
+                ReminderScreenSaver(False)
             Case 3                                                  '   Run Command chosen
-                Me.ReminderSound(False)
-                Me.ReminderReminder(False)
-                Me.ReminderSystem(False)
-                Me.ReminderCommand(True)
-                Me.ReminderSpeech(False)
-                Me.ReminderScreenSaver(False)
+                ReminderSound(False)
+                ReminderReminder(False)
+                ReminderSystem(False)
+                ReminderCommand(True)
+                ReminderSpeech(False)
+                ReminderScreenSaver(False)
             Case 4                                                  '   speech chosen
-                Me.ReminderSound(False)
-                Me.ReminderReminder(False)
-                Me.ReminderSystem(False)
-                Me.ReminderCommand(False)
-                Me.ReminderSpeech(True)
-                Me.ReminderScreenSaver(False)
+                ReminderSound(False)
+                ReminderReminder(False)
+                ReminderSystem(False)
+                ReminderCommand(False)
+                ReminderSpeech(True)
+                ReminderScreenSaver(False)
             Case 5                                                  '   Screen Saver chosen
-                Me.ReminderSound(False)
-                Me.ReminderReminder(False)
-                Me.ReminderSystem(False)
-                Me.ReminderCommand(False)
-                Me.ReminderSpeech(False)
-                Me.ReminderScreenSaver(True)
+                ReminderSound(False)
+                ReminderReminder(False)
+                ReminderSystem(False)
+                ReminderCommand(False)
+                ReminderSpeech(False)
+                ReminderScreenSaver(True)
         End Select
     End Sub
 
@@ -821,59 +821,59 @@
         '   Selects sound action controls if checked.
         '   NB :: every time the checkbox changes, this toggles the state of the enables flag.
 
-        Me.TxtBxReminderAction.Enabled = Not Me.TxtBxReminderAction.Enabled
-        Me.btnReminderLoadSound.Enabled = Not Me.btnReminderLoadSound.Enabled
-        Me.btnReminderTestSound.Enabled = Not Me.btnReminderTestSound.Enabled
+        TxtBxReminderAction.Enabled = Not TxtBxReminderAction.Enabled
+        btnReminderLoadSound.Enabled = Not btnReminderLoadSound.Enabled
+        btnReminderTestSound.Enabled = Not btnReminderTestSound.Enabled
     End Sub
 
     Private Sub ChckBxReminderReminder_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxReminderReminder.CheckedChanged
         '   Selects reminder action controls if checked.
 
-        Me.TxtBxReminderReminder.Enabled = Not Me.TxtBxReminderReminder.Enabled
+        TxtBxReminderReminder.Enabled = Not TxtBxReminderReminder.Enabled
     End Sub
 
     Private Sub ChckBxReminderSystem_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxReminderSystem.CheckedChanged
         '   Selects countdown action controls if checked.
 
-        Me.CmbBxReminderSystem.Enabled = Not Me.CmbBxReminderSystem.Enabled
+        CmbBxReminderSystem.Enabled = Not CmbBxReminderSystem.Enabled
     End Sub
 
     Private Sub chckBXReminderCommand_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chckBXReminderCommand.CheckedChanged
         '   Selects run command action controls if checked.
 
-        Me.TxtBxReminderCommand.Enabled = Not Me.TxtBxReminderCommand.Enabled
-        Me.btnReminderLoadCommand.Enabled = Not Me.btnReminderLoadCommand.Enabled
+        TxtBxReminderCommand.Enabled = Not TxtBxReminderCommand.Enabled
+        btnReminderLoadCommand.Enabled = Not btnReminderLoadCommand.Enabled
     End Sub
 
     Private Sub ChckBxReminderSpeech_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxReminderSpeech.CheckedChanged
         '   Selects speech command action controls if checked.
 
-        Me.TxtBxReminderSpeech.Enabled = Not Me.TxtBxCountdownSpeech.Enabled
+        TxtBxReminderSpeech.Enabled = Not TxtBxCountdownSpeech.Enabled
     End Sub
 
     Private Sub btnReminderTestSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderTestSound.Click
         ' Play sound in test button is pressed.
 
-        Me.displayAction.PlaySound(TxtBxReminderAction.Text)
+        displayAction.PlaySound(TxtBxReminderAction.Text)
     End Sub
 
     Private Sub btnReminderLoadSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderLoadSound.Click
         ' Open file dialog to load sound file.
 
-        Me.OpenFileDialog1.FileName = ""
-        Me.OpenFileDialog1.Filter = "Sound Files|*.wav; *.mp3"
-        If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
-            Me.btnReminderTestSound.Enabled = True
-            Me.TxtBxReminderAction.Text = Me.OpenFileDialog1.FileName
+        OpenFileDialog1.FileName = ""
+        OpenFileDialog1.Filter = "Sound Files|*.wav; *.mp3"
+        If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+            btnReminderTestSound.Enabled = True
+            TxtBxReminderAction.Text = OpenFileDialog1.FileName
         End If
     End Sub
 
     Private Sub btnReminderLoadCommand_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderLoadCommand.Click
         ' Open file dialog to load command file.
 
-        Me.OpenFileDialog1.Filter = "All Files|*.*"
-        If Me.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
-            Me.TxtBxReminderCommand.Text = Me.OpenFileDialog1.FileName
+        OpenFileDialog1.Filter = "All Files|*.*"
+        If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+            TxtBxReminderCommand.Text = OpenFileDialog1.FileName
         End If
     End Sub
 
@@ -881,176 +881,176 @@
         '   When Reminder is finished, perform desired action
         '   Setting the checked to false fires the checkedChange sub, which turns off the appropriate controls.
 
-        If Me.ChckBxReminderSound.Checked Then                                  '   do sound action.
-            Me.ChckBxReminderSound.Checked = False
-            Me.displayAction.PlaySound(TxtBxReminderAction.Text)
+        If ChckBxReminderSound.Checked Then                                  '   do sound action.
+            ChckBxReminderSound.Checked = False
+            displayAction.PlaySound(TxtBxReminderAction.Text)
         End If
-        If Me.ChckBxReminderReminder.Checked Then                               '   do reminder action.
-            Me.ChckBxReminderReminder.Checked = False
-            Me.displayAction.DisplayReminder("Reminder", TxtBxReminderReminder.Text)
+        If ChckBxReminderReminder.Checked Then                               '   do reminder action.
+            ChckBxReminderReminder.Checked = False
+            displayAction.DisplayReminder("Reminder", TxtBxReminderReminder.Text)
         End If
-        If Me.ChckBxReminderSystem.Checked Then                                 '   do system action.
+        If ChckBxReminderSystem.Checked Then                                 '   do system action.
             If NtfyIcnKlock.Visible Then                                        '   if main form not visible, then show
-                Me.NtfyIcnKlock.Visible = False                                 '   so abort button can be deployed.
-                Me.Visible = True
+                NtfyIcnKlock.Visible = False                                 '   so abort button can be deployed.
+                Visible = True
             End If
-            Me.ChckBxReminderSystem.Checked = False
-            Me.btnReminderSystemAbort.Enabled = True                            '   Allows system command to be aborted.
-            Me.displayAction.DoSystemCommand(CmbBxReminderSystem.SelectedIndex)
+            ChckBxReminderSystem.Checked = False
+            btnReminderSystemAbort.Enabled = True                            '   Allows system command to be aborted.
+            displayAction.DoSystemCommand(CmbBxReminderSystem.SelectedIndex)
         End If
-        If Me.chckBXReminderCommand.Checked Then                                '   do run command action.
-            Me.chckBXReminderCommand.Checked = False
-            Me.displayAction.DoCommand(TxtBxReminderCommand.Text)
+        If chckBXReminderCommand.Checked Then                                '   do run command action.
+            chckBXReminderCommand.Checked = False
+            displayAction.DoCommand(TxtBxReminderCommand.Text)
         End If
-        If Me.ChckBxReminderSpeech.Checked Then                                 '   do speech action.
-            Me.ChckBxReminderSpeech.Checked = False
-            Me.usrVoice.Say(Me.TxtBxReminderSpeech.Text)
+        If ChckBxReminderSpeech.Checked Then                                 '   do speech action.
+            ChckBxReminderSpeech.Checked = False
+            usrVoice.Say(TxtBxReminderSpeech.Text)
         End If
-        If Me.ChckBxReminderScreenSaver.Checked Then                           '   call screen saver.
-            Me.ChckBxReminderScreenSaver.Checked = False
-            Me.displayAction.ScreenSaver()
+        If ChckBxReminderScreenSaver.Checked Then                           '   call screen saver.
+            ChckBxReminderScreenSaver.Checked = False
+            displayAction.ScreenSaver()
         End If
     End Sub
 
     Private Sub btnReminderSystemAbort_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderSystemAbort.Click
         '   If abort pressed,  perform system command abort and start clean up.
 
-        Me.displayAction.AbortSystemCommand()
-        Me.btnReminderSystemAbort.Enabled = False
+        displayAction.AbortSystemCommand()
+        btnReminderSystemAbort.Enabled = False
 
-        Me.clearReminder()
+        clearReminder()
     End Sub
 
     Private Sub btnReminderSet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderSet.Click
         '   Set a new reminder.  Sets appropriate text and sets the global reminder date for checking.
         '   Also, enables the reminder timer, which checks if reminder is due every minute..
 
-        Dim d As New DateTime(Me.DtPckrRiminder.Value.Year,
-                         Me.DtPckrRiminder.Value.Month,
-                         Me.DtPckrRiminder.Value.Day,
-                         Me.TmPckrRiminder.Value.Hour,
-                         Me.TmPckrRiminder.Value.Minute,
+        Dim d As New DateTime(DtPckrRiminder.Value.Year,
+                         DtPckrRiminder.Value.Month,
+                         DtPckrRiminder.Value.Day,
+                         TmPckrRiminder.Value.Hour,
+                         TmPckrRiminder.Value.Minute,
                          0)
 
-        Me.tmrReminder.Enabled = True       '   start reminder timer.
+        tmrReminder.Enabled = True       '   start reminder timer.
 
-        Me.btnReminderSet.Enabled = False
-        Me.btnReminderClear.Enabled = True
-        Me.DtPckrRiminder.Visible = False
-        Me.ChckBxReminderTimeCheck.Visible = False
-        Me.TmPckrRiminder.Visible = False
+        btnReminderSet.Enabled = False
+        btnReminderClear.Enabled = True
+        DtPckrRiminder.Visible = False
+        ChckBxReminderTimeCheck.Visible = False
+        TmPckrRiminder.Visible = False
 
-        If Me.ChckBxReminderTimeCheck.Checked Then
-            Me.lblReminderText.Text = String.Format("Reminder set for {0} @ {1}", Me.ReminderDateTime.ToLongDateString, Me.ReminderDateTime.ToShortTimeString)
+        If ChckBxReminderTimeCheck.Checked Then
+            lblReminderText.Text = String.Format("Reminder set for {0} @ {1}", ReminderDateTime.ToLongDateString, ReminderDateTime.ToShortTimeString)
         Else
-            Me.lblReminderText.Text = String.Format("Reminder set for {0}", Me.ReminderDateTime.ToLongDateString)
+            lblReminderText.Text = String.Format("Reminder set for {0}", ReminderDateTime.ToLongDateString)
         End If
 
-        Me.ReminderDateTime = d            '   set global, so can be checked by reminder timer.
+        ReminderDateTime = d            '   set global, so can be checked by reminder timer.
     End Sub
 
     Private Sub btnReminderClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderClear.Click
         '   Clear reminder is pressed.
 
-        Me.clearReminder()
+        clearReminder()
     End Sub
 
     Private Sub clearReminder()
         '   Perform the reminder clear.
 
-        Me.ChckBxReminderSound.Checked = False
-        Me.ChckBxReminderReminder.Checked = False
-        Me.ChckBxReminderSystem.Checked = False
-        Me.chckBXReminderCommand.Checked = False
+        ChckBxReminderSound.Checked = False
+        ChckBxReminderReminder.Checked = False
+        ChckBxReminderSystem.Checked = False
+        chckBXReminderCommand.Checked = False
 
-        Me.btnReminderClear.Enabled = False
+        btnReminderClear.Enabled = False
 
-        Me.tmrReminder.Enabled = False                              '   stop reminder timer.
+        tmrReminder.Enabled = False                              '   stop reminder timer.
 
-        Me.DtPckrRiminder.Visible = True
-        Me.ChckBxReminderTimeCheck.Visible = True
-        Me.TmPckrRiminder.Visible = True
+        DtPckrRiminder.Visible = True
+        ChckBxReminderTimeCheck.Visible = True
+        TmPckrRiminder.Visible = True
 
-        If Me.usrSettings.usrReminderTimeChecked Then
-            Me.ChckBxReminderTimeCheck.Checked = True
-            Me.TmPckrRiminder.Enabled = True
-            Me.TmPckrRiminder.Value = Now()
+        If usrSettings.usrReminderTimeChecked Then
+            ChckBxReminderTimeCheck.Checked = True
+            TmPckrRiminder.Enabled = True
+            TmPckrRiminder.Value = Now()
         Else
-            Me.ChckBxReminderTimeCheck.Checked = False
-            Me.TmPckrRiminder.Enabled = False
-            Me.TmPckrRiminder.Value = Today
+            ChckBxReminderTimeCheck.Checked = False
+            TmPckrRiminder.Enabled = False
+            TmPckrRiminder.Value = Today
         End If
 
-        Me.lblReminderText.Text = "Reminder Not set"
+        lblReminderText.Text = "Reminder Not set"
     End Sub
 
     Sub ReminderSound(ByVal b As Boolean)
         '   Sets visible to b for all sound components
 
-        Me.ChckBxReminderSound.Visible = b
-        Me.TxtBxReminderAction.Visible = b
-        Me.btnReminderLoadSound.Visible = b
-        Me.btnReminderTestSound.Visible = b
+        ChckBxReminderSound.Visible = b
+        TxtBxReminderAction.Visible = b
+        btnReminderLoadSound.Visible = b
+        btnReminderTestSound.Visible = b
     End Sub
 
     Private Sub ReminderReminder(ByVal b As Boolean)
         '   Sets visible to b for all reminder components
 
-        Me.ChckBxReminderReminder.Visible = b
-        Me.TxtBxReminderReminder.Visible = b
+        ChckBxReminderReminder.Visible = b
+        TxtBxReminderReminder.Visible = b
     End Sub
 
     Private Sub ReminderSystem(ByVal b As Boolean)
         '   Sets visible to b for all system components
 
-        Me.ChckBxReminderSystem.Visible = b
-        Me.CmbBxReminderSystem.Visible = b
-        Me.btnReminderSystemAbort.Visible = b
+        ChckBxReminderSystem.Visible = b
+        CmbBxReminderSystem.Visible = b
+        btnReminderSystemAbort.Visible = b
     End Sub
 
     Private Sub ReminderCommand(ByVal b As Boolean)
         '   Sets visible to b for all command components
 
-        Me.chckBXReminderCommand.Visible = b
-        Me.TxtBxReminderCommand.Visible = b
-        Me.btnReminderLoadCommand.Visible = b
+        chckBXReminderCommand.Visible = b
+        TxtBxReminderCommand.Visible = b
+        btnReminderLoadCommand.Visible = b
     End Sub
 
     Private Sub ReminderSpeech(ByVal b As Boolean)
         '   Sets visible to b for all command components
 
-        Me.ChckBxReminderSpeech.Visible = b
-        Me.TxtBxReminderSpeech.Visible = b
+        ChckBxReminderSpeech.Visible = b
+        TxtBxReminderSpeech.Visible = b
     End Sub
 
     Private Sub ReminderScreenSaver(ByVal b As Boolean)
         '   Sets visible to b for all screen saver components
 
-        Me.ChckBxReminderScreenSaver.Visible = b
+        ChckBxReminderScreenSaver.Visible = b
     End Sub
 
     Private Sub reminder_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DtPckrRiminder.ValueChanged, TmPckrRiminder.ValueChanged
         '   Checks to see if the reminder date if in the future [> now()], only then enable the set button.
 
-        Dim d As New DateTime(Me.DtPckrRiminder.Value.Year,
-                         Me.DtPckrRiminder.Value.Month,
-                         Me.DtPckrRiminder.Value.Day,
-                         Me.TmPckrRiminder.Value.Hour,
-                         Me.TmPckrRiminder.Value.Minute,
+        Dim d As New DateTime(DtPckrRiminder.Value.Year,
+                         DtPckrRiminder.Value.Month,
+                         DtPckrRiminder.Value.Day,
+                         TmPckrRiminder.Value.Hour,
+                         TmPckrRiminder.Value.Minute,
                          0)
 
-        Me.btnReminderSet.Enabled = If(d > Now(), True, False)
+        btnReminderSet.Enabled = If(d > Now(), True, False)
     End Sub
 
     Private Sub ChckBxReminderTimeCheck_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ChckBxReminderTimeCheck.CheckedChanged
         '   Allows the reminder date to include a time component.  But, not change options.
 
-        If Me.ChckBxReminderTimeCheck.Checked Then
-            Me.TmPckrRiminder.Enabled = True
-            Me.TmPckrRiminder.Value = Now()
+        If ChckBxReminderTimeCheck.Checked Then
+            TmPckrRiminder.Enabled = True
+            TmPckrRiminder.Value = Now()
         Else
-            Me.TmPckrRiminder.Enabled = False
-            Me.TmPckrRiminder.Value = Today
+            TmPckrRiminder.Enabled = False
+            TmPckrRiminder.Value = Today
         End If
     End Sub
 
@@ -1059,11 +1059,11 @@
     Private Sub FirstAndLastName_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtbxFriendsFirstName.TextChanged, txtbxFriendsLastName.TextChanged
         '   Only allow adding if first and last name exist.
 
-        If Me.F_ADDING Then
-            If Me.txtbxFriendsFirstName.Text <> "" And Me.txtbxFriendsLastName.Text <> "" Then
-                Me.btnAdd.Enabled = True
+        If F_ADDING Then
+            If txtbxFriendsFirstName.Text <> "" And txtbxFriendsLastName.Text <> "" Then
+                btnAdd.Enabled = True
             Else
-                Me.btnAdd.Enabled = False
+                btnAdd.Enabled = False
             End If
         End If
     End Sub
@@ -1073,25 +1073,25 @@
 
         FEMcommon.PanelTop()
 
-        Me.txtbxFriendsFirstName.Text = ""
-        Me.txtbxFriendsMiddleName.Text = ""
-        Me.txtbxFriendsLastName.Text = ""
-        Me.txtbxFriendsEmail1.Text = ""
-        Me.txtbxFriendsEmail2.Text = ""
-        Me.txtbxFriendsEmail3.Text = ""
-        Me.txtbxFriendsTelephone1.Text = ""
-        Me.txtbxFriendsTelephone2.Text = ""
-        Me.txtbxFriendsTelephone3.Text = ""
-        Me.txtbxFriendsAddressNo.Text = ""
-        Me.txtbxFriendsAddressLine1.Text = ""
-        Me.txtbxFriendsAddressLine2.Text = ""
-        Me.txtbxFriendsAddressCity.Text = ""
-        Me.txtbxFriendsAddressPostCode.Text = ""
-        Me.txtbxFriendsAddressCounty.Text = ""
-        Me.txtbxFriendsHomePage.Text = ""
-        Me.txtbxFriendsNotes.Text = ""
+        txtbxFriendsFirstName.Text = ""
+        txtbxFriendsMiddleName.Text = ""
+        txtbxFriendsLastName.Text = ""
+        txtbxFriendsEmail1.Text = ""
+        txtbxFriendsEmail2.Text = ""
+        txtbxFriendsEmail3.Text = ""
+        txtbxFriendsTelephone1.Text = ""
+        txtbxFriendsTelephone2.Text = ""
+        txtbxFriendsTelephone3.Text = ""
+        txtbxFriendsAddressNo.Text = ""
+        txtbxFriendsAddressLine1.Text = ""
+        txtbxFriendsAddressLine2.Text = ""
+        txtbxFriendsAddressCity.Text = ""
+        txtbxFriendsAddressPostCode.Text = ""
+        txtbxFriendsAddressCounty.Text = ""
+        txtbxFriendsHomePage.Text = ""
+        txtbxFriendsNotes.Text = ""
 
-        Me.blankFriendsDate()
+        blankFriendsDate()
     End Sub
 
     Public Sub FriendsReadOnlyText(ByVal b As Boolean)
@@ -1099,31 +1099,31 @@
         '   True = can be input or edit.
         '   False = display only
 
-        Me.txtbxFriendsFirstName.ReadOnly = b
-        Me.txtbxFriendsMiddleName.ReadOnly = b
-        Me.txtbxFriendsLastName.ReadOnly = b
-        Me.txtbxFriendsEmail1.ReadOnly = b
-        Me.txtbxFriendsEmail2.ReadOnly = b
-        Me.txtbxFriendsEmail3.ReadOnly = b
-        Me.txtbxFriendsTelephone1.ReadOnly = b
-        Me.txtbxFriendsTelephone2.ReadOnly = b
-        Me.txtbxFriendsTelephone3.ReadOnly = b
-        Me.txtbxFriendsAddressNo.ReadOnly = b
-        Me.txtbxFriendsAddressLine1.ReadOnly = b
-        Me.txtbxFriendsAddressLine2.ReadOnly = b
-        Me.txtbxFriendsAddressCity.ReadOnly = b
-        Me.txtbxFriendsAddressPostCode.ReadOnly = b
-        Me.txtbxFriendsAddressCounty.ReadOnly = b
-        Me.txtbxFriendsHomePage.ReadOnly = b
-        Me.txtbxFriendsNotes.ReadOnly = b
+        txtbxFriendsFirstName.ReadOnly = b
+        txtbxFriendsMiddleName.ReadOnly = b
+        txtbxFriendsLastName.ReadOnly = b
+        txtbxFriendsEmail1.ReadOnly = b
+        txtbxFriendsEmail2.ReadOnly = b
+        txtbxFriendsEmail3.ReadOnly = b
+        txtbxFriendsTelephone1.ReadOnly = b
+        txtbxFriendsTelephone2.ReadOnly = b
+        txtbxFriendsTelephone3.ReadOnly = b
+        txtbxFriendsAddressNo.ReadOnly = b
+        txtbxFriendsAddressLine1.ReadOnly = b
+        txtbxFriendsAddressLine2.ReadOnly = b
+        txtbxFriendsAddressCity.ReadOnly = b
+        txtbxFriendsAddressPostCode.ReadOnly = b
+        txtbxFriendsAddressCounty.ReadOnly = b
+        txtbxFriendsHomePage.ReadOnly = b
+        txtbxFriendsNotes.ReadOnly = b
 
-        Me.DtPckrFriendsDOB.Enabled = Not b
+        DtPckrFriendsDOB.Enabled = Not b
     End Sub
 
     Private Sub LstBxFriends_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstBxFriends.SelectedIndexChanged
         '   A new entry has been selected in the list-view box, display new entry.
 
-        Me.showFriends(Me.LstBxFriends.SelectedIndex)
+        showFriends(LstBxFriends.SelectedIndex)
     End Sub
 
     Public Sub showFriends(ByVal pos As Integer)
@@ -1132,34 +1132,34 @@
         FEMcommon.PanelTop()
 
         If pos >= 0 Then
-            Dim p As Person = CType(Me.LstBxFriends.Items.Item(pos), Person)
+            Dim p As Person = CType(LstBxFriends.Items.Item(pos), Person)
 
-            Me.txtbxFriendsFirstName.Text = p.FirstName
-            Me.txtbxFriendsMiddleName.Text = p.MiddleName
-            Me.txtbxFriendsLastName.Text = p.LastName
-            Me.txtbxFriendsEmail1.Text = p.EMail1
-            Me.txtbxFriendsEmail2.Text = p.EMail2
-            Me.txtbxFriendsEmail3.Text = p.EMail3
-            Me.txtbxFriendsTelephone1.Text = p.TelNo1
-            Me.txtbxFriendsTelephone2.Text = p.TelNo2
-            Me.txtbxFriendsTelephone3.Text = p.TelNo3
-            Me.txtbxFriendsAddressNo.Text = p.HouseNo
-            Me.txtbxFriendsAddressLine1.Text = p.Address1
-            Me.txtbxFriendsAddressLine2.Text = p.Address2
-            Me.txtbxFriendsAddressCity.Text = p.City
-            Me.txtbxFriendsAddressPostCode.Text = p.PostCode
-            Me.txtbxFriendsAddressCounty.Text = p.County
-            Me.txtbxFriendsHomePage.Text = p.WebPage
-            Me.txtbxFriendsNotes.Text = p.Notes
+            txtbxFriendsFirstName.Text = p.FirstName
+            txtbxFriendsMiddleName.Text = p.MiddleName
+            txtbxFriendsLastName.Text = p.LastName
+            txtbxFriendsEmail1.Text = p.EMail1
+            txtbxFriendsEmail2.Text = p.EMail2
+            txtbxFriendsEmail3.Text = p.EMail3
+            txtbxFriendsTelephone1.Text = p.TelNo1
+            txtbxFriendsTelephone2.Text = p.TelNo2
+            txtbxFriendsTelephone3.Text = p.TelNo3
+            txtbxFriendsAddressNo.Text = p.HouseNo
+            txtbxFriendsAddressLine1.Text = p.Address1
+            txtbxFriendsAddressLine2.Text = p.Address2
+            txtbxFriendsAddressCity.Text = p.City
+            txtbxFriendsAddressPostCode.Text = p.PostCode
+            txtbxFriendsAddressCounty.Text = p.County
+            txtbxFriendsHomePage.Text = p.WebPage
+            txtbxFriendsNotes.Text = p.Notes
 
             If p.DOB = " " Then
-                Me.blankFriendsDate()
+                blankFriendsDate()
             Else
-                Me.normalFriendsDate()
-                Me.DtPckrFriendsDOB.Value = p.DOB
+                normalFriendsDate()
+                DtPckrFriendsDOB.Value = p.DOB
             End If
 
-            Me.LstBxFriends.SelectedIndex = pos
+            LstBxFriends.SelectedIndex = pos
         End If
     End Sub
 
@@ -1170,104 +1170,104 @@
         Dim p As New Person
 
         Try
-            p.FirstName = Me.txtbxFriendsFirstName.Text
-            p.MiddleName = Me.txtbxFriendsMiddleName.Text
-            p.LastName = Me.txtbxFriendsLastName.Text
-            p.EMail1 = Me.txtbxFriendsEmail1.Text
-            p.EMail2 = Me.txtbxFriendsEmail2.Text
-            p.EMail3 = Me.txtbxFriendsEmail3.Text
-            p.TelNo1 = Me.txtbxFriendsTelephone1.Text
-            p.TelNo2 = Me.txtbxFriendsTelephone2.Text
-            p.TelNo3 = Me.txtbxFriendsTelephone3.Text
-            p.HouseNo = Me.txtbxFriendsAddressNo.Text
-            p.Address1 = Me.txtbxFriendsAddressLine1.Text
-            p.Address2 = Me.txtbxFriendsAddressLine2.Text
-            p.City = Me.txtbxFriendsAddressCity.Text
-            p.PostCode = Me.txtbxFriendsAddressPostCode.Text
-            p.County = Me.txtbxFriendsAddressCounty.Text
-            p.Notes = Me.txtbxFriendsNotes.Text
-            p.WebPage = Me.txtbxFriendsHomePage.Text
+            p.FirstName = txtbxFriendsFirstName.Text
+            p.MiddleName = txtbxFriendsMiddleName.Text
+            p.LastName = txtbxFriendsLastName.Text
+            p.EMail1 = txtbxFriendsEmail1.Text
+            p.EMail2 = txtbxFriendsEmail2.Text
+            p.EMail3 = txtbxFriendsEmail3.Text
+            p.TelNo1 = txtbxFriendsTelephone1.Text
+            p.TelNo2 = txtbxFriendsTelephone2.Text
+            p.TelNo3 = txtbxFriendsTelephone3.Text
+            p.HouseNo = txtbxFriendsAddressNo.Text
+            p.Address1 = txtbxFriendsAddressLine1.Text
+            p.Address2 = txtbxFriendsAddressLine2.Text
+            p.City = txtbxFriendsAddressCity.Text
+            p.PostCode = txtbxFriendsAddressPostCode.Text
+            p.County = txtbxFriendsAddressCounty.Text
+            p.Notes = txtbxFriendsNotes.Text
+            p.WebPage = txtbxFriendsHomePage.Text
 
-            If Me.DtPckrFriendsDOB.Format = DateTimePickerFormat.Long Then  ' if no date selected, save as an empty string i.e." ".
-                p.DOB = Me.DtPckrFriendsDOB.Value.ToShortDateString
+            If DtPckrFriendsDOB.Format = DateTimePickerFormat.Long Then  ' if no date selected, save as an empty string i.e." ".
+                p.DOB = DtPckrFriendsDOB.Value.ToShortDateString
             Else
                 p.DOB = " "
             End If
 
             If mode = "ADD" Then
-                Me.LstBxFriends.Items.Add(p)                                '   Populate list-view.
-                Me.FriendsAddToKnown(p)                                     '   Populate autocomplete collections.
+                LstBxFriends.Items.Add(p)                                '   Populate list-view.
+                FriendsAddToKnown(p)                                     '   Populate autocomplete collections.
             Else    '   mode = "EDIT"
-                Me.LstBxFriends.Items(Me.LstBxFriends.SelectedIndex) = p    '   Update list-view.
+                LstBxFriends.Items(LstBxFriends.SelectedIndex) = p    '   Update list-view.
             End If
 
         Catch ex As Exception
-            Me.displayAction.DisplayReminder("ERROR :: populating friend", ex.Message)
+            displayAction.DisplayReminder("ERROR :: populating friend", ex.Message)
         End Try
     End Sub
 
     Private Sub LoadAutoCompleteStuff()
         '   Attach the relevant auto complete collections to the text boxes.
 
-        Me.txtbxFriendsFirstName.AutoCompleteCustomSource = Me.knownFirstNames
-        Me.txtbxFriendsFirstName.AutoCompleteSource = AutoCompleteSource.CustomSource
-        Me.txtbxFriendsFirstName.AutoCompleteMode = AutoCompleteMode.Append
+        txtbxFriendsFirstName.AutoCompleteCustomSource = knownFirstNames
+        txtbxFriendsFirstName.AutoCompleteSource = AutoCompleteSource.CustomSource
+        txtbxFriendsFirstName.AutoCompleteMode = AutoCompleteMode.Append
 
-        Me.txtbxFriendsMiddleName.AutoCompleteCustomSource = Me.knownMiddleNames
-        Me.txtbxFriendsMiddleName.AutoCompleteSource = AutoCompleteSource.CustomSource
-        Me.txtbxFriendsMiddleName.AutoCompleteMode = AutoCompleteMode.Append
+        txtbxFriendsMiddleName.AutoCompleteCustomSource = knownMiddleNames
+        txtbxFriendsMiddleName.AutoCompleteSource = AutoCompleteSource.CustomSource
+        txtbxFriendsMiddleName.AutoCompleteMode = AutoCompleteMode.Append
 
-        Me.txtbxFriendsLastName.AutoCompleteCustomSource = Me.knownLastnames
-        Me.txtbxFriendsLastName.AutoCompleteSource = AutoCompleteSource.CustomSource
-        Me.txtbxFriendsLastName.AutoCompleteMode = AutoCompleteMode.Append
+        txtbxFriendsLastName.AutoCompleteCustomSource = knownLastnames
+        txtbxFriendsLastName.AutoCompleteSource = AutoCompleteSource.CustomSource
+        txtbxFriendsLastName.AutoCompleteMode = AutoCompleteMode.Append
 
-        Me.txtbxFriendsAddressLine1.AutoCompleteCustomSource = Me.knownAddress1
-        Me.txtbxFriendsAddressLine1.AutoCompleteSource = AutoCompleteSource.CustomSource
-        Me.txtbxFriendsAddressLine1.AutoCompleteMode = AutoCompleteMode.Append
+        txtbxFriendsAddressLine1.AutoCompleteCustomSource = knownAddress1
+        txtbxFriendsAddressLine1.AutoCompleteSource = AutoCompleteSource.CustomSource
+        txtbxFriendsAddressLine1.AutoCompleteMode = AutoCompleteMode.Append
 
-        Me.txtbxFriendsAddressLine2.AutoCompleteCustomSource = Me.knownAddress2
-        Me.txtbxFriendsAddressLine2.AutoCompleteSource = AutoCompleteSource.CustomSource
-        Me.txtbxFriendsAddressLine2.AutoCompleteMode = AutoCompleteMode.Append
+        txtbxFriendsAddressLine2.AutoCompleteCustomSource = knownAddress2
+        txtbxFriendsAddressLine2.AutoCompleteSource = AutoCompleteSource.CustomSource
+        txtbxFriendsAddressLine2.AutoCompleteMode = AutoCompleteMode.Append
 
-        Me.txtbxFriendsAddressCity.AutoCompleteCustomSource = Me.knownCities
-        Me.txtbxFriendsAddressCity.AutoCompleteSource = AutoCompleteSource.CustomSource
-        Me.txtbxFriendsAddressCity.AutoCompleteMode = AutoCompleteMode.Append
+        txtbxFriendsAddressCity.AutoCompleteCustomSource = knownCities
+        txtbxFriendsAddressCity.AutoCompleteSource = AutoCompleteSource.CustomSource
+        txtbxFriendsAddressCity.AutoCompleteMode = AutoCompleteMode.Append
 
-        Me.txtbxFriendsAddressPostCode.AutoCompleteCustomSource = Me.knownPostCode
-        Me.txtbxFriendsAddressPostCode.AutoCompleteSource = AutoCompleteSource.CustomSource
-        Me.txtbxFriendsAddressPostCode.AutoCompleteMode = AutoCompleteMode.Append
+        txtbxFriendsAddressPostCode.AutoCompleteCustomSource = knownPostCode
+        txtbxFriendsAddressPostCode.AutoCompleteSource = AutoCompleteSource.CustomSource
+        txtbxFriendsAddressPostCode.AutoCompleteMode = AutoCompleteMode.Append
 
-        Me.txtbxFriendsAddressCounty.AutoCompleteCustomSource = Me.knownCounties
-        Me.txtbxFriendsAddressCounty.AutoCompleteSource = AutoCompleteSource.CustomSource
-        Me.txtbxFriendsAddressCounty.AutoCompleteMode = AutoCompleteMode.Append
+        txtbxFriendsAddressCounty.AutoCompleteCustomSource = knownCounties
+        txtbxFriendsAddressCounty.AutoCompleteSource = AutoCompleteSource.CustomSource
+        txtbxFriendsAddressCounty.AutoCompleteMode = AutoCompleteMode.Append
     End Sub
 
     Private Sub DtPckrFriendsDOB_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DtPckrFriendsDOB.ValueChanged
         '   If the value of the date picker is altered, reset then date format back to long.
 
-        Me.normalFriendsDate()
+        normalFriendsDate()
 
         '   only allow to be added to events, if first name and dob contain data - does not check if valid.
-        If Me.DtPckrFriendsDOB.Checked And Me.txtbxFriendsFirstName.Text <> "" Then
-            Me.ChckBxAddToEvents.Enabled = True
+        If DtPckrFriendsDOB.Checked And txtbxFriendsFirstName.Text <> "" Then
+            ChckBxAddToEvents.Enabled = True
         Else
-            Me.ChckBxAddToEvents.Enabled = False
+            ChckBxAddToEvents.Enabled = False
         End If
     End Sub
 
     Private Sub blankFriendsDate()
         '   To achieve a blank date in the date picker, a custom format has to be set to ""
 
-        Me.DtPckrFriendsDOB.Format = DateTimePickerFormat.Custom
-        Me.DtPckrFriendsDOB.CustomFormat = " "
-        Me.DtPckrFriendsDOB.Checked = False
+        DtPckrFriendsDOB.Format = DateTimePickerFormat.Custom
+        DtPckrFriendsDOB.CustomFormat = " "
+        DtPckrFriendsDOB.Checked = False
     End Sub
 
     Private Sub normalFriendsDate()
         '   To display a date in the date picker, the custom format has to be removed.
 
-        Me.DtPckrFriendsDOB.Format = DateTimePickerFormat.Long
-        Me.DtPckrFriendsDOB.CustomFormat = Now().Date
+        DtPckrFriendsDOB.Format = DateTimePickerFormat.Long
+        DtPckrFriendsDOB.CustomFormat = Now().Date
     End Sub
 
     Public Sub FriendsAddToKnown(ByVal p As Person)
@@ -1275,14 +1275,14 @@
         '   One array for each text-box.
         '   Each time a friend is added, the contents of the text box is added to the relevant collections.
 
-        If Not Me.knownFirstNames.Contains(p.FirstName) Then Me.knownFirstNames.Add(p.FirstName)
-        If Not Me.knownMiddleNames.Contains(p.MiddleName) Then Me.knownMiddleNames.Add(p.MiddleName)
-        If Not Me.knownLastnames.Contains(p.LastName) Then Me.knownLastnames.Add(p.LastName)
-        If Not Me.knownAddress1.Contains(p.Address1) Then Me.knownAddress1.Add(p.Address1)
-        If Not Me.knownAddress2.Contains(p.Address2) Then Me.knownAddress2.Add(p.Address2)
-        If Not Me.knownPostCode.Contains(p.PostCode) Then Me.knownPostCode.Add(p.PostCode)
-        If Not Me.knownCities.Contains(p.City) Then Me.knownCities.Add(p.City)
-        If Not Me.knownCounties.Contains(p.County) Then Me.knownCounties.Add(p.County)
+        If Not knownFirstNames.Contains(p.FirstName) Then knownFirstNames.Add(p.FirstName)
+        If Not knownMiddleNames.Contains(p.MiddleName) Then knownMiddleNames.Add(p.MiddleName)
+        If Not knownLastnames.Contains(p.LastName) Then knownLastnames.Add(p.LastName)
+        If Not knownAddress1.Contains(p.Address1) Then knownAddress1.Add(p.Address1)
+        If Not knownAddress2.Contains(p.Address2) Then knownAddress2.Add(p.Address2)
+        If Not knownPostCode.Contains(p.PostCode) Then knownPostCode.Add(p.PostCode)
+        If Not knownCities.Contains(p.City) Then knownCities.Add(p.City)
+        If Not knownCounties.Contains(p.County) Then knownCounties.Add(p.County)
 
     End Sub
 
@@ -1292,9 +1292,9 @@
         If Char.IsLetterOrDigit(e.KeyChar) Then
 
             If Char.IsLetter(e.KeyChar) Then
-                Me.txtbxFriendsAddressPostCode.SelectedText = UCase(e.KeyChar)
+                txtbxFriendsAddressPostCode.SelectedText = UCase(e.KeyChar)
             Else
-                Me.txtbxFriendsAddressPostCode.SelectedText = e.KeyChar
+                txtbxFriendsAddressPostCode.SelectedText = e.KeyChar
             End If
 
             e.Handled = True
@@ -1362,18 +1362,18 @@
     Private Sub btnEventsCheck_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventsCheck.Click
         '   force a check of the events.
 
-        Me.checkEvents()
+        checkEvents()
     End Sub
 
 
     Private Sub TxtBxEventsName_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TxtBxEventsName.TextChanged
         '   Only allow adding if name contains some text.
 
-        If Me.E_ADDING Then
-            If Me.TxtBxEventsName.Text <> "" Then
-                Me.btnAdd.Enabled = True
+        If E_ADDING Then
+            If TxtBxEventsName.Text <> "" Then
+                btnAdd.Enabled = True
             Else
-                Me.btnAdd.Enabled = False
+                btnAdd.Enabled = False
             End If
         End If
     End Sub
@@ -1381,10 +1381,10 @@
     Public Sub EventsClearText()
         '   Clears all date entry fields.
 
-        Me.TxtBxEventsName.Text = ""
-        Me.txtbxEventNotes.Text = ""
+        TxtBxEventsName.Text = ""
+        txtbxEventNotes.Text = ""
 
-        Me.DtTmPckrEventsDate.Value = Today
+        DtTmPckrEventsDate.Value = Today
     End Sub
 
     Public Sub EventsReadOnlyText(ByVal b As Boolean)
@@ -1392,10 +1392,10 @@
         '   true = can be input of edit.
         '   false = display only
 
-        Me.TxtBxEventsName.ReadOnly = Not b
-        Me.CmbBxEventTypes.Enabled = b
-        Me.DtTmPckrEventsDate.Enabled = b
-        Me.txtbxEventNotes.ReadOnly = Not b
+        TxtBxEventsName.ReadOnly = Not b
+        CmbBxEventTypes.Enabled = b
+        DtTmPckrEventsDate.Enabled = b
+        txtbxEventNotes.ReadOnly = Not b
     End Sub
 
 
@@ -1405,14 +1405,14 @@
         FEMcommon.PanelTop()
 
         If pos >= 0 Then
-            Dim e As Events = CType(Me.LstBxEvents.Items.Item(pos), Events)
+            Dim e As Events = CType(LstBxEvents.Items.Item(pos), Events)
 
-            Me.TxtBxEventsName.Text = e.EventName
-            Me.DtTmPckrEventsDate.Value = e.EventDate
-            Me.CmbBxEventTypes.SelectedIndex = e.EventType
-            Me.txtbxEventNotes.Text = e.EventNotes
+            TxtBxEventsName.Text = e.EventName
+            DtTmPckrEventsDate.Value = e.EventDate
+            CmbBxEventTypes.SelectedIndex = e.EventType
+            txtbxEventNotes.Text = e.EventNotes
 
-            Me.LstBxEvents.SelectedIndex = pos
+            LstBxEvents.SelectedIndex = pos
         End If
     End Sub
 
@@ -1423,28 +1423,28 @@
         Dim e As New Events
 
         Try
-            e.EventName = Me.TxtBxEventsName.Text
-            e.EventType = Me.CmbBxEventTypes.SelectedIndex
-            e.EventDate = Me.DtTmPckrEventsDate.Value.ToShortDateString
-            e.EventNotes = Me.txtbxEventNotes.Text
+            e.EventName = TxtBxEventsName.Text
+            e.EventType = CmbBxEventTypes.SelectedIndex
+            e.EventDate = DtTmPckrEventsDate.Value.ToShortDateString
+            e.EventNotes = txtbxEventNotes.Text
             e.EventFirstReminder = True
             e.EventSecondreminder = True
             e.EventThirdReminder = True
 
             If mode = "ADD" Then
-                Me.LstBxEvents.Items.Add(e)                             '   populate list-view
+                LstBxEvents.Items.Add(e)                             '   populate list-view
             Else
-                Me.LstBxEvents.Items(Me.LstBxEvents.SelectedIndex) = e
+                LstBxEvents.Items(LstBxEvents.SelectedIndex) = e
             End If
         Catch ex As Exception
-            Me.displayAction.DisplayReminder("ERROR :: populating event", ex.Message)
+            displayAction.DisplayReminder("ERROR :: populating event", ex.Message)
         End Try
     End Sub
 
     Private Sub LstBxEvents_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstBxEvents.SelectedIndexChanged
         '   A new entry has been selected in the list-view box, display new entry.
 
-        Me.showEvents(Me.LstBxEvents.SelectedIndex)
+        showEvents(LstBxEvents.SelectedIndex)
     End Sub
 
     Private Sub checkEvents()
@@ -1458,16 +1458,16 @@
 
         For Each e In LstBxEvents.Items        '   Create list.
 
-            If e.EventFirstReminder And (e.DaysToGo < Me.usrSettings.usrEventsFirstReminder) Then
-                Me.displayAction.DisplayEvent(e)
+            If e.EventFirstReminder And (e.DaysToGo < usrSettings.usrEventsFirstReminder) Then
+                displayAction.DisplayEvent(e)
                 e.EventFirstReminder = False
                 reSave = True
-            ElseIf e.EventSecondreminder And (e.DaysToGo < Me.usrSettings.usrEventsSecondReminder) Then
-                Me.displayAction.DisplayEvent(e)
+            ElseIf e.EventSecondreminder And (e.DaysToGo < usrSettings.usrEventsSecondReminder) Then
+                displayAction.DisplayEvent(e)
                 e.EventSecondreminder = False
                 reSave = True
-            ElseIf e.EventThirdReminder And (e.DaysToGo < Me.usrSettings.usrEventsThirdReminder) Then
-                Me.displayAction.DisplayEvent(e)
+            ElseIf e.EventThirdReminder And (e.DaysToGo < usrSettings.usrEventsThirdReminder) Then
+                displayAction.DisplayEvent(e)
                 e.EventThirdReminder = False
                 reSave = True
             End If
@@ -1476,7 +1476,7 @@
         If reSave Then
             IOcommon.saveEvents()
         Else
-            Me.displayAction.DisplayReminder("Events", "No events near")
+            displayAction.DisplayReminder("Events", "No events near")
         End If
 
     End Sub
@@ -1486,9 +1486,9 @@
     Public Sub MemoClearText()
         '   Clears all date entry fields.
 
-        Me.TxtBxMemoName.Text = ""
-        Me.TxtBxMemo.Text = ""
-        Me.ChckBxMemoEncypt.Checked = False
+        TxtBxMemoName.Text = ""
+        TxtBxMemo.Text = ""
+        ChckBxMemoEncypt.Checked = False
     End Sub
 
     Public Sub memoReadOnlyText(ByVal b As Boolean)
@@ -1496,8 +1496,8 @@
         '   true = can be input of edit.
         '   false = display only
 
-        Me.TxtBxMemoName.ReadOnly = Not b
-        Me.TxtBxMemo.ReadOnly = Not b
+        TxtBxMemoName.ReadOnly = Not b
+        TxtBxMemo.ReadOnly = Not b
     End Sub
 
     Private Sub LstBxMemo_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstBxMemo.SelectedIndexChanged
@@ -1505,14 +1505,14 @@
 
         Dim password As String = ""
 
-        Me.showMemo(Me.LstBxMemo.SelectedIndex)
+        showMemo(LstBxMemo.SelectedIndex)
     End Sub
 
     Private Sub btnMemoDecrypt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMemoDecrypt.Click
 
-        Me.M_SHOW = True
-        Me.TmrMemo.Enabled = True
-        Me.showMemo(Me.LstBxMemo.SelectedIndex)
+        M_SHOW = True
+        TmrMemo.Enabled = True
+        showMemo(LstBxMemo.SelectedIndex)
     End Sub
 
     Public Sub populateMemo(ByVal mode As String)
@@ -1522,26 +1522,26 @@
         Dim m As New Memo
 
         Try
-            m.memoName = Me.TxtBxMemoName.Text
-            m.memoSecret = Me.ChckBxMemoEncypt.Checked
+            m.memoName = TxtBxMemoName.Text
+            m.memoSecret = ChckBxMemoEncypt.Checked
 
             If m.memoSecret Then
-                Dim password As String = Me.getMemoPassword()
+                Dim password As String = getMemoPassword()
                 If password = "-1" Then Exit Sub                        '   cancel been pressed - abort.
 
                 Dim des As New Simple3Des(password)
-                m.memoText = des.EncryptData(Me.TxtBxMemo.Text)
+                m.memoText = des.EncryptData(TxtBxMemo.Text)
             Else
-                m.memoText = Me.TxtBxMemo.Text
+                m.memoText = TxtBxMemo.Text
             End If
 
             If mode = "ADD" Then
-                Me.LstBxMemo.Items.Add(m)
+                LstBxMemo.Items.Add(m)
             Else
-                Me.LstBxMemo.Items(Me.LstBxMemo.SelectedIndex) = m
+                LstBxMemo.Items(LstBxMemo.SelectedIndex) = m
             End If
         Catch ex As Exception
-            Me.displayAction.DisplayReminder("ERROR :: populating memo", ex.Message)
+            displayAction.DisplayReminder("ERROR :: populating memo", ex.Message)
         End Try
     End Sub
 
@@ -1551,38 +1551,38 @@
         FEMcommon.PanelTop()
 
         If pos >= 0 Then
-            Dim m As Memo = CType(Me.LstBxMemo.Items.Item(pos), Memo)
+            Dim m As Memo = CType(LstBxMemo.Items.Item(pos), Memo)
 
-            Me.TxtBxMemoName.Text = m.memoName
-            Me.ChckBxMemoEncypt.Checked = m.memoSecret
+            TxtBxMemoName.Text = m.memoName
+            ChckBxMemoEncypt.Checked = m.memoSecret
 
             If m.memoSecret Then
-                Me.TxtBxMemo.Text = "It's a secret"
-                Me.btnMemoDecrypt.Enabled = True
+                TxtBxMemo.Text = "It's a secret"
+                btnMemoDecrypt.Enabled = True
             Else
-                Me.TxtBxMemo.Text = m.memoText
-                Me.btnMemoDecrypt.Enabled = False
+                TxtBxMemo.Text = m.memoText
+                btnMemoDecrypt.Enabled = False
             End If
 
-            If Me.M_SHOW = True Then
-                Dim password As String = Me.getMemoPassword()
+            If M_SHOW = True Then
+                Dim password As String = getMemoPassword()
 
                 If password = "-1" Then                                 '   cancel been pressed - abort.
-                    Me.TxtBxMemo.Text = "It's a secret"
+                    TxtBxMemo.Text = "It's a secret"
                     Exit Sub
                 End If
 
                 Dim des As New Simple3Des(password)
                 Try
-                    Me.TxtBxMemo.Text = des.DecryptData(m.memoText)
+                    TxtBxMemo.Text = des.DecryptData(m.memoText)
                 Catch ex As Exception
-                    Me.displayAction.DisplayReminder("Memo Error", "Seems to be the wrong password")
+                    displayAction.DisplayReminder("Memo Error", "Seems to be the wrong password")
                 End Try
 
-                Me.M_SHOW = False
+                M_SHOW = False
             End If
 
-            Me.LstBxMemo.SelectedIndex = pos
+            LstBxMemo.SelectedIndex = pos
         End If
     End Sub
 
@@ -1594,8 +1594,8 @@
 
         Dim password As String = ""
 
-        If Me.usrSettings.usrMemoUseDefaultPassword Then                            '   system set up to use default password.
-            password = Me.usrSettings.usrMemoDefaultPassword                        '   return default password.
+        If usrSettings.usrMemoUseDefaultPassword Then                            '   system set up to use default password.
+            password = usrSettings.usrMemoDefaultPassword                        '   return default password.
         Else                                                                        '   prompt user for password.
             frmMemoPassword.ShowDialog()                                            '   display password form.
 
@@ -1618,10 +1618,10 @@
 
         noOfSeconds += 1
 
-        If noOfSeconds > Me.usrSettings.usrMemoDecyptTimeOut Then
+        If noOfSeconds > usrSettings.usrMemoDecyptTimeOut Then
             noOfSeconds = 0
-            Me.showMemo(Me.LstBxMemo.SelectedIndex)
-            Me.TmrMemo.Enabled = False
+            showMemo(LstBxMemo.SelectedIndex)
+            TmrMemo.Enabled = False
         End If
     End Sub
 
@@ -1630,7 +1630,7 @@
         '   Call update on world klock when a new time zone is chosen.
         '   This is called from the main timer if the world klock is visible, following sub's don't then need to call this.
 
-        Me.updateWorldKlock()
+        updateWorldKlock()
     End Sub
 
     Private Sub updateWorldKlock()
@@ -1641,16 +1641,16 @@
         Dim ct As String
 
         If RdBtnWorldClockTimeZoneLongName.Checked Then
-            Dim TzInfo As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(Me.CmbBxWorldKlockTimeZones.SelectedItem.id)
+            Dim TzInfo As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(CmbBxWorldKlockTimeZones.SelectedItem.id)
             wt = String.Format("  World Time : {0} :: {1}", TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongDateString, TimeZoneInfo.ConvertTime(Now, TzInfo).ToLongTimeString)
         Else
-            wt = String.Format("  World Time : {0} :: {1}", TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongDateString, TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, Me.CmbBxWorldKlockTimeZones.SelectedItem).ToLongTimeString)
+            wt = String.Format("  World Time : {0} :: {1}", TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, CmbBxWorldKlockTimeZones.SelectedItem).ToLongDateString, TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, CmbBxWorldKlockTimeZones.SelectedItem).ToLongTimeString)
         End If
 
         ct = String.Format("Current Time : {0} :: {1}", Now.ToLongDateString, Now.ToLongTimeString)
 
-        Me.LblWorldKlockLocal.Text = ct
-        Me.LblWorldKlockWorld.Text = wt
+        LblWorldKlockLocal.Text = ct
+        LblWorldKlockWorld.Text = wt
     End Sub
 
     Private Sub setTimeZones(ByVal pos As Integer)
@@ -1660,24 +1660,24 @@
 
         Dim f As System.TimeZoneInfo
 
-        Me.CmbBxWorldKlockTimeZones.Items.Clear()
+        CmbBxWorldKlockTimeZones.Items.Clear()
 
         For Each f In TimeZoneInfo.GetSystemTimeZones
             If RdBtnWorldClockTimeZoneLongName.Checked Then
-                Me.CmbBxWorldKlockTimeZones.Items.Add(f)
+                CmbBxWorldKlockTimeZones.Items.Add(f)
             Else
-                Me.CmbBxWorldKlockTimeZones.Items.Add(f.Id)
+                CmbBxWorldKlockTimeZones.Items.Add(f.Id)
             End If
         Next
 
-        Me.CmbBxWorldKlockTimeZones.SelectedIndex = pos
+        CmbBxWorldKlockTimeZones.SelectedIndex = pos
     End Sub
 
     Private Sub RdBtnWorldClockTimeZoneLongName_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RdBtnWorldClockTimeZoneLongName.CheckedChanged, RdBtnWorldClockTimeZoneID.CheckedChanged
         '   reload the combo box with time zones, in either long names or time zone id's.
 
-        Dim pos As Integer = Me.CmbBxWorldKlockTimeZones.SelectedIndex
-        Me.setTimeZones(pos)
+        Dim pos As Integer = CmbBxWorldKlockTimeZones.SelectedIndex
+        setTimeZones(pos)
     End Sub
 
     ' ******************************************************************************************************************************** Converter ******
@@ -1685,7 +1685,7 @@
     Private Sub CmbBxConvertCategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbBxConvertCategory.SelectedIndexChanged
         '   The convert categories has changed - re-load the conversion items
 
-        Me.CmbBxConvertTo.Items.Clear()
+        CmbBxConvertTo.Items.Clear()
         unitsLoad("LoadUnits")
 
         clearTextBoxes()
@@ -1701,7 +1701,7 @@
         '   perform the conversion.
 
         calculate()
-        Me.btnConvertStart.Enabled = False
+        btnConvertStart.Enabled = False
     End Sub
 
     Private Sub btnConvertAdd_Click(sender As Object, e As EventArgs) Handles btnConvertAdd.Click
@@ -1714,32 +1714,32 @@
         '   A value has been entered, enable convert button.
 
 
-        Me.btnConvertStart.Enabled = True
+        btnConvertStart.Enabled = True
     End Sub
 
     ' ******************************************************************************************************************************** Global Stuff ******
     Private Sub frmKlock_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '   Apply current setting on form load.
 
-        Me.TmrMain.Enabled = False                      '   Turn off main timer while we sort things out.
+        TmrMain.Enabled = False                      '   Turn off main timer while we sort things out.
 
-        Me.startTime = My.Computer.Clock.TickCount      '   used for app running time.
-        Me.displayOneTime = New selectTime              '   user selected time I
-        Me.displayTwoTime = New selectTime              '   user selected time II
-        Me.displayAction = New selectAction             '   user selected actions
-        Me.displayTimer = New Timer                     '   timer stuff
-        Me.usrSettings = New UserSettings               '   user settings
-        Me.usrFonts = New UserFonts                     '   user fonts
-        Me.usrVoice = New Voice                         '   user voice
+        startTime = My.Computer.Clock.TickCount      '   used for app running time.
+        displayOneTime = New selectTime              '   user selected time I
+        displayTwoTime = New selectTime              '   user selected time II
+        displayAction = New selectAction             '   user selected actions
+        displayTimer = New Timer                     '   timer stuff
+        usrSettings = New UserSettings               '   user settings
+        usrFonts = New UserFonts                     '   user fonts
+        usrVoice = New Voice                         '   user voice
 
-        Me.myManagedPower = New ManagedPower            '   system power source
+        myManagedPower = New ManagedPower            '   system power source
 
-        Me.DtPckrFriendsDOB.MaxDate = Now()             '   nobody is born after today :-)
+        DtPckrFriendsDOB.MaxDate = Now()             '   nobody is born after today :-)
 
-        Me.setSettings()                                '   load user settings
-        Me.setTimeTypes()                               '   load time types into combo box.
-        Me.setActionTypes()                             '   load action types into combo box.
-        Me.setTimeZones(0)                              '   load time zones into combo box, making index 0 active.
+        setSettings()                                '   load user settings
+        setTimeTypes()                               '   load time types into combo box.
+        setActionTypes()                             '   load action types into combo box.
+        setTimeZones(0)                              '   load time zones into combo box, making index 0 active.
 
         checkUnitsFile()                                '   check for units file - from conversionThings.ucheckUnitsFile()
         unitsLoad("LoadCategory")                       '   load conversion units - from conversionThings.unitsLoad()
@@ -1748,16 +1748,16 @@
 
         FEMcommon.ButtonsVisible(False, 0, 0, 0)
 
-        Me.TmrMain.Enabled = True                       '   Turn on main timer now things are sorted out.
+        TmrMain.Enabled = True                       '   Turn on main timer now things are sorted out.
     End Sub
 
     Private Sub frmKlock_Shown(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Shown
         '   If desired, start klock minimised i.e. in system tray.
         '   Did not seem to work in form load, so stuffed in here.
 
-        If Me.usrSettings.usrStartMinimised Then
-            Me.NtfyIcnKlock.Visible = True
-            Me.Visible = False
+        If usrSettings.usrStartMinimised Then
+            NtfyIcnKlock.Visible = True
+            Visible = False
         End If
     End Sub
 
@@ -1776,33 +1776,33 @@
 
         Select Case e.KeyCode
             Case Keys.F1
-                Help.ShowHelp(Me, Me.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
+                Help.ShowHelp(Me, HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
                 e.Handled = True
             Case Keys.F2 And (e.Alt)
-                Me.usrSettings.writeSettings()      '   save settings, not sure if anything has changed.
+                usrSettings.writeSettings()      '   save settings, not sure if anything has changed.
                 frmOptions.ShowDialog()
-                Me.setSettings()
+                setSettings()
             Case Keys.F5 And (e.Alt)
-                Me.NtfyIcnKlock.Visible = True
-                Me.Visible = False
+                NtfyIcnKlock.Visible = True
+                Visible = False
                 frmTextKlock.Show()
                 e.Handled = True
             Case Keys.F7 And (e.Alt)
                 KlockThings.KeepMonitorActive()
-                Me.usrSettings.usrDisableMonitorSleep = True
+                usrSettings.usrDisableMonitorSleep = True
                 e.Handled = True
             Case Keys.F8 And (e.Alt)
-                Me.usrSettings.usrDisableMonitorSleep = False
+                usrSettings.usrDisableMonitorSleep = False
                 KlockThings.RestoreMonitorSettings()
                 e.Handled = True
             Case Keys.F12 And (e.Alt)
                 '   MessageBox.Show(String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
-                Me.displayAction.DisplayReminder("Friends", String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
+                displayAction.DisplayReminder("Friends", String.Format("The are {0} friends", LstBxFriends.Items.Count.ToString))
                 e.Handled = True
         End Select
 
 
-        If Me.TbCntrl.SelectedIndex < 5 Then   '   if not friends / events / memo tab - ignore reminder of sub.
+        If TbCntrl.SelectedIndex < 5 Then   '   if not friends / events / memo tab - ignore reminder of sub.
             Exit Sub
         End If
 
@@ -1811,12 +1811,12 @@
 
             ' Make sure that the active control is a TextBox control
             ' Do not use the Enter key as tab when a button has the focus!
-            If Me.ActiveControl.GetType Is GetType(TextBox) Or Me.ActiveControl.GetType Is GetType(CheckBox) Or Me.ActiveControl.GetType Is GetType(DateTimePicker) Then
+            If ActiveControl.GetType Is GetType(TextBox) Or ActiveControl.GetType Is GetType(CheckBox) Or ActiveControl.GetType Is GetType(DateTimePicker) Then
 
                 If e.Shift Then                      ' Use Shift + Enter to move backwards through the tab order
-                    Me.ProcessTabKey(False)
+                    ProcessTabKey(False)
                 Else
-                    Me.ProcessTabKey(True)
+                    ProcessTabKey(True)
                 End If
             End If
         End If
@@ -1825,12 +1825,12 @@
     Private Sub frmKlock_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
         '   On form close and if needed, save form position.
 
-        If Me.usrSettings.usrSavePosition Then
-            Me.usrSettings.usrFormTop = Me.Top
-            Me.usrSettings.usrFormLeft = Me.Left
+        If usrSettings.usrSavePosition Then
+            usrSettings.usrFormTop = Top
+            usrSettings.usrFormLeft = Left
         End If
 
-        Me.usrSettings.writeSettings()          '   save settings, not sure if anything has changed.
+        usrSettings.writeSettings()          '   save settings, not sure if anything has changed.
 
         KlockThings.RestoreMonitorSettings()    '   restore system monitor sleep settings, just in case been altered.
 
@@ -1840,72 +1840,72 @@
     Sub setSettings()
         '   Apply current settings,
 
-        Me.usrSettings.readSettings()           '   read settings file, if not there a default one will be created.
+        usrSettings.readSettings()           '   read settings file, if not there a default one will be created.
 
-        Me.TbCntrl.SelectedIndex = Me.usrSettings.usrDefaultTab
+        TbCntrl.SelectedIndex = usrSettings.usrDefaultTab
 
-        Me.BackColor = Me.usrSettings.usrFormColour
-        Me.StsStrpInfo.BackColor = Me.usrSettings.usrFormColour
-        Me.MainMenuStrip.BackColor = Me.usrSettings.usrFormColour
+        BackColor = usrSettings.usrFormColour
+        StsStrpInfo.BackColor = usrSettings.usrFormColour
+        MainMenuStrip.BackColor = usrSettings.usrFormColour
 
-        Me.TbPgTime.BackColor = Me.usrSettings.usrFormColour
-        Me.TbPgCountDown.BackColor = Me.usrSettings.usrFormColour
-        Me.TbPgTimer.BackColor = Me.usrSettings.usrFormColour
-        Me.TbPgReminder.BackColor = Me.usrSettings.usrFormColour
+        TbPgTime.BackColor = usrSettings.usrFormColour
+        TbPgCountDown.BackColor = usrSettings.usrFormColour
+        TbPgTimer.BackColor = usrSettings.usrFormColour
+        TbPgReminder.BackColor = usrSettings.usrFormColour
 
-        If Me.usrSettings.usrSavePosition Then
-            Me.Top = Me.usrSettings.usrFormTop
-            Me.Left = Me.usrSettings.usrFormLeft
+        If usrSettings.usrSavePosition Then
+            Top = usrSettings.usrFormTop
+            Left = usrSettings.usrFormLeft
         End If
 
-        If Me.usrSettings.usrTimerHigh Then
-            Me.lblTimerTime.Text = "00:00:00:00"
-            Me.lblTimerSplit.Text = "00:00:00:00"
+        If usrSettings.usrTimerHigh Then
+            lblTimerTime.Text = "00:00:00:00"
+            lblTimerSplit.Text = "00:00:00:00"
         Else
-            Me.lblTimerTime.Text = "00:00:00"
-            Me.lblTimerSplit.Text = "00:00:00"
+            lblTimerTime.Text = "00:00:00"
+            lblTimerSplit.Text = "00:00:00"
         End If
 
-        Me.TlStrpMnItmTime.Checked = Me.usrSettings.usrTimeDisplayMinimised
-        Me.ChckBxReminderTimeCheck.Checked = Me.usrSettings.usrReminderTimeChecked
-        Me.DisplayTwoTimeFormatsToolStripMenuItem.Checked = Me.usrSettings.usrTimeTwoFormats
-        Me.DisplayIdleTime.Checked = Me.usrSettings.usrTimeIdleTime
-        Me.MonitorDisableSleep.Checked = Me.usrSettings.usrDisableMonitorSleep
+        TlStrpMnItmTime.Checked = usrSettings.usrTimeDisplayMinimised
+        ChckBxReminderTimeCheck.Checked = usrSettings.usrReminderTimeChecked
+        DisplayTwoTimeFormatsToolStripMenuItem.Checked = usrSettings.usrTimeTwoFormats
+        DisplayIdleTime.Checked = usrSettings.usrTimeIdleTime
+        MonitorDisableSleep.Checked = usrSettings.usrDisableMonitorSleep
 
-        If Me.usrSettings.usrTimeTwoFormats Then               '   switch on second time format, if desired.
-            Me.CmbBxTimeTwo.Visible = True
-            Me.LblTimeTwoTime.Visible = True
-            Me.GroupBox14.Visible = True                    '   sorry i don't name groupboxs
-            Me.GroupBox15.Visible = True
+        If usrSettings.usrTimeTwoFormats Then               '   switch on second time format, if desired.
+            CmbBxTimeTwo.Visible = True
+            LblTimeTwoTime.Visible = True
+            GroupBox14.Visible = True                    '   sorry i don't name groupboxs
+            GroupBox15.Visible = True
         Else
-            Me.CmbBxTimeTwo.Visible = False
-            Me.LblTimeTwoTime.Visible = False
-            Me.GroupBox14.Visible = False
-            Me.GroupBox15.Visible = False
+            CmbBxTimeTwo.Visible = False
+            LblTimeTwoTime.Visible = False
+            GroupBox14.Visible = False
+            GroupBox15.Visible = False
         End If
 
-        Me.DisplayTwoTimeFormatsToolStripMenuItem.Checked = Me.usrSettings.usrTimeTwoFormats    '   Set menu check accordingly.
-        Me.DisplayIdleTime.Checked = Me.usrSettings.usrTimeIdleTime                             '   
+        DisplayTwoTimeFormatsToolStripMenuItem.Checked = usrSettings.usrTimeTwoFormats    '   Set menu check accordingly.
+        DisplayIdleTime.Checked = usrSettings.usrTimeIdleTime                             '   
 
-        If Me.reloadFriends Then
+        If reloadFriends Then
             IOcommon.loadFriends()
-            Me.blankFriendsDate()
-            Me.LoadAutoCompleteStuff()
+            blankFriendsDate()
+            LoadAutoCompleteStuff()
 
-            If Me.TbCntrl.SelectedIndex = 5 And Me.LstBxFriends.Items.Count > 0 Then
-                Me.btnDelete.Enabled = True
-                Me.btnEdit.Enabled = True
-                Me.showFriends(0)
+            If TbCntrl.SelectedIndex = 5 And LstBxFriends.Items.Count > 0 Then
+                btnDelete.Enabled = True
+                btnEdit.Enabled = True
+                showFriends(0)
             End If
         End If
 
-        If Me.reloadEvents Then IOcommon.loadEvents()
-        If Me.LstBxEvents.Items.Count > 0 Then Me.checkEvents()
-        If Me.reloadMemo Then IOcommon.loadMemo()
+        If reloadEvents Then IOcommon.loadEvents()
+        If LstBxEvents.Items.Count > 0 Then checkEvents()
+        If reloadMemo Then IOcommon.loadMemo()
 
-        Me.reloadFriends = False                        '   set to re-load friends file to false.
-        Me.reloadEvents = False                         '   set to re-load events file to false.
-        Me.reloadMemo = False                           '   set to re-load memo file to false
+        reloadFriends = False                        '   set to re-load friends file to false.
+        reloadEvents = False                         '   set to re-load events file to false.
+        reloadMemo = False                           '   set to re-load memo file to false
     End Sub
 
     Sub setActionTypes()
@@ -1918,25 +1918,25 @@
         Dim systemNames = System.Enum.GetNames(GetType(selectAction.SystemTypes))
         Dim eventTypes = System.Enum.GetNames(GetType(Events.EventTypes))
 
-        Me.CmbBxCountDownAction.Items.AddRange(actionNames)
-        Me.CmbBxCountDownSystem.Items.AddRange(systemNames)
+        CmbBxCountDownAction.Items.AddRange(actionNames)
+        CmbBxCountDownSystem.Items.AddRange(systemNames)
 
-        Me.CmbBxReminderAction.Items.AddRange(actionNames)
-        Me.CmbBxReminderSystem.Items.AddRange(systemNames)
+        CmbBxReminderAction.Items.AddRange(actionNames)
+        CmbBxReminderSystem.Items.AddRange(systemNames)
 
-        Me.CmbBxEventTypes.Items.AddRange(eventTypes)
+        CmbBxEventTypes.Items.AddRange(eventTypes)
 
-        Me.CmbBxCountDownAction.SelectedIndex = 0       '   until I know how to do this at design time :o)
-        Me.CmbBxReminderAction.SelectedIndex = 0
-        Me.CmbBxEventTypes.SelectedIndex = 0
+        CmbBxCountDownAction.SelectedIndex = 0       '   until I know how to do this at design time :o)
+        CmbBxReminderAction.SelectedIndex = 0
+        CmbBxEventTypes.SelectedIndex = 0
     End Sub
 
 
     Private Sub btnHide_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnHide.Click
         '   Hides main form and call system tray icon.
 
-        Me.NtfyIcnKlock.Visible = True
-        Me.Visible = False
+        NtfyIcnKlock.Visible = True
+        Visible = False
     End Sub
 
     ' *************************************************************************************************************************** menu stuff *************
@@ -1944,7 +1944,7 @@
         '   Close application.
         '   Called from close button, main menu [file / exit] and system tray right click menu.
 
-        Me.Close()
+        Close()
     End Sub
 
 
@@ -1952,7 +1952,7 @@
         '   Display Settings Screen and apply settings, they may have changed.
         '   Called from main menu [file / options] and system tray right click menu.
 
-        Me.usrSettings.writeSettings()      '   save settings, not sure if anything has changed.
+        usrSettings.writeSettings()      '   save settings, not sure if anything has changed.
 
         frmOptions.ShowDialog()
     End Sub
@@ -1963,8 +1963,8 @@
         '   if chosen from menus, switch on a text klock - appears in a separate window.
         '   Will hide main window when created.
 
-        Me.NtfyIcnKlock.Visible = True
-        Me.Visible = False
+        NtfyIcnKlock.Visible = True
+        Visible = False
 
         frmTextKlock.Show()
     End Sub
@@ -1972,25 +1972,25 @@
     Private Sub DisplayTwoTimeFormatsToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles DisplayTwoTimeFormatsToolStripMenuItem.Click
         '   If chosen from menus, switch on two time formats.
 
-        If Me.DisplayTwoTimeFormatsToolStripMenuItem.Checked Then
-            Me.usrSettings.usrTimeTwoFormats = True
-            Me.CmbBxTimeTwo.Visible = True
-            Me.LblTimeTwoTime.Visible = True
-            Me.GroupBox14.Visible = True                    '   sorry i don't name groupboxs
-            Me.GroupBox15.Visible = True
+        If DisplayTwoTimeFormatsToolStripMenuItem.Checked Then
+            usrSettings.usrTimeTwoFormats = True
+            CmbBxTimeTwo.Visible = True
+            LblTimeTwoTime.Visible = True
+            GroupBox14.Visible = True                    '   sorry i don't name groupboxs
+            GroupBox15.Visible = True
         Else
-            Me.usrSettings.usrTimeTwoFormats = False
-            Me.CmbBxTimeTwo.Visible = False
-            Me.LblTimeTwoTime.Visible = False
-            Me.GroupBox14.Visible = False
-            Me.GroupBox15.Visible = False
+            usrSettings.usrTimeTwoFormats = False
+            CmbBxTimeTwo.Visible = False
+            LblTimeTwoTime.Visible = False
+            GroupBox14.Visible = False
+            GroupBox15.Visible = False
         End If
     End Sub
 
     Private Sub DisplayIdleTimeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DisplayIdleTime.Click
         '   If chosen from menus, display idle time in status bar.
 
-        Me.usrSettings.usrTimeIdleTime = Me.DisplayIdleTime.Checked
+        usrSettings.usrTimeIdleTime = DisplayIdleTime.Checked
     End Sub
 
     Private Sub TimeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TimeToolStripMenuItem.Click
@@ -2013,11 +2013,11 @@
     Private Sub DisableSleepToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MonitorDisableSleep.Click
         '   If chosen from menus, disable the monitor from going to sleep.
 
-        If Me.MonitorDisableSleep.Checked Then
-            Me.usrSettings.usrDisableMonitorSleep = True
+        If MonitorDisableSleep.Checked Then
+            usrSettings.usrDisableMonitorSleep = True
             KlockThings.KeepMonitorActive()
         Else
-            Me.usrSettings.usrDisableMonitorSleep = False
+            usrSettings.usrDisableMonitorSleep = False
             KlockThings.RestoreMonitorSettings()
         End If
     End Sub
@@ -2053,14 +2053,14 @@
         '   Hide system tray icon and show main form.
         '   Called from system tray right click menu and double clicking the tray icon.
 
-        Me.NtfyIcnKlock.Visible = False
-        Me.Visible = True
+        NtfyIcnKlock.Visible = False
+        Visible = True
     End Sub
 
     Private Sub TlStrpMnItmTime_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TlStrpMnItmTime.CheckedChanged
         '   if checked, the system tray icon tooltip will be set to correct time [by main clock]
 
-        Me.usrSettings.usrTimeDisplayMinimised = If(Me.TlStrpMnItmTime.Checked, True, False)
+        usrSettings.usrTimeDisplayMinimised = If(TlStrpMnItmTime.Checked, True, False)
     End Sub
 
 

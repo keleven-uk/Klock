@@ -292,7 +292,7 @@
     Private Function getLocalTime() As String
         '   returns local time
 
-        If Me.use24Hour Then
+        If use24Hour Then
             Return String.Format("{0:HH:mm:ss}", System.DateTime.Now.ToLocalTime)
         Else
             Return String.Format("{0:hh:mm:ss tt}", System.DateTime.Now.ToLocalTime)
@@ -376,7 +376,7 @@
     Private Function getUTCTime() As String
         '   returns current [local] time as a Universal Current Time.
 
-        If Me.use24Hour Then
+        If use24Hour Then
             Return String.Format("{0:HH:mm:ss}", System.DateTime.Now.ToUniversalTime.ToLongTimeString)
         Else
             Return String.Format("{0:hh:mm:ss tt}", System.DateTime.Now.ToUniversalTime.ToLongTimeString)
@@ -544,7 +544,7 @@
         Dim mins As Integer = Now().Minute
         Dim secs As Integer = Now().Second
 
-        Return String.Format("{0} {1} {2}", Me.toRoman(hours), Me.toRoman(mins), Me.toRoman(secs))
+        Return String.Format("{0} {1} {2}", toRoman(hours), toRoman(mins), toRoman(secs))
     End Function
 
     Private Function toRoman(time As Integer) As String

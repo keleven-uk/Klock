@@ -20,6 +20,7 @@
         Appointment
         Meeting
         OneOffEvent
+        TODO
         Other
     End Enum
 
@@ -39,16 +40,16 @@
 
     Public Overrides Function ToString() As String
 
-        Dim first As String = Me.Eventname().PadRight(14, " ")
-        Dim second As String = Me.EventDate().PadRight(10, " ")
+        Dim first As String = EventName().PadRight(14, " ")
+        Dim second As String = EventDate().PadRight(10, " ")
 
-        Return String.Format("{0:000} {1} {2}", Me.DaysToGo(), first, second)
+        Return String.Format("{0:000} {1} {2}", DaysToGo(), first, second)
     End Function
 
     Public Function DaysToGo() As Integer
         '   returns the interval to the event in days.
 
-        Dim e As Date = Me.EventDate
+        Dim e As Date = EventDate
 
         Dim ed = e.Day
         Dim em = e.Month
@@ -67,7 +68,7 @@
     Public Function NoOfYears() As Integer
         '   returns the number of years for the event - mainly used for Birthdays and Anniversaries.
 
-        Dim e As Date = Me.EventDate
+        Dim e As Date = EventDate
         Dim dd As Double = 0
         Dim ey = e.Year
 
