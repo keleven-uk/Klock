@@ -2,6 +2,60 @@ The source tree is now held as a git repository https://github.com/keleven-uk/Kl
  converted from SVN as of build 42.
 I find the git commit number unwieldy, so still include SVN style build numbers.
 
+
+[Build [57] - V1.1.2.57
+
+    Removed all references to Me. - as per prompting from VS 2015.
+    
+    Changed both Licence.txt & history.txt to be proper text file and not
+    embedded resources.
+    Both files are now loaded using text file commands and not stream commands
+    main executable about 30K smaller.
+
+ Klock/ApplicationEvents.vb       |    1 -
+ Klock/Events.vb                  |   11 +-
+ Klock/FormAnimator.vb            |   43 +-
+ Klock/Help.Designer.vb           |   70 --
+ Klock/Help.resx                  | 1262 --------------------
+ Klock/Help.txt                   |  123 --
+ Klock/Help.vb                    |   38 -
+ Klock/HelpCommon.vb              |   47 +-
+ Klock/Info.Designer.vb           |  149 ---
+ Klock/Info.resx                  | 1256 --------------------
+ Klock/Info.vb                    |   32 -
+ Klock/Klock.Designer.vb          | 1962 -------------------------------
+ Klock/Klock.chm                  |  Bin 555600 -> 569198 bytes
+ Klock/Klock.iss                  |    2 +-
+ Klock/Klock.pdf                  |  Bin 2786776 -> 2801771 bytes
+ Klock/Klock.resx                 | 2415 --------------------------------------
+ Klock/Klock.vb                   | 1912 ------------------------------
+ Klock/Klock.vbproj               |   19 +-
+ Klock/Memo.vb                    |    2 +-
+ Klock/My Project/AssemblyInfo.vb |    4 +-
+ Klock/Person.vb                  |    6 +-
+ Klock/UserSettings.vb            |  122 +-
+ Klock/Voice.vb                   |    8 +-
+ Klock/conversionThings.vb        |    2 +-
+ Klock/eventThings.vb             |  122 +-
+ Klock/frmAbout.vb                |   72 +-
+ Klock/frmHelp.Designer.vb        |   70 ++
+ Klock/frmHelp.resx               | 1262 ++++++++++++++++++++
+ Klock/frmHelp.vb                 |   16 +
+ Klock/frmInfo.vb                 |   20 +-
+ Klock/frmKlock.vb                | 1516 ++++++++++++------------
+ Klock/frmLicense.Designer.vb     |   70 --
+ Klock/frmLicense.resx            | 1262 --------------------
+ Klock/frmLicense.vb              |   16 -
+ Klock/frmMemoPassword.vb         |   12 +-
+ Klock/frmNotification.vb         |   72 +-
+ Klock/frmOptions.vb              |  508 ++++----
+ Klock/frmTextKlock.vb            |  230 ++--
+ Klock/history.txt                |   47 +-
+ Klock/klock.hnd                  |  Bin 17883136 -> 18026496 bytes
+ Klock/selectTime.vb              |    6 +-
+ log.txt                          |   39 +
+ 42 files changed, 2839 insertions(+), 11987 deletions(-)
+ 
 [Build [56] - V1.1.2.56
 
 commit 74b52a324acf49b18e4739457a9a43a25b80767c
@@ -1524,7 +1578,7 @@ Date:   Thu Jun 4 21:42:10 2015 +0100
  10 files changed, 825 insertions(+), 334 deletions(-)
 
 
-Build 15] - V1.0.1.15 - March 2013
+[Build 15] - V1.0.1.15 - March 2013
 
 commit 0882f8af046be5e9745e51d14f791f3847b5672d
 Author: Kevin Scott <keleven-uk@keleven.co.uk>

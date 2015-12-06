@@ -1,3 +1,58 @@
+commit 7dd480e5509266664331b8eaa14c3e5021026594
+Author: kevin scott <coinflip@keleven.co.uk>
+Date:   Thu Nov 26 21:42:36 2015 +0000
+
+    Removed all referances to Me. - as per prompting from VS 2015.
+    
+    Changed both Licence.txt & history.txt to be proper text file and not
+    embedded resources.
+    Both files are now loded using text file commands and not stream commands
+    main executable about 30K smaller.
+
+ Klock/ApplicationEvents.vb       |    1 -
+ Klock/Events.vb                  |   11 +-
+ Klock/FormAnimator.vb            |   43 +-
+ Klock/Help.Designer.vb           |   70 --
+ Klock/Help.resx                  | 1262 --------------------
+ Klock/Help.txt                   |  123 --
+ Klock/Help.vb                    |   38 -
+ Klock/HelpCommon.vb              |   47 +-
+ Klock/Info.Designer.vb           |  149 ---
+ Klock/Info.resx                  | 1256 --------------------
+ Klock/Info.vb                    |   32 -
+ Klock/Klock.Designer.vb          | 1962 -------------------------------
+ Klock/Klock.chm                  |  Bin 555600 -> 569198 bytes
+ Klock/Klock.iss                  |    2 +-
+ Klock/Klock.pdf                  |  Bin 2786776 -> 2801771 bytes
+ Klock/Klock.resx                 | 2415 --------------------------------------
+ Klock/Klock.vb                   | 1912 ------------------------------
+ Klock/Klock.vbproj               |   19 +-
+ Klock/Memo.vb                    |    2 +-
+ Klock/My Project/AssemblyInfo.vb |    4 +-
+ Klock/Person.vb                  |    6 +-
+ Klock/UserSettings.vb            |  122 +-
+ Klock/Voice.vb                   |    8 +-
+ Klock/conversionThings.vb        |    2 +-
+ Klock/eventThings.vb             |  122 +-
+ Klock/frmAbout.vb                |   72 +-
+ Klock/frmHelp.Designer.vb        |   70 ++
+ Klock/frmHelp.resx               | 1262 ++++++++++++++++++++
+ Klock/frmHelp.vb                 |   16 +
+ Klock/frmInfo.vb                 |   20 +-
+ Klock/frmKlock.vb                | 1516 ++++++++++++------------
+ Klock/frmLicense.Designer.vb     |   70 --
+ Klock/frmLicense.resx            | 1262 --------------------
+ Klock/frmLicense.vb              |   16 -
+ Klock/frmMemoPassword.vb         |   12 +-
+ Klock/frmNotification.vb         |   72 +-
+ Klock/frmOptions.vb              |  508 ++++----
+ Klock/frmTextKlock.vb            |  230 ++--
+ Klock/history.txt                |   47 +-
+ Klock/klock.hnd                  |  Bin 17883136 -> 18026496 bytes
+ Klock/selectTime.vb              |    6 +-
+ log.txt                          |   39 +
+ 42 files changed, 2839 insertions(+), 11987 deletions(-)
+
 commit 74b52a324acf49b18e4739457a9a43a25b80767c
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Wed Nov 18 21:25:27 2015 +0000

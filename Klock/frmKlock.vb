@@ -2,15 +2,17 @@
 
     '   Main Klock application.       K. Scott    November 2012
     '
-    '   March 2013      V1.0.1 - added contacts tab              [build 14]
-    '   June 2013       V1.0.2 - added user settings             [build 23]
-    '   July 2013       V1.0.3 - added reminder & events tab     [build 30]
-    '   October 2013    V1.0.4 - added memo tab                  [build 37]
-    '   November 2013   V1.0.5 - added Double Agent              [build 44] :: parked for now
-    '   July 2014       V1.0.6 - added Text Klock                [build 46] :: copied from V1.0.4
+    '   March 2013      V1.0.1 - added contacts tab                 [build 14]
+    '   June 2013       V1.0.2 - added user settings                [build 23]
+    '   July 2013       V1.0.3 - added reminder & events tab        [build 30]
+    '   October 2013    V1.0.4 - added memo tab                     [build 37]
+    '   November 2013   V1.0.5 - added Double Agent                 [build 44] :: parked for now
+    '   July 2014       V1.0.6 - added Text Klock                   [build 46] :: copied from V1.0.4
     '   July 2015       V1.1.0 - Moved to VS2013 & GitHub        no build numbers now.
     '   September 2015  V1.1.1 - Moved to VS2015, added idle time & disable monitor sleep
-    '   November 2015   V1.1.2 - added convert tab               [build 56]
+    '   November 2015   V1.1.2 - added convert tab                  [build 56]
+    '   December 2015   V1.1.3 - Added Big text Klock = more words  [build 58]
+
 
 
     Public startTime As Integer
@@ -1785,7 +1787,7 @@
             Case Keys.F5 And (e.Alt)
                 NtfyIcnKlock.Visible = True
                 Visible = False
-                frmTextKlock.Show()
+                frmSmallTextKlock.Show()
                 e.Handled = True
             Case Keys.F7 And (e.Alt)
                 KlockThings.KeepMonitorActive()
@@ -1966,8 +1968,19 @@
         NtfyIcnKlock.Visible = True
         Visible = False
 
-        frmTextKlock.Show()
+        frmSmallTextKlock.Show()
     End Sub
+
+    Private Sub BigTextKlockToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BigTextKlockToolStripMenuItem.Click
+        '   if chosen from menus, switch on a text klock - appears in a separate window.
+        '   Will hide main window when created.
+
+        NtfyIcnKlock.Visible = True
+        Visible = False
+
+        frmBigTextKlock.Show()
+    End Sub
+
 
     Private Sub DisplayTwoTimeFormatsToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles DisplayTwoTimeFormatsToolStripMenuItem.Click
         '   If chosen from menus, switch on two time formats.

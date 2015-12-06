@@ -123,16 +123,22 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormAnimator.vb" />
+    <Compile Include="frmBigTextKlock.Designer.vb">
+      <DependentUpon>frmBigTextKlock.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmBigTextKlock.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmMemoPassword.Designer.vb">
       <DependentUpon>frmMemoPassword.vb</DependentUpon>
     </Compile>
     <Compile Include="frmMemoPassword.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmTextKlock.Designer.vb">
-      <DependentUpon>frmTextKlock.vb</DependentUpon>
+    <Compile Include="frmSmallTextKlock.Designer.vb">
+      <DependentUpon>frmSmallTextKlock.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmTextKlock.vb">
+    <Compile Include="frmSmallTextKlock.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HelpCommon.vb" />
@@ -203,6 +209,9 @@
       <DependentUpon>frmAbout.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmBigTextKlock.resx">
+      <DependentUpon>frmBigTextKlock.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmInfo.resx">
       <DependentUpon>frmInfo.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -222,8 +231,8 @@
       <DependentUpon>frmHelp.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmTextKlock.resx">
-      <DependentUpon>frmTextKlock.vb</DependentUpon>
+    <EmbeddedResource Include="frmSmallTextKlock.resx">
+      <DependentUpon>frmSmallTextKlock.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>PublicVbMyResourcesResXFileCodeGenerator</Generator>

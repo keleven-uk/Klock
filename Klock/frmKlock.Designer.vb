@@ -235,6 +235,7 @@ Partial Class frmKlock
         Me.btnEventsCheck = New System.Windows.Forms.Button()
         Me.TmrMemo = New System.Windows.Forms.Timer(Me.components)
         Me.btnPrint = New System.Windows.Forms.Button()
+        Me.BigTextKlockToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -367,7 +368,7 @@ Partial Class frmKlock
         '
         'TimeToolStripMenuItem
         '
-        Me.TimeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TextKlockToolStripMenuItem, Me.DisplayTwoTimeFormatsToolStripMenuItem, Me.DisplayIdleTime, Me.InternetTimeToolStripMenuItem})
+        Me.TimeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TextKlockToolStripMenuItem, Me.BigTextKlockToolStripMenuItem, Me.DisplayTwoTimeFormatsToolStripMenuItem, Me.DisplayIdleTime, Me.InternetTimeToolStripMenuItem})
         Me.TimeToolStripMenuItem.Name = "TimeToolStripMenuItem"
         Me.TimeToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
         Me.TimeToolStripMenuItem.Text = "Time"
@@ -377,7 +378,7 @@ Partial Class frmKlock
         Me.TextKlockToolStripMenuItem.CheckOnClick = True
         Me.TextKlockToolStripMenuItem.Name = "TextKlockToolStripMenuItem"
         Me.TextKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
-        Me.TextKlockToolStripMenuItem.Text = "Text Klock"
+        Me.TextKlockToolStripMenuItem.Text = "Small Text Klock"
         '
         'DisplayTwoTimeFormatsToolStripMenuItem
         '
@@ -2263,6 +2264,12 @@ Partial Class frmKlock
         Me.btnPrint.Text = "Print"
         Me.btnPrint.UseVisualStyleBackColor = True
         '
+        'BigTextKlockToolStripMenuItem
+        '
+        Me.BigTextKlockToolStripMenuItem.Name = "BigTextKlockToolStripMenuItem"
+        Me.BigTextKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.BigTextKlockToolStripMenuItem.Text = "Big Text Klock"
+        '
         'frmKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2562,4 +2569,5 @@ Partial Class frmKlock
     Friend WithEvents CmbBxConvertTo As ComboBox
     Friend WithEvents CmbBxConvertCategory As ComboBox
     Friend WithEvents btnConvertAdd As Button
+    Friend WithEvents BigTextKlockToolStripMenuItem As ToolStripMenuItem
 End Class
