@@ -1,3 +1,36 @@
+commit 999848f18ec1250b80ca078986e4658cc5a86f21
+Author: kevin scott <coinflip@keleven.co.uk>
+Date:   Sun Dec 6 22:27:53 2015 +0000
+
+    Start of bit text klock.
+    
+    Renamed existing text klock to small text klock.
+    
+    Added new files BigtextKlock.*
+    
+    The big text klcok is similar to the small text klock, except it also
+    inclused the date and updates every second.
+
+ Klock/Klock.iss                     |    4 +-
+ Klock/Klock.vbproj                  |   19 +-
+ Klock/KlockThings.vb                |    4 +-
+ Klock/My Project/AssemblyInfo.vb    |    4 +-
+ Klock/frmBigTextKlock.Designer.vb   | 2663 +++++++++++++++++++++++++++++++++++
+ Klock/frmBigTextKlock.resx          |  679 +++++++++
+ Klock/frmBigTextKlock.vb            |  423 ++++++
+ Klock/frmKlock.Designer.vb          |   12 +-
+ Klock/frmKlock.vb                   |   31 +-
+ Klock/frmSmallTextKlock.Designer.vb |  676 +++++++++
+ Klock/frmSmallTextKlock.resx        |  697 +++++++++
+ Klock/frmSmallTextKlock.vb          |  480 +++++++
+ Klock/frmTextKlock.Designer.vb      |  676 ---------
+ Klock/frmTextKlock.resx             |  697 ---------
+ Klock/frmTextKlock.vb               |  300 ----
+ Klock/history.txt                   |   56 +-
+ Klock/klock.hnd                     |  Bin 18026496 -> 18026496 bytes
+ log.txt                             |   55 +
+ 18 files changed, 5780 insertions(+), 1696 deletions(-)
+
 commit 7dd480e5509266664331b8eaa14c3e5021026594
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Thu Nov 26 21:42:36 2015 +0000

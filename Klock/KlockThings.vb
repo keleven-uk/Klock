@@ -76,6 +76,7 @@ Module KlockThings
         SetThreadExecutionState(EXECUTION_STATE.ES_DISPLAY_REQUIRED + EXECUTION_STATE.ES_CONTINUOUS) 'Do not Go To Sleep
         frmKlock.stsLbIdkeTime.ForeColor = Color.Blue
         frmSmallTextKlock.stsLbIdkeTime.ForeColor = Color.Blue
+        frmBigTextKlock.stsLbIdkeTime.ForeColor = Color.Blue
     End Sub
 
     Public Sub RestoreMonitorSettings()
@@ -83,6 +84,8 @@ Module KlockThings
         SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS) 'Restore Previous Settings, i.e., Go To Sleep Again
         frmKlock.stsLbIdkeTime.ForeColor = Color.Black
         frmSmallTextKlock.stsLbIdkeTime.ForeColor = Color.Black
+        frmBigTextKlock.stsLbIdkeTime.ForeColor = Color.LightGreen
+
     End Sub
 
     '
