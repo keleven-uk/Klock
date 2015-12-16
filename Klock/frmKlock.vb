@@ -2,16 +2,16 @@
 
     '   Main Klock application.       K. Scott    November 2012
     '
-    '   March 2013      V1.0.1 - added contacts tab                 [build 14]
-    '   June 2013       V1.0.2 - added user settings                [build 23]
-    '   July 2013       V1.0.3 - added reminder & events tab        [build 30]
-    '   October 2013    V1.0.4 - added memo tab                     [build 37]
-    '   November 2013   V1.0.5 - added Double Agent                 [build 44] :: parked for now
-    '   July 2014       V1.0.6 - added Text Klock                   [build 46] :: copied from V1.0.4
-    '   July 2015       V1.1.0 - Moved to VS2013 & GitHub        no build numbers now.
-    '   September 2015  V1.1.1 - Moved to VS2015, added idle time & disable monitor sleep
-    '   November 2015   V1.1.2 - added convert tab                  [build 56]
-    '   December 2015   V1.1.3 - Added Big text Klock = more words  [build 58]
+    '   March 2013      V1.0.1 - added contacts tab                                         [build 14]
+    '   June 2013       V1.0.2 - added user settings                                        [build 22]
+    '   July 2013       V1.0.3 - added reminder & events tab                                [build 27]
+    '   October 2013    V1.0.4 - added memo tab                                             [build 33]
+    '   November 2013   V1.0.5 - added Double Agent                                         [build 37] :: parked for now
+    '   July 2014       V1.0.6 - added Text Klock                                           [build 39] :: copied from V1.0.4
+    '   June 2015       V1.1.0 - Moved to VS2013 & GitHub                                   [build 42]
+    '   September 2015  V1.1.1 - Moved to VS2015, added idle time & disable monitor sleep   [build 47]
+    '   November 2015   V1.1.2 - added convert tab                                          [build 56]
+    '   December 2015   V1.1.3 - Added Big text Klock = more words                          [build 58]
 
 
 
@@ -1751,6 +1751,8 @@
         FEMcommon.ButtonsVisible(False, 0, 0, 0)
 
         TmrMain.Enabled = True                       '   Turn on main timer now things are sorted out.
+
+        HlpPrvdrKlock.HelpNamespace = System.IO.Path.Combine(Application.StartupPath, "klock.chm") '   set up help location
     End Sub
 
     Private Sub frmKlock_Shown(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Shown
@@ -1765,44 +1767,11 @@
 
     Private Sub frmKlock_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
         '   Processes key presses at form level, before passed to components.
-        '   Pressing F1, will open klock's help.
-        '   Pressing alt + F2, will open the options screen.
-        '   Pressing alt + F5, will open the text klock.
-        '   Pressing alt + F7, will disable the monitor from going to sleep.
-        '   Pressing alt + F8, will restore system settings for the monitor.
-        '   Pressing alt + F12, will shown total number of friends.
         '   The rest of the codes is so that enter is handled correctly when inputting a new friend / event / memo.  
         '   Pressing Enter Or hitting the tab key will do the same thing, that is move focus to the next data entry box.
         '   
 
-
-        Select Case e.KeyCode
-            Case Keys.F1
-                Help.ShowHelp(Me, HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
-                e.Handled = True
-            Case Keys.F2 And (e.Alt)
-                usrSettings.writeSettings()      '   save settings, not sure if anything has changed.
-                frmOptions.ShowDialog()
-                setSettings()
-            Case Keys.F5 And (e.Alt)
-                NtfyIcnKlock.Visible = True
-                Visible = False
-                frmSmallTextKlock.Show()
-                e.Handled = True
-            Case Keys.F7 And (e.Alt)
-                KlockThings.KeepMonitorActive()
-                usrSettings.usrDisableMonitorSleep = True
-                e.Handled = True
-            Case Keys.F8 And (e.Alt)
-                usrSettings.usrDisableMonitorSleep = False
-                KlockThings.RestoreMonitorSettings()
-                e.Handled = True
-            Case Keys.F12 And (e.Alt)
-                '   MessageBox.Show(String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
-                displayAction.DisplayReminder("Friends", String.Format("The are {0} friends", LstBxFriends.Items.Count.ToString))
-                e.Handled = True
-        End Select
-
+        HotKeys(e)
 
         If TbCntrl.SelectedIndex < 5 Then   '   if not friends / events / memo tab - ignore reminder of sub.
             Exit Sub

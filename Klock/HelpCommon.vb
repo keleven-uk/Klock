@@ -10,8 +10,6 @@ Module HelpCommon
 
     Public Sub displayInfo(ByVal mode As String)
 
-        frmKlock.HlpPrvdrKlock.HelpNamespace = System.IO.Path.Combine(Application.StartupPath, "klock.chm") '   set up help location
-
         Select Case mode
             Case "Hel&p", "Help", "System.Windows.Forms.Button, Text: Help"
                 Help.ShowHelp(frmKlock, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)

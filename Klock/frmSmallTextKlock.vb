@@ -1,16 +1,53 @@
 ﻿Public Class frmSmallTextKlock
+    '   Generates a small text screen which displays the current time from a seemingly random set of words.
+
+    Dim drag As Boolean                     '   Global variables used to make the form dragable.
+    Dim mousex As Integer                   '
+    Dim mousey As Integer                   '
+
+    ' -------------------------------------------------------------------------------- procedures used to make form dragable -----------------
+
+    Private Sub pnlSmallKlock_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, pnlSmallKlock.MouseDown
+
+        drag = True
+        mousex = Windows.Forms.Cursor.Position.X - Me.Left
+        mousey = Windows.Forms.Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub pnlSmallKlock_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, pnlSmallKlock.MouseMove
+
+        If drag Then
+            Me.Top = Windows.Forms.Cursor.Position.Y - mousey
+            Me.Left = Windows.Forms.Cursor.Position.X - mousex
+        End If
+    End Sub
+
+    Private Sub pnlSmallKlock_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, pnlSmallKlock.MouseUp
+
+        drag = False
+    End Sub
+
+    ' ------------------------------------------------------------------------------------------------- key down ----------------------------
+
+    Private Sub frmTextKlock_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        '   Processes key presses at form level, before passed to components.
+
+        HotKeys(e)              '   in KlockThings.vb
+    End Sub
+
+    ' ------------------------------------------------------------------------------------------------- form load ----------------------------
 
     Private Sub frmTextKlock_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        '   when the form loads set some global variables, turn on timer And load arrays.
 
-        clearlabels()
-        getFuzzyTime()
+        drag = False
 
-        lblIT.Enabled = True
-        lblIS.Enabled = True
+        StsStrpInfo.BackColor = frmKlock.usrSettings.usrSmallKlockBackColour
+        stsLbIdkeTime.ForeColor = frmKlock.usrSettings.usrSmallKlockForeColour
 
         tmrTextKlock.Enabled = True
 
-        updateStatusBar()
+        setDisplay()
     End Sub
 
     Private Sub frmTextKlock_FormClosed(sender As System.Object, e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
@@ -23,27 +60,38 @@
         frmKlock.TextKlockToolStripMenuItem.Checked = False
     End Sub
 
-    Private Sub tmrTextKlock_Tick(sender As System.Object, e As System.EventArgs) Handles tmrTextKlock.Tick
+    Private Sub lblClose_Click(sender As Object, e As EventArgs) Handles lblClose.Click
 
-        clearlabels()
-        getFuzzyTime()
-
-        lblIT.Enabled = True
-        lblIS.Enabled = True
-
-        updateStatusBar()
+        Close()
     End Sub
 
-    Private Sub updateStatusBar()
+    Private Sub tmrTextKlock_Tick(sender As System.Object, e As System.EventArgs) Handles tmrTextKlock.Tick
+
+        setDisplay()
+    End Sub
+
+    Private Sub setDisplay()
+        '   Set the display to the current time in an appropriate colour.
+
+        Dim foreColour As Color = frmKlock.usrSettings.usrSmallKlockForeColour
+        Dim backColour As Color = frmKlock.usrSettings.usrSmallKlockBackColour
+        Dim offColour As Color = frmKlock.usrSettings.usrSmallKlockOffColour
+
+        clearlabels(foreColour, backColour, offColour)
+        setTime(foreColour)
+        updateStatusBar(foreColour)
+    End Sub
+
+    Private Sub updateStatusBar(foreColour As Color)
         '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
 
         Dim strKey As String = "cns off"
 
         '                                               if running on battery, change status info colour to red as a warning.
         If frmKlock.myManagedPower.powerSource().Contains("AC") Then
-            stsLblTime.ForeColor = Color.Black
-            StsLblDate.ForeColor = Color.Black
-            StsLblKeys.ForeColor = Color.Black
+            stsLblTime.ForeColor = foreColour
+            StsLblDate.ForeColor = foreColour
+            StsLblKeys.ForeColor = foreColour
         Else
             stsLblTime.ForeColor = Color.Red
             StsLblDate.ForeColor = Color.Red
@@ -75,52 +123,28 @@
         End If
     End Sub
 
-    Private Sub clearlabels()
+    Private Sub clearlabels(foreColour As Color, backColour As Color, offColour As Color)
+        '   Clear all labels, in fact sets their colour to ListSlateGray.
+        '   Set colour to LightGreen for labels that always on.
 
-        lbl1.Enabled = False
-        lbl2.Enabled = False
-        lbl3.Enabled = False
-        lbl4.Enabled = False
-        lbl5.Enabled = False
-        lbl7.Enabled = False
-        lblABOUT.Enabled = False
-        lblAFTER.Enabled = False
-        lblE.Enabled = False
-        lblEIGHT.Enabled = False
-        lblELEVEN.Enabled = False
-        lblEVENING.Enabled = False
-        lblFIVE.Enabled = False
-        lblFIVEto.Enabled = False
-        lblFOUR.Enabled = False
-        lblHALF.Enabled = False
-        lblIN.Enabled = False
-        lblIT.Enabled = False
-        lblISH.Enabled = False
-        lblTWENTY.Enabled = False
-        lblK.Enabled = False
-        lblMIDNIGHT.Enabled = False
-        lblNINE.Enabled = False
-        lblNOON.Enabled = False
-        lblONE.Enabled = False
-        lblPAST.Enabled = False
-        lblQUARTER.Enabled = False
-        lblSEVEN.Enabled = False
-        lblSIX.Enabled = False
-        lblTEN.Enabled = False
-        lblTENto.Enabled = False
-        lblTHE.Enabled = False
-        lblTHREE.Enabled = False
-        lblTO.Enabled = False
-        lblTWELVE.Enabled = False
-        lblTWO.Enabled = False
-        lblMORNING.Enabled = False
+        Dim lbl As New Control
 
+        pnlSmallKlock.BackColor = backColour
+
+        For Each lbl In pnlSmallKlock.Controls     'if other then label appear on panel, then will have to check for this.
+            'If (lbl.GetType() Is GetType(Label)) Then
+            'lbl.Enabled = False
+            lbl.ForeColor = offColour
+            'End If
+        Next
+
+        lblIT.ForeColor = foreColour
+        lblIS.ForeColor = foreColour
     End Sub
 
-    Private Sub getFuzzyTime()
+    Private Sub setTime(foreColour As Color)
         '   returns the current [local] time as fuzzy time i.e. ten past three in the afternoon.
 
-        Dim hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}
         Dim hour As Integer = Now.Hour
         Dim mins As Integer = Now.Minute
         Dim nrms As Integer = mins - (mins Mod 5)           '   gets nearest five minutes.
@@ -129,9 +153,9 @@
 
         If hour < 12 Then                                   '   if hour less then 12, in the morning else afternoon
             ampm = "in the morning"
-            lblIN.Enabled = True
-            lblTHE.Enabled = True
-            lblMORNING.Enabled = True
+            lblIN.ForeColor = foreColour
+            lblTHE.ForeColor = foreColour
+            lblMORNING.ForeColor = foreColour
         Else
             ampm = "pm"
         End If
@@ -143,50 +167,50 @@
                 sRtn = ""
             Case 5
                 sRtn = "five past"
-                lblFIVEto.Enabled = True
-                lblPAST.Enabled = True
+                lblFIVEto.ForeColor = foreColour
+                lblPAST.ForeColor = foreColour
             Case 10
                 sRtn = "ten past"
-                lblTENto.Enabled = True
-                lblPAST.Enabled = True
+                lblTENto.ForeColor = foreColour
+                lblPAST.ForeColor = foreColour
             Case 15
                 sRtn = "quarter past"
-                lblQUARTER.Enabled = True
-                lblPAST.Enabled = True
+                lblQUARTER.ForeColor = foreColour
+                lblPAST.ForeColor = foreColour
             Case 20
                 sRtn = "twenty past"
-                lblTWENTY.Enabled = True
-                lblPAST.Enabled = True
+                lblTWENTY.ForeColor = foreColour
+                lblPAST.ForeColor = foreColour
             Case 25
                 sRtn = "twenty-five past"
-                lblTWENTY.Enabled = True
-                lblFIVEto.Enabled = True
-                lblPAST.Enabled = True
+                lblTWENTY.ForeColor = foreColour
+                lblFIVEto.ForeColor = foreColour
+                lblPAST.ForeColor = foreColour
             Case 30
                 sRtn = "half past"
-                lblHALF.Enabled = True
-                lblPAST.Enabled = True
+                lblHALF.ForeColor = foreColour
+                lblPAST.ForeColor = foreColour
             Case 35
                 sRtn = "twenty-five to"
-                lblTWENTY.Enabled = True
-                lblFIVEto.Enabled = True
-                lblTO.Enabled = True
+                lblTWENTY.ForeColor = foreColour
+                lblFIVEto.ForeColor = foreColour
+                lblTO.ForeColor = foreColour
             Case 40
                 sRtn = "twenty to"
-                lblTWENTY.Enabled = True
-                lblTO.Enabled = True
+                lblTWENTY.ForeColor = foreColour
+                lblTO.ForeColor = foreColour
             Case 45
                 sRtn = "quarter to"
-                lblQUARTER.Enabled = True
-                lblTO.Enabled = True
+                lblQUARTER.ForeColor = foreColour
+                lblTO.ForeColor = foreColour
             Case 50
                 sRtn = "ten to"
-                lblTENto.Enabled = True
-                lblTO.Enabled = True
+                lblTENto.ForeColor = foreColour
+                lblTO.ForeColor = foreColour
             Case 55
                 sRtn = "five to"
-                lblFIVEto.Enabled = True
-                lblTO.Enabled = True
+                lblFIVEto.ForeColor = foreColour
+                lblTO.ForeColor = foreColour
             Case 60
                 sRtn = ""
         End Select
@@ -202,100 +226,67 @@
         '   if "pm" then afternoon, subtract 12 - only use 12 hour clock.
 
         If (hour = 12) And (sRtn = "") Then
-            lblABOUT.Enabled = True
-            lblNOON.Enabled = True
+            lblABOUT.ForeColor = foreColour
+            lblNOON.ForeColor = foreColour
         ElseIf (hour = 0) And (sRtn = "") Then
-            lblABOUT.Enabled = True
-            lblMIDNIGHT.Enabled = True
+            lblABOUT.ForeColor = foreColour
+            lblMIDNIGHT.ForeColor = foreColour
         ElseIf (hour = 24) And (sRtn = "") Then
-            lblABOUT.Enabled = True
-            lblMIDNIGHT.Enabled = True
+            lblABOUT.ForeColor = foreColour
+            lblMIDNIGHT.ForeColor = foreColour
         Else
             If ampm = "pm" Then
                 hour -= 12
-                lblIN.Enabled = True
-                lblTHE.Enabled = True
+                lblIN.ForeColor = foreColour
+                lblTHE.ForeColor = foreColour
                 If hour >= 5 Then                               '   if greater then five in the afternoon then evening.
                     ampm = "in the evening"
-                    lblEVENING.Enabled = True
+                    lblEVENING.ForeColor = foreColour
                 Else
                     ampm = "in the afternoon"
-                    lblAFTER.Enabled = True
-                    lblNOON.Enabled = True
+                    lblAFTER.ForeColor = foreColour
+                    lblNOON.ForeColor = foreColour
                 End If
             End If
 
-            If sRtn = "" Then lblABOUT.Enabled = True
+            If sRtn = "" Then lblABOUT.ForeColor = foreColour
 
             Select Case hour
                 Case 0
-                    lblTWELVE.Enabled = True
+                    lblTWELVE.ForeColor = foreColour
                 Case 1
-                    lblONE.Enabled = True
+                    lblONE.ForeColor = foreColour
                 Case 2
-                    lblTWO.Enabled = True
+                    lblTWO.ForeColor = foreColour
                 Case 3
-                    lblTHREE.Enabled = True
+                    lblTHREE.ForeColor = foreColour
                 Case 4
-                    lblFOUR.Enabled = True
+                    lblFOUR.ForeColor = foreColour
                 Case 5
-                    lblFIVE.Enabled = True
+                    lblFIVE.ForeColor = foreColour
                 Case 6
-                    lblSIX.Enabled = True
+                    lblSIX.ForeColor = foreColour
                 Case 7
-                    lblSEVEN.Enabled = True
+                    lblSEVEN.ForeColor = foreColour
                 Case 8
-                    lblEIGHT.Enabled = True
+                    lblEIGHT.ForeColor = foreColour
                 Case 9
-                    lblNINE.Enabled = True
+                    lblNINE.ForeColor = foreColour
                 Case 10
-                    lblTEN.Enabled = True
+                    lblTEN.ForeColor = foreColour
                 Case 11
-                    lblELEVEN.Enabled = True
+                    lblELEVEN.ForeColor = foreColour
                 Case 12
-                    lblTWELVE.Enabled = True
+                    lblTWELVE.ForeColor = foreColour
                 Case Else
 
             End Select
 
-            If sRtn = "" Then lblISH.Enabled = True
+            If sRtn = "" Then lblISH.ForeColor = foreColour
         End If
     End Sub
 
-    Private Sub frmTextKlock_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
-        '   Processes key presses at form level, before passed to components.
-        '   Pressing F1, will open klock's help.
-        '   Pressing alt + F2, will open the options screen.
-        '   Pressing alt + F6, will close the text klock.
-        '   Pressing alt + F7, will disable the monitor from going to sleep.
-        '   Pressing alt + F8, will restore system settings for the monitor.
 
 
-        Select Case e.KeyCode
-            Case Keys.F1
-                Help.ShowHelp(Me, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
-                e.Handled = True
-            Case Keys.F2 And (e.Alt)
-                frmKlock.usrSettings.writeSettings()      '   save settings, not sure if anything has changed.
-                frmOptions.ShowDialog()
-                frmKlock.setSettings()
-            Case Keys.F6 And (e.Alt)
-                tmrTextKlock.Enabled = False
-                frmKlock.NtfyIcnKlock.Visible = False
-                frmKlock.Visible = True
-                frmKlock.TextKlockToolStripMenuItem.Checked = False
-                Close()
-                e.Handled = True
-            Case Keys.F7 And (e.Alt)
-                KlockThings.KeepMonitorActive()
-                frmKlock.usrSettings.usrDisableMonitorSleep = True
-                e.Handled = True
-            Case Keys.F8 And (e.Alt)
-                frmKlock.usrSettings.usrDisableMonitorSleep = False
-                KlockThings.RestoreMonitorSettings()
-                e.Handled = True
-        End Select
-
-    End Sub
 
 End Class

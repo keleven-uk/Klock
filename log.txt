@@ -1,3 +1,18 @@
+commit 13c5ecd31bbec3ed6bb064c35c0774ac2f56943b
+Author: kevin scott <coinflip@keleven.co.uk>
+Date:   Thu Dec 10 21:07:12 2015 +0000
+
+    Finished [I think] BigTextKlock.
+
+ Klock/KlockThings.vb              |   3 +
+ Klock/My Project/AssemblyInfo.vb  |   4 +-
+ Klock/frmBigTextKlock.Designer.vb | 874 +++++++++++++++++++-------------------
+ Klock/frmBigTextKlock.vb          | 202 +++++++--
+ Klock/frmSmallTextKlock.vb        | 179 --------
+ Klock/history.txt                 |  35 ++
+ log.txt                           |  33 ++
+ 7 files changed, 672 insertions(+), 658 deletions(-)
+
 commit 999848f18ec1250b80ca078986e4658cc5a86f21
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Sun Dec 6 22:27:53 2015 +0000

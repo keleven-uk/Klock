@@ -37,13 +37,15 @@ Public Class frmOptions
                 showArchiveButtons(False)
             Case 2              '   Time options
                 showArchiveButtons(False)
-            Case 3              '   Other Stuff options
+            Case 3              '   Text Klock Options
                 showArchiveButtons(False)
-            Case 4              '   Archive options
+            Case 4              '   Other Stuff options
+                showArchiveButtons(False)
+            Case 5              '   Archive options
                 showArchiveButtons(True)
-            Case 5              '   Events
+            Case 6              '   Events
                 showArchiveButtons(False)
-            Case 6              '   Memo
+            Case 7              '   Memo
                 showArchiveButtons(False)
         End Select
     End Sub
@@ -59,7 +61,7 @@ Public Class frmOptions
     Sub setSettings()
         '   Apply the current settings.
 
-        frmKlock.usrSettings.readSettings()     '   re-read settings, so we are always working current.
+        'frmKlock.usrSettings.readSettings()     '   re-read settings, so we are always working current.
 
         CmbBxDefaultTab.SelectedIndex = frmKlock.usrSettings.usrDefaultTab
 
@@ -114,6 +116,16 @@ Public Class frmOptions
         ChckBxTimeTimeOne12.Checked = Not frmKlock.usrSettings.usrTimeOne24Hour
         ChckBxTimeTimeTwo24.Checked = frmKlock.usrSettings.usrTimeTwo24Hour
         ChckBxTimeTimeTwo12.Checked = Not frmKlock.usrSettings.usrTimeTwo24Hour
+
+        '-------------------------------------------------------------------------------------------------------- Text Klock --------------
+
+        btnSmlTxtKlckFrClr.BackColor = frmKlock.usrSettings.usrSmallKlockForeColour
+        btnSmlTxtKlckBckClr.BackColor = frmKlock.usrSettings.usrSmallKlockBackColour
+        btnSmlTxtKlckOffClr.BackColor = frmKlock.usrSettings.usrSmallKlockOffColour
+
+        btnBgTxtKlckFrClr.BackColor = frmKlock.usrSettings.usrBigKlockForeColour
+        btnBgTxtKlckBckClr.BackColor = frmKlock.usrSettings.usrBigKlockBackColour
+        btnBgTxtKlckOffClr.BackColor = frmKlock.usrSettings.usrBigKlockOffColour
 
         '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
@@ -217,6 +229,16 @@ Public Class frmOptions
         frmKlock.usrSettings.usrTimeSystem24Hour = ChckBxTimeSystem24.Checked
         frmKlock.usrSettings.usrTimeOne24Hour = ChckBxTimeTimeOne24.Checked
         frmKlock.usrSettings.usrTimeTwo24Hour = ChckBxTimeTimeTwo24.Checked
+
+        '-------------------------------------------------------------------------------------------------------- Text Klock  Settings -------
+
+        frmKlock.usrSettings.usrSmallKlockBackColour = btnSmlTxtKlckBckClr.BackColor
+        frmKlock.usrSettings.usrSmallKlockForeColour = btnSmlTxtKlckFrClr.BackColor
+        frmKlock.usrSettings.usrSmallKlockOffColour = btnSmlTxtKlckOffClr.BackColor
+
+        frmKlock.usrSettings.usrBigKlockBackColour = btnBgTxtKlckBckClr.BackColor
+        frmKlock.usrSettings.usrBigKlockForeColour = btnBgTxtKlckFrClr.BackColor
+        frmKlock.usrSettings.usrBigKlockOffColour = btnBgTxtKlckOffClr.BackColor
 
         '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
@@ -431,6 +453,87 @@ Public Class frmOptions
     Private Sub chckBxIdleTime_CheckedChanged(sender As Object, e As EventArgs) Handles chckBxIdleTime.CheckedChanged
 
         frmKlock.DisplayIdleTime.Checked = chckBxIdleTime.Checked
+    End Sub
+
+
+    '-----------------------------------------------------------Text Klock---------------------------------------------------------------
+
+    Private Sub btnSmlTxtKlckFrClr_Click(sender As Object, e As EventArgs) Handles btnSmlTxtKlckFrClr.Click
+        '   Sets the Fore colour for the small text klock
+
+        ClrDlgFormColour.Color = frmKlock.usrSettings.usrSmallKlockForeColour
+        If ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrSmallKlockForeColour = ClrDlgFormColour.Color
+            setSettings()
+        End If
+    End Sub
+
+    Private Sub btnSmlTxtKlckBckClr_Click(sender As Object, e As EventArgs) Handles btnSmlTxtKlckBckClr.Click
+        '   Sets the Back colour for the small text klock
+
+        ClrDlgFormColour.Color = frmKlock.usrSettings.usrSmallKlockBackColour
+        If ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrSmallKlockBackColour = ClrDlgFormColour.Color
+            setSettings()
+        End If
+    End Sub
+
+    Private Sub btnSmlTxtKlckOffClr_Click(sender As Object, e As EventArgs) Handles btnSmlTxtKlckOffClr.Click
+        '   Sets the Off colour for the small text klock
+
+        ClrDlgFormColour.Color = frmKlock.usrSettings.usrSmallKlockOffColour
+        If ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrSmallKlockOffColour = ClrDlgFormColour.Color
+            setSettings()
+        End If
+    End Sub
+
+    Private Sub btnBgTxtKlckFrClr_Click(sender As Object, e As EventArgs) Handles btnBgTxtKlckFrClr.Click
+        '   Sets the Fore colour for the Big text klock
+
+        ClrDlgFormColour.Color = frmKlock.usrSettings.usrBigKlockForeColour
+        If ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrBigKlockForeColour = ClrDlgFormColour.Color
+            setSettings()
+        End If
+    End Sub
+
+    Private Sub btnBgTxtKlckBckClr_Click(sender As Object, e As EventArgs) Handles btnBgTxtKlckBckClr.Click
+        '   Sets the Back colour for the Big text klock
+
+        ClrDlgFormColour.Color = frmKlock.usrSettings.usrBigKlockBackColour
+        If ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrBigKlockBackColour = ClrDlgFormColour.Color
+            setSettings()
+        End If
+    End Sub
+
+    Private Sub btnBgTxtKlckOffClr_Click(sender As Object, e As EventArgs) Handles btnBgTxtKlckOffClr.Click
+        '   Sets the Off colour for the Big text klock
+
+        ClrDlgFormColour.Color = frmKlock.usrSettings.usrBigKlockOffColour
+        If ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrBigKlockOffColour = ClrDlgFormColour.Color
+            setSettings()
+        End If
+    End Sub
+
+    Private Sub btnResetSmallKlock_Click(sender As Object, e As EventArgs) Handles btnResetSmallKlock.Click
+
+        frmKlock.usrSettings.usrSmallKlockBackColour = Color.Black
+        frmKlock.usrSettings.usrSmallKlockForeColour = Color.LightGreen
+        frmKlock.usrSettings.usrSmallKlockOffColour = Color.LightSlateGray
+
+        setSettings()
+    End Sub
+
+    Private Sub btnResetBigKlock_Click(sender As Object, e As EventArgs) Handles btnResetBigKlock.Click
+
+        frmKlock.usrSettings.usrBigKlockBackColour = Color.Black
+        frmKlock.usrSettings.usrBigKlockForeColour = Color.LightGreen
+        frmKlock.usrSettings.usrBigKlockOffColour = Color.LightSlateGray
+
+        setSettings()
     End Sub
 
     '-----------------------------------------------------------Notification---------------------------------------------------------------
@@ -748,6 +851,5 @@ Public Class frmOptions
             displayAction.DisplayReminder("Loading File Error", "Error Loading Data Files. " & ex.Message)
         End Try
     End Sub
-
 
 End Class

@@ -111,6 +111,8 @@ Module KlockThings
                 frmKlock.Text = "Klock - Reminds you of important events."
             Case 7                                              '   Memo tab
                 frmKlock.Text = "Klock - Reminds you of Memoranda."
+            Case 8                                              '   Conversions tab
+                frmKlock.Text = "Klock - Helps with conversions :: " & frmKlock.CmbBxConvertTo.Text
         End Select
     End Sub
 
@@ -155,6 +157,56 @@ Module KlockThings
         End Try
 
     End Function
+
+    Public Sub HotKeys(ByVal e As System.Windows.Forms.KeyEventArgs)
+        '   Pressing F1, will open klock's help.
+        '   Pressing alt + F2, will open the options screen.
+        '   Pressing alt + F5, will open the text klock.
+        '   Pressing alt + F7, will disable the monitor from going to sleep.
+        '   Pressing alt + F8, will restore system settings for the monitor.
+        '   Pressing alt + F12, will shown total number of friends.
+
+        Select Case e.KeyCode
+            Case Keys.F1
+                Help.ShowHelp(frmKlock, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
+                e.Handled = True
+            Case Keys.F2 And (e.Alt)
+                frmKlock.usrSettings.writeSettings()        '   save settings, not sure if anything has changed.
+                frmOptions.ShowDialog()
+                frmKlock.setSettings()
+            Case Keys.F4 And (e.Alt)                        '   show small text klock
+                If Not frmSmallTextKlock.Visible And Not frmBigTextKlock.Visible Then
+                    frmKlock.NtfyIcnKlock.Visible = True
+                    frmKlock.Visible = False
+                    frmSmallTextKlock.Visible = False
+                    frmSmallTextKlock.Show()
+                End If
+                e.Handled = True
+            Case Keys.F5 And (e.Alt)                        '   show big text klock
+                If Not frmSmallTextKlock.Visible And Not frmBigTextKlock.Visible Then
+                    frmKlock.NtfyIcnKlock.Visible = True
+                    frmKlock.Visible = False
+                    frmBigTextKlock.Visible = False
+                    frmBigTextKlock.Show()
+                End If
+                e.Handled = True
+            Case Keys.F6 And (e.Alt)                        '   
+                If frmSmallTextKlock.Visible Then frmSmallTextKlock.Close()
+                If frmBigTextKlock.Visible Then frmBigTextKlock.Close()
+            Case Keys.F7 And (e.Alt)                        '   disable monitor sleeping to true
+                KlockThings.KeepMonitorActive()
+                frmKlock.usrSettings.usrDisableMonitorSleep = True
+                e.Handled = True
+            Case Keys.F8 And (e.Alt)                        '   disable monitor sleeping to false
+                frmKlock.usrSettings.usrDisableMonitorSleep = False
+                KlockThings.RestoreMonitorSettings()
+                e.Handled = True
+            Case Keys.F12 And (e.Alt)                       '   display number of friends.
+                '   MessageBox.Show(String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
+                frmKlock.displayAction.DisplayReminder("Friends", String.Format("The are {0} friends", frmKlock.LstBxFriends.Items.Count.ToString))
+                e.Handled = True
+        End Select
+    End Sub
 End Module
 
 

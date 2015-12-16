@@ -222,12 +222,13 @@ Partial Class frmBigTextKlock
         Me.lblTwoHour = New System.Windows.Forms.Label()
         Me.lblOneHour = New System.Windows.Forms.Label()
         Me.lbloclock = New System.Windows.Forms.Label()
-        Me.lblAm = New System.Windows.Forms.Label()
-        Me.lblPm = New System.Windows.Forms.Label()
+        Me.lblMorning = New System.Windows.Forms.Label()
+        Me.lblEvening = New System.Windows.Forms.Label()
         Me.pnlBigKlock = New System.Windows.Forms.Panel()
         Me.lblClose = New System.Windows.Forms.Label()
         Me.lblInThe = New System.Windows.Forms.Label()
         Me.lblAndMinutes = New System.Windows.Forms.Label()
+        Me.lblAfternoon = New System.Windows.Forms.Label()
         Me.StsStrpInfo.SuspendLayout()
         Me.pnlBigKlock.SuspendLayout()
         Me.SuspendLayout()
@@ -266,11 +267,11 @@ Partial Class frmBigTextKlock
         'StsStrpInfo
         '
         Me.StsStrpInfo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsLblTime, Me.StsLblDate, Me.StsLblKeys, Me.stsLbIdkeTime})
-        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 513)
+        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 529)
         Me.StsStrpInfo.Name = "StsStrpInfo"
         Me.StsStrpInfo.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.StsStrpInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.StsStrpInfo.Size = New System.Drawing.Size(925, 22)
+        Me.StsStrpInfo.Size = New System.Drawing.Size(881, 22)
         Me.StsStrpInfo.SizingGrip = False
         Me.StsStrpInfo.TabIndex = 93
         '
@@ -288,7 +289,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblMonday.AutoSize = True
         Me.lblMonday.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblMonday.Location = New System.Drawing.Point(94, 24)
+        Me.lblMonday.Location = New System.Drawing.Point(89, 24)
         Me.lblMonday.Name = "lblMonday"
         Me.lblMonday.Size = New System.Drawing.Size(75, 19)
         Me.lblMonday.TabIndex = 95
@@ -298,7 +299,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTuesday.AutoSize = True
         Me.lblTuesday.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTuesday.Location = New System.Drawing.Point(171, 24)
+        Me.lblTuesday.Location = New System.Drawing.Point(165, 24)
         Me.lblTuesday.Name = "lblTuesday"
         Me.lblTuesday.Size = New System.Drawing.Size(86, 19)
         Me.lblTuesday.TabIndex = 96
@@ -308,7 +309,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblWednesday.AutoSize = True
         Me.lblWednesday.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWednesday.Location = New System.Drawing.Point(259, 24)
+        Me.lblWednesday.Location = New System.Drawing.Point(256, 24)
         Me.lblWednesday.Name = "lblWednesday"
         Me.lblWednesday.Size = New System.Drawing.Size(108, 19)
         Me.lblWednesday.TabIndex = 97
@@ -318,7 +319,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThursday.AutoSize = True
         Me.lblThursday.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThursday.Location = New System.Drawing.Point(369, 24)
+        Me.lblThursday.Location = New System.Drawing.Point(373, 24)
         Me.lblThursday.Name = "lblThursday"
         Me.lblThursday.Size = New System.Drawing.Size(97, 19)
         Me.lblThursday.TabIndex = 98
@@ -328,7 +329,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFriday.AutoSize = True
         Me.lblFriday.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFriday.Location = New System.Drawing.Point(468, 24)
+        Me.lblFriday.Location = New System.Drawing.Point(479, 24)
         Me.lblFriday.Name = "lblFriday"
         Me.lblFriday.Size = New System.Drawing.Size(75, 19)
         Me.lblFriday.TabIndex = 99
@@ -338,7 +339,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSaturday.AutoSize = True
         Me.lblSaturday.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSaturday.Location = New System.Drawing.Point(545, 24)
+        Me.lblSaturday.Location = New System.Drawing.Point(563, 24)
         Me.lblSaturday.Name = "lblSaturday"
         Me.lblSaturday.Size = New System.Drawing.Size(97, 19)
         Me.lblSaturday.TabIndex = 100
@@ -348,7 +349,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblthe.AutoSize = True
         Me.lblthe.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblthe.Location = New System.Drawing.Point(644, 24)
+        Me.lblthe.Location = New System.Drawing.Point(669, 24)
         Me.lblthe.Name = "lblthe"
         Me.lblthe.Size = New System.Drawing.Size(42, 19)
         Me.lblthe.TabIndex = 101
@@ -358,7 +359,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFirstDay.AutoSize = True
         Me.lblFirstDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFirstDay.Location = New System.Drawing.Point(688, 24)
+        Me.lblFirstDay.Location = New System.Drawing.Point(721, 24)
         Me.lblFirstDay.Name = "lblFirstDay"
         Me.lblFirstDay.Size = New System.Drawing.Size(64, 19)
         Me.lblFirstDay.TabIndex = 102
@@ -368,7 +369,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSecondDay.AutoSize = True
         Me.lblSecondDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSecondDay.Location = New System.Drawing.Point(754, 24)
+        Me.lblSecondDay.Location = New System.Drawing.Point(790, 24)
         Me.lblSecondDay.Name = "lblSecondDay"
         Me.lblSecondDay.Size = New System.Drawing.Size(75, 19)
         Me.lblSecondDay.TabIndex = 103
@@ -378,7 +379,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirdDay.AutoSize = True
         Me.lblThirdDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirdDay.Location = New System.Drawing.Point(17, 45)
+        Me.lblThirdDay.Location = New System.Drawing.Point(16, 45)
         Me.lblThirdDay.Name = "lblThirdDay"
         Me.lblThirdDay.Size = New System.Drawing.Size(64, 19)
         Me.lblThirdDay.TabIndex = 104
@@ -388,7 +389,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFourthDay.AutoSize = True
         Me.lblFourthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFourthDay.Location = New System.Drawing.Point(79, 45)
+        Me.lblFourthDay.Location = New System.Drawing.Point(86, 45)
         Me.lblFourthDay.Name = "lblFourthDay"
         Me.lblFourthDay.Size = New System.Drawing.Size(75, 19)
         Me.lblFourthDay.TabIndex = 105
@@ -398,7 +399,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFithDay.AutoSize = True
         Me.lblFithDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFithDay.Location = New System.Drawing.Point(152, 45)
+        Me.lblFithDay.Location = New System.Drawing.Point(163, 45)
         Me.lblFithDay.Name = "lblFithDay"
         Me.lblFithDay.Size = New System.Drawing.Size(64, 19)
         Me.lblFithDay.TabIndex = 106
@@ -408,7 +409,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSixthDay.AutoSize = True
         Me.lblSixthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSixthDay.Location = New System.Drawing.Point(215, 45)
+        Me.lblSixthDay.Location = New System.Drawing.Point(227, 45)
         Me.lblSixthDay.Name = "lblSixthDay"
         Me.lblSixthDay.Size = New System.Drawing.Size(64, 19)
         Me.lblSixthDay.TabIndex = 107
@@ -418,7 +419,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSeventhDay.AutoSize = True
         Me.lblSeventhDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSeventhDay.Location = New System.Drawing.Point(277, 45)
+        Me.lblSeventhDay.Location = New System.Drawing.Point(292, 45)
         Me.lblSeventhDay.Name = "lblSeventhDay"
         Me.lblSeventhDay.Size = New System.Drawing.Size(86, 19)
         Me.lblSeventhDay.TabIndex = 108
@@ -428,7 +429,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblEighthDay.AutoSize = True
         Me.lblEighthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEighthDay.Location = New System.Drawing.Point(362, 45)
+        Me.lblEighthDay.Location = New System.Drawing.Point(377, 45)
         Me.lblEighthDay.Name = "lblEighthDay"
         Me.lblEighthDay.Size = New System.Drawing.Size(75, 19)
         Me.lblEighthDay.TabIndex = 109
@@ -438,7 +439,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblNinthDay.AutoSize = True
         Me.lblNinthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNinthDay.Location = New System.Drawing.Point(436, 45)
+        Me.lblNinthDay.Location = New System.Drawing.Point(451, 45)
         Me.lblNinthDay.Name = "lblNinthDay"
         Me.lblNinthDay.Size = New System.Drawing.Size(64, 19)
         Me.lblNinthDay.TabIndex = 110
@@ -448,7 +449,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTenthDay.AutoSize = True
         Me.lblTenthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTenthDay.Location = New System.Drawing.Point(499, 45)
+        Me.lblTenthDay.Location = New System.Drawing.Point(512, 45)
         Me.lblTenthDay.Name = "lblTenthDay"
         Me.lblTenthDay.Size = New System.Drawing.Size(64, 19)
         Me.lblTenthDay.TabIndex = 111
@@ -458,7 +459,7 @@ Partial Class frmBigTextKlock
         '
         Me.lbleleventhDay.AutoSize = True
         Me.lbleleventhDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbleleventhDay.Location = New System.Drawing.Point(561, 45)
+        Me.lbleleventhDay.Location = New System.Drawing.Point(573, 45)
         Me.lbleleventhDay.Name = "lbleleventhDay"
         Me.lbleleventhDay.Size = New System.Drawing.Size(97, 19)
         Me.lbleleventhDay.TabIndex = 112
@@ -468,7 +469,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwelfthDay.AutoSize = True
         Me.lblTwelfthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwelfthDay.Location = New System.Drawing.Point(656, 45)
+        Me.lblTwelfthDay.Location = New System.Drawing.Point(666, 45)
         Me.lblTwelfthDay.Name = "lblTwelfthDay"
         Me.lblTwelfthDay.Size = New System.Drawing.Size(86, 19)
         Me.lblTwelfthDay.TabIndex = 113
@@ -478,7 +479,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirteenthDay.AutoSize = True
         Me.lblThirteenthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirteenthDay.Location = New System.Drawing.Point(740, 45)
+        Me.lblThirteenthDay.Location = New System.Drawing.Point(748, 45)
         Me.lblThirteenthDay.Name = "lblThirteenthDay"
         Me.lblThirteenthDay.Size = New System.Drawing.Size(119, 19)
         Me.lblThirteenthDay.TabIndex = 114
@@ -488,7 +489,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFourteenthDay.AutoSize = True
         Me.lblFourteenthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFourteenthDay.Location = New System.Drawing.Point(17, 66)
+        Me.lblFourteenthDay.Location = New System.Drawing.Point(15, 66)
         Me.lblFourteenthDay.Name = "lblFourteenthDay"
         Me.lblFourteenthDay.Size = New System.Drawing.Size(119, 19)
         Me.lblFourteenthDay.TabIndex = 115
@@ -498,7 +499,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFifteenthDay.AutoSize = True
         Me.lblFifteenthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFifteenthDay.Location = New System.Drawing.Point(137, 66)
+        Me.lblFifteenthDay.Location = New System.Drawing.Point(138, 66)
         Me.lblFifteenthDay.Name = "lblFifteenthDay"
         Me.lblFifteenthDay.Size = New System.Drawing.Size(108, 19)
         Me.lblFifteenthDay.TabIndex = 116
@@ -508,7 +509,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSixteenthDay.AutoSize = True
         Me.lblSixteenthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSixteenthDay.Location = New System.Drawing.Point(245, 66)
+        Me.lblSixteenthDay.Location = New System.Drawing.Point(254, 66)
         Me.lblSixteenthDay.Name = "lblSixteenthDay"
         Me.lblSixteenthDay.Size = New System.Drawing.Size(108, 19)
         Me.lblSixteenthDay.TabIndex = 117
@@ -518,7 +519,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSeventeenthDay.AutoSize = True
         Me.lblSeventeenthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSeventeenthDay.Location = New System.Drawing.Point(354, 66)
+        Me.lblSeventeenthDay.Location = New System.Drawing.Point(369, 66)
         Me.lblSeventeenthDay.Name = "lblSeventeenthDay"
         Me.lblSeventeenthDay.Size = New System.Drawing.Size(130, 19)
         Me.lblSeventeenthDay.TabIndex = 118
@@ -528,7 +529,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblEighteenthDay.AutoSize = True
         Me.lblEighteenthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEighteenthDay.Location = New System.Drawing.Point(485, 66)
+        Me.lblEighteenthDay.Location = New System.Drawing.Point(507, 66)
         Me.lblEighteenthDay.Name = "lblEighteenthDay"
         Me.lblEighteenthDay.Size = New System.Drawing.Size(119, 19)
         Me.lblEighteenthDay.TabIndex = 119
@@ -538,7 +539,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblNineteenthDay.AutoSize = True
         Me.lblNineteenthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNineteenthDay.Location = New System.Drawing.Point(605, 66)
+        Me.lblNineteenthDay.Location = New System.Drawing.Point(634, 66)
         Me.lblNineteenthDay.Name = "lblNineteenthDay"
         Me.lblNineteenthDay.Size = New System.Drawing.Size(119, 19)
         Me.lblNineteenthDay.TabIndex = 120
@@ -548,7 +549,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentiethDay.AutoSize = True
         Me.lblTwentiethDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentiethDay.Location = New System.Drawing.Point(726, 66)
+        Me.lblTwentiethDay.Location = New System.Drawing.Point(760, 66)
         Me.lblTwentiethDay.Name = "lblTwentiethDay"
         Me.lblTwentiethDay.Size = New System.Drawing.Size(108, 19)
         Me.lblTwentiethDay.TabIndex = 121
@@ -578,7 +579,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyThirdDay.AutoSize = True
         Me.lblTwentyThirdDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyThirdDay.Location = New System.Drawing.Point(306, 87)
+        Me.lblTwentyThirdDay.Location = New System.Drawing.Point(305, 87)
         Me.lblTwentyThirdDay.Name = "lblTwentyThirdDay"
         Me.lblTwentyThirdDay.Size = New System.Drawing.Size(141, 19)
         Me.lblTwentyThirdDay.TabIndex = 124
@@ -588,7 +589,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyFourthDay.AutoSize = True
         Me.lblTwentyFourthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyFourthDay.Location = New System.Drawing.Point(446, 87)
+        Me.lblTwentyFourthDay.Location = New System.Drawing.Point(444, 87)
         Me.lblTwentyFourthDay.Name = "lblTwentyFourthDay"
         Me.lblTwentyFourthDay.Size = New System.Drawing.Size(152, 19)
         Me.lblTwentyFourthDay.TabIndex = 125
@@ -598,7 +599,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyFifthDay.AutoSize = True
         Me.lblTwentyFifthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyFifthDay.Location = New System.Drawing.Point(596, 87)
+        Me.lblTwentyFifthDay.Location = New System.Drawing.Point(591, 87)
         Me.lblTwentyFifthDay.Name = "lblTwentyFifthDay"
         Me.lblTwentyFifthDay.Size = New System.Drawing.Size(141, 19)
         Me.lblTwentyFifthDay.TabIndex = 126
@@ -608,7 +609,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentySixthDay.AutoSize = True
         Me.lblTwentySixthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentySixthDay.Location = New System.Drawing.Point(734, 87)
+        Me.lblTwentySixthDay.Location = New System.Drawing.Point(727, 87)
         Me.lblTwentySixthDay.Name = "lblTwentySixthDay"
         Me.lblTwentySixthDay.Size = New System.Drawing.Size(141, 19)
         Me.lblTwentySixthDay.TabIndex = 127
@@ -628,7 +629,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblJanuary.AutoSize = True
         Me.lblJanuary.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblJanuary.Location = New System.Drawing.Point(759, 108)
+        Me.lblJanuary.Location = New System.Drawing.Point(781, 108)
         Me.lblJanuary.Name = "lblJanuary"
         Me.lblJanuary.Size = New System.Drawing.Size(86, 19)
         Me.lblJanuary.TabIndex = 129
@@ -638,7 +639,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblOf.AutoSize = True
         Me.lblOf.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblOf.Location = New System.Drawing.Point(727, 108)
+        Me.lblOf.Location = New System.Drawing.Point(746, 108)
         Me.lblOf.Name = "lblOf"
         Me.lblOf.Size = New System.Drawing.Size(31, 19)
         Me.lblOf.TabIndex = 130
@@ -648,7 +649,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyFirstDay.AutoSize = True
         Me.lblThirtyFirstDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyFirstDay.Location = New System.Drawing.Point(584, 108)
+        Me.lblThirtyFirstDay.Location = New System.Drawing.Point(601, 108)
         Me.lblThirtyFirstDay.Name = "lblThirtyFirstDay"
         Me.lblThirtyFirstDay.Size = New System.Drawing.Size(141, 19)
         Me.lblThirtyFirstDay.TabIndex = 131
@@ -658,7 +659,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblthirtiethDay.AutoSize = True
         Me.lblthirtiethDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblthirtiethDay.Location = New System.Drawing.Point(473, 108)
+        Me.lblthirtiethDay.Location = New System.Drawing.Point(486, 108)
         Me.lblthirtiethDay.Name = "lblthirtiethDay"
         Me.lblthirtiethDay.Size = New System.Drawing.Size(108, 19)
         Me.lblthirtiethDay.TabIndex = 132
@@ -668,7 +669,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyNinthDay.AutoSize = True
         Me.lblTwentyNinthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyNinthDay.Location = New System.Drawing.Point(329, 108)
+        Me.lblTwentyNinthDay.Location = New System.Drawing.Point(343, 108)
         Me.lblTwentyNinthDay.Name = "lblTwentyNinthDay"
         Me.lblTwentyNinthDay.Size = New System.Drawing.Size(141, 19)
         Me.lblTwentyNinthDay.TabIndex = 133
@@ -678,7 +679,7 @@ Partial Class frmBigTextKlock
         '
         Me.lbltwentyEighthDay.AutoSize = True
         Me.lbltwentyEighthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbltwentyEighthDay.Location = New System.Drawing.Point(184, 108)
+        Me.lbltwentyEighthDay.Location = New System.Drawing.Point(192, 108)
         Me.lbltwentyEighthDay.Name = "lbltwentyEighthDay"
         Me.lbltwentyEighthDay.Size = New System.Drawing.Size(141, 19)
         Me.lbltwentyEighthDay.TabIndex = 134
@@ -698,7 +699,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblMarch.AutoSize = True
         Me.lblMarch.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblMarch.Location = New System.Drawing.Point(112, 129)
+        Me.lblMarch.Location = New System.Drawing.Point(119, 129)
         Me.lblMarch.Name = "lblMarch"
         Me.lblMarch.Size = New System.Drawing.Size(64, 19)
         Me.lblMarch.TabIndex = 136
@@ -708,7 +709,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblApril.AutoSize = True
         Me.lblApril.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblApril.Location = New System.Drawing.Point(176, 129)
+        Me.lblApril.Location = New System.Drawing.Point(185, 129)
         Me.lblApril.Name = "lblApril"
         Me.lblApril.Size = New System.Drawing.Size(64, 19)
         Me.lblApril.TabIndex = 137
@@ -718,7 +719,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblMay.AutoSize = True
         Me.lblMay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblMay.Location = New System.Drawing.Point(238, 129)
+        Me.lblMay.Location = New System.Drawing.Point(246, 129)
         Me.lblMay.Name = "lblMay"
         Me.lblMay.Size = New System.Drawing.Size(42, 19)
         Me.lblMay.TabIndex = 138
@@ -728,7 +729,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblJune.AutoSize = True
         Me.lblJune.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblJune.Location = New System.Drawing.Point(279, 129)
+        Me.lblJune.Location = New System.Drawing.Point(287, 129)
         Me.lblJune.Name = "lblJune"
         Me.lblJune.Size = New System.Drawing.Size(53, 19)
         Me.lblJune.TabIndex = 139
@@ -738,7 +739,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblJuly.AutoSize = True
         Me.lblJuly.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblJuly.Location = New System.Drawing.Point(331, 129)
+        Me.lblJuly.Location = New System.Drawing.Point(341, 129)
         Me.lblJuly.Name = "lblJuly"
         Me.lblJuly.Size = New System.Drawing.Size(53, 19)
         Me.lblJuly.TabIndex = 140
@@ -748,7 +749,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblAugust.AutoSize = True
         Me.lblAugust.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAugust.Location = New System.Drawing.Point(384, 129)
+        Me.lblAugust.Location = New System.Drawing.Point(395, 129)
         Me.lblAugust.Name = "lblAugust"
         Me.lblAugust.Size = New System.Drawing.Size(75, 19)
         Me.lblAugust.TabIndex = 141
@@ -758,7 +759,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSeptember.AutoSize = True
         Me.lblSeptember.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSeptember.Location = New System.Drawing.Point(460, 129)
+        Me.lblSeptember.Location = New System.Drawing.Point(475, 129)
         Me.lblSeptember.Name = "lblSeptember"
         Me.lblSeptember.Size = New System.Drawing.Size(108, 19)
         Me.lblSeptember.TabIndex = 142
@@ -768,7 +769,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblOctober.AutoSize = True
         Me.lblOctober.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblOctober.Location = New System.Drawing.Point(568, 129)
+        Me.lblOctober.Location = New System.Drawing.Point(583, 129)
         Me.lblOctober.Name = "lblOctober"
         Me.lblOctober.Size = New System.Drawing.Size(86, 19)
         Me.lblOctober.TabIndex = 143
@@ -778,7 +779,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblNovember.AutoSize = True
         Me.lblNovember.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNovember.Location = New System.Drawing.Point(654, 129)
+        Me.lblNovember.Location = New System.Drawing.Point(669, 129)
         Me.lblNovember.Name = "lblNovember"
         Me.lblNovember.Size = New System.Drawing.Size(97, 19)
         Me.lblNovember.TabIndex = 144
@@ -788,7 +789,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblDecember.AutoSize = True
         Me.lblDecember.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDecember.Location = New System.Drawing.Point(749, 129)
+        Me.lblDecember.Location = New System.Drawing.Point(769, 129)
         Me.lblDecember.Name = "lblDecember"
         Me.lblDecember.Size = New System.Drawing.Size(97, 19)
         Me.lblDecember.TabIndex = 145
@@ -808,7 +809,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblOneMinute.AutoSize = True
         Me.lblOneMinute.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblOneMinute.Location = New System.Drawing.Point(302, 171)
+        Me.lblOneMinute.Location = New System.Drawing.Point(421, 171)
         Me.lblOneMinute.Name = "lblOneMinute"
         Me.lblOneMinute.Size = New System.Drawing.Size(42, 19)
         Me.lblOneMinute.TabIndex = 147
@@ -818,7 +819,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwoMinutes.AutoSize = True
         Me.lblTwoMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwoMinutes.Location = New System.Drawing.Point(343, 171)
+        Me.lblTwoMinutes.Location = New System.Drawing.Point(463, 171)
         Me.lblTwoMinutes.Name = "lblTwoMinutes"
         Me.lblTwoMinutes.Size = New System.Drawing.Size(42, 19)
         Me.lblTwoMinutes.TabIndex = 148
@@ -828,7 +829,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThreeMinutes.AutoSize = True
         Me.lblThreeMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThreeMinutes.Location = New System.Drawing.Point(384, 171)
+        Me.lblThreeMinutes.Location = New System.Drawing.Point(512, 171)
         Me.lblThreeMinutes.Name = "lblThreeMinutes"
         Me.lblThreeMinutes.Size = New System.Drawing.Size(64, 19)
         Me.lblThreeMinutes.TabIndex = 149
@@ -838,7 +839,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFourMinutes.AutoSize = True
         Me.lblFourMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFourMinutes.Location = New System.Drawing.Point(446, 171)
+        Me.lblFourMinutes.Location = New System.Drawing.Point(577, 171)
         Me.lblFourMinutes.Name = "lblFourMinutes"
         Me.lblFourMinutes.Size = New System.Drawing.Size(53, 19)
         Me.lblFourMinutes.TabIndex = 150
@@ -848,7 +849,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiveMinutes.AutoSize = True
         Me.lblFiveMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiveMinutes.Location = New System.Drawing.Point(498, 171)
+        Me.lblFiveMinutes.Location = New System.Drawing.Point(634, 171)
         Me.lblFiveMinutes.Name = "lblFiveMinutes"
         Me.lblFiveMinutes.Size = New System.Drawing.Size(53, 19)
         Me.lblFiveMinutes.TabIndex = 151
@@ -858,7 +859,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSixMinutes.AutoSize = True
         Me.lblSixMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSixMinutes.Location = New System.Drawing.Point(550, 171)
+        Me.lblSixMinutes.Location = New System.Drawing.Point(692, 171)
         Me.lblSixMinutes.Name = "lblSixMinutes"
         Me.lblSixMinutes.Size = New System.Drawing.Size(42, 19)
         Me.lblSixMinutes.TabIndex = 152
@@ -868,7 +869,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSevenMinutes.AutoSize = True
         Me.lblSevenMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSevenMinutes.Location = New System.Drawing.Point(591, 171)
+        Me.lblSevenMinutes.Location = New System.Drawing.Point(737, 171)
         Me.lblSevenMinutes.Name = "lblSevenMinutes"
         Me.lblSevenMinutes.Size = New System.Drawing.Size(64, 19)
         Me.lblSevenMinutes.TabIndex = 153
@@ -878,7 +879,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblNineMinutes.AutoSize = True
         Me.lblNineMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNineMinutes.Location = New System.Drawing.Point(719, 171)
+        Me.lblNineMinutes.Location = New System.Drawing.Point(17, 192)
         Me.lblNineMinutes.Name = "lblNineMinutes"
         Me.lblNineMinutes.Size = New System.Drawing.Size(53, 19)
         Me.lblNineMinutes.TabIndex = 154
@@ -888,7 +889,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblEightMinutes.AutoSize = True
         Me.lblEightMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEightMinutes.Location = New System.Drawing.Point(655, 171)
+        Me.lblEightMinutes.Location = New System.Drawing.Point(802, 171)
         Me.lblEightMinutes.Name = "lblEightMinutes"
         Me.lblEightMinutes.Size = New System.Drawing.Size(64, 19)
         Me.lblEightMinutes.TabIndex = 155
@@ -898,7 +899,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTenMinutes.AutoSize = True
         Me.lblTenMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTenMinutes.Location = New System.Drawing.Point(769, 171)
+        Me.lblTenMinutes.Location = New System.Drawing.Point(67, 192)
         Me.lblTenMinutes.Name = "lblTenMinutes"
         Me.lblTenMinutes.Size = New System.Drawing.Size(42, 19)
         Me.lblTenMinutes.TabIndex = 156
@@ -908,7 +909,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblNoon.AutoSize = True
         Me.lblNoon.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNoon.Location = New System.Drawing.Point(367, 190)
+        Me.lblNoon.Location = New System.Drawing.Point(530, 191)
         Me.lblNoon.Name = "lblNoon"
         Me.lblNoon.Size = New System.Drawing.Size(53, 19)
         Me.lblNoon.TabIndex = 157
@@ -918,7 +919,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblElevenMinutes.AutoSize = True
         Me.lblElevenMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblElevenMinutes.Location = New System.Drawing.Point(810, 171)
+        Me.lblElevenMinutes.Location = New System.Drawing.Point(108, 192)
         Me.lblElevenMinutes.Name = "lblElevenMinutes"
         Me.lblElevenMinutes.Size = New System.Drawing.Size(75, 19)
         Me.lblElevenMinutes.TabIndex = 158
@@ -928,7 +929,7 @@ Partial Class frmBigTextKlock
         '
         Me.lbltwelveMinutes.AutoSize = True
         Me.lbltwelveMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbltwelveMinutes.Location = New System.Drawing.Point(17, 191)
+        Me.lbltwelveMinutes.Location = New System.Drawing.Point(182, 192)
         Me.lbltwelveMinutes.Name = "lbltwelveMinutes"
         Me.lbltwelveMinutes.Size = New System.Drawing.Size(75, 19)
         Me.lbltwelveMinutes.TabIndex = 159
@@ -938,7 +939,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirteenMinutes.AutoSize = True
         Me.lblThirteenMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirteenMinutes.Location = New System.Drawing.Point(90, 190)
+        Me.lblThirteenMinutes.Location = New System.Drawing.Point(255, 191)
         Me.lblThirteenMinutes.Name = "lblThirteenMinutes"
         Me.lblThirteenMinutes.Size = New System.Drawing.Size(97, 19)
         Me.lblThirteenMinutes.TabIndex = 160
@@ -948,7 +949,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFourteenMinutes.AutoSize = True
         Me.lblFourteenMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFourteenMinutes.Location = New System.Drawing.Point(187, 190)
+        Me.lblFourteenMinutes.Location = New System.Drawing.Point(351, 191)
         Me.lblFourteenMinutes.Name = "lblFourteenMinutes"
         Me.lblFourteenMinutes.Size = New System.Drawing.Size(97, 19)
         Me.lblFourteenMinutes.TabIndex = 161
@@ -958,7 +959,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFifteenMinutes.AutoSize = True
         Me.lblFifteenMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFifteenMinutes.Location = New System.Drawing.Point(282, 190)
+        Me.lblFifteenMinutes.Location = New System.Drawing.Point(446, 191)
         Me.lblFifteenMinutes.Name = "lblFifteenMinutes"
         Me.lblFifteenMinutes.Size = New System.Drawing.Size(86, 19)
         Me.lblFifteenMinutes.TabIndex = 162
@@ -968,7 +969,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSixteenMinutes.AutoSize = True
         Me.lblSixteenMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSixteenMinutes.Location = New System.Drawing.Point(420, 190)
+        Me.lblSixteenMinutes.Location = New System.Drawing.Point(581, 191)
         Me.lblSixteenMinutes.Name = "lblSixteenMinutes"
         Me.lblSixteenMinutes.Size = New System.Drawing.Size(86, 19)
         Me.lblSixteenMinutes.TabIndex = 163
@@ -978,7 +979,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSeventeenMinutes.AutoSize = True
         Me.lblSeventeenMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSeventeenMinutes.Location = New System.Drawing.Point(505, 190)
+        Me.lblSeventeenMinutes.Location = New System.Drawing.Point(665, 191)
         Me.lblSeventeenMinutes.Name = "lblSeventeenMinutes"
         Me.lblSeventeenMinutes.Size = New System.Drawing.Size(108, 19)
         Me.lblSeventeenMinutes.TabIndex = 164
@@ -988,7 +989,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblEighteenMinutes.AutoSize = True
         Me.lblEighteenMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEighteenMinutes.Location = New System.Drawing.Point(611, 190)
+        Me.lblEighteenMinutes.Location = New System.Drawing.Point(770, 191)
         Me.lblEighteenMinutes.Name = "lblEighteenMinutes"
         Me.lblEighteenMinutes.Size = New System.Drawing.Size(97, 19)
         Me.lblEighteenMinutes.TabIndex = 165
@@ -998,7 +999,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblNineteenMinutes.AutoSize = True
         Me.lblNineteenMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNineteenMinutes.Location = New System.Drawing.Point(704, 190)
+        Me.lblNineteenMinutes.Location = New System.Drawing.Point(17, 213)
         Me.lblNineteenMinutes.Name = "lblNineteenMinutes"
         Me.lblNineteenMinutes.Size = New System.Drawing.Size(97, 19)
         Me.lblNineteenMinutes.TabIndex = 166
@@ -1008,7 +1009,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyMinutes.AutoSize = True
         Me.lblTwentyMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyMinutes.Location = New System.Drawing.Point(802, 191)
+        Me.lblTwentyMinutes.Location = New System.Drawing.Point(119, 213)
         Me.lblTwentyMinutes.Name = "lblTwentyMinutes"
         Me.lblTwentyMinutes.Size = New System.Drawing.Size(75, 19)
         Me.lblTwentyMinutes.TabIndex = 167
@@ -1018,7 +1019,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyOneMinutes.AutoSize = True
         Me.lblTwentyOneMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyOneMinutes.Location = New System.Drawing.Point(17, 212)
+        Me.lblTwentyOneMinutes.Location = New System.Drawing.Point(199, 213)
         Me.lblTwentyOneMinutes.Name = "lblTwentyOneMinutes"
         Me.lblTwentyOneMinutes.Size = New System.Drawing.Size(119, 19)
         Me.lblTwentyOneMinutes.TabIndex = 168
@@ -1028,7 +1029,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyTwoMinutes.AutoSize = True
         Me.lblTwentyTwoMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyTwoMinutes.Location = New System.Drawing.Point(136, 212)
+        Me.lblTwentyTwoMinutes.Location = New System.Drawing.Point(331, 213)
         Me.lblTwentyTwoMinutes.Name = "lblTwentyTwoMinutes"
         Me.lblTwentyTwoMinutes.Size = New System.Drawing.Size(119, 19)
         Me.lblTwentyTwoMinutes.TabIndex = 169
@@ -1038,7 +1039,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyThreeMinutes.AutoSize = True
         Me.lblTwentyThreeMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyThreeMinutes.Location = New System.Drawing.Point(255, 212)
+        Me.lblTwentyThreeMinutes.Location = New System.Drawing.Point(456, 213)
         Me.lblTwentyThreeMinutes.Name = "lblTwentyThreeMinutes"
         Me.lblTwentyThreeMinutes.Size = New System.Drawing.Size(141, 19)
         Me.lblTwentyThreeMinutes.TabIndex = 170
@@ -1048,7 +1049,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblMidnight.AutoSize = True
         Me.lblMidnight.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblMidnight.Location = New System.Drawing.Point(396, 212)
+        Me.lblMidnight.Location = New System.Drawing.Point(435, 234)
         Me.lblMidnight.Name = "lblMidnight"
         Me.lblMidnight.Size = New System.Drawing.Size(97, 19)
         Me.lblMidnight.TabIndex = 171
@@ -1058,7 +1059,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyFourMinutes.AutoSize = True
         Me.lblTwentyFourMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyFourMinutes.Location = New System.Drawing.Point(492, 212)
+        Me.lblTwentyFourMinutes.Location = New System.Drawing.Point(601, 213)
         Me.lblTwentyFourMinutes.Name = "lblTwentyFourMinutes"
         Me.lblTwentyFourMinutes.Size = New System.Drawing.Size(130, 19)
         Me.lblTwentyFourMinutes.TabIndex = 172
@@ -1068,7 +1069,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyFiveMinutes.AutoSize = True
         Me.lblTwentyFiveMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyFiveMinutes.Location = New System.Drawing.Point(621, 212)
+        Me.lblTwentyFiveMinutes.Location = New System.Drawing.Point(737, 213)
         Me.lblTwentyFiveMinutes.Name = "lblTwentyFiveMinutes"
         Me.lblTwentyFiveMinutes.Size = New System.Drawing.Size(130, 19)
         Me.lblTwentyFiveMinutes.TabIndex = 173
@@ -1078,7 +1079,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentySixMinutes.AutoSize = True
         Me.lblTwentySixMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentySixMinutes.Location = New System.Drawing.Point(749, 212)
+        Me.lblTwentySixMinutes.Location = New System.Drawing.Point(18, 234)
         Me.lblTwentySixMinutes.Name = "lblTwentySixMinutes"
         Me.lblTwentySixMinutes.Size = New System.Drawing.Size(119, 19)
         Me.lblTwentySixMinutes.TabIndex = 174
@@ -1088,7 +1089,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentySevenMinutes.AutoSize = True
         Me.lblTwentySevenMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentySevenMinutes.Location = New System.Drawing.Point(17, 233)
+        Me.lblTwentySevenMinutes.Location = New System.Drawing.Point(143, 234)
         Me.lblTwentySevenMinutes.Name = "lblTwentySevenMinutes"
         Me.lblTwentySevenMinutes.Size = New System.Drawing.Size(141, 19)
         Me.lblTwentySevenMinutes.TabIndex = 175
@@ -1098,7 +1099,7 @@ Partial Class frmBigTextKlock
         '
         Me.lbltwentyEightMinutes.AutoSize = True
         Me.lbltwentyEightMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbltwentyEightMinutes.Location = New System.Drawing.Point(158, 233)
+        Me.lbltwentyEightMinutes.Location = New System.Drawing.Point(285, 234)
         Me.lbltwentyEightMinutes.Name = "lbltwentyEightMinutes"
         Me.lbltwentyEightMinutes.Size = New System.Drawing.Size(141, 19)
         Me.lbltwentyEightMinutes.TabIndex = 176
@@ -1108,7 +1109,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyNineMinutes.AutoSize = True
         Me.lblTwentyNineMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyNineMinutes.Location = New System.Drawing.Point(298, 233)
+        Me.lblTwentyNineMinutes.Location = New System.Drawing.Point(544, 234)
         Me.lblTwentyNineMinutes.Name = "lblTwentyNineMinutes"
         Me.lblTwentyNineMinutes.Size = New System.Drawing.Size(130, 19)
         Me.lblTwentyNineMinutes.TabIndex = 177
@@ -1118,7 +1119,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyMinutes.AutoSize = True
         Me.lblThirtyMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyMinutes.Location = New System.Drawing.Point(427, 233)
+        Me.lblThirtyMinutes.Location = New System.Drawing.Point(673, 234)
         Me.lblThirtyMinutes.Name = "lblThirtyMinutes"
         Me.lblThirtyMinutes.Size = New System.Drawing.Size(75, 19)
         Me.lblThirtyMinutes.TabIndex = 178
@@ -1128,7 +1129,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblMinutes.AutoSize = True
         Me.lblMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblMinutes.Location = New System.Drawing.Point(700, 317)
+        Me.lblMinutes.Location = New System.Drawing.Point(210, 340)
         Me.lblMinutes.Name = "lblMinutes"
         Me.lblMinutes.Size = New System.Drawing.Size(86, 19)
         Me.lblMinutes.TabIndex = 179
@@ -1138,7 +1139,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblAndSeconds.AutoSize = True
         Me.lblAndSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAndSeconds.Location = New System.Drawing.Point(787, 317)
+        Me.lblAndSeconds.Location = New System.Drawing.Point(297, 340)
         Me.lblAndSeconds.Name = "lblAndSeconds"
         Me.lblAndSeconds.Size = New System.Drawing.Size(42, 19)
         Me.lblAndSeconds.TabIndex = 180
@@ -1148,7 +1149,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblMinute.AutoSize = True
         Me.lblMinute.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblMinute.Location = New System.Drawing.Point(625, 317)
+        Me.lblMinute.Location = New System.Drawing.Point(135, 340)
         Me.lblMinute.Name = "lblMinute"
         Me.lblMinute.Size = New System.Drawing.Size(75, 19)
         Me.lblMinute.TabIndex = 181
@@ -1158,7 +1159,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblOneSecond.AutoSize = True
         Me.lblOneSecond.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblOneSecond.Location = New System.Drawing.Point(17, 338)
+        Me.lblOneSecond.Location = New System.Drawing.Point(338, 340)
         Me.lblOneSecond.Name = "lblOneSecond"
         Me.lblOneSecond.Size = New System.Drawing.Size(42, 19)
         Me.lblOneSecond.TabIndex = 182
@@ -1168,7 +1169,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwoSeconds.AutoSize = True
         Me.lblTwoSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwoSeconds.Location = New System.Drawing.Point(59, 338)
+        Me.lblTwoSeconds.Location = New System.Drawing.Point(380, 340)
         Me.lblTwoSeconds.Name = "lblTwoSeconds"
         Me.lblTwoSeconds.Size = New System.Drawing.Size(42, 19)
         Me.lblTwoSeconds.TabIndex = 183
@@ -1178,7 +1179,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThreeSeconds.AutoSize = True
         Me.lblThreeSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThreeSeconds.Location = New System.Drawing.Point(101, 338)
+        Me.lblThreeSeconds.Location = New System.Drawing.Point(422, 340)
         Me.lblThreeSeconds.Name = "lblThreeSeconds"
         Me.lblThreeSeconds.Size = New System.Drawing.Size(64, 19)
         Me.lblThreeSeconds.TabIndex = 184
@@ -1188,7 +1189,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFourSeconds.AutoSize = True
         Me.lblFourSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFourSeconds.Location = New System.Drawing.Point(165, 338)
+        Me.lblFourSeconds.Location = New System.Drawing.Point(486, 340)
         Me.lblFourSeconds.Name = "lblFourSeconds"
         Me.lblFourSeconds.Size = New System.Drawing.Size(53, 19)
         Me.lblFourSeconds.TabIndex = 185
@@ -1198,7 +1199,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiveSeconds.AutoSize = True
         Me.lblFiveSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiveSeconds.Location = New System.Drawing.Point(218, 338)
+        Me.lblFiveSeconds.Location = New System.Drawing.Point(539, 340)
         Me.lblFiveSeconds.Name = "lblFiveSeconds"
         Me.lblFiveSeconds.Size = New System.Drawing.Size(53, 19)
         Me.lblFiveSeconds.TabIndex = 186
@@ -1208,7 +1209,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSixSeconds.AutoSize = True
         Me.lblSixSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSixSeconds.Location = New System.Drawing.Point(270, 338)
+        Me.lblSixSeconds.Location = New System.Drawing.Point(594, 340)
         Me.lblSixSeconds.Name = "lblSixSeconds"
         Me.lblSixSeconds.Size = New System.Drawing.Size(42, 19)
         Me.lblSixSeconds.TabIndex = 187
@@ -1218,7 +1219,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSevenSeconds.AutoSize = True
         Me.lblSevenSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSevenSeconds.Location = New System.Drawing.Point(313, 338)
+        Me.lblSevenSeconds.Location = New System.Drawing.Point(638, 340)
         Me.lblSevenSeconds.Name = "lblSevenSeconds"
         Me.lblSevenSeconds.Size = New System.Drawing.Size(64, 19)
         Me.lblSevenSeconds.TabIndex = 188
@@ -1228,7 +1229,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblEightSeconds.AutoSize = True
         Me.lblEightSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEightSeconds.Location = New System.Drawing.Point(377, 338)
+        Me.lblEightSeconds.Location = New System.Drawing.Point(702, 340)
         Me.lblEightSeconds.Name = "lblEightSeconds"
         Me.lblEightSeconds.Size = New System.Drawing.Size(64, 19)
         Me.lblEightSeconds.TabIndex = 189
@@ -1238,7 +1239,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblNineSeconds.AutoSize = True
         Me.lblNineSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNineSeconds.Location = New System.Drawing.Point(440, 338)
+        Me.lblNineSeconds.Location = New System.Drawing.Point(769, 340)
         Me.lblNineSeconds.Name = "lblNineSeconds"
         Me.lblNineSeconds.Size = New System.Drawing.Size(53, 19)
         Me.lblNineSeconds.TabIndex = 195
@@ -1248,7 +1249,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTenSeconds.AutoSize = True
         Me.lblTenSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTenSeconds.Location = New System.Drawing.Point(493, 338)
+        Me.lblTenSeconds.Location = New System.Drawing.Point(822, 340)
         Me.lblTenSeconds.Name = "lblTenSeconds"
         Me.lblTenSeconds.Size = New System.Drawing.Size(42, 19)
         Me.lblTenSeconds.TabIndex = 196
@@ -1258,7 +1259,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblElevenSeconds.AutoSize = True
         Me.lblElevenSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblElevenSeconds.Location = New System.Drawing.Point(534, 338)
+        Me.lblElevenSeconds.Location = New System.Drawing.Point(17, 361)
         Me.lblElevenSeconds.Name = "lblElevenSeconds"
         Me.lblElevenSeconds.Size = New System.Drawing.Size(75, 19)
         Me.lblElevenSeconds.TabIndex = 197
@@ -1268,7 +1269,7 @@ Partial Class frmBigTextKlock
         '
         Me.lbltwelveSeconds.AutoSize = True
         Me.lbltwelveSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbltwelveSeconds.Location = New System.Drawing.Point(608, 338)
+        Me.lbltwelveSeconds.Location = New System.Drawing.Point(90, 361)
         Me.lbltwelveSeconds.Name = "lbltwelveSeconds"
         Me.lbltwelveSeconds.Size = New System.Drawing.Size(75, 19)
         Me.lbltwelveSeconds.TabIndex = 198
@@ -1278,7 +1279,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFourteenSeconds.AutoSize = True
         Me.lblFourteenSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFourteenSeconds.Location = New System.Drawing.Point(778, 338)
+        Me.lblFourteenSeconds.Location = New System.Drawing.Point(270, 361)
         Me.lblFourteenSeconds.Name = "lblFourteenSeconds"
         Me.lblFourteenSeconds.Size = New System.Drawing.Size(97, 19)
         Me.lblFourteenSeconds.TabIndex = 200
@@ -1288,7 +1289,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirteenSeconds.AutoSize = True
         Me.lblThirteenSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirteenSeconds.Location = New System.Drawing.Point(683, 338)
+        Me.lblThirteenSeconds.Location = New System.Drawing.Point(171, 361)
         Me.lblThirteenSeconds.Name = "lblThirteenSeconds"
         Me.lblThirteenSeconds.Size = New System.Drawing.Size(97, 19)
         Me.lblThirteenSeconds.TabIndex = 199
@@ -1298,7 +1299,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblNineteenSeconds.AutoSize = True
         Me.lblNineteenSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNineteenSeconds.Location = New System.Drawing.Point(409, 359)
+        Me.lblNineteenSeconds.Location = New System.Drawing.Point(767, 361)
         Me.lblNineteenSeconds.Name = "lblNineteenSeconds"
         Me.lblNineteenSeconds.Size = New System.Drawing.Size(97, 19)
         Me.lblNineteenSeconds.TabIndex = 205
@@ -1308,7 +1309,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblEighteenSeconds.AutoSize = True
         Me.lblEighteenSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEighteenSeconds.Location = New System.Drawing.Point(308, 359)
+        Me.lblEighteenSeconds.Location = New System.Drawing.Point(667, 361)
         Me.lblEighteenSeconds.Name = "lblEighteenSeconds"
         Me.lblEighteenSeconds.Size = New System.Drawing.Size(97, 19)
         Me.lblEighteenSeconds.TabIndex = 204
@@ -1318,7 +1319,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSeventeenSeconds.AutoSize = True
         Me.lblSeventeenSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSeventeenSeconds.Location = New System.Drawing.Point(196, 359)
+        Me.lblSeventeenSeconds.Location = New System.Drawing.Point(552, 361)
         Me.lblSeventeenSeconds.Name = "lblSeventeenSeconds"
         Me.lblSeventeenSeconds.Size = New System.Drawing.Size(108, 19)
         Me.lblSeventeenSeconds.TabIndex = 203
@@ -1328,7 +1329,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSixteenSeconds.AutoSize = True
         Me.lblSixteenSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSixteenSeconds.Location = New System.Drawing.Point(107, 359)
+        Me.lblSixteenSeconds.Location = New System.Drawing.Point(460, 361)
         Me.lblSixteenSeconds.Name = "lblSixteenSeconds"
         Me.lblSixteenSeconds.Size = New System.Drawing.Size(86, 19)
         Me.lblSixteenSeconds.TabIndex = 202
@@ -1338,7 +1339,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFifteenSeconds.AutoSize = True
         Me.lblFifteenSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFifteenSeconds.Location = New System.Drawing.Point(17, 359)
+        Me.lblFifteenSeconds.Location = New System.Drawing.Point(369, 361)
         Me.lblFifteenSeconds.Name = "lblFifteenSeconds"
         Me.lblFifteenSeconds.Size = New System.Drawing.Size(86, 19)
         Me.lblFifteenSeconds.TabIndex = 201
@@ -1348,7 +1349,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSecond.AutoSize = True
         Me.lblSecond.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSecond.Location = New System.Drawing.Point(527, 484)
+        Me.lblSecond.Location = New System.Drawing.Point(631, 487)
         Me.lblSecond.Name = "lblSecond"
         Me.lblSecond.Size = New System.Drawing.Size(75, 19)
         Me.lblSecond.TabIndex = 206
@@ -1358,7 +1359,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSeconds.AutoSize = True
         Me.lblSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSeconds.Location = New System.Drawing.Point(610, 484)
+        Me.lblSeconds.Location = New System.Drawing.Point(710, 487)
         Me.lblSeconds.Name = "lblSeconds"
         Me.lblSeconds.Size = New System.Drawing.Size(86, 19)
         Me.lblSeconds.TabIndex = 207
@@ -1368,7 +1369,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyNineMinutes.AutoSize = True
         Me.lblThirtyNineMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyNineMinutes.Location = New System.Drawing.Point(678, 254)
+        Me.lblThirtyNineMinutes.Location = New System.Drawing.Point(171, 277)
         Me.lblThirtyNineMinutes.Name = "lblThirtyNineMinutes"
         Me.lblThirtyNineMinutes.Size = New System.Drawing.Size(130, 19)
         Me.lblThirtyNineMinutes.TabIndex = 216
@@ -1378,7 +1379,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyEightMinutes.AutoSize = True
         Me.lblThirtyEightMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyEightMinutes.Location = New System.Drawing.Point(537, 254)
+        Me.lblThirtyEightMinutes.Location = New System.Drawing.Point(17, 277)
         Me.lblThirtyEightMinutes.Name = "lblThirtyEightMinutes"
         Me.lblThirtyEightMinutes.Size = New System.Drawing.Size(141, 19)
         Me.lblThirtyEightMinutes.TabIndex = 215
@@ -1388,7 +1389,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtySevenMinutes.AutoSize = True
         Me.lblThirtySevenMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtySevenMinutes.Location = New System.Drawing.Point(395, 254)
+        Me.lblThirtySevenMinutes.Location = New System.Drawing.Point(726, 256)
         Me.lblThirtySevenMinutes.Name = "lblThirtySevenMinutes"
         Me.lblThirtySevenMinutes.Size = New System.Drawing.Size(141, 19)
         Me.lblThirtySevenMinutes.TabIndex = 214
@@ -1398,7 +1399,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtySixMinutes.AutoSize = True
         Me.lblThirtySixMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtySixMinutes.Location = New System.Drawing.Point(275, 254)
+        Me.lblThirtySixMinutes.Location = New System.Drawing.Point(599, 256)
         Me.lblThirtySixMinutes.Name = "lblThirtySixMinutes"
         Me.lblThirtySixMinutes.Size = New System.Drawing.Size(119, 19)
         Me.lblThirtySixMinutes.TabIndex = 213
@@ -1408,7 +1409,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyFiveMinutes.AutoSize = True
         Me.lblThirtyFiveMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyFiveMinutes.Location = New System.Drawing.Point(146, 254)
+        Me.lblThirtyFiveMinutes.Location = New System.Drawing.Point(462, 256)
         Me.lblThirtyFiveMinutes.Name = "lblThirtyFiveMinutes"
         Me.lblThirtyFiveMinutes.Size = New System.Drawing.Size(130, 19)
         Me.lblThirtyFiveMinutes.TabIndex = 212
@@ -1418,7 +1419,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyFourMinutes.AutoSize = True
         Me.lblThirtyFourMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyFourMinutes.Location = New System.Drawing.Point(17, 254)
+        Me.lblThirtyFourMinutes.Location = New System.Drawing.Point(324, 256)
         Me.lblThirtyFourMinutes.Name = "lblThirtyFourMinutes"
         Me.lblThirtyFourMinutes.Size = New System.Drawing.Size(130, 19)
         Me.lblThirtyFourMinutes.TabIndex = 211
@@ -1428,7 +1429,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyThreeMinutes.AutoSize = True
         Me.lblThirtyThreeMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyThreeMinutes.Location = New System.Drawing.Point(735, 233)
+        Me.lblThirtyThreeMinutes.Location = New System.Drawing.Point(156, 256)
         Me.lblThirtyThreeMinutes.Name = "lblThirtyThreeMinutes"
         Me.lblThirtyThreeMinutes.Size = New System.Drawing.Size(141, 19)
         Me.lblThirtyThreeMinutes.TabIndex = 210
@@ -1438,7 +1439,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyTwoMinutes.AutoSize = True
         Me.lblThirtyTwoMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyTwoMinutes.Location = New System.Drawing.Point(618, 233)
+        Me.lblThirtyTwoMinutes.Location = New System.Drawing.Point(17, 256)
         Me.lblThirtyTwoMinutes.Name = "lblThirtyTwoMinutes"
         Me.lblThirtyTwoMinutes.Size = New System.Drawing.Size(119, 19)
         Me.lblThirtyTwoMinutes.TabIndex = 209
@@ -1448,7 +1449,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyOneMinutes.AutoSize = True
         Me.lblThirtyOneMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyOneMinutes.Location = New System.Drawing.Point(500, 233)
+        Me.lblThirtyOneMinutes.Location = New System.Drawing.Point(748, 234)
         Me.lblThirtyOneMinutes.Name = "lblThirtyOneMinutes"
         Me.lblThirtyOneMinutes.Size = New System.Drawing.Size(119, 19)
         Me.lblThirtyOneMinutes.TabIndex = 208
@@ -1458,7 +1459,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyMinutes.AutoSize = True
         Me.lblFortyMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyMinutes.Location = New System.Drawing.Point(807, 254)
+        Me.lblFortyMinutes.Location = New System.Drawing.Point(309, 277)
         Me.lblFortyMinutes.Name = "lblFortyMinutes"
         Me.lblFortyMinutes.Size = New System.Drawing.Size(64, 19)
         Me.lblFortyMinutes.TabIndex = 217
@@ -1468,7 +1469,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyMinutes.AutoSize = True
         Me.lblFiftyMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyMinutes.Location = New System.Drawing.Point(275, 296)
+        Me.lblFiftyMinutes.Location = New System.Drawing.Point(674, 298)
         Me.lblFiftyMinutes.Name = "lblFiftyMinutes"
         Me.lblFiftyMinutes.Size = New System.Drawing.Size(64, 19)
         Me.lblFiftyMinutes.TabIndex = 227
@@ -1478,7 +1479,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyNineMinutes.AutoSize = True
         Me.lblFortyNineMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyNineMinutes.Location = New System.Drawing.Point(153, 296)
+        Me.lblFortyNineMinutes.Location = New System.Drawing.Point(549, 298)
         Me.lblFortyNineMinutes.Name = "lblFortyNineMinutes"
         Me.lblFortyNineMinutes.Size = New System.Drawing.Size(119, 19)
         Me.lblFortyNineMinutes.TabIndex = 226
@@ -1488,7 +1489,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyEightMinutes.AutoSize = True
         Me.lblFortyEightMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyEightMinutes.Location = New System.Drawing.Point(17, 296)
+        Me.lblFortyEightMinutes.Location = New System.Drawing.Point(412, 298)
         Me.lblFortyEightMinutes.Name = "lblFortyEightMinutes"
         Me.lblFortyEightMinutes.Size = New System.Drawing.Size(130, 19)
         Me.lblFortyEightMinutes.TabIndex = 225
@@ -1498,7 +1499,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortySevenMinutes.AutoSize = True
         Me.lblFortySevenMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortySevenMinutes.Location = New System.Drawing.Point(725, 275)
+        Me.lblFortySevenMinutes.Location = New System.Drawing.Point(270, 298)
         Me.lblFortySevenMinutes.Name = "lblFortySevenMinutes"
         Me.lblFortySevenMinutes.Size = New System.Drawing.Size(130, 19)
         Me.lblFortySevenMinutes.TabIndex = 224
@@ -1508,7 +1509,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortySixMinutes.AutoSize = True
         Me.lblFortySixMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortySixMinutes.Location = New System.Drawing.Point(615, 275)
+        Me.lblFortySixMinutes.Location = New System.Drawing.Point(151, 298)
         Me.lblFortySixMinutes.Name = "lblFortySixMinutes"
         Me.lblFortySixMinutes.Size = New System.Drawing.Size(108, 19)
         Me.lblFortySixMinutes.TabIndex = 223
@@ -1518,7 +1519,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyFiveMinutes.AutoSize = True
         Me.lblFortyFiveMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyFiveMinutes.Location = New System.Drawing.Point(494, 275)
+        Me.lblFortyFiveMinutes.Location = New System.Drawing.Point(17, 298)
         Me.lblFortyFiveMinutes.Name = "lblFortyFiveMinutes"
         Me.lblFortyFiveMinutes.Size = New System.Drawing.Size(119, 19)
         Me.lblFortyFiveMinutes.TabIndex = 222
@@ -1528,7 +1529,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyFourMinutes.AutoSize = True
         Me.lblFortyFourMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyFourMinutes.Location = New System.Drawing.Point(372, 275)
+        Me.lblFortyFourMinutes.Location = New System.Drawing.Point(747, 277)
         Me.lblFortyFourMinutes.Name = "lblFortyFourMinutes"
         Me.lblFortyFourMinutes.Size = New System.Drawing.Size(119, 19)
         Me.lblFortyFourMinutes.TabIndex = 221
@@ -1538,7 +1539,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyThreeMinutes.AutoSize = True
         Me.lblFortyThreeMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyThreeMinutes.Location = New System.Drawing.Point(238, 275)
+        Me.lblFortyThreeMinutes.Location = New System.Drawing.Point(612, 277)
         Me.lblFortyThreeMinutes.Name = "lblFortyThreeMinutes"
         Me.lblFortyThreeMinutes.Size = New System.Drawing.Size(130, 19)
         Me.lblFortyThreeMinutes.TabIndex = 220
@@ -1548,7 +1549,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyTwoMinutes.AutoSize = True
         Me.lblFortyTwoMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyTwoMinutes.Location = New System.Drawing.Point(128, 275)
+        Me.lblFortyTwoMinutes.Location = New System.Drawing.Point(497, 277)
         Me.lblFortyTwoMinutes.Name = "lblFortyTwoMinutes"
         Me.lblFortyTwoMinutes.Size = New System.Drawing.Size(108, 19)
         Me.lblFortyTwoMinutes.TabIndex = 219
@@ -1558,7 +1559,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyOneMinutes.AutoSize = True
         Me.lblFortyOneMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyOneMinutes.Location = New System.Drawing.Point(17, 275)
+        Me.lblFortyOneMinutes.Location = New System.Drawing.Point(383, 277)
         Me.lblFortyOneMinutes.Name = "lblFortyOneMinutes"
         Me.lblFortyOneMinutes.Size = New System.Drawing.Size(108, 19)
         Me.lblFortyOneMinutes.TabIndex = 218
@@ -1568,7 +1569,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtySeconds.AutoSize = True
         Me.lblThirtySeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtySeconds.Location = New System.Drawing.Point(147, 401)
+        Me.lblThirtySeconds.Location = New System.Drawing.Point(421, 403)
         Me.lblThirtySeconds.Name = "lblThirtySeconds"
         Me.lblThirtySeconds.Size = New System.Drawing.Size(75, 19)
         Me.lblThirtySeconds.TabIndex = 238
@@ -1578,7 +1579,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyNineSeconds.AutoSize = True
         Me.lblTwentyNineSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyNineSeconds.Location = New System.Drawing.Point(17, 401)
+        Me.lblTwentyNineSeconds.Location = New System.Drawing.Point(294, 403)
         Me.lblTwentyNineSeconds.Name = "lblTwentyNineSeconds"
         Me.lblTwentyNineSeconds.Size = New System.Drawing.Size(130, 19)
         Me.lblTwentyNineSeconds.TabIndex = 237
@@ -1588,7 +1589,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyEightSeconds.AutoSize = True
         Me.lblTwentyEightSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyEightSeconds.Location = New System.Drawing.Point(695, 380)
+        Me.lblTwentyEightSeconds.Location = New System.Drawing.Point(156, 403)
         Me.lblTwentyEightSeconds.Name = "lblTwentyEightSeconds"
         Me.lblTwentyEightSeconds.Size = New System.Drawing.Size(141, 19)
         Me.lblTwentyEightSeconds.TabIndex = 236
@@ -1598,7 +1599,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentySevenSeconds.AutoSize = True
         Me.lblTwentySevenSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentySevenSeconds.Location = New System.Drawing.Point(552, 380)
+        Me.lblTwentySevenSeconds.Location = New System.Drawing.Point(17, 403)
         Me.lblTwentySevenSeconds.Name = "lblTwentySevenSeconds"
         Me.lblTwentySevenSeconds.Size = New System.Drawing.Size(141, 19)
         Me.lblTwentySevenSeconds.TabIndex = 235
@@ -1608,7 +1609,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentySixSeconds.AutoSize = True
         Me.lblTwentySixSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentySixSeconds.Location = New System.Drawing.Point(430, 380)
+        Me.lblTwentySixSeconds.Location = New System.Drawing.Point(744, 382)
         Me.lblTwentySixSeconds.Name = "lblTwentySixSeconds"
         Me.lblTwentySixSeconds.Size = New System.Drawing.Size(119, 19)
         Me.lblTwentySixSeconds.TabIndex = 234
@@ -1618,7 +1619,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyFiveSeconds.AutoSize = True
         Me.lblTwentyFiveSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyFiveSeconds.Location = New System.Drawing.Point(296, 380)
+        Me.lblTwentyFiveSeconds.Location = New System.Drawing.Point(607, 382)
         Me.lblTwentyFiveSeconds.Name = "lblTwentyFiveSeconds"
         Me.lblTwentyFiveSeconds.Size = New System.Drawing.Size(130, 19)
         Me.lblTwentyFiveSeconds.TabIndex = 233
@@ -1628,7 +1629,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyFourSeconds.AutoSize = True
         Me.lblTwentyFourSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyFourSeconds.Location = New System.Drawing.Point(162, 380)
+        Me.lblTwentyFourSeconds.Location = New System.Drawing.Point(476, 382)
         Me.lblTwentyFourSeconds.Name = "lblTwentyFourSeconds"
         Me.lblTwentyFourSeconds.Size = New System.Drawing.Size(130, 19)
         Me.lblTwentyFourSeconds.TabIndex = 232
@@ -1638,7 +1639,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyThreeSeconds.AutoSize = True
         Me.lblTwentyThreeSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyThreeSeconds.Location = New System.Drawing.Point(17, 380)
+        Me.lblTwentyThreeSeconds.Location = New System.Drawing.Point(333, 382)
         Me.lblTwentyThreeSeconds.Name = "lblTwentyThreeSeconds"
         Me.lblTwentyThreeSeconds.Size = New System.Drawing.Size(141, 19)
         Me.lblTwentyThreeSeconds.TabIndex = 231
@@ -1648,7 +1649,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyTwoSeconds.AutoSize = True
         Me.lblTwentyTwoSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyTwoSeconds.Location = New System.Drawing.Point(711, 359)
+        Me.lblTwentyTwoSeconds.Location = New System.Drawing.Point(212, 382)
         Me.lblTwentyTwoSeconds.Name = "lblTwentyTwoSeconds"
         Me.lblTwentyTwoSeconds.Size = New System.Drawing.Size(119, 19)
         Me.lblTwentyTwoSeconds.TabIndex = 230
@@ -1658,7 +1659,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentyOneSeconds.AutoSize = True
         Me.lblTwentyOneSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentyOneSeconds.Location = New System.Drawing.Point(588, 359)
+        Me.lblTwentyOneSeconds.Location = New System.Drawing.Point(93, 382)
         Me.lblTwentyOneSeconds.Name = "lblTwentyOneSeconds"
         Me.lblTwentyOneSeconds.Size = New System.Drawing.Size(119, 19)
         Me.lblTwentyOneSeconds.TabIndex = 229
@@ -1668,7 +1669,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwentySeconds.AutoSize = True
         Me.lblTwentySeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwentySeconds.Location = New System.Drawing.Point(510, 359)
+        Me.lblTwentySeconds.Location = New System.Drawing.Point(17, 382)
         Me.lblTwentySeconds.Name = "lblTwentySeconds"
         Me.lblTwentySeconds.Size = New System.Drawing.Size(75, 19)
         Me.lblTwentySeconds.TabIndex = 228
@@ -1678,7 +1679,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyNineSeconds.AutoSize = True
         Me.lblThirtyNineSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyNineSeconds.Location = New System.Drawing.Point(421, 422)
+        Me.lblThirtyNineSeconds.Location = New System.Drawing.Point(674, 424)
         Me.lblThirtyNineSeconds.Name = "lblThirtyNineSeconds"
         Me.lblThirtyNineSeconds.Size = New System.Drawing.Size(130, 19)
         Me.lblThirtyNineSeconds.TabIndex = 247
@@ -1688,7 +1689,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyEightSeconds.AutoSize = True
         Me.lblThirtyEightSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyEightSeconds.Location = New System.Drawing.Point(282, 422)
+        Me.lblThirtyEightSeconds.Location = New System.Drawing.Point(534, 424)
         Me.lblThirtyEightSeconds.Name = "lblThirtyEightSeconds"
         Me.lblThirtyEightSeconds.Size = New System.Drawing.Size(141, 19)
         Me.lblThirtyEightSeconds.TabIndex = 246
@@ -1698,7 +1699,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtySevenSeconds.AutoSize = True
         Me.lblThirtySevenSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtySevenSeconds.Location = New System.Drawing.Point(139, 422)
+        Me.lblThirtySevenSeconds.Location = New System.Drawing.Point(391, 424)
         Me.lblThirtySevenSeconds.Name = "lblThirtySevenSeconds"
         Me.lblThirtySevenSeconds.Size = New System.Drawing.Size(141, 19)
         Me.lblThirtySevenSeconds.TabIndex = 245
@@ -1708,7 +1709,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtySixSeconds.AutoSize = True
         Me.lblThirtySixSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtySixSeconds.Location = New System.Drawing.Point(17, 422)
+        Me.lblThirtySixSeconds.Location = New System.Drawing.Point(269, 424)
         Me.lblThirtySixSeconds.Name = "lblThirtySixSeconds"
         Me.lblThirtySixSeconds.Size = New System.Drawing.Size(119, 19)
         Me.lblThirtySixSeconds.TabIndex = 244
@@ -1718,7 +1719,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyFiveSeconds.AutoSize = True
         Me.lblThirtyFiveSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyFiveSeconds.Location = New System.Drawing.Point(727, 401)
+        Me.lblThirtyFiveSeconds.Location = New System.Drawing.Point(142, 424)
         Me.lblThirtyFiveSeconds.Name = "lblThirtyFiveSeconds"
         Me.lblThirtyFiveSeconds.Size = New System.Drawing.Size(130, 19)
         Me.lblThirtyFiveSeconds.TabIndex = 243
@@ -1728,7 +1729,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyFourSeconds.AutoSize = True
         Me.lblThirtyFourSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyFourSeconds.Location = New System.Drawing.Point(597, 401)
+        Me.lblThirtyFourSeconds.Location = New System.Drawing.Point(17, 424)
         Me.lblThirtyFourSeconds.Name = "lblThirtyFourSeconds"
         Me.lblThirtyFourSeconds.Size = New System.Drawing.Size(130, 19)
         Me.lblThirtyFourSeconds.TabIndex = 242
@@ -1738,7 +1739,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyThreeSeconds.AutoSize = True
         Me.lblThirtyThreeSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyThreeSeconds.Location = New System.Drawing.Point(458, 401)
+        Me.lblThirtyThreeSeconds.Location = New System.Drawing.Point(723, 403)
         Me.lblThirtyThreeSeconds.Name = "lblThirtyThreeSeconds"
         Me.lblThirtyThreeSeconds.Size = New System.Drawing.Size(141, 19)
         Me.lblThirtyThreeSeconds.TabIndex = 241
@@ -1748,7 +1749,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyTwoSeconds.AutoSize = True
         Me.lblThirtyTwoSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyTwoSeconds.Location = New System.Drawing.Point(340, 401)
+        Me.lblThirtyTwoSeconds.Location = New System.Drawing.Point(610, 403)
         Me.lblThirtyTwoSeconds.Name = "lblThirtyTwoSeconds"
         Me.lblThirtyTwoSeconds.Size = New System.Drawing.Size(119, 19)
         Me.lblThirtyTwoSeconds.TabIndex = 240
@@ -1758,7 +1759,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThirtyOneSeconds.AutoSize = True
         Me.lblThirtyOneSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThirtyOneSeconds.Location = New System.Drawing.Point(220, 401)
+        Me.lblThirtyOneSeconds.Location = New System.Drawing.Point(494, 403)
         Me.lblThirtyOneSeconds.Name = "lblThirtyOneSeconds"
         Me.lblThirtyOneSeconds.Size = New System.Drawing.Size(119, 19)
         Me.lblThirtyOneSeconds.TabIndex = 239
@@ -1768,7 +1769,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyNineSeconds.AutoSize = True
         Me.lblFortyNineSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyNineSeconds.Location = New System.Drawing.Point(17, 462)
+        Me.lblFortyNineSeconds.Location = New System.Drawing.Point(165, 466)
         Me.lblFortyNineSeconds.Name = "lblFortyNineSeconds"
         Me.lblFortyNineSeconds.Size = New System.Drawing.Size(119, 19)
         Me.lblFortyNineSeconds.TabIndex = 257
@@ -1778,7 +1779,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyEightSeconds.AutoSize = True
         Me.lblFortyEightSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyEightSeconds.Location = New System.Drawing.Point(642, 443)
+        Me.lblFortyEightSeconds.Location = New System.Drawing.Point(17, 466)
         Me.lblFortyEightSeconds.Name = "lblFortyEightSeconds"
         Me.lblFortyEightSeconds.Size = New System.Drawing.Size(130, 19)
         Me.lblFortyEightSeconds.TabIndex = 256
@@ -1788,7 +1789,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortySevenSeconds.AutoSize = True
         Me.lblFortySevenSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortySevenSeconds.Location = New System.Drawing.Point(509, 443)
+        Me.lblFortySevenSeconds.Location = New System.Drawing.Point(733, 445)
         Me.lblFortySevenSeconds.Name = "lblFortySevenSeconds"
         Me.lblFortySevenSeconds.Size = New System.Drawing.Size(130, 19)
         Me.lblFortySevenSeconds.TabIndex = 255
@@ -1798,7 +1799,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortySixSeconds.AutoSize = True
         Me.lblFortySixSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortySixSeconds.Location = New System.Drawing.Point(397, 443)
+        Me.lblFortySixSeconds.Location = New System.Drawing.Point(616, 445)
         Me.lblFortySixSeconds.Name = "lblFortySixSeconds"
         Me.lblFortySixSeconds.Size = New System.Drawing.Size(108, 19)
         Me.lblFortySixSeconds.TabIndex = 254
@@ -1808,7 +1809,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyFiveSeconds.AutoSize = True
         Me.lblFortyFiveSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyFiveSeconds.Location = New System.Drawing.Point(274, 443)
+        Me.lblFortyFiveSeconds.Location = New System.Drawing.Point(493, 445)
         Me.lblFortyFiveSeconds.Name = "lblFortyFiveSeconds"
         Me.lblFortyFiveSeconds.Size = New System.Drawing.Size(119, 19)
         Me.lblFortyFiveSeconds.TabIndex = 253
@@ -1818,7 +1819,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyFourSeconds.AutoSize = True
         Me.lblFortyFourSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyFourSeconds.Location = New System.Drawing.Point(152, 443)
+        Me.lblFortyFourSeconds.Location = New System.Drawing.Point(368, 445)
         Me.lblFortyFourSeconds.Name = "lblFortyFourSeconds"
         Me.lblFortyFourSeconds.Size = New System.Drawing.Size(119, 19)
         Me.lblFortyFourSeconds.TabIndex = 252
@@ -1828,7 +1829,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyThreeSeconds.AutoSize = True
         Me.lblFortyThreeSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyThreeSeconds.Location = New System.Drawing.Point(17, 443)
+        Me.lblFortyThreeSeconds.Location = New System.Drawing.Point(234, 445)
         Me.lblFortyThreeSeconds.Name = "lblFortyThreeSeconds"
         Me.lblFortyThreeSeconds.Size = New System.Drawing.Size(130, 19)
         Me.lblFortyThreeSeconds.TabIndex = 251
@@ -1838,7 +1839,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyTwoSeconds.AutoSize = True
         Me.lblFortyTwoSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyTwoSeconds.Location = New System.Drawing.Point(717, 422)
+        Me.lblFortyTwoSeconds.Location = New System.Drawing.Point(127, 445)
         Me.lblFortyTwoSeconds.Name = "lblFortyTwoSeconds"
         Me.lblFortyTwoSeconds.Size = New System.Drawing.Size(108, 19)
         Me.lblFortyTwoSeconds.TabIndex = 250
@@ -1848,7 +1849,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortyOneSeconds.AutoSize = True
         Me.lblFortyOneSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortyOneSeconds.Location = New System.Drawing.Point(611, 422)
+        Me.lblFortyOneSeconds.Location = New System.Drawing.Point(17, 445)
         Me.lblFortyOneSeconds.Name = "lblFortyOneSeconds"
         Me.lblFortyOneSeconds.Size = New System.Drawing.Size(108, 19)
         Me.lblFortyOneSeconds.TabIndex = 249
@@ -1858,7 +1859,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFortySeconds.AutoSize = True
         Me.lblFortySeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFortySeconds.Location = New System.Drawing.Point(549, 422)
+        Me.lblFortySeconds.Location = New System.Drawing.Point(801, 424)
         Me.lblFortySeconds.Name = "lblFortySeconds"
         Me.lblFortySeconds.Size = New System.Drawing.Size(64, 19)
         Me.lblFortySeconds.TabIndex = 248
@@ -1868,7 +1869,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyNineMinutes.AutoSize = True
         Me.lblFiftyNineMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyNineMinutes.Location = New System.Drawing.Point(506, 317)
+        Me.lblFiftyNineMinutes.Location = New System.Drawing.Point(17, 340)
         Me.lblFiftyNineMinutes.Name = "lblFiftyNineMinutes"
         Me.lblFiftyNineMinutes.Size = New System.Drawing.Size(119, 19)
         Me.lblFiftyNineMinutes.TabIndex = 266
@@ -1878,7 +1879,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyEightMinutes.AutoSize = True
         Me.lblFiftyEightMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyEightMinutes.Location = New System.Drawing.Point(376, 317)
+        Me.lblFiftyEightMinutes.Location = New System.Drawing.Point(735, 319)
         Me.lblFiftyEightMinutes.Name = "lblFiftyEightMinutes"
         Me.lblFiftyEightMinutes.Size = New System.Drawing.Size(130, 19)
         Me.lblFiftyEightMinutes.TabIndex = 265
@@ -1888,7 +1889,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftySevenMinutes.AutoSize = True
         Me.lblFiftySevenMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftySevenMinutes.Location = New System.Drawing.Point(244, 317)
+        Me.lblFiftySevenMinutes.Location = New System.Drawing.Point(604, 319)
         Me.lblFiftySevenMinutes.Name = "lblFiftySevenMinutes"
         Me.lblFiftySevenMinutes.Size = New System.Drawing.Size(130, 19)
         Me.lblFiftySevenMinutes.TabIndex = 264
@@ -1898,7 +1899,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftySixMinutes.AutoSize = True
         Me.lblFiftySixMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftySixMinutes.Location = New System.Drawing.Point(136, 317)
+        Me.lblFiftySixMinutes.Location = New System.Drawing.Point(495, 319)
         Me.lblFiftySixMinutes.Name = "lblFiftySixMinutes"
         Me.lblFiftySixMinutes.Size = New System.Drawing.Size(108, 19)
         Me.lblFiftySixMinutes.TabIndex = 263
@@ -1908,7 +1909,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyFiveMinutes.AutoSize = True
         Me.lblFiftyFiveMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyFiveMinutes.Location = New System.Drawing.Point(17, 317)
+        Me.lblFiftyFiveMinutes.Location = New System.Drawing.Point(373, 319)
         Me.lblFiftyFiveMinutes.Name = "lblFiftyFiveMinutes"
         Me.lblFiftyFiveMinutes.Size = New System.Drawing.Size(119, 19)
         Me.lblFiftyFiveMinutes.TabIndex = 262
@@ -1918,7 +1919,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyFourMinutes.AutoSize = True
         Me.lblFiftyFourMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyFourMinutes.Location = New System.Drawing.Point(701, 296)
+        Me.lblFiftyFourMinutes.Location = New System.Drawing.Point(254, 319)
         Me.lblFiftyFourMinutes.Name = "lblFiftyFourMinutes"
         Me.lblFiftyFourMinutes.Size = New System.Drawing.Size(119, 19)
         Me.lblFiftyFourMinutes.TabIndex = 261
@@ -1928,7 +1929,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyThreeMinutes.AutoSize = True
         Me.lblFiftyThreeMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyThreeMinutes.Location = New System.Drawing.Point(567, 296)
+        Me.lblFiftyThreeMinutes.Location = New System.Drawing.Point(124, 319)
         Me.lblFiftyThreeMinutes.Name = "lblFiftyThreeMinutes"
         Me.lblFiftyThreeMinutes.Size = New System.Drawing.Size(130, 19)
         Me.lblFiftyThreeMinutes.TabIndex = 260
@@ -1938,7 +1939,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyTwoMinutes.AutoSize = True
         Me.lblFiftyTwoMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyTwoMinutes.Location = New System.Drawing.Point(455, 296)
+        Me.lblFiftyTwoMinutes.Location = New System.Drawing.Point(17, 319)
         Me.lblFiftyTwoMinutes.Name = "lblFiftyTwoMinutes"
         Me.lblFiftyTwoMinutes.Size = New System.Drawing.Size(108, 19)
         Me.lblFiftyTwoMinutes.TabIndex = 259
@@ -1948,7 +1949,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyOneMinutes.AutoSize = True
         Me.lblFiftyOneMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyOneMinutes.Location = New System.Drawing.Point(343, 296)
+        Me.lblFiftyOneMinutes.Location = New System.Drawing.Point(756, 298)
         Me.lblFiftyOneMinutes.Name = "lblFiftyOneMinutes"
         Me.lblFiftyOneMinutes.Size = New System.Drawing.Size(108, 19)
         Me.lblFiftyOneMinutes.TabIndex = 258
@@ -1958,7 +1959,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyNineSeconds.AutoSize = True
         Me.lblFiftyNineSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyNineSeconds.Location = New System.Drawing.Point(402, 484)
+        Me.lblFiftyNineSeconds.Location = New System.Drawing.Point(509, 487)
         Me.lblFiftyNineSeconds.Name = "lblFiftyNineSeconds"
         Me.lblFiftyNineSeconds.Size = New System.Drawing.Size(119, 19)
         Me.lblFiftyNineSeconds.TabIndex = 277
@@ -1968,7 +1969,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyEightSeconds.AutoSize = True
         Me.lblFiftyEightSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyEightSeconds.Location = New System.Drawing.Point(266, 484)
+        Me.lblFiftyEightSeconds.Location = New System.Drawing.Point(378, 487)
         Me.lblFiftyEightSeconds.Name = "lblFiftyEightSeconds"
         Me.lblFiftyEightSeconds.Size = New System.Drawing.Size(130, 19)
         Me.lblFiftyEightSeconds.TabIndex = 276
@@ -1978,7 +1979,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftySevenSeconds.AutoSize = True
         Me.lblFiftySevenSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftySevenSeconds.Location = New System.Drawing.Point(130, 484)
+        Me.lblFiftySevenSeconds.Location = New System.Drawing.Point(244, 487)
         Me.lblFiftySevenSeconds.Name = "lblFiftySevenSeconds"
         Me.lblFiftySevenSeconds.Size = New System.Drawing.Size(130, 19)
         Me.lblFiftySevenSeconds.TabIndex = 275
@@ -1988,7 +1989,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftySixSeconds.AutoSize = True
         Me.lblFiftySixSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftySixSeconds.Location = New System.Drawing.Point(17, 484)
+        Me.lblFiftySixSeconds.Location = New System.Drawing.Point(134, 487)
         Me.lblFiftySixSeconds.Name = "lblFiftySixSeconds"
         Me.lblFiftySixSeconds.Size = New System.Drawing.Size(108, 19)
         Me.lblFiftySixSeconds.TabIndex = 274
@@ -1998,7 +1999,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyFiveSeconds.AutoSize = True
         Me.lblFiftyFiveSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyFiveSeconds.Location = New System.Drawing.Point(693, 462)
+        Me.lblFiftyFiveSeconds.Location = New System.Drawing.Point(17, 487)
         Me.lblFiftyFiveSeconds.Name = "lblFiftyFiveSeconds"
         Me.lblFiftyFiveSeconds.Size = New System.Drawing.Size(119, 19)
         Me.lblFiftyFiveSeconds.TabIndex = 273
@@ -2008,7 +2009,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyFourSeconds.AutoSize = True
         Me.lblFiftyFourSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyFourSeconds.Location = New System.Drawing.Point(574, 462)
+        Me.lblFiftyFourSeconds.Location = New System.Drawing.Point(744, 466)
         Me.lblFiftyFourSeconds.Name = "lblFiftyFourSeconds"
         Me.lblFiftyFourSeconds.Size = New System.Drawing.Size(119, 19)
         Me.lblFiftyFourSeconds.TabIndex = 272
@@ -2018,7 +2019,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyThreeSeconds.AutoSize = True
         Me.lblFiftyThreeSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyThreeSeconds.Location = New System.Drawing.Point(441, 462)
+        Me.lblFiftyThreeSeconds.Location = New System.Drawing.Point(608, 466)
         Me.lblFiftyThreeSeconds.Name = "lblFiftyThreeSeconds"
         Me.lblFiftyThreeSeconds.Size = New System.Drawing.Size(130, 19)
         Me.lblFiftyThreeSeconds.TabIndex = 271
@@ -2028,7 +2029,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyTwoSeconds.AutoSize = True
         Me.lblFiftyTwoSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyTwoSeconds.Location = New System.Drawing.Point(328, 462)
+        Me.lblFiftyTwoSeconds.Location = New System.Drawing.Point(493, 466)
         Me.lblFiftyTwoSeconds.Name = "lblFiftyTwoSeconds"
         Me.lblFiftyTwoSeconds.Size = New System.Drawing.Size(108, 19)
         Me.lblFiftyTwoSeconds.TabIndex = 270
@@ -2038,7 +2039,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftyOneSeconds.AutoSize = True
         Me.lblFiftyOneSeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftyOneSeconds.Location = New System.Drawing.Point(214, 462)
+        Me.lblFiftyOneSeconds.Location = New System.Drawing.Point(371, 466)
         Me.lblFiftyOneSeconds.Name = "lblFiftyOneSeconds"
         Me.lblFiftyOneSeconds.Size = New System.Drawing.Size(108, 19)
         Me.lblFiftyOneSeconds.TabIndex = 269
@@ -2048,7 +2049,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiftySeconds.AutoSize = True
         Me.lblFiftySeconds.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiftySeconds.Location = New System.Drawing.Point(143, 462)
+        Me.lblFiftySeconds.Location = New System.Drawing.Point(294, 466)
         Me.lblFiftySeconds.Name = "lblFiftySeconds"
         Me.lblFiftySeconds.Size = New System.Drawing.Size(64, 19)
         Me.lblFiftySeconds.TabIndex = 268
@@ -2068,7 +2069,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwelveHour.AutoSize = True
         Me.lblTwelveHour.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwelveHour.Location = New System.Drawing.Point(679, 150)
+        Me.lblTwelveHour.Location = New System.Drawing.Point(706, 150)
         Me.lblTwelveHour.Name = "lblTwelveHour"
         Me.lblTwelveHour.Size = New System.Drawing.Size(75, 19)
         Me.lblTwelveHour.TabIndex = 290
@@ -2078,7 +2079,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblElevenHour.AutoSize = True
         Me.lblElevenHour.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblElevenHour.Location = New System.Drawing.Point(606, 150)
+        Me.lblElevenHour.Location = New System.Drawing.Point(627, 150)
         Me.lblElevenHour.Name = "lblElevenHour"
         Me.lblElevenHour.Size = New System.Drawing.Size(75, 19)
         Me.lblElevenHour.TabIndex = 289
@@ -2088,7 +2089,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTenHour.AutoSize = True
         Me.lblTenHour.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTenHour.Location = New System.Drawing.Point(563, 150)
+        Me.lblTenHour.Location = New System.Drawing.Point(580, 150)
         Me.lblTenHour.Name = "lblTenHour"
         Me.lblTenHour.Size = New System.Drawing.Size(42, 19)
         Me.lblTenHour.TabIndex = 288
@@ -2098,7 +2099,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblEightHour.AutoSize = True
         Me.lblEightHour.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEightHour.Location = New System.Drawing.Point(446, 150)
+        Me.lblEightHour.Location = New System.Drawing.Point(457, 150)
         Me.lblEightHour.Name = "lblEightHour"
         Me.lblEightHour.Size = New System.Drawing.Size(64, 19)
         Me.lblEightHour.TabIndex = 287
@@ -2108,7 +2109,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblNineHour.AutoSize = True
         Me.lblNineHour.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblNineHour.Location = New System.Drawing.Point(510, 150)
+        Me.lblNineHour.Location = New System.Drawing.Point(522, 150)
         Me.lblNineHour.Name = "lblNineHour"
         Me.lblNineHour.Size = New System.Drawing.Size(53, 19)
         Me.lblNineHour.TabIndex = 286
@@ -2118,7 +2119,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSevenHour.AutoSize = True
         Me.lblSevenHour.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSevenHour.Location = New System.Drawing.Point(383, 150)
+        Me.lblSevenHour.Location = New System.Drawing.Point(391, 150)
         Me.lblSevenHour.Name = "lblSevenHour"
         Me.lblSevenHour.Size = New System.Drawing.Size(64, 19)
         Me.lblSevenHour.TabIndex = 285
@@ -2128,7 +2129,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblSixHour.AutoSize = True
         Me.lblSixHour.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSixHour.Location = New System.Drawing.Point(340, 150)
+        Me.lblSixHour.Location = New System.Drawing.Point(348, 150)
         Me.lblSixHour.Name = "lblSixHour"
         Me.lblSixHour.Size = New System.Drawing.Size(42, 19)
         Me.lblSixHour.TabIndex = 284
@@ -2138,7 +2139,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFiveHour.AutoSize = True
         Me.lblFiveHour.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFiveHour.Location = New System.Drawing.Point(286, 150)
+        Me.lblFiveHour.Location = New System.Drawing.Point(291, 150)
         Me.lblFiveHour.Name = "lblFiveHour"
         Me.lblFiveHour.Size = New System.Drawing.Size(53, 19)
         Me.lblFiveHour.TabIndex = 283
@@ -2148,7 +2149,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblFourHour.AutoSize = True
         Me.lblFourHour.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblFourHour.Location = New System.Drawing.Point(232, 150)
+        Me.lblFourHour.Location = New System.Drawing.Point(236, 150)
         Me.lblFourHour.Name = "lblFourHour"
         Me.lblFourHour.Size = New System.Drawing.Size(53, 19)
         Me.lblFourHour.TabIndex = 282
@@ -2158,7 +2159,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblThreeHour.AutoSize = True
         Me.lblThreeHour.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblThreeHour.Location = New System.Drawing.Point(170, 150)
+        Me.lblThreeHour.Location = New System.Drawing.Point(174, 150)
         Me.lblThreeHour.Name = "lblThreeHour"
         Me.lblThreeHour.Size = New System.Drawing.Size(64, 19)
         Me.lblThreeHour.TabIndex = 281
@@ -2168,7 +2169,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblTwoHour.AutoSize = True
         Me.lblTwoHour.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTwoHour.Location = New System.Drawing.Point(128, 150)
+        Me.lblTwoHour.Location = New System.Drawing.Point(132, 150)
         Me.lblTwoHour.Name = "lblTwoHour"
         Me.lblTwoHour.Size = New System.Drawing.Size(42, 19)
         Me.lblTwoHour.TabIndex = 280
@@ -2188,44 +2189,48 @@ Partial Class frmBigTextKlock
         '
         Me.lbloclock.AutoSize = True
         Me.lbloclock.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbloclock.Location = New System.Drawing.Point(755, 150)
+        Me.lbloclock.Location = New System.Drawing.Point(781, 150)
         Me.lbloclock.Name = "lbloclock"
         Me.lbloclock.Size = New System.Drawing.Size(86, 19)
         Me.lbloclock.TabIndex = 291
         Me.lbloclock.Text = "o'clock"
         '
-        'lblAm
+        'lblMorning
         '
-        Me.lblAm.AutoSize = True
-        Me.lblAm.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAm.Location = New System.Drawing.Point(90, 171)
-        Me.lblAm.Name = "lblAm"
-        Me.lblAm.Size = New System.Drawing.Size(86, 19)
-        Me.lblAm.TabIndex = 294
-        Me.lblAm.Text = "Morning"
+        Me.lblMorning.AutoSize = True
+        Me.lblMorning.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMorning.Location = New System.Drawing.Point(98, 171)
+        Me.lblMorning.Name = "lblMorning"
+        Me.lblMorning.Size = New System.Drawing.Size(86, 19)
+        Me.lblMorning.TabIndex = 294
+        Me.lblMorning.Text = "Morning"
         '
-        'lblPm
+        'lblEvening
         '
-        Me.lblPm.AutoSize = True
-        Me.lblPm.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPm.Location = New System.Drawing.Point(175, 171)
-        Me.lblPm.Name = "lblPm"
-        Me.lblPm.Size = New System.Drawing.Size(86, 19)
-        Me.lblPm.TabIndex = 292
-        Me.lblPm.Text = "Evening"
+        Me.lblEvening.AutoSize = True
+        Me.lblEvening.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblEvening.Location = New System.Drawing.Point(291, 171)
+        Me.lblEvening.Name = "lblEvening"
+        Me.lblEvening.Size = New System.Drawing.Size(86, 19)
+        Me.lblEvening.TabIndex = 292
+        Me.lblEvening.Text = "Evening"
         '
         'pnlBigKlock
         '
+        Me.pnlBigKlock.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlBigKlock.AutoSize = True
         Me.pnlBigKlock.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.pnlBigKlock.Controls.Add(Me.lblAfternoon)
         Me.pnlBigKlock.Controls.Add(Me.lblClose)
         Me.pnlBigKlock.Controls.Add(Me.lblInThe)
         Me.pnlBigKlock.Controls.Add(Me.lblAndMinutes)
         Me.pnlBigKlock.Controls.Add(Me.lblThirtySevenSeconds)
-        Me.pnlBigKlock.Controls.Add(Me.lblAm)
+        Me.pnlBigKlock.Controls.Add(Me.lblMorning)
         Me.pnlBigKlock.Controls.Add(Me.lblElevenSeconds)
         Me.pnlBigKlock.Controls.Add(Me.lbltwelveSeconds)
-        Me.pnlBigKlock.Controls.Add(Me.lblPm)
+        Me.pnlBigKlock.Controls.Add(Me.lblEvening)
         Me.pnlBigKlock.Controls.Add(Me.lblThirteenSeconds)
         Me.pnlBigKlock.Controls.Add(Me.lbloclock)
         Me.pnlBigKlock.Controls.Add(Me.lblFourteenSeconds)
@@ -2415,17 +2420,16 @@ Partial Class frmBigTextKlock
         Me.pnlBigKlock.Controls.Add(Me.lblTwentyOneMinutes)
         Me.pnlBigKlock.Controls.Add(Me.lblNineteenMinutes)
         Me.pnlBigKlock.Controls.Add(Me.lblTwentyMinutes)
-        Me.pnlBigKlock.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlBigKlock.Location = New System.Drawing.Point(0, 0)
         Me.pnlBigKlock.Name = "pnlBigKlock"
-        Me.pnlBigKlock.Size = New System.Drawing.Size(925, 513)
+        Me.pnlBigKlock.Size = New System.Drawing.Size(882, 529)
         Me.pnlBigKlock.TabIndex = 295
         '
         'lblClose
         '
         Me.lblClose.AutoSize = True
         Me.lblClose.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblClose.Location = New System.Drawing.Point(744, 484)
+        Me.lblClose.Location = New System.Drawing.Point(799, 487)
         Me.lblClose.Name = "lblClose"
         Me.lblClose.Size = New System.Drawing.Size(64, 19)
         Me.lblClose.TabIndex = 298
@@ -2435,7 +2439,7 @@ Partial Class frmBigTextKlock
         '
         Me.lblInThe.AutoSize = True
         Me.lblInThe.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblInThe.Location = New System.Drawing.Point(17, 171)
+        Me.lblInThe.Location = New System.Drawing.Point(16, 171)
         Me.lblInThe.Name = "lblInThe"
         Me.lblInThe.Size = New System.Drawing.Size(75, 19)
         Me.lblInThe.TabIndex = 296
@@ -2445,22 +2449,33 @@ Partial Class frmBigTextKlock
         '
         Me.lblAndMinutes.AutoSize = True
         Me.lblAndMinutes.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAndMinutes.Location = New System.Drawing.Point(260, 171)
+        Me.lblAndMinutes.Location = New System.Drawing.Point(378, 171)
         Me.lblAndMinutes.Name = "lblAndMinutes"
         Me.lblAndMinutes.Size = New System.Drawing.Size(42, 19)
         Me.lblAndMinutes.TabIndex = 295
         Me.lblAndMinutes.Text = "And"
         '
+        'lblAfternoon
+        '
+        Me.lblAfternoon.AutoSize = True
+        Me.lblAfternoon.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblAfternoon.Location = New System.Drawing.Point(185, 171)
+        Me.lblAfternoon.Name = "lblAfternoon"
+        Me.lblAfternoon.Size = New System.Drawing.Size(108, 19)
+        Me.lblAfternoon.TabIndex = 299
+        Me.lblAfternoon.Text = "Afternoon"
+        '
         'frmBigTextKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(925, 535)
+        Me.ClientSize = New System.Drawing.Size(881, 551)
         Me.Controls.Add(Me.pnlBigKlock)
         Me.Controls.Add(Me.StsStrpInfo)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmBigTextKlock"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "frmBigTextKlock"
         Me.StsStrpInfo.ResumeLayout(False)
         Me.StsStrpInfo.PerformLayout()
@@ -2668,10 +2683,11 @@ Partial Class frmBigTextKlock
     Friend WithEvents lblTwoHour As Label
     Friend WithEvents lblOneHour As Label
     Friend WithEvents lbloclock As Label
-    Friend WithEvents lblAm As Label
-    Friend WithEvents lblPm As Label
+    Friend WithEvents lblMorning As Label
+    Friend WithEvents lblEvening As Label
     Friend WithEvents pnlBigKlock As Panel
     Friend WithEvents lblAndMinutes As Label
     Friend WithEvents lblInThe As Label
     Friend WithEvents lblClose As Label
+    Friend WithEvents lblAfternoon As Label
 End Class

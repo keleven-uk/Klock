@@ -54,6 +54,14 @@ Public Class UserSettings
     Private _usrTimeDisplayMinutes As Integer = 15
     Private _usrTimeVoiceMinimised As Boolean = False           '   Voice to tell time if klock in system tray
     Private _usrTimeVoiceMinutes As Integer = 15
+    '-------------------------------------------------------------------------------------------------------- Big Klock Settings ----------
+    Private _usrBigKlockBackColour As Color = Color.Black
+    Private _usrBigKlockForeColour As Color = Color.LightGreen
+    Private _usrBigKlockOffColour As Color = Color.LightSlateGray
+    '-------------------------------------------------------------------------------------------------------- Small Klock Settings --------
+    Private _usrSmallKlockBackColour As Color = Color.Black
+    Private _usrSmallKlockForeColour As Color = Color.LightGreen
+    Private _usrSmallKlockOffColour As Color = Color.LightSlateGray
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
     Private _usrTimerHigh As Boolean = False
     Private _usrTimerClearSplit As Boolean = False
@@ -104,7 +112,8 @@ Public Class UserSettings
 
         MyBase.New()
 
-        checkDataFile()         '   check data directory exists, if not create.
+        checkDataFile()             '   checks for settings file, if not present - will create.
+        checkVersion()              '   checks version of settings file, if different from app - then write default settings file.
     End Sub
 
 
@@ -381,6 +390,62 @@ Public Class UserSettings
         End Get
         Set(ByVal value As Integer)
             _usrTimeVoiceMinutes = value
+        End Set
+    End Property
+
+    '-------------------------------------------------------------------------------------------------------- Big Klock Settings --------------
+    Public Property usrBigKlockBackColour() As Color
+        Get
+            Return _usrBigKlockBackColour
+        End Get
+        Set(ByVal value As Color)
+            _usrBigKlockBackColour = value
+        End Set
+    End Property
+
+    Public Property usrBigKlockForeColour() As Color
+        Get
+            Return _usrBigKlockForeColour
+        End Get
+        Set(ByVal value As Color)
+            _usrBigKlockForeColour = value
+        End Set
+    End Property
+
+    Public Property usrBigKlockOffColour() As Color
+        Get
+            Return _usrBigKlockOffColour
+        End Get
+        Set(ByVal value As Color)
+            _usrBigKlockOffColour = value
+        End Set
+    End Property
+
+    '-------------------------------------------------------------------------------------------------------- Small Klock Settings ------------
+    Public Property usrSmallKlockBackColour() As Color
+        Get
+            Return _usrSmallKlockBackColour
+        End Get
+        Set(ByVal value As Color)
+            _usrSmallKlockBackColour = value
+        End Set
+    End Property
+
+    Public Property usrSmallKlockForeColour() As Color
+        Get
+            Return _usrSmallKlockForeColour
+        End Get
+        Set(ByVal value As Color)
+            _usrSmallKlockForeColour = value
+        End Set
+    End Property
+
+    Public Property usrSmallKlockOffColour() As Color
+        Get
+            Return _usrSmallKlockOffColour
+        End Get
+        Set(ByVal value As Color)
+            _usrSmallKlockOffColour = value
         End Set
     End Property
 
@@ -714,7 +779,7 @@ Public Class UserSettings
                                   <TimeIdleTime><%= usrTimeIdleTime() %></TimeIdleTime>
                                   <TimeSystem24Hour><%= usrTimeSystem24Hour() %></TimeSystem24Hour>
                                   <TimeOne24Hour><%= usrTimeOne24Hour() %></TimeOne24Hour>
-                                  <TimeTimeTwo24Hour><%= usrTimeTwo24Hour() %></TimeTimeTwo24Hour>
+                                  <TimeTwo24Hour><%= usrTimeTwo24Hour() %></TimeTwo24Hour>
                                   <TimeSwatchCentibeats><%= usrTimeSwatchCentibeats() %></TimeSwatchCentibeats>
                                   <TimeNETSeconds><%= usrTimeNETSeconds() %></TimeNETSeconds>
                                   <TimeHexIntuitorFormat><%= usrTimeHexIntuitorFormat() %></TimeHexIntuitorFormat>
@@ -727,6 +792,34 @@ Public Class UserSettings
                                   <TimeVoiceMinimised><%= usrTimeVoiceMinimised() %></TimeVoiceMinimised>
                                   <TimeVoiceMinutes><%= usrTimeVoiceMinutes() %></TimeVoiceMinutes>
                               </Time>
+                              <BigKlock>
+                                  <BigKlockBackColourR><%= usrBigKlockBackColour().R %></BigKlockBackColourR>
+                                  <BigKlockBackColourG><%= usrBigKlockBackColour().G %></BigKlockBackColourG>
+                                  <BigKlockBackColourB><%= usrBigKlockBackColour().B %></BigKlockBackColourB>
+                                  <BigKlockBackColourA><%= usrBigKlockBackColour().A %></BigKlockBackColourA>
+                                  <BigKlockForeColourR><%= usrBigKlockForeColour().R %></BigKlockForeColourR>
+                                  <BigKlockForeColourG><%= usrBigKlockForeColour().G %></BigKlockForeColourG>
+                                  <BigKlockForeColourB><%= usrBigKlockForeColour().B %></BigKlockForeColourB>
+                                  <BigKlockForeColourA><%= usrBigKlockForeColour().A %></BigKlockForeColourA>
+                                  <BigKlockOffColourR><%= usrBigKlockOffColour().R %></BigKlockOffColourR>
+                                  <BigKlockOffColourG><%= usrBigKlockOffColour().G %></BigKlockOffColourG>
+                                  <BigKlockOffColourB><%= usrBigKlockOffColour().B %></BigKlockOffColourB>
+                                  <BigKlockOffColourA><%= usrBigKlockOffColour().A %></BigKlockOffColourA>
+                              </BigKlock>
+                              <SmallKlock>
+                                  <SmallKlockBackColourR><%= usrSmallKlockBackColour().R %></SmallKlockBackColourR>
+                                  <SmallKlockBackColourG><%= usrSmallKlockBackColour().G %></SmallKlockBackColourG>
+                                  <SmallKlockBackColourB><%= usrSmallKlockBackColour().B %></SmallKlockBackColourB>
+                                  <SmallKlockBackColourA><%= usrSmallKlockBackColour().A %></SmallKlockBackColourA>
+                                  <SmallKlockForeColourR><%= usrSmallKlockForeColour().R %></SmallKlockForeColourR>
+                                  <SmallKlockForeColourG><%= usrSmallKlockForeColour().G %></SmallKlockForeColourG>
+                                  <SmallKlockForeColourB><%= usrSmallKlockForeColour().B %></SmallKlockForeColourB>
+                                  <SmallKlockForeColourA><%= usrSmallKlockForeColour().A %></SmallKlockForeColourA>
+                                  <SmallKlockOffColourR><%= usrSmallKlockOffColour().R %></SmallKlockOffColourR>
+                                  <SmallKlockOffColourG><%= usrSmallKlockOffColour().G %></SmallKlockOffColourG>
+                                  <SmallKlockOffColourB><%= usrSmallKlockOffColour().B %></SmallKlockOffColourB>
+                                  <SmallKlockOffColourA><%= usrSmallKlockOffColour().A %></SmallKlockOffColourA>
+                              </SmallKlock>
                               <Timer>
                                   <TimerHigh><%= usrTimerHigh() %></TimerHigh>
                                   <TimerClearSplit><%= usrTimerClearSplit() %></TimerClearSplit>
@@ -872,6 +965,34 @@ Public Class UserSettings
                                   <TimeVoiceMinimised>false</TimeVoiceMinimised>
                                   <TimeVoiceMinutes>15</TimeVoiceMinutes>
                               </Time>
+                              <BigKlock>
+                                  <BigKlockBackColourR>0</BigKlockBackColourR>
+                                  <BigKlockBackColourG>0</BigKlockBackColourG>
+                                  <BigKlockBackColourB>0</BigKlockBackColourB>
+                                  <BigKlockBackColourA>255</BigKlockBackColourA>
+                                  <BigKlockForeColourR>144</BigKlockForeColourR>
+                                  <BigKlockForeColourG>144</BigKlockForeColourG>
+                                  <BigKlockForeColourB>238</BigKlockForeColourB>
+                                  <BigKlockForeColourA>255</BigKlockForeColourA>
+                                  <BigKlockOffColourR>119</BigKlockOffColourR>
+                                  <BigKlockOffColourG>136</BigKlockOffColourG>
+                                  <BigKlockOffColourB>153</BigKlockOffColourB>
+                                  <BigKlockOffColourA>255</BigKlockOffColourA>
+                              </BigKlock>
+                              <SmallKlock>
+                                  <SmallKlockBackColourR>0</SmallKlockBackColourR>
+                                  <SmallKlockBackColourG>0</SmallKlockBackColourG>
+                                  <SmallKlockBackColourB>0</SmallKlockBackColourB>
+                                  <SmallKlockBackColourA>255</SmallKlockBackColourA>
+                                  <SmallKlockForeColourR>144</SmallKlockForeColourR>
+                                  <SmallKlockForeColourG>144</SmallKlockForeColourG>
+                                  <SmallKlockForeColourB>238</SmallKlockForeColourB>
+                                  <SmallKlockForeColourA>255</SmallKlockForeColourA>
+                                  <SmallKlockOffColourR>119</SmallKlockOffColourR>
+                                  <SmallKlockOffColourG>136</SmallKlockOffColourG>
+                                  <SmallKlockOffColourB>153</SmallKlockOffColourB>
+                                  <SmallKlockOffColourA>255</SmallKlockOffColourA>
+                              </SmallKlock>
                               <Timer>
                                   <TimerHigh>false</TimerHigh>
                                   <TimerClearSplit>false</TimerClearSplit>
@@ -964,7 +1085,6 @@ Public Class UserSettings
                               </Memo>
                           </klock>
 
-
         xmlSettings.Save(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
     End Sub
 
@@ -979,15 +1099,12 @@ Public Class UserSettings
         Dim style As FontStyle
         Dim version As String
 
-        checkDataFile()
-
         Try
             Dim elem As XElement = XElement.Load(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
 
             version = elem.Attribute("Version").Value.ToString
 
             '-------------------------------------------------------------------------------------------------------- Global Settings -------------
-
             Dim glbl = elem.Element("Global")
 
             usrDefaultTab = CType(readElement(glbl, "DefaultTab", usrDefaultTab()), Integer)
@@ -1020,7 +1137,6 @@ Public Class UserSettings
             usrSoundVolume = CType(readElement(glbl, "SoundVolume", usrSoundVolume()), Integer)
 
             '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
-
             Dim tm = elem.Element("Time")
             usrTimeDefaultFormat = CType(readElement(tm, "TimeDefaultFormat", usrTimeDefaultFormat()), Integer)
             usrTimeTWODefaultFormat = CType(readElement(tm, "TimeTwoDefaultFormat", usrTimeTWODefaultFormat()), Integer)
@@ -1040,32 +1156,68 @@ Public Class UserSettings
             usrTimeDisplayMinutes = CType(readElement(tm, "TimeDisplayMinutes", usrTimeDisplayMinutes()), Integer)
             usrTimeVoiceMinimised = CType(readElement(tm, "TimeVoiceMinimised", usrTimeVoiceMinutes()), Boolean)
             usrTimeVoiceMinutes = CType(readElement(tm, "TimeVoiceMinutes", usrTimeVoiceMinutes()), Integer)
-            '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
+            '-------------------------------------------------------------------------------------------------------- Big Klock Settings ----------
+            Dim bgklck = elem.Element("BigKlock")
+            r = CType(readElement(bgklck, "BigKlockBackColourR", usrBigKlockBackColour().R), Byte)
+            g = CType(readElement(bgklck, "BigKlockBackColourG", usrBigKlockBackColour().G), Byte)
+            b = CType(readElement(bgklck, "BigKlockBackColourB", usrBigKlockBackColour().B), Byte)
+            a = CType(readElement(bgklck, "BigKlockBackColourA", usrBigKlockBackColour().A), Byte)
+            usrBigKlockBackColour = Color.FromArgb(a, r, g, b)
+
+            r = CType(readElement(bgklck, "BigKlockForeColourR", usrBigKlockForeColour().R), Byte)
+            g = CType(readElement(bgklck, "BigKlockForeColourG", usrBigKlockForeColour().G), Byte)
+            b = CType(readElement(bgklck, "BigKlockForeColourB", usrBigKlockForeColour().B), Byte)
+            a = CType(readElement(bgklck, "BigKlockForeColourA", usrBigKlockForeColour().A), Byte)
+            usrBigKlockForeColour = Color.FromArgb(a, r, g, b)
+
+            r = CType(readElement(bgklck, "BigKlockOffColourR", usrBigKlockOffColour().R), Byte)
+            g = CType(readElement(bgklck, "BigKlockOffColourG", usrBigKlockOffColour().G), Byte)
+            b = CType(readElement(bgklck, "BigKlockOffColourB", usrBigKlockOffColour().B), Byte)
+            a = CType(readElement(bgklck, "BigKlockOffColourA", usrBigKlockOffColour().A), Byte)
+            usrBigKlockOffColour = Color.FromArgb(a, r, g, b)
+
+            '-------------------------------------------------------------------------------------------------------- Small Klock Settings ---------
+            Dim smlklck = elem.Element("SmallKlock")
+            r = CType(readElement(smlklck, "SmallKlockBackColourR", usrSmallKlockBackColour().R), Byte)
+            g = CType(readElement(smlklck, "SmallKlockBackColourG", usrSmallKlockBackColour().G), Byte)
+            b = CType(readElement(smlklck, "SmallKlockBackColourB", usrSmallKlockBackColour().B), Byte)
+            a = CType(readElement(smlklck, "SmallKlockBackColourA", usrSmallKlockBackColour().A), Byte)
+            usrSmallKlockBackColour = Color.FromArgb(a, r, g, b)
+
+            r = CType(readElement(smlklck, "SmallKlockForeColourR", usrSmallKlockForeColour().R), Byte)
+            g = CType(readElement(smlklck, "SmallKlockForeColourG", usrSmallKlockForeColour().G), Byte)
+            b = CType(readElement(smlklck, "SmallKlockForeColourB", usrSmallKlockForeColour().B), Byte)
+            a = CType(readElement(smlklck, "SmallKlockForeColourA", usrSmallKlockForeColour().A), Byte)
+            usrSmallKlockForeColour = Color.FromArgb(a, r, g, b)
+
+            r = CType(readElement(smlklck, "SmallKlockOffColourR", usrSmallKlockOffColour().R), Byte)
+            g = CType(readElement(smlklck, "SmallKlockOffColourG", usrSmallKlockOffColour().G), Byte)
+            b = CType(readElement(smlklck, "SmallKlockOffColourB", usrSmallKlockOffColour().B), Byte)
+            a = CType(readElement(smlklck, "SmallKlockOffColourA", usrSmallKlockOffColour().A), Byte)
+            usrSmallKlockOffColour = Color.FromArgb(a, r, g, b)
+
+            '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
             Dim tmr = elem.Element("Timer")
             usrTimerHigh = CType(readElement(tmr, "TimerHigh", usrTimerHigh()), Boolean)
             usrTimerClearSplit = CType(readElement(tmr, "TimerClearSplit", usrTimerClearSplit()), Boolean)
             usrTimerAdd = CType(readElement(tmr, "TimerAdd", usrTimerAdd()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Countdown Settings ----------
-
             Dim cntDwn = elem.Element("Countdown")
             usrCountdownAdd = CType(readElement(cntDwn, "CountdownAdd", usrCountdownAdd()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Reminder Settings ----------
-
             Dim rmndr = elem.Element("Reminder")
 
             usrReminderTimeChecked = CType(readElement(rmndr, "ReminderTimeChecked", usrReminderTimeChecked()), Boolean)
             usrReminderAdd = CType(readElement(rmndr, "ReminderAdd", usrReminderAdd()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- World Klock Settings ----------
-
             Dim wrldKlck = elem.Element("WorldKlock")
             usrWorldKlockAdd = CType(readElement(wrldKlck, "WorldKlockAdd", usrWorldKlockAdd()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Notification Settings -------
-
             Dim ntfctn = elem.Element("Notification")
 
             Dim ntfctnClr = ntfctn.Element("NotificationColour")
@@ -1092,24 +1244,20 @@ Public Class UserSettings
             usrNotificationOpacity = CType(readElement(ntfctn, "NotificationOpacity", usrNotificationOpacity()), Integer)
 
             '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
-
             Dim mntr = elem.Element("Monitor")
             usrDisableMonitorSleep = CType(readElement(mntr, "DisableMonitorSleep", usrDisableMonitorSleep()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Internet Settings ------------
-
             Dim intrnt = elem.Element("Internet")
             usrCheckInternet = CType(readElement(intrnt, "CheckInternet", usrCheckInternet()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
             '   values are strings, so need to convert.
-
             Dim frnds = elem.Element("Friends")
             usrFriendsFile = readElement(frnds, "FriendsFileName", usrFriendsFile())
 
             '-------------------------------------------------------------------------------------------------------- Events Settings ------------
             '   values are strings, so need to convert.
-
             Dim evnts = elem.Element("Events")
             usrEventsFile = readElement(evnts, "EventsFileName", usrEventsFile())
 
@@ -1153,19 +1301,14 @@ Public Class UserSettings
             usrThirdEventNotificationbackColour = Color.FromArgb(a, r, g, b)
 
             usrEventNotificationOpacity = CType(readElement(evnts, "EventNotificationOpacity", usrEventNotificationOpacity()), Integer)
+
             '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
             '   values are strings, so need to convert.
-
             Dim memo = elem.Element("Memo")
             usrMemoFile = readElement(memo, "MemoFileName", usrMemoFile())
             usrMemoUseDefaultPassword = CType(readElement(memo, "MemoUseDefaultPassword", usrMemoUseDefaultPassword()), Boolean)
             usrMemoDefaultPassword = readElement(memo, "MemoDefaultPassword", usrMemoDefaultPassword())
             usrMemoDecyptTimeOut = CType(readElement(memo, "MemoDecyptTimeOut", usrMemoDecyptTimeOut()), Integer)
-
-            '   If version has changed, some settings might need to be added [will have been set to default].
-            If version <> My.Application.Info.Version.ToString() Then
-                writeSettings()
-            End If
 
         Catch ex As Exception
             MessageBox.Show("Error reading stream!  " & ex.Message, "Error")
@@ -1179,11 +1322,10 @@ Public Class UserSettings
 
         Dim r As String = ""
 
-        '   frmKlock.displayAction.DisplayReminder("ERROR", s)
-
         Try
             r = g.Element(s).Value
         Catch ex As Exception
+            '   frmKlock.displayAction.DisplayReminder("ERROR :: " & g.ToString & " :: " & s & " :::", ex.Message)
             r = d
         End Try
 
@@ -1193,6 +1335,7 @@ Public Class UserSettings
     Private Sub checkDataFile()
         '   Checks for data directory in usrOptionsSavepath(), if not create it.
         '   Checks for settings file in above directory, if not there create it.
+        '   will this create errors.
 
         If Not My.Computer.FileSystem.DirectoryExists(usrOptionsSavePath()) Then
             My.Computer.FileSystem.CreateDirectory(usrOptionsSavePath())
@@ -1201,6 +1344,26 @@ Public Class UserSettings
         If Not My.Computer.FileSystem.FileExists(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile())) Then
             writeDefaultSettings()
         End If
+    End Sub
+
+    Private Sub checkVersion()
+        '   checks version of settings file, if different from app - then write default settings file.
+
+        Dim version As String
+
+        Try
+            Dim elem As XElement = XElement.Load(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
+
+            Version = elem.Attribute("Version").Value.ToString
+
+            '   If version has changed, some settings might need to be added [will have been set to default].
+            If version <> My.Application.Info.Version.ToString() Then
+                writeDefaultSettings()
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error reading version!  " & ex.Message, "Error")
+        End Try
+
     End Sub
 End Class
 

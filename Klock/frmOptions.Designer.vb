@@ -97,7 +97,24 @@ Partial Class frmOptions
         Me.ChckBxTimeQuarterChimes = New System.Windows.Forms.CheckBox()
         Me.ChckBxTimeHourlyChimes = New System.Windows.Forms.CheckBox()
         Me.ChckBxTimeHourPips = New System.Windows.Forms.CheckBox()
+        Me.TbPgTextKlock = New System.Windows.Forms.TabPage()
+        Me.GroupBox22 = New System.Windows.Forms.GroupBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.btnBgTxtKlckBckClr = New System.Windows.Forms.Button()
+        Me.btnBgTxtKlckOffClr = New System.Windows.Forms.Button()
+        Me.btnBgTxtKlckFrClr = New System.Windows.Forms.Button()
+        Me.GroupBox21 = New System.Windows.Forms.GroupBox()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.btnSmlTxtKlckBckClr = New System.Windows.Forms.Button()
+        Me.btnSmlTxtKlckOffClr = New System.Windows.Forms.Button()
+        Me.btnSmlTxtKlckFrClr = New System.Windows.Forms.Button()
         Me.TbPgOtherStuff = New System.Windows.Forms.TabPage()
+        Me.GroupBox20 = New System.Windows.Forms.GroupBox()
+        Me.ChckBxChckInternet = New System.Windows.Forms.CheckBox()
         Me.GroupBox19 = New System.Windows.Forms.GroupBox()
         Me.ChckBxDisableMonitorSleep = New System.Windows.Forms.CheckBox()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
@@ -165,8 +182,10 @@ Partial Class frmOptions
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.GroupBox20 = New System.Windows.Forms.GroupBox()
-        Me.ChckBxChckInternet = New System.Windows.Forms.CheckBox()
+        Me.btnResetBigKlock = New System.Windows.Forms.Button()
+        Me.btnResetSmallKlock = New System.Windows.Forms.Button()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.Label31 = New System.Windows.Forms.Label()
         Me.TabCntrlOptions.SuspendLayout()
         Me.TbPgGlobal.SuspendLayout()
         Me.GroupBox17.SuspendLayout()
@@ -188,7 +207,11 @@ Partial Class frmOptions
         CType(Me.UpDwnVoiceDisplay, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UpDwnTimeDisplay, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
+        Me.TbPgTextKlock.SuspendLayout()
+        Me.GroupBox22.SuspendLayout()
+        Me.GroupBox21.SuspendLayout()
         Me.TbPgOtherStuff.SuspendLayout()
+        Me.GroupBox20.SuspendLayout()
         Me.GroupBox19.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -209,7 +232,6 @@ Partial Class frmOptions
         Me.TbPgMemo.SuspendLayout()
         Me.GroupBox16.SuspendLayout()
         CType(Me.NmrcUpDwnMemoDecrypt, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox20.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnOptionsClose
@@ -301,6 +323,7 @@ Partial Class frmOptions
         Me.TabCntrlOptions.Controls.Add(Me.TbPgGlobal)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgNotification)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgTime)
+        Me.TabCntrlOptions.Controls.Add(Me.TbPgTextKlock)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgOtherStuff)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgArchive)
         Me.TabCntrlOptions.Controls.Add(Me.TbPgEvents)
@@ -988,6 +1011,159 @@ Partial Class frmOptions
         Me.ChckBxTimeHourPips.Text = "Sound ""The Pips"" on the Hour"
         Me.ChckBxTimeHourPips.UseVisualStyleBackColor = True
         '
+        'TbPgTextKlock
+        '
+        Me.TbPgTextKlock.Controls.Add(Me.GroupBox22)
+        Me.TbPgTextKlock.Controls.Add(Me.GroupBox21)
+        Me.TbPgTextKlock.Location = New System.Drawing.Point(4, 25)
+        Me.TbPgTextKlock.Name = "TbPgTextKlock"
+        Me.TbPgTextKlock.Size = New System.Drawing.Size(660, 265)
+        Me.TbPgTextKlock.TabIndex = 10
+        Me.TbPgTextKlock.Text = "Text Klock"
+        Me.TbPgTextKlock.UseVisualStyleBackColor = True
+        '
+        'GroupBox22
+        '
+        Me.GroupBox22.Controls.Add(Me.Label31)
+        Me.GroupBox22.Controls.Add(Me.btnResetBigKlock)
+        Me.GroupBox22.Controls.Add(Me.Label27)
+        Me.GroupBox22.Controls.Add(Me.Label28)
+        Me.GroupBox22.Controls.Add(Me.Label29)
+        Me.GroupBox22.Controls.Add(Me.btnBgTxtKlckBckClr)
+        Me.GroupBox22.Controls.Add(Me.btnBgTxtKlckOffClr)
+        Me.GroupBox22.Controls.Add(Me.btnBgTxtKlckFrClr)
+        Me.GroupBox22.Location = New System.Drawing.Point(334, 6)
+        Me.GroupBox22.Name = "GroupBox22"
+        Me.GroupBox22.Size = New System.Drawing.Size(323, 253)
+        Me.GroupBox22.TabIndex = 1
+        Me.GroupBox22.TabStop = False
+        Me.GroupBox22.Text = "Big text Klock"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(6, 78)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(91, 13)
+        Me.Label27.TabIndex = 11
+        Me.Label27.Text = "Change off colour"
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Location = New System.Drawing.Point(6, 52)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(103, 13)
+        Me.Label28.TabIndex = 10
+        Me.Label28.Text = "Change back colour"
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Location = New System.Drawing.Point(6, 26)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(97, 13)
+        Me.Label29.TabIndex = 9
+        Me.Label29.Text = "Change fore colour"
+        '
+        'btnBgTxtKlckBckClr
+        '
+        Me.btnBgTxtKlckBckClr.Location = New System.Drawing.Point(131, 45)
+        Me.btnBgTxtKlckBckClr.Name = "btnBgTxtKlckBckClr"
+        Me.btnBgTxtKlckBckClr.Size = New System.Drawing.Size(75, 23)
+        Me.btnBgTxtKlckBckClr.TabIndex = 8
+        Me.btnBgTxtKlckBckClr.Text = "..."
+        Me.btnBgTxtKlckBckClr.UseVisualStyleBackColor = True
+        '
+        'btnBgTxtKlckOffClr
+        '
+        Me.btnBgTxtKlckOffClr.Location = New System.Drawing.Point(131, 71)
+        Me.btnBgTxtKlckOffClr.Name = "btnBgTxtKlckOffClr"
+        Me.btnBgTxtKlckOffClr.Size = New System.Drawing.Size(75, 23)
+        Me.btnBgTxtKlckOffClr.TabIndex = 7
+        Me.btnBgTxtKlckOffClr.Text = "..."
+        Me.btnBgTxtKlckOffClr.UseVisualStyleBackColor = True
+        '
+        'btnBgTxtKlckFrClr
+        '
+        Me.btnBgTxtKlckFrClr.Location = New System.Drawing.Point(131, 19)
+        Me.btnBgTxtKlckFrClr.Name = "btnBgTxtKlckFrClr"
+        Me.btnBgTxtKlckFrClr.Size = New System.Drawing.Size(75, 23)
+        Me.btnBgTxtKlckFrClr.TabIndex = 6
+        Me.btnBgTxtKlckFrClr.Text = "..."
+        Me.btnBgTxtKlckFrClr.UseVisualStyleBackColor = True
+        '
+        'GroupBox21
+        '
+        Me.GroupBox21.Controls.Add(Me.Label30)
+        Me.GroupBox21.Controls.Add(Me.btnResetSmallKlock)
+        Me.GroupBox21.Controls.Add(Me.Label26)
+        Me.GroupBox21.Controls.Add(Me.Label25)
+        Me.GroupBox21.Controls.Add(Me.Label24)
+        Me.GroupBox21.Controls.Add(Me.btnSmlTxtKlckBckClr)
+        Me.GroupBox21.Controls.Add(Me.btnSmlTxtKlckOffClr)
+        Me.GroupBox21.Controls.Add(Me.btnSmlTxtKlckFrClr)
+        Me.GroupBox21.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox21.Name = "GroupBox21"
+        Me.GroupBox21.Size = New System.Drawing.Size(322, 253)
+        Me.GroupBox21.TabIndex = 0
+        Me.GroupBox21.TabStop = False
+        Me.GroupBox21.Text = "Small Text Klock"
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(6, 78)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(91, 13)
+        Me.Label26.TabIndex = 5
+        Me.Label26.Text = "Change off colour"
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(6, 52)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(103, 13)
+        Me.Label25.TabIndex = 4
+        Me.Label25.Text = "Change back colour"
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(6, 26)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(97, 13)
+        Me.Label24.TabIndex = 3
+        Me.Label24.Text = "Change fore colour"
+        '
+        'btnSmlTxtKlckBckClr
+        '
+        Me.btnSmlTxtKlckBckClr.Location = New System.Drawing.Point(131, 45)
+        Me.btnSmlTxtKlckBckClr.Name = "btnSmlTxtKlckBckClr"
+        Me.btnSmlTxtKlckBckClr.Size = New System.Drawing.Size(75, 23)
+        Me.btnSmlTxtKlckBckClr.TabIndex = 2
+        Me.btnSmlTxtKlckBckClr.Text = "..."
+        Me.btnSmlTxtKlckBckClr.UseVisualStyleBackColor = True
+        '
+        'btnSmlTxtKlckOffClr
+        '
+        Me.btnSmlTxtKlckOffClr.Location = New System.Drawing.Point(131, 71)
+        Me.btnSmlTxtKlckOffClr.Name = "btnSmlTxtKlckOffClr"
+        Me.btnSmlTxtKlckOffClr.Size = New System.Drawing.Size(75, 23)
+        Me.btnSmlTxtKlckOffClr.TabIndex = 1
+        Me.btnSmlTxtKlckOffClr.Text = "..."
+        Me.btnSmlTxtKlckOffClr.UseVisualStyleBackColor = True
+        '
+        'btnSmlTxtKlckFrClr
+        '
+        Me.btnSmlTxtKlckFrClr.Location = New System.Drawing.Point(131, 19)
+        Me.btnSmlTxtKlckFrClr.Name = "btnSmlTxtKlckFrClr"
+        Me.btnSmlTxtKlckFrClr.Size = New System.Drawing.Size(75, 23)
+        Me.btnSmlTxtKlckFrClr.TabIndex = 0
+        Me.btnSmlTxtKlckFrClr.Text = "..."
+        Me.btnSmlTxtKlckFrClr.UseVisualStyleBackColor = True
+        '
         'TbPgOtherStuff
         '
         Me.TbPgOtherStuff.BackColor = System.Drawing.SystemColors.Control
@@ -1003,6 +1179,27 @@ Partial Class frmOptions
         Me.TbPgOtherStuff.Size = New System.Drawing.Size(660, 265)
         Me.TbPgOtherStuff.TabIndex = 7
         Me.TbPgOtherStuff.Text = "Other Stuff"
+        '
+        'GroupBox20
+        '
+        Me.GroupBox20.Controls.Add(Me.ChckBxChckInternet)
+        Me.GroupBox20.Location = New System.Drawing.Point(9, 212)
+        Me.GroupBox20.Name = "GroupBox20"
+        Me.GroupBox20.Size = New System.Drawing.Size(645, 41)
+        Me.GroupBox20.TabIndex = 4
+        Me.GroupBox20.TabStop = False
+        Me.GroupBox20.Text = "Internet"
+        '
+        'ChckBxChckInternet
+        '
+        Me.ChckBxChckInternet.AutoSize = True
+        Me.ChckBxChckInternet.Location = New System.Drawing.Point(49, 18)
+        Me.ChckBxChckInternet.Name = "ChckBxChckInternet"
+        Me.ChckBxChckInternet.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxChckInternet.Size = New System.Drawing.Size(172, 17)
+        Me.ChckBxChckInternet.TabIndex = 0
+        Me.ChckBxChckInternet.Text = "Check for Internet Connectivity"
+        Me.ChckBxChckInternet.UseVisualStyleBackColor = True
         '
         'GroupBox19
         '
@@ -1657,26 +1854,41 @@ Partial Class frmOptions
         Me.OpenFileDialog1.CheckFileExists = False
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
-        'GroupBox20
+        'btnResetBigKlock
         '
-        Me.GroupBox20.Controls.Add(Me.ChckBxChckInternet)
-        Me.GroupBox20.Location = New System.Drawing.Point(9, 212)
-        Me.GroupBox20.Name = "GroupBox20"
-        Me.GroupBox20.Size = New System.Drawing.Size(645, 41)
-        Me.GroupBox20.TabIndex = 4
-        Me.GroupBox20.TabStop = False
-        Me.GroupBox20.Text = "Internet"
+        Me.btnResetBigKlock.Location = New System.Drawing.Point(131, 100)
+        Me.btnResetBigKlock.Name = "btnResetBigKlock"
+        Me.btnResetBigKlock.Size = New System.Drawing.Size(75, 23)
+        Me.btnResetBigKlock.TabIndex = 12
+        Me.btnResetBigKlock.Text = "Reset"
+        Me.btnResetBigKlock.UseVisualStyleBackColor = True
         '
-        'ChckBxChckInternet
+        'btnResetSmallKlock
         '
-        Me.ChckBxChckInternet.AutoSize = True
-        Me.ChckBxChckInternet.Location = New System.Drawing.Point(49, 18)
-        Me.ChckBxChckInternet.Name = "ChckBxChckInternet"
-        Me.ChckBxChckInternet.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxChckInternet.Size = New System.Drawing.Size(172, 17)
-        Me.ChckBxChckInternet.TabIndex = 0
-        Me.ChckBxChckInternet.Text = "Check for Internet Connectivity"
-        Me.ChckBxChckInternet.UseVisualStyleBackColor = True
+        Me.btnResetSmallKlock.Location = New System.Drawing.Point(131, 100)
+        Me.btnResetSmallKlock.Name = "btnResetSmallKlock"
+        Me.btnResetSmallKlock.Size = New System.Drawing.Size(75, 23)
+        Me.btnResetSmallKlock.TabIndex = 6
+        Me.btnResetSmallKlock.Text = "Reset"
+        Me.btnResetSmallKlock.UseVisualStyleBackColor = True
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(6, 105)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(114, 13)
+        Me.Label30.TabIndex = 7
+        Me.Label30.Text = "Reset colour to default"
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Location = New System.Drawing.Point(6, 105)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(114, 13)
+        Me.Label31.TabIndex = 13
+        Me.Label31.Text = "Reset colour to default"
         '
         'frmOptions
         '
@@ -1693,7 +1905,7 @@ Partial Class frmOptions
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmOptions"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Options"
         Me.TabCntrlOptions.ResumeLayout(False)
         Me.TbPgGlobal.ResumeLayout(False)
@@ -1725,7 +1937,14 @@ Partial Class frmOptions
         CType(Me.UpDwnTimeDisplay, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.TbPgTextKlock.ResumeLayout(False)
+        Me.GroupBox22.ResumeLayout(False)
+        Me.GroupBox22.PerformLayout()
+        Me.GroupBox21.ResumeLayout(False)
+        Me.GroupBox21.PerformLayout()
         Me.TbPgOtherStuff.ResumeLayout(False)
+        Me.GroupBox20.ResumeLayout(False)
+        Me.GroupBox20.PerformLayout()
         Me.GroupBox19.ResumeLayout(False)
         Me.GroupBox19.PerformLayout()
         Me.GroupBox5.ResumeLayout(False)
@@ -1755,8 +1974,6 @@ Partial Class frmOptions
         Me.GroupBox16.ResumeLayout(False)
         Me.GroupBox16.PerformLayout()
         CType(Me.NmrcUpDwnMemoDecrypt, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox20.ResumeLayout(False)
-        Me.GroupBox20.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1904,4 +2121,23 @@ Partial Class frmOptions
     Friend WithEvents ChckBxDisableMonitorSleep As CheckBox
     Friend WithEvents GroupBox20 As GroupBox
     Friend WithEvents ChckBxChckInternet As CheckBox
+    Friend WithEvents TbPgTextKlock As TabPage
+    Friend WithEvents GroupBox22 As GroupBox
+    Friend WithEvents GroupBox21 As GroupBox
+    Friend WithEvents Label27 As Label
+    Friend WithEvents Label28 As Label
+    Friend WithEvents Label29 As Label
+    Friend WithEvents btnBgTxtKlckBckClr As Button
+    Friend WithEvents btnBgTxtKlckOffClr As Button
+    Friend WithEvents btnBgTxtKlckFrClr As Button
+    Friend WithEvents Label26 As Label
+    Friend WithEvents Label25 As Label
+    Friend WithEvents Label24 As Label
+    Friend WithEvents btnSmlTxtKlckBckClr As Button
+    Friend WithEvents btnSmlTxtKlckOffClr As Button
+    Friend WithEvents btnSmlTxtKlckFrClr As Button
+    Friend WithEvents Label31 As Label
+    Friend WithEvents btnResetBigKlock As Button
+    Friend WithEvents Label30 As Label
+    Friend WithEvents btnResetSmallKlock As Button
 End Class
