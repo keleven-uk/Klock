@@ -17,8 +17,8 @@
     Private Sub pnlSmallKlock_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, pnlSmallKlock.MouseMove
 
         If drag Then
-            Me.Top = Windows.Forms.Cursor.Position.Y - mousey
-            Me.Left = Windows.Forms.Cursor.Position.X - mousex
+            Top = Windows.Forms.Cursor.Position.Y - mousey
+            Left = Windows.Forms.Cursor.Position.X - mousex
         End If
     End Sub
 

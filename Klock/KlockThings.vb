@@ -173,26 +173,31 @@ Module KlockThings
             Case Keys.F2 And (e.Alt)
                 frmKlock.usrSettings.writeSettings()        '   save settings, not sure if anything has changed.
                 frmOptions.ShowDialog()
-                frmKlock.setSettings()
-            Case Keys.F4 And (e.Alt)                        '   show small text klock
-                If Not frmSmallTextKlock.Visible And Not frmBigTextKlock.Visible Then
+            Case Keys.F3 And (e.Alt)                        '   show analogue klock
+                If klocksNotVisable() Then
                     frmKlock.NtfyIcnKlock.Visible = True
                     frmKlock.Visible = False
-                    frmSmallTextKlock.Visible = False
+                    frmAnalogueKlock.Show()
+                End If
+                e.Handled = True
+            Case Keys.F4 And (e.Alt)                        '   show small text klock
+                If klocksNotVisable() Then
+                    frmKlock.NtfyIcnKlock.Visible = True
+                    frmKlock.Visible = False
                     frmSmallTextKlock.Show()
                 End If
                 e.Handled = True
             Case Keys.F5 And (e.Alt)                        '   show big text klock
-                If Not frmSmallTextKlock.Visible And Not frmBigTextKlock.Visible Then
+                If klocksNotVisable() Then
                     frmKlock.NtfyIcnKlock.Visible = True
                     frmKlock.Visible = False
-                    frmBigTextKlock.Visible = False
                     frmBigTextKlock.Show()
                 End If
                 e.Handled = True
             Case Keys.F6 And (e.Alt)                        '   
                 If frmSmallTextKlock.Visible Then frmSmallTextKlock.Close()
                 If frmBigTextKlock.Visible Then frmBigTextKlock.Close()
+                If frmAnalogueKlock.visible Then frmAnalogueKlock.close()
             Case Keys.F7 And (e.Alt)                        '   disable monitor sleeping to true
                 KlockThings.KeepMonitorActive()
                 frmKlock.usrSettings.usrDisableMonitorSleep = True
@@ -207,6 +212,17 @@ Module KlockThings
                 e.Handled = True
         End Select
     End Sub
+
+    Private function klocksNotVisable() 
+        '   Should return true if none of the extra klocks are running.
+        '   Should make the klocks run once.
+
+        if frmAnalogueKlock.Visible Or frmSmallTextKlock.Visible Or frmBigTextKlock.Visible Then
+            Return False
+        Else
+            Return true
+        End If
+    End function
 End Module
 
 

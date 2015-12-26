@@ -14,7 +14,8 @@
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -88,6 +89,9 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AnalogClockControl">
+      <HintPath>.\AnalogClockControl.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -123,6 +127,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormAnimator.vb" />
+    <Compile Include="frmAnalogKlock.Designer.vb">
+      <DependentUpon>frmAnalogKlock.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAnalogKlock.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmBigTextKlock.Designer.vb">
       <DependentUpon>frmBigTextKlock.vb</DependentUpon>
     </Compile>
@@ -208,6 +218,9 @@
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAnalogKlock.resx">
+      <DependentUpon>frmAnalogKlock.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmBigTextKlock.resx">
       <DependentUpon>frmBigTextKlock.vb</DependentUpon>

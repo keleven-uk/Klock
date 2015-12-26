@@ -62,6 +62,12 @@ Public Class UserSettings
     Private _usrSmallKlockBackColour As Color = Color.Black
     Private _usrSmallKlockForeColour As Color = Color.LightGreen
     Private _usrSmallKlockOffColour As Color = Color.LightSlateGray
+    '------------------------------------------------------------------------------------------------------- analogue Klock Settings -----
+    Private _usrAnalogueKlockText As String = "Klock"
+    Private _usrAnalogueKlcokTransparent As Boolean = False
+    Private _usrAnalogueKlockShowDate As Boolean = True
+    Private _usrAnalogueKlockShowTime As Boolean = True
+    Private _usrAnalogueKlockBackColour As Color = Color.LightSlateGray 
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
     Private _usrTimerHigh As Boolean = False
     Private _usrTimerClearSplit As Boolean = False
@@ -449,6 +455,53 @@ Public Class UserSettings
         End Set
     End Property
 
+        '------------------------------------------------------------------------------------------------------- analogue Klock Settings -----
+
+        Public Property usrAnalogueKlockText() As String
+        Get
+            Return _usrAnalogueKlockText
+        End Get
+        Set(ByVal value As String)
+            _usrAnalogueKlockText = value
+        End Set
+    End Property
+
+    Public Property usrAnalogueKlcokTransparent() As Boolean
+        Get
+            Return _usrAnalogueKlcokTransparent
+        End Get
+        Set(ByVal value As Boolean)
+            _usrAnalogueKlcokTransparent = value
+        End Set
+    End Property
+
+    Public Property usrAnalogueKlockShowDate() As Boolean
+        Get
+            Return _usrAnalogueKlockShowDate
+        End Get
+        Set(ByVal value As Boolean)
+            _usrAnalogueKlockShowDate = value
+        End Set
+    End Property
+
+    Public Property usrAnalogueKlockShowTime() As Boolean
+        Get
+            Return _usrAnalogueKlockShowTime
+        End Get
+        Set(ByVal value As Boolean)
+            _usrAnalogueKlockShowTime = value
+        End Set
+    End Property
+
+        Public Property usrAnalogueKlockBackColour() As Color
+        Get
+            Return _usrAnalogueKlockBackColour
+        End Get
+        Set(ByVal value As Color)
+            _usrAnalogueKlockBackColour = value
+        End Set
+    End Property
+
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
     Public Property usrTimerHigh() As Boolean
@@ -820,6 +873,16 @@ Public Class UserSettings
                                   <SmallKlockOffColourB><%= usrSmallKlockOffColour().B %></SmallKlockOffColourB>
                                   <SmallKlockOffColourA><%= usrSmallKlockOffColour().A %></SmallKlockOffColourA>
                               </SmallKlock>
+                              <AnalogueKlock>
+                                  <usrAnalogueKlockText><%= usrAnalogueKlockText() %></usrAnalogueKlockText>
+                                  <usrAnalogueKlcokTransparent><%= usrAnalogueKlcokTransparent() %></usrAnalogueKlcokTransparent>
+                                  <usrAnalogueKlockShowDate><%= usrAnalogueKlockShowDate() %></usrAnalogueKlockShowDate>
+                                  <usrAnalogueKlockShowTime><%= usrAnalogueKlockShowTime() %></usrAnalogueKlockShowTime>
+                                  <usrAnalogueKlockBackColourR><%= usrAnalogueKlockBackColour().R %></usrAnalogueKlockBackColourR>
+                                  <usrAnalogueKlockBackColourG><%= usrAnalogueKlockBackColour().G %></usrAnalogueKlockBackColourG>
+                                  <usrAnalogueKlockBackColourB><%= usrAnalogueKlockBackColour().B %></usrAnalogueKlockBackColourB>
+                                  <usrAnalogueKlockBackColourA><%= usrAnalogueKlockBackColour().A %></usrAnalogueKlockBackColourA>
+                              </AnalogueKlock>
                               <Timer>
                                   <TimerHigh><%= usrTimerHigh() %></TimerHigh>
                                   <TimerClearSplit><%= usrTimerClearSplit() %></TimerClearSplit>
@@ -993,6 +1056,16 @@ Public Class UserSettings
                                   <SmallKlockOffColourB>153</SmallKlockOffColourB>
                                   <SmallKlockOffColourA>255</SmallKlockOffColourA>
                               </SmallKlock>
+                              <AnalogueKlock>
+                                  <usrAnalogueKlockText>"Klock"</usrAnalogueKlockText>
+                                  <usrAnalogueKlcokTransparent><%= False %></usrAnalogueKlcokTransparent>
+                                  <usrAnalogueKlockShowDate>True</usrAnalogueKlockShowDate>
+                                  <usrAnalogueKlockShowTime>True</usrAnalogueKlockShowTime>
+                                  <usrAnalogueKlockBackColourR>119</usrAnalogueKlockBackColourR>
+                                  <usrAnalogueKlockBackColourG>136</usrAnalogueKlockBackColourG>
+                                  <usrAnalogueKlockBackColourB>153</usrAnalogueKlockBackColourB>
+                                  <usrAnalogueKlockBackColourA>255</usrAnalogueKlockBackColourA>
+                              </AnalogueKlock>
                               <Timer>
                                   <TimerHigh>false</TimerHigh>
                                   <TimerClearSplit>false</TimerClearSplit>
@@ -1196,6 +1269,20 @@ Public Class UserSettings
             b = CType(readElement(smlklck, "SmallKlockOffColourB", usrSmallKlockOffColour().B), Byte)
             a = CType(readElement(smlklck, "SmallKlockOffColourA", usrSmallKlockOffColour().A), Byte)
             usrSmallKlockOffColour = Color.FromArgb(a, r, g, b)
+
+            '------------------------------------------------------------------------------------------------------- analogue Klock Settings -----
+
+            Dim anlklck = elem.Element("AnalogueKlock")
+
+            usrAnalogueKlockText = readElement(anlklck, "usrAnalogueKlockText", usrAnalogueKlockText())
+            usrAnalogueKlcokTransparent = CType(readElement(anlklck, "usrAnalogueKlcokTransparent", usrAnalogueKlcokTransparent()), Boolean)
+            usrAnalogueKlockShowDate = CType(readElement(anlklck, "usrAnalogueKlockShowDate", usrAnalogueKlockShowDate()), Boolean)
+            usrAnalogueKlockShowTime = CType(readElement(anlklck, "usrAnalogueKlockShowTime", usrAnalogueKlockShowTime()), Boolean)
+            r = CType(readElement(anlklck, "usrAnalogueKlockBackColourR", usrAnalogueKlockBackColour().R), Byte)
+            g = CType(readElement(anlklck, "usrAnalogueKlockBackColourG", usrAnalogueKlockBackColour().G), Byte)
+            b = CType(readElement(anlklck, "usrAnalogueKlockBackColourB", usrAnalogueKlockBackColour().B), Byte)
+            a = CType(readElement(anlklck, "usrAnalogueKlockBackColourA", usrAnalogueKlockBackColour().A), Byte)
+            usrAnalogueKlockBackColour = Color.FromArgb(a, r, g, b)
 
             '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
             Dim tmr = elem.Element("Timer")

@@ -1,3 +1,35 @@
+commit 242c28072d8a1ace516eb310ec642fe0e3bf40ae
+Author: kevin scott <coinflip@keleven.co.uk>
+Date:   Wed Dec 16 22:14:22 2015 +0000
+
+    Added option to change the colours of the text [both active and
+    non-active], the colour of the background for both text klocks.
+    
+    Added appropiate entries into user settings.
+    
+    Moved the handling of hot keys into KlockThings.vb, and then called from
+    frmKlock.vb, frmSmallTextKlock.vb & frmBigTextKlock.vb.  Therefore the
+    code is only in one place.
+    
+    Corrected bug in the help calling logic.
+
+ Klock/HelpCommon.vb                 |   90 +-
+ Klock/KlockThings.vb                |  372 +--
+ Klock/My Project/AssemblyInfo.vb    |   76 +-
+ Klock/UserSettings.vb               | 2575 +++++++++--------
+ Klock/frmBigTextKlock.Designer.vb   | 5370 ++++++++++++++++++-----------------
+ Klock/frmBigTextKlock.vb            | 1042 ++++---
+ Klock/frmKlock.vb                   | 4131 +++++++++++++--------------
+ Klock/frmOptions.Designer.vb        | 4050 +++++++++++++-------------
+ Klock/frmOptions.vb                 | 1606 ++++++-----
+ Klock/frmSmallTextKlock.Designer.vb | 1313 +++++----
+ Klock/frmSmallTextKlock.resx        | 1374 +++++----
+ Klock/frmSmallTextKlock.vb          |  591 ++--
+ Klock/history.txt                   | 4306 ++++++++++++++--------------
+ Klock/klock.hnd                     |  Bin 18026496 -> 18190336 bytes
+ log.txt                             |   15 +
+ 15 files changed, 13700 insertions(+), 13211 deletions(-)
+
 commit 13c5ecd31bbec3ed6bb064c35c0774ac2f56943b
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Thu Dec 10 21:07:12 2015 +0000

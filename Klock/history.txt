@@ -2,6 +2,37 @@ The source tree is now held as a git repository https://github.com/keleven-uk/Kl
  converted from SVN as of build 42.
 I find the git commit number unwieldy, so still include SVN style build numbers.
 
+[Build [60] - V1.1.3.60 - December 2015
+
+    Added option to change the colours of the text [both active and
+    non-active], the colour of the background for both text klocks.
+    
+    Added appropriate entries into user settings.
+    
+    Moved the handling of hot keys into KlockThings.vb, and then called from
+    frmKlock.vb, frmSmallTextKlock.vb & frmBigTextKlock.vb.  Therefore the
+    code is only in one place.
+    
+    Corrected bug in the help calling logic.
+
+ Klock/HelpCommon.vb                 |   90 +-
+ Klock/KlockThings.vb                |  372 +--
+ Klock/My Project/AssemblyInfo.vb    |   76 +-
+ Klock/UserSettings.vb               | 2575 +++++++++--------
+ Klock/frmBigTextKlock.Designer.vb   | 5370 ++++++++++++++++++-----------------
+ Klock/frmBigTextKlock.vb            | 1042 ++++---
+ Klock/frmKlock.vb                   | 4131 +++++++++++++--------------
+ Klock/frmOptions.Designer.vb        | 4050 +++++++++++++-------------
+ Klock/frmOptions.vb                 | 1606 ++++++-----
+ Klock/frmSmallTextKlock.Designer.vb | 1313 +++++----
+ Klock/frmSmallTextKlock.resx        | 1374 +++++----
+ Klock/frmSmallTextKlock.vb          |  591 ++--
+ Klock/history.txt                   | 4306 ++++++++++++++--------------
+ Klock/klock.hnd                     |  Bin 18026496 -> 18190336 bytes
+ log.txt                             |   15 +
+ 15 files changed, 13700 insertions(+), 13211 deletions(-)
+ 
+ 
 [Build [59] - V1.1.3.59 - December 2015
 
 commit 13c5ecd31bbec3ed6bb064c35c0774ac2f56943b

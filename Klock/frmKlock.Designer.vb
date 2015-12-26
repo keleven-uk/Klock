@@ -36,6 +36,7 @@ Partial Class frmKlock
         Me.MnItmOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.TimeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TextKlockToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BigTextKlockToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DisplayTwoTimeFormatsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DisplayIdleTime = New System.Windows.Forms.ToolStripMenuItem()
         Me.InternetTimeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -235,49 +236,49 @@ Partial Class frmKlock
         Me.btnEventsCheck = New System.Windows.Forms.Button()
         Me.TmrMemo = New System.Windows.Forms.Timer(Me.components)
         Me.btnPrint = New System.Windows.Forms.Button()
-        Me.BigTextKlockToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StsStrpInfo.SuspendLayout()
-        Me.MnStrpMain.SuspendLayout()
-        Me.TbCntrl.SuspendLayout()
-        Me.TbPgTime.SuspendLayout()
-        Me.GroupBox15.SuspendLayout()
-        Me.GroupBox14.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.TbPgWorldClock.SuspendLayout()
-        Me.GroupBox18.SuspendLayout()
-        Me.GroupBox17.SuspendLayout()
-        Me.GroupBox16.SuspendLayout()
-        Me.TbPgCountDown.SuspendLayout()
-        Me.GroupBox5.SuspendLayout()
-        Me.GroupBox4.SuspendLayout()
-        CType(Me.upDwnCntDownValue, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox3.SuspendLayout()
-        Me.TbPgTimer.SuspendLayout()
-        Me.GroupBox8.SuspendLayout()
-        Me.GroupBox7.SuspendLayout()
-        Me.GroupBox6.SuspendLayout()
-        Me.TbPgReminder.SuspendLayout()
-        Me.GroupBox11.SuspendLayout()
-        Me.GroupBox10.SuspendLayout()
-        Me.GroupBox9.SuspendLayout()
-        Me.TbPgFriends.SuspendLayout()
-        Me.GroupBox13.SuspendLayout()
-        Me.pnlFriends.SuspendLayout()
-        Me.GroupBox12.SuspendLayout()
-        Me.TbPgEvents.SuspendLayout()
-        Me.GroupBox20.SuspendLayout()
-        Me.pnlEvents.SuspendLayout()
-        Me.GroupBox19.SuspendLayout()
-        Me.TbPgMemo.SuspendLayout()
-        Me.GroupBox22.SuspendLayout()
-        Me.pnlMemo.SuspendLayout()
-        Me.GroupBox21.SuspendLayout()
-        Me.TbPgConvert.SuspendLayout()
-        Me.GroupBox24.SuspendLayout()
-        Me.GroupBox23.SuspendLayout()
-        Me.CntxtMnStrpKlock.SuspendLayout()
-        Me.SuspendLayout()
+        Me.AnalogKlockToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StsStrpInfo.SuspendLayout
+        Me.MnStrpMain.SuspendLayout
+        Me.TbCntrl.SuspendLayout
+        Me.TbPgTime.SuspendLayout
+        Me.GroupBox15.SuspendLayout
+        Me.GroupBox14.SuspendLayout
+        Me.GroupBox2.SuspendLayout
+        Me.GroupBox1.SuspendLayout
+        Me.TbPgWorldClock.SuspendLayout
+        Me.GroupBox18.SuspendLayout
+        Me.GroupBox17.SuspendLayout
+        Me.GroupBox16.SuspendLayout
+        Me.TbPgCountDown.SuspendLayout
+        Me.GroupBox5.SuspendLayout
+        Me.GroupBox4.SuspendLayout
+        CType(Me.upDwnCntDownValue,System.ComponentModel.ISupportInitialize).BeginInit
+        Me.GroupBox3.SuspendLayout
+        Me.TbPgTimer.SuspendLayout
+        Me.GroupBox8.SuspendLayout
+        Me.GroupBox7.SuspendLayout
+        Me.GroupBox6.SuspendLayout
+        Me.TbPgReminder.SuspendLayout
+        Me.GroupBox11.SuspendLayout
+        Me.GroupBox10.SuspendLayout
+        Me.GroupBox9.SuspendLayout
+        Me.TbPgFriends.SuspendLayout
+        Me.GroupBox13.SuspendLayout
+        Me.pnlFriends.SuspendLayout
+        Me.GroupBox12.SuspendLayout
+        Me.TbPgEvents.SuspendLayout
+        Me.GroupBox20.SuspendLayout
+        Me.pnlEvents.SuspendLayout
+        Me.GroupBox19.SuspendLayout
+        Me.TbPgMemo.SuspendLayout
+        Me.GroupBox22.SuspendLayout
+        Me.pnlMemo.SuspendLayout
+        Me.GroupBox21.SuspendLayout
+        Me.TbPgConvert.SuspendLayout
+        Me.GroupBox24.SuspendLayout
+        Me.GroupBox23.SuspendLayout
+        Me.CntxtMnStrpKlock.SuspendLayout
+        Me.SuspendLayout
         '
         'StsStrpInfo
         '
@@ -287,14 +288,14 @@ Partial Class frmKlock
         Me.StsStrpInfo.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.StsStrpInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.StsStrpInfo.Size = New System.Drawing.Size(696, 24)
-        Me.StsStrpInfo.SizingGrip = False
+        Me.StsStrpInfo.SizingGrip = false
         Me.StsStrpInfo.TabIndex = 0
         '
         'stsLblTime
         '
-        Me.stsLblTime.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.stsLblTime.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)  _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)  _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom),System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.stsLblTime.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.stsLblTime.Name = "stsLblTime"
         Me.stsLblTime.Size = New System.Drawing.Size(53, 19)
@@ -302,9 +303,9 @@ Partial Class frmKlock
         '
         'StsLblDate
         '
-        Me.StsLblDate.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.StsLblDate.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)  _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)  _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom),System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.StsLblDate.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.StsLblDate.Name = "StsLblDate"
         Me.StsLblDate.Size = New System.Drawing.Size(75, 19)
@@ -312,9 +313,9 @@ Partial Class frmKlock
         '
         'StsLblKeys
         '
-        Me.StsLblKeys.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.StsLblKeys.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)  _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)  _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom),System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.StsLblKeys.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.StsLblKeys.Name = "StsLblKeys"
         Me.StsLblKeys.Size = New System.Drawing.Size(47, 19)
@@ -322,9 +323,9 @@ Partial Class frmKlock
         '
         'stsLbIdkeTime
         '
-        Me.stsLbIdkeTime.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.stsLbIdkeTime.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)  _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)  _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom),System.Windows.Forms.ToolStripStatusLabelBorderSides)
         Me.stsLbIdkeTime.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
         Me.stsLbIdkeTime.Name = "stsLbIdkeTime"
         Me.stsLbIdkeTime.Size = New System.Drawing.Size(53, 19)
@@ -332,7 +333,7 @@ Partial Class frmKlock
         '
         'TmrMain
         '
-        Me.TmrMain.Enabled = True
+        Me.TmrMain.Enabled = true
         Me.TmrMain.Interval = 1000
         '
         'MnStrpMain
@@ -348,48 +349,54 @@ Partial Class frmKlock
         '
         Me.MnItmFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmExit, Me.MnItmOptions})
         Me.MnItmFile.Name = "MnItmFile"
-        Me.MnItmFile.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.F), System.Windows.Forms.Keys)
+        Me.MnItmFile.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.F),System.Windows.Forms.Keys)
         Me.MnItmFile.Size = New System.Drawing.Size(37, 20)
         Me.MnItmFile.Text = "&File"
         '
         'MnItmExit
         '
         Me.MnItmExit.Name = "MnItmExit"
-        Me.MnItmExit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
+        Me.MnItmExit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X),System.Windows.Forms.Keys)
         Me.MnItmExit.Size = New System.Drawing.Size(159, 22)
         Me.MnItmExit.Text = "E&xit"
         '
         'MnItmOptions
         '
         Me.MnItmOptions.Name = "MnItmOptions"
-        Me.MnItmOptions.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.O), System.Windows.Forms.Keys)
+        Me.MnItmOptions.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.O),System.Windows.Forms.Keys)
         Me.MnItmOptions.Size = New System.Drawing.Size(159, 22)
         Me.MnItmOptions.Text = "&Options"
         '
         'TimeToolStripMenuItem
         '
-        Me.TimeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TextKlockToolStripMenuItem, Me.BigTextKlockToolStripMenuItem, Me.DisplayTwoTimeFormatsToolStripMenuItem, Me.DisplayIdleTime, Me.InternetTimeToolStripMenuItem})
+        Me.TimeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AnalogKlockToolStripMenuItem, Me.TextKlockToolStripMenuItem, Me.BigTextKlockToolStripMenuItem, Me.DisplayTwoTimeFormatsToolStripMenuItem, Me.DisplayIdleTime, Me.InternetTimeToolStripMenuItem})
         Me.TimeToolStripMenuItem.Name = "TimeToolStripMenuItem"
         Me.TimeToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
         Me.TimeToolStripMenuItem.Text = "Time"
         '
         'TextKlockToolStripMenuItem
         '
-        Me.TextKlockToolStripMenuItem.CheckOnClick = True
+        Me.TextKlockToolStripMenuItem.CheckOnClick = true
         Me.TextKlockToolStripMenuItem.Name = "TextKlockToolStripMenuItem"
         Me.TextKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
         Me.TextKlockToolStripMenuItem.Text = "Small Text Klock"
         '
+        'BigTextKlockToolStripMenuItem
+        '
+        Me.BigTextKlockToolStripMenuItem.Name = "BigTextKlockToolStripMenuItem"
+        Me.BigTextKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.BigTextKlockToolStripMenuItem.Text = "Big Text Klock"
+        '
         'DisplayTwoTimeFormatsToolStripMenuItem
         '
-        Me.DisplayTwoTimeFormatsToolStripMenuItem.CheckOnClick = True
+        Me.DisplayTwoTimeFormatsToolStripMenuItem.CheckOnClick = true
         Me.DisplayTwoTimeFormatsToolStripMenuItem.Name = "DisplayTwoTimeFormatsToolStripMenuItem"
         Me.DisplayTwoTimeFormatsToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
         Me.DisplayTwoTimeFormatsToolStripMenuItem.Text = "Display Two Time Formats"
         '
         'DisplayIdleTime
         '
-        Me.DisplayIdleTime.CheckOnClick = True
+        Me.DisplayIdleTime.CheckOnClick = true
         Me.DisplayIdleTime.Name = "DisplayIdleTime"
         Me.DisplayIdleTime.Size = New System.Drawing.Size(213, 22)
         Me.DisplayIdleTime.Text = "Display Idle Time"
@@ -409,7 +416,7 @@ Partial Class frmKlock
         '
         'MonitorDisableSleep
         '
-        Me.MonitorDisableSleep.CheckOnClick = True
+        Me.MonitorDisableSleep.CheckOnClick = true
         Me.MonitorDisableSleep.Name = "MonitorDisableSleep"
         Me.MonitorDisableSleep.Size = New System.Drawing.Size(143, 22)
         Me.MonitorDisableSleep.Text = "Disable Sleep"
@@ -455,35 +462,35 @@ Partial Class frmKlock
         '
         Me.MnItmHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmSubHelp, Me.MnItmLicense, Me.MnItmHistory, Me.MnItmAbout})
         Me.MnItmHelp.Name = "MnItmHelp"
-        Me.MnItmHelp.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.H), System.Windows.Forms.Keys)
+        Me.MnItmHelp.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.H),System.Windows.Forms.Keys)
         Me.MnItmHelp.Size = New System.Drawing.Size(44, 20)
         Me.MnItmHelp.Text = "&Help"
         '
         'MnItmSubHelp
         '
         Me.MnItmSubHelp.Name = "MnItmSubHelp"
-        Me.MnItmSubHelp.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
+        Me.MnItmSubHelp.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P),System.Windows.Forms.Keys)
         Me.MnItmSubHelp.Size = New System.Drawing.Size(155, 22)
         Me.MnItmSubHelp.Text = "Hel&p"
         '
         'MnItmLicense
         '
         Me.MnItmLicense.Name = "MnItmLicense"
-        Me.MnItmLicense.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.L), System.Windows.Forms.Keys)
+        Me.MnItmLicense.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.L),System.Windows.Forms.Keys)
         Me.MnItmLicense.Size = New System.Drawing.Size(155, 22)
         Me.MnItmLicense.Text = "&License"
         '
         'MnItmHistory
         '
         Me.MnItmHistory.Name = "MnItmHistory"
-        Me.MnItmHistory.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.H), System.Windows.Forms.Keys)
+        Me.MnItmHistory.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.H),System.Windows.Forms.Keys)
         Me.MnItmHistory.Size = New System.Drawing.Size(155, 22)
         Me.MnItmHistory.Text = "&History"
         '
         'MnItmAbout
         '
         Me.MnItmAbout.Name = "MnItmAbout"
-        Me.MnItmAbout.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.A), System.Windows.Forms.Keys)
+        Me.MnItmAbout.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.A),System.Windows.Forms.Keys)
         Me.MnItmAbout.Size = New System.Drawing.Size(155, 22)
         Me.MnItmAbout.Text = "&About"
         '
@@ -499,7 +506,7 @@ Partial Class frmKlock
         Me.TbCntrl.Controls.Add(Me.TbPgEvents)
         Me.TbCntrl.Controls.Add(Me.TbPgMemo)
         Me.TbCntrl.Controls.Add(Me.TbPgConvert)
-        Me.TbCntrl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TbCntrl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.TbCntrl.Location = New System.Drawing.Point(12, 27)
         Me.TbCntrl.Name = "TbCntrl"
         Me.TbCntrl.SelectedIndex = 0
@@ -527,12 +534,12 @@ Partial Class frmKlock
         Me.GroupBox15.Name = "GroupBox15"
         Me.GroupBox15.Size = New System.Drawing.Size(550, 57)
         Me.GroupBox15.TabIndex = 4
-        Me.GroupBox15.TabStop = False
+        Me.GroupBox15.TabStop = false
         '
         'LblTimeTwoTime
         '
-        Me.LblTimeTwoTime.AutoSize = True
-        Me.LblTimeTwoTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!)
+        Me.LblTimeTwoTime.AutoSize = true
+        Me.LblTimeTwoTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 16!)
         Me.LblTimeTwoTime.Location = New System.Drawing.Point(6, 16)
         Me.LblTimeTwoTime.Name = "LblTimeTwoTime"
         Me.LblTimeTwoTime.Size = New System.Drawing.Size(415, 26)
@@ -546,12 +553,12 @@ Partial Class frmKlock
         Me.GroupBox14.Name = "GroupBox14"
         Me.GroupBox14.Size = New System.Drawing.Size(103, 57)
         Me.GroupBox14.TabIndex = 3
-        Me.GroupBox14.TabStop = False
+        Me.GroupBox14.TabStop = false
         '
         'CmbBxTimeTwo
         '
         Me.CmbBxTimeTwo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxTimeTwo.FormattingEnabled = True
+        Me.CmbBxTimeTwo.FormattingEnabled = true
         Me.CmbBxTimeTwo.Location = New System.Drawing.Point(6, 19)
         Me.CmbBxTimeTwo.Name = "CmbBxTimeTwo"
         Me.CmbBxTimeTwo.Size = New System.Drawing.Size(86, 21)
@@ -564,12 +571,12 @@ Partial Class frmKlock
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(550, 57)
         Me.GroupBox2.TabIndex = 2
-        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.TabStop = false
         '
         'LblTimeOneTime
         '
-        Me.LblTimeOneTime.AutoSize = True
-        Me.LblTimeOneTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblTimeOneTime.AutoSize = true
+        Me.LblTimeOneTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 16!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.LblTimeOneTime.Location = New System.Drawing.Point(6, 19)
         Me.LblTimeOneTime.Name = "LblTimeOneTime"
         Me.LblTimeOneTime.Size = New System.Drawing.Size(415, 26)
@@ -583,13 +590,13 @@ Partial Class frmKlock
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(103, 57)
         Me.GroupBox1.TabIndex = 1
-        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.TabStop = false
         '
         'CmbBxTimeOne
         '
         Me.CmbBxTimeOne.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CmbBxTimeOne.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.CmbBxTimeOne.FormattingEnabled = True
+        Me.CmbBxTimeOne.FormattingEnabled = true
         Me.CmbBxTimeOne.Location = New System.Drawing.Point(6, 19)
         Me.CmbBxTimeOne.Name = "CmbBxTimeOne"
         Me.CmbBxTimeOne.Size = New System.Drawing.Size(86, 21)
@@ -616,11 +623,11 @@ Partial Class frmKlock
         Me.GroupBox18.Name = "GroupBox18"
         Me.GroupBox18.Size = New System.Drawing.Size(300, 120)
         Me.GroupBox18.TabIndex = 2
-        Me.GroupBox18.TabStop = False
+        Me.GroupBox18.TabStop = false
         '
         'LblWorldKlockWorld
         '
-        Me.LblWorldKlockWorld.AutoSize = True
+        Me.LblWorldKlockWorld.AutoSize = true
         Me.LblWorldKlockWorld.Location = New System.Drawing.Point(20, 63)
         Me.LblWorldKlockWorld.Name = "LblWorldKlockWorld"
         Me.LblWorldKlockWorld.Size = New System.Drawing.Size(45, 15)
@@ -629,7 +636,7 @@ Partial Class frmKlock
         '
         'LblWorldKlockLocal
         '
-        Me.LblWorldKlockLocal.AutoSize = True
+        Me.LblWorldKlockLocal.AutoSize = true
         Me.LblWorldKlockLocal.Location = New System.Drawing.Point(20, 25)
         Me.LblWorldKlockLocal.Name = "LblWorldKlockLocal"
         Me.LblWorldKlockLocal.Size = New System.Drawing.Size(45, 15)
@@ -644,29 +651,29 @@ Partial Class frmKlock
         Me.GroupBox17.Name = "GroupBox17"
         Me.GroupBox17.Size = New System.Drawing.Size(353, 57)
         Me.GroupBox17.TabIndex = 1
-        Me.GroupBox17.TabStop = False
+        Me.GroupBox17.TabStop = false
         '
         'RdBtnWorldClockTimeZoneID
         '
-        Me.RdBtnWorldClockTimeZoneID.AutoSize = True
+        Me.RdBtnWorldClockTimeZoneID.AutoSize = true
         Me.RdBtnWorldClockTimeZoneID.Location = New System.Drawing.Point(154, 19)
         Me.RdBtnWorldClockTimeZoneID.Name = "RdBtnWorldClockTimeZoneID"
         Me.RdBtnWorldClockTimeZoneID.Size = New System.Drawing.Size(127, 19)
         Me.RdBtnWorldClockTimeZoneID.TabIndex = 1
         Me.RdBtnWorldClockTimeZoneID.Text = "by Standard Name"
-        Me.RdBtnWorldClockTimeZoneID.UseVisualStyleBackColor = True
+        Me.RdBtnWorldClockTimeZoneID.UseVisualStyleBackColor = true
         '
         'RdBtnWorldClockTimeZoneLongName
         '
-        Me.RdBtnWorldClockTimeZoneLongName.AutoSize = True
-        Me.RdBtnWorldClockTimeZoneLongName.Checked = True
+        Me.RdBtnWorldClockTimeZoneLongName.AutoSize = true
+        Me.RdBtnWorldClockTimeZoneLongName.Checked = true
         Me.RdBtnWorldClockTimeZoneLongName.Location = New System.Drawing.Point(29, 19)
         Me.RdBtnWorldClockTimeZoneLongName.Name = "RdBtnWorldClockTimeZoneLongName"
         Me.RdBtnWorldClockTimeZoneLongName.Size = New System.Drawing.Size(105, 19)
         Me.RdBtnWorldClockTimeZoneLongName.TabIndex = 0
-        Me.RdBtnWorldClockTimeZoneLongName.TabStop = True
+        Me.RdBtnWorldClockTimeZoneLongName.TabStop = true
         Me.RdBtnWorldClockTimeZoneLongName.Text = "by Long Name"
-        Me.RdBtnWorldClockTimeZoneLongName.UseVisualStyleBackColor = True
+        Me.RdBtnWorldClockTimeZoneLongName.UseVisualStyleBackColor = true
         '
         'GroupBox16
         '
@@ -675,13 +682,13 @@ Partial Class frmKlock
         Me.GroupBox16.Name = "GroupBox16"
         Me.GroupBox16.Size = New System.Drawing.Size(353, 57)
         Me.GroupBox16.TabIndex = 0
-        Me.GroupBox16.TabStop = False
+        Me.GroupBox16.TabStop = false
         Me.GroupBox16.Text = "Time Zones"
         '
         'CmbBxWorldKlockTimeZones
         '
         Me.CmbBxWorldKlockTimeZones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxWorldKlockTimeZones.FormattingEnabled = True
+        Me.CmbBxWorldKlockTimeZones.FormattingEnabled = true
         Me.CmbBxWorldKlockTimeZones.Location = New System.Drawing.Point(6, 19)
         Me.CmbBxWorldKlockTimeZones.Name = "CmbBxWorldKlockTimeZones"
         Me.CmbBxWorldKlockTimeZones.Size = New System.Drawing.Size(337, 21)
@@ -722,21 +729,21 @@ Partial Class frmKlock
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(550, 57)
         Me.GroupBox5.TabIndex = 2
-        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.TabStop = false
         '
         'ChckBxCountdownScreenSaver
         '
-        Me.ChckBxCountdownScreenSaver.AutoSize = True
+        Me.ChckBxCountdownScreenSaver.AutoSize = true
         Me.ChckBxCountdownScreenSaver.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxCountdownScreenSaver.Name = "ChckBxCountdownScreenSaver"
         Me.ChckBxCountdownScreenSaver.Size = New System.Drawing.Size(99, 19)
         Me.ChckBxCountdownScreenSaver.TabIndex = 15
         Me.ChckBxCountdownScreenSaver.Text = "Screen Saver"
-        Me.ChckBxCountdownScreenSaver.UseVisualStyleBackColor = True
+        Me.ChckBxCountdownScreenSaver.UseVisualStyleBackColor = true
         '
         'TxtBxCountdownSpeech
         '
-        Me.TxtBxCountdownSpeech.Enabled = False
+        Me.TxtBxCountdownSpeech.Enabled = false
         Me.TxtBxCountdownSpeech.Location = New System.Drawing.Point(188, 24)
         Me.TxtBxCountdownSpeech.Name = "TxtBxCountdownSpeech"
         Me.TxtBxCountdownSpeech.Size = New System.Drawing.Size(241, 20)
@@ -745,28 +752,28 @@ Partial Class frmKlock
         '
         'ChckBxCountdownSpeech
         '
-        Me.ChckBxCountdownSpeech.AutoSize = True
+        Me.ChckBxCountdownSpeech.AutoSize = true
         Me.ChckBxCountdownSpeech.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxCountdownSpeech.Name = "ChckBxCountdownSpeech"
         Me.ChckBxCountdownSpeech.Size = New System.Drawing.Size(68, 19)
         Me.ChckBxCountdownSpeech.TabIndex = 13
         Me.ChckBxCountdownSpeech.Text = "Speech"
-        Me.ChckBxCountdownSpeech.UseVisualStyleBackColor = True
+        Me.ChckBxCountdownSpeech.UseVisualStyleBackColor = true
         '
         'btnCountdownSystemAbort
         '
-        Me.btnCountdownSystemAbort.Enabled = False
-        Me.btnCountdownSystemAbort.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCountdownSystemAbort.Enabled = false
+        Me.btnCountdownSystemAbort.Font = New System.Drawing.Font("Microsoft Sans Serif", 7!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.btnCountdownSystemAbort.Location = New System.Drawing.Point(444, 24)
         Me.btnCountdownSystemAbort.Name = "btnCountdownSystemAbort"
         Me.btnCountdownSystemAbort.Size = New System.Drawing.Size(50, 20)
         Me.btnCountdownSystemAbort.TabIndex = 12
         Me.btnCountdownSystemAbort.Text = "Abort"
-        Me.btnCountdownSystemAbort.UseVisualStyleBackColor = True
+        Me.btnCountdownSystemAbort.UseVisualStyleBackColor = true
         '
         'TxtBxCountDowndCommand
         '
-        Me.TxtBxCountDowndCommand.Enabled = False
+        Me.TxtBxCountDowndCommand.Enabled = false
         Me.TxtBxCountDowndCommand.Location = New System.Drawing.Point(190, 24)
         Me.TxtBxCountDowndCommand.Name = "TxtBxCountDowndCommand"
         Me.TxtBxCountDowndCommand.Size = New System.Drawing.Size(239, 20)
@@ -774,30 +781,30 @@ Partial Class frmKlock
         '
         'btnCountDownLoadCommand
         '
-        Me.btnCountDownLoadCommand.Enabled = False
-        Me.btnCountDownLoadCommand.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCountDownLoadCommand.Enabled = false
+        Me.btnCountDownLoadCommand.Font = New System.Drawing.Font("Microsoft Sans Serif", 7!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.btnCountDownLoadCommand.Location = New System.Drawing.Point(444, 24)
         Me.btnCountDownLoadCommand.Name = "btnCountDownLoadCommand"
         Me.btnCountDownLoadCommand.Size = New System.Drawing.Size(50, 20)
         Me.btnCountDownLoadCommand.TabIndex = 10
         Me.btnCountDownLoadCommand.Text = "..."
-        Me.btnCountDownLoadCommand.UseVisualStyleBackColor = True
+        Me.btnCountDownLoadCommand.UseVisualStyleBackColor = true
         '
         'ChckBxCountDownCommand
         '
-        Me.ChckBxCountDownCommand.AutoSize = True
+        Me.ChckBxCountDownCommand.AutoSize = true
         Me.ChckBxCountDownCommand.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxCountDownCommand.Name = "ChckBxCountDownCommand"
         Me.ChckBxCountDownCommand.Size = New System.Drawing.Size(84, 19)
         Me.ChckBxCountDownCommand.TabIndex = 9
         Me.ChckBxCountDownCommand.Text = "Command"
-        Me.ChckBxCountDownCommand.UseVisualStyleBackColor = True
+        Me.ChckBxCountDownCommand.UseVisualStyleBackColor = true
         '
         'CmbBxCountDownSystem
         '
         Me.CmbBxCountDownSystem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxCountDownSystem.Enabled = False
-        Me.CmbBxCountDownSystem.FormattingEnabled = True
+        Me.CmbBxCountDownSystem.Enabled = false
+        Me.CmbBxCountDownSystem.FormattingEnabled = true
         Me.CmbBxCountDownSystem.Location = New System.Drawing.Point(174, 23)
         Me.CmbBxCountDownSystem.Name = "CmbBxCountDownSystem"
         Me.CmbBxCountDownSystem.Size = New System.Drawing.Size(100, 21)
@@ -805,17 +812,17 @@ Partial Class frmKlock
         '
         'ChckBxCountDownSystem
         '
-        Me.ChckBxCountDownSystem.AutoSize = True
+        Me.ChckBxCountDownSystem.AutoSize = true
         Me.ChckBxCountDownSystem.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxCountDownSystem.Name = "ChckBxCountDownSystem"
         Me.ChckBxCountDownSystem.Size = New System.Drawing.Size(66, 19)
         Me.ChckBxCountDownSystem.TabIndex = 7
         Me.ChckBxCountDownSystem.Text = "System"
-        Me.ChckBxCountDownSystem.UseVisualStyleBackColor = True
+        Me.ChckBxCountDownSystem.UseVisualStyleBackColor = true
         '
         'TxtBxCountDownReminder
         '
-        Me.TxtBxCountDownReminder.Enabled = False
+        Me.TxtBxCountDownReminder.Enabled = false
         Me.TxtBxCountDownReminder.Location = New System.Drawing.Point(188, 24)
         Me.TxtBxCountDownReminder.Name = "TxtBxCountDownReminder"
         Me.TxtBxCountDownReminder.Size = New System.Drawing.Size(241, 20)
@@ -824,39 +831,39 @@ Partial Class frmKlock
         '
         'ChckBxCountDownReminder
         '
-        Me.ChckBxCountDownReminder.AutoSize = True
+        Me.ChckBxCountDownReminder.AutoSize = true
         Me.ChckBxCountDownReminder.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxCountDownReminder.Name = "ChckBxCountDownReminder"
         Me.ChckBxCountDownReminder.Size = New System.Drawing.Size(81, 19)
         Me.ChckBxCountDownReminder.TabIndex = 5
         Me.ChckBxCountDownReminder.Text = "Reminder"
-        Me.ChckBxCountDownReminder.UseVisualStyleBackColor = True
+        Me.ChckBxCountDownReminder.UseVisualStyleBackColor = true
         '
         'btnCountdownLoadSound
         '
-        Me.btnCountdownLoadSound.Enabled = False
-        Me.btnCountdownLoadSound.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCountdownLoadSound.Enabled = false
+        Me.btnCountdownLoadSound.Font = New System.Drawing.Font("Microsoft Sans Serif", 7!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.btnCountdownLoadSound.Location = New System.Drawing.Point(379, 24)
         Me.btnCountdownLoadSound.Name = "btnCountdownLoadSound"
         Me.btnCountdownLoadSound.Size = New System.Drawing.Size(50, 20)
         Me.btnCountdownLoadSound.TabIndex = 4
         Me.btnCountdownLoadSound.Text = "..."
-        Me.btnCountdownLoadSound.UseVisualStyleBackColor = True
+        Me.btnCountdownLoadSound.UseVisualStyleBackColor = true
         '
         'btnCountDownTestSound
         '
-        Me.btnCountDownTestSound.Enabled = False
-        Me.btnCountDownTestSound.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCountDownTestSound.Enabled = false
+        Me.btnCountDownTestSound.Font = New System.Drawing.Font("Microsoft Sans Serif", 7!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.btnCountDownTestSound.Location = New System.Drawing.Point(444, 24)
         Me.btnCountDownTestSound.Name = "btnCountDownTestSound"
         Me.btnCountDownTestSound.Size = New System.Drawing.Size(50, 20)
         Me.btnCountDownTestSound.TabIndex = 3
         Me.btnCountDownTestSound.Text = "Test"
-        Me.btnCountDownTestSound.UseVisualStyleBackColor = True
+        Me.btnCountDownTestSound.UseVisualStyleBackColor = true
         '
         'TxtBxCountDownAction
         '
-        Me.TxtBxCountDownAction.Enabled = False
+        Me.TxtBxCountDownAction.Enabled = false
         Me.TxtBxCountDownAction.Location = New System.Drawing.Point(174, 23)
         Me.TxtBxCountDownAction.Name = "TxtBxCountDownAction"
         Me.TxtBxCountDownAction.Size = New System.Drawing.Size(170, 20)
@@ -864,18 +871,18 @@ Partial Class frmKlock
         '
         'ChckBxCountDownSound
         '
-        Me.ChckBxCountDownSound.AutoSize = True
+        Me.ChckBxCountDownSound.AutoSize = true
         Me.ChckBxCountDownSound.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxCountDownSound.Name = "ChckBxCountDownSound"
         Me.ChckBxCountDownSound.Size = New System.Drawing.Size(62, 19)
         Me.ChckBxCountDownSound.TabIndex = 1
         Me.ChckBxCountDownSound.Text = "Sound"
-        Me.ChckBxCountDownSound.UseVisualStyleBackColor = True
+        Me.ChckBxCountDownSound.UseVisualStyleBackColor = true
         '
         'CmbBxCountDownAction
         '
         Me.CmbBxCountDownAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxCountDownAction.FormattingEnabled = True
+        Me.CmbBxCountDownAction.FormattingEnabled = true
         Me.CmbBxCountDownAction.Location = New System.Drawing.Point(18, 19)
         Me.CmbBxCountDownAction.Name = "CmbBxCountDownAction"
         Me.CmbBxCountDownAction.Size = New System.Drawing.Size(76, 21)
@@ -892,7 +899,7 @@ Partial Class frmKlock
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(550, 57)
         Me.GroupBox4.TabIndex = 1
-        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.TabStop = false
         '
         'btnCountdown90
         '
@@ -902,7 +909,7 @@ Partial Class frmKlock
         Me.btnCountdown90.Size = New System.Drawing.Size(50, 25)
         Me.btnCountdown90.TabIndex = 4
         Me.btnCountdown90.Text = "90"
-        Me.btnCountdown90.UseVisualStyleBackColor = True
+        Me.btnCountdown90.UseVisualStyleBackColor = true
         '
         'btnCountdown60
         '
@@ -912,7 +919,7 @@ Partial Class frmKlock
         Me.btnCountdown60.Size = New System.Drawing.Size(50, 25)
         Me.btnCountdown60.TabIndex = 3
         Me.btnCountdown60.Text = "60"
-        Me.btnCountdown60.UseVisualStyleBackColor = True
+        Me.btnCountdown60.UseVisualStyleBackColor = true
         '
         'btnCountdown30
         '
@@ -922,11 +929,11 @@ Partial Class frmKlock
         Me.btnCountdown30.Size = New System.Drawing.Size(50, 25)
         Me.btnCountdown30.TabIndex = 2
         Me.btnCountdown30.Text = "30"
-        Me.btnCountdown30.UseVisualStyleBackColor = True
+        Me.btnCountdown30.UseVisualStyleBackColor = true
         '
         'upDwnCntDownValue
         '
-        Me.upDwnCntDownValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.upDwnCntDownValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 14!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.upDwnCntDownValue.Location = New System.Drawing.Point(18, 16)
         Me.upDwnCntDownValue.Maximum = New Decimal(New Integer() {90, 0, 0, 0})
         Me.upDwnCntDownValue.Name = "upDwnCntDownValue"
@@ -935,9 +942,9 @@ Partial Class frmKlock
         '
         'lblCountDownTime
         '
-        Me.lblCountDownTime.AutoSize = True
-        Me.lblCountDownTime.Enabled = False
-        Me.lblCountDownTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCountDownTime.AutoSize = true
+        Me.lblCountDownTime.Enabled = false
+        Me.lblCountDownTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 26!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.lblCountDownTime.Location = New System.Drawing.Point(90, 15)
         Me.lblCountDownTime.Name = "lblCountDownTime"
         Me.lblCountDownTime.Size = New System.Drawing.Size(103, 39)
@@ -952,27 +959,27 @@ Partial Class frmKlock
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(103, 120)
         Me.GroupBox3.TabIndex = 0
-        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.TabStop = false
         '
         'btnCountDownStop
         '
-        Me.btnCountDownStop.Enabled = False
+        Me.btnCountDownStop.Enabled = false
         Me.btnCountDownStop.Location = New System.Drawing.Point(14, 73)
         Me.btnCountDownStop.Name = "btnCountDownStop"
         Me.btnCountDownStop.Size = New System.Drawing.Size(75, 23)
         Me.btnCountDownStop.TabIndex = 1
         Me.btnCountDownStop.Text = "Stop"
-        Me.btnCountDownStop.UseVisualStyleBackColor = True
+        Me.btnCountDownStop.UseVisualStyleBackColor = true
         '
         'btnCountDownStart
         '
-        Me.btnCountDownStart.Enabled = False
+        Me.btnCountDownStart.Enabled = false
         Me.btnCountDownStart.Location = New System.Drawing.Point(14, 34)
         Me.btnCountDownStart.Name = "btnCountDownStart"
         Me.btnCountDownStart.Size = New System.Drawing.Size(75, 23)
         Me.btnCountDownStart.TabIndex = 0
         Me.btnCountDownStart.Text = "Start"
-        Me.btnCountDownStart.UseVisualStyleBackColor = True
+        Me.btnCountDownStart.UseVisualStyleBackColor = true
         '
         'TbPgTimer
         '
@@ -994,23 +1001,23 @@ Partial Class frmKlock
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(553, 57)
         Me.GroupBox8.TabIndex = 2
-        Me.GroupBox8.TabStop = False
+        Me.GroupBox8.TabStop = false
         '
         'btnTimerSplitClear
         '
-        Me.btnTimerSplitClear.Enabled = False
+        Me.btnTimerSplitClear.Enabled = false
         Me.btnTimerSplitClear.Location = New System.Drawing.Point(360, 22)
         Me.btnTimerSplitClear.Name = "btnTimerSplitClear"
         Me.btnTimerSplitClear.Size = New System.Drawing.Size(75, 23)
         Me.btnTimerSplitClear.TabIndex = 2
         Me.btnTimerSplitClear.Text = "Clear"
-        Me.btnTimerSplitClear.UseVisualStyleBackColor = True
+        Me.btnTimerSplitClear.UseVisualStyleBackColor = true
         '
         'lblTimerSplit
         '
-        Me.lblTimerSplit.AutoSize = True
-        Me.lblTimerSplit.Enabled = False
-        Me.lblTimerSplit.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTimerSplit.AutoSize = true
+        Me.lblTimerSplit.Enabled = false
+        Me.lblTimerSplit.Font = New System.Drawing.Font("Microsoft Sans Serif", 26!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.lblTimerSplit.Location = New System.Drawing.Point(6, 15)
         Me.lblTimerSplit.Name = "lblTimerSplit"
         Me.lblTimerSplit.Size = New System.Drawing.Size(151, 39)
@@ -1025,13 +1032,13 @@ Partial Class frmKlock
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(553, 57)
         Me.GroupBox7.TabIndex = 1
-        Me.GroupBox7.TabStop = False
+        Me.GroupBox7.TabStop = false
         '
         'lblTimerTime
         '
-        Me.lblTimerTime.AutoSize = True
-        Me.lblTimerTime.Enabled = False
-        Me.lblTimerTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 26.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTimerTime.AutoSize = true
+        Me.lblTimerTime.Enabled = false
+        Me.lblTimerTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 26!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.lblTimerTime.Location = New System.Drawing.Point(6, 15)
         Me.lblTimerTime.Name = "lblTimerTime"
         Me.lblTimerTime.Size = New System.Drawing.Size(151, 39)
@@ -1040,14 +1047,14 @@ Partial Class frmKlock
         '
         'btnTimerSplit
         '
-        Me.btnTimerSplit.Enabled = False
-        Me.btnTimerSplit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnTimerSplit.Enabled = false
+        Me.btnTimerSplit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.btnTimerSplit.Location = New System.Drawing.Point(360, 19)
         Me.btnTimerSplit.Name = "btnTimerSplit"
         Me.btnTimerSplit.Size = New System.Drawing.Size(75, 23)
         Me.btnTimerSplit.TabIndex = 0
         Me.btnTimerSplit.Text = "Split"
-        Me.btnTimerSplit.UseVisualStyleBackColor = True
+        Me.btnTimerSplit.UseVisualStyleBackColor = true
         '
         'GroupBox6
         '
@@ -1058,27 +1065,27 @@ Partial Class frmKlock
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(103, 120)
         Me.GroupBox6.TabIndex = 0
-        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.TabStop = false
         '
         'btnTimerClear
         '
-        Me.btnTimerClear.Enabled = False
+        Me.btnTimerClear.Enabled = false
         Me.btnTimerClear.Location = New System.Drawing.Point(14, 85)
         Me.btnTimerClear.Name = "btnTimerClear"
         Me.btnTimerClear.Size = New System.Drawing.Size(75, 23)
         Me.btnTimerClear.TabIndex = 2
         Me.btnTimerClear.Text = "Clear"
-        Me.btnTimerClear.UseVisualStyleBackColor = True
+        Me.btnTimerClear.UseVisualStyleBackColor = true
         '
         'btnTimerStop
         '
-        Me.btnTimerStop.Enabled = False
+        Me.btnTimerStop.Enabled = false
         Me.btnTimerStop.Location = New System.Drawing.Point(14, 52)
         Me.btnTimerStop.Name = "btnTimerStop"
         Me.btnTimerStop.Size = New System.Drawing.Size(75, 23)
         Me.btnTimerStop.TabIndex = 1
         Me.btnTimerStop.Text = "Stop"
-        Me.btnTimerStop.UseVisualStyleBackColor = True
+        Me.btnTimerStop.UseVisualStyleBackColor = true
         '
         'btnTimerStart
         '
@@ -1087,7 +1094,7 @@ Partial Class frmKlock
         Me.btnTimerStart.Size = New System.Drawing.Size(75, 23)
         Me.btnTimerStart.TabIndex = 0
         Me.btnTimerStart.Text = "Start"
-        Me.btnTimerStart.UseVisualStyleBackColor = True
+        Me.btnTimerStart.UseVisualStyleBackColor = true
         '
         'TbPgReminder
         '
@@ -1123,21 +1130,21 @@ Partial Class frmKlock
         Me.GroupBox11.Name = "GroupBox11"
         Me.GroupBox11.Size = New System.Drawing.Size(553, 57)
         Me.GroupBox11.TabIndex = 3
-        Me.GroupBox11.TabStop = False
+        Me.GroupBox11.TabStop = false
         '
         'ChckBxReminderScreenSaver
         '
-        Me.ChckBxReminderScreenSaver.AutoSize = True
+        Me.ChckBxReminderScreenSaver.AutoSize = true
         Me.ChckBxReminderScreenSaver.Location = New System.Drawing.Point(101, 23)
         Me.ChckBxReminderScreenSaver.Name = "ChckBxReminderScreenSaver"
         Me.ChckBxReminderScreenSaver.Size = New System.Drawing.Size(99, 19)
         Me.ChckBxReminderScreenSaver.TabIndex = 15
         Me.ChckBxReminderScreenSaver.Text = "Screen Saver"
-        Me.ChckBxReminderScreenSaver.UseVisualStyleBackColor = True
+        Me.ChckBxReminderScreenSaver.UseVisualStyleBackColor = true
         '
         'TxtBxReminderSpeech
         '
-        Me.TxtBxReminderSpeech.Enabled = False
+        Me.TxtBxReminderSpeech.Enabled = false
         Me.TxtBxReminderSpeech.Location = New System.Drawing.Point(188, 24)
         Me.TxtBxReminderSpeech.Name = "TxtBxReminderSpeech"
         Me.TxtBxReminderSpeech.Size = New System.Drawing.Size(241, 20)
@@ -1146,29 +1153,29 @@ Partial Class frmKlock
         '
         'ChckBxReminderSpeech
         '
-        Me.ChckBxReminderSpeech.AutoSize = True
+        Me.ChckBxReminderSpeech.AutoSize = true
         Me.ChckBxReminderSpeech.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxReminderSpeech.Name = "ChckBxReminderSpeech"
         Me.ChckBxReminderSpeech.Size = New System.Drawing.Size(68, 19)
         Me.ChckBxReminderSpeech.TabIndex = 13
         Me.ChckBxReminderSpeech.Text = "Speech"
-        Me.ChckBxReminderSpeech.UseVisualStyleBackColor = True
+        Me.ChckBxReminderSpeech.UseVisualStyleBackColor = true
         '
         'btnReminderSystemAbort
         '
-        Me.btnReminderSystemAbort.Enabled = False
-        Me.btnReminderSystemAbort.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReminderSystemAbort.Enabled = false
+        Me.btnReminderSystemAbort.Font = New System.Drawing.Font("Microsoft Sans Serif", 7!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.btnReminderSystemAbort.Location = New System.Drawing.Point(444, 24)
         Me.btnReminderSystemAbort.Name = "btnReminderSystemAbort"
         Me.btnReminderSystemAbort.Size = New System.Drawing.Size(50, 20)
         Me.btnReminderSystemAbort.TabIndex = 12
         Me.btnReminderSystemAbort.Text = "Abort"
         Me.btnReminderSystemAbort.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.btnReminderSystemAbort.UseVisualStyleBackColor = True
+        Me.btnReminderSystemAbort.UseVisualStyleBackColor = true
         '
         'TxtBxReminderCommand
         '
-        Me.TxtBxReminderCommand.Enabled = False
+        Me.TxtBxReminderCommand.Enabled = false
         Me.TxtBxReminderCommand.Location = New System.Drawing.Point(190, 24)
         Me.TxtBxReminderCommand.Name = "TxtBxReminderCommand"
         Me.TxtBxReminderCommand.Size = New System.Drawing.Size(239, 20)
@@ -1176,30 +1183,30 @@ Partial Class frmKlock
         '
         'btnReminderLoadCommand
         '
-        Me.btnReminderLoadCommand.Enabled = False
-        Me.btnReminderLoadCommand.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReminderLoadCommand.Enabled = false
+        Me.btnReminderLoadCommand.Font = New System.Drawing.Font("Microsoft Sans Serif", 7!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.btnReminderLoadCommand.Location = New System.Drawing.Point(444, 24)
         Me.btnReminderLoadCommand.Name = "btnReminderLoadCommand"
         Me.btnReminderLoadCommand.Size = New System.Drawing.Size(50, 20)
         Me.btnReminderLoadCommand.TabIndex = 10
         Me.btnReminderLoadCommand.Text = "..."
-        Me.btnReminderLoadCommand.UseVisualStyleBackColor = True
+        Me.btnReminderLoadCommand.UseVisualStyleBackColor = true
         '
         'chckBXReminderCommand
         '
-        Me.chckBXReminderCommand.AutoSize = True
+        Me.chckBXReminderCommand.AutoSize = true
         Me.chckBXReminderCommand.Location = New System.Drawing.Point(100, 23)
         Me.chckBXReminderCommand.Name = "chckBXReminderCommand"
         Me.chckBXReminderCommand.Size = New System.Drawing.Size(84, 19)
         Me.chckBXReminderCommand.TabIndex = 9
         Me.chckBXReminderCommand.Text = "Command"
-        Me.chckBXReminderCommand.UseVisualStyleBackColor = True
+        Me.chckBXReminderCommand.UseVisualStyleBackColor = true
         '
         'CmbBxReminderSystem
         '
         Me.CmbBxReminderSystem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxReminderSystem.Enabled = False
-        Me.CmbBxReminderSystem.FormattingEnabled = True
+        Me.CmbBxReminderSystem.Enabled = false
+        Me.CmbBxReminderSystem.FormattingEnabled = true
         Me.CmbBxReminderSystem.Location = New System.Drawing.Point(174, 23)
         Me.CmbBxReminderSystem.Name = "CmbBxReminderSystem"
         Me.CmbBxReminderSystem.Size = New System.Drawing.Size(100, 21)
@@ -1207,17 +1214,17 @@ Partial Class frmKlock
         '
         'ChckBxReminderSystem
         '
-        Me.ChckBxReminderSystem.AutoSize = True
+        Me.ChckBxReminderSystem.AutoSize = true
         Me.ChckBxReminderSystem.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxReminderSystem.Name = "ChckBxReminderSystem"
         Me.ChckBxReminderSystem.Size = New System.Drawing.Size(66, 19)
         Me.ChckBxReminderSystem.TabIndex = 7
         Me.ChckBxReminderSystem.Text = "System"
-        Me.ChckBxReminderSystem.UseVisualStyleBackColor = True
+        Me.ChckBxReminderSystem.UseVisualStyleBackColor = true
         '
         'TxtBxReminderReminder
         '
-        Me.TxtBxReminderReminder.Enabled = False
+        Me.TxtBxReminderReminder.Enabled = false
         Me.TxtBxReminderReminder.Location = New System.Drawing.Point(188, 24)
         Me.TxtBxReminderReminder.Name = "TxtBxReminderReminder"
         Me.TxtBxReminderReminder.Size = New System.Drawing.Size(241, 20)
@@ -1226,39 +1233,39 @@ Partial Class frmKlock
         '
         'ChckBxReminderReminder
         '
-        Me.ChckBxReminderReminder.AutoSize = True
+        Me.ChckBxReminderReminder.AutoSize = true
         Me.ChckBxReminderReminder.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxReminderReminder.Name = "ChckBxReminderReminder"
         Me.ChckBxReminderReminder.Size = New System.Drawing.Size(81, 19)
         Me.ChckBxReminderReminder.TabIndex = 5
         Me.ChckBxReminderReminder.Text = "Reminder"
-        Me.ChckBxReminderReminder.UseVisualStyleBackColor = True
+        Me.ChckBxReminderReminder.UseVisualStyleBackColor = true
         '
         'btnReminderLoadSound
         '
-        Me.btnReminderLoadSound.Enabled = False
-        Me.btnReminderLoadSound.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReminderLoadSound.Enabled = false
+        Me.btnReminderLoadSound.Font = New System.Drawing.Font("Microsoft Sans Serif", 7!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.btnReminderLoadSound.Location = New System.Drawing.Point(379, 24)
         Me.btnReminderLoadSound.Name = "btnReminderLoadSound"
         Me.btnReminderLoadSound.Size = New System.Drawing.Size(50, 20)
         Me.btnReminderLoadSound.TabIndex = 4
         Me.btnReminderLoadSound.Text = "..."
-        Me.btnReminderLoadSound.UseVisualStyleBackColor = True
+        Me.btnReminderLoadSound.UseVisualStyleBackColor = true
         '
         'btnReminderTestSound
         '
-        Me.btnReminderTestSound.Enabled = False
-        Me.btnReminderTestSound.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReminderTestSound.Enabled = false
+        Me.btnReminderTestSound.Font = New System.Drawing.Font("Microsoft Sans Serif", 7!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.btnReminderTestSound.Location = New System.Drawing.Point(444, 24)
         Me.btnReminderTestSound.Name = "btnReminderTestSound"
         Me.btnReminderTestSound.Size = New System.Drawing.Size(50, 20)
         Me.btnReminderTestSound.TabIndex = 3
         Me.btnReminderTestSound.Text = "Test"
-        Me.btnReminderTestSound.UseVisualStyleBackColor = True
+        Me.btnReminderTestSound.UseVisualStyleBackColor = true
         '
         'TxtBxReminderAction
         '
-        Me.TxtBxReminderAction.Enabled = False
+        Me.TxtBxReminderAction.Enabled = false
         Me.TxtBxReminderAction.Location = New System.Drawing.Point(174, 23)
         Me.TxtBxReminderAction.Name = "TxtBxReminderAction"
         Me.TxtBxReminderAction.Size = New System.Drawing.Size(170, 20)
@@ -1266,18 +1273,18 @@ Partial Class frmKlock
         '
         'ChckBxReminderSound
         '
-        Me.ChckBxReminderSound.AutoSize = True
+        Me.ChckBxReminderSound.AutoSize = true
         Me.ChckBxReminderSound.Location = New System.Drawing.Point(100, 23)
         Me.ChckBxReminderSound.Name = "ChckBxReminderSound"
         Me.ChckBxReminderSound.Size = New System.Drawing.Size(62, 19)
         Me.ChckBxReminderSound.TabIndex = 1
         Me.ChckBxReminderSound.Text = "Sound"
-        Me.ChckBxReminderSound.UseVisualStyleBackColor = True
+        Me.ChckBxReminderSound.UseVisualStyleBackColor = true
         '
         'CmbBxReminderAction
         '
         Me.CmbBxReminderAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxReminderAction.FormattingEnabled = True
+        Me.CmbBxReminderAction.FormattingEnabled = true
         Me.CmbBxReminderAction.Location = New System.Drawing.Point(18, 19)
         Me.CmbBxReminderAction.Name = "CmbBxReminderAction"
         Me.CmbBxReminderAction.Size = New System.Drawing.Size(76, 21)
@@ -1293,26 +1300,26 @@ Partial Class frmKlock
         Me.GroupBox10.Name = "GroupBox10"
         Me.GroupBox10.Size = New System.Drawing.Size(553, 57)
         Me.GroupBox10.TabIndex = 1
-        Me.GroupBox10.TabStop = False
+        Me.GroupBox10.TabStop = false
         '
         'ChckBxReminderTimeCheck
         '
-        Me.ChckBxReminderTimeCheck.AutoSize = True
-        Me.ChckBxReminderTimeCheck.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChckBxReminderTimeCheck.AutoSize = true
+        Me.ChckBxReminderTimeCheck.Font = New System.Drawing.Font("Microsoft Sans Serif", 20!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.ChckBxReminderTimeCheck.Location = New System.Drawing.Point(414, 22)
         Me.ChckBxReminderTimeCheck.Name = "ChckBxReminderTimeCheck"
         Me.ChckBxReminderTimeCheck.Size = New System.Drawing.Size(15, 14)
         Me.ChckBxReminderTimeCheck.TabIndex = 3
-        Me.ChckBxReminderTimeCheck.UseVisualStyleBackColor = True
+        Me.ChckBxReminderTimeCheck.UseVisualStyleBackColor = true
         '
         'TmPckrRiminder
         '
-        Me.TmPckrRiminder.Checked = False
+        Me.TmPckrRiminder.Checked = false
         Me.TmPckrRiminder.CustomFormat = "HH:mm"
         Me.TmPckrRiminder.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.TmPckrRiminder.Location = New System.Drawing.Point(444, 19)
         Me.TmPckrRiminder.Name = "TmPckrRiminder"
-        Me.TmPckrRiminder.ShowUpDown = True
+        Me.TmPckrRiminder.ShowUpDown = true
         Me.TmPckrRiminder.Size = New System.Drawing.Size(50, 20)
         Me.TmPckrRiminder.TabIndex = 2
         '
@@ -1327,8 +1334,8 @@ Partial Class frmKlock
         '
         'lblReminderText
         '
-        Me.lblReminderText.AutoSize = True
-        Me.lblReminderText.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblReminderText.AutoSize = true
+        Me.lblReminderText.Font = New System.Drawing.Font("Microsoft Sans Serif", 16!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.lblReminderText.Location = New System.Drawing.Point(6, 19)
         Me.lblReminderText.Name = "lblReminderText"
         Me.lblReminderText.Size = New System.Drawing.Size(186, 26)
@@ -1343,27 +1350,27 @@ Partial Class frmKlock
         Me.GroupBox9.Name = "GroupBox9"
         Me.GroupBox9.Size = New System.Drawing.Size(103, 120)
         Me.GroupBox9.TabIndex = 0
-        Me.GroupBox9.TabStop = False
+        Me.GroupBox9.TabStop = false
         '
         'btnReminderClear
         '
-        Me.btnReminderClear.Enabled = False
+        Me.btnReminderClear.Enabled = false
         Me.btnReminderClear.Location = New System.Drawing.Point(14, 73)
         Me.btnReminderClear.Name = "btnReminderClear"
         Me.btnReminderClear.Size = New System.Drawing.Size(75, 23)
         Me.btnReminderClear.TabIndex = 1
         Me.btnReminderClear.Text = "Clear"
-        Me.btnReminderClear.UseVisualStyleBackColor = True
+        Me.btnReminderClear.UseVisualStyleBackColor = true
         '
         'btnReminderSet
         '
-        Me.btnReminderSet.Enabled = False
+        Me.btnReminderSet.Enabled = false
         Me.btnReminderSet.Location = New System.Drawing.Point(14, 34)
         Me.btnReminderSet.Name = "btnReminderSet"
         Me.btnReminderSet.Size = New System.Drawing.Size(75, 23)
         Me.btnReminderSet.TabIndex = 0
         Me.btnReminderSet.Text = "Set"
-        Me.btnReminderSet.UseVisualStyleBackColor = True
+        Me.btnReminderSet.UseVisualStyleBackColor = true
         '
         'TbPgFriends
         '
@@ -1384,11 +1391,11 @@ Partial Class frmKlock
         Me.GroupBox13.Name = "GroupBox13"
         Me.GroupBox13.Size = New System.Drawing.Size(413, 122)
         Me.GroupBox13.TabIndex = 1
-        Me.GroupBox13.TabStop = False
+        Me.GroupBox13.TabStop = false
         '
         'pnlFriends
         '
-        Me.pnlFriends.AutoScroll = True
+        Me.pnlFriends.AutoScroll = true
         Me.pnlFriends.Controls.Add(Me.ChckBxAddToEvents)
         Me.pnlFriends.Controls.Add(Me.DtPckrFriendsDOB)
         Me.pnlFriends.Controls.Add(Me.txtbxFriendsNotes)
@@ -1431,19 +1438,19 @@ Partial Class frmKlock
         '
         'ChckBxAddToEvents
         '
-        Me.ChckBxAddToEvents.AutoSize = True
-        Me.ChckBxAddToEvents.Enabled = False
+        Me.ChckBxAddToEvents.AutoSize = true
+        Me.ChckBxAddToEvents.Enabled = false
         Me.ChckBxAddToEvents.Location = New System.Drawing.Point(270, 278)
         Me.ChckBxAddToEvents.Name = "ChckBxAddToEvents"
         Me.ChckBxAddToEvents.Size = New System.Drawing.Size(99, 19)
         Me.ChckBxAddToEvents.TabIndex = 33
         Me.ChckBxAddToEvents.Text = "Add to Events"
-        Me.ChckBxAddToEvents.UseVisualStyleBackColor = True
+        Me.ChckBxAddToEvents.UseVisualStyleBackColor = true
         '
         'DtPckrFriendsDOB
         '
-        Me.DtPckrFriendsDOB.Checked = False
-        Me.DtPckrFriendsDOB.Enabled = False
+        Me.DtPckrFriendsDOB.Checked = false
+        Me.DtPckrFriendsDOB.Enabled = false
         Me.DtPckrFriendsDOB.Location = New System.Drawing.Point(85, 275)
         Me.DtPckrFriendsDOB.Name = "DtPckrFriendsDOB"
         Me.DtPckrFriendsDOB.Size = New System.Drawing.Size(179, 20)
@@ -1452,16 +1459,16 @@ Partial Class frmKlock
         'txtbxFriendsNotes
         '
         Me.txtbxFriendsNotes.Location = New System.Drawing.Point(85, 313)
-        Me.txtbxFriendsNotes.Multiline = True
+        Me.txtbxFriendsNotes.Multiline = true
         Me.txtbxFriendsNotes.Name = "txtbxFriendsNotes"
-        Me.txtbxFriendsNotes.ReadOnly = True
+        Me.txtbxFriendsNotes.ReadOnly = true
         Me.txtbxFriendsNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtbxFriendsNotes.Size = New System.Drawing.Size(295, 67)
         Me.txtbxFriendsNotes.TabIndex = 32
         '
         'Label15
         '
-        Me.Label15.AutoSize = True
+        Me.Label15.AutoSize = true
         Me.Label15.Location = New System.Drawing.Point(33, 313)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(39, 15)
@@ -1470,7 +1477,7 @@ Partial Class frmKlock
         '
         'Label14
         '
-        Me.Label14.AutoSize = True
+        Me.Label14.AutoSize = true
         Me.Label14.Location = New System.Drawing.Point(5, 280)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(74, 15)
@@ -1481,13 +1488,13 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsHomePage.Location = New System.Drawing.Point(85, 246)
         Me.txtbxFriendsHomePage.Name = "txtbxFriendsHomePage"
-        Me.txtbxFriendsHomePage.ReadOnly = True
+        Me.txtbxFriendsHomePage.ReadOnly = true
         Me.txtbxFriendsHomePage.Size = New System.Drawing.Size(179, 20)
         Me.txtbxFriendsHomePage.TabIndex = 28
         '
         'Label13
         '
-        Me.Label13.AutoSize = True
+        Me.Label13.AutoSize = true
         Me.Label13.Location = New System.Drawing.Point(5, 246)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(73, 15)
@@ -1496,7 +1503,7 @@ Partial Class frmKlock
         '
         'Label12
         '
-        Me.Label12.AutoSize = True
+        Me.Label12.AutoSize = true
         Me.Label12.Location = New System.Drawing.Point(200, 211)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(44, 15)
@@ -1505,7 +1512,7 @@ Partial Class frmKlock
         '
         'Label11
         '
-        Me.Label11.AutoSize = True
+        Me.Label11.AutoSize = true
         Me.Label11.Location = New System.Drawing.Point(181, 189)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(63, 15)
@@ -1514,7 +1521,7 @@ Partial Class frmKlock
         '
         'Label10
         '
-        Me.Label10.AutoSize = True
+        Me.Label10.AutoSize = true
         Me.Label10.Location = New System.Drawing.Point(218, 161)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(26, 15)
@@ -1525,7 +1532,7 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsAddressCounty.Location = New System.Drawing.Point(260, 208)
         Me.txtbxFriendsAddressCounty.Name = "txtbxFriendsAddressCounty"
-        Me.txtbxFriendsAddressCounty.ReadOnly = True
+        Me.txtbxFriendsAddressCounty.ReadOnly = true
         Me.txtbxFriendsAddressCounty.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsAddressCounty.TabIndex = 23
         '
@@ -1533,7 +1540,7 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsAddressPostCode.Location = New System.Drawing.Point(260, 182)
         Me.txtbxFriendsAddressPostCode.Name = "txtbxFriendsAddressPostCode"
-        Me.txtbxFriendsAddressPostCode.ReadOnly = True
+        Me.txtbxFriendsAddressPostCode.ReadOnly = true
         Me.txtbxFriendsAddressPostCode.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsAddressPostCode.TabIndex = 22
         '
@@ -1541,13 +1548,13 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsAddressCity.Location = New System.Drawing.Point(260, 156)
         Me.txtbxFriendsAddressCity.Name = "txtbxFriendsAddressCity"
-        Me.txtbxFriendsAddressCity.ReadOnly = True
+        Me.txtbxFriendsAddressCity.ReadOnly = true
         Me.txtbxFriendsAddressCity.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsAddressCity.TabIndex = 21
         '
         'Label9
         '
-        Me.Label9.AutoSize = True
+        Me.Label9.AutoSize = true
         Me.Label9.Location = New System.Drawing.Point(15, 163)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(26, 15)
@@ -1556,7 +1563,7 @@ Partial Class frmKlock
         '
         'Label8
         '
-        Me.Label8.AutoSize = True
+        Me.Label8.AutoSize = true
         Me.Label8.Location = New System.Drawing.Point(5, 189)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(41, 15)
@@ -1565,7 +1572,7 @@ Partial Class frmKlock
         '
         'Label7
         '
-        Me.Label7.AutoSize = True
+        Me.Label7.AutoSize = true
         Me.Label7.Location = New System.Drawing.Point(5, 211)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(41, 15)
@@ -1576,7 +1583,7 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsAddressLine2.Location = New System.Drawing.Point(47, 208)
         Me.txtbxFriendsAddressLine2.Name = "txtbxFriendsAddressLine2"
-        Me.txtbxFriendsAddressLine2.ReadOnly = True
+        Me.txtbxFriendsAddressLine2.ReadOnly = true
         Me.txtbxFriendsAddressLine2.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsAddressLine2.TabIndex = 17
         '
@@ -1584,7 +1591,7 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsAddressLine1.Location = New System.Drawing.Point(47, 182)
         Me.txtbxFriendsAddressLine1.Name = "txtbxFriendsAddressLine1"
-        Me.txtbxFriendsAddressLine1.ReadOnly = True
+        Me.txtbxFriendsAddressLine1.ReadOnly = true
         Me.txtbxFriendsAddressLine1.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsAddressLine1.TabIndex = 16
         '
@@ -1592,13 +1599,13 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsAddressNo.Location = New System.Drawing.Point(47, 156)
         Me.txtbxFriendsAddressNo.Name = "txtbxFriendsAddressNo"
-        Me.txtbxFriendsAddressNo.ReadOnly = True
+        Me.txtbxFriendsAddressNo.ReadOnly = true
         Me.txtbxFriendsAddressNo.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsAddressNo.TabIndex = 15
         '
         'Label6
         '
-        Me.Label6.AutoSize = True
+        Me.Label6.AutoSize = true
         Me.Label6.Location = New System.Drawing.Point(3, 127)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(51, 15)
@@ -1609,7 +1616,7 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsTelephone3.Location = New System.Drawing.Point(260, 94)
         Me.txtbxFriendsTelephone3.Name = "txtbxFriendsTelephone3"
-        Me.txtbxFriendsTelephone3.ReadOnly = True
+        Me.txtbxFriendsTelephone3.ReadOnly = true
         Me.txtbxFriendsTelephone3.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsTelephone3.TabIndex = 13
         '
@@ -1617,7 +1624,7 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsTelephone2.Location = New System.Drawing.Point(134, 94)
         Me.txtbxFriendsTelephone2.Name = "txtbxFriendsTelephone2"
-        Me.txtbxFriendsTelephone2.ReadOnly = True
+        Me.txtbxFriendsTelephone2.ReadOnly = true
         Me.txtbxFriendsTelephone2.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsTelephone2.TabIndex = 12
         '
@@ -1625,13 +1632,13 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsTelephone1.Location = New System.Drawing.Point(6, 94)
         Me.txtbxFriendsTelephone1.Name = "txtbxFriendsTelephone1"
-        Me.txtbxFriendsTelephone1.ReadOnly = True
+        Me.txtbxFriendsTelephone1.ReadOnly = true
         Me.txtbxFriendsTelephone1.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsTelephone1.TabIndex = 11
         '
         'Label5
         '
-        Me.Label5.AutoSize = True
+        Me.Label5.AutoSize = true
         Me.Label5.Location = New System.Drawing.Point(3, 78)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(121, 15)
@@ -1642,7 +1649,7 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsEmail3.Location = New System.Drawing.Point(260, 55)
         Me.txtbxFriendsEmail3.Name = "txtbxFriendsEmail3"
-        Me.txtbxFriendsEmail3.ReadOnly = True
+        Me.txtbxFriendsEmail3.ReadOnly = true
         Me.txtbxFriendsEmail3.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsEmail3.TabIndex = 9
         '
@@ -1650,7 +1657,7 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsEmail2.Location = New System.Drawing.Point(134, 55)
         Me.txtbxFriendsEmail2.Name = "txtbxFriendsEmail2"
-        Me.txtbxFriendsEmail2.ReadOnly = True
+        Me.txtbxFriendsEmail2.ReadOnly = true
         Me.txtbxFriendsEmail2.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsEmail2.TabIndex = 8
         '
@@ -1658,13 +1665,13 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsEmail1.Location = New System.Drawing.Point(8, 55)
         Me.txtbxFriendsEmail1.Name = "txtbxFriendsEmail1"
-        Me.txtbxFriendsEmail1.ReadOnly = True
+        Me.txtbxFriendsEmail1.ReadOnly = true
         Me.txtbxFriendsEmail1.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsEmail1.TabIndex = 7
         '
         'Label4
         '
-        Me.Label4.AutoSize = True
+        Me.Label4.AutoSize = true
         Me.Label4.Location = New System.Drawing.Point(3, 39)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(43, 15)
@@ -1675,7 +1682,7 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsLastName.Location = New System.Drawing.Point(260, 18)
         Me.txtbxFriendsLastName.Name = "txtbxFriendsLastName"
-        Me.txtbxFriendsLastName.ReadOnly = True
+        Me.txtbxFriendsLastName.ReadOnly = true
         Me.txtbxFriendsLastName.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsLastName.TabIndex = 5
         '
@@ -1683,7 +1690,7 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsMiddleName.Location = New System.Drawing.Point(134, 18)
         Me.txtbxFriendsMiddleName.Name = "txtbxFriendsMiddleName"
-        Me.txtbxFriendsMiddleName.ReadOnly = True
+        Me.txtbxFriendsMiddleName.ReadOnly = true
         Me.txtbxFriendsMiddleName.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsMiddleName.TabIndex = 4
         '
@@ -1691,13 +1698,13 @@ Partial Class frmKlock
         '
         Me.txtbxFriendsFirstName.Location = New System.Drawing.Point(8, 18)
         Me.txtbxFriendsFirstName.Name = "txtbxFriendsFirstName"
-        Me.txtbxFriendsFirstName.ReadOnly = True
+        Me.txtbxFriendsFirstName.ReadOnly = true
         Me.txtbxFriendsFirstName.Size = New System.Drawing.Size(120, 20)
         Me.txtbxFriendsFirstName.TabIndex = 3
         '
         'lblFriendsLastName
         '
-        Me.lblFriendsLastName.AutoSize = True
+        Me.lblFriendsLastName.AutoSize = true
         Me.lblFriendsLastName.Location = New System.Drawing.Point(257, 0)
         Me.lblFriendsLastName.Name = "lblFriendsLastName"
         Me.lblFriendsLastName.Size = New System.Drawing.Size(67, 15)
@@ -1706,7 +1713,7 @@ Partial Class frmKlock
         '
         'lblFriendsMiddleName
         '
-        Me.lblFriendsMiddleName.AutoSize = True
+        Me.lblFriendsMiddleName.AutoSize = true
         Me.lblFriendsMiddleName.Location = New System.Drawing.Point(134, 0)
         Me.lblFriendsMiddleName.Name = "lblFriendsMiddleName"
         Me.lblFriendsMiddleName.Size = New System.Drawing.Size(82, 15)
@@ -1715,7 +1722,7 @@ Partial Class frmKlock
         '
         'lblFriendsFirstName
         '
-        Me.lblFriendsFirstName.AutoSize = True
+        Me.lblFriendsFirstName.AutoSize = true
         Me.lblFriendsFirstName.Location = New System.Drawing.Point(3, 0)
         Me.lblFriendsFirstName.Name = "lblFriendsFirstName"
         Me.lblFriendsFirstName.Size = New System.Drawing.Size(67, 15)
@@ -1729,16 +1736,16 @@ Partial Class frmKlock
         Me.GroupBox12.Name = "GroupBox12"
         Me.GroupBox12.Size = New System.Drawing.Size(239, 122)
         Me.GroupBox12.TabIndex = 0
-        Me.GroupBox12.TabStop = False
+        Me.GroupBox12.TabStop = false
         '
         'LstBxFriends
         '
-        Me.LstBxFriends.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LstBxFriends.FormattingEnabled = True
+        Me.LstBxFriends.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.LstBxFriends.FormattingEnabled = true
         Me.LstBxFriends.Location = New System.Drawing.Point(6, 19)
         Me.LstBxFriends.Name = "LstBxFriends"
         Me.LstBxFriends.Size = New System.Drawing.Size(227, 82)
-        Me.LstBxFriends.Sorted = True
+        Me.LstBxFriends.Sorted = true
         Me.LstBxFriends.TabIndex = 0
         '
         'TbPgEvents
@@ -1750,7 +1757,7 @@ Partial Class frmKlock
         Me.TbPgEvents.Size = New System.Drawing.Size(671, 131)
         Me.TbPgEvents.TabIndex = 6
         Me.TbPgEvents.Text = "Events"
-        Me.TbPgEvents.UseVisualStyleBackColor = True
+        Me.TbPgEvents.UseVisualStyleBackColor = true
         '
         'GroupBox20
         '
@@ -1759,11 +1766,11 @@ Partial Class frmKlock
         Me.GroupBox20.Name = "GroupBox20"
         Me.GroupBox20.Size = New System.Drawing.Size(413, 122)
         Me.GroupBox20.TabIndex = 1
-        Me.GroupBox20.TabStop = False
+        Me.GroupBox20.TabStop = false
         '
         'pnlEvents
         '
-        Me.pnlEvents.AutoScroll = True
+        Me.pnlEvents.AutoScroll = true
         Me.pnlEvents.Controls.Add(Me.txtbxEventNotes)
         Me.pnlEvents.Controls.Add(Me.lblEventNotes)
         Me.pnlEvents.Controls.Add(Me.DtTmPckrEventsDate)
@@ -1781,15 +1788,15 @@ Partial Class frmKlock
         'txtbxEventNotes
         '
         Me.txtbxEventNotes.Location = New System.Drawing.Point(8, 57)
-        Me.txtbxEventNotes.Multiline = True
+        Me.txtbxEventNotes.Multiline = true
         Me.txtbxEventNotes.Name = "txtbxEventNotes"
-        Me.txtbxEventNotes.ReadOnly = True
+        Me.txtbxEventNotes.ReadOnly = true
         Me.txtbxEventNotes.Size = New System.Drawing.Size(372, 63)
         Me.txtbxEventNotes.TabIndex = 11
         '
         'lblEventNotes
         '
-        Me.lblEventNotes.AutoSize = True
+        Me.lblEventNotes.AutoSize = true
         Me.lblEventNotes.Location = New System.Drawing.Point(3, 39)
         Me.lblEventNotes.Name = "lblEventNotes"
         Me.lblEventNotes.Size = New System.Drawing.Size(72, 15)
@@ -1798,7 +1805,7 @@ Partial Class frmKlock
         '
         'DtTmPckrEventsDate
         '
-        Me.DtTmPckrEventsDate.Enabled = False
+        Me.DtTmPckrEventsDate.Enabled = false
         Me.DtTmPckrEventsDate.Location = New System.Drawing.Point(134, 18)
         Me.DtTmPckrEventsDate.Name = "DtTmPckrEventsDate"
         Me.DtTmPckrEventsDate.Size = New System.Drawing.Size(119, 20)
@@ -1806,7 +1813,7 @@ Partial Class frmKlock
         '
         'lblEventsDate
         '
-        Me.lblEventsDate.AutoSize = True
+        Me.lblEventsDate.AutoSize = true
         Me.lblEventsDate.Location = New System.Drawing.Point(131, 0)
         Me.lblEventsDate.Name = "lblEventsDate"
         Me.lblEventsDate.Size = New System.Drawing.Size(66, 15)
@@ -1815,7 +1822,7 @@ Partial Class frmKlock
         '
         'lblEventsName
         '
-        Me.lblEventsName.AutoSize = True
+        Me.lblEventsName.AutoSize = true
         Me.lblEventsName.Location = New System.Drawing.Point(3, 0)
         Me.lblEventsName.Name = "lblEventsName"
         Me.lblEventsName.Size = New System.Drawing.Size(74, 15)
@@ -1825,17 +1832,17 @@ Partial Class frmKlock
         'CmbBxEventTypes
         '
         Me.CmbBxEventTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxEventTypes.Enabled = False
-        Me.CmbBxEventTypes.FormattingEnabled = True
+        Me.CmbBxEventTypes.Enabled = false
+        Me.CmbBxEventTypes.FormattingEnabled = true
         Me.CmbBxEventTypes.Location = New System.Drawing.Point(259, 18)
         Me.CmbBxEventTypes.Name = "CmbBxEventTypes"
         Me.CmbBxEventTypes.Size = New System.Drawing.Size(121, 21)
-        Me.CmbBxEventTypes.Sorted = True
+        Me.CmbBxEventTypes.Sorted = true
         Me.CmbBxEventTypes.TabIndex = 3
         '
         'lblEventsType
         '
-        Me.lblEventsType.AutoSize = True
+        Me.lblEventsType.AutoSize = true
         Me.lblEventsType.Location = New System.Drawing.Point(256, 0)
         Me.lblEventsType.Name = "lblEventsType"
         Me.lblEventsType.Size = New System.Drawing.Size(66, 15)
@@ -1846,7 +1853,7 @@ Partial Class frmKlock
         '
         Me.TxtBxEventsName.Location = New System.Drawing.Point(8, 18)
         Me.TxtBxEventsName.Name = "TxtBxEventsName"
-        Me.TxtBxEventsName.ReadOnly = True
+        Me.TxtBxEventsName.ReadOnly = true
         Me.TxtBxEventsName.Size = New System.Drawing.Size(120, 20)
         Me.TxtBxEventsName.TabIndex = 1
         '
@@ -1857,16 +1864,16 @@ Partial Class frmKlock
         Me.GroupBox19.Name = "GroupBox19"
         Me.GroupBox19.Size = New System.Drawing.Size(239, 122)
         Me.GroupBox19.TabIndex = 0
-        Me.GroupBox19.TabStop = False
+        Me.GroupBox19.TabStop = false
         '
         'LstBxEvents
         '
-        Me.LstBxEvents.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LstBxEvents.FormattingEnabled = True
+        Me.LstBxEvents.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.LstBxEvents.FormattingEnabled = true
         Me.LstBxEvents.Location = New System.Drawing.Point(6, 19)
         Me.LstBxEvents.Name = "LstBxEvents"
         Me.LstBxEvents.Size = New System.Drawing.Size(227, 82)
-        Me.LstBxEvents.Sorted = True
+        Me.LstBxEvents.Sorted = true
         Me.LstBxEvents.TabIndex = 0
         '
         'TbPgMemo
@@ -1878,7 +1885,7 @@ Partial Class frmKlock
         Me.TbPgMemo.Size = New System.Drawing.Size(671, 131)
         Me.TbPgMemo.TabIndex = 7
         Me.TbPgMemo.Text = "Memo"
-        Me.TbPgMemo.UseVisualStyleBackColor = True
+        Me.TbPgMemo.UseVisualStyleBackColor = true
         '
         'GroupBox22
         '
@@ -1887,11 +1894,11 @@ Partial Class frmKlock
         Me.GroupBox22.Name = "GroupBox22"
         Me.GroupBox22.Size = New System.Drawing.Size(413, 122)
         Me.GroupBox22.TabIndex = 2
-        Me.GroupBox22.TabStop = False
+        Me.GroupBox22.TabStop = false
         '
         'pnlMemo
         '
-        Me.pnlMemo.AutoScroll = True
+        Me.pnlMemo.AutoScroll = true
         Me.pnlMemo.Controls.Add(Me.btnMemoDecrypt)
         Me.pnlMemo.Controls.Add(Me.ChckBxMemoEncypt)
         Me.pnlMemo.Controls.Add(Me.TxtBxMemo)
@@ -1906,37 +1913,37 @@ Partial Class frmKlock
         '
         'btnMemoDecrypt
         '
-        Me.btnMemoDecrypt.Enabled = False
+        Me.btnMemoDecrypt.Enabled = false
         Me.btnMemoDecrypt.Location = New System.Drawing.Point(221, 15)
         Me.btnMemoDecrypt.Name = "btnMemoDecrypt"
         Me.btnMemoDecrypt.Size = New System.Drawing.Size(75, 23)
         Me.btnMemoDecrypt.TabIndex = 14
         Me.btnMemoDecrypt.Text = "Decypt"
-        Me.btnMemoDecrypt.UseVisualStyleBackColor = True
+        Me.btnMemoDecrypt.UseVisualStyleBackColor = true
         '
         'ChckBxMemoEncypt
         '
-        Me.ChckBxMemoEncypt.AutoSize = True
-        Me.ChckBxMemoEncypt.Enabled = False
+        Me.ChckBxMemoEncypt.AutoSize = true
+        Me.ChckBxMemoEncypt.Enabled = false
         Me.ChckBxMemoEncypt.Location = New System.Drawing.Point(150, 19)
         Me.ChckBxMemoEncypt.Name = "ChckBxMemoEncypt"
         Me.ChckBxMemoEncypt.Size = New System.Drawing.Size(62, 19)
         Me.ChckBxMemoEncypt.TabIndex = 2
         Me.ChckBxMemoEncypt.Text = "Encypt"
-        Me.ChckBxMemoEncypt.UseVisualStyleBackColor = True
+        Me.ChckBxMemoEncypt.UseVisualStyleBackColor = true
         '
         'TxtBxMemo
         '
         Me.TxtBxMemo.Location = New System.Drawing.Point(8, 57)
-        Me.TxtBxMemo.Multiline = True
+        Me.TxtBxMemo.Multiline = true
         Me.TxtBxMemo.Name = "TxtBxMemo"
-        Me.TxtBxMemo.ReadOnly = True
+        Me.TxtBxMemo.ReadOnly = true
         Me.TxtBxMemo.Size = New System.Drawing.Size(372, 63)
         Me.TxtBxMemo.TabIndex = 3
         '
         'Label2
         '
-        Me.Label2.AutoSize = True
+        Me.Label2.AutoSize = true
         Me.Label2.Location = New System.Drawing.Point(3, 39)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(43, 15)
@@ -1947,13 +1954,13 @@ Partial Class frmKlock
         '
         Me.TxtBxMemoName.Location = New System.Drawing.Point(8, 18)
         Me.TxtBxMemoName.Name = "TxtBxMemoName"
-        Me.TxtBxMemoName.ReadOnly = True
+        Me.TxtBxMemoName.ReadOnly = true
         Me.TxtBxMemoName.Size = New System.Drawing.Size(120, 20)
         Me.TxtBxMemoName.TabIndex = 1
         '
         'lblMemoName
         '
-        Me.lblMemoName.AutoSize = True
+        Me.lblMemoName.AutoSize = true
         Me.lblMemoName.Location = New System.Drawing.Point(3, 0)
         Me.lblMemoName.Name = "lblMemoName"
         Me.lblMemoName.Size = New System.Drawing.Size(80, 15)
@@ -1967,16 +1974,16 @@ Partial Class frmKlock
         Me.GroupBox21.Name = "GroupBox21"
         Me.GroupBox21.Size = New System.Drawing.Size(239, 122)
         Me.GroupBox21.TabIndex = 1
-        Me.GroupBox21.TabStop = False
+        Me.GroupBox21.TabStop = false
         '
         'LstBxMemo
         '
-        Me.LstBxMemo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LstBxMemo.FormattingEnabled = True
+        Me.LstBxMemo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.LstBxMemo.FormattingEnabled = true
         Me.LstBxMemo.Location = New System.Drawing.Point(6, 19)
         Me.LstBxMemo.Name = "LstBxMemo"
         Me.LstBxMemo.Size = New System.Drawing.Size(227, 82)
-        Me.LstBxMemo.Sorted = True
+        Me.LstBxMemo.Sorted = true
         Me.LstBxMemo.TabIndex = 0
         '
         'TbPgConvert
@@ -1988,7 +1995,7 @@ Partial Class frmKlock
         Me.TbPgConvert.Size = New System.Drawing.Size(671, 131)
         Me.TbPgConvert.TabIndex = 8
         Me.TbPgConvert.Text = "Convert"
-        Me.TbPgConvert.UseVisualStyleBackColor = True
+        Me.TbPgConvert.UseVisualStyleBackColor = true
         '
         'GroupBox24
         '
@@ -2004,11 +2011,11 @@ Partial Class frmKlock
         Me.GroupBox24.Name = "GroupBox24"
         Me.GroupBox24.Size = New System.Drawing.Size(550, 120)
         Me.GroupBox24.TabIndex = 2
-        Me.GroupBox24.TabStop = False
+        Me.GroupBox24.TabStop = false
         '
         'Label17
         '
-        Me.Label17.AutoSize = True
+        Me.Label17.AutoSize = true
         Me.Label17.Location = New System.Drawing.Point(313, 68)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(42, 15)
@@ -2017,7 +2024,7 @@ Partial Class frmKlock
         '
         'Label16
         '
-        Me.Label16.AutoSize = True
+        Me.Label16.AutoSize = true
         Me.Label16.Location = New System.Drawing.Point(313, 34)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(99, 15)
@@ -2026,7 +2033,7 @@ Partial Class frmKlock
         '
         'Label3
         '
-        Me.Label3.AutoSize = True
+        Me.Label3.AutoSize = true
         Me.Label3.Location = New System.Drawing.Point(34, 68)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(65, 15)
@@ -2035,7 +2042,7 @@ Partial Class frmKlock
         '
         'Label1
         '
-        Me.Label1.AutoSize = True
+        Me.Label1.AutoSize = true
         Me.Label1.Location = New System.Drawing.Point(31, 29)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(55, 15)
@@ -2046,7 +2053,7 @@ Partial Class frmKlock
         '
         Me.TxtBxConvertResult.Location = New System.Drawing.Point(416, 68)
         Me.TxtBxConvertResult.Name = "TxtBxConvertResult"
-        Me.TxtBxConvertResult.ReadOnly = True
+        Me.TxtBxConvertResult.ReadOnly = true
         Me.TxtBxConvertResult.Size = New System.Drawing.Size(100, 20)
         Me.TxtBxConvertResult.TabIndex = 3
         '
@@ -2059,7 +2066,7 @@ Partial Class frmKlock
         '
         'CmbBxConvertTo
         '
-        Me.CmbBxConvertTo.FormattingEnabled = True
+        Me.CmbBxConvertTo.FormattingEnabled = true
         Me.CmbBxConvertTo.Location = New System.Drawing.Point(115, 65)
         Me.CmbBxConvertTo.Name = "CmbBxConvertTo"
         Me.CmbBxConvertTo.Size = New System.Drawing.Size(192, 21)
@@ -2067,7 +2074,7 @@ Partial Class frmKlock
         '
         'CmbBxConvertCategory
         '
-        Me.CmbBxConvertCategory.FormattingEnabled = True
+        Me.CmbBxConvertCategory.FormattingEnabled = true
         Me.CmbBxConvertCategory.Location = New System.Drawing.Point(115, 31)
         Me.CmbBxConvertCategory.Name = "CmbBxConvertCategory"
         Me.CmbBxConvertCategory.Size = New System.Drawing.Size(192, 21)
@@ -2081,7 +2088,7 @@ Partial Class frmKlock
         Me.GroupBox23.Name = "GroupBox23"
         Me.GroupBox23.Size = New System.Drawing.Size(103, 120)
         Me.GroupBox23.TabIndex = 1
-        Me.GroupBox23.TabStop = False
+        Me.GroupBox23.TabStop = false
         '
         'btnConvertAdd
         '
@@ -2090,17 +2097,17 @@ Partial Class frmKlock
         Me.btnConvertAdd.Size = New System.Drawing.Size(75, 23)
         Me.btnConvertAdd.TabIndex = 1
         Me.btnConvertAdd.Text = "Add Units"
-        Me.btnConvertAdd.UseVisualStyleBackColor = True
+        Me.btnConvertAdd.UseVisualStyleBackColor = true
         '
         'btnConvertStart
         '
-        Me.btnConvertStart.Enabled = False
+        Me.btnConvertStart.Enabled = false
         Me.btnConvertStart.Location = New System.Drawing.Point(14, 34)
         Me.btnConvertStart.Name = "btnConvertStart"
         Me.btnConvertStart.Size = New System.Drawing.Size(75, 23)
         Me.btnConvertStart.TabIndex = 0
         Me.btnConvertStart.Text = "Convert"
-        Me.btnConvertStart.UseVisualStyleBackColor = True
+        Me.btnConvertStart.UseVisualStyleBackColor = true
         '
         'btnHide
         '
@@ -2109,7 +2116,7 @@ Partial Class frmKlock
         Me.btnHide.Size = New System.Drawing.Size(75, 23)
         Me.btnHide.TabIndex = 33
         Me.btnHide.Text = "Hide"
-        Me.btnHide.UseVisualStyleBackColor = True
+        Me.btnHide.UseVisualStyleBackColor = true
         '
         'btnClose
         '
@@ -2118,7 +2125,7 @@ Partial Class frmKlock
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
         Me.btnClose.TabIndex = 4
         Me.btnClose.Text = "Close"
-        Me.btnClose.UseVisualStyleBackColor = True
+        Me.btnClose.UseVisualStyleBackColor = true
         '
         'btnHelp
         '
@@ -2127,7 +2134,7 @@ Partial Class frmKlock
         Me.btnHelp.Size = New System.Drawing.Size(75, 23)
         Me.btnHelp.TabIndex = 5
         Me.btnHelp.Text = "Help"
-        Me.btnHelp.UseVisualStyleBackColor = True
+        Me.btnHelp.UseVisualStyleBackColor = true
         '
         'tmrTimer
         '
@@ -2144,7 +2151,7 @@ Partial Class frmKlock
         'NtfyIcnKlock
         '
         Me.NtfyIcnKlock.ContextMenuStrip = Me.CntxtMnStrpKlock
-        Me.NtfyIcnKlock.Icon = CType(resources.GetObject("NtfyIcnKlock.Icon"), System.Drawing.Icon)
+        Me.NtfyIcnKlock.Icon = CType(resources.GetObject("NtfyIcnKlock.Icon"),System.Drawing.Icon)
         Me.NtfyIcnKlock.Text = "Klock"
         '
         'CntxtMnStrpKlock
@@ -2161,7 +2168,7 @@ Partial Class frmKlock
         '
         'TlStrpMnItmTime
         '
-        Me.TlStrpMnItmTime.CheckOnClick = True
+        Me.TlStrpMnItmTime.CheckOnClick = true
         Me.TlStrpMnItmTime.Name = "TlStrpMnItmTime"
         Me.TlStrpMnItmTime.Size = New System.Drawing.Size(116, 22)
         Me.TlStrpMnItmTime.Text = "Time"
@@ -2195,47 +2202,47 @@ Partial Class frmKlock
         Me.btnNew.Size = New System.Drawing.Size(42, 23)
         Me.btnNew.TabIndex = 6
         Me.btnNew.Text = "New"
-        Me.btnNew.UseVisualStyleBackColor = True
+        Me.btnNew.UseVisualStyleBackColor = true
         '
         'btnAdd
         '
-        Me.btnAdd.Enabled = False
+        Me.btnAdd.Enabled = false
         Me.btnAdd.Location = New System.Drawing.Point(66, 189)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(42, 23)
         Me.btnAdd.TabIndex = 7
         Me.btnAdd.Text = "Add"
-        Me.btnAdd.UseVisualStyleBackColor = True
+        Me.btnAdd.UseVisualStyleBackColor = true
         '
         'btnClear
         '
-        Me.btnClear.Enabled = False
+        Me.btnClear.Enabled = false
         Me.btnClear.Location = New System.Drawing.Point(114, 189)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(42, 23)
         Me.btnClear.TabIndex = 8
         Me.btnClear.Text = "Clear"
-        Me.btnClear.UseVisualStyleBackColor = True
+        Me.btnClear.UseVisualStyleBackColor = true
         '
         'btnEdit
         '
-        Me.btnEdit.Enabled = False
+        Me.btnEdit.Enabled = false
         Me.btnEdit.Location = New System.Drawing.Point(162, 189)
         Me.btnEdit.Name = "btnEdit"
         Me.btnEdit.Size = New System.Drawing.Size(42, 23)
         Me.btnEdit.TabIndex = 9
         Me.btnEdit.Text = "Edit"
-        Me.btnEdit.UseVisualStyleBackColor = True
+        Me.btnEdit.UseVisualStyleBackColor = true
         '
         'btnDelete
         '
-        Me.btnDelete.Enabled = False
+        Me.btnDelete.Enabled = false
         Me.btnDelete.Location = New System.Drawing.Point(211, 189)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(49, 23)
         Me.btnDelete.TabIndex = 10
         Me.btnDelete.Text = "Delete"
-        Me.btnDelete.UseVisualStyleBackColor = True
+        Me.btnDelete.UseVisualStyleBackColor = true
         '
         'tmrEvents
         '
@@ -2243,13 +2250,13 @@ Partial Class frmKlock
         '
         'btnEventsCheck
         '
-        Me.btnEventsCheck.Enabled = False
+        Me.btnEventsCheck.Enabled = false
         Me.btnEventsCheck.Location = New System.Drawing.Point(321, 189)
         Me.btnEventsCheck.Name = "btnEventsCheck"
         Me.btnEventsCheck.Size = New System.Drawing.Size(49, 23)
         Me.btnEventsCheck.TabIndex = 16
         Me.btnEventsCheck.Text = "Check"
-        Me.btnEventsCheck.UseVisualStyleBackColor = True
+        Me.btnEventsCheck.UseVisualStyleBackColor = true
         '
         'TmrMemo
         '
@@ -2262,17 +2269,17 @@ Partial Class frmKlock
         Me.btnPrint.Size = New System.Drawing.Size(49, 23)
         Me.btnPrint.TabIndex = 34
         Me.btnPrint.Text = "Print"
-        Me.btnPrint.UseVisualStyleBackColor = True
+        Me.btnPrint.UseVisualStyleBackColor = true
         '
-        'BigTextKlockToolStripMenuItem
+        'AnalogKlockToolStripMenuItem
         '
-        Me.BigTextKlockToolStripMenuItem.Name = "BigTextKlockToolStripMenuItem"
-        Me.BigTextKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
-        Me.BigTextKlockToolStripMenuItem.Text = "Big Text Klock"
+        Me.AnalogKlockToolStripMenuItem.Name = "AnalogKlockToolStripMenuItem"
+        Me.AnalogKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.AnalogKlockToolStripMenuItem.Text = "Analog Klock"
         '
         'frmKlock
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(696, 242)
         Me.Controls.Add(Me.btnPrint)
@@ -2290,74 +2297,74 @@ Partial Class frmKlock
         Me.Controls.Add(Me.btnClose)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.KeyPreview = True
+        Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
+        Me.KeyPreview = true
         Me.MainMenuStrip = Me.MnStrpMain
-        Me.MaximizeBox = False
+        Me.MaximizeBox = false
         Me.Name = "frmKlock"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Klock"
-        Me.StsStrpInfo.ResumeLayout(False)
-        Me.StsStrpInfo.PerformLayout()
-        Me.MnStrpMain.ResumeLayout(False)
-        Me.MnStrpMain.PerformLayout()
-        Me.TbCntrl.ResumeLayout(False)
-        Me.TbPgTime.ResumeLayout(False)
-        Me.GroupBox15.ResumeLayout(False)
-        Me.GroupBox15.PerformLayout()
-        Me.GroupBox14.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.TbPgWorldClock.ResumeLayout(False)
-        Me.GroupBox18.ResumeLayout(False)
-        Me.GroupBox18.PerformLayout()
-        Me.GroupBox17.ResumeLayout(False)
-        Me.GroupBox17.PerformLayout()
-        Me.GroupBox16.ResumeLayout(False)
-        Me.TbPgCountDown.ResumeLayout(False)
-        Me.GroupBox5.ResumeLayout(False)
-        Me.GroupBox5.PerformLayout()
-        Me.GroupBox4.ResumeLayout(False)
-        Me.GroupBox4.PerformLayout()
-        CType(Me.upDwnCntDownValue, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.TbPgTimer.ResumeLayout(False)
-        Me.GroupBox8.ResumeLayout(False)
-        Me.GroupBox8.PerformLayout()
-        Me.GroupBox7.ResumeLayout(False)
-        Me.GroupBox7.PerformLayout()
-        Me.GroupBox6.ResumeLayout(False)
-        Me.TbPgReminder.ResumeLayout(False)
-        Me.GroupBox11.ResumeLayout(False)
-        Me.GroupBox11.PerformLayout()
-        Me.GroupBox10.ResumeLayout(False)
-        Me.GroupBox10.PerformLayout()
-        Me.GroupBox9.ResumeLayout(False)
-        Me.TbPgFriends.ResumeLayout(False)
-        Me.GroupBox13.ResumeLayout(False)
-        Me.pnlFriends.ResumeLayout(False)
-        Me.pnlFriends.PerformLayout()
-        Me.GroupBox12.ResumeLayout(False)
-        Me.TbPgEvents.ResumeLayout(False)
-        Me.GroupBox20.ResumeLayout(False)
-        Me.pnlEvents.ResumeLayout(False)
-        Me.pnlEvents.PerformLayout()
-        Me.GroupBox19.ResumeLayout(False)
-        Me.TbPgMemo.ResumeLayout(False)
-        Me.GroupBox22.ResumeLayout(False)
-        Me.pnlMemo.ResumeLayout(False)
-        Me.pnlMemo.PerformLayout()
-        Me.GroupBox21.ResumeLayout(False)
-        Me.TbPgConvert.ResumeLayout(False)
-        Me.GroupBox24.ResumeLayout(False)
-        Me.GroupBox24.PerformLayout()
-        Me.GroupBox23.ResumeLayout(False)
-        Me.CntxtMnStrpKlock.ResumeLayout(False)
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        Me.StsStrpInfo.ResumeLayout(false)
+        Me.StsStrpInfo.PerformLayout
+        Me.MnStrpMain.ResumeLayout(false)
+        Me.MnStrpMain.PerformLayout
+        Me.TbCntrl.ResumeLayout(false)
+        Me.TbPgTime.ResumeLayout(false)
+        Me.GroupBox15.ResumeLayout(false)
+        Me.GroupBox15.PerformLayout
+        Me.GroupBox14.ResumeLayout(false)
+        Me.GroupBox2.ResumeLayout(false)
+        Me.GroupBox2.PerformLayout
+        Me.GroupBox1.ResumeLayout(false)
+        Me.TbPgWorldClock.ResumeLayout(false)
+        Me.GroupBox18.ResumeLayout(false)
+        Me.GroupBox18.PerformLayout
+        Me.GroupBox17.ResumeLayout(false)
+        Me.GroupBox17.PerformLayout
+        Me.GroupBox16.ResumeLayout(false)
+        Me.TbPgCountDown.ResumeLayout(false)
+        Me.GroupBox5.ResumeLayout(false)
+        Me.GroupBox5.PerformLayout
+        Me.GroupBox4.ResumeLayout(false)
+        Me.GroupBox4.PerformLayout
+        CType(Me.upDwnCntDownValue,System.ComponentModel.ISupportInitialize).EndInit
+        Me.GroupBox3.ResumeLayout(false)
+        Me.TbPgTimer.ResumeLayout(false)
+        Me.GroupBox8.ResumeLayout(false)
+        Me.GroupBox8.PerformLayout
+        Me.GroupBox7.ResumeLayout(false)
+        Me.GroupBox7.PerformLayout
+        Me.GroupBox6.ResumeLayout(false)
+        Me.TbPgReminder.ResumeLayout(false)
+        Me.GroupBox11.ResumeLayout(false)
+        Me.GroupBox11.PerformLayout
+        Me.GroupBox10.ResumeLayout(false)
+        Me.GroupBox10.PerformLayout
+        Me.GroupBox9.ResumeLayout(false)
+        Me.TbPgFriends.ResumeLayout(false)
+        Me.GroupBox13.ResumeLayout(false)
+        Me.pnlFriends.ResumeLayout(false)
+        Me.pnlFriends.PerformLayout
+        Me.GroupBox12.ResumeLayout(false)
+        Me.TbPgEvents.ResumeLayout(false)
+        Me.GroupBox20.ResumeLayout(false)
+        Me.pnlEvents.ResumeLayout(false)
+        Me.pnlEvents.PerformLayout
+        Me.GroupBox19.ResumeLayout(false)
+        Me.TbPgMemo.ResumeLayout(false)
+        Me.GroupBox22.ResumeLayout(false)
+        Me.pnlMemo.ResumeLayout(false)
+        Me.pnlMemo.PerformLayout
+        Me.GroupBox21.ResumeLayout(false)
+        Me.TbPgConvert.ResumeLayout(false)
+        Me.GroupBox24.ResumeLayout(false)
+        Me.GroupBox24.PerformLayout
+        Me.GroupBox23.ResumeLayout(false)
+        Me.CntxtMnStrpKlock.ResumeLayout(false)
+        Me.ResumeLayout(false)
+        Me.PerformLayout
 
-    End Sub
+End Sub
     Friend WithEvents StsStrpInfo As System.Windows.Forms.StatusStrip
     Friend WithEvents stsLblTime As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents StsLblDate As System.Windows.Forms.ToolStripStatusLabel
@@ -2570,4 +2577,5 @@ Partial Class frmKlock
     Friend WithEvents CmbBxConvertCategory As ComboBox
     Friend WithEvents btnConvertAdd As Button
     Friend WithEvents BigTextKlockToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AnalogKlockToolStripMenuItem As ToolStripMenuItem
 End Class

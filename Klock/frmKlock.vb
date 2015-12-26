@@ -11,7 +11,8 @@
     '   June 2015       V1.1.0 - Moved to VS2013 & GitHub                                   [build 42]
     '   September 2015  V1.1.1 - Moved to VS2015, added idle time & disable monitor sleep   [build 47]
     '   November 2015   V1.1.2 - added convert tab                                          [build 56]
-    '   December 2015   V1.1.3 - Added Big text Klock = more words                          [build 58]
+    '   December 2015   V1.1.3 - Added Big text Klock - more words                          [build 58]
+    '   December 2015   V1.1.4 - Added Analogue Klock                                       [build 61]
 
 
 
@@ -39,7 +40,8 @@
     Public reloadMemo As Boolean = True         '   if true, memo file will be re-loaded.
 
     Public grphcs As Graphics = CreateGraphics   '   create graphic object globally, used to measure time text width
-    Public hours() As String = {"twelve", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"}    '   create global, not every time.
+    Public hours() As String = {"twelve.mp3", "one.mp3", "two.mp3", "three.mp3", "four.mp3", "five.mp3", "six.mp3", "seven.mp3", "eight.mp3", 
+                                "nine.mp3", "ten.mp3", "eleven.mp3", "twelve.mp3"}    '   create global, not every time.
 
     Public knownFirstNames As New AutoCompleteStringCollection      '   Auto Complete for friends first name.
     Public knownMiddleNames As New AutoCompleteStringCollection     '   Auto Complete for friends middle name.
@@ -171,23 +173,23 @@
 
         If usrSettings.usrTimeHourPips And (Math.Floor(m Mod 3600) = 0) Then                                 '    will this work at midnight???
 
-            displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\thepips.mp3"))   '    Play the Pips on the hour, if desired.
+            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "Sounds\thepips.mp3"))          '    Play the Pips on the hour, if desired.
         ElseIf usrSettings.usrTimeHourChimes And (Math.Floor(m Mod 3600) = 0) Then                           '    Play hourly chimes, if desired.
 
             Dim hour As Integer = Now.Hour
 
             If hour > 12 Then hour -= 12
 
-            displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\" & hours(hour) & ".mp3"))
+            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "Sounds\" & hours(hour)))
         ElseIf usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 900) = 0) Then                         '    Play quarter chimes, if desired.
 
-            displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\quarterchime.mp3"))
+            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "Sounds\quarterchime.mp3"))
         ElseIf usrSettings.usrTimeHalfChimes And (Math.Floor(m Mod 1800) = 0) Then                           '    Play half hourly chimes, if desired.
 
-            displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\halfchime.mp3"))
+            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "Sounds\halfchime.mp3"))
         ElseIf usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 2700) = 0) Then                        '    Play three quarter chimes, if desired.
 
-            displayAction.PlaySound(System.IO.Path.Combine(Application.StartupPath, "Sounds\threequarterchime.mp3"))
+            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "Sounds\threequarterchime.mp3"))
         End If
     End Sub
 
@@ -1924,11 +1926,16 @@
         '   Called from main menu [file / options] and system tray right click menu.
 
         usrSettings.writeSettings()      '   save settings, not sure if anything has changed.
-
         frmOptions.ShowDialog()
     End Sub
 
     ' ********************************************************************************************************************** time menu stuff *************
+        Private Sub AnalogKlockToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AnalogKlockToolStripMenuItem.Click
+
+                NtfyIcnKlock.Visible = True
+        Visible = False
+        frmAnalogueKlock.Show()
+    End Sub
 
     Private Sub TextKlockToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles TextKlockToolStripMenuItem.Click
         '   if chosen from menus, switch on a text klock - appears in a separate window.

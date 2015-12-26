@@ -10,7 +10,7 @@ Public Class frmOptions
     Private Sub frmOptions_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '   When opened, set settings
 
-        Dim tabs() As String = {"Fuzzy Time", "World Klock", "Count Down", "Timer", "Reminder", "Friends", "Events", "Memo"}
+        Dim tabs() As String = {"Fuzzy Time", "World Klock", "Count Down", "Timer", "Reminder", "Friends", "Events", "Memo", "Converter"}
 
         displayAction = New selectAction
 
@@ -19,7 +19,7 @@ Public Class frmOptions
 
         CmbBxDefaultTab.Items.AddRange(tabs)
 
-        TabCntrlOptions.SelectedIndex = 0
+        TabCntrlOptions.SelectedIndex = 1
 
         showArchiveButtons(False)
         setSettings()
@@ -39,13 +39,15 @@ Public Class frmOptions
                 showArchiveButtons(False)
             Case 3              '   Text Klock Options
                 showArchiveButtons(False)
-            Case 4              '   Other Stuff options
+            Case 4              '   Text Klock Options
                 showArchiveButtons(False)
-            Case 5              '   Archive options
+            Case 5              '   Other Stuff options
+                showArchiveButtons(False)
+            Case 6              '   Archive options
                 showArchiveButtons(True)
-            Case 6              '   Events
+            Case 7              '   Events options
                 showArchiveButtons(False)
-            Case 7              '   Memo
+            Case 8              '   Memo options
                 showArchiveButtons(False)
         End Select
     End Sub
@@ -126,6 +128,14 @@ Public Class frmOptions
         btnBgTxtKlckFrClr.BackColor = frmKlock.usrSettings.usrBigKlockForeColour
         btnBgTxtKlckBckClr.BackColor = frmKlock.usrSettings.usrBigKlockBackColour
         btnBgTxtKlckOffClr.BackColor = frmKlock.usrSettings.usrBigKlockOffColour
+
+        '-------------------------------------------------------------------------------------------------------- Analogue Klock ------------
+
+        txtBxAnlgKlock.Text = frmKlock.usrSettings.usrAnalogueKlockText
+        chckBxAnlgKlockTransparent.Checked = frmKlock.usrSettings.usrAnalogueKlcokTransparent
+        chckBxAnlgKlockDate.Checked = frmKlock.usrSettings.usrAnalogueKlockShowDate
+        chckBxAnlgKlockTime.Checked = frmKlock.usrSettings.usrAnalogueKlockShowTime
+        btnAnlgKlockBackColour.BackColor = frmKlock.usrSettings.usrAnalogueKlockBackColour
 
         '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
@@ -240,6 +250,14 @@ Public Class frmOptions
         frmKlock.usrSettings.usrBigKlockForeColour = btnBgTxtKlckFrClr.BackColor
         frmKlock.usrSettings.usrBigKlockOffColour = btnBgTxtKlckOffClr.BackColor
 
+        '-------------------------------------------------------------------------------------------------------- Analogue Klock  Settings ----
+
+        frmKlock.usrSettings.usrAnalogueKlockText = txtBxAnlgKlock.Text
+        frmKlock.usrSettings.usrAnalogueKlcokTransparent = chckBxAnlgKlockTransparent.Checked
+        frmKlock.usrSettings.usrAnalogueKlockShowDate = chckBxAnlgKlockDate.Checked
+        frmKlock.usrSettings.usrAnalogueKlockShowTime = chckBxAnlgKlockTime.Checked
+        frmKlock.usrSettings.usrAnalogueKlockBackColour = btnAnlgKlockBackColour.BackColor
+
         '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
         frmKlock.usrSettings.usrTimerHigh = ChckBxTimerHigh.Checked
@@ -319,14 +337,6 @@ Public Class frmOptions
     End Sub
 
     '-----------------------------------------------------------Global---------------------------------------------------------------
-
-    Private Sub CmbBxDefaultTab_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles CmbBxDefaultTab.SelectedIndexChanged
-        '   If a new default tab is selected, do the update stuff.
-
-        frmKlock.usrSettings.usrDefaultTab = CmbBxDefaultTab.SelectedIndex
-
-    End Sub
-
 
     Private Sub btnOptionsFormColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsFormColour.Click
         '   Set the form main colour.
@@ -534,6 +544,42 @@ Public Class frmOptions
         frmKlock.usrSettings.usrBigKlockOffColour = Color.LightSlateGray
 
         setSettings()
+    End Sub
+
+    '-----------------------------------------------------------Analogue Klock---------------------------------------------------------------
+
+    Private Sub btnAnlgKlockBackColour_Click(sender As Object, e As EventArgs) Handles btnAnlgKlockBackColour.Click
+        '   Sets the background colour for the analogue klock
+
+        ClrDlgFormColour.Color = frmKlock.usrSettings.usrAnalogueKlockBackColour
+        If ClrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrAnalogueKlockBackColour = ClrDlgFormColour.Color
+            btnAnlgKlockBackColour.BackColor = frmKlock.usrSettings.usrAnalogueKlockBackColour
+            setSettings()
+        End If
+    End Sub
+
+    Private Sub chckBxAnlgKlockTransparent_CheckedChanged(sender As Object, e As EventArgs) Handles chckBxAnlgKlockTransparent.CheckedChanged
+
+        frmKlock.usrSettings.usrAnalogueKlcokTransparent = chckBxAnlgKlockTransparent.Checked
+        btnAnlgKlockBackColour.Enabled = Not chckBxAnlgKlockTransparent.Checked
+        lblAnlgKlockBackColour.Enabled = Not chckBxAnlgKlockTransparent.Checked
+    End Sub
+
+    Private Sub chckBxAnlgKlockDate_CheckedChanged(sender As Object, e As EventArgs) Handles chckBxAnlgKlockDate.CheckedChanged
+
+        frmKlock.usrSettings.usrAnalogueKlockShowDate = chckBxAnlgKlockDate.Checked
+    End Sub
+
+    Private Sub chckBxAnlgKlockTime_CheckedChanged(sender As Object, e As EventArgs) Handles chckBxAnlgKlockTime.CheckedChanged
+
+        frmKlock.usrSettings.usrAnalogueKlockShowTime = chckBxAnlgKlockTime.checked
+    End Sub
+
+    Private Sub cxtBxAnlgKlock_TextChanged(sender As Object, e As EventArgs) Handles txtBxAnlgKlock.TextChanged
+        '   Sets the dial text for the analogue klock
+
+        frmKlock.usrSettings.usrAnalogueKlockText = txtBxAnlgKlock.Text
     End Sub
 
     '-----------------------------------------------------------Notification---------------------------------------------------------------
