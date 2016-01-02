@@ -6,7 +6,7 @@ Public Class frmAnalogueKlock
     Dim mousex As Integer                   '
     Dim mousey As Integer                   '
 
-        Enum Months As Integer
+    Enum Months As Integer
         Jan = 1
         Feb = 2
         Mar = 3
@@ -24,9 +24,10 @@ Public Class frmAnalogueKlock
     Dim _pt As Point
 
 
-        ' -------------------------------------------------------------------------------- procedures used to make form dragable -----------------
+    ' -------------------------------------------------------------------------------- procedures used to make form dragable -----------------
 
     Private Sub analogKlock_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, analogueKlock.MouseDown
+        '   update mouse position when form is dragged i.e. left mouse button down.
 
         drag = True
         mousex = Windows.Forms.Cursor.Position.X - Me.Left
@@ -34,6 +35,7 @@ Public Class frmAnalogueKlock
     End Sub
 
     Private Sub analogKlock_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, analogueKlock.MouseMove
+        '   make klock follow the mouse, when left button is held down.
 
         If drag Then
             Top = Windows.Forms.Cursor.Position.Y - mousey
@@ -42,38 +44,66 @@ Public Class frmAnalogueKlock
     End Sub
 
     Private Sub analogKlock_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, analogueKlock.MouseUp
+        '   Left mouse button released, stop dragging.
 
         drag = False
     End Sub
 
+    Private Sub frmAnalogueKlock_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        '   When form is closed turn off timer and re-load main form.
+        '   and save klock position if needed.
 
-    Private Sub frmAnalogKlock_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-                '   When form is closed turn off timer and re-load main form.
-        
         frmKlock.NtfyIcnKlock.Visible = False
         frmKlock.Visible = True
+
+        If frmKlock.usrSettings.usrAnalogueKlockSavePosition Then
+            frmKlock.usrSettings.usrAnalogueKlockTop = Top
+            frmKlock.usrSettings.usrAnalogueKlockLeft = Left
+        End If
     End Sub
 
-    Private Sub analogKlock_KeyDown(sender As Object, e As KeyEventArgs) Handles  MyBase.KeyDown, analogueKlock.KeyDown
-                '   Processes key presses at form level, before passed to components.
+    Private Sub analogKlock_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown, analogueKlock.KeyDown
+        '   Processes key presses at form level, before passed to components.
 
         HotKeys(e)              '   in KlockThings.vb
     End Sub
 
     Private Sub frmAnalogueKlock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '   Set Transparencykey on load - makes the form disappear.
+        '   and load klock position if needed.
 
-         Me.TransparencyKey = Color.LightBlue
-         Me.BackColor = Color.LightBlue
+        Me.TransparencyKey = Color.LightBlue
+        Me.BackColor = Color.LightBlue
+
+        If frmKlock.usrSettings.usrAnalogueKlockSavePosition Then
+            Top = frmKlock.usrSettings.usrAnalogueKlockTop
+            Left = frmKlock.usrSettings.usrAnalogueKlockLeft
+        End If
+
+        analogueKlockRefresh()
     End Sub
 
-            ' ------------------------------------------------------------------------------------------------------------------- Custom Painting -----------------
+    ' ------------------------------------------------------------------------------------------------------------------- Custom Painting -----------------
+
+    Public Sub analogueKlockRefresh()
+        '   preform a analogue klock refresh i.e. re-draw.
+        '   if set up to draw backgrounf image and it exists then display it, otherwise clear image.
+
+        If frmKlock.usrSettings.usrAnalogueKlockDisplayPicture And My.Computer.FileSystem.FileExists(frmKlock.usrSettings.usrAnalogueKlockPicture) Then
+            analogueKlock.BackgroundImageLayout = ImageLayout.Zoom
+            analogueKlock.BackgroundImage = System.Drawing.Bitmap.FromFile(frmKlock.usrSettings.usrAnalogueKlockPicture)
+            analogueKlock.Refresh()
+        Else
+            analogueKlock.BackgroundImage = Nothing
+            analogueKlock.Refresh()
+        End If
+    End Sub
 
     Private Sub analogueKlock_BackgroundPaint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles analogueKlock.BackgroundPaint
 
         '   Set background colour of klock
 
-        If frmKlock.usrSettings.usrAnalogueKlcokTransparent Then
+        If frmKlock.usrSettings.usrAnalogueKlcokTransparent Then        '   if transparent then set colour sutch.
             analogueKlock.BackColor = Color.Transparent
         Else
             analogueKlock.BackColor = frmKlock.usrSettings.usrAnalogueKlockBackColour
@@ -83,15 +113,17 @@ Public Class frmAnalogueKlock
 
         Dim x, y As Single
         Dim sz As SizeF
-
-        Dim klockText As String =  frmKlock.usrSettings.usrAnalogueKlockText
-
         Dim sbr As New SolidBrush(analogueKlock.ForeColor)
         '   Draw your name on the top, clock's background
-        sz = e.Graphics.MeasureString(klockText, New Font("Lucida Calligraphy", 12, FontStyle.Italic), New PointF(0, 0), StringFormat.GenericDefault)
-        x = analogueKlock.CenterPoint.PivotalPoint.X - sz.Width / 2
-        y = CSng(analogueKlock.Radius * 0.3)
-        e.Graphics.DrawString(klockText, New Font("Lucida Calligraphy", 12, FontStyle.Italic), sbr, x, y)
+
+        If frmKlock.usrSettings.usrAnalogueKlockText <> "" Then
+            Dim klockText As String = frmKlock.usrSettings.usrAnalogueKlockText
+
+            sz = e.Graphics.MeasureString(klockText, New Font("Lucida Calligraphy", 12, FontStyle.Italic), New PointF(0, 0), StringFormat.GenericDefault)
+            x = analogueKlock.CenterPoint.PivotalPoint.X - sz.Width / 2
+            y = CSng(analogueKlock.Radius * 0.3)
+            e.Graphics.DrawString(klockText, New Font("Lucida Calligraphy", 12, FontStyle.Italic), sbr, x, y)
+        End If
 
         If frmKlock.usrSettings.usrAnalogueKlockShowTime Then
             'Draw digital time on the bottom, clock's background
@@ -103,7 +135,7 @@ Public Class frmAnalogueKlock
         End If
 
         If frmKlock.usrSettings.usrAnalogueKlockShowDate Then
-                    'Draw month-day box on the clock's background
+            'Draw month-day box on the clock's background
             Dim str As String = CType(analogueKlock.Value.Month, Months).ToString & " " & analogueKlock.Value.Day
             sz = e.Graphics.MeasureString(str, New Font("Tahoma", 10, FontStyle.Bold), New PointF(0, 0), StringFormat.GenericDefault)
             Dim rec As New Rectangle(CInt(analogueKlock.Rectangle.Width - analogueKlock.Radius * 0.3 - sz.Width), CInt(analogueKlock.CenterPoint.PivotalPoint.Y - 7.5), CInt(sz.Width), CInt(sz.Height))
@@ -130,12 +162,12 @@ Public Class frmAnalogueKlock
         gp.Dispose()
         'Make sure the hand's graphics path contains more than 2 points.
         If h.Path.PointCount > 2 Then
-                'Make the hand gradient
-                Dim br As New Drawing2D.PathGradientBrush(h.Path)
-                br.CenterColor = Color.White
-                br.SurroundColors = New Color() {h.Color}
-                e.Brush = br
-                br.Dispose()
+            'Make the hand gradient
+            Dim br As New Drawing2D.PathGradientBrush(h.Path)
+            br.CenterColor = Color.White
+            br.SurroundColors = New Color() {h.Color}
+            e.Brush = br
+            br.Dispose()
         End If
 
     End Sub
@@ -146,14 +178,14 @@ Public Class frmAnalogueKlock
 
         Dim c As Center = DirectCast(sender, AnalogClock.Center)
 
-            'Make the centre point gradient
-            Dim br As New Drawing2D.PathGradientBrush(c.Path)
-            br.WrapMode = Drawing2D.WrapMode.Tile
-            br.CenterColor = Color.White
-            br.SurroundColors = New Color() {c.Color}
-            br.CenterPoint = c.PivotalPoint
-            e.Brush = br
-            br.Dispose()
+        'Make the centre point gradient
+        Dim br As New Drawing2D.PathGradientBrush(c.Path)
+        br.WrapMode = Drawing2D.WrapMode.Tile
+        br.CenterColor = Color.White
+        br.SurroundColors = New Color() {c.Color}
+        br.CenterPoint = c.PivotalPoint
+        e.Brush = br
+        br.Dispose()
 
     End Sub
 
@@ -162,6 +194,7 @@ Public Class frmAnalogueKlock
 
         'Painting all big-marker objects with different brushes.
         'With the same fashion you can paint the small-markers.
+
 
         Dim m As Marker = DirectCast(sender, AnalogClock.Marker)
         Dim gp As Drawing2D.GraphicsPath = CType(m.Path.Clone, Drawing2D.GraphicsPath)
@@ -172,14 +205,14 @@ Public Class frmAnalogueKlock
         gp.Dispose()
         'Make sure the marker's graphics path contains more than 2 points.
         If m.Path.PointCount > 2 Then
-                'Make the marker gradient
-                Dim br As New Drawing2D.PathGradientBrush(m.Path)
-                br.CenterColor = Color.White
-                br.SurroundColors = New Color() {m.Color}
-                e.Brush = br
-                br.Dispose()
-        End If
+            'Make the marker gradient
+            Dim br As New Drawing2D.PathGradientBrush(m.Path)
+            br.CenterColor = Color.White
+            br.SurroundColors = New Color() {m.Color}
+            e.Brush = br
+            br.Dispose()
 
+        End If
     End Sub
 
     ' ------------------------------------------------------------------------------------------------------------------- Providing Custom Elements -----------------
@@ -194,6 +227,7 @@ Public Class frmAnalogueKlock
             'The custom centre GraphicsPath object must be constructed
             'head up position and the midpoint at the clock's centre.
             'Use the centre's properties (pivotal-point, radius etc.) for consistency.
+
 
             'This is an octagon style.
             Dim radius As Single = analogueKlock.CenterPoint.Radius
@@ -216,6 +250,8 @@ Public Class frmAnalogueKlock
             gPath.AddLines(points)
             gPath.CloseAllFigures()
             e.CustomPath = gPath
+
+
         ElseIf sender.GetType Is GetType(AnalogClock.Hand) Then
             'A clock' hand requests a custom GrapicsPath object.
 
@@ -261,7 +297,7 @@ Public Class frmAnalogueKlock
             gPath.AddLines(points)
             gPath.CloseAllFigures()
             e.CustomPath = gPath
-        End If
+            End If
     End Sub
 
     Private Sub analogueKlock_TimeChanged(sender As Object, e As EventArgs) Handles analogueKlock.TimeChanged
@@ -288,6 +324,5 @@ Public Class frmAnalogueKlock
         Close()
         frmKlock.Close()
     End Sub
-
 
 End Class

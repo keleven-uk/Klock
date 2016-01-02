@@ -28,7 +28,7 @@ Public Class UserSettings
     Private _usrFormFontColour As Color = Color.Black
     Private _usrFormTop As Integer = 100
     Private _usrFormLeft As Integer = 100
-    Private _usrSavePosition As Boolean = False
+    Private _usrSavePosition As Boolean = True
     Private _usrStartMinimised As Boolean = False
     Private _usrRunOnStartup As Boolean = False
     Private _usrSoundVolume As Integer = 10
@@ -55,19 +55,30 @@ Public Class UserSettings
     Private _usrTimeVoiceMinimised As Boolean = False           '   Voice to tell time if klock in system tray
     Private _usrTimeVoiceMinutes As Integer = 15
     '-------------------------------------------------------------------------------------------------------- Big Klock Settings ----------
+    Private _usrBigKlockTop As Integer = 100
+    Private _usrBigKlockLeft As Integer = 100
+    Private _usrBigKlockSavePosition As Boolean = True
     Private _usrBigKlockBackColour As Color = Color.Black
     Private _usrBigKlockForeColour As Color = Color.LightGreen
     Private _usrBigKlockOffColour As Color = Color.LightSlateGray
     '-------------------------------------------------------------------------------------------------------- Small Klock Settings --------
+    Private _usrSmallKlockTop As Integer = 100
+    Private _usrSmallKlockLeft As Integer = 100
+    Private _usrSmallKlockSavePosition As Boolean = True
     Private _usrSmallKlockBackColour As Color = Color.Black
     Private _usrSmallKlockForeColour As Color = Color.LightGreen
     Private _usrSmallKlockOffColour As Color = Color.LightSlateGray
     '------------------------------------------------------------------------------------------------------- analogue Klock Settings -----
+    Private _usrAnalogueKlockTop As Integer = 100
+    Private _usrAnalogueKlockLeft As Integer = 100
+    Private _usrAnalogueKlockSavePosition As Boolean = True
     Private _usrAnalogueKlockText As String = "Klock"
     Private _usrAnalogueKlcokTransparent As Boolean = False
     Private _usrAnalogueKlockShowDate As Boolean = True
     Private _usrAnalogueKlockShowTime As Boolean = True
-    Private _usrAnalogueKlockBackColour As Color = Color.LightSlateGray 
+    Private _usrAnalogueKlockBackColour As Color = Color.LightSlateGray
+    Private _usrAnalogueKlockDisplayPicture As Boolean = False
+    Private _usrAnalogueKlockPicture As String = ""
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
     Private _usrTimerHigh As Boolean = False
     Private _usrTimerClearSplit As Boolean = False
@@ -400,6 +411,34 @@ Public Class UserSettings
     End Property
 
     '-------------------------------------------------------------------------------------------------------- Big Klock Settings --------------
+
+    Public Property usrBigKlockTop() As Integer
+        Get
+            Return _usrBigKlockTop
+        End Get
+        Set(ByVal value As Integer)
+            _usrBigKlockTop = value
+        End Set
+    End Property
+
+    Public Property usrBigKlockLeft() As Integer
+        Get
+            Return _usrBigKlockLeft
+        End Get
+        Set(ByVal value As Integer)
+            _usrBigKlockLeft = value
+        End Set
+    End Property
+
+    Public Property usrBigKlockSavePosition() As Boolean
+        Get
+            Return _usrBigKlockSavePosition
+        End Get
+        Set(ByVal value As Boolean)
+            _usrBigKlockSavePosition = value
+        End Set
+    End Property
+
     Public Property usrBigKlockBackColour() As Color
         Get
             Return _usrBigKlockBackColour
@@ -428,6 +467,34 @@ Public Class UserSettings
     End Property
 
     '-------------------------------------------------------------------------------------------------------- Small Klock Settings ------------
+
+    Public Property usrSmallKlockTop() As Integer
+        Get
+            Return _usrSmallKlockTop
+        End Get
+        Set(ByVal value As Integer)
+            _usrSmallKlockTop = value
+        End Set
+    End Property
+
+    Public Property usrSmallKlockLeft() As Integer
+        Get
+            Return _usrSmallKlockLeft
+        End Get
+        Set(ByVal value As Integer)
+            _usrSmallKlockLeft = value
+        End Set
+    End Property
+
+    Public Property usrSmallKlockSavePosition() As Boolean
+        Get
+            Return _usrSmallKlockSavePosition
+        End Get
+        Set(ByVal value As Boolean)
+            _usrSmallKlockSavePosition = value
+        End Set
+    End Property
+
     Public Property usrSmallKlockBackColour() As Color
         Get
             Return _usrSmallKlockBackColour
@@ -455,9 +522,36 @@ Public Class UserSettings
         End Set
     End Property
 
-        '------------------------------------------------------------------------------------------------------- analogue Klock Settings -----
+    '------------------------------------------------------------------------------------------------------- analogue Klock Settings -----
 
-        Public Property usrAnalogueKlockText() As String
+    Public Property usrAnalogueKlockTop() As Integer
+        Get
+            Return _usrAnalogueKlockTop
+        End Get
+        Set(ByVal value As Integer)
+            _usrAnalogueKlockTop = value
+        End Set
+    End Property
+
+    Public Property usrAnalogueKlockLeft() As Integer
+        Get
+            Return _usrAnalogueKlockLeft
+        End Get
+        Set(ByVal value As Integer)
+            _usrAnalogueKlockLeft = value
+        End Set
+    End Property
+
+    Public Property usrAnalogueKlockSavePosition() As Boolean
+        Get
+            Return _usrAnalogueKlockSavePosition
+        End Get
+        Set(ByVal value As Boolean)
+            _usrAnalogueKlockSavePosition = value
+        End Set
+    End Property
+
+    Public Property usrAnalogueKlockText() As String
         Get
             Return _usrAnalogueKlockText
         End Get
@@ -493,7 +587,25 @@ Public Class UserSettings
         End Set
     End Property
 
-        Public Property usrAnalogueKlockBackColour() As Color
+    Public Property usrAnalogueKlockDisplayPicture() As Boolean
+        Get
+            Return _usrAnalogueKlockDisplayPicture
+        End Get
+        Set(ByVal value As Boolean)
+            _usrAnalogueKlockDisplayPicture = value
+        End Set
+    End Property
+
+    Public Property usrAnalogueKlockPicture() As String
+        Get
+            Return _usrAnalogueKlockPicture
+        End Get
+        Set(ByVal value As String)
+            _usrAnalogueKlockPicture = value
+        End Set
+    End Property
+
+    Public Property usrAnalogueKlockBackColour() As Color
         Get
             Return _usrAnalogueKlockBackColour
         End Get
@@ -501,7 +613,6 @@ Public Class UserSettings
             _usrAnalogueKlockBackColour = value
         End Set
     End Property
-
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
     Public Property usrTimerHigh() As Boolean
@@ -846,6 +957,9 @@ Public Class UserSettings
                                   <TimeVoiceMinutes><%= usrTimeVoiceMinutes() %></TimeVoiceMinutes>
                               </Time>
                               <BigKlock>
+                                  <BigKlockTop><%= usrBigKlockTop() %></BigKlockTop>
+                                  <BigKlockLeft><%= usrBigKlockLeft() %></BigKlockLeft>
+                                  <BigKlockSavePosition><%= usrBigKlockSavePosition() %></BigKlockSavePosition>
                                   <BigKlockBackColourR><%= usrBigKlockBackColour().R %></BigKlockBackColourR>
                                   <BigKlockBackColourG><%= usrBigKlockBackColour().G %></BigKlockBackColourG>
                                   <BigKlockBackColourB><%= usrBigKlockBackColour().B %></BigKlockBackColourB>
@@ -860,6 +974,9 @@ Public Class UserSettings
                                   <BigKlockOffColourA><%= usrBigKlockOffColour().A %></BigKlockOffColourA>
                               </BigKlock>
                               <SmallKlock>
+                                  <SmallKlockTop><%= usrSmallKlockTop() %></SmallKlockTop>
+                                  <SmallKlockLeft><%= usrSmallKlockLeft() %></SmallKlockLeft>
+                                  <SmallKlockSavePosition><%= usrSmallKlockSavePosition() %></SmallKlockSavePosition>
                                   <SmallKlockBackColourR><%= usrSmallKlockBackColour().R %></SmallKlockBackColourR>
                                   <SmallKlockBackColourG><%= usrSmallKlockBackColour().G %></SmallKlockBackColourG>
                                   <SmallKlockBackColourB><%= usrSmallKlockBackColour().B %></SmallKlockBackColourB>
@@ -874,14 +991,19 @@ Public Class UserSettings
                                   <SmallKlockOffColourA><%= usrSmallKlockOffColour().A %></SmallKlockOffColourA>
                               </SmallKlock>
                               <AnalogueKlock>
-                                  <usrAnalogueKlockText><%= usrAnalogueKlockText() %></usrAnalogueKlockText>
-                                  <usrAnalogueKlcokTransparent><%= usrAnalogueKlcokTransparent() %></usrAnalogueKlcokTransparent>
-                                  <usrAnalogueKlockShowDate><%= usrAnalogueKlockShowDate() %></usrAnalogueKlockShowDate>
-                                  <usrAnalogueKlockShowTime><%= usrAnalogueKlockShowTime() %></usrAnalogueKlockShowTime>
-                                  <usrAnalogueKlockBackColourR><%= usrAnalogueKlockBackColour().R %></usrAnalogueKlockBackColourR>
-                                  <usrAnalogueKlockBackColourG><%= usrAnalogueKlockBackColour().G %></usrAnalogueKlockBackColourG>
-                                  <usrAnalogueKlockBackColourB><%= usrAnalogueKlockBackColour().B %></usrAnalogueKlockBackColourB>
-                                  <usrAnalogueKlockBackColourA><%= usrAnalogueKlockBackColour().A %></usrAnalogueKlockBackColourA>
+                                  <AnalogueKlockTop><%= usrAnalogueKlockTop() %></AnalogueKlockTop>
+                                  <AnalogueKlockLeft><%= usrAnalogueKlockLeft() %></AnalogueKlockLeft>
+                                  <AnalogueKlockSavePosition><%= usrAnalogueKlockSavePosition() %></AnalogueKlockSavePosition>
+                                  <AnalogueKlockText><%= usrAnalogueKlockText() %></AnalogueKlockText>
+                                  <AnalogueKlcokTransparent><%= usrAnalogueKlcokTransparent() %></AnalogueKlcokTransparent>
+                                  <AnalogueKlockShowDate><%= usrAnalogueKlockShowDate() %></AnalogueKlockShowDate>
+                                  <AnalogueKlockShowTime><%= usrAnalogueKlockShowTime() %></AnalogueKlockShowTime>
+                                  <AnalogueKlockBackColourR><%= usrAnalogueKlockBackColour().R %></AnalogueKlockBackColourR>
+                                  <AnalogueKlockBackColourG><%= usrAnalogueKlockBackColour().G %></AnalogueKlockBackColourG>
+                                  <AnalogueKlockBackColourB><%= usrAnalogueKlockBackColour().B %></AnalogueKlockBackColourB>
+                                  <AnalogueKlockBackColourA><%= usrAnalogueKlockBackColour().A %></AnalogueKlockBackColourA>
+                                  <AnalogueKlockDisplayPicture><%= usrAnalogueKlockDisplayPicture() %></AnalogueKlockDisplayPicture>
+                                  <AnalogueKlockPicture><%= usrAnalogueKlockPicture() %></AnalogueKlockPicture>
                               </AnalogueKlock>
                               <Timer>
                                   <TimerHigh><%= usrTimerHigh() %></TimerHigh>
@@ -1002,33 +1124,36 @@ Public Class UserSettings
                                   </FormFontColour>
                                   <FormTop>100</FormTop>
                                   <Formleft>100</Formleft>
-                                  <SavePosition>false</SavePosition>
-                                  <StartMinimised>false</StartMinimised>
-                                  <RunOnStartup>false</RunOnStartup>
+                                  <SavePosition>False</SavePosition>
+                                  <StartMinimised>False</StartMinimised>
+                                  <RunOnStartup>False</RunOnStartup>
                                   <SoundVolume>100</SoundVolume>
                                   <usrOptionsSavePath><%= usrOptionsSavePath() %></usrOptionsSavePath>
                               </Global>
                               <Time>
                                   <TimeDefaultFormat>0</TimeDefaultFormat>
                                   <TimeTwoDefaultFormat>1</TimeTwoDefaultFormat>
-                                  <TimeTwoFormats>false</TimeTwoFormats>
-                                  <TimeIdleTime>false</TimeIdleTime>
-                                  <TimeSystem24Hour>true</TimeSystem24Hour>
-                                  <TimeOne24Hour>true</TimeOne24Hour>
-                                  <TimeTwo24Hour>true</TimeTwo24Hour>
-                                  <TimeSwatchCentibeats>false</TimeSwatchCentibeats>
-                                  <TimeNETSeconds>false</TimeNETSeconds>
-                                  <TimeHexIntuitorFormat>false</TimeHexIntuitorFormat>
-                                  <TimeHourPips>false</TimeHourPips>
-                                  <TimeHourChimes>false</TimeHourChimes>
-                                  <TimeHalfChimes>false</TimeHalfChimes>
-                                  <TimeQuarterChimes>false</TimeQuarterChimes>
-                                  <TimeDisplayMinimised>false</TimeDisplayMinimised>
+                                  <TimeTwoFormats>False</TimeTwoFormats>
+                                  <TimeIdleTime>False</TimeIdleTime>
+                                  <TimeSystem24Hour>True</TimeSystem24Hour>
+                                  <TimeOne24Hour>True</TimeOne24Hour>
+                                  <TimeTwo24Hour>True</TimeTwo24Hour>
+                                  <TimeSwatchCentibeats>False</TimeSwatchCentibeats>
+                                  <TimeNETSeconds>False</TimeNETSeconds>
+                                  <TimeHexIntuitorFormat>False</TimeHexIntuitorFormat>
+                                  <TimeHourPips>False</TimeHourPips>
+                                  <TimeHourChimes>False</TimeHourChimes>
+                                  <TimeHalfChimes>False</TimeHalfChimes>
+                                  <TimeQuarterChimes>False</TimeQuarterChimes>
+                                  <TimeDisplayMinimised>False</TimeDisplayMinimised>
                                   <TimeDisplayMinutes>15</TimeDisplayMinutes>
-                                  <TimeVoiceMinimised>false</TimeVoiceMinimised>
+                                  <TimeVoiceMinimised>False</TimeVoiceMinimised>
                                   <TimeVoiceMinutes>15</TimeVoiceMinutes>
                               </Time>
                               <BigKlock>
+                                  <BigKlockTop>100></BigKlockTop>
+                                  <BigKlockLeft>100</BigKlockLeft>
+                                  <BigKlockSavePosition>True</BigKlockSavePosition>
                                   <BigKlockBackColourR>0</BigKlockBackColourR>
                                   <BigKlockBackColourG>0</BigKlockBackColourG>
                                   <BigKlockBackColourB>0</BigKlockBackColourB>
@@ -1043,6 +1168,9 @@ Public Class UserSettings
                                   <BigKlockOffColourA>255</BigKlockOffColourA>
                               </BigKlock>
                               <SmallKlock>
+                                  <SmallKlockTop>100</SmallKlockTop>
+                                  <SmallKlockLeft>100</SmallKlockLeft>
+                                  <SmallKlockSavePosition>True</SmallKlockSavePosition>
                                   <SmallKlockBackColourR>0</SmallKlockBackColourR>
                                   <SmallKlockBackColourG>0</SmallKlockBackColourG>
                                   <SmallKlockBackColourB>0</SmallKlockBackColourB>
@@ -1057,29 +1185,34 @@ Public Class UserSettings
                                   <SmallKlockOffColourA>255</SmallKlockOffColourA>
                               </SmallKlock>
                               <AnalogueKlock>
-                                  <usrAnalogueKlockText>"Klock"</usrAnalogueKlockText>
-                                  <usrAnalogueKlcokTransparent><%= False %></usrAnalogueKlcokTransparent>
-                                  <usrAnalogueKlockShowDate>True</usrAnalogueKlockShowDate>
-                                  <usrAnalogueKlockShowTime>True</usrAnalogueKlockShowTime>
-                                  <usrAnalogueKlockBackColourR>119</usrAnalogueKlockBackColourR>
-                                  <usrAnalogueKlockBackColourG>136</usrAnalogueKlockBackColourG>
-                                  <usrAnalogueKlockBackColourB>153</usrAnalogueKlockBackColourB>
-                                  <usrAnalogueKlockBackColourA>255</usrAnalogueKlockBackColourA>
+                                  <AnalogueKlockTop>100></AnalogueKlockTop>
+                                  <AnalogueKlockLeft>100</AnalogueKlockLeft>
+                                  <AnalogueKlockSavePosition>True</AnalogueKlockSavePosition>
+                                  <AnalogueKlockText>Klock</AnalogueKlockText>
+                                  <AnalogueKlcokTransparent>False</AnalogueKlcokTransparent>
+                                  <AnalogueKlockShowDate>True</AnalogueKlockShowDate>
+                                  <AnalogueKlockShowTime>True</AnalogueKlockShowTime>
+                                  <AnalogueKlockBackColourR>119</AnalogueKlockBackColourR>
+                                  <AnalogueKlockBackColourG>136</AnalogueKlockBackColourG>
+                                  <AnalogueKlockBackColourB>153</AnalogueKlockBackColourB>
+                                  <AnalogueKlockBackColourA>255</AnalogueKlockBackColourA>
+                                  <AnalogueKlockDisplayPicture>False</AnalogueKlockDisplayPicture>
+                                  <AnalogueKlockPicture></AnalogueKlockPicture>
                               </AnalogueKlock>
                               <Timer>
-                                  <TimerHigh>false</TimerHigh>
-                                  <TimerClearSplit>false</TimerClearSplit>
-                                  <TimerAdd>false</TimerAdd>
+                                  <TimerHigh>False</TimerHigh>
+                                  <TimerClearSplit>False</TimerClearSplit>
+                                  <TimerAdd>False</TimerAdd>
                               </Timer>
                               <Countdown>
-                                  <CountdownAdd>false</CountdownAdd>
+                                  <CountdownAdd>False</CountdownAdd>
                               </Countdown>
                               <Reminder>
-                                  <ReminderTimeChecked>false</ReminderTimeChecked>
-                                  <ReminderAdd>false</ReminderAdd>
+                                  <ReminderTimeChecked>False</ReminderTimeChecked>
+                                  <ReminderAdd>False</ReminderAdd>
                               </Reminder>
                               <WorldKlock>
-                                  <WorldKlockAdd>false</WorldKlockAdd>
+                                  <WorldKlockAdd>False</WorldKlockAdd>
                               </WorldKlock>
                               <Notification>
                                   <NotificationColour>
@@ -1103,10 +1236,10 @@ Public Class UserSettings
                                   <NotificationOpacity>80</NotificationOpacity>
                               </Notification>
                               <Monitor>
-                                  <DisableMonitorSleep>false</DisableMonitorSleep>
+                                  <DisableMonitorSleep>False</DisableMonitorSleep>
                               </Monitor>
                               <Internet>
-                                  <CheckInternet>false</CheckInternet>
+                                  <CheckInternet>False</CheckInternet>
                               </Internet>
                               <Friends>
                                   <FriendsDirectory><%= usrOptionsSavePath() %></FriendsDirectory>
@@ -1152,8 +1285,8 @@ Public Class UserSettings
                               </Events>
                               <Memo>
                                   <MemoFileName><%= usrMemoFile() %></MemoFileName>
-                                  <MemoUseDefaultPassword>false</MemoUseDefaultPassword>
-                                  <MemoDefaultPassword>"klock"</MemoDefaultPassword>
+                                  <MemoUseDefaultPassword>False</MemoUseDefaultPassword>
+                                  <MemoDefaultPassword>klock</MemoDefaultPassword>
                                   <MemoDecyptTimeOut>30</MemoDecyptTimeOut>
                               </Memo>
                           </klock>
@@ -1211,6 +1344,7 @@ Public Class UserSettings
 
             '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
             Dim tm = elem.Element("Time")
+
             usrTimeDefaultFormat = CType(readElement(tm, "TimeDefaultFormat", usrTimeDefaultFormat()), Integer)
             usrTimeTWODefaultFormat = CType(readElement(tm, "TimeTwoDefaultFormat", usrTimeTWODefaultFormat()), Integer)
             usrTimeTwoFormats = CType(readElement(tm, "TimeTwoFormats", usrTimeTwoFormats()), Boolean)
@@ -1231,7 +1365,13 @@ Public Class UserSettings
             usrTimeVoiceMinutes = CType(readElement(tm, "TimeVoiceMinutes", usrTimeVoiceMinutes()), Integer)
 
             '-------------------------------------------------------------------------------------------------------- Big Klock Settings ----------
+
             Dim bgklck = elem.Element("BigKlock")
+
+            usrBigKlockTop = CType(readElement(bgklck, "BigKlockTop", usrBigKlockTop()), Integer)
+            usrBigKlockLeft = CType(readElement(bgklck, "BigKlockLeft", usrBigKlockLeft()), Integer)
+            usrBigKlockSavePosition = CType(readElement(bgklck, "BigKlockSavePosition", usrBigKlockSavePosition()), Boolean)
+
             r = CType(readElement(bgklck, "BigKlockBackColourR", usrBigKlockBackColour().R), Byte)
             g = CType(readElement(bgklck, "BigKlockBackColourG", usrBigKlockBackColour().G), Byte)
             b = CType(readElement(bgklck, "BigKlockBackColourB", usrBigKlockBackColour().B), Byte)
@@ -1251,7 +1391,13 @@ Public Class UserSettings
             usrBigKlockOffColour = Color.FromArgb(a, r, g, b)
 
             '-------------------------------------------------------------------------------------------------------- Small Klock Settings ---------
+
             Dim smlklck = elem.Element("SmallKlock")
+
+            usrSmallKlockTop = CType(readElement(smlklck, "SmallKlockTop", usrSmallKlockTop()), Integer)
+            usrSmallKlockLeft = CType(readElement(smlklck, "SmallKlockLeft", usrSmallKlockLeft()), Integer)
+            usrSmallKlockSavePosition = CType(readElement(smlklck, "SmallKlockSavePosition", usrSmallKlockSavePosition()), Boolean)
+
             r = CType(readElement(smlklck, "SmallKlockBackColourR", usrSmallKlockBackColour().R), Byte)
             g = CType(readElement(smlklck, "SmallKlockBackColourG", usrSmallKlockBackColour().G), Byte)
             b = CType(readElement(smlklck, "SmallKlockBackColourB", usrSmallKlockBackColour().B), Byte)
@@ -1274,24 +1420,33 @@ Public Class UserSettings
 
             Dim anlklck = elem.Element("AnalogueKlock")
 
-            usrAnalogueKlockText = readElement(anlklck, "usrAnalogueKlockText", usrAnalogueKlockText())
-            usrAnalogueKlcokTransparent = CType(readElement(anlklck, "usrAnalogueKlcokTransparent", usrAnalogueKlcokTransparent()), Boolean)
-            usrAnalogueKlockShowDate = CType(readElement(anlklck, "usrAnalogueKlockShowDate", usrAnalogueKlockShowDate()), Boolean)
-            usrAnalogueKlockShowTime = CType(readElement(anlklck, "usrAnalogueKlockShowTime", usrAnalogueKlockShowTime()), Boolean)
-            r = CType(readElement(anlklck, "usrAnalogueKlockBackColourR", usrAnalogueKlockBackColour().R), Byte)
-            g = CType(readElement(anlklck, "usrAnalogueKlockBackColourG", usrAnalogueKlockBackColour().G), Byte)
-            b = CType(readElement(anlklck, "usrAnalogueKlockBackColourB", usrAnalogueKlockBackColour().B), Byte)
-            a = CType(readElement(anlklck, "usrAnalogueKlockBackColourA", usrAnalogueKlockBackColour().A), Byte)
+            usrAnalogueKlockTop = CType(readElement(anlklck, "AnalogueKlockTop", usrAnalogueKlockTop()), Integer)
+            usrAnalogueKlockLeft = CType(readElement(anlklck, "AnalogueKlockLeft", usrAnalogueKlockLeft()), Integer)
+            usrAnalogueKlockSavePosition = CType(readElement(anlklck, "AnalogueKlockSavePosition", usrAnalogueKlockSavePosition()), Boolean)
+            usrAnalogueKlockText = readElement(anlklck, "AnalogueKlockText", usrAnalogueKlockText())
+            usrAnalogueKlcokTransparent = CType(readElement(anlklck, "AnalogueKlcokTransparent", usrAnalogueKlcokTransparent()), Boolean)
+            usrAnalogueKlockShowDate = CType(readElement(anlklck, "AnalogueKlockShowDate", usrAnalogueKlockShowDate()), Boolean)
+            usrAnalogueKlockShowTime = CType(readElement(anlklck, "AnalogueKlockShowTime", usrAnalogueKlockShowTime()), Boolean)
+
+            r = CType(readElement(anlklck, "AnalogueKlockBackColourR", usrAnalogueKlockBackColour().R), Byte)
+            g = CType(readElement(anlklck, "AnalogueKlockBackColourG", usrAnalogueKlockBackColour().G), Byte)
+            b = CType(readElement(anlklck, "AnalogueKlockBackColourB", usrAnalogueKlockBackColour().B), Byte)
+            a = CType(readElement(anlklck, "AnalogueKlockBackColourA", usrAnalogueKlockBackColour().A), Byte)
             usrAnalogueKlockBackColour = Color.FromArgb(a, r, g, b)
+
+            usrAnalogueKlockDisplayPicture = CType(readElement(anlklck, "AnalogueKlockDisplayPicture", usrAnalogueKlockDisplayPicture()), Boolean)
+            usrAnalogueKlockPicture = readElement(anlklck, "AnalogueKlockPicture", usrAnalogueKlockPicture())       '   already a string
 
             '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
             Dim tmr = elem.Element("Timer")
+
             usrTimerHigh = CType(readElement(tmr, "TimerHigh", usrTimerHigh()), Boolean)
             usrTimerClearSplit = CType(readElement(tmr, "TimerClearSplit", usrTimerClearSplit()), Boolean)
             usrTimerAdd = CType(readElement(tmr, "TimerAdd", usrTimerAdd()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Countdown Settings ----------
             Dim cntDwn = elem.Element("Countdown")
+
             usrCountdownAdd = CType(readElement(cntDwn, "CountdownAdd", usrCountdownAdd()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Reminder Settings ----------
@@ -1302,6 +1457,7 @@ Public Class UserSettings
 
             '-------------------------------------------------------------------------------------------------------- World Klock Settings ----------
             Dim wrldKlck = elem.Element("WorldKlock")
+
             usrWorldKlockAdd = CType(readElement(wrldKlck, "WorldKlockAdd", usrWorldKlockAdd()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Notification Settings -------
@@ -1332,20 +1488,24 @@ Public Class UserSettings
 
             '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
             Dim mntr = elem.Element("Monitor")
+
             usrDisableMonitorSleep = CType(readElement(mntr, "DisableMonitorSleep", usrDisableMonitorSleep()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Internet Settings ------------
             Dim intrnt = elem.Element("Internet")
+
             usrCheckInternet = CType(readElement(intrnt, "CheckInternet", usrCheckInternet()), Boolean)
 
             '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
             '   values are strings, so need to convert.
             Dim frnds = elem.Element("Friends")
+
             usrFriendsFile = readElement(frnds, "FriendsFileName", usrFriendsFile())
 
             '-------------------------------------------------------------------------------------------------------- Events Settings ------------
             '   values are strings, so need to convert.
             Dim evnts = elem.Element("Events")
+
             usrEventsFile = readElement(evnts, "EventsFileName", usrEventsFile())
 
             usrEventsFirstReminder = CType(readElement(evnts, "EventsFirstReminder", usrEventsFirstReminder()), Integer)
@@ -1392,6 +1552,7 @@ Public Class UserSettings
             '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
             '   values are strings, so need to convert.
             Dim memo = elem.Element("Memo")
+
             usrMemoFile = readElement(memo, "MemoFileName", usrMemoFile())
             usrMemoUseDefaultPassword = CType(readElement(memo, "MemoUseDefaultPassword", usrMemoUseDefaultPassword()), Boolean)
             usrMemoDefaultPassword = readElement(memo, "MemoDefaultPassword", usrMemoDefaultPassword())
@@ -1412,7 +1573,7 @@ Public Class UserSettings
         Try
             r = g.Element(s).Value
         Catch ex As Exception
-            '   frmKlock.displayAction.DisplayReminder("ERROR :: " & g.ToString & " :: " & s & " :::", ex.Message)
+            frmKlock.displayAction.DisplayReminder("ERROR :: " & g.ToString & " :: " & s & " :::", ex.Message)
             r = d
         End Try
 

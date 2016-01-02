@@ -40,6 +40,11 @@
     Private Sub frmTextKlock_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         '   when the form loads set some global variables, turn on timer And load arrays.
 
+        If frmKlock.usrSettings.usrSmallKlockSavePosition Then
+            Top = frmKlock.usrSettings.usrSmallKlockTop
+            Left = frmKlock.usrSettings.usrSmallKlockLeft
+        End If
+
         drag = False
 
         StsStrpInfo.BackColor = frmKlock.usrSettings.usrSmallKlockBackColour
@@ -51,6 +56,11 @@
     End Sub
 
     Private Sub frmTextKlock_FormClosed(sender As System.Object, e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
+
+        If frmKlock.usrSettings.usrSmallKlockSavePosition Then
+            frmKlock.usrSettings.usrSmallKlockTop = Top
+            frmKlock.usrSettings.usrSmallKlockLeft = Left
+        End If
 
         tmrTextKlock.Enabled = False
 

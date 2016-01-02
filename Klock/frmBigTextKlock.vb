@@ -50,6 +50,11 @@
 
         drag = False
 
+        If frmKlock.usrSettings.usrBigKlockSavePosition Then
+            Top = frmKlock.usrSettings.usrBigKlockTop
+            Left = frmKlock.usrSettings.usrBigKlockLeft
+        End If
+
         StsStrpInfo.BackColor = frmKlock.usrSettings.usrBigKlockBackColour
         stsLbIdkeTime.ForeColor = frmKlock.usrSettings.usrBigKlockForeColour
 
@@ -63,10 +68,16 @@
         loadArrayDayofWeek()
 
         setDisplay()
+
     End Sub
 
     Private Sub frmBigTextKlock_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         '   When form is closed turn off timer and re-load main form.
+
+        If frmKlock.usrSettings.usrBigKlockSavePosition Then
+            frmKlock.usrSettings.usrBigKlockTop = Top
+            frmKlock.usrSettings.usrBigKlockLeft = Left
+        End If
 
         tmrTextKlock.Enabled = False
 

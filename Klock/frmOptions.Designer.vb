@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmOptions
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,93 +20,99 @@ Partial Class frmOptions
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmOptions))
         Me.btnOptionsClose = New System.Windows.Forms.Button()
-        Me.ClrDlgFormColour = New System.Windows.Forms.ColorDialog()
+        Me.clrDlgFormColour = New System.Windows.Forms.ColorDialog()
         Me.btnOptionsFormColour = New System.Windows.Forms.Button()
         Me.lblColour = New System.Windows.Forms.Label()
         Me.btnOptionsFormFont = New System.Windows.Forms.Button()
         Me.lblFont = New System.Windows.Forms.Label()
-        Me.FntDlgFont = New System.Windows.Forms.FontDialog()
-        Me.ChckBxOptionsSavePos = New System.Windows.Forms.CheckBox()
+        Me.fntDlgFont = New System.Windows.Forms.FontDialog()
+        Me.chckBxOptionsSavePos = New System.Windows.Forms.CheckBox()
         Me.btnDefaultColour = New System.Windows.Forms.Button()
         Me.lblDefaultColour = New System.Windows.Forms.Label()
-        Me.TabCntrlOptions = New System.Windows.Forms.TabControl()
-        Me.TbPgGlobal = New System.Windows.Forms.TabPage()
+        Me.tbCntrlOptions = New System.Windows.Forms.TabControl()
+        Me.tbPgGlobal = New System.Windows.Forms.TabPage()
         Me.GroupBox17 = New System.Windows.Forms.GroupBox()
-        Me.CmbBxDefaultTab = New System.Windows.Forms.ComboBox()
+        Me.cmbBxDefaultTab = New System.Windows.Forms.ComboBox()
         Me.GroupBox13 = New System.Windows.Forms.GroupBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.btnSettingsReset = New System.Windows.Forms.Button()
-        Me.LblOptionSavepath = New System.Windows.Forms.Label()
+        Me.lblOptionSavepath = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
-        Me.ChckBxOptionsRunOnStartup = New System.Windows.Forms.CheckBox()
-        Me.ChckBxOptionsStartupMinimised = New System.Windows.Forms.CheckBox()
+        Me.chckBxOptionsRunOnStartup = New System.Windows.Forms.CheckBox()
+        Me.chckBxOptionsStartupMinimised = New System.Windows.Forms.CheckBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnOptionsTestVolume = New System.Windows.Forms.Button()
-        Me.TrckBrOptionsVolume = New System.Windows.Forms.TrackBar()
-        Me.TbPgNotification = New System.Windows.Forms.TabPage()
+        Me.trckBrOptionsVolume = New System.Windows.Forms.TrackBar()
+        Me.tbPgNotification = New System.Windows.Forms.TabPage()
         Me.GroupBox15 = New System.Windows.Forms.GroupBox()
         Me.btnEventNotificationTest = New System.Windows.Forms.Button()
-        Me.NmrcUpDwnEventNotificationOpacity = New System.Windows.Forms.NumericUpDown()
+        Me.nmrcUpDwnEventNotificationOpacity = New System.Windows.Forms.NumericUpDown()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.btnEventNotificationFont = New System.Windows.Forms.Button()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.PctrBxNotification = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnNotificationTest = New System.Windows.Forms.Button()
         Me.btnNotificationColour = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.NmrcUpDwnNotificationOpacity = New System.Windows.Forms.NumericUpDown()
+        Me.nmrcUpDwnNotificationOpacity = New System.Windows.Forms.NumericUpDown()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnNotificationFont = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.NmrcUpDwnNotificationTimeOut = New System.Windows.Forms.NumericUpDown()
+        Me.nmrcUpDwnNotificationTimeOut = New System.Windows.Forms.NumericUpDown()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.TbPgTime = New System.Windows.Forms.TabPage()
+        Me.tbPgTime = New System.Windows.Forms.TabPage()
         Me.GroupBox18 = New System.Windows.Forms.GroupBox()
-        Me.ChckBxTimeTimeTwo12 = New System.Windows.Forms.CheckBox()
-        Me.ChckBxTimeTimeOne12 = New System.Windows.Forms.CheckBox()
-        Me.ChckBxTimeSystem12 = New System.Windows.Forms.CheckBox()
-        Me.ChckBxTimeTimeTwo24 = New System.Windows.Forms.CheckBox()
-        Me.ChckBxTimeTimeOne24 = New System.Windows.Forms.CheckBox()
-        Me.ChckBxTimeSystem24 = New System.Windows.Forms.CheckBox()
+        Me.chckBxTimeTimeTwo12 = New System.Windows.Forms.CheckBox()
+        Me.chckBxTimeTimeOne12 = New System.Windows.Forms.CheckBox()
+        Me.chckBxTimeSystem12 = New System.Windows.Forms.CheckBox()
+        Me.chckBxTimeTimeTwo24 = New System.Windows.Forms.CheckBox()
+        Me.chckBxTimeTimeOne24 = New System.Windows.Forms.CheckBox()
+        Me.chckBxTimeSystem24 = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.chckBxIdleTime = New System.Windows.Forms.CheckBox()
         Me.lblTimeTwo = New System.Windows.Forms.Label()
-        Me.CmbBxDefaultTimeTwoFormat = New System.Windows.Forms.ComboBox()
+        Me.cmbBxDefaultTimeTwoFormat = New System.Windows.Forms.ComboBox()
         Me.Label21 = New System.Windows.Forms.Label()
-        Me.CmbBxDefaultTimeFormat = New System.Windows.Forms.ComboBox()
+        Me.cmbBxDefaultTimeFormat = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.UpDwnVoiceDisplay = New System.Windows.Forms.NumericUpDown()
-        Me.ChckBxOptionsVoice = New System.Windows.Forms.CheckBox()
+        Me.upDwnVoiceDisplay = New System.Windows.Forms.NumericUpDown()
+        Me.chckBxOptionsVoice = New System.Windows.Forms.CheckBox()
         Me.chckBxTimeTwoFormats = New System.Windows.Forms.CheckBox()
-        Me.ChckBxTimeHexIntuitor = New System.Windows.Forms.CheckBox()
-        Me.ChckBxTimeNetSeconds = New System.Windows.Forms.CheckBox()
+        Me.chckBxTimeHexIntuitor = New System.Windows.Forms.CheckBox()
+        Me.chckBxTimeNetSeconds = New System.Windows.Forms.CheckBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.chckBxTimeSwatch = New System.Windows.Forms.CheckBox()
-        Me.UpDwnTimeDisplay = New System.Windows.Forms.NumericUpDown()
-        Me.ChckBxTimeToast = New System.Windows.Forms.CheckBox()
+        Me.upDwnTimeDisplay = New System.Windows.Forms.NumericUpDown()
+        Me.chckBxTimeToast = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.ChckBxTimeHalfChimes = New System.Windows.Forms.CheckBox()
-        Me.ChckBxTimeQuarterChimes = New System.Windows.Forms.CheckBox()
-        Me.ChckBxTimeHourlyChimes = New System.Windows.Forms.CheckBox()
-        Me.ChckBxTimeHourPips = New System.Windows.Forms.CheckBox()
-        Me.TbPgAnalogueKlock = New System.Windows.Forms.TabPage()
+        Me.chckBxTimeHalfChimes = New System.Windows.Forms.CheckBox()
+        Me.chckBxTimeQuarterChimes = New System.Windows.Forms.CheckBox()
+        Me.chckBxTimeHourlyChimes = New System.Windows.Forms.CheckBox()
+        Me.chckBxTimeHourPips = New System.Windows.Forms.CheckBox()
+        Me.tbPgAnalogueKlock = New System.Windows.Forms.TabPage()
+        Me.GroupBox24 = New System.Windows.Forms.GroupBox()
+        Me.pctrBxAnlgKlockPicture = New System.Windows.Forms.PictureBox()
+        Me.txtBxAnlgKlockPictureLocation = New System.Windows.Forms.TextBox()
+        Me.btnAnlgKlockPictureLocation = New System.Windows.Forms.Button()
         Me.GroupBox23 = New System.Windows.Forms.GroupBox()
+        Me.chckBxAnlgKlockSavePos = New System.Windows.Forms.CheckBox()
+        Me.chckBxAnlgKlockTransparent = New System.Windows.Forms.CheckBox()
         Me.btnAnlgKlockBackColour = New System.Windows.Forms.Button()
         Me.lblAnlgKlockBackColour = New System.Windows.Forms.Label()
         Me.chckBxAnlgKlockTime = New System.Windows.Forms.CheckBox()
         Me.chckBxAnlgKlockDate = New System.Windows.Forms.CheckBox()
         Me.txtBxAnlgKlock = New System.Windows.Forms.TextBox()
         Me.Label32 = New System.Windows.Forms.Label()
-        Me.TbPgTextKlock = New System.Windows.Forms.TabPage()
+        Me.tbPgTextKlock = New System.Windows.Forms.TabPage()
         Me.GroupBox22 = New System.Windows.Forms.GroupBox()
+        Me.chckBxBgTxKlockSavePos = New System.Windows.Forms.CheckBox()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.btnResetBigKlock = New System.Windows.Forms.Button()
         Me.Label27 = New System.Windows.Forms.Label()
@@ -116,6 +122,7 @@ Partial Class frmOptions
         Me.btnBgTxtKlckOffClr = New System.Windows.Forms.Button()
         Me.btnBgTxtKlckFrClr = New System.Windows.Forms.Button()
         Me.GroupBox21 = New System.Windows.Forms.GroupBox()
+        Me.chckBxSmlTxKlockSavePos = New System.Windows.Forms.CheckBox()
         Me.Label30 = New System.Windows.Forms.Label()
         Me.btnResetSmallKlock = New System.Windows.Forms.Button()
         Me.Label26 = New System.Windows.Forms.Label()
@@ -124,125 +131,126 @@ Partial Class frmOptions
         Me.btnSmlTxtKlckBckClr = New System.Windows.Forms.Button()
         Me.btnSmlTxtKlckOffClr = New System.Windows.Forms.Button()
         Me.btnSmlTxtKlckFrClr = New System.Windows.Forms.Button()
-        Me.TbPgOtherStuff = New System.Windows.Forms.TabPage()
+        Me.tbPgOtherStuff = New System.Windows.Forms.TabPage()
         Me.GroupBox20 = New System.Windows.Forms.GroupBox()
-        Me.ChckBxChckInternet = New System.Windows.Forms.CheckBox()
+        Me.chckBxChckInternet = New System.Windows.Forms.CheckBox()
         Me.GroupBox19 = New System.Windows.Forms.GroupBox()
-        Me.ChckBxDisableMonitorSleep = New System.Windows.Forms.CheckBox()
+        Me.chckBxDisableMonitorSleep = New System.Windows.Forms.CheckBox()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.ChckBxReminderAdd = New System.Windows.Forms.CheckBox()
-        Me.ChckBxReminderTimeCheck = New System.Windows.Forms.CheckBox()
+        Me.chckBxReminderAdd = New System.Windows.Forms.CheckBox()
+        Me.chckBxReminderTimeCheck = New System.Windows.Forms.CheckBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.ChckBxTimerAdd = New System.Windows.Forms.CheckBox()
-        Me.ChckBxTimerHigh = New System.Windows.Forms.CheckBox()
-        Me.ChckBxClearSplit = New System.Windows.Forms.CheckBox()
+        Me.chckBxTimerAdd = New System.Windows.Forms.CheckBox()
+        Me.chckBxTimerHigh = New System.Windows.Forms.CheckBox()
+        Me.chckBxClearSplit = New System.Windows.Forms.CheckBox()
         Me.GroupBox9 = New System.Windows.Forms.GroupBox()
-        Me.ChckBxCountdownAdd = New System.Windows.Forms.CheckBox()
+        Me.chckBxCountdownAdd = New System.Windows.Forms.CheckBox()
         Me.GroupBox12 = New System.Windows.Forms.GroupBox()
-        Me.ChckBxWorldKlockAdd = New System.Windows.Forms.CheckBox()
-        Me.TbPgArchive = New System.Windows.Forms.TabPage()
+        Me.chckBxWorldKlockAdd = New System.Windows.Forms.CheckBox()
+        Me.tbPgArchive = New System.Windows.Forms.TabPage()
         Me.GroupBox11 = New System.Windows.Forms.GroupBox()
-        Me.TxtBxArchiveFile = New System.Windows.Forms.TextBox()
-        Me.TxtBxArchiveDirectory = New System.Windows.Forms.TextBox()
+        Me.txtBxArchiveFile = New System.Windows.Forms.TextBox()
+        Me.txtBxArchiveDirectory = New System.Windows.Forms.TextBox()
         Me.btnArchiveFile = New System.Windows.Forms.Button()
         Me.btnArchiveDirectory = New System.Windows.Forms.Button()
         Me.GroupBox10 = New System.Windows.Forms.GroupBox()
-        Me.TxtBxOptionsSettingsFile = New System.Windows.Forms.TextBox()
-        Me.TxtBxOptionsMemoFile = New System.Windows.Forms.TextBox()
+        Me.txtBxOptionsSettingsFile = New System.Windows.Forms.TextBox()
+        Me.txtBxOptionsMemoFile = New System.Windows.Forms.TextBox()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.btnOptionsMemoFile = New System.Windows.Forms.Button()
         Me.label18 = New System.Windows.Forms.Label()
         Me.btnOptionsEventsFile = New System.Windows.Forms.Button()
-        Me.TxtBxOptionsEventsFile = New System.Windows.Forms.TextBox()
+        Me.txtBxOptionsEventsFile = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btnOptionsPathReset = New System.Windows.Forms.Button()
         Me.btnOptionsFriendsFile = New System.Windows.Forms.Button()
-        Me.TxtBxOptionsFriendsFile = New System.Windows.Forms.TextBox()
+        Me.txtBxOptionsFriendsFile = New System.Windows.Forms.TextBox()
         Me.btnOptionsFriendsDirectory = New System.Windows.Forms.Button()
-        Me.TxtBxOptionsFriendsDirectory = New System.Windows.Forms.TextBox()
-        Me.TbPgEvents = New System.Windows.Forms.TabPage()
+        Me.txtBxOptionsFriendsDirectory = New System.Windows.Forms.TextBox()
+        Me.tbPgEvents = New System.Windows.Forms.TabPage()
         Me.GroupBox14 = New System.Windows.Forms.GroupBox()
-        Me.PctrBxThirdEvent = New System.Windows.Forms.PictureBox()
+        Me.pctrBxThirdEvent = New System.Windows.Forms.PictureBox()
         Me.btnThirdEventNotificationColour = New System.Windows.Forms.Button()
-        Me.PctrBxSecondEvent = New System.Windows.Forms.PictureBox()
+        Me.pctrBxSecondEvent = New System.Windows.Forms.PictureBox()
         Me.btnSecondEventNotificationColour = New System.Windows.Forms.Button()
-        Me.PctrBxFirstEvent = New System.Windows.Forms.PictureBox()
+        Me.pctrBxFirstEvent = New System.Windows.Forms.PictureBox()
         Me.btnFirstEventNotificationColour = New System.Windows.Forms.Button()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.lblEventsInterval = New System.Windows.Forms.Label()
-        Me.NmrcUpDwnEventsInterval = New System.Windows.Forms.NumericUpDown()
-        Me.NmrcUpDwnThirdReminder = New System.Windows.Forms.NumericUpDown()
-        Me.NmrcUpDwnSecondReminder = New System.Windows.Forms.NumericUpDown()
-        Me.NmrcUpDwnFirstReminder = New System.Windows.Forms.NumericUpDown()
+        Me.nmrcUpDwnEventsInterval = New System.Windows.Forms.NumericUpDown()
+        Me.nmrcUpDwnThirdReminder = New System.Windows.Forms.NumericUpDown()
+        Me.nmrcUpDwnSecondReminder = New System.Windows.Forms.NumericUpDown()
+        Me.nmrcUpDwnFirstReminder = New System.Windows.Forms.NumericUpDown()
         Me.lblThirdReminder = New System.Windows.Forms.Label()
         Me.lblSecondReminder = New System.Windows.Forms.Label()
         Me.lblFirstreminder = New System.Windows.Forms.Label()
-        Me.TbPgMemo = New System.Windows.Forms.TabPage()
+        Me.tbPgMemo = New System.Windows.Forms.TabPage()
         Me.GroupBox16 = New System.Windows.Forms.GroupBox()
-        Me.NmrcUpDwnMemoDecrypt = New System.Windows.Forms.NumericUpDown()
+        Me.nmrcUpDwnMemoDecrypt = New System.Windows.Forms.NumericUpDown()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.TxtBxMemoDefaultPassword = New System.Windows.Forms.TextBox()
-        Me.ChckBxMemoDefaultPassword = New System.Windows.Forms.CheckBox()
+        Me.txtBxMemoDefaultPassword = New System.Windows.Forms.TextBox()
+        Me.chckBxMemoDefaultPassword = New System.Windows.Forms.CheckBox()
         Me.btnArchiveLoad = New System.Windows.Forms.Button()
         Me.btnArchiveSave = New System.Windows.Forms.Button()
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.chckBxAnlgKlockTransparent = New System.Windows.Forms.CheckBox()
-        Me.TabCntrlOptions.SuspendLayout()
-        Me.TbPgGlobal.SuspendLayout()
+        Me.chckBxAnlgKlockDisplayPicture = New System.Windows.Forms.CheckBox()
+        Me.tbCntrlOptions.SuspendLayout()
+        Me.tbPgGlobal.SuspendLayout()
         Me.GroupBox17.SuspendLayout()
         Me.GroupBox13.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
-        CType(Me.TrckBrOptionsVolume, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TbPgNotification.SuspendLayout()
+        CType(Me.trckBrOptionsVolume, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tbPgNotification.SuspendLayout()
         Me.GroupBox15.SuspendLayout()
-        CType(Me.NmrcUpDwnEventNotificationOpacity, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nmrcUpDwnEventNotificationOpacity, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
-        CType(Me.PctrBxNotification, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NmrcUpDwnNotificationOpacity, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NmrcUpDwnNotificationTimeOut, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TbPgTime.SuspendLayout()
+        CType(Me.nmrcUpDwnNotificationOpacity, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nmrcUpDwnNotificationTimeOut, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tbPgTime.SuspendLayout()
         Me.GroupBox18.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
-        CType(Me.UpDwnVoiceDisplay, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.UpDwnTimeDisplay, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.upDwnVoiceDisplay, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.upDwnTimeDisplay, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
-        Me.TbPgAnalogueKlock.SuspendLayout()
+        Me.tbPgAnalogueKlock.SuspendLayout()
+        Me.GroupBox24.SuspendLayout()
+        CType(Me.pctrBxAnlgKlockPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox23.SuspendLayout()
-        Me.TbPgTextKlock.SuspendLayout()
+        Me.tbPgTextKlock.SuspendLayout()
         Me.GroupBox22.SuspendLayout()
         Me.GroupBox21.SuspendLayout()
-        Me.TbPgOtherStuff.SuspendLayout()
+        Me.tbPgOtherStuff.SuspendLayout()
         Me.GroupBox20.SuspendLayout()
         Me.GroupBox19.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
         Me.GroupBox12.SuspendLayout()
-        Me.TbPgArchive.SuspendLayout()
+        Me.tbPgArchive.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.GroupBox10.SuspendLayout()
-        Me.TbPgEvents.SuspendLayout()
+        Me.tbPgEvents.SuspendLayout()
         Me.GroupBox14.SuspendLayout()
-        CType(Me.PctrBxThirdEvent, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PctrBxSecondEvent, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PctrBxFirstEvent, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NmrcUpDwnEventsInterval, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NmrcUpDwnThirdReminder, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NmrcUpDwnSecondReminder, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NmrcUpDwnFirstReminder, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TbPgMemo.SuspendLayout()
+        CType(Me.pctrBxThirdEvent, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pctrBxSecondEvent, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pctrBxFirstEvent, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nmrcUpDwnEventsInterval, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nmrcUpDwnThirdReminder, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nmrcUpDwnSecondReminder, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nmrcUpDwnFirstReminder, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tbPgMemo.SuspendLayout()
         Me.GroupBox16.SuspendLayout()
-        CType(Me.NmrcUpDwnMemoDecrypt, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nmrcUpDwnMemoDecrypt, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnOptionsClose
@@ -294,20 +302,20 @@ Partial Class frmOptions
         Me.lblFont.TabIndex = 4
         Me.lblFont.Text = "Change Form Main Font"
         '
-        'FntDlgFont
+        'fntDlgFont
         '
-        Me.FntDlgFont.ShowColor = True
+        Me.fntDlgFont.ShowColor = True
         '
-        'ChckBxOptionsSavePos
+        'chckBxOptionsSavePos
         '
-        Me.ChckBxOptionsSavePos.AutoSize = True
-        Me.ChckBxOptionsSavePos.Location = New System.Drawing.Point(45, 31)
-        Me.ChckBxOptionsSavePos.Name = "ChckBxOptionsSavePos"
-        Me.ChckBxOptionsSavePos.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxOptionsSavePos.Size = New System.Drawing.Size(163, 17)
-        Me.ChckBxOptionsSavePos.TabIndex = 5
-        Me.ChckBxOptionsSavePos.Text = "Save Screen Position on Exit"
-        Me.ChckBxOptionsSavePos.UseVisualStyleBackColor = True
+        Me.chckBxOptionsSavePos.AutoSize = True
+        Me.chckBxOptionsSavePos.Location = New System.Drawing.Point(45, 31)
+        Me.chckBxOptionsSavePos.Name = "chckBxOptionsSavePos"
+        Me.chckBxOptionsSavePos.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxOptionsSavePos.Size = New System.Drawing.Size(163, 17)
+        Me.chckBxOptionsSavePos.TabIndex = 5
+        Me.chckBxOptionsSavePos.Text = "Save Screen Position on Exit"
+        Me.chckBxOptionsSavePos.UseVisualStyleBackColor = True
         '
         'btnDefaultColour
         '
@@ -328,43 +336,43 @@ Partial Class frmOptions
         Me.lblDefaultColour.TabIndex = 7
         Me.lblDefaultColour.Text = "Reset to default Colours"
         '
-        'TabCntrlOptions
+        'tbCntrlOptions
         '
-        Me.TabCntrlOptions.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
-        Me.TabCntrlOptions.Controls.Add(Me.TbPgGlobal)
-        Me.TabCntrlOptions.Controls.Add(Me.TbPgNotification)
-        Me.TabCntrlOptions.Controls.Add(Me.TbPgTime)
-        Me.TabCntrlOptions.Controls.Add(Me.TbPgAnalogueKlock)
-        Me.TabCntrlOptions.Controls.Add(Me.TbPgTextKlock)
-        Me.TabCntrlOptions.Controls.Add(Me.TbPgOtherStuff)
-        Me.TabCntrlOptions.Controls.Add(Me.TbPgArchive)
-        Me.TabCntrlOptions.Controls.Add(Me.TbPgEvents)
-        Me.TabCntrlOptions.Controls.Add(Me.TbPgMemo)
-        Me.TabCntrlOptions.Location = New System.Drawing.Point(6, 6)
-        Me.TabCntrlOptions.Multiline = True
-        Me.TabCntrlOptions.Name = "TabCntrlOptions"
-        Me.TabCntrlOptions.SelectedIndex = 0
-        Me.TabCntrlOptions.Size = New System.Drawing.Size(668, 294)
-        Me.TabCntrlOptions.TabIndex = 8
+        Me.tbCntrlOptions.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
+        Me.tbCntrlOptions.Controls.Add(Me.tbPgGlobal)
+        Me.tbCntrlOptions.Controls.Add(Me.tbPgNotification)
+        Me.tbCntrlOptions.Controls.Add(Me.tbPgTime)
+        Me.tbCntrlOptions.Controls.Add(Me.tbPgAnalogueKlock)
+        Me.tbCntrlOptions.Controls.Add(Me.tbPgTextKlock)
+        Me.tbCntrlOptions.Controls.Add(Me.tbPgOtherStuff)
+        Me.tbCntrlOptions.Controls.Add(Me.tbPgArchive)
+        Me.tbCntrlOptions.Controls.Add(Me.tbPgEvents)
+        Me.tbCntrlOptions.Controls.Add(Me.tbPgMemo)
+        Me.tbCntrlOptions.Location = New System.Drawing.Point(6, 6)
+        Me.tbCntrlOptions.Multiline = True
+        Me.tbCntrlOptions.Name = "tbCntrlOptions"
+        Me.tbCntrlOptions.SelectedIndex = 0
+        Me.tbCntrlOptions.Size = New System.Drawing.Size(668, 294)
+        Me.tbCntrlOptions.TabIndex = 8
         '
-        'TbPgGlobal
+        'tbPgGlobal
         '
-        Me.TbPgGlobal.BackColor = System.Drawing.SystemColors.Control
-        Me.TbPgGlobal.Controls.Add(Me.GroupBox17)
-        Me.TbPgGlobal.Controls.Add(Me.GroupBox13)
-        Me.TbPgGlobal.Controls.Add(Me.GroupBox8)
-        Me.TbPgGlobal.Controls.Add(Me.GroupBox7)
-        Me.TbPgGlobal.Controls.Add(Me.GroupBox2)
-        Me.TbPgGlobal.Location = New System.Drawing.Point(4, 25)
-        Me.TbPgGlobal.Name = "TbPgGlobal"
-        Me.TbPgGlobal.Padding = New System.Windows.Forms.Padding(3)
-        Me.TbPgGlobal.Size = New System.Drawing.Size(660, 265)
-        Me.TbPgGlobal.TabIndex = 0
-        Me.TbPgGlobal.Text = "Global"
+        Me.tbPgGlobal.BackColor = System.Drawing.SystemColors.Control
+        Me.tbPgGlobal.Controls.Add(Me.GroupBox17)
+        Me.tbPgGlobal.Controls.Add(Me.GroupBox13)
+        Me.tbPgGlobal.Controls.Add(Me.GroupBox8)
+        Me.tbPgGlobal.Controls.Add(Me.GroupBox7)
+        Me.tbPgGlobal.Controls.Add(Me.GroupBox2)
+        Me.tbPgGlobal.Location = New System.Drawing.Point(4, 25)
+        Me.tbPgGlobal.Name = "tbPgGlobal"
+        Me.tbPgGlobal.Padding = New System.Windows.Forms.Padding(3)
+        Me.tbPgGlobal.Size = New System.Drawing.Size(660, 265)
+        Me.tbPgGlobal.TabIndex = 0
+        Me.tbPgGlobal.Text = "Global"
         '
         'GroupBox17
         '
-        Me.GroupBox17.Controls.Add(Me.CmbBxDefaultTab)
+        Me.GroupBox17.Controls.Add(Me.cmbBxDefaultTab)
         Me.GroupBox17.Location = New System.Drawing.Point(280, 8)
         Me.GroupBox17.Name = "GroupBox17"
         Me.GroupBox17.Size = New System.Drawing.Size(143, 97)
@@ -372,20 +380,20 @@ Partial Class frmOptions
         Me.GroupBox17.TabStop = False
         Me.GroupBox17.Text = "Default Tab"
         '
-        'CmbBxDefaultTab
+        'cmbBxDefaultTab
         '
-        Me.CmbBxDefaultTab.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxDefaultTab.FormattingEnabled = True
-        Me.CmbBxDefaultTab.Location = New System.Drawing.Point(14, 39)
-        Me.CmbBxDefaultTab.Name = "CmbBxDefaultTab"
-        Me.CmbBxDefaultTab.Size = New System.Drawing.Size(121, 21)
-        Me.CmbBxDefaultTab.TabIndex = 0
+        Me.cmbBxDefaultTab.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbBxDefaultTab.FormattingEnabled = True
+        Me.cmbBxDefaultTab.Location = New System.Drawing.Point(14, 39)
+        Me.cmbBxDefaultTab.Name = "cmbBxDefaultTab"
+        Me.cmbBxDefaultTab.Size = New System.Drawing.Size(121, 21)
+        Me.cmbBxDefaultTab.TabIndex = 0
         '
         'GroupBox13
         '
         Me.GroupBox13.Controls.Add(Me.Label10)
         Me.GroupBox13.Controls.Add(Me.btnSettingsReset)
-        Me.GroupBox13.Controls.Add(Me.LblOptionSavepath)
+        Me.GroupBox13.Controls.Add(Me.lblOptionSavepath)
         Me.GroupBox13.Controls.Add(Me.Label9)
         Me.GroupBox13.Location = New System.Drawing.Point(6, 8)
         Me.GroupBox13.Name = "GroupBox13"
@@ -412,14 +420,14 @@ Partial Class frmOptions
         Me.btnSettingsReset.Text = "Reset"
         Me.btnSettingsReset.UseVisualStyleBackColor = True
         '
-        'LblOptionSavepath
+        'lblOptionSavepath
         '
-        Me.LblOptionSavepath.AutoSize = True
-        Me.LblOptionSavepath.Location = New System.Drawing.Point(10, 44)
-        Me.LblOptionSavepath.Name = "LblOptionSavepath"
-        Me.LblOptionSavepath.Size = New System.Drawing.Size(31, 13)
-        Me.LblOptionSavepath.TabIndex = 10
-        Me.LblOptionSavepath.Text = """c:\"""
+        Me.lblOptionSavepath.AutoSize = True
+        Me.lblOptionSavepath.Location = New System.Drawing.Point(10, 44)
+        Me.lblOptionSavepath.Name = "lblOptionSavepath"
+        Me.lblOptionSavepath.Size = New System.Drawing.Size(31, 13)
+        Me.lblOptionSavepath.TabIndex = 10
+        Me.lblOptionSavepath.Text = """c:\"""
         '
         'Label9
         '
@@ -432,9 +440,9 @@ Partial Class frmOptions
         '
         'GroupBox8
         '
-        Me.GroupBox8.Controls.Add(Me.ChckBxOptionsRunOnStartup)
-        Me.GroupBox8.Controls.Add(Me.ChckBxOptionsSavePos)
-        Me.GroupBox8.Controls.Add(Me.ChckBxOptionsStartupMinimised)
+        Me.GroupBox8.Controls.Add(Me.chckBxOptionsRunOnStartup)
+        Me.GroupBox8.Controls.Add(Me.chckBxOptionsSavePos)
+        Me.GroupBox8.Controls.Add(Me.chckBxOptionsStartupMinimised)
         Me.GroupBox8.Location = New System.Drawing.Point(6, 111)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(648, 68)
@@ -442,27 +450,27 @@ Partial Class frmOptions
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Behaviour"
         '
-        'ChckBxOptionsRunOnStartup
+        'chckBxOptionsRunOnStartup
         '
-        Me.ChckBxOptionsRunOnStartup.AutoSize = True
-        Me.ChckBxOptionsRunOnStartup.Location = New System.Drawing.Point(268, 31)
-        Me.ChckBxOptionsRunOnStartup.Name = "ChckBxOptionsRunOnStartup"
-        Me.ChckBxOptionsRunOnStartup.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxOptionsRunOnStartup.Size = New System.Drawing.Size(175, 17)
-        Me.ChckBxOptionsRunOnStartup.TabIndex = 9
-        Me.ChckBxOptionsRunOnStartup.Text = "Run Klock on Windows Startup"
-        Me.ChckBxOptionsRunOnStartup.UseVisualStyleBackColor = True
+        Me.chckBxOptionsRunOnStartup.AutoSize = True
+        Me.chckBxOptionsRunOnStartup.Location = New System.Drawing.Point(268, 31)
+        Me.chckBxOptionsRunOnStartup.Name = "chckBxOptionsRunOnStartup"
+        Me.chckBxOptionsRunOnStartup.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxOptionsRunOnStartup.Size = New System.Drawing.Size(175, 17)
+        Me.chckBxOptionsRunOnStartup.TabIndex = 9
+        Me.chckBxOptionsRunOnStartup.Text = "Run Klock on Windows Startup"
+        Me.chckBxOptionsRunOnStartup.UseVisualStyleBackColor = True
         '
-        'ChckBxOptionsStartupMinimised
+        'chckBxOptionsStartupMinimised
         '
-        Me.ChckBxOptionsStartupMinimised.AutoSize = True
-        Me.ChckBxOptionsStartupMinimised.Location = New System.Drawing.Point(505, 31)
-        Me.ChckBxOptionsStartupMinimised.Name = "ChckBxOptionsStartupMinimised"
-        Me.ChckBxOptionsStartupMinimised.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxOptionsStartupMinimised.Size = New System.Drawing.Size(127, 17)
-        Me.ChckBxOptionsStartupMinimised.TabIndex = 10
-        Me.ChckBxOptionsStartupMinimised.Text = "Start Klock Minimised"
-        Me.ChckBxOptionsStartupMinimised.UseVisualStyleBackColor = True
+        Me.chckBxOptionsStartupMinimised.AutoSize = True
+        Me.chckBxOptionsStartupMinimised.Location = New System.Drawing.Point(505, 31)
+        Me.chckBxOptionsStartupMinimised.Name = "chckBxOptionsStartupMinimised"
+        Me.chckBxOptionsStartupMinimised.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxOptionsStartupMinimised.Size = New System.Drawing.Size(127, 17)
+        Me.chckBxOptionsStartupMinimised.TabIndex = 10
+        Me.chckBxOptionsStartupMinimised.Text = "Start Klock Minimised"
+        Me.chckBxOptionsStartupMinimised.UseVisualStyleBackColor = True
         '
         'GroupBox7
         '
@@ -482,7 +490,7 @@ Partial Class frmOptions
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.btnOptionsTestVolume)
-        Me.GroupBox2.Controls.Add(Me.TrckBrOptionsVolume)
+        Me.GroupBox2.Controls.Add(Me.trckBrOptionsVolume)
         Me.GroupBox2.Location = New System.Drawing.Point(6, 185)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(648, 68)
@@ -499,30 +507,30 @@ Partial Class frmOptions
         Me.btnOptionsTestVolume.Text = "Test"
         Me.btnOptionsTestVolume.UseVisualStyleBackColor = True
         '
-        'TrckBrOptionsVolume
+        'trckBrOptionsVolume
         '
-        Me.TrckBrOptionsVolume.LargeChange = 1
-        Me.TrckBrOptionsVolume.Location = New System.Drawing.Point(13, 17)
-        Me.TrckBrOptionsVolume.Name = "TrckBrOptionsVolume"
-        Me.TrckBrOptionsVolume.Size = New System.Drawing.Size(396, 45)
-        Me.TrckBrOptionsVolume.TabIndex = 0
-        Me.TrckBrOptionsVolume.TickStyle = System.Windows.Forms.TickStyle.Both
+        Me.trckBrOptionsVolume.LargeChange = 1
+        Me.trckBrOptionsVolume.Location = New System.Drawing.Point(13, 17)
+        Me.trckBrOptionsVolume.Name = "trckBrOptionsVolume"
+        Me.trckBrOptionsVolume.Size = New System.Drawing.Size(396, 45)
+        Me.trckBrOptionsVolume.TabIndex = 0
+        Me.trckBrOptionsVolume.TickStyle = System.Windows.Forms.TickStyle.Both
         '
-        'TbPgNotification
+        'tbPgNotification
         '
-        Me.TbPgNotification.BackColor = System.Drawing.SystemColors.Control
-        Me.TbPgNotification.Controls.Add(Me.GroupBox15)
-        Me.TbPgNotification.Controls.Add(Me.GroupBox6)
-        Me.TbPgNotification.Location = New System.Drawing.Point(4, 25)
-        Me.TbPgNotification.Name = "TbPgNotification"
-        Me.TbPgNotification.Size = New System.Drawing.Size(660, 265)
-        Me.TbPgNotification.TabIndex = 3
-        Me.TbPgNotification.Text = "Notification"
+        Me.tbPgNotification.BackColor = System.Drawing.SystemColors.Control
+        Me.tbPgNotification.Controls.Add(Me.GroupBox15)
+        Me.tbPgNotification.Controls.Add(Me.GroupBox6)
+        Me.tbPgNotification.Location = New System.Drawing.Point(4, 25)
+        Me.tbPgNotification.Name = "tbPgNotification"
+        Me.tbPgNotification.Size = New System.Drawing.Size(660, 265)
+        Me.tbPgNotification.TabIndex = 3
+        Me.tbPgNotification.Text = "Notification"
         '
         'GroupBox15
         '
         Me.GroupBox15.Controls.Add(Me.btnEventNotificationTest)
-        Me.GroupBox15.Controls.Add(Me.NmrcUpDwnEventNotificationOpacity)
+        Me.GroupBox15.Controls.Add(Me.nmrcUpDwnEventNotificationOpacity)
         Me.GroupBox15.Controls.Add(Me.Label20)
         Me.GroupBox15.Controls.Add(Me.btnEventNotificationFont)
         Me.GroupBox15.Controls.Add(Me.Label19)
@@ -542,13 +550,13 @@ Partial Class frmOptions
         Me.btnEventNotificationTest.Text = "Test"
         Me.btnEventNotificationTest.UseVisualStyleBackColor = True
         '
-        'NmrcUpDwnEventNotificationOpacity
+        'nmrcUpDwnEventNotificationOpacity
         '
-        Me.NmrcUpDwnEventNotificationOpacity.Location = New System.Drawing.Point(144, 122)
-        Me.NmrcUpDwnEventNotificationOpacity.Name = "NmrcUpDwnEventNotificationOpacity"
-        Me.NmrcUpDwnEventNotificationOpacity.Size = New System.Drawing.Size(50, 20)
-        Me.NmrcUpDwnEventNotificationOpacity.TabIndex = 5
-        Me.NmrcUpDwnEventNotificationOpacity.Value = New Decimal(New Integer() {80, 0, 0, 0})
+        Me.nmrcUpDwnEventNotificationOpacity.Location = New System.Drawing.Point(144, 122)
+        Me.nmrcUpDwnEventNotificationOpacity.Name = "nmrcUpDwnEventNotificationOpacity"
+        Me.nmrcUpDwnEventNotificationOpacity.Size = New System.Drawing.Size(50, 20)
+        Me.nmrcUpDwnEventNotificationOpacity.TabIndex = 5
+        Me.nmrcUpDwnEventNotificationOpacity.Value = New Decimal(New Integer() {80, 0, 0, 0})
         '
         'Label20
         '
@@ -579,16 +587,15 @@ Partial Class frmOptions
         '
         'GroupBox6
         '
-        Me.GroupBox6.Controls.Add(Me.PctrBxNotification)
         Me.GroupBox6.Controls.Add(Me.Label1)
         Me.GroupBox6.Controls.Add(Me.btnNotificationTest)
         Me.GroupBox6.Controls.Add(Me.btnNotificationColour)
         Me.GroupBox6.Controls.Add(Me.Label5)
-        Me.GroupBox6.Controls.Add(Me.NmrcUpDwnNotificationOpacity)
+        Me.GroupBox6.Controls.Add(Me.nmrcUpDwnNotificationOpacity)
         Me.GroupBox6.Controls.Add(Me.Label2)
         Me.GroupBox6.Controls.Add(Me.btnNotificationFont)
         Me.GroupBox6.Controls.Add(Me.Label3)
-        Me.GroupBox6.Controls.Add(Me.NmrcUpDwnNotificationTimeOut)
+        Me.GroupBox6.Controls.Add(Me.nmrcUpDwnNotificationTimeOut)
         Me.GroupBox6.Controls.Add(Me.Label4)
         Me.GroupBox6.Location = New System.Drawing.Point(4, 3)
         Me.GroupBox6.Name = "GroupBox6"
@@ -596,14 +603,6 @@ Partial Class frmOptions
         Me.GroupBox6.TabIndex = 9
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "General Notification Appearance"
-        '
-        'PctrBxNotification
-        '
-        Me.PctrBxNotification.Location = New System.Drawing.Point(215, 19)
-        Me.PctrBxNotification.Name = "PctrBxNotification"
-        Me.PctrBxNotification.Size = New System.Drawing.Size(50, 23)
-        Me.PctrBxNotification.TabIndex = 9
-        Me.PctrBxNotification.TabStop = False
         '
         'Label1
         '
@@ -641,13 +640,13 @@ Partial Class frmOptions
         Me.Label5.TabIndex = 6
         Me.Label5.Text = "Notification Opacity"
         '
-        'NmrcUpDwnNotificationOpacity
+        'nmrcUpDwnNotificationOpacity
         '
-        Me.NmrcUpDwnNotificationOpacity.Location = New System.Drawing.Point(144, 122)
-        Me.NmrcUpDwnNotificationOpacity.Name = "NmrcUpDwnNotificationOpacity"
-        Me.NmrcUpDwnNotificationOpacity.Size = New System.Drawing.Size(50, 20)
-        Me.NmrcUpDwnNotificationOpacity.TabIndex = 7
-        Me.NmrcUpDwnNotificationOpacity.Value = New Decimal(New Integer() {80, 0, 0, 0})
+        Me.nmrcUpDwnNotificationOpacity.Location = New System.Drawing.Point(144, 122)
+        Me.nmrcUpDwnNotificationOpacity.Name = "nmrcUpDwnNotificationOpacity"
+        Me.nmrcUpDwnNotificationOpacity.Size = New System.Drawing.Size(50, 20)
+        Me.nmrcUpDwnNotificationOpacity.TabIndex = 7
+        Me.nmrcUpDwnNotificationOpacity.Value = New Decimal(New Integer() {80, 0, 0, 0})
         '
         'Label2
         '
@@ -676,13 +675,13 @@ Partial Class frmOptions
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "Notification Time Out"
         '
-        'NmrcUpDwnNotificationTimeOut
+        'nmrcUpDwnNotificationTimeOut
         '
-        Me.NmrcUpDwnNotificationTimeOut.Location = New System.Drawing.Point(144, 96)
-        Me.NmrcUpDwnNotificationTimeOut.Name = "NmrcUpDwnNotificationTimeOut"
-        Me.NmrcUpDwnNotificationTimeOut.Size = New System.Drawing.Size(50, 20)
-        Me.NmrcUpDwnNotificationTimeOut.TabIndex = 0
-        Me.NmrcUpDwnNotificationTimeOut.Value = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.nmrcUpDwnNotificationTimeOut.Location = New System.Drawing.Point(144, 96)
+        Me.nmrcUpDwnNotificationTimeOut.Name = "nmrcUpDwnNotificationTimeOut"
+        Me.nmrcUpDwnNotificationTimeOut.Size = New System.Drawing.Size(50, 20)
+        Me.nmrcUpDwnNotificationTimeOut.TabIndex = 0
+        Me.nmrcUpDwnNotificationTimeOut.Value = New Decimal(New Integer() {5, 0, 0, 0})
         '
         'Label4
         '
@@ -693,27 +692,27 @@ Partial Class frmOptions
         Me.Label4.TabIndex = 5
         Me.Label4.Text = "Seconds"
         '
-        'TbPgTime
+        'tbPgTime
         '
-        Me.TbPgTime.BackColor = System.Drawing.SystemColors.Control
-        Me.TbPgTime.Controls.Add(Me.GroupBox18)
-        Me.TbPgTime.Controls.Add(Me.GroupBox3)
-        Me.TbPgTime.Controls.Add(Me.GroupBox1)
-        Me.TbPgTime.Location = New System.Drawing.Point(4, 25)
-        Me.TbPgTime.Name = "TbPgTime"
-        Me.TbPgTime.Padding = New System.Windows.Forms.Padding(3)
-        Me.TbPgTime.Size = New System.Drawing.Size(660, 265)
-        Me.TbPgTime.TabIndex = 1
-        Me.TbPgTime.Text = "Time"
+        Me.tbPgTime.BackColor = System.Drawing.SystemColors.Control
+        Me.tbPgTime.Controls.Add(Me.GroupBox18)
+        Me.tbPgTime.Controls.Add(Me.GroupBox3)
+        Me.tbPgTime.Controls.Add(Me.GroupBox1)
+        Me.tbPgTime.Location = New System.Drawing.Point(4, 25)
+        Me.tbPgTime.Name = "tbPgTime"
+        Me.tbPgTime.Padding = New System.Windows.Forms.Padding(3)
+        Me.tbPgTime.Size = New System.Drawing.Size(660, 265)
+        Me.tbPgTime.TabIndex = 1
+        Me.tbPgTime.Text = "Time"
         '
         'GroupBox18
         '
-        Me.GroupBox18.Controls.Add(Me.ChckBxTimeTimeTwo12)
-        Me.GroupBox18.Controls.Add(Me.ChckBxTimeTimeOne12)
-        Me.GroupBox18.Controls.Add(Me.ChckBxTimeSystem12)
-        Me.GroupBox18.Controls.Add(Me.ChckBxTimeTimeTwo24)
-        Me.GroupBox18.Controls.Add(Me.ChckBxTimeTimeOne24)
-        Me.GroupBox18.Controls.Add(Me.ChckBxTimeSystem24)
+        Me.GroupBox18.Controls.Add(Me.chckBxTimeTimeTwo12)
+        Me.GroupBox18.Controls.Add(Me.chckBxTimeTimeOne12)
+        Me.GroupBox18.Controls.Add(Me.chckBxTimeSystem12)
+        Me.GroupBox18.Controls.Add(Me.chckBxTimeTimeTwo24)
+        Me.GroupBox18.Controls.Add(Me.chckBxTimeTimeOne24)
+        Me.GroupBox18.Controls.Add(Me.chckBxTimeSystem24)
         Me.GroupBox18.Location = New System.Drawing.Point(322, 165)
         Me.GroupBox18.Name = "GroupBox18"
         Me.GroupBox18.Size = New System.Drawing.Size(332, 88)
@@ -721,95 +720,95 @@ Partial Class frmOptions
         Me.GroupBox18.TabStop = False
         Me.GroupBox18.Text = "12 / 24 Hour"
         '
-        'ChckBxTimeTimeTwo12
+        'chckBxTimeTimeTwo12
         '
-        Me.ChckBxTimeTimeTwo12.AutoSize = True
-        Me.ChckBxTimeTimeTwo12.Location = New System.Drawing.Point(190, 65)
-        Me.ChckBxTimeTimeTwo12.Name = "ChckBxTimeTimeTwo12"
-        Me.ChckBxTimeTimeTwo12.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.ChckBxTimeTimeTwo12.Size = New System.Drawing.Size(64, 17)
-        Me.ChckBxTimeTimeTwo12.TabIndex = 5
-        Me.ChckBxTimeTimeTwo12.Text = "12 Hour"
-        Me.ChckBxTimeTimeTwo12.UseVisualStyleBackColor = True
+        Me.chckBxTimeTimeTwo12.AutoSize = True
+        Me.chckBxTimeTimeTwo12.Location = New System.Drawing.Point(190, 65)
+        Me.chckBxTimeTimeTwo12.Name = "chckBxTimeTimeTwo12"
+        Me.chckBxTimeTimeTwo12.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.chckBxTimeTimeTwo12.Size = New System.Drawing.Size(64, 17)
+        Me.chckBxTimeTimeTwo12.TabIndex = 5
+        Me.chckBxTimeTimeTwo12.Text = "12 Hour"
+        Me.chckBxTimeTimeTwo12.UseVisualStyleBackColor = True
         '
-        'ChckBxTimeTimeOne12
+        'chckBxTimeTimeOne12
         '
-        Me.ChckBxTimeTimeOne12.AutoSize = True
-        Me.ChckBxTimeTimeOne12.Location = New System.Drawing.Point(190, 42)
-        Me.ChckBxTimeTimeOne12.Name = "ChckBxTimeTimeOne12"
-        Me.ChckBxTimeTimeOne12.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.ChckBxTimeTimeOne12.Size = New System.Drawing.Size(64, 17)
-        Me.ChckBxTimeTimeOne12.TabIndex = 4
-        Me.ChckBxTimeTimeOne12.Text = "12 Hour"
-        Me.ChckBxTimeTimeOne12.UseVisualStyleBackColor = True
+        Me.chckBxTimeTimeOne12.AutoSize = True
+        Me.chckBxTimeTimeOne12.Location = New System.Drawing.Point(190, 42)
+        Me.chckBxTimeTimeOne12.Name = "chckBxTimeTimeOne12"
+        Me.chckBxTimeTimeOne12.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.chckBxTimeTimeOne12.Size = New System.Drawing.Size(64, 17)
+        Me.chckBxTimeTimeOne12.TabIndex = 4
+        Me.chckBxTimeTimeOne12.Text = "12 Hour"
+        Me.chckBxTimeTimeOne12.UseVisualStyleBackColor = True
         '
-        'ChckBxTimeSystem12
+        'chckBxTimeSystem12
         '
-        Me.ChckBxTimeSystem12.AutoSize = True
-        Me.ChckBxTimeSystem12.Location = New System.Drawing.Point(190, 19)
-        Me.ChckBxTimeSystem12.Name = "ChckBxTimeSystem12"
-        Me.ChckBxTimeSystem12.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.ChckBxTimeSystem12.Size = New System.Drawing.Size(64, 17)
-        Me.ChckBxTimeSystem12.TabIndex = 3
-        Me.ChckBxTimeSystem12.Text = "12 Hour"
-        Me.ChckBxTimeSystem12.UseVisualStyleBackColor = True
+        Me.chckBxTimeSystem12.AutoSize = True
+        Me.chckBxTimeSystem12.Location = New System.Drawing.Point(190, 19)
+        Me.chckBxTimeSystem12.Name = "chckBxTimeSystem12"
+        Me.chckBxTimeSystem12.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.chckBxTimeSystem12.Size = New System.Drawing.Size(64, 17)
+        Me.chckBxTimeSystem12.TabIndex = 3
+        Me.chckBxTimeSystem12.Text = "12 Hour"
+        Me.chckBxTimeSystem12.UseVisualStyleBackColor = True
         '
-        'ChckBxTimeTimeTwo24
+        'chckBxTimeTimeTwo24
         '
-        Me.ChckBxTimeTimeTwo24.AutoSize = True
-        Me.ChckBxTimeTimeTwo24.Location = New System.Drawing.Point(57, 65)
-        Me.ChckBxTimeTimeTwo24.Name = "ChckBxTimeTimeTwo24"
-        Me.ChckBxTimeTimeTwo24.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxTimeTimeTwo24.Size = New System.Drawing.Size(117, 17)
-        Me.ChckBxTimeTimeTwo24.TabIndex = 2
-        Me.ChckBxTimeTimeTwo24.Text = "Time Two  24 Hour"
-        Me.ChckBxTimeTimeTwo24.UseVisualStyleBackColor = True
+        Me.chckBxTimeTimeTwo24.AutoSize = True
+        Me.chckBxTimeTimeTwo24.Location = New System.Drawing.Point(57, 65)
+        Me.chckBxTimeTimeTwo24.Name = "chckBxTimeTimeTwo24"
+        Me.chckBxTimeTimeTwo24.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimeTimeTwo24.Size = New System.Drawing.Size(117, 17)
+        Me.chckBxTimeTimeTwo24.TabIndex = 2
+        Me.chckBxTimeTimeTwo24.Text = "Time Two  24 Hour"
+        Me.chckBxTimeTimeTwo24.UseVisualStyleBackColor = True
         '
-        'ChckBxTimeTimeOne24
+        'chckBxTimeTimeOne24
         '
-        Me.ChckBxTimeTimeOne24.AutoSize = True
-        Me.ChckBxTimeTimeOne24.Location = New System.Drawing.Point(58, 42)
-        Me.ChckBxTimeTimeOne24.Name = "ChckBxTimeTimeOne24"
-        Me.ChckBxTimeTimeOne24.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxTimeTimeOne24.Size = New System.Drawing.Size(116, 17)
-        Me.ChckBxTimeTimeOne24.TabIndex = 1
-        Me.ChckBxTimeTimeOne24.Text = "Time One  24 Hour"
-        Me.ChckBxTimeTimeOne24.UseVisualStyleBackColor = True
+        Me.chckBxTimeTimeOne24.AutoSize = True
+        Me.chckBxTimeTimeOne24.Location = New System.Drawing.Point(58, 42)
+        Me.chckBxTimeTimeOne24.Name = "chckBxTimeTimeOne24"
+        Me.chckBxTimeTimeOne24.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimeTimeOne24.Size = New System.Drawing.Size(116, 17)
+        Me.chckBxTimeTimeOne24.TabIndex = 1
+        Me.chckBxTimeTimeOne24.Text = "Time One  24 Hour"
+        Me.chckBxTimeTimeOne24.UseVisualStyleBackColor = True
         '
-        'ChckBxTimeSystem24
+        'chckBxTimeSystem24
         '
-        Me.ChckBxTimeSystem24.AutoSize = True
-        Me.ChckBxTimeSystem24.Location = New System.Drawing.Point(20, 19)
-        Me.ChckBxTimeSystem24.Name = "ChckBxTimeSystem24"
-        Me.ChckBxTimeSystem24.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxTimeSystem24.Size = New System.Drawing.Size(154, 17)
-        Me.ChckBxTimeSystem24.TabIndex = 0
-        Me.ChckBxTimeSystem24.Text = "System Tray Time  24 Hour"
-        Me.ChckBxTimeSystem24.UseVisualStyleBackColor = True
+        Me.chckBxTimeSystem24.AutoSize = True
+        Me.chckBxTimeSystem24.Location = New System.Drawing.Point(20, 19)
+        Me.chckBxTimeSystem24.Name = "chckBxTimeSystem24"
+        Me.chckBxTimeSystem24.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimeSystem24.Size = New System.Drawing.Size(154, 17)
+        Me.chckBxTimeSystem24.TabIndex = 0
+        Me.chckBxTimeSystem24.Text = "System Tray Time  24 Hour"
+        Me.chckBxTimeSystem24.UseVisualStyleBackColor = True
         '
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.chckBxIdleTime)
         Me.GroupBox3.Controls.Add(Me.lblTimeTwo)
-        Me.GroupBox3.Controls.Add(Me.CmbBxDefaultTimeTwoFormat)
+        Me.GroupBox3.Controls.Add(Me.cmbBxDefaultTimeTwoFormat)
         Me.GroupBox3.Controls.Add(Me.Label21)
-        Me.GroupBox3.Controls.Add(Me.CmbBxDefaultTimeFormat)
+        Me.GroupBox3.Controls.Add(Me.cmbBxDefaultTimeFormat)
         Me.GroupBox3.Controls.Add(Me.Label8)
-        Me.GroupBox3.Controls.Add(Me.UpDwnVoiceDisplay)
-        Me.GroupBox3.Controls.Add(Me.ChckBxOptionsVoice)
+        Me.GroupBox3.Controls.Add(Me.upDwnVoiceDisplay)
+        Me.GroupBox3.Controls.Add(Me.chckBxOptionsVoice)
         Me.GroupBox3.Controls.Add(Me.chckBxTimeTwoFormats)
-        Me.GroupBox3.Controls.Add(Me.ChckBxTimeHexIntuitor)
-        Me.GroupBox3.Controls.Add(Me.ChckBxTimeNetSeconds)
+        Me.GroupBox3.Controls.Add(Me.chckBxTimeHexIntuitor)
+        Me.GroupBox3.Controls.Add(Me.chckBxTimeNetSeconds)
         Me.GroupBox3.Controls.Add(Me.Label6)
         Me.GroupBox3.Controls.Add(Me.chckBxTimeSwatch)
-        Me.GroupBox3.Controls.Add(Me.UpDwnTimeDisplay)
-        Me.GroupBox3.Controls.Add(Me.ChckBxTimeToast)
+        Me.GroupBox3.Controls.Add(Me.upDwnTimeDisplay)
+        Me.GroupBox3.Controls.Add(Me.chckBxTimeToast)
         Me.GroupBox3.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(648, 153)
         Me.GroupBox3.TabIndex = 5
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Settings"
+        Me.GroupBox3.Text = "General Time Settings"
         '
         'chckBxIdleTime
         '
@@ -832,15 +831,15 @@ Partial Class frmOptions
         Me.lblTimeTwo.TabIndex = 15
         Me.lblTimeTwo.Text = "Default Two Time Format"
         '
-        'CmbBxDefaultTimeTwoFormat
+        'cmbBxDefaultTimeTwoFormat
         '
-        Me.CmbBxDefaultTimeTwoFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxDefaultTimeTwoFormat.Enabled = False
-        Me.CmbBxDefaultTimeTwoFormat.FormattingEnabled = True
-        Me.CmbBxDefaultTimeTwoFormat.Location = New System.Drawing.Point(540, 41)
-        Me.CmbBxDefaultTimeTwoFormat.Name = "CmbBxDefaultTimeTwoFormat"
-        Me.CmbBxDefaultTimeTwoFormat.Size = New System.Drawing.Size(86, 21)
-        Me.CmbBxDefaultTimeTwoFormat.TabIndex = 14
+        Me.cmbBxDefaultTimeTwoFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbBxDefaultTimeTwoFormat.Enabled = False
+        Me.cmbBxDefaultTimeTwoFormat.FormattingEnabled = True
+        Me.cmbBxDefaultTimeTwoFormat.Location = New System.Drawing.Point(540, 41)
+        Me.cmbBxDefaultTimeTwoFormat.Name = "cmbBxDefaultTimeTwoFormat"
+        Me.cmbBxDefaultTimeTwoFormat.Size = New System.Drawing.Size(86, 21)
+        Me.cmbBxDefaultTimeTwoFormat.TabIndex = 14
         '
         'Label21
         '
@@ -851,14 +850,14 @@ Partial Class frmOptions
         Me.Label21.TabIndex = 13
         Me.Label21.Text = "Default Time Format"
         '
-        'CmbBxDefaultTimeFormat
+        'cmbBxDefaultTimeFormat
         '
-        Me.CmbBxDefaultTimeFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbBxDefaultTimeFormat.FormattingEnabled = True
-        Me.CmbBxDefaultTimeFormat.Location = New System.Drawing.Point(540, 14)
-        Me.CmbBxDefaultTimeFormat.Name = "CmbBxDefaultTimeFormat"
-        Me.CmbBxDefaultTimeFormat.Size = New System.Drawing.Size(86, 21)
-        Me.CmbBxDefaultTimeFormat.TabIndex = 12
+        Me.cmbBxDefaultTimeFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbBxDefaultTimeFormat.FormattingEnabled = True
+        Me.cmbBxDefaultTimeFormat.Location = New System.Drawing.Point(540, 14)
+        Me.cmbBxDefaultTimeFormat.Name = "cmbBxDefaultTimeFormat"
+        Me.cmbBxDefaultTimeFormat.Size = New System.Drawing.Size(86, 21)
+        Me.cmbBxDefaultTimeFormat.TabIndex = 12
         '
         'Label8
         '
@@ -869,25 +868,25 @@ Partial Class frmOptions
         Me.Label8.TabIndex = 11
         Me.Label8.Text = "Time to speech [every "
         '
-        'UpDwnVoiceDisplay
+        'upDwnVoiceDisplay
         '
-        Me.UpDwnVoiceDisplay.Location = New System.Drawing.Point(202, 112)
-        Me.UpDwnVoiceDisplay.Maximum = New Decimal(New Integer() {60, 0, 0, 0})
-        Me.UpDwnVoiceDisplay.Name = "UpDwnVoiceDisplay"
-        Me.UpDwnVoiceDisplay.Size = New System.Drawing.Size(38, 20)
-        Me.UpDwnVoiceDisplay.TabIndex = 10
-        Me.UpDwnVoiceDisplay.Value = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.upDwnVoiceDisplay.Location = New System.Drawing.Point(202, 112)
+        Me.upDwnVoiceDisplay.Maximum = New Decimal(New Integer() {60, 0, 0, 0})
+        Me.upDwnVoiceDisplay.Name = "upDwnVoiceDisplay"
+        Me.upDwnVoiceDisplay.Size = New System.Drawing.Size(38, 20)
+        Me.upDwnVoiceDisplay.TabIndex = 10
+        Me.upDwnVoiceDisplay.Value = New Decimal(New Integer() {5, 0, 0, 0})
         '
-        'ChckBxOptionsVoice
+        'chckBxOptionsVoice
         '
-        Me.ChckBxOptionsVoice.AutoSize = True
-        Me.ChckBxOptionsVoice.Location = New System.Drawing.Point(249, 115)
-        Me.ChckBxOptionsVoice.Name = "ChckBxOptionsVoice"
-        Me.ChckBxOptionsVoice.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxOptionsVoice.Size = New System.Drawing.Size(50, 17)
-        Me.ChckBxOptionsVoice.TabIndex = 9
-        Me.ChckBxOptionsVoice.Text = "[mins"
-        Me.ChckBxOptionsVoice.UseVisualStyleBackColor = True
+        Me.chckBxOptionsVoice.AutoSize = True
+        Me.chckBxOptionsVoice.Location = New System.Drawing.Point(249, 115)
+        Me.chckBxOptionsVoice.Name = "chckBxOptionsVoice"
+        Me.chckBxOptionsVoice.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxOptionsVoice.Size = New System.Drawing.Size(50, 17)
+        Me.chckBxOptionsVoice.TabIndex = 9
+        Me.chckBxOptionsVoice.Text = "[mins"
+        Me.chckBxOptionsVoice.UseVisualStyleBackColor = True
         '
         'chckBxTimeTwoFormats
         '
@@ -900,27 +899,27 @@ Partial Class frmOptions
         Me.chckBxTimeTwoFormats.Text = "Display Two Time Formats"
         Me.chckBxTimeTwoFormats.UseVisualStyleBackColor = True
         '
-        'ChckBxTimeHexIntuitor
+        'chckBxTimeHexIntuitor
         '
-        Me.ChckBxTimeHexIntuitor.AutoSize = True
-        Me.ChckBxTimeHexIntuitor.Location = New System.Drawing.Point(336, 107)
-        Me.ChckBxTimeHexIntuitor.Name = "ChckBxTimeHexIntuitor"
-        Me.ChckBxTimeHexIntuitor.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxTimeHexIntuitor.Size = New System.Drawing.Size(290, 17)
-        Me.ChckBxTimeHexIntuitor.TabIndex = 7
-        Me.ChckBxTimeHexIntuitor.Text = "Use Intuitor-hextime formatting i.e. Underscore seperator"
-        Me.ChckBxTimeHexIntuitor.UseVisualStyleBackColor = True
+        Me.chckBxTimeHexIntuitor.AutoSize = True
+        Me.chckBxTimeHexIntuitor.Location = New System.Drawing.Point(336, 107)
+        Me.chckBxTimeHexIntuitor.Name = "chckBxTimeHexIntuitor"
+        Me.chckBxTimeHexIntuitor.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimeHexIntuitor.Size = New System.Drawing.Size(290, 17)
+        Me.chckBxTimeHexIntuitor.TabIndex = 7
+        Me.chckBxTimeHexIntuitor.Text = "Use Intuitor-hextime formatting i.e. Underscore seperator"
+        Me.chckBxTimeHexIntuitor.UseVisualStyleBackColor = True
         '
-        'ChckBxTimeNetSeconds
+        'chckBxTimeNetSeconds
         '
-        Me.ChckBxTimeNetSeconds.AutoSize = True
-        Me.ChckBxTimeNetSeconds.Location = New System.Drawing.Point(432, 84)
-        Me.ChckBxTimeNetSeconds.Name = "ChckBxTimeNetSeconds"
-        Me.ChckBxTimeNetSeconds.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxTimeNetSeconds.Size = New System.Drawing.Size(194, 17)
-        Me.ChckBxTimeNetSeconds.TabIndex = 1
-        Me.ChckBxTimeNetSeconds.Text = "New Earth Time to display Seconds"
-        Me.ChckBxTimeNetSeconds.UseVisualStyleBackColor = True
+        Me.chckBxTimeNetSeconds.AutoSize = True
+        Me.chckBxTimeNetSeconds.Location = New System.Drawing.Point(432, 84)
+        Me.chckBxTimeNetSeconds.Name = "chckBxTimeNetSeconds"
+        Me.chckBxTimeNetSeconds.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimeNetSeconds.Size = New System.Drawing.Size(194, 17)
+        Me.chckBxTimeNetSeconds.TabIndex = 1
+        Me.chckBxTimeNetSeconds.Text = "New Earth Time to display Seconds"
+        Me.chckBxTimeNetSeconds.UseVisualStyleBackColor = True
         '
         'Label6
         '
@@ -942,34 +941,34 @@ Partial Class frmOptions
         Me.chckBxTimeSwatch.Text = "Swatch Time to display Centibeats"
         Me.chckBxTimeSwatch.UseVisualStyleBackColor = True
         '
-        'UpDwnTimeDisplay
+        'upDwnTimeDisplay
         '
-        Me.UpDwnTimeDisplay.Location = New System.Drawing.Point(202, 86)
-        Me.UpDwnTimeDisplay.Maximum = New Decimal(New Integer() {60, 0, 0, 0})
-        Me.UpDwnTimeDisplay.Name = "UpDwnTimeDisplay"
-        Me.UpDwnTimeDisplay.Size = New System.Drawing.Size(38, 20)
-        Me.UpDwnTimeDisplay.TabIndex = 6
-        Me.UpDwnTimeDisplay.Value = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.upDwnTimeDisplay.Location = New System.Drawing.Point(202, 86)
+        Me.upDwnTimeDisplay.Maximum = New Decimal(New Integer() {60, 0, 0, 0})
+        Me.upDwnTimeDisplay.Name = "upDwnTimeDisplay"
+        Me.upDwnTimeDisplay.Size = New System.Drawing.Size(38, 20)
+        Me.upDwnTimeDisplay.TabIndex = 6
+        Me.upDwnTimeDisplay.Value = New Decimal(New Integer() {5, 0, 0, 0})
         '
-        'ChckBxTimeToast
+        'chckBxTimeToast
         '
-        Me.ChckBxTimeToast.AutoSize = True
-        Me.ChckBxTimeToast.Checked = True
-        Me.ChckBxTimeToast.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChckBxTimeToast.Location = New System.Drawing.Point(249, 87)
-        Me.ChckBxTimeToast.Name = "ChckBxTimeToast"
-        Me.ChckBxTimeToast.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxTimeToast.Size = New System.Drawing.Size(50, 17)
-        Me.ChckBxTimeToast.TabIndex = 3
-        Me.ChckBxTimeToast.Text = "[mins"
-        Me.ChckBxTimeToast.UseVisualStyleBackColor = True
+        Me.chckBxTimeToast.AutoSize = True
+        Me.chckBxTimeToast.Checked = True
+        Me.chckBxTimeToast.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chckBxTimeToast.Location = New System.Drawing.Point(249, 87)
+        Me.chckBxTimeToast.Name = "chckBxTimeToast"
+        Me.chckBxTimeToast.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimeToast.Size = New System.Drawing.Size(50, 17)
+        Me.chckBxTimeToast.TabIndex = 3
+        Me.chckBxTimeToast.Text = "[mins"
+        Me.chckBxTimeToast.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.ChckBxTimeHalfChimes)
-        Me.GroupBox1.Controls.Add(Me.ChckBxTimeQuarterChimes)
-        Me.GroupBox1.Controls.Add(Me.ChckBxTimeHourlyChimes)
-        Me.GroupBox1.Controls.Add(Me.ChckBxTimeHourPips)
+        Me.GroupBox1.Controls.Add(Me.chckBxTimeHalfChimes)
+        Me.GroupBox1.Controls.Add(Me.chckBxTimeQuarterChimes)
+        Me.GroupBox1.Controls.Add(Me.chckBxTimeHourlyChimes)
+        Me.GroupBox1.Controls.Add(Me.chckBxTimeHourPips)
         Me.GroupBox1.Location = New System.Drawing.Point(6, 165)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(310, 88)
@@ -977,64 +976,106 @@ Partial Class frmOptions
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Chimes"
         '
-        'ChckBxTimeHalfChimes
+        'chckBxTimeHalfChimes
         '
-        Me.ChckBxTimeHalfChimes.AutoSize = True
-        Me.ChckBxTimeHalfChimes.Location = New System.Drawing.Point(191, 42)
-        Me.ChckBxTimeHalfChimes.Name = "ChckBxTimeHalfChimes"
-        Me.ChckBxTimeHalfChimes.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxTimeHalfChimes.Size = New System.Drawing.Size(108, 17)
-        Me.ChckBxTimeHalfChimes.TabIndex = 5
-        Me.ChckBxTimeHalfChimes.Text = "Half Hour Chimes"
-        Me.ChckBxTimeHalfChimes.UseVisualStyleBackColor = True
+        Me.chckBxTimeHalfChimes.AutoSize = True
+        Me.chckBxTimeHalfChimes.Location = New System.Drawing.Point(191, 42)
+        Me.chckBxTimeHalfChimes.Name = "chckBxTimeHalfChimes"
+        Me.chckBxTimeHalfChimes.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimeHalfChimes.Size = New System.Drawing.Size(108, 17)
+        Me.chckBxTimeHalfChimes.TabIndex = 5
+        Me.chckBxTimeHalfChimes.Text = "Half Hour Chimes"
+        Me.chckBxTimeHalfChimes.UseVisualStyleBackColor = True
         '
-        'ChckBxTimeQuarterChimes
+        'chckBxTimeQuarterChimes
         '
-        Me.ChckBxTimeQuarterChimes.AutoSize = True
-        Me.ChckBxTimeQuarterChimes.Location = New System.Drawing.Point(175, 65)
-        Me.ChckBxTimeQuarterChimes.Name = "ChckBxTimeQuarterChimes"
-        Me.ChckBxTimeQuarterChimes.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxTimeQuarterChimes.Size = New System.Drawing.Size(124, 17)
-        Me.ChckBxTimeQuarterChimes.TabIndex = 4
-        Me.ChckBxTimeQuarterChimes.Text = "Quarter Hour Chimes"
-        Me.ChckBxTimeQuarterChimes.UseVisualStyleBackColor = True
+        Me.chckBxTimeQuarterChimes.AutoSize = True
+        Me.chckBxTimeQuarterChimes.Location = New System.Drawing.Point(175, 65)
+        Me.chckBxTimeQuarterChimes.Name = "chckBxTimeQuarterChimes"
+        Me.chckBxTimeQuarterChimes.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimeQuarterChimes.Size = New System.Drawing.Size(124, 17)
+        Me.chckBxTimeQuarterChimes.TabIndex = 4
+        Me.chckBxTimeQuarterChimes.Text = "Quarter Hour Chimes"
+        Me.chckBxTimeQuarterChimes.UseVisualStyleBackColor = True
         '
-        'ChckBxTimeHourlyChimes
+        'chckBxTimeHourlyChimes
         '
-        Me.ChckBxTimeHourlyChimes.AutoSize = True
-        Me.ChckBxTimeHourlyChimes.Location = New System.Drawing.Point(206, 19)
-        Me.ChckBxTimeHourlyChimes.Name = "ChckBxTimeHourlyChimes"
-        Me.ChckBxTimeHourlyChimes.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxTimeHourlyChimes.Size = New System.Drawing.Size(93, 17)
-        Me.ChckBxTimeHourlyChimes.TabIndex = 3
-        Me.ChckBxTimeHourlyChimes.Text = "Hourly Chimes"
-        Me.ChckBxTimeHourlyChimes.UseVisualStyleBackColor = True
+        Me.chckBxTimeHourlyChimes.AutoSize = True
+        Me.chckBxTimeHourlyChimes.Location = New System.Drawing.Point(206, 19)
+        Me.chckBxTimeHourlyChimes.Name = "chckBxTimeHourlyChimes"
+        Me.chckBxTimeHourlyChimes.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimeHourlyChimes.Size = New System.Drawing.Size(93, 17)
+        Me.chckBxTimeHourlyChimes.TabIndex = 3
+        Me.chckBxTimeHourlyChimes.Text = "Hourly Chimes"
+        Me.chckBxTimeHourlyChimes.UseVisualStyleBackColor = True
         '
-        'ChckBxTimeHourPips
+        'chckBxTimeHourPips
         '
-        Me.ChckBxTimeHourPips.AutoSize = True
-        Me.ChckBxTimeHourPips.Checked = True
-        Me.ChckBxTimeHourPips.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ChckBxTimeHourPips.Location = New System.Drawing.Point(6, 19)
-        Me.ChckBxTimeHourPips.Name = "ChckBxTimeHourPips"
-        Me.ChckBxTimeHourPips.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxTimeHourPips.Size = New System.Drawing.Size(171, 17)
-        Me.ChckBxTimeHourPips.TabIndex = 2
-        Me.ChckBxTimeHourPips.Text = "Sound ""The Pips"" on the Hour"
-        Me.ChckBxTimeHourPips.UseVisualStyleBackColor = True
+        Me.chckBxTimeHourPips.AutoSize = True
+        Me.chckBxTimeHourPips.Checked = True
+        Me.chckBxTimeHourPips.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chckBxTimeHourPips.Location = New System.Drawing.Point(6, 19)
+        Me.chckBxTimeHourPips.Name = "chckBxTimeHourPips"
+        Me.chckBxTimeHourPips.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimeHourPips.Size = New System.Drawing.Size(171, 17)
+        Me.chckBxTimeHourPips.TabIndex = 2
+        Me.chckBxTimeHourPips.Text = "Sound ""The Pips"" on the Hour"
+        Me.chckBxTimeHourPips.UseVisualStyleBackColor = True
         '
-        'TbPgAnalogueKlock
+        'tbPgAnalogueKlock
         '
-        Me.TbPgAnalogueKlock.Controls.Add(Me.GroupBox23)
-        Me.TbPgAnalogueKlock.Location = New System.Drawing.Point(4, 25)
-        Me.TbPgAnalogueKlock.Name = "TbPgAnalogueKlock"
-        Me.TbPgAnalogueKlock.Size = New System.Drawing.Size(660, 265)
-        Me.TbPgAnalogueKlock.TabIndex = 11
-        Me.TbPgAnalogueKlock.Text = "Analogue Klock"
-        Me.TbPgAnalogueKlock.UseVisualStyleBackColor = True
+        Me.tbPgAnalogueKlock.Controls.Add(Me.GroupBox24)
+        Me.tbPgAnalogueKlock.Controls.Add(Me.GroupBox23)
+        Me.tbPgAnalogueKlock.Location = New System.Drawing.Point(4, 25)
+        Me.tbPgAnalogueKlock.Name = "tbPgAnalogueKlock"
+        Me.tbPgAnalogueKlock.Size = New System.Drawing.Size(660, 265)
+        Me.tbPgAnalogueKlock.TabIndex = 11
+        Me.tbPgAnalogueKlock.Text = "Analogue Klock"
+        Me.tbPgAnalogueKlock.UseVisualStyleBackColor = True
+        '
+        'GroupBox24
+        '
+        Me.GroupBox24.Controls.Add(Me.pctrBxAnlgKlockPicture)
+        Me.GroupBox24.Controls.Add(Me.txtBxAnlgKlockPictureLocation)
+        Me.GroupBox24.Controls.Add(Me.btnAnlgKlockPictureLocation)
+        Me.GroupBox24.Location = New System.Drawing.Point(298, 6)
+        Me.GroupBox24.Name = "GroupBox24"
+        Me.GroupBox24.Size = New System.Drawing.Size(359, 253)
+        Me.GroupBox24.TabIndex = 1
+        Me.GroupBox24.TabStop = False
+        Me.GroupBox24.Text = "Analogue Klock Background Picture"
+        '
+        'pctrBxAnlgKlockPicture
+        '
+        Me.pctrBxAnlgKlockPicture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pctrBxAnlgKlockPicture.Location = New System.Drawing.Point(127, 19)
+        Me.pctrBxAnlgKlockPicture.Name = "pctrBxAnlgKlockPicture"
+        Me.pctrBxAnlgKlockPicture.Size = New System.Drawing.Size(162, 150)
+        Me.pctrBxAnlgKlockPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pctrBxAnlgKlockPicture.TabIndex = 7
+        Me.pctrBxAnlgKlockPicture.TabStop = False
+        '
+        'txtBxAnlgKlockPictureLocation
+        '
+        Me.txtBxAnlgKlockPictureLocation.Location = New System.Drawing.Point(127, 213)
+        Me.txtBxAnlgKlockPictureLocation.Name = "txtBxAnlgKlockPictureLocation"
+        Me.txtBxAnlgKlockPictureLocation.ReadOnly = True
+        Me.txtBxAnlgKlockPictureLocation.Size = New System.Drawing.Size(162, 20)
+        Me.txtBxAnlgKlockPictureLocation.TabIndex = 9
+        '
+        'btnAnlgKlockPictureLocation
+        '
+        Me.btnAnlgKlockPictureLocation.Location = New System.Drawing.Point(173, 184)
+        Me.btnAnlgKlockPictureLocation.Name = "btnAnlgKlockPictureLocation"
+        Me.btnAnlgKlockPictureLocation.Size = New System.Drawing.Size(75, 23)
+        Me.btnAnlgKlockPictureLocation.TabIndex = 8
+        Me.btnAnlgKlockPictureLocation.Text = "..."
+        Me.btnAnlgKlockPictureLocation.UseVisualStyleBackColor = True
         '
         'GroupBox23
         '
+        Me.GroupBox23.Controls.Add(Me.chckBxAnlgKlockDisplayPicture)
+        Me.GroupBox23.Controls.Add(Me.chckBxAnlgKlockSavePos)
         Me.GroupBox23.Controls.Add(Me.chckBxAnlgKlockTransparent)
         Me.GroupBox23.Controls.Add(Me.btnAnlgKlockBackColour)
         Me.GroupBox23.Controls.Add(Me.lblAnlgKlockBackColour)
@@ -1044,14 +1085,36 @@ Partial Class frmOptions
         Me.GroupBox23.Controls.Add(Me.Label32)
         Me.GroupBox23.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox23.Name = "GroupBox23"
-        Me.GroupBox23.Size = New System.Drawing.Size(653, 253)
+        Me.GroupBox23.Size = New System.Drawing.Size(286, 253)
         Me.GroupBox23.TabIndex = 0
         Me.GroupBox23.TabStop = False
-        Me.GroupBox23.Text = "Settings"
+        Me.GroupBox23.Text = "Analogue Klock Settings"
+        '
+        'chckBxAnlgKlockSavePos
+        '
+        Me.chckBxAnlgKlockSavePos.AutoSize = True
+        Me.chckBxAnlgKlockSavePos.Location = New System.Drawing.Point(74, 206)
+        Me.chckBxAnlgKlockSavePos.Name = "chckBxAnlgKlockSavePos"
+        Me.chckBxAnlgKlockSavePos.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxAnlgKlockSavePos.Size = New System.Drawing.Size(163, 17)
+        Me.chckBxAnlgKlockSavePos.TabIndex = 10
+        Me.chckBxAnlgKlockSavePos.Text = "Save Screen Position on Exit"
+        Me.chckBxAnlgKlockSavePos.UseVisualStyleBackColor = True
+        '
+        'chckBxAnlgKlockTransparent
+        '
+        Me.chckBxAnlgKlockTransparent.AutoSize = True
+        Me.chckBxAnlgKlockTransparent.Location = New System.Drawing.Point(103, 152)
+        Me.chckBxAnlgKlockTransparent.Name = "chckBxAnlgKlockTransparent"
+        Me.chckBxAnlgKlockTransparent.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxAnlgKlockTransparent.Size = New System.Drawing.Size(134, 17)
+        Me.chckBxAnlgKlockTransparent.TabIndex = 6
+        Me.chckBxAnlgKlockTransparent.Text = "Transparent Klock Dial"
+        Me.chckBxAnlgKlockTransparent.UseVisualStyleBackColor = True
         '
         'btnAnlgKlockBackColour
         '
-        Me.btnAnlgKlockBackColour.Location = New System.Drawing.Point(270, 116)
+        Me.btnAnlgKlockBackColour.Location = New System.Drawing.Point(192, 111)
         Me.btnAnlgKlockBackColour.Name = "btnAnlgKlockBackColour"
         Me.btnAnlgKlockBackColour.Size = New System.Drawing.Size(75, 23)
         Me.btnAnlgKlockBackColour.TabIndex = 5
@@ -1061,7 +1124,7 @@ Partial Class frmOptions
         'lblAnlgKlockBackColour
         '
         Me.lblAnlgKlockBackColour.AutoSize = True
-        Me.lblAnlgKlockBackColour.Location = New System.Drawing.Point(142, 121)
+        Me.lblAnlgKlockBackColour.Location = New System.Drawing.Point(50, 116)
         Me.lblAnlgKlockBackColour.Name = "lblAnlgKlockBackColour"
         Me.lblAnlgKlockBackColour.Size = New System.Drawing.Size(127, 13)
         Me.lblAnlgKlockBackColour.TabIndex = 4
@@ -1072,7 +1135,7 @@ Partial Class frmOptions
         Me.chckBxAnlgKlockTime.AutoSize = True
         Me.chckBxAnlgKlockTime.Checked = True
         Me.chckBxAnlgKlockTime.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chckBxAnlgKlockTime.Location = New System.Drawing.Point(161, 86)
+        Me.chckBxAnlgKlockTime.Location = New System.Drawing.Point(53, 86)
         Me.chckBxAnlgKlockTime.Name = "chckBxAnlgKlockTime"
         Me.chckBxAnlgKlockTime.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chckBxAnlgKlockTime.Size = New System.Drawing.Size(184, 17)
@@ -1085,7 +1148,7 @@ Partial Class frmOptions
         Me.chckBxAnlgKlockDate.AutoSize = True
         Me.chckBxAnlgKlockDate.Checked = True
         Me.chckBxAnlgKlockDate.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chckBxAnlgKlockDate.Location = New System.Drawing.Point(193, 63)
+        Me.chckBxAnlgKlockDate.Location = New System.Drawing.Point(85, 63)
         Me.chckBxAnlgKlockDate.Name = "chckBxAnlgKlockDate"
         Me.chckBxAnlgKlockDate.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chckBxAnlgKlockDate.Size = New System.Drawing.Size(152, 17)
@@ -1095,7 +1158,7 @@ Partial Class frmOptions
         '
         'txtBxAnlgKlock
         '
-        Me.txtBxAnlgKlock.Location = New System.Drawing.Point(243, 26)
+        Me.txtBxAnlgKlock.Location = New System.Drawing.Point(135, 26)
         Me.txtBxAnlgKlock.Name = "txtBxAnlgKlock"
         Me.txtBxAnlgKlock.Size = New System.Drawing.Size(102, 20)
         Me.txtBxAnlgKlock.TabIndex = 1
@@ -1103,25 +1166,26 @@ Partial Class frmOptions
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(142, 29)
+        Me.Label32.Location = New System.Drawing.Point(50, 29)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(79, 13)
         Me.Label32.TabIndex = 0
         Me.Label32.Text = "Klock Dial Text"
         '
-        'TbPgTextKlock
+        'tbPgTextKlock
         '
-        Me.TbPgTextKlock.Controls.Add(Me.GroupBox22)
-        Me.TbPgTextKlock.Controls.Add(Me.GroupBox21)
-        Me.TbPgTextKlock.Location = New System.Drawing.Point(4, 25)
-        Me.TbPgTextKlock.Name = "TbPgTextKlock"
-        Me.TbPgTextKlock.Size = New System.Drawing.Size(660, 265)
-        Me.TbPgTextKlock.TabIndex = 10
-        Me.TbPgTextKlock.Text = "Text Klock"
-        Me.TbPgTextKlock.UseVisualStyleBackColor = True
+        Me.tbPgTextKlock.Controls.Add(Me.GroupBox22)
+        Me.tbPgTextKlock.Controls.Add(Me.GroupBox21)
+        Me.tbPgTextKlock.Location = New System.Drawing.Point(4, 25)
+        Me.tbPgTextKlock.Name = "tbPgTextKlock"
+        Me.tbPgTextKlock.Size = New System.Drawing.Size(660, 265)
+        Me.tbPgTextKlock.TabIndex = 10
+        Me.tbPgTextKlock.Text = "Text Klock"
+        Me.tbPgTextKlock.UseVisualStyleBackColor = True
         '
         'GroupBox22
         '
+        Me.GroupBox22.Controls.Add(Me.chckBxBgTxKlockSavePos)
         Me.GroupBox22.Controls.Add(Me.Label31)
         Me.GroupBox22.Controls.Add(Me.btnResetBigKlock)
         Me.GroupBox22.Controls.Add(Me.Label27)
@@ -1135,7 +1199,18 @@ Partial Class frmOptions
         Me.GroupBox22.Size = New System.Drawing.Size(323, 253)
         Me.GroupBox22.TabIndex = 1
         Me.GroupBox22.TabStop = False
-        Me.GroupBox22.Text = "Big text Klock"
+        Me.GroupBox22.Text = "Big Text Klock Settings"
+        '
+        'chckBxBgTxKlockSavePos
+        '
+        Me.chckBxBgTxKlockSavePos.AutoSize = True
+        Me.chckBxBgTxKlockSavePos.Location = New System.Drawing.Point(43, 141)
+        Me.chckBxBgTxKlockSavePos.Name = "chckBxBgTxKlockSavePos"
+        Me.chckBxBgTxKlockSavePos.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxBgTxKlockSavePos.Size = New System.Drawing.Size(163, 17)
+        Me.chckBxBgTxKlockSavePos.TabIndex = 14
+        Me.chckBxBgTxKlockSavePos.Text = "Save Screen Position on Exit"
+        Me.chckBxBgTxKlockSavePos.UseVisualStyleBackColor = True
         '
         'Label31
         '
@@ -1211,6 +1286,7 @@ Partial Class frmOptions
         '
         'GroupBox21
         '
+        Me.GroupBox21.Controls.Add(Me.chckBxSmlTxKlockSavePos)
         Me.GroupBox21.Controls.Add(Me.Label30)
         Me.GroupBox21.Controls.Add(Me.btnResetSmallKlock)
         Me.GroupBox21.Controls.Add(Me.Label26)
@@ -1224,7 +1300,18 @@ Partial Class frmOptions
         Me.GroupBox21.Size = New System.Drawing.Size(322, 253)
         Me.GroupBox21.TabIndex = 0
         Me.GroupBox21.TabStop = False
-        Me.GroupBox21.Text = "Small Text Klock"
+        Me.GroupBox21.Text = "Small Text Klock Settings"
+        '
+        'chckBxSmlTxKlockSavePos
+        '
+        Me.chckBxSmlTxKlockSavePos.AutoSize = True
+        Me.chckBxSmlTxKlockSavePos.Location = New System.Drawing.Point(43, 141)
+        Me.chckBxSmlTxKlockSavePos.Name = "chckBxSmlTxKlockSavePos"
+        Me.chckBxSmlTxKlockSavePos.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxSmlTxKlockSavePos.Size = New System.Drawing.Size(163, 17)
+        Me.chckBxSmlTxKlockSavePos.TabIndex = 11
+        Me.chckBxSmlTxKlockSavePos.Text = "Save Screen Position on Exit"
+        Me.chckBxSmlTxKlockSavePos.UseVisualStyleBackColor = True
         '
         'Label30
         '
@@ -1298,25 +1385,25 @@ Partial Class frmOptions
         Me.btnSmlTxtKlckFrClr.Text = "..."
         Me.btnSmlTxtKlckFrClr.UseVisualStyleBackColor = True
         '
-        'TbPgOtherStuff
+        'tbPgOtherStuff
         '
-        Me.TbPgOtherStuff.BackColor = System.Drawing.SystemColors.Control
-        Me.TbPgOtherStuff.Controls.Add(Me.GroupBox20)
-        Me.TbPgOtherStuff.Controls.Add(Me.GroupBox19)
-        Me.TbPgOtherStuff.Controls.Add(Me.GroupBox5)
-        Me.TbPgOtherStuff.Controls.Add(Me.GroupBox4)
-        Me.TbPgOtherStuff.Controls.Add(Me.GroupBox9)
-        Me.TbPgOtherStuff.Controls.Add(Me.GroupBox12)
-        Me.TbPgOtherStuff.Location = New System.Drawing.Point(4, 25)
-        Me.TbPgOtherStuff.Name = "TbPgOtherStuff"
-        Me.TbPgOtherStuff.Padding = New System.Windows.Forms.Padding(3)
-        Me.TbPgOtherStuff.Size = New System.Drawing.Size(660, 265)
-        Me.TbPgOtherStuff.TabIndex = 7
-        Me.TbPgOtherStuff.Text = "Other Stuff"
+        Me.tbPgOtherStuff.BackColor = System.Drawing.SystemColors.Control
+        Me.tbPgOtherStuff.Controls.Add(Me.GroupBox20)
+        Me.tbPgOtherStuff.Controls.Add(Me.GroupBox19)
+        Me.tbPgOtherStuff.Controls.Add(Me.GroupBox5)
+        Me.tbPgOtherStuff.Controls.Add(Me.GroupBox4)
+        Me.tbPgOtherStuff.Controls.Add(Me.GroupBox9)
+        Me.tbPgOtherStuff.Controls.Add(Me.GroupBox12)
+        Me.tbPgOtherStuff.Location = New System.Drawing.Point(4, 25)
+        Me.tbPgOtherStuff.Name = "tbPgOtherStuff"
+        Me.tbPgOtherStuff.Padding = New System.Windows.Forms.Padding(3)
+        Me.tbPgOtherStuff.Size = New System.Drawing.Size(660, 265)
+        Me.tbPgOtherStuff.TabIndex = 7
+        Me.tbPgOtherStuff.Text = "Other Stuff"
         '
         'GroupBox20
         '
-        Me.GroupBox20.Controls.Add(Me.ChckBxChckInternet)
+        Me.GroupBox20.Controls.Add(Me.chckBxChckInternet)
         Me.GroupBox20.Location = New System.Drawing.Point(9, 212)
         Me.GroupBox20.Name = "GroupBox20"
         Me.GroupBox20.Size = New System.Drawing.Size(645, 41)
@@ -1324,20 +1411,20 @@ Partial Class frmOptions
         Me.GroupBox20.TabStop = False
         Me.GroupBox20.Text = "Internet"
         '
-        'ChckBxChckInternet
+        'chckBxChckInternet
         '
-        Me.ChckBxChckInternet.AutoSize = True
-        Me.ChckBxChckInternet.Location = New System.Drawing.Point(49, 18)
-        Me.ChckBxChckInternet.Name = "ChckBxChckInternet"
-        Me.ChckBxChckInternet.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxChckInternet.Size = New System.Drawing.Size(172, 17)
-        Me.ChckBxChckInternet.TabIndex = 0
-        Me.ChckBxChckInternet.Text = "Check for Internet Connectivity"
-        Me.ChckBxChckInternet.UseVisualStyleBackColor = True
+        Me.chckBxChckInternet.AutoSize = True
+        Me.chckBxChckInternet.Location = New System.Drawing.Point(49, 18)
+        Me.chckBxChckInternet.Name = "chckBxChckInternet"
+        Me.chckBxChckInternet.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxChckInternet.Size = New System.Drawing.Size(172, 17)
+        Me.chckBxChckInternet.TabIndex = 0
+        Me.chckBxChckInternet.Text = "Check for Internet Connectivity"
+        Me.chckBxChckInternet.UseVisualStyleBackColor = True
         '
         'GroupBox19
         '
-        Me.GroupBox19.Controls.Add(Me.ChckBxDisableMonitorSleep)
+        Me.GroupBox19.Controls.Add(Me.chckBxDisableMonitorSleep)
         Me.GroupBox19.Location = New System.Drawing.Point(9, 165)
         Me.GroupBox19.Name = "GroupBox19"
         Me.GroupBox19.Size = New System.Drawing.Size(645, 41)
@@ -1345,21 +1432,21 @@ Partial Class frmOptions
         Me.GroupBox19.TabStop = False
         Me.GroupBox19.Text = "Monitor"
         '
-        'ChckBxDisableMonitorSleep
+        'chckBxDisableMonitorSleep
         '
-        Me.ChckBxDisableMonitorSleep.AutoSize = True
-        Me.ChckBxDisableMonitorSleep.Location = New System.Drawing.Point(49, 18)
-        Me.ChckBxDisableMonitorSleep.Name = "ChckBxDisableMonitorSleep"
-        Me.ChckBxDisableMonitorSleep.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxDisableMonitorSleep.Size = New System.Drawing.Size(172, 17)
-        Me.ChckBxDisableMonitorSleep.TabIndex = 0
-        Me.ChckBxDisableMonitorSleep.Text = "Disable Monitor Going to Sleep"
-        Me.ChckBxDisableMonitorSleep.UseVisualStyleBackColor = True
+        Me.chckBxDisableMonitorSleep.AutoSize = True
+        Me.chckBxDisableMonitorSleep.Location = New System.Drawing.Point(49, 18)
+        Me.chckBxDisableMonitorSleep.Name = "chckBxDisableMonitorSleep"
+        Me.chckBxDisableMonitorSleep.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxDisableMonitorSleep.Size = New System.Drawing.Size(172, 17)
+        Me.chckBxDisableMonitorSleep.TabIndex = 0
+        Me.chckBxDisableMonitorSleep.Text = "Disable Monitor Going to Sleep"
+        Me.chckBxDisableMonitorSleep.UseVisualStyleBackColor = True
         '
         'GroupBox5
         '
-        Me.GroupBox5.Controls.Add(Me.ChckBxReminderAdd)
-        Me.GroupBox5.Controls.Add(Me.ChckBxReminderTimeCheck)
+        Me.GroupBox5.Controls.Add(Me.chckBxReminderAdd)
+        Me.GroupBox5.Controls.Add(Me.chckBxReminderTimeCheck)
         Me.GroupBox5.Location = New System.Drawing.Point(6, 112)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(648, 47)
@@ -1367,33 +1454,33 @@ Partial Class frmOptions
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Reminder Settings"
         '
-        'ChckBxReminderAdd
+        'chckBxReminderAdd
         '
-        Me.ChckBxReminderAdd.AutoSize = True
-        Me.ChckBxReminderAdd.Location = New System.Drawing.Point(19, 19)
-        Me.ChckBxReminderAdd.Name = "ChckBxReminderAdd"
-        Me.ChckBxReminderAdd.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxReminderAdd.Size = New System.Drawing.Size(205, 17)
-        Me.ChckBxReminderAdd.TabIndex = 1
-        Me.ChckBxReminderAdd.Text = "Add Reminder to Notification and Title"
-        Me.ChckBxReminderAdd.UseVisualStyleBackColor = True
+        Me.chckBxReminderAdd.AutoSize = True
+        Me.chckBxReminderAdd.Location = New System.Drawing.Point(19, 19)
+        Me.chckBxReminderAdd.Name = "chckBxReminderAdd"
+        Me.chckBxReminderAdd.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxReminderAdd.Size = New System.Drawing.Size(205, 17)
+        Me.chckBxReminderAdd.TabIndex = 1
+        Me.chckBxReminderAdd.Text = "Add Reminder to Notification and Title"
+        Me.chckBxReminderAdd.UseVisualStyleBackColor = True
         '
-        'ChckBxReminderTimeCheck
+        'chckBxReminderTimeCheck
         '
-        Me.ChckBxReminderTimeCheck.AutoSize = True
-        Me.ChckBxReminderTimeCheck.Location = New System.Drawing.Point(292, 19)
-        Me.ChckBxReminderTimeCheck.Name = "ChckBxReminderTimeCheck"
-        Me.ChckBxReminderTimeCheck.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxReminderTimeCheck.Size = New System.Drawing.Size(94, 17)
-        Me.ChckBxReminderTimeCheck.TabIndex = 0
-        Me.ChckBxReminderTimeCheck.Text = "Time checked"
-        Me.ChckBxReminderTimeCheck.UseVisualStyleBackColor = True
+        Me.chckBxReminderTimeCheck.AutoSize = True
+        Me.chckBxReminderTimeCheck.Location = New System.Drawing.Point(292, 19)
+        Me.chckBxReminderTimeCheck.Name = "chckBxReminderTimeCheck"
+        Me.chckBxReminderTimeCheck.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxReminderTimeCheck.Size = New System.Drawing.Size(94, 17)
+        Me.chckBxReminderTimeCheck.TabIndex = 0
+        Me.chckBxReminderTimeCheck.Text = "Time checked"
+        Me.chckBxReminderTimeCheck.UseVisualStyleBackColor = True
         '
         'GroupBox4
         '
-        Me.GroupBox4.Controls.Add(Me.ChckBxTimerAdd)
-        Me.GroupBox4.Controls.Add(Me.ChckBxTimerHigh)
-        Me.GroupBox4.Controls.Add(Me.ChckBxClearSplit)
+        Me.GroupBox4.Controls.Add(Me.chckBxTimerAdd)
+        Me.GroupBox4.Controls.Add(Me.chckBxTimerHigh)
+        Me.GroupBox4.Controls.Add(Me.chckBxClearSplit)
         Me.GroupBox4.Location = New System.Drawing.Point(6, 59)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(648, 47)
@@ -1401,42 +1488,42 @@ Partial Class frmOptions
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Timer Settings"
         '
-        'ChckBxTimerAdd
+        'chckBxTimerAdd
         '
-        Me.ChckBxTimerAdd.AutoSize = True
-        Me.ChckBxTimerAdd.Location = New System.Drawing.Point(38, 19)
-        Me.ChckBxTimerAdd.Name = "ChckBxTimerAdd"
-        Me.ChckBxTimerAdd.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxTimerAdd.Size = New System.Drawing.Size(186, 17)
-        Me.ChckBxTimerAdd.TabIndex = 2
-        Me.ChckBxTimerAdd.Text = "Add Timer to Notification and Title"
-        Me.ChckBxTimerAdd.UseVisualStyleBackColor = True
+        Me.chckBxTimerAdd.AutoSize = True
+        Me.chckBxTimerAdd.Location = New System.Drawing.Point(38, 19)
+        Me.chckBxTimerAdd.Name = "chckBxTimerAdd"
+        Me.chckBxTimerAdd.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimerAdd.Size = New System.Drawing.Size(186, 17)
+        Me.chckBxTimerAdd.TabIndex = 2
+        Me.chckBxTimerAdd.Text = "Add Timer to Notification and Title"
+        Me.chckBxTimerAdd.UseVisualStyleBackColor = True
         '
-        'ChckBxTimerHigh
+        'chckBxTimerHigh
         '
-        Me.ChckBxTimerHigh.AutoSize = True
-        Me.ChckBxTimerHigh.Location = New System.Drawing.Point(431, 19)
-        Me.ChckBxTimerHigh.Name = "ChckBxTimerHigh"
-        Me.ChckBxTimerHigh.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxTimerHigh.Size = New System.Drawing.Size(154, 17)
-        Me.ChckBxTimerHigh.TabIndex = 0
-        Me.ChckBxTimerHigh.Text = "Timer to show MilliSeconds"
-        Me.ChckBxTimerHigh.UseVisualStyleBackColor = True
+        Me.chckBxTimerHigh.AutoSize = True
+        Me.chckBxTimerHigh.Location = New System.Drawing.Point(431, 19)
+        Me.chckBxTimerHigh.Name = "chckBxTimerHigh"
+        Me.chckBxTimerHigh.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxTimerHigh.Size = New System.Drawing.Size(154, 17)
+        Me.chckBxTimerHigh.TabIndex = 0
+        Me.chckBxTimerHigh.Text = "Timer to show MilliSeconds"
+        Me.chckBxTimerHigh.UseVisualStyleBackColor = True
         '
-        'ChckBxClearSplit
+        'chckBxClearSplit
         '
-        Me.ChckBxClearSplit.AutoSize = True
-        Me.ChckBxClearSplit.Location = New System.Drawing.Point(277, 19)
-        Me.ChckBxClearSplit.Name = "ChckBxClearSplit"
-        Me.ChckBxClearSplit.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxClearSplit.Size = New System.Drawing.Size(109, 17)
-        Me.ChckBxClearSplit.TabIndex = 1
-        Me.ChckBxClearSplit.Text = "Clear to clear split"
-        Me.ChckBxClearSplit.UseVisualStyleBackColor = True
+        Me.chckBxClearSplit.AutoSize = True
+        Me.chckBxClearSplit.Location = New System.Drawing.Point(277, 19)
+        Me.chckBxClearSplit.Name = "chckBxClearSplit"
+        Me.chckBxClearSplit.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxClearSplit.Size = New System.Drawing.Size(109, 17)
+        Me.chckBxClearSplit.TabIndex = 1
+        Me.chckBxClearSplit.Text = "Clear to clear split"
+        Me.chckBxClearSplit.UseVisualStyleBackColor = True
         '
         'GroupBox9
         '
-        Me.GroupBox9.Controls.Add(Me.ChckBxCountdownAdd)
+        Me.GroupBox9.Controls.Add(Me.chckBxCountdownAdd)
         Me.GroupBox9.Location = New System.Drawing.Point(334, 6)
         Me.GroupBox9.Name = "GroupBox9"
         Me.GroupBox9.Size = New System.Drawing.Size(320, 47)
@@ -1444,20 +1531,20 @@ Partial Class frmOptions
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "Countdown Settings"
         '
-        'ChckBxCountdownAdd
+        'chckBxCountdownAdd
         '
-        Me.ChckBxCountdownAdd.AutoSize = True
-        Me.ChckBxCountdownAdd.Location = New System.Drawing.Point(10, 19)
-        Me.ChckBxCountdownAdd.Name = "ChckBxCountdownAdd"
-        Me.ChckBxCountdownAdd.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxCountdownAdd.Size = New System.Drawing.Size(214, 17)
-        Me.ChckBxCountdownAdd.TabIndex = 0
-        Me.ChckBxCountdownAdd.Text = "Add Countdown to Notification and Title"
-        Me.ChckBxCountdownAdd.UseVisualStyleBackColor = True
+        Me.chckBxCountdownAdd.AutoSize = True
+        Me.chckBxCountdownAdd.Location = New System.Drawing.Point(10, 19)
+        Me.chckBxCountdownAdd.Name = "chckBxCountdownAdd"
+        Me.chckBxCountdownAdd.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxCountdownAdd.Size = New System.Drawing.Size(214, 17)
+        Me.chckBxCountdownAdd.TabIndex = 0
+        Me.chckBxCountdownAdd.Text = "Add Countdown to Notification and Title"
+        Me.chckBxCountdownAdd.UseVisualStyleBackColor = True
         '
         'GroupBox12
         '
-        Me.GroupBox12.Controls.Add(Me.ChckBxWorldKlockAdd)
+        Me.GroupBox12.Controls.Add(Me.chckBxWorldKlockAdd)
         Me.GroupBox12.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox12.Name = "GroupBox12"
         Me.GroupBox12.Size = New System.Drawing.Size(320, 47)
@@ -1465,33 +1552,33 @@ Partial Class frmOptions
         Me.GroupBox12.TabStop = False
         Me.GroupBox12.Text = "World KlockSettings"
         '
-        'ChckBxWorldKlockAdd
+        'chckBxWorldKlockAdd
         '
-        Me.ChckBxWorldKlockAdd.AutoSize = True
-        Me.ChckBxWorldKlockAdd.Location = New System.Drawing.Point(6, 19)
-        Me.ChckBxWorldKlockAdd.Name = "ChckBxWorldKlockAdd"
-        Me.ChckBxWorldKlockAdd.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxWorldKlockAdd.Size = New System.Drawing.Size(218, 17)
-        Me.ChckBxWorldKlockAdd.TabIndex = 0
-        Me.ChckBxWorldKlockAdd.Text = "Add World Klock to Notification and Title"
-        Me.ChckBxWorldKlockAdd.UseVisualStyleBackColor = True
+        Me.chckBxWorldKlockAdd.AutoSize = True
+        Me.chckBxWorldKlockAdd.Location = New System.Drawing.Point(6, 19)
+        Me.chckBxWorldKlockAdd.Name = "chckBxWorldKlockAdd"
+        Me.chckBxWorldKlockAdd.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxWorldKlockAdd.Size = New System.Drawing.Size(218, 17)
+        Me.chckBxWorldKlockAdd.TabIndex = 0
+        Me.chckBxWorldKlockAdd.Text = "Add World Klock to Notification and Title"
+        Me.chckBxWorldKlockAdd.UseVisualStyleBackColor = True
         '
-        'TbPgArchive
+        'tbPgArchive
         '
-        Me.TbPgArchive.BackColor = System.Drawing.SystemColors.Control
-        Me.TbPgArchive.Controls.Add(Me.GroupBox11)
-        Me.TbPgArchive.Controls.Add(Me.GroupBox10)
-        Me.TbPgArchive.Location = New System.Drawing.Point(4, 25)
-        Me.TbPgArchive.Name = "TbPgArchive"
-        Me.TbPgArchive.Padding = New System.Windows.Forms.Padding(3)
-        Me.TbPgArchive.Size = New System.Drawing.Size(660, 265)
-        Me.TbPgArchive.TabIndex = 6
-        Me.TbPgArchive.Text = "Archive"
+        Me.tbPgArchive.BackColor = System.Drawing.SystemColors.Control
+        Me.tbPgArchive.Controls.Add(Me.GroupBox11)
+        Me.tbPgArchive.Controls.Add(Me.GroupBox10)
+        Me.tbPgArchive.Location = New System.Drawing.Point(4, 25)
+        Me.tbPgArchive.Name = "tbPgArchive"
+        Me.tbPgArchive.Padding = New System.Windows.Forms.Padding(3)
+        Me.tbPgArchive.Size = New System.Drawing.Size(660, 265)
+        Me.tbPgArchive.TabIndex = 6
+        Me.tbPgArchive.Text = "Archive"
         '
         'GroupBox11
         '
-        Me.GroupBox11.Controls.Add(Me.TxtBxArchiveFile)
-        Me.GroupBox11.Controls.Add(Me.TxtBxArchiveDirectory)
+        Me.GroupBox11.Controls.Add(Me.txtBxArchiveFile)
+        Me.GroupBox11.Controls.Add(Me.txtBxArchiveDirectory)
         Me.GroupBox11.Controls.Add(Me.btnArchiveFile)
         Me.GroupBox11.Controls.Add(Me.btnArchiveDirectory)
         Me.GroupBox11.Location = New System.Drawing.Point(6, 204)
@@ -1499,23 +1586,23 @@ Partial Class frmOptions
         Me.GroupBox11.Size = New System.Drawing.Size(648, 53)
         Me.GroupBox11.TabIndex = 1
         Me.GroupBox11.TabStop = False
-        Me.GroupBox11.Text = "Archive"
+        Me.GroupBox11.Text = "Archive Location"
         '
-        'TxtBxArchiveFile
+        'txtBxArchiveFile
         '
-        Me.TxtBxArchiveFile.Location = New System.Drawing.Point(434, 22)
-        Me.TxtBxArchiveFile.Name = "TxtBxArchiveFile"
-        Me.TxtBxArchiveFile.ReadOnly = True
-        Me.TxtBxArchiveFile.Size = New System.Drawing.Size(117, 20)
-        Me.TxtBxArchiveFile.TabIndex = 3
+        Me.txtBxArchiveFile.Location = New System.Drawing.Point(434, 22)
+        Me.txtBxArchiveFile.Name = "txtBxArchiveFile"
+        Me.txtBxArchiveFile.ReadOnly = True
+        Me.txtBxArchiveFile.Size = New System.Drawing.Size(117, 20)
+        Me.txtBxArchiveFile.TabIndex = 3
         '
-        'TxtBxArchiveDirectory
+        'txtBxArchiveDirectory
         '
-        Me.TxtBxArchiveDirectory.Location = New System.Drawing.Point(6, 19)
-        Me.TxtBxArchiveDirectory.Name = "TxtBxArchiveDirectory"
-        Me.TxtBxArchiveDirectory.ReadOnly = True
-        Me.TxtBxArchiveDirectory.Size = New System.Drawing.Size(341, 20)
-        Me.TxtBxArchiveDirectory.TabIndex = 2
+        Me.txtBxArchiveDirectory.Location = New System.Drawing.Point(6, 19)
+        Me.txtBxArchiveDirectory.Name = "txtBxArchiveDirectory"
+        Me.txtBxArchiveDirectory.ReadOnly = True
+        Me.txtBxArchiveDirectory.Size = New System.Drawing.Size(341, 20)
+        Me.txtBxArchiveDirectory.TabIndex = 2
         '
         'btnArchiveFile
         '
@@ -1537,22 +1624,22 @@ Partial Class frmOptions
         '
         'GroupBox10
         '
-        Me.GroupBox10.Controls.Add(Me.TxtBxOptionsSettingsFile)
-        Me.GroupBox10.Controls.Add(Me.TxtBxOptionsMemoFile)
+        Me.GroupBox10.Controls.Add(Me.txtBxOptionsSettingsFile)
+        Me.GroupBox10.Controls.Add(Me.txtBxOptionsMemoFile)
         Me.GroupBox10.Controls.Add(Me.Label22)
         Me.GroupBox10.Controls.Add(Me.btnOptionsMemoFile)
         Me.GroupBox10.Controls.Add(Me.label18)
         Me.GroupBox10.Controls.Add(Me.btnOptionsEventsFile)
-        Me.GroupBox10.Controls.Add(Me.TxtBxOptionsEventsFile)
+        Me.GroupBox10.Controls.Add(Me.txtBxOptionsEventsFile)
         Me.GroupBox10.Controls.Add(Me.Label13)
         Me.GroupBox10.Controls.Add(Me.Label12)
         Me.GroupBox10.Controls.Add(Me.Label11)
         Me.GroupBox10.Controls.Add(Me.Label7)
         Me.GroupBox10.Controls.Add(Me.btnOptionsPathReset)
         Me.GroupBox10.Controls.Add(Me.btnOptionsFriendsFile)
-        Me.GroupBox10.Controls.Add(Me.TxtBxOptionsFriendsFile)
+        Me.GroupBox10.Controls.Add(Me.txtBxOptionsFriendsFile)
         Me.GroupBox10.Controls.Add(Me.btnOptionsFriendsDirectory)
-        Me.GroupBox10.Controls.Add(Me.TxtBxOptionsFriendsDirectory)
+        Me.GroupBox10.Controls.Add(Me.txtBxOptionsFriendsDirectory)
         Me.GroupBox10.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox10.Name = "GroupBox10"
         Me.GroupBox10.Size = New System.Drawing.Size(648, 192)
@@ -1560,21 +1647,21 @@ Partial Class frmOptions
         Me.GroupBox10.TabStop = False
         Me.GroupBox10.Text = "Data Files"
         '
-        'TxtBxOptionsSettingsFile
+        'txtBxOptionsSettingsFile
         '
-        Me.TxtBxOptionsSettingsFile.Location = New System.Drawing.Point(434, 164)
-        Me.TxtBxOptionsSettingsFile.Name = "TxtBxOptionsSettingsFile"
-        Me.TxtBxOptionsSettingsFile.ReadOnly = True
-        Me.TxtBxOptionsSettingsFile.Size = New System.Drawing.Size(117, 20)
-        Me.TxtBxOptionsSettingsFile.TabIndex = 19
+        Me.txtBxOptionsSettingsFile.Location = New System.Drawing.Point(434, 164)
+        Me.txtBxOptionsSettingsFile.Name = "txtBxOptionsSettingsFile"
+        Me.txtBxOptionsSettingsFile.ReadOnly = True
+        Me.txtBxOptionsSettingsFile.Size = New System.Drawing.Size(117, 20)
+        Me.txtBxOptionsSettingsFile.TabIndex = 19
         '
-        'TxtBxOptionsMemoFile
+        'txtBxOptionsMemoFile
         '
-        Me.TxtBxOptionsMemoFile.Location = New System.Drawing.Point(434, 121)
-        Me.TxtBxOptionsMemoFile.Name = "TxtBxOptionsMemoFile"
-        Me.TxtBxOptionsMemoFile.ReadOnly = True
-        Me.TxtBxOptionsMemoFile.Size = New System.Drawing.Size(117, 20)
-        Me.TxtBxOptionsMemoFile.TabIndex = 18
+        Me.txtBxOptionsMemoFile.Location = New System.Drawing.Point(434, 121)
+        Me.txtBxOptionsMemoFile.Name = "txtBxOptionsMemoFile"
+        Me.txtBxOptionsMemoFile.ReadOnly = True
+        Me.txtBxOptionsMemoFile.Size = New System.Drawing.Size(117, 20)
+        Me.txtBxOptionsMemoFile.TabIndex = 18
         '
         'Label22
         '
@@ -1612,13 +1699,13 @@ Partial Class frmOptions
         Me.btnOptionsEventsFile.Text = "..."
         Me.btnOptionsEventsFile.UseVisualStyleBackColor = True
         '
-        'TxtBxOptionsEventsFile
+        'txtBxOptionsEventsFile
         '
-        Me.TxtBxOptionsEventsFile.Location = New System.Drawing.Point(434, 78)
-        Me.TxtBxOptionsEventsFile.Name = "TxtBxOptionsEventsFile"
-        Me.TxtBxOptionsEventsFile.ReadOnly = True
-        Me.TxtBxOptionsEventsFile.Size = New System.Drawing.Size(117, 20)
-        Me.TxtBxOptionsEventsFile.TabIndex = 12
+        Me.txtBxOptionsEventsFile.Location = New System.Drawing.Point(434, 78)
+        Me.txtBxOptionsEventsFile.Name = "txtBxOptionsEventsFile"
+        Me.txtBxOptionsEventsFile.ReadOnly = True
+        Me.txtBxOptionsEventsFile.Size = New System.Drawing.Size(117, 20)
+        Me.txtBxOptionsEventsFile.TabIndex = 12
         '
         'Label13
         '
@@ -1674,13 +1761,13 @@ Partial Class frmOptions
         Me.btnOptionsFriendsFile.Text = "..."
         Me.btnOptionsFriendsFile.UseVisualStyleBackColor = True
         '
-        'TxtBxOptionsFriendsFile
+        'txtBxOptionsFriendsFile
         '
-        Me.TxtBxOptionsFriendsFile.Location = New System.Drawing.Point(434, 35)
-        Me.TxtBxOptionsFriendsFile.Name = "TxtBxOptionsFriendsFile"
-        Me.TxtBxOptionsFriendsFile.ReadOnly = True
-        Me.TxtBxOptionsFriendsFile.Size = New System.Drawing.Size(117, 20)
-        Me.TxtBxOptionsFriendsFile.TabIndex = 2
+        Me.txtBxOptionsFriendsFile.Location = New System.Drawing.Point(434, 35)
+        Me.txtBxOptionsFriendsFile.Name = "txtBxOptionsFriendsFile"
+        Me.txtBxOptionsFriendsFile.ReadOnly = True
+        Me.txtBxOptionsFriendsFile.Size = New System.Drawing.Size(117, 20)
+        Me.txtBxOptionsFriendsFile.TabIndex = 2
         '
         'btnOptionsFriendsDirectory
         '
@@ -1691,41 +1778,41 @@ Partial Class frmOptions
         Me.btnOptionsFriendsDirectory.Text = "..."
         Me.btnOptionsFriendsDirectory.UseVisualStyleBackColor = True
         '
-        'TxtBxOptionsFriendsDirectory
+        'txtBxOptionsFriendsDirectory
         '
-        Me.TxtBxOptionsFriendsDirectory.Location = New System.Drawing.Point(6, 36)
-        Me.TxtBxOptionsFriendsDirectory.Name = "TxtBxOptionsFriendsDirectory"
-        Me.TxtBxOptionsFriendsDirectory.ReadOnly = True
-        Me.TxtBxOptionsFriendsDirectory.Size = New System.Drawing.Size(341, 20)
-        Me.TxtBxOptionsFriendsDirectory.TabIndex = 0
+        Me.txtBxOptionsFriendsDirectory.Location = New System.Drawing.Point(6, 36)
+        Me.txtBxOptionsFriendsDirectory.Name = "txtBxOptionsFriendsDirectory"
+        Me.txtBxOptionsFriendsDirectory.ReadOnly = True
+        Me.txtBxOptionsFriendsDirectory.Size = New System.Drawing.Size(341, 20)
+        Me.txtBxOptionsFriendsDirectory.TabIndex = 0
         '
-        'TbPgEvents
+        'tbPgEvents
         '
-        Me.TbPgEvents.Controls.Add(Me.GroupBox14)
-        Me.TbPgEvents.Location = New System.Drawing.Point(4, 25)
-        Me.TbPgEvents.Name = "TbPgEvents"
-        Me.TbPgEvents.Size = New System.Drawing.Size(660, 265)
-        Me.TbPgEvents.TabIndex = 8
-        Me.TbPgEvents.Text = "Events"
-        Me.TbPgEvents.UseVisualStyleBackColor = True
+        Me.tbPgEvents.Controls.Add(Me.GroupBox14)
+        Me.tbPgEvents.Location = New System.Drawing.Point(4, 25)
+        Me.tbPgEvents.Name = "tbPgEvents"
+        Me.tbPgEvents.Size = New System.Drawing.Size(660, 265)
+        Me.tbPgEvents.TabIndex = 8
+        Me.tbPgEvents.Text = "Events"
+        Me.tbPgEvents.UseVisualStyleBackColor = True
         '
         'GroupBox14
         '
-        Me.GroupBox14.Controls.Add(Me.PctrBxThirdEvent)
+        Me.GroupBox14.Controls.Add(Me.pctrBxThirdEvent)
         Me.GroupBox14.Controls.Add(Me.btnThirdEventNotificationColour)
-        Me.GroupBox14.Controls.Add(Me.PctrBxSecondEvent)
+        Me.GroupBox14.Controls.Add(Me.pctrBxSecondEvent)
         Me.GroupBox14.Controls.Add(Me.btnSecondEventNotificationColour)
-        Me.GroupBox14.Controls.Add(Me.PctrBxFirstEvent)
+        Me.GroupBox14.Controls.Add(Me.pctrBxFirstEvent)
         Me.GroupBox14.Controls.Add(Me.btnFirstEventNotificationColour)
         Me.GroupBox14.Controls.Add(Me.Label17)
         Me.GroupBox14.Controls.Add(Me.Label16)
         Me.GroupBox14.Controls.Add(Me.Label15)
         Me.GroupBox14.Controls.Add(Me.Label14)
         Me.GroupBox14.Controls.Add(Me.lblEventsInterval)
-        Me.GroupBox14.Controls.Add(Me.NmrcUpDwnEventsInterval)
-        Me.GroupBox14.Controls.Add(Me.NmrcUpDwnThirdReminder)
-        Me.GroupBox14.Controls.Add(Me.NmrcUpDwnSecondReminder)
-        Me.GroupBox14.Controls.Add(Me.NmrcUpDwnFirstReminder)
+        Me.GroupBox14.Controls.Add(Me.nmrcUpDwnEventsInterval)
+        Me.GroupBox14.Controls.Add(Me.nmrcUpDwnThirdReminder)
+        Me.GroupBox14.Controls.Add(Me.nmrcUpDwnSecondReminder)
+        Me.GroupBox14.Controls.Add(Me.nmrcUpDwnFirstReminder)
         Me.GroupBox14.Controls.Add(Me.lblThirdReminder)
         Me.GroupBox14.Controls.Add(Me.lblSecondReminder)
         Me.GroupBox14.Controls.Add(Me.lblFirstreminder)
@@ -1734,15 +1821,15 @@ Partial Class frmOptions
         Me.GroupBox14.Size = New System.Drawing.Size(653, 253)
         Me.GroupBox14.TabIndex = 0
         Me.GroupBox14.TabStop = False
-        Me.GroupBox14.Text = "Aged days"
+        Me.GroupBox14.Text = "Events Settings"
         '
-        'PctrBxThirdEvent
+        'pctrBxThirdEvent
         '
-        Me.PctrBxThirdEvent.Location = New System.Drawing.Point(316, 90)
-        Me.PctrBxThirdEvent.Name = "PctrBxThirdEvent"
-        Me.PctrBxThirdEvent.Size = New System.Drawing.Size(50, 23)
-        Me.PctrBxThirdEvent.TabIndex = 21
-        Me.PctrBxThirdEvent.TabStop = False
+        Me.pctrBxThirdEvent.Location = New System.Drawing.Point(316, 90)
+        Me.pctrBxThirdEvent.Name = "pctrBxThirdEvent"
+        Me.pctrBxThirdEvent.Size = New System.Drawing.Size(50, 23)
+        Me.pctrBxThirdEvent.TabIndex = 21
+        Me.pctrBxThirdEvent.TabStop = False
         '
         'btnThirdEventNotificationColour
         '
@@ -1753,13 +1840,13 @@ Partial Class frmOptions
         Me.btnThirdEventNotificationColour.Text = ",,,"
         Me.btnThirdEventNotificationColour.UseVisualStyleBackColor = True
         '
-        'PctrBxSecondEvent
+        'pctrBxSecondEvent
         '
-        Me.PctrBxSecondEvent.Location = New System.Drawing.Point(316, 62)
-        Me.PctrBxSecondEvent.Name = "PctrBxSecondEvent"
-        Me.PctrBxSecondEvent.Size = New System.Drawing.Size(50, 23)
-        Me.PctrBxSecondEvent.TabIndex = 18
-        Me.PctrBxSecondEvent.TabStop = False
+        Me.pctrBxSecondEvent.Location = New System.Drawing.Point(316, 62)
+        Me.pctrBxSecondEvent.Name = "pctrBxSecondEvent"
+        Me.pctrBxSecondEvent.Size = New System.Drawing.Size(50, 23)
+        Me.pctrBxSecondEvent.TabIndex = 18
+        Me.pctrBxSecondEvent.TabStop = False
         '
         'btnSecondEventNotificationColour
         '
@@ -1770,13 +1857,13 @@ Partial Class frmOptions
         Me.btnSecondEventNotificationColour.Text = ",,,"
         Me.btnSecondEventNotificationColour.UseVisualStyleBackColor = True
         '
-        'PctrBxFirstEvent
+        'pctrBxFirstEvent
         '
-        Me.PctrBxFirstEvent.Location = New System.Drawing.Point(316, 33)
-        Me.PctrBxFirstEvent.Name = "PctrBxFirstEvent"
-        Me.PctrBxFirstEvent.Size = New System.Drawing.Size(50, 23)
-        Me.PctrBxFirstEvent.TabIndex = 15
-        Me.PctrBxFirstEvent.TabStop = False
+        Me.pctrBxFirstEvent.Location = New System.Drawing.Point(316, 33)
+        Me.pctrBxFirstEvent.Name = "pctrBxFirstEvent"
+        Me.pctrBxFirstEvent.Size = New System.Drawing.Size(50, 23)
+        Me.pctrBxFirstEvent.TabIndex = 15
+        Me.pctrBxFirstEvent.TabStop = False
         '
         'btnFirstEventNotificationColour
         '
@@ -1832,37 +1919,37 @@ Partial Class frmOptions
         Me.lblEventsInterval.TabIndex = 7
         Me.lblEventsInterval.Text = "Interval to check events"
         '
-        'NmrcUpDwnEventsInterval
+        'nmrcUpDwnEventsInterval
         '
-        Me.NmrcUpDwnEventsInterval.Location = New System.Drawing.Point(136, 126)
-        Me.NmrcUpDwnEventsInterval.Name = "NmrcUpDwnEventsInterval"
-        Me.NmrcUpDwnEventsInterval.Size = New System.Drawing.Size(46, 20)
-        Me.NmrcUpDwnEventsInterval.TabIndex = 6
-        Me.NmrcUpDwnEventsInterval.Value = New Decimal(New Integer() {60, 0, 0, 0})
+        Me.nmrcUpDwnEventsInterval.Location = New System.Drawing.Point(136, 126)
+        Me.nmrcUpDwnEventsInterval.Name = "nmrcUpDwnEventsInterval"
+        Me.nmrcUpDwnEventsInterval.Size = New System.Drawing.Size(46, 20)
+        Me.nmrcUpDwnEventsInterval.TabIndex = 6
+        Me.nmrcUpDwnEventsInterval.Value = New Decimal(New Integer() {60, 0, 0, 0})
         '
-        'NmrcUpDwnThirdReminder
+        'nmrcUpDwnThirdReminder
         '
-        Me.NmrcUpDwnThirdReminder.Location = New System.Drawing.Point(136, 83)
-        Me.NmrcUpDwnThirdReminder.Name = "NmrcUpDwnThirdReminder"
-        Me.NmrcUpDwnThirdReminder.Size = New System.Drawing.Size(46, 20)
-        Me.NmrcUpDwnThirdReminder.TabIndex = 5
-        Me.NmrcUpDwnThirdReminder.Value = New Decimal(New Integer() {3, 0, 0, 0})
+        Me.nmrcUpDwnThirdReminder.Location = New System.Drawing.Point(136, 83)
+        Me.nmrcUpDwnThirdReminder.Name = "nmrcUpDwnThirdReminder"
+        Me.nmrcUpDwnThirdReminder.Size = New System.Drawing.Size(46, 20)
+        Me.nmrcUpDwnThirdReminder.TabIndex = 5
+        Me.nmrcUpDwnThirdReminder.Value = New Decimal(New Integer() {3, 0, 0, 0})
         '
-        'NmrcUpDwnSecondReminder
+        'nmrcUpDwnSecondReminder
         '
-        Me.NmrcUpDwnSecondReminder.Location = New System.Drawing.Point(136, 57)
-        Me.NmrcUpDwnSecondReminder.Name = "NmrcUpDwnSecondReminder"
-        Me.NmrcUpDwnSecondReminder.Size = New System.Drawing.Size(46, 20)
-        Me.NmrcUpDwnSecondReminder.TabIndex = 4
-        Me.NmrcUpDwnSecondReminder.Value = New Decimal(New Integer() {7, 0, 0, 0})
+        Me.nmrcUpDwnSecondReminder.Location = New System.Drawing.Point(136, 57)
+        Me.nmrcUpDwnSecondReminder.Name = "nmrcUpDwnSecondReminder"
+        Me.nmrcUpDwnSecondReminder.Size = New System.Drawing.Size(46, 20)
+        Me.nmrcUpDwnSecondReminder.TabIndex = 4
+        Me.nmrcUpDwnSecondReminder.Value = New Decimal(New Integer() {7, 0, 0, 0})
         '
-        'NmrcUpDwnFirstReminder
+        'nmrcUpDwnFirstReminder
         '
-        Me.NmrcUpDwnFirstReminder.Location = New System.Drawing.Point(136, 31)
-        Me.NmrcUpDwnFirstReminder.Name = "NmrcUpDwnFirstReminder"
-        Me.NmrcUpDwnFirstReminder.Size = New System.Drawing.Size(46, 20)
-        Me.NmrcUpDwnFirstReminder.TabIndex = 3
-        Me.NmrcUpDwnFirstReminder.Value = New Decimal(New Integer() {31, 0, 0, 0})
+        Me.nmrcUpDwnFirstReminder.Location = New System.Drawing.Point(136, 31)
+        Me.nmrcUpDwnFirstReminder.Name = "nmrcUpDwnFirstReminder"
+        Me.nmrcUpDwnFirstReminder.Size = New System.Drawing.Size(46, 20)
+        Me.nmrcUpDwnFirstReminder.TabIndex = 3
+        Me.nmrcUpDwnFirstReminder.Value = New Decimal(New Integer() {31, 0, 0, 0})
         '
         'lblThirdReminder
         '
@@ -1891,38 +1978,38 @@ Partial Class frmOptions
         Me.lblFirstreminder.TabIndex = 0
         Me.lblFirstreminder.Text = "First Reminder"
         '
-        'TbPgMemo
+        'tbPgMemo
         '
-        Me.TbPgMemo.Controls.Add(Me.GroupBox16)
-        Me.TbPgMemo.Location = New System.Drawing.Point(4, 25)
-        Me.TbPgMemo.Name = "TbPgMemo"
-        Me.TbPgMemo.Size = New System.Drawing.Size(660, 265)
-        Me.TbPgMemo.TabIndex = 9
-        Me.TbPgMemo.Text = "Memo"
-        Me.TbPgMemo.UseVisualStyleBackColor = True
+        Me.tbPgMemo.Controls.Add(Me.GroupBox16)
+        Me.tbPgMemo.Location = New System.Drawing.Point(4, 25)
+        Me.tbPgMemo.Name = "tbPgMemo"
+        Me.tbPgMemo.Size = New System.Drawing.Size(660, 265)
+        Me.tbPgMemo.TabIndex = 9
+        Me.tbPgMemo.Text = "Memo"
+        Me.tbPgMemo.UseVisualStyleBackColor = True
         '
         'GroupBox16
         '
-        Me.GroupBox16.Controls.Add(Me.NmrcUpDwnMemoDecrypt)
+        Me.GroupBox16.Controls.Add(Me.nmrcUpDwnMemoDecrypt)
         Me.GroupBox16.Controls.Add(Me.Label23)
-        Me.GroupBox16.Controls.Add(Me.TxtBxMemoDefaultPassword)
-        Me.GroupBox16.Controls.Add(Me.ChckBxMemoDefaultPassword)
+        Me.GroupBox16.Controls.Add(Me.txtBxMemoDefaultPassword)
+        Me.GroupBox16.Controls.Add(Me.chckBxMemoDefaultPassword)
         Me.GroupBox16.Location = New System.Drawing.Point(4, 3)
         Me.GroupBox16.Name = "GroupBox16"
         Me.GroupBox16.Size = New System.Drawing.Size(653, 253)
         Me.GroupBox16.TabIndex = 0
         Me.GroupBox16.TabStop = False
-        Me.GroupBox16.Text = "Settings"
+        Me.GroupBox16.Text = "Memo Settings"
         '
-        'NmrcUpDwnMemoDecrypt
+        'nmrcUpDwnMemoDecrypt
         '
-        Me.NmrcUpDwnMemoDecrypt.Location = New System.Drawing.Point(255, 63)
-        Me.NmrcUpDwnMemoDecrypt.Maximum = New Decimal(New Integer() {60, 0, 0, 0})
-        Me.NmrcUpDwnMemoDecrypt.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NmrcUpDwnMemoDecrypt.Name = "NmrcUpDwnMemoDecrypt"
-        Me.NmrcUpDwnMemoDecrypt.Size = New System.Drawing.Size(46, 20)
-        Me.NmrcUpDwnMemoDecrypt.TabIndex = 4
-        Me.NmrcUpDwnMemoDecrypt.Value = New Decimal(New Integer() {30, 0, 0, 0})
+        Me.nmrcUpDwnMemoDecrypt.Location = New System.Drawing.Point(255, 63)
+        Me.nmrcUpDwnMemoDecrypt.Maximum = New Decimal(New Integer() {60, 0, 0, 0})
+        Me.nmrcUpDwnMemoDecrypt.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nmrcUpDwnMemoDecrypt.Name = "nmrcUpDwnMemoDecrypt"
+        Me.nmrcUpDwnMemoDecrypt.Size = New System.Drawing.Size(46, 20)
+        Me.nmrcUpDwnMemoDecrypt.TabIndex = 4
+        Me.nmrcUpDwnMemoDecrypt.Value = New Decimal(New Integer() {30, 0, 0, 0})
         '
         'Label23
         '
@@ -1933,26 +2020,26 @@ Partial Class frmOptions
         Me.Label23.TabIndex = 3
         Me.Label23.Text = "Memo Decrypt Time Out"
         '
-        'TxtBxMemoDefaultPassword
+        'txtBxMemoDefaultPassword
         '
-        Me.TxtBxMemoDefaultPassword.Enabled = False
-        Me.TxtBxMemoDefaultPassword.Location = New System.Drawing.Point(255, 18)
-        Me.TxtBxMemoDefaultPassword.Name = "TxtBxMemoDefaultPassword"
-        Me.TxtBxMemoDefaultPassword.ReadOnly = True
-        Me.TxtBxMemoDefaultPassword.Size = New System.Drawing.Size(100, 20)
-        Me.TxtBxMemoDefaultPassword.TabIndex = 2
-        Me.TxtBxMemoDefaultPassword.Text = "klock"
+        Me.txtBxMemoDefaultPassword.Enabled = False
+        Me.txtBxMemoDefaultPassword.Location = New System.Drawing.Point(255, 18)
+        Me.txtBxMemoDefaultPassword.Name = "txtBxMemoDefaultPassword"
+        Me.txtBxMemoDefaultPassword.ReadOnly = True
+        Me.txtBxMemoDefaultPassword.Size = New System.Drawing.Size(100, 20)
+        Me.txtBxMemoDefaultPassword.TabIndex = 2
+        Me.txtBxMemoDefaultPassword.Text = "klock"
         '
-        'ChckBxMemoDefaultPassword
+        'chckBxMemoDefaultPassword
         '
-        Me.ChckBxMemoDefaultPassword.AutoSize = True
-        Me.ChckBxMemoDefaultPassword.Location = New System.Drawing.Point(92, 21)
-        Me.ChckBxMemoDefaultPassword.Name = "ChckBxMemoDefaultPassword"
-        Me.ChckBxMemoDefaultPassword.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.ChckBxMemoDefaultPassword.Size = New System.Drawing.Size(131, 17)
-        Me.ChckBxMemoDefaultPassword.TabIndex = 0
-        Me.ChckBxMemoDefaultPassword.Text = "Use Default Password"
-        Me.ChckBxMemoDefaultPassword.UseVisualStyleBackColor = True
+        Me.chckBxMemoDefaultPassword.AutoSize = True
+        Me.chckBxMemoDefaultPassword.Location = New System.Drawing.Point(92, 21)
+        Me.chckBxMemoDefaultPassword.Name = "chckBxMemoDefaultPassword"
+        Me.chckBxMemoDefaultPassword.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxMemoDefaultPassword.Size = New System.Drawing.Size(131, 17)
+        Me.chckBxMemoDefaultPassword.TabIndex = 0
+        Me.chckBxMemoDefaultPassword.Text = "Use Default Password"
+        Me.chckBxMemoDefaultPassword.UseVisualStyleBackColor = True
         '
         'btnArchiveLoad
         '
@@ -1986,254 +2073,255 @@ Partial Class frmOptions
         'OpenFileDialog1
         '
         Me.OpenFileDialog1.CheckFileExists = False
-        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+        Me.OpenFileDialog1.FileName = "openFileDialog"
         '
-        'chckBxAnlgKlockTransparent
+        'chckBxAnlgKlockDisplayPicture
         '
-        Me.chckBxAnlgKlockTransparent.AutoSize = True
-        Me.chckBxAnlgKlockTransparent.Location = New System.Drawing.Point(211, 154)
-        Me.chckBxAnlgKlockTransparent.Name = "chckBxAnlgKlockTransparent"
-        Me.chckBxAnlgKlockTransparent.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.chckBxAnlgKlockTransparent.Size = New System.Drawing.Size(134, 17)
-        Me.chckBxAnlgKlockTransparent.TabIndex = 6
-        Me.chckBxAnlgKlockTransparent.Text = "Transparent Klock Dial"
-        Me.chckBxAnlgKlockTransparent.UseVisualStyleBackColor = True
+        Me.chckBxAnlgKlockDisplayPicture.AutoSize = True
+        Me.chckBxAnlgKlockDisplayPicture.Location = New System.Drawing.Point(85, 175)
+        Me.chckBxAnlgKlockDisplayPicture.Name = "chckBxAnlgKlockDisplayPicture"
+        Me.chckBxAnlgKlockDisplayPicture.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxAnlgKlockDisplayPicture.Size = New System.Drawing.Size(152, 17)
+        Me.chckBxAnlgKlockDisplayPicture.TabIndex = 11
+        Me.chckBxAnlgKlockDisplayPicture.Text = "Display background Image"
+        Me.chckBxAnlgKlockDisplayPicture.UseVisualStyleBackColor = True
         '
         'frmOptions
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(692, 357)
         Me.Controls.Add(Me.btnArchiveLoad)
         Me.Controls.Add(Me.btnOptionsCancel)
         Me.Controls.Add(Me.btnArchiveSave)
-        Me.Controls.Add(Me.TabCntrlOptions)
+        Me.Controls.Add(Me.tbCntrlOptions)
         Me.Controls.Add(Me.btnOptionsClose)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
-        Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
-        Me.MaximizeBox = false
-        Me.MinimizeBox = false
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmOptions"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Options"
-        Me.TabCntrlOptions.ResumeLayout(false)
-        Me.TbPgGlobal.ResumeLayout(false)
-        Me.GroupBox17.ResumeLayout(false)
-        Me.GroupBox13.ResumeLayout(false)
-        Me.GroupBox13.PerformLayout
-        Me.GroupBox8.ResumeLayout(false)
-        Me.GroupBox8.PerformLayout
-        Me.GroupBox7.ResumeLayout(false)
-        Me.GroupBox7.PerformLayout
-        Me.GroupBox2.ResumeLayout(false)
-        Me.GroupBox2.PerformLayout
-        CType(Me.TrckBrOptionsVolume,System.ComponentModel.ISupportInitialize).EndInit
-        Me.TbPgNotification.ResumeLayout(false)
-        Me.GroupBox15.ResumeLayout(false)
-        Me.GroupBox15.PerformLayout
-        CType(Me.NmrcUpDwnEventNotificationOpacity,System.ComponentModel.ISupportInitialize).EndInit
-        Me.GroupBox6.ResumeLayout(false)
-        Me.GroupBox6.PerformLayout
-        CType(Me.PctrBxNotification,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.NmrcUpDwnNotificationOpacity,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.NmrcUpDwnNotificationTimeOut,System.ComponentModel.ISupportInitialize).EndInit
-        Me.TbPgTime.ResumeLayout(false)
-        Me.GroupBox18.ResumeLayout(false)
-        Me.GroupBox18.PerformLayout
-        Me.GroupBox3.ResumeLayout(false)
-        Me.GroupBox3.PerformLayout
-        CType(Me.UpDwnVoiceDisplay,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.UpDwnTimeDisplay,System.ComponentModel.ISupportInitialize).EndInit
-        Me.GroupBox1.ResumeLayout(false)
-        Me.GroupBox1.PerformLayout
-        Me.TbPgAnalogueKlock.ResumeLayout(false)
-        Me.GroupBox23.ResumeLayout(false)
-        Me.GroupBox23.PerformLayout
-        Me.TbPgTextKlock.ResumeLayout(false)
-        Me.GroupBox22.ResumeLayout(false)
-        Me.GroupBox22.PerformLayout
-        Me.GroupBox21.ResumeLayout(false)
-        Me.GroupBox21.PerformLayout
-        Me.TbPgOtherStuff.ResumeLayout(false)
-        Me.GroupBox20.ResumeLayout(false)
-        Me.GroupBox20.PerformLayout
-        Me.GroupBox19.ResumeLayout(false)
-        Me.GroupBox19.PerformLayout
-        Me.GroupBox5.ResumeLayout(false)
-        Me.GroupBox5.PerformLayout
-        Me.GroupBox4.ResumeLayout(false)
-        Me.GroupBox4.PerformLayout
-        Me.GroupBox9.ResumeLayout(false)
-        Me.GroupBox9.PerformLayout
-        Me.GroupBox12.ResumeLayout(false)
-        Me.GroupBox12.PerformLayout
-        Me.TbPgArchive.ResumeLayout(false)
-        Me.GroupBox11.ResumeLayout(false)
-        Me.GroupBox11.PerformLayout
-        Me.GroupBox10.ResumeLayout(false)
-        Me.GroupBox10.PerformLayout
-        Me.TbPgEvents.ResumeLayout(false)
-        Me.GroupBox14.ResumeLayout(false)
-        Me.GroupBox14.PerformLayout
-        CType(Me.PctrBxThirdEvent,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.PctrBxSecondEvent,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.PctrBxFirstEvent,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.NmrcUpDwnEventsInterval,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.NmrcUpDwnThirdReminder,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.NmrcUpDwnSecondReminder,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.NmrcUpDwnFirstReminder,System.ComponentModel.ISupportInitialize).EndInit
-        Me.TbPgMemo.ResumeLayout(false)
-        Me.GroupBox16.ResumeLayout(false)
-        Me.GroupBox16.PerformLayout
-        CType(Me.NmrcUpDwnMemoDecrypt,System.ComponentModel.ISupportInitialize).EndInit
-        Me.ResumeLayout(false)
+        Me.tbCntrlOptions.ResumeLayout(False)
+        Me.tbPgGlobal.ResumeLayout(False)
+        Me.GroupBox17.ResumeLayout(False)
+        Me.GroupBox13.ResumeLayout(False)
+        Me.GroupBox13.PerformLayout()
+        Me.GroupBox8.ResumeLayout(False)
+        Me.GroupBox8.PerformLayout()
+        Me.GroupBox7.ResumeLayout(False)
+        Me.GroupBox7.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        CType(Me.trckBrOptionsVolume, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tbPgNotification.ResumeLayout(False)
+        Me.GroupBox15.ResumeLayout(False)
+        Me.GroupBox15.PerformLayout()
+        CType(Me.nmrcUpDwnEventNotificationOpacity, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
+        CType(Me.nmrcUpDwnNotificationOpacity, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nmrcUpDwnNotificationTimeOut, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tbPgTime.ResumeLayout(False)
+        Me.GroupBox18.ResumeLayout(False)
+        Me.GroupBox18.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        CType(Me.upDwnVoiceDisplay, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.upDwnTimeDisplay, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.tbPgAnalogueKlock.ResumeLayout(False)
+        Me.GroupBox24.ResumeLayout(False)
+        Me.GroupBox24.PerformLayout()
+        CType(Me.pctrBxAnlgKlockPicture, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox23.ResumeLayout(False)
+        Me.GroupBox23.PerformLayout()
+        Me.tbPgTextKlock.ResumeLayout(False)
+        Me.GroupBox22.ResumeLayout(False)
+        Me.GroupBox22.PerformLayout()
+        Me.GroupBox21.ResumeLayout(False)
+        Me.GroupBox21.PerformLayout()
+        Me.tbPgOtherStuff.ResumeLayout(False)
+        Me.GroupBox20.ResumeLayout(False)
+        Me.GroupBox20.PerformLayout()
+        Me.GroupBox19.ResumeLayout(False)
+        Me.GroupBox19.PerformLayout()
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
+        Me.GroupBox9.ResumeLayout(False)
+        Me.GroupBox9.PerformLayout()
+        Me.GroupBox12.ResumeLayout(False)
+        Me.GroupBox12.PerformLayout()
+        Me.tbPgArchive.ResumeLayout(False)
+        Me.GroupBox11.ResumeLayout(False)
+        Me.GroupBox11.PerformLayout()
+        Me.GroupBox10.ResumeLayout(False)
+        Me.GroupBox10.PerformLayout()
+        Me.tbPgEvents.ResumeLayout(False)
+        Me.GroupBox14.ResumeLayout(False)
+        Me.GroupBox14.PerformLayout()
+        CType(Me.pctrBxThirdEvent, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pctrBxSecondEvent, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pctrBxFirstEvent, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nmrcUpDwnEventsInterval, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nmrcUpDwnThirdReminder, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nmrcUpDwnSecondReminder, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nmrcUpDwnFirstReminder, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tbPgMemo.ResumeLayout(False)
+        Me.GroupBox16.ResumeLayout(False)
+        Me.GroupBox16.PerformLayout()
+        CType(Me.nmrcUpDwnMemoDecrypt, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ResumeLayout(False)
 
-End Sub
+    End Sub
     Friend WithEvents btnOptionsClose As System.Windows.Forms.Button
-    Friend WithEvents ClrDlgFormColour As System.Windows.Forms.ColorDialog
+    Friend WithEvents clrDlgFormColour As System.Windows.Forms.ColorDialog
     Friend WithEvents btnOptionsFormColour As System.Windows.Forms.Button
     Friend WithEvents lblColour As System.Windows.Forms.Label
     Friend WithEvents btnOptionsFormFont As System.Windows.Forms.Button
     Friend WithEvents lblFont As System.Windows.Forms.Label
-    Friend WithEvents FntDlgFont As System.Windows.Forms.FontDialog
-    Friend WithEvents ChckBxOptionsSavePos As System.Windows.Forms.CheckBox
+    Friend WithEvents fntDlgFont As System.Windows.Forms.FontDialog
+    Friend WithEvents chckBxOptionsSavePos As System.Windows.Forms.CheckBox
     Friend WithEvents btnDefaultColour As System.Windows.Forms.Button
     Friend WithEvents lblDefaultColour As System.Windows.Forms.Label
-    Friend WithEvents TabCntrlOptions As System.Windows.Forms.TabControl
-    Friend WithEvents TbPgGlobal As System.Windows.Forms.TabPage
-    Friend WithEvents TbPgTime As System.Windows.Forms.TabPage
+    Friend WithEvents tbCntrlOptions As System.Windows.Forms.TabControl
+    Friend WithEvents tbPgGlobal As System.Windows.Forms.TabPage
+    Friend WithEvents tbPgTime As System.Windows.Forms.TabPage
     Friend WithEvents chckBxTimeSwatch As System.Windows.Forms.CheckBox
-    Friend WithEvents ChckBxTimeNetSeconds As System.Windows.Forms.CheckBox
-    Friend WithEvents ChckBxTimeHourPips As System.Windows.Forms.CheckBox
-    Friend WithEvents ChckBxTimeToast As System.Windows.Forms.CheckBox
-    Friend WithEvents TbPgNotification As System.Windows.Forms.TabPage
-    Friend WithEvents NmrcUpDwnNotificationTimeOut As System.Windows.Forms.NumericUpDown
+    Friend WithEvents chckBxTimeNetSeconds As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimeHourPips As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimeToast As System.Windows.Forms.CheckBox
+    Friend WithEvents tbPgNotification As System.Windows.Forms.TabPage
+    Friend WithEvents nmrcUpDwnNotificationTimeOut As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents btnNotificationFont As System.Windows.Forms.Button
     Friend WithEvents btnNotificationColour As System.Windows.Forms.Button
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents NmrcUpDwnNotificationOpacity As System.Windows.Forms.NumericUpDown
+    Friend WithEvents nmrcUpDwnNotificationOpacity As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents btnNotificationTest As System.Windows.Forms.Button
     Friend WithEvents btnOptionsCancel As System.Windows.Forms.Button
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents ChckBxTimeHourlyChimes As System.Windows.Forms.CheckBox
-    Friend WithEvents ChckBxTimeQuarterChimes As System.Windows.Forms.CheckBox
-    Friend WithEvents ChckBxTimeHalfChimes As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimeHourlyChimes As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimeQuarterChimes As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimeHalfChimes As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents btnOptionsTestVolume As System.Windows.Forms.Button
-    Friend WithEvents TrckBrOptionsVolume As System.Windows.Forms.TrackBar
-    Friend WithEvents UpDwnTimeDisplay As System.Windows.Forms.NumericUpDown
+    Friend WithEvents trckBrOptionsVolume As System.Windows.Forms.TrackBar
+    Friend WithEvents upDwnTimeDisplay As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents ChckBxOptionsRunOnStartup As System.Windows.Forms.CheckBox
-    Friend WithEvents ChckBxOptionsStartupMinimised As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxOptionsRunOnStartup As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxOptionsStartupMinimised As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox8 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox7 As System.Windows.Forms.GroupBox
-    Friend WithEvents TbPgArchive As System.Windows.Forms.TabPage
+    Friend WithEvents tbPgArchive As System.Windows.Forms.TabPage
     Friend WithEvents GroupBox10 As System.Windows.Forms.GroupBox
     Friend WithEvents btnOptionsFriendsFile As System.Windows.Forms.Button
-    Friend WithEvents TxtBxOptionsFriendsFile As System.Windows.Forms.TextBox
+    Friend WithEvents txtBxOptionsFriendsFile As System.Windows.Forms.TextBox
     Friend WithEvents btnOptionsFriendsDirectory As System.Windows.Forms.Button
-    Friend WithEvents TxtBxOptionsFriendsDirectory As System.Windows.Forms.TextBox
+    Friend WithEvents txtBxOptionsFriendsDirectory As System.Windows.Forms.TextBox
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents btnOptionsPathReset As System.Windows.Forms.Button
     Friend WithEvents GroupBox11 As System.Windows.Forms.GroupBox
-    Friend WithEvents ChckBxTimeHexIntuitor As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimeHexIntuitor As System.Windows.Forms.CheckBox
     Friend WithEvents chckBxTimeTwoFormats As System.Windows.Forms.CheckBox
-    Friend WithEvents TbPgOtherStuff As System.Windows.Forms.TabPage
+    Friend WithEvents tbPgOtherStuff As System.Windows.Forms.TabPage
     Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
-    Friend WithEvents ChckBxReminderAdd As System.Windows.Forms.CheckBox
-    Friend WithEvents ChckBxReminderTimeCheck As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxReminderAdd As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxReminderTimeCheck As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
-    Friend WithEvents ChckBxTimerAdd As System.Windows.Forms.CheckBox
-    Friend WithEvents ChckBxTimerHigh As System.Windows.Forms.CheckBox
-    Friend WithEvents ChckBxClearSplit As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimerAdd As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimerHigh As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxClearSplit As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox9 As System.Windows.Forms.GroupBox
-    Friend WithEvents ChckBxCountdownAdd As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxCountdownAdd As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox12 As System.Windows.Forms.GroupBox
-    Friend WithEvents ChckBxWorldKlockAdd As System.Windows.Forms.CheckBox
-    Private WithEvents ChckBxOptionsVoice As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxWorldKlockAdd As System.Windows.Forms.CheckBox
+    Private WithEvents chckBxOptionsVoice As System.Windows.Forms.CheckBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents UpDwnVoiceDisplay As System.Windows.Forms.NumericUpDown
-    Friend WithEvents LblOptionSavepath As System.Windows.Forms.Label
+    Friend WithEvents upDwnVoiceDisplay As System.Windows.Forms.NumericUpDown
+    Friend WithEvents lblOptionSavepath As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents GroupBox13 As System.Windows.Forms.GroupBox
     Friend WithEvents btnSettingsReset As System.Windows.Forms.Button
     Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents TxtBxArchiveFile As System.Windows.Forms.TextBox
-    Friend WithEvents TxtBxArchiveDirectory As System.Windows.Forms.TextBox
+    Friend WithEvents txtBxArchiveFile As System.Windows.Forms.TextBox
+    Friend WithEvents txtBxArchiveDirectory As System.Windows.Forms.TextBox
     Friend WithEvents btnArchiveFile As System.Windows.Forms.Button
     Friend WithEvents btnArchiveDirectory As System.Windows.Forms.Button
     Friend WithEvents btnArchiveLoad As System.Windows.Forms.Button
     Friend WithEvents btnArchiveSave As System.Windows.Forms.Button
     Friend WithEvents btnOptionsEventsFile As System.Windows.Forms.Button
-    Friend WithEvents TxtBxOptionsEventsFile As System.Windows.Forms.TextBox
+    Friend WithEvents txtBxOptionsEventsFile As System.Windows.Forms.TextBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents TbPgEvents As System.Windows.Forms.TabPage
+    Friend WithEvents tbPgEvents As System.Windows.Forms.TabPage
     Friend WithEvents GroupBox14 As System.Windows.Forms.GroupBox
     Friend WithEvents lblThirdReminder As System.Windows.Forms.Label
     Friend WithEvents lblSecondReminder As System.Windows.Forms.Label
     Friend WithEvents lblFirstreminder As System.Windows.Forms.Label
-    Friend WithEvents NmrcUpDwnThirdReminder As System.Windows.Forms.NumericUpDown
-    Friend WithEvents NmrcUpDwnSecondReminder As System.Windows.Forms.NumericUpDown
-    Friend WithEvents NmrcUpDwnFirstReminder As System.Windows.Forms.NumericUpDown
+    Friend WithEvents nmrcUpDwnThirdReminder As System.Windows.Forms.NumericUpDown
+    Friend WithEvents nmrcUpDwnSecondReminder As System.Windows.Forms.NumericUpDown
+    Friend WithEvents nmrcUpDwnFirstReminder As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents lblEventsInterval As System.Windows.Forms.Label
-    Friend WithEvents NmrcUpDwnEventsInterval As System.Windows.Forms.NumericUpDown
+    Friend WithEvents nmrcUpDwnEventsInterval As System.Windows.Forms.NumericUpDown
     Friend WithEvents GroupBox15 As System.Windows.Forms.GroupBox
-    Friend WithEvents NmrcUpDwnEventNotificationOpacity As System.Windows.Forms.NumericUpDown
+    Friend WithEvents nmrcUpDwnEventNotificationOpacity As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents btnEventNotificationFont As System.Windows.Forms.Button
     Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents PctrBxNotification As System.Windows.Forms.PictureBox
     Friend WithEvents label18 As System.Windows.Forms.Label
-    Friend WithEvents PctrBxThirdEvent As System.Windows.Forms.PictureBox
+    Friend WithEvents pctrBxThirdEvent As System.Windows.Forms.PictureBox
     Friend WithEvents btnThirdEventNotificationColour As System.Windows.Forms.Button
-    Friend WithEvents PctrBxSecondEvent As System.Windows.Forms.PictureBox
+    Friend WithEvents pctrBxSecondEvent As System.Windows.Forms.PictureBox
     Friend WithEvents btnSecondEventNotificationColour As System.Windows.Forms.Button
-    Friend WithEvents PctrBxFirstEvent As System.Windows.Forms.PictureBox
+    Friend WithEvents pctrBxFirstEvent As System.Windows.Forms.PictureBox
     Friend WithEvents btnFirstEventNotificationColour As System.Windows.Forms.Button
     Friend WithEvents btnEventNotificationTest As System.Windows.Forms.Button
     Friend WithEvents Label21 As System.Windows.Forms.Label
-    Friend WithEvents CmbBxDefaultTimeFormat As System.Windows.Forms.ComboBox
+    Friend WithEvents cmbBxDefaultTimeFormat As System.Windows.Forms.ComboBox
     Friend WithEvents lblTimeTwo As System.Windows.Forms.Label
-    Friend WithEvents CmbBxDefaultTimeTwoFormat As System.Windows.Forms.ComboBox
-    Friend WithEvents TxtBxOptionsMemoFile As System.Windows.Forms.TextBox
+    Friend WithEvents cmbBxDefaultTimeTwoFormat As System.Windows.Forms.ComboBox
+    Friend WithEvents txtBxOptionsMemoFile As System.Windows.Forms.TextBox
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents btnOptionsMemoFile As System.Windows.Forms.Button
-    Friend WithEvents TxtBxOptionsSettingsFile As System.Windows.Forms.TextBox
-    Friend WithEvents TbPgMemo As System.Windows.Forms.TabPage
+    Friend WithEvents txtBxOptionsSettingsFile As System.Windows.Forms.TextBox
+    Friend WithEvents tbPgMemo As System.Windows.Forms.TabPage
     Friend WithEvents GroupBox16 As System.Windows.Forms.GroupBox
-    Friend WithEvents TxtBxMemoDefaultPassword As System.Windows.Forms.TextBox
-    Friend WithEvents ChckBxMemoDefaultPassword As System.Windows.Forms.CheckBox
-    Friend WithEvents NmrcUpDwnMemoDecrypt As System.Windows.Forms.NumericUpDown
+    Friend WithEvents txtBxMemoDefaultPassword As System.Windows.Forms.TextBox
+    Friend WithEvents chckBxMemoDefaultPassword As System.Windows.Forms.CheckBox
+    Friend WithEvents nmrcUpDwnMemoDecrypt As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents GroupBox17 As System.Windows.Forms.GroupBox
-    Friend WithEvents CmbBxDefaultTab As System.Windows.Forms.ComboBox
+    Friend WithEvents cmbBxDefaultTab As System.Windows.Forms.ComboBox
     Friend WithEvents GroupBox18 As System.Windows.Forms.GroupBox
-    Friend WithEvents ChckBxTimeTimeTwo12 As System.Windows.Forms.CheckBox
-    Friend WithEvents ChckBxTimeTimeOne12 As System.Windows.Forms.CheckBox
-    Friend WithEvents ChckBxTimeSystem12 As System.Windows.Forms.CheckBox
-    Friend WithEvents ChckBxTimeTimeTwo24 As System.Windows.Forms.CheckBox
-    Friend WithEvents ChckBxTimeTimeOne24 As System.Windows.Forms.CheckBox
-    Friend WithEvents ChckBxTimeSystem24 As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimeTimeTwo12 As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimeTimeOne12 As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimeSystem12 As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimeTimeTwo24 As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimeTimeOne24 As System.Windows.Forms.CheckBox
+    Friend WithEvents chckBxTimeSystem24 As System.Windows.Forms.CheckBox
     Friend WithEvents chckBxIdleTime As CheckBox
     Friend WithEvents GroupBox19 As GroupBox
-    Friend WithEvents ChckBxDisableMonitorSleep As CheckBox
+    Friend WithEvents chckBxDisableMonitorSleep As CheckBox
     Friend WithEvents GroupBox20 As GroupBox
-    Friend WithEvents ChckBxChckInternet As CheckBox
-    Friend WithEvents TbPgTextKlock As TabPage
+    Friend WithEvents chckBxChckInternet As CheckBox
+    Friend WithEvents tbPgTextKlock As TabPage
     Friend WithEvents GroupBox22 As GroupBox
     Friend WithEvents GroupBox21 As GroupBox
     Friend WithEvents Label27 As Label
@@ -2252,7 +2340,7 @@ End Sub
     Friend WithEvents btnResetBigKlock As Button
     Friend WithEvents Label30 As Label
     Friend WithEvents btnResetSmallKlock As Button
-    Friend WithEvents TbPgAnalogueKlock As TabPage
+    Friend WithEvents tbPgAnalogueKlock As TabPage
     Friend WithEvents GroupBox23 As GroupBox
     Friend WithEvents chckBxAnlgKlockTime As CheckBox
     Friend WithEvents chckBxAnlgKlockDate As CheckBox
@@ -2261,4 +2349,12 @@ End Sub
     Friend WithEvents btnAnlgKlockBackColour As Button
     Friend WithEvents lblAnlgKlockBackColour As Label
     Friend WithEvents chckBxAnlgKlockTransparent As CheckBox
+    Friend WithEvents txtBxAnlgKlockPictureLocation As TextBox
+    Friend WithEvents btnAnlgKlockPictureLocation As Button
+    Friend WithEvents pctrBxAnlgKlockPicture As PictureBox
+    Friend WithEvents chckBxAnlgKlockSavePos As CheckBox
+    Friend WithEvents chckBxBgTxKlockSavePos As CheckBox
+    Friend WithEvents chckBxSmlTxKlockSavePos As CheckBox
+    Friend WithEvents GroupBox24 As GroupBox
+    Friend WithEvents chckBxAnlgKlockDisplayPicture As CheckBox
 End Class

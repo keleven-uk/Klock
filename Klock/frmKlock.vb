@@ -173,23 +173,23 @@
 
         If usrSettings.usrTimeHourPips And (Math.Floor(m Mod 3600) = 0) Then                                 '    will this work at midnight???
 
-            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "Sounds\thepips.mp3"))          '    Play the Pips on the hour, if desired.
+            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "sounds\thepips.mp3"))          '    Play the Pips on the hour, if desired.
         ElseIf usrSettings.usrTimeHourChimes And (Math.Floor(m Mod 3600) = 0) Then                           '    Play hourly chimes, if desired.
 
             Dim hour As Integer = Now.Hour
 
             If hour > 12 Then hour -= 12
 
-            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "Sounds\" & hours(hour)))
+            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "sounds\" & hours(hour)))
         ElseIf usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 900) = 0) Then                         '    Play quarter chimes, if desired.
 
-            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "Sounds\quarterchime.mp3"))
+            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "sounds\quarterchime.mp3"))
         ElseIf usrSettings.usrTimeHalfChimes And (Math.Floor(m Mod 1800) = 0) Then                           '    Play half hourly chimes, if desired.
 
-            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "Sounds\halfchime.mp3"))
+            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "sounds\halfchime.mp3"))
         ElseIf usrSettings.usrTimeQuarterChimes And (Math.Floor(m Mod 2700) = 0) Then                        '    Play three quarter chimes, if desired.
 
-            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "Sounds\threequarterchime.mp3"))
+            displayAction.PlaySound(IO.Path.Combine(Application.StartupPath, "sounds\threequarterchime.mp3"))
         End If
     End Sub
 
@@ -399,13 +399,13 @@
 
         CmbBxTimeOne.Items.AddRange(names)
         CmbBxTimeTwo.Items.AddRange(names)
-        frmOptions.CmbBxDefaultTimeFormat.Items.AddRange(names)
-        frmOptions.CmbBxDefaultTimeTwoFormat.Items.AddRange(names)
+        frmOptions.cmbBxDefaultTimeFormat.Items.AddRange(names)
+        frmOptions.cmbBxDefaultTimeTwoFormat.Items.AddRange(names)
 
         CmbBxTimeOne.SelectedIndex = usrSettings.usrTimeDefaultFormat
         CmbBxTimeTwo.SelectedIndex = usrSettings.usrTimeTWODefaultFormat
-        frmOptions.CmbBxDefaultTimeFormat.SelectedIndex = usrSettings.usrTimeDefaultFormat
-        frmOptions.CmbBxDefaultTimeTwoFormat.SelectedIndex = usrSettings.usrTimeTWODefaultFormat
+        frmOptions.cmbBxDefaultTimeFormat.SelectedIndex = usrSettings.usrTimeDefaultFormat
+        frmOptions.cmbBxDefaultTimeTwoFormat.SelectedIndex = usrSettings.usrTimeTWODefaultFormat
     End Sub
 
     'TODO :: following two subs should be combined
