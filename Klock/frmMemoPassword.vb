@@ -19,7 +19,7 @@ Public Class frmMemoPassword
 
     Private Sub frmMemoPassword_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        TxtBxMemoPassword.Focus()
+        TxtBxMemoPassword.Select()
         TxtBxMemoPassword.Text = ""      '   clear text field at start.
     End Sub
 End Class

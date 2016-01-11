@@ -163,6 +163,8 @@ Module FEMcommon
 
                 frmKlock.M_ADDING = False
 
+                frmKlock.ChckBxMemoEncypt.Enabled = False
+
                 frmKlock.MemoClearText()
                 frmKlock.memoReadOnlyText(True)
                 frmKlock.showMemo(0)

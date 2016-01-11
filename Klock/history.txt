@@ -2,7 +2,66 @@ The source tree is now held as a git repository https://github.com/keleven-uk/Kl
  converted from SVN as of build 42.
 I find the git commit number unwieldy, so still include SVN style build numbers.
 
-[Build [60] - V1.1.4.61 - December 2015
+[Build [62] - V1.1.4.62 - January 2016
+
+commit fc338714ea70448307d604454334376b828d9ab7
+Author: kevin scott <coinflip@keleven.co.uk>
+Date:   Sat Jan 2 15:22:10 2016 +0000
+
+    Completed Analogue Klock [Hopefully]
+    
+    Added settings for show text, show date, show time & transparency for analogue Klock.
+    Added settings for save screen position for analogue, Small and big text klocks.
+    
+    Added a folder of selected imaged to application folder.  Thses images are to be used with the analogue klock.
+
+ Klock/Klock.chm                  |  Bin 565934 -> 585714 bytes
+ Klock/Klock.iss                  |   15 +-
+ Klock/Klock.pdf                  |  Bin 3407282 -> 3759327 bytes
+ Klock/My Project/AssemblyInfo.vb |    4 +-
+ Klock/UserSettings.vb            |  279 ++-
+ Klock/frmAnalogKlock.Designer.vb |   27 +-
+ Klock/frmAnalogKlock.resx        | 1133 +++++++++++
+ Klock/frmAnalogKlock.vb          |  119 +-
+ Klock/frmBigTextKlock.vb         |   11 +
+ Klock/frmKlock.vb                |   18 +-
+ Klock/frmOptions.Designer.vb     | 1856 +++++++++--------
+ Klock/frmOptions.resx            |    4 +-
+ Klock/frmOptions.vb              |  530 ++---
+ Klock/frmSmallTextKlock.vb       |   10 +
+ Klock/history.txt                |   41 +
+ Klock/klock.hnd                  |  Bin 18350080 -> 19640320 bytes
+ Klock/klock.hnd-journal          |  Bin 0 -> 49760 bytes
+ git push.txt                     |    4 -
+ images/England.png               |  Bin 0 -> 11015 bytes
+ images/European-union.png        |  Bin 0 -> 24751 bytes
+ images/Ireland.png               |  Bin 0 -> 17536 bytes
+ images/Isle-of-man.png           |  Bin 0 -> 41383 bytes
+ images/Northern-ireland.png      |  Bin 0 -> 16983 bytes
+ images/Scotland.png              |  Bin 0 -> 22837 bytes
+ images/United-kingdom.png        |  Bin 0 -> 17513 bytes
+ images/Wales.png                 |  Bin 0 -> 51009 bytes
+ images/balls.png                 |  Bin 0 -> 120187 bytes
+ images/bells.png                 |  Bin 0 -> 92477 bytes
+ images/berries.png               |  Bin 0 -> 102094 bytes
+ images/biscuits.png              |  Bin 0 -> 95905 bytes
+ images/bowknot.png               |  Bin 0 -> 89343 bytes
+ images/calendar.png              |  Bin 0 -> 72499 bytes
+ images/candle.png                |  Bin 0 -> 111852 bytes
+ images/candy.png                 |  Bin 0 -> 83853 bytes
+ images/fireplace.png             |  Bin 0 -> 106919 bytes
+ images/gift.png                  |  Bin 0 -> 90847 bytes
+ images/redhat.png                |  Bin 0 -> 101352 bytes
+ images/sanda-cauls.png           |  Bin 0 -> 96394 bytes
+ images/snowflake.png             |  Bin 0 -> 114558 bytes
+ images/snowman.png               |  Bin 0 -> 100203 bytes
+ images/socks.png                 |  Bin 0 -> 84794 bytes
+ images/tree.png                  |  Bin 0 -> 117095 bytes
+ log.txt                          | 4160 ++++++++++++++++++++++++++++++++++++++
+ 43 files changed, 6957 insertions(+), 1254 deletions(-)
+
+
+[Build [61] - V1.1.4.61 - December 2015
 
     Moved to V1.1.4.
     

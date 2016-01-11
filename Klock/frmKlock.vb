@@ -1515,7 +1515,6 @@
     Private Sub btnMemoDecrypt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnMemoDecrypt.Click
 
         M_SHOW = True
-        TmrMemo.Enabled = True
         showMemo(LstBxMemo.SelectedIndex)
     End Sub
 
@@ -1578,7 +1577,9 @@
 
                 Dim des As New Simple3Des(password)
                 Try
-                    TxtBxMemo.Text = des.DecryptData(m.memoText)
+                    TxtBxMemo.Text = des.DecryptData(m.memoText)        '   if wrong password, throw exception.
+                    TmrMemo.Enabled = True
+                    TlStrpPrgrsBrMemo.Visible = True
                 Catch ex As Exception
                     displayAction.DisplayReminder("Memo Error", "Seems to be the wrong password")
                 End Try
@@ -1621,11 +1622,14 @@
         Static noOfSeconds As Integer = 0
 
         noOfSeconds += 1
+        TlStrpPrgrsBrMemo.Value = noOfSeconds
 
-        If noOfSeconds > usrSettings.usrMemoDecyptTimeOut Then
+        If noOfSeconds = usrSettings.usrMemoDecyptTimeOut Then
             noOfSeconds = 0
             showMemo(LstBxMemo.SelectedIndex)
             TmrMemo.Enabled = False
+            TlStrpPrgrsBrMemo.Value = 0
+            TlStrpPrgrsBrMemo.Visible = False
         End If
     End Sub
 
@@ -1879,6 +1883,11 @@
         reloadFriends = False                        '   set to re-load friends file to false.
         reloadEvents = False                         '   set to re-load events file to false.
         reloadMemo = False                           '   set to re-load memo file to false
+
+        TlStrpPrgrsBrMemo.Minimum = 0
+        TlStrpPrgrsBrMemo.Step = 1
+        TlStrpPrgrsBrMemo.Maximum = usrSettings.usrMemoDecyptTimeOut
+
     End Sub
 
     Sub setActionTypes()
@@ -2051,7 +2060,6 @@
 
         usrSettings.usrTimeDisplayMinimised = If(TlStrpMnItmTime.Checked, True, False)
     End Sub
-
 
     ' ********************************************************************************************************************************* END **************
 End Class

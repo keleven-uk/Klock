@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Klock"
-#define MyAppVersion "1.1.3.60"
+#define MyAppVersion "1.1.4.62"
 #define MyAppPublisher "keleven"
 #define MyAppURL "www.keleven.co.uk"
 #define MyAppExeName "Klock.exe"
@@ -21,14 +21,14 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 
 ;  all source files here
-SourceDir=C:\My\shed\my\projects\code\klock.net
+SourceDir=D:\My\shed\code\projects\klock.net
 
 DefaultDirName={pf}\keleven\Klock
 DefaultGroupName={#MyAppName}
 ;LicenseFile=License.txt
 InfoAfterFile=Klock\License.txt
-OutputDir=C:\My\shed\my\projects
-OutputBaseFilename=Klock_60
+OutputDir=D:\My\shed\code\projects
+OutputBaseFilename=Klock_11462
 SetupIconFile=Klock\Klock.ico
 Compression=lzma
 SolidCompression=yes
@@ -58,6 +58,8 @@ Source: "Klock\klock.chm"              ; DestDir: "{app}"        ; Components : 
 Source: "Klock\klock.pdf"              ; DestDir: "{app}"        ; Components : exe; Flags: ignoreversion
 Source: "Klock\License.txt"            ; DestDir: "{app}"        ; Components : exe; Flags: ignoreversion
 Source: "Klock\history.txt"            ; DestDir: "{app}"        ; Components : exe; Flags: ignoreversion
+Source: "Klock\AnalogClockControl.dll" ; DestDir: "{app}"        ; Components : exe; Flags: ignoreversion
+Source: "Klock\AnalogClockControl.xml" ; DestDir: "{app}"        ; Components : exe; Flags: ignoreversion
 
 ;  include source if directed :: NB needs a clean git checkout :: recursesubdirs for recursion
 ;  install into My Documents foler.
