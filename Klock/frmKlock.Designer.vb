@@ -29,6 +29,7 @@ Partial Class frmKlock
         Me.StsLblDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StsLblKeys = New System.Windows.Forms.ToolStripStatusLabel()
         Me.stsLbIdkeTime = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.TlStrpPrgrsBrMemo = New System.Windows.Forms.ToolStripProgressBar()
         Me.TmrMain = New System.Windows.Forms.Timer(Me.components)
         Me.MnStrpMain = New System.Windows.Forms.MenuStrip()
         Me.MnItmFile = New System.Windows.Forms.ToolStripMenuItem()
@@ -213,6 +214,11 @@ Partial Class frmKlock
         Me.GroupBox23 = New System.Windows.Forms.GroupBox()
         Me.btnConvertAdd = New System.Windows.Forms.Button()
         Me.btnConvertStart = New System.Windows.Forms.Button()
+        Me.TbPgSayings = New System.Windows.Forms.TabPage()
+        Me.btnReLoadSayings = New System.Windows.Forms.Button()
+        Me.btnDisplaySayings = New System.Windows.Forms.Button()
+        Me.txtBxSayings = New System.Windows.Forms.TextBox()
+        Me.lblSayingsNumber = New System.Windows.Forms.Label()
         Me.btnHide = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnHelp = New System.Windows.Forms.Button()
@@ -237,7 +243,7 @@ Partial Class frmKlock
         Me.btnEventsCheck = New System.Windows.Forms.Button()
         Me.TmrMemo = New System.Windows.Forms.Timer(Me.components)
         Me.btnPrint = New System.Windows.Forms.Button()
-        Me.TlStrpPrgrsBrMemo = New System.Windows.Forms.ToolStripProgressBar()
+        Me.tmrSayings = New System.Windows.Forms.Timer(Me.components)
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -278,6 +284,7 @@ Partial Class frmKlock
         Me.TbPgConvert.SuspendLayout()
         Me.GroupBox24.SuspendLayout()
         Me.GroupBox23.SuspendLayout()
+        Me.TbPgSayings.SuspendLayout()
         Me.CntxtMnStrpKlock.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -332,6 +339,12 @@ Partial Class frmKlock
         Me.stsLbIdkeTime.Size = New System.Drawing.Size(53, 19)
         Me.stsLbIdkeTime.Text = "00:00:00"
         '
+        'TlStrpPrgrsBrMemo
+        '
+        Me.TlStrpPrgrsBrMemo.Name = "TlStrpPrgrsBrMemo"
+        Me.TlStrpPrgrsBrMemo.Size = New System.Drawing.Size(100, 18)
+        Me.TlStrpPrgrsBrMemo.Visible = False
+        '
         'TmrMain
         '
         Me.TmrMain.Enabled = True
@@ -379,7 +392,7 @@ Partial Class frmKlock
         '
         Me.AnalogKlockToolStripMenuItem.Name = "AnalogKlockToolStripMenuItem"
         Me.AnalogKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
-        Me.AnalogKlockToolStripMenuItem.Text = "Analog Klock"
+        Me.AnalogKlockToolStripMenuItem.Text = "Analogue Klock"
         '
         'TextKlockToolStripMenuItem
         '
@@ -513,6 +526,7 @@ Partial Class frmKlock
         Me.TbCntrl.Controls.Add(Me.TbPgEvents)
         Me.TbCntrl.Controls.Add(Me.TbPgMemo)
         Me.TbCntrl.Controls.Add(Me.TbPgConvert)
+        Me.TbCntrl.Controls.Add(Me.TbPgSayings)
         Me.TbCntrl.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TbCntrl.Location = New System.Drawing.Point(12, 27)
         Me.TbCntrl.Name = "TbCntrl"
@@ -1650,7 +1664,7 @@ Partial Class frmKlock
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(121, 15)
         Me.Label5.TabIndex = 10
-        Me.Label5.Text = "Telehphone Number"
+        Me.Label5.Text = "Telephone Number"
         '
         'txtbxFriendsEmail3
         '
@@ -1925,7 +1939,7 @@ Partial Class frmKlock
         Me.btnMemoDecrypt.Name = "btnMemoDecrypt"
         Me.btnMemoDecrypt.Size = New System.Drawing.Size(75, 23)
         Me.btnMemoDecrypt.TabIndex = 14
-        Me.btnMemoDecrypt.Text = "Decypt"
+        Me.btnMemoDecrypt.Text = "Decrypt"
         Me.btnMemoDecrypt.UseVisualStyleBackColor = True
         '
         'ChckBxMemoEncypt
@@ -1936,7 +1950,7 @@ Partial Class frmKlock
         Me.ChckBxMemoEncypt.Name = "ChckBxMemoEncypt"
         Me.ChckBxMemoEncypt.Size = New System.Drawing.Size(62, 19)
         Me.ChckBxMemoEncypt.TabIndex = 2
-        Me.ChckBxMemoEncypt.Text = "Encypt"
+        Me.ChckBxMemoEncypt.Text = "Encrypt"
         Me.ChckBxMemoEncypt.UseVisualStyleBackColor = True
         '
         'TxtBxMemo
@@ -2116,6 +2130,55 @@ Partial Class frmKlock
         Me.btnConvertStart.Text = "Convert"
         Me.btnConvertStart.UseVisualStyleBackColor = True
         '
+        'TbPgSayings
+        '
+        Me.TbPgSayings.Controls.Add(Me.btnReLoadSayings)
+        Me.TbPgSayings.Controls.Add(Me.btnDisplaySayings)
+        Me.TbPgSayings.Controls.Add(Me.txtBxSayings)
+        Me.TbPgSayings.Controls.Add(Me.lblSayingsNumber)
+        Me.TbPgSayings.Location = New System.Drawing.Point(4, 25)
+        Me.TbPgSayings.Name = "TbPgSayings"
+        Me.TbPgSayings.Size = New System.Drawing.Size(671, 131)
+        Me.TbPgSayings.TabIndex = 9
+        Me.TbPgSayings.Text = "Sayings"
+        Me.TbPgSayings.UseVisualStyleBackColor = True
+        '
+        'btnReLoadSayings
+        '
+        Me.btnReLoadSayings.Location = New System.Drawing.Point(394, 44)
+        Me.btnReLoadSayings.Name = "btnReLoadSayings"
+        Me.btnReLoadSayings.Size = New System.Drawing.Size(75, 23)
+        Me.btnReLoadSayings.TabIndex = 3
+        Me.btnReLoadSayings.Text = "Reload"
+        Me.btnReLoadSayings.UseVisualStyleBackColor = True
+        '
+        'btnDisplaySayings
+        '
+        Me.btnDisplaySayings.Location = New System.Drawing.Point(394, 15)
+        Me.btnDisplaySayings.Name = "btnDisplaySayings"
+        Me.btnDisplaySayings.Size = New System.Drawing.Size(75, 23)
+        Me.btnDisplaySayings.TabIndex = 2
+        Me.btnDisplaySayings.Text = "Display"
+        Me.btnDisplaySayings.UseVisualStyleBackColor = True
+        '
+        'txtBxSayings
+        '
+        Me.txtBxSayings.Location = New System.Drawing.Point(18, 15)
+        Me.txtBxSayings.Multiline = True
+        Me.txtBxSayings.Name = "txtBxSayings"
+        Me.txtBxSayings.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.txtBxSayings.Size = New System.Drawing.Size(336, 85)
+        Me.txtBxSayings.TabIndex = 1
+        '
+        'lblSayingsNumber
+        '
+        Me.lblSayingsNumber.AutoSize = True
+        Me.lblSayingsNumber.Location = New System.Drawing.Point(15, 103)
+        Me.lblSayingsNumber.Name = "lblSayingsNumber"
+        Me.lblSayingsNumber.Size = New System.Drawing.Size(121, 15)
+        Me.lblSayingsNumber.TabIndex = 0
+        Me.lblSayingsNumber.Text = "There are 88 sayings"
+        '
         'btnHide
         '
         Me.btnHide.Location = New System.Drawing.Point(572, 189)
@@ -2278,15 +2341,13 @@ Partial Class frmKlock
         Me.btnPrint.Text = "Print"
         Me.btnPrint.UseVisualStyleBackColor = True
         '
-        'TlStrpPrgrsBrMemo
+        'tmrSayings
         '
-        Me.TlStrpPrgrsBrMemo.Name = "TlStrpPrgrsBrMemo"
-        Me.TlStrpPrgrsBrMemo.Size = New System.Drawing.Size(100, 18)
-        Me.TlStrpPrgrsBrMemo.Visible = False
+        Me.tmrSayings.Interval = 60000
         '
         'frmKlock
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(696, 242)
         Me.Controls.Add(Me.btnPrint)
@@ -2304,71 +2365,73 @@ Partial Class frmKlock
         Me.Controls.Add(Me.btnClose)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.5!)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
-        Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
-        Me.KeyPreview = true
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
         Me.MainMenuStrip = Me.MnStrpMain
-        Me.MaximizeBox = false
+        Me.MaximizeBox = False
         Me.Name = "frmKlock"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Klock"
-        Me.StsStrpInfo.ResumeLayout(false)
-        Me.StsStrpInfo.PerformLayout
-        Me.MnStrpMain.ResumeLayout(false)
-        Me.MnStrpMain.PerformLayout
-        Me.TbCntrl.ResumeLayout(false)
-        Me.TbPgTime.ResumeLayout(false)
-        Me.GroupBox15.ResumeLayout(false)
-        Me.GroupBox15.PerformLayout
-        Me.GroupBox14.ResumeLayout(false)
-        Me.GroupBox2.ResumeLayout(false)
-        Me.GroupBox2.PerformLayout
-        Me.GroupBox1.ResumeLayout(false)
-        Me.TbPgWorldClock.ResumeLayout(false)
-        Me.GroupBox18.ResumeLayout(false)
-        Me.GroupBox18.PerformLayout
-        Me.GroupBox17.ResumeLayout(false)
-        Me.GroupBox17.PerformLayout
-        Me.GroupBox16.ResumeLayout(false)
-        Me.TbPgCountDown.ResumeLayout(false)
-        Me.GroupBox5.ResumeLayout(false)
-        Me.GroupBox5.PerformLayout
-        Me.GroupBox4.ResumeLayout(false)
-        Me.GroupBox4.PerformLayout
-        CType(Me.upDwnCntDownValue,System.ComponentModel.ISupportInitialize).EndInit
-        Me.GroupBox3.ResumeLayout(false)
-        Me.TbPgTimer.ResumeLayout(false)
-        Me.GroupBox8.ResumeLayout(false)
-        Me.GroupBox8.PerformLayout
-        Me.GroupBox7.ResumeLayout(false)
-        Me.GroupBox7.PerformLayout
-        Me.GroupBox6.ResumeLayout(false)
-        Me.TbPgReminder.ResumeLayout(false)
-        Me.GroupBox11.ResumeLayout(false)
-        Me.GroupBox11.PerformLayout
-        Me.GroupBox10.ResumeLayout(false)
-        Me.GroupBox10.PerformLayout
-        Me.GroupBox9.ResumeLayout(false)
-        Me.TbPgFriends.ResumeLayout(false)
-        Me.GroupBox13.ResumeLayout(false)
-        Me.pnlFriends.ResumeLayout(false)
-        Me.pnlFriends.PerformLayout
-        Me.GroupBox12.ResumeLayout(false)
-        Me.TbPgEvents.ResumeLayout(false)
-        Me.GroupBox20.ResumeLayout(false)
-        Me.pnlEvents.ResumeLayout(false)
-        Me.pnlEvents.PerformLayout
-        Me.GroupBox19.ResumeLayout(false)
-        Me.TbPgMemo.ResumeLayout(false)
-        Me.GroupBox22.ResumeLayout(false)
-        Me.pnlMemo.ResumeLayout(false)
-        Me.pnlMemo.PerformLayout
-        Me.GroupBox21.ResumeLayout(false)
-        Me.TbPgConvert.ResumeLayout(false)
-        Me.GroupBox24.ResumeLayout(false)
-        Me.GroupBox24.PerformLayout
-        Me.GroupBox23.ResumeLayout(false)
-        Me.CntxtMnStrpKlock.ResumeLayout(false)
-        Me.ResumeLayout(false)
+        Me.StsStrpInfo.ResumeLayout(False)
+        Me.StsStrpInfo.PerformLayout()
+        Me.MnStrpMain.ResumeLayout(False)
+        Me.MnStrpMain.PerformLayout()
+        Me.TbCntrl.ResumeLayout(False)
+        Me.TbPgTime.ResumeLayout(False)
+        Me.GroupBox15.ResumeLayout(False)
+        Me.GroupBox15.PerformLayout()
+        Me.GroupBox14.ResumeLayout(False)
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.TbPgWorldClock.ResumeLayout(False)
+        Me.GroupBox18.ResumeLayout(False)
+        Me.GroupBox18.PerformLayout()
+        Me.GroupBox17.ResumeLayout(False)
+        Me.GroupBox17.PerformLayout()
+        Me.GroupBox16.ResumeLayout(False)
+        Me.TbPgCountDown.ResumeLayout(False)
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
+        CType(Me.upDwnCntDownValue, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.TbPgTimer.ResumeLayout(False)
+        Me.GroupBox8.ResumeLayout(False)
+        Me.GroupBox8.PerformLayout()
+        Me.GroupBox7.ResumeLayout(False)
+        Me.GroupBox7.PerformLayout()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.TbPgReminder.ResumeLayout(False)
+        Me.GroupBox11.ResumeLayout(False)
+        Me.GroupBox11.PerformLayout()
+        Me.GroupBox10.ResumeLayout(False)
+        Me.GroupBox10.PerformLayout()
+        Me.GroupBox9.ResumeLayout(False)
+        Me.TbPgFriends.ResumeLayout(False)
+        Me.GroupBox13.ResumeLayout(False)
+        Me.pnlFriends.ResumeLayout(False)
+        Me.pnlFriends.PerformLayout()
+        Me.GroupBox12.ResumeLayout(False)
+        Me.TbPgEvents.ResumeLayout(False)
+        Me.GroupBox20.ResumeLayout(False)
+        Me.pnlEvents.ResumeLayout(False)
+        Me.pnlEvents.PerformLayout()
+        Me.GroupBox19.ResumeLayout(False)
+        Me.TbPgMemo.ResumeLayout(False)
+        Me.GroupBox22.ResumeLayout(False)
+        Me.pnlMemo.ResumeLayout(False)
+        Me.pnlMemo.PerformLayout()
+        Me.GroupBox21.ResumeLayout(False)
+        Me.TbPgConvert.ResumeLayout(False)
+        Me.GroupBox24.ResumeLayout(False)
+        Me.GroupBox24.PerformLayout()
+        Me.GroupBox23.ResumeLayout(False)
+        Me.TbPgSayings.ResumeLayout(False)
+        Me.TbPgSayings.PerformLayout()
+        Me.CntxtMnStrpKlock.ResumeLayout(False)
+        Me.ResumeLayout(False)
         Me.PerformLayout
 
 End Sub
@@ -2586,4 +2649,10 @@ End Sub
     Friend WithEvents BigTextKlockToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AnalogKlockToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents TlStrpPrgrsBrMemo As ToolStripProgressBar
+    Friend WithEvents TbPgSayings As TabPage
+    Friend WithEvents lblSayingsNumber As Label
+    Friend WithEvents txtBxSayings As TextBox
+    Friend WithEvents btnDisplaySayings As Button
+    Friend WithEvents tmrSayings As Windows.Forms.Timer
+    Friend WithEvents btnReLoadSayings As Button
 End Class

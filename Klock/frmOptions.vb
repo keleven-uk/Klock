@@ -164,14 +164,15 @@ Public Class frmOptions
 
         '-------------------------------------------------------------------------------------------------------- Notification Settings -------
 
+        ChckBxSayings.Checked = frmKlock.usrSettings.usrSayingsDisplay
+
         nmrcUpDwnNotificationTimeOut.Value = frmKlock.usrSettings.usrNotificationTimeOut / 1000
+        nmrcUpDwnSayingNotificationTimeOut.Value = frmKlock.usrSettings.usrSayingsTimeOut / 1000
+        nmrcUpDwnSayingDisplay.Value = frmKlock.usrSettings.usrSayingsDisplayTime                   '   held in minutes
+
         nmrcUpDwnNotificationOpacity.Value = frmKlock.usrSettings.usrNotificationOpacity
-
         nmrcUpDwnEventNotificationOpacity.Value = frmKlock.usrSettings.usrEventNotificationOpacity
-
-        pctrBxFirstEvent.BackColor = frmKlock.usrSettings.usrFirstEventNotificationbackColour
-        pctrBxSecondEvent.BackColor = frmKlock.usrSettings.usrSecondEventNotificationbackColour
-        pctrBxThirdEvent.BackColor = frmKlock.usrSettings.usrThirdEventNotificationbackColour
+        nmrcUpDwnSayingNotificationOpacity.Value = frmKlock.usrSettings.usrSayingsOpacity
 
         '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
 
@@ -189,14 +190,18 @@ Public Class frmOptions
 
         txtBxOptionsEventsFile.Text = If(frmKlock.usrSettings.usrEventsFile = "", "Events.bin", frmKlock.usrSettings.usrEventsFile)
 
-        '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
-
-        txtBxOptionsMemoFile.Text = If(frmKlock.usrSettings.usrMemoFile = "", "Memo.bin", frmKlock.usrSettings.usrMemoFile)
-
         nmrcUpDwnFirstReminder.Value = frmKlock.usrSettings.usrEventsFirstReminder
         nmrcUpDwnSecondReminder.Value = frmKlock.usrSettings.usrEventsSecondReminder
         nmrcUpDwnThirdReminder.Value = frmKlock.usrSettings.usrEventsThirdReminder
-        nmrcUpDwnEventsInterval.Value = frmKlock.usrSettings.usrEventsTimerInterval
+        nmrcUpDwnEventsInterval.Value = frmKlock.usrSettings.usrEventsTimerInterval                   '   held in minutes
+
+        pctrBxFirstEvent.BackColor = frmKlock.usrSettings.usrFirstEventNotificationbackColour
+        pctrBxSecondEvent.BackColor = frmKlock.usrSettings.usrSecondEventNotificationbackColour
+        pctrBxThirdEvent.BackColor = frmKlock.usrSettings.usrThirdEventNotificationbackColour
+
+        '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
+
+        txtBxOptionsMemoFile.Text = If(frmKlock.usrSettings.usrMemoFile = "", "Memo.bin", frmKlock.usrSettings.usrMemoFile)
 
         chckBxMemoDefaultPassword.Checked = frmKlock.usrSettings.usrMemoUseDefaultPassword
         txtBxMemoDefaultPassword.Text = frmKlock.usrSettings.usrMemoDefaultPassword
@@ -290,10 +295,15 @@ Public Class frmOptions
 
         '-------------------------------------------------------------------------------------------------------- Notification Settings -------
 
-        frmKlock.usrSettings.usrNotificationTimeOut = nmrcUpDwnNotificationTimeOut.Value * 1000
-        frmKlock.usrSettings.usrNotificationOpacity = nmrcUpDwnNotificationOpacity.Value
+        frmKlock.usrSettings.usrSayingsDisplay = ChckBxSayings.Checked
 
+        frmKlock.usrSettings.usrNotificationTimeOut = nmrcUpDwnNotificationTimeOut.Value * 1000
+        frmKlock.usrSettings.usrSayingsTimeOut = nmrcUpDwnSayingNotificationTimeOut.Value * 1000
+        frmKlock.usrSettings.usrSayingsDisplayTime = nmrcUpDwnSayingDisplay.Value                   '   held in minutes
+
+        frmKlock.usrSettings.usrNotificationOpacity = nmrcUpDwnNotificationOpacity.Value
         frmKlock.usrSettings.usrEventNotificationOpacity = nmrcUpDwnEventNotificationOpacity.Value
+        frmKlock.usrSettings.usrSayingsOpacity = nmrcUpDwnSayingNotificationOpacity.Value
 
         '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
 
@@ -314,7 +324,7 @@ Public Class frmOptions
         frmKlock.usrSettings.usrEventsFirstReminder = nmrcUpDwnFirstReminder.Value
         frmKlock.usrSettings.usrEventsSecondReminder = nmrcUpDwnSecondReminder.Value
         frmKlock.usrSettings.usrEventsThirdReminder = nmrcUpDwnThirdReminder.Value
-        frmKlock.usrSettings.usrEventsTimerInterval = nmrcUpDwnEventsInterval.Value
+        frmKlock.usrSettings.usrEventsTimerInterval = nmrcUpDwnEventsInterval.Value                   '   held in minutes
 
         '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
 
@@ -394,7 +404,7 @@ Public Class frmOptions
                 My.Computer.Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True).DeleteValue(Application.ProductName)
             End If
         Catch ex As Exception
-            displayAction.DisplayReminder("Registry Error :: Cant write entry to Registry", ex.Message)
+            displayAction.DisplayReminder("Registry Error :: Cant write entry to Registry", ex.Message, "G")
         End Try
     End Sub
 
@@ -540,7 +550,7 @@ Public Class frmOptions
     End Sub
 
     Private Sub btnResetSmallKlock_Click(sender As Object, e As EventArgs) Handles btnResetSmallKlock.Click
-        '   reset colouors for small klock.
+        '   reset colours for small klock.
 
         frmKlock.usrSettings.usrSmallKlockBackColour = Color.Black
         frmKlock.usrSettings.usrSmallKlockForeColour = Color.LightGreen
@@ -550,7 +560,7 @@ Public Class frmOptions
     End Sub
 
     Private Sub btnResetBigKlock_Click(sender As Object, e As EventArgs) Handles btnResetBigKlock.Click
-        '   reset colouors for big klock.
+        '   reset colours for big klock.
 
         frmKlock.usrSettings.usrBigKlockBackColour = Color.Black
         frmKlock.usrSettings.usrBigKlockForeColour = Color.LightGreen
@@ -632,7 +642,7 @@ Public Class frmOptions
     End Sub
 
     Private Sub btnAnlgKlockPictureLocation_Click(sender As Object, e As EventArgs) Handles btnAnlgKlockPictureLocation.Click
-        '   Load the background image for analogue klocvk.
+        '   Load the background image for analogue klock.
 
         OpenFileDialog1.InitialDirectory = Application.StartupPath
         If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
@@ -671,9 +681,6 @@ Public Class frmOptions
         End If
     End Sub
 
-    Private Sub btnEventNotificationFontColour_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-    End Sub
 
     Private Sub NmrcUpDwnNotificationTimeOut_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles nmrcUpDwnNotificationTimeOut.ValueChanged
         '   set the time out value of the Notification.
@@ -691,17 +698,71 @@ Public Class frmOptions
     Private Sub btnNotificationTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNotificationTest.Click
         '   Display a test notification, showing the current notification opacity.
 
-        displayAction.DisplayReminder("Notification Test", String.Format(" Opacity = {0}", frmKlock.usrSettings.usrNotificationOpacity))
+        displayAction.DisplayReminder("Notification Test", String.Format(" Opacity = {0}", frmKlock.usrSettings.usrNotificationOpacity), "G")
     End Sub
 
-    Private Sub btnEventNotificationTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventNotificationTest.Click
-        '   Display a test event notification, showing the current event notification opacity.
+    '-------------------------------------------------------------- Sayings ------------------------------------------------------------------
 
-        Dim ev As New Events
+    Private Sub ChckBxSayings_CheckedChanged(sender As Object, e As EventArgs) Handles ChckBxSayings.CheckedChanged
+        '   determines if sayings are to be used.
+        '   if not, disable all sayings options.
+        '   Also, set time to state of checkbox.  i.e. if checked start timer.
 
-        ev.EventName = "btnEventNotificationTest"
+        lblSayings1.Enabled = ChckBxSayings.Checked
+        btnSayingNotificationColour.Enabled = ChckBxSayings.Checked
+        lblSayings2.Enabled = ChckBxSayings.Checked
+        btnSayingNotificationFont.Enabled = ChckBxSayings.Checked
+        lblSayings3.Enabled = ChckBxSayings.Checked
+        nmrcUpDwnSayingDisplay.Enabled = ChckBxSayings.Checked
+        lblSayings4.Enabled = ChckBxSayings.Checked
+        nmrcUpDwnSayingNotificationTimeOut.Enabled = ChckBxSayings.Checked
+        lblSayings5.Enabled = ChckBxSayings.Checked
+        nmrcUpDwnSayingNotificationOpacity.Enabled = ChckBxSayings.Checked
+        btnSayingNotificationTest.Enabled = ChckBxSayings.Checked
 
-        displayAction.DisplayEvent(ev)
+        frmKlock.tmrSayings.Interval = nmrcUpDwnSayingDisplay.Value * 1000
+        frmKlock.tmrSayings.Enabled = ChckBxSayings.Checked
+    End Sub
+
+    Private Sub btnSayingNotificationColour_Click(sender As Object, e As EventArgs) Handles btnSayingNotificationColour.Click
+        '   Set the Sayings main colour.
+
+        clrDlgFormColour.Color = frmKlock.usrSettings.usrSayingsbackColour   '   current Sayings colour
+        If clrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrSayingsbackColour = clrDlgFormColour.Color
+        End If
+    End Sub
+
+    Private Sub btnSayingNotificationFont_Click(sender As Object, e As EventArgs) Handles btnSayingNotificationFont.Click
+        '   Set the Sayings main font.
+        '   the font colour has to be handled separately.
+
+        fntDlgFont.Font = frmKlock.usrSettings.usrSayingsFont                  '   current Sayings font
+        fntDlgFont.Color = frmKlock.usrSettings.usrSayingsFontColour           '   current Sayings font colour
+
+        If fntDlgFont.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrSayingsFont = fntDlgFont.Font
+            frmKlock.usrSettings.usrSayingsFontColour = fntDlgFont.Color
+        End If
+    End Sub
+
+    Private Sub nmrcUpDwnSayingNotificationTimeOut_ValueChanged(sender As Object, e As EventArgs) Handles nmrcUpDwnSayingNotificationTimeOut.ValueChanged
+        '   set the time out value of the Sayings.
+        '   The value is displayed in seconds and set in millisecond's..
+
+        frmKlock.usrSettings.usrSayingsTimeOut = nmrcUpDwnSayingNotificationTimeOut.Value * 1000
+    End Sub
+
+    Private Sub nmrcUpDwnSayingNotificationOpacity_ValueChanged(sender As Object, e As EventArgs) Handles nmrcUpDwnSayingNotificationOpacity.ValueChanged
+        'Set the Opacity of the Sayings.
+
+        frmKlock.usrSettings.usrSayingsOpacity = nmrcUpDwnSayingNotificationOpacity.Value
+    End Sub
+
+    Private Sub btnSayingNotificationTest_Click(sender As Object, e As EventArgs) Handles btnSayingNotificationTest.Click
+        '   Display a test Sayings, showing the current Sayings opacity.
+
+        displayAction.DisplayReminder("Sayings Test", String.Format(" Opacity = {0}", frmKlock.usrSettings.usrSayingsOpacity), "S")
     End Sub
 
     '-----------------------------------------------------------Event Notification--------------------------------------------------------------
@@ -753,6 +814,16 @@ Public Class frmOptions
         'Set the Opacity of the Event Notification.
 
         frmKlock.usrSettings.usrEventNotificationOpacity = nmrcUpDwnEventNotificationOpacity.Value
+    End Sub
+
+    Private Sub btnEventNotificationTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEventNotificationTest.Click
+        '   Display a test event notification, showing the current event notification opacity.
+
+        Dim ev As New Events
+
+        ev.EventName = "btnEventNotificationTest"
+
+        displayAction.DisplayEvent(ev)
     End Sub
 
     '---------------------------------------------------------- Sound Volume ---------------------------------------------------------------
@@ -927,9 +998,9 @@ Public Class frmOptions
 
         Try
             output.CopyHere(input.Items, 4)                                     '   save Archive
-            displayAction.DisplayReminder("Saving File Okay", "Archiving Data Files Successful.")
+            displayAction.DisplayReminder("Saving File Okay", "Archiving Data Files Successful.", "G")
         Catch ex As Exception
-            displayAction.DisplayReminder("Saving File Error", "Error archiving Data Files. " & ex.Message)
+            displayAction.DisplayReminder("Saving File Error", "Error archiving Data Files. " & ex.Message, "G")
         End Try
     End Sub
 
@@ -956,9 +1027,9 @@ Public Class frmOptions
         Try                                           '   catch extract error, if any.
             output.CopyHere(input.Items, 4)
             frmKlock.reloadFriends = True             '   set to re-load friends file.
-            displayAction.DisplayReminder("Loading File Okay", "Loading Data Files Successful.")
+            displayAction.DisplayReminder("Loading File Okay", "Loading Data Files Successful.", "G")
         Catch ex As Exception
-            displayAction.DisplayReminder("Loading File Error", "Error Loading Data Files. " & ex.Message)
+            displayAction.DisplayReminder("Loading File Error", "Error Loading Data Files. " & ex.Message, "G")
         End Try
     End Sub
 

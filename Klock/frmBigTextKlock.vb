@@ -9,12 +9,12 @@
     Dim lblArrayDayofMonth(31) As Label     '
     Dim lblArrayDayofWeek(7) As Label       '
 
-    Dim drag As Boolean                     '   Global variables used to make the form dragable.
+    Dim drag As Boolean                     '   Global variables used to make the form drag-able.
     Dim mousex As Integer                   '
     Dim mousey As Integer                   '
 
 
-    ' -------------------------------------------------------------------------------- procedures used to make form dragable -----------------
+    ' -------------------------------------------------------------------------------- procedures used to make form drag-able -----------------
 
     Private Sub pnlBigKlock_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, pnlBigKlock.MouseDown
 
@@ -230,15 +230,16 @@
     Private Sub setHourOfDay(hourOfDay As Integer, foreColour As Color)
         '   Switch on the current hour of the day.
 
-        If hourOfDay < 12 Then
-            lblMorning.ForeColor = foreColour
-        ElseIf hourOfDay < 17 Then
-            lblAfternoon.ForeColor = foreColour
-            hourOfDay -= 12
-        Else
-            lblEvening.ForeColor = foreColour
-            hourOfDay -= 12
-        End If
+        Select Case hourOfDay
+            Case < 12
+                lblMorning.ForeColor = foreColour
+            Case < 17
+                lblAfternoon.ForeColor = foreColour
+                hourOfDay -= 12
+            Case Else
+                lblEvening.ForeColor = foreColour
+                hourOfDay -= 12
+        End Select
 
         If hourOfDay > 0 Then lblArrayHour(hourOfDay).ForeColor = foreColour
     End Sub
@@ -298,17 +299,13 @@
     Private Function IsNoon(ByVal value As DateTime) As Boolean
         '   Returns true if current time is noon.
 
-        Return value.Hour = 12 And
-            value.Minute = 0 And
-            value.Second = 0
+        Return value.Hour = 12 And value.Minute = 0 And value.Second = 0
     End Function
 
     Private Function IsMidnight(ByVal value As DateTime) As Boolean
         '   Returns true if current time is midnight.
 
-        Return value.Hour = 0 And
-            value.Minute = 0 And
-            value.Second = 0
+        Return value.Hour = 0 And value.Minute = 0 And value.Second = 0
     End Function
 
 

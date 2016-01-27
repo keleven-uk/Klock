@@ -53,7 +53,7 @@ Module FEMcommon
     End Sub
 
     '
-    '   ************************************************************************************************ print the listbox's ********************************
+    '   ************************************************************************************************ print the list-box's ********************************
     '
     Private WithEvents docToPrint As New PrintDocument
 
@@ -117,7 +117,7 @@ Module FEMcommon
     End Sub
 
     Public Sub btnAdd()
-        '   Adds a new friend, event or memo to listview box and saves a new friend, event or memo file.
+        '   Adds a new friend, event or memo to list-view box and saves a new friend, event or memo file.
 
         frmKlock.btnNew.Enabled = True
         frmKlock.btnDelete.Enabled = True
@@ -236,7 +236,7 @@ Module FEMcommon
     End Sub
 
     Public Sub btnEdit()
-        '   allows selected entry in listveiw box to be edited.
+        '   allows selected entry in list-view box to be edited.
         '   Changed button to "Save", which then will save new data to selected entry and save new friend, event or memo file.
 
         PanelTop()
@@ -254,7 +254,7 @@ Module FEMcommon
 
                     frmKlock.FriendsReadOnlyText(False)
                 Else
-                    frmKlock.populateFriend("EDIT")                         '   Save new data back to listview box
+                    frmKlock.populateFriend("EDIT")                         '   Save new data back to list-view box
 
                     frmKlock.btnEdit.Text = "Edit"
                     frmKlock.btnClear.Enabled = False
@@ -274,7 +274,7 @@ Module FEMcommon
 
                     frmKlock.EventsReadOnlyText(False)
                 Else
-                    frmKlock.populateEvents("Edit")                           '   Save new data back to listview box
+                    frmKlock.populateEvents("Edit")                           '   Save new data back to list-view box
 
                     frmKlock.btnEdit.Text = "Edit"
                     frmKlock.btnClear.Enabled = False
@@ -294,7 +294,7 @@ Module FEMcommon
 
                     frmKlock.memoReadOnlyText(True)
                 Else
-                    frmKlock.populateMemo("EDIT")                         '   Save new data back to listview box
+                    frmKlock.populateMemo("EDIT")                         '   Save new data back to list-view box
 
                     frmKlock.btnEdit.Text = "Edit"
                     frmKlock.btnClear.Enabled = False
@@ -310,7 +310,7 @@ Module FEMcommon
     End Sub
 
     Public Sub btnDelete()
-        '   Deletes the currently selected entry form the listviewbox.
+        '   Deletes the currently selected entry form the list-view box.
         '   Saves new friend, event or memo file and display first entry [if exists].
 
         Dim reply As MsgBoxResult
@@ -322,7 +322,7 @@ Module FEMcommon
 
         Select Case frmKlock.TbCntrl.SelectedIndex
             Case 5
-                If frmKlock.LstBxFriends.SelectedIndex > -1 Then                                        '   If entries in listview box.
+                If frmKlock.LstBxFriends.SelectedIndex > -1 Then                                        '   If entries in list-view box.
                     frmKlock.LstBxFriends.Items.RemoveAt(frmKlock.LstBxFriends.SelectedIndex)
                     frmKlock.FriendsClearText()
                     frmKlock.FriendsReadOnlyText(True)
@@ -332,13 +332,13 @@ Module FEMcommon
                     frmKlock.btnDelete.Enabled = True
                     frmKlock.btnEdit.Enabled = True
                     frmKlock.showFriends(0)
-                Else                                                                                    '   No entries in listview box after delete.
+                Else                                                                                    '   No entries in list-view box after delete.
                     frmKlock.btnDelete.Enabled = False
                     frmKlock.btnEdit.Enabled = False
                 End If
                 IOcommon.saveFriends()
             Case 6
-                If frmKlock.LstBxEvents.SelectedIndex > -1 Then                                         '   If entries in listview box.
+                If frmKlock.LstBxEvents.SelectedIndex > -1 Then                                         '   If entries in list-view box.
                     frmKlock.LstBxEvents.Items.RemoveAt(frmKlock.LstBxEvents.SelectedIndex)
                     frmKlock.EventsClearText()
                     frmKlock.EventsReadOnlyText(True)
@@ -351,7 +351,7 @@ Module FEMcommon
                     frmKlock.showEvents(0)
                     frmKlock.tmrEvents.Interval = frmKlock.usrSettings.usrEventsTimerInterval * 60      '   interval is held in minutes
                     frmKlock.tmrEvents.Enabled = True                                                   '   enable events timer.
-                Else                                                                                    '   No entries in listview box after delete.
+                Else                                                                                    '   No entries in list-view box after delete.
                     frmKlock.btnDelete.Enabled = False
                     frmKlock.btnEdit.Enabled = False
                     frmKlock.btnEventsCheck.Enabled = False
@@ -359,7 +359,7 @@ Module FEMcommon
                 End If
                 IOcommon.saveEvents()
             Case 7
-                If frmKlock.LstBxMemo.SelectedIndex > -1 Then                                        '   If entries in listview box.
+                If frmKlock.LstBxMemo.SelectedIndex > -1 Then                                        '   If entries in list-view box.
                     frmKlock.LstBxMemo.Items.RemoveAt(frmKlock.LstBxMemo.SelectedIndex)
                     frmKlock.MemoClearText()
                     frmKlock.memoReadOnlyText(True)
@@ -369,7 +369,7 @@ Module FEMcommon
                     frmKlock.btnDelete.Enabled = True
                     frmKlock.btnEdit.Enabled = True
                     frmKlock.showMemo(0)
-                Else                                                                                    '   No entries in listview box after delete.
+                Else                                                                                    '   No entries in list-view box after delete.
                     frmKlock.btnDelete.Enabled = False
                     frmKlock.btnEdit.Enabled = False
                 End If

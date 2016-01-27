@@ -4,7 +4,7 @@
 '   Holds the data for an event and the functions to expose them.
 
 '   the <Serializable()> bit, allows it to be stored easily in a binary file.
-'   the tostring function allows it to be stored in a listbox.
+'   the tostring function allows it to be stored in a list-box.
 
 <Serializable()> Public Class Memo
 

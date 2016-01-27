@@ -50,7 +50,7 @@ Partial Class frmNotification
         Me.lblMessage2.Name = "lblMessage2"
         Me.lblMessage2.Size = New System.Drawing.Size(265, 28)
         Me.lblMessage2.TabIndex = 1
-        Me.lblMessage2.Text = "Twelve minutes past eleven in the evening"
+        Me.lblMessage2.Text = "Twelve minutes past eleven in the evening111111111"
         Me.lblMessage2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PictureBox1

@@ -24,7 +24,7 @@
             Active() = True
 
         Catch ex As Exception                   '   something has gone wrong, display error and set active to false.
-            displayAction.DisplayReminder("Voice Error :: Error with SAPI", ex.Message)
+            displayAction.DisplayReminder("Voice Error :: Error with SAPI", ex.Message, "G")
             Active() = False
         End Try
     End Sub

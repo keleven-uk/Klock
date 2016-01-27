@@ -69,7 +69,7 @@ Public Class frmAnalogueKlock
     End Sub
 
     Private Sub frmAnalogueKlock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        '   Set Transparencykey on load - makes the form disappear.
+        '   Set Transparency key on load - makes the form disappear.
         '   and load klock position if needed.
 
         Me.TransparencyKey = Color.LightBlue
@@ -87,7 +87,7 @@ Public Class frmAnalogueKlock
 
     Public Sub analogueKlockRefresh()
         '   preform a analogue klock refresh i.e. re-draw.
-        '   if set up to draw backgrounf image and it exists then display it, otherwise clear image.
+        '   if set up to draw background image and it exists then display it, otherwise clear image.
 
         If frmKlock.usrSettings.usrAnalogueKlockDisplayPicture And My.Computer.FileSystem.FileExists(frmKlock.usrSettings.usrAnalogueKlockPicture) Then
             analogueKlock.BackgroundImageLayout = ImageLayout.Zoom
@@ -257,7 +257,7 @@ Public Class frmAnalogueKlock
 
             'The custom hour, minute and second hands GraphicsPath objects
             'must be constructed at 12 o'clock position.
-            'Use the hand's properties (with, lengths, pivotal-point etc) for consistency.
+            'Use the hand's properties (with, lengths, pivotal-point etc.) for consistency.
 
             'This is a pointed style.
             Dim h As Hand = DirectCast(sender, Hand)
@@ -278,7 +278,7 @@ Public Class frmAnalogueKlock
 
             'The custom big and small markers GraphicsPath objects
             'must be constructed at 12 o'clock position.
-            'Use the marker's properties (with, length, pivotal-point, radius etc) for consistency.
+            'Use the marker's properties (with, length, pivotal-point, radius etc.) for consistency.
 
             'This is a triangle style.
             Dim m As Marker = DirectCast(sender, Marker)

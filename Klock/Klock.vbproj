@@ -221,9 +221,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAnalogKlock.resx">
       <DependentUpon>frmAnalogKlock.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmBigTextKlock.resx">
       <DependentUpon>frmBigTextKlock.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmInfo.resx">
       <DependentUpon>frmInfo.vb</DependentUpon>

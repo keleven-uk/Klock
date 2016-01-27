@@ -13,6 +13,7 @@
     '   November 2015   V1.1.2 - added convert tab                                          [build 56]
     '   December 2015   V1.1.3 - Added Big text Klock - more words                          [build 58]
     '   December 2015   V1.1.4 - Added Analogue Klock                                       [build 61]
+    '   January 2016    V1.1.5 - Added Sayings                                              [build 64]
 
 
 
@@ -52,7 +53,10 @@
     Public knownPostCode As New AutoCompleteStringCollection        '   Auto Complete for friends address post code.
     Public knownCounties As New AutoCompleteStringCollection        '   Auto Complete for friends address county.
 
+    Public sayings As New List(Of String)
+
     ' ************************************************************************************** clock routines **************************
+    '
     ' Separate clocks are used for each function, to reduce load on main clock
 
     Private Sub TmrMain_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TmrMain.Tick
@@ -83,13 +87,13 @@
                     LblTimeTwoTime.Font = usrFonts.getFont(tmStr, displayTwoTime.getTitle, grphcs)
                     LblTimeTwoTime.Text = tmStr                                      '   display local time in desired time format.
 
-                End If                                                                  '   If Me.usrSettings.usrTimeTwoFormats Then
+                End If                                                               '   If Me.usrSettings.usrTimeTwoFormats Then
             ElseIf TbCntrl.SelectedIndex = 1 Then
                 updateWorldKlock()                                                   '   Update World Klock.
-            End If                                                                      '   If Me.TbCntrl.SelectedIndex = 0 [or 1] Then
-        Else                                                                            '   else If Me.Visible Then
+            End If                                                                   '   If Me.TbCntrl.SelectedIndex = 0 [or 1] Then
+        Else                                                                         '   else If Me.Visible Then
             NotificationDispaly(currentSecond)                                       '   display a notification, if desired
-        End If                                                                          '   If Me.Visible Then
+        End If                                                                       '   If Me.Visible Then
 
         playHourlyChimes(currentSecond)                                              '   Play a hourly chime,  if desired.
         Notificationspeech(currentSecond)                                            '   Speak time, if desired.
@@ -116,11 +120,7 @@
         If My.Computer.Keyboard.ScrollLock.ToString() Then strKey = Replace(strKey, "s", "S")
         If KlockThings.HaveInternetConnection() Then strKey = Replace(strKey, "off", "ON")
 
-        If usrSettings.usrTimeSystem24Hour Then
-            stsLblTime.Text = String.Format("{0:HH:mm:ss}", System.DateTime.Now)
-        Else
-            stsLblTime.Text = String.Format("{0:hh:mm:ss tt}", System.DateTime.Now)
-        End If
+        stsLblTime.Text = If(usrSettings.usrTimeSystem24Hour, String.Format("{0:HH:mm:ss}", System.DateTime.Now), String.Format("{0:hh:mm:ss tt}", System.DateTime.Now))
 
         '   Me.stsLblTime.Text = Format(Now, "Long Time")
         StsLblDate.Text = Format(Now, "Long Date")
@@ -209,32 +209,32 @@
         Try
             NtfyIcnKlock.Text = displayOneTime.getTitle & " : " & displayOneTime.getTime()    '   set icon tool tip to current time [must be less then 64 chars].
         Catch ex As Exception
-            displayAction.DisplayReminder("Notification Error", ex.Message)
+            displayAction.DisplayReminder("Notification Error", ex.Message, "G")
         End Try
 
         Dim noSecs As Integer = usrSettings.usrTimeDisplayMinutes * 60
 
         If usrSettings.usrTimeDisplayMinimised And (Math.Floor(m Mod noSecs) = 0) Then
 
-            displayAction.DisplayReminder("Time", displayOneTime.getTime())  '   display current time as a toast notification,if desired
+            displayAction.DisplayReminder("Time", displayOneTime.getTime(), "G")  '   display current time as a toast notification,if desired
 
             If usrSettings.usrTimerAdd And tmrTimer.Enabled Then          '   time is running
                 If usrSettings.usrTimerHigh Then                             '   are we displaying milliseconds in timer.
-                    displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getHighElapsedTime())
+                    displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getHighElapsedTime(), "G")
                 Else
-                    displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getLowElapsedTime())
+                    displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getLowElapsedTime(), "G")
                 End If
             End If
 
             If usrSettings.usrCountdownAdd And tmrCountDown.Enabled Then  '   countdown is running.
-                displayAction.DisplayReminder("Countdown", "Countdown Running :: " & minsToString(CountDownTime))
+                displayAction.DisplayReminder("Countdown", "Countdown Running :: " & minsToString(CountDownTime), "G")
             End If
 
             If usrSettings.usrReminderAdd And tmrReminder.Enabled Then
                 If usrSettings.usrReminderTimeChecked Then
-                    displayAction.DisplayReminder("Reminder", "Reminder set for " & ReminderDateTime.ToLongDateString & " @ " & ReminderDateTime.ToLongTimeString)
+                    displayAction.DisplayReminder("Reminder", "Reminder set for " & ReminderDateTime.ToLongDateString & " @ " & ReminderDateTime.ToLongTimeString, "G")
                 Else
-                    displayAction.DisplayReminder("Reminder", "Reminder set for " & ReminderDateTime.ToLongDateString)
+                    displayAction.DisplayReminder("Reminder", "Reminder set for " & ReminderDateTime.ToLongDateString, "G")
                 End If
             End If
 
@@ -249,13 +249,14 @@
                     wctext = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, CmbBxWorldKlockTimeZones.SelectedItem).ToLongDateString & " :: " & TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, CmbBxWorldKlockTimeZones.SelectedItem).ToLongTimeString
                 End If
 
-                displayAction.DisplayReminder("World Klock :: " & CmbBxWorldKlockTimeZones.SelectedItem.ToString, wctext)
+                displayAction.DisplayReminder("World Klock :: " & CmbBxWorldKlockTimeZones.SelectedItem.ToString, wctext, "G")
             End If
 
         End If          '   If Me.usrsettings.usrTimeDislayMinimised
     End Sub
 
     ' *************************************************************************************************************** Timer clock ***********************
+
     Private Sub tmrTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrTimer.Tick
         '   If enabled, timer is running - update timer label
 
@@ -263,6 +264,7 @@
     End Sub
 
     ' ******************************************************************************************************************* Countdown clock ****************
+
     Private Sub tmrCountDown_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrCountDown.Tick
         '   If enabled, countdown is running - clock ticks every second.
 
@@ -317,6 +319,47 @@
         End If
     End Sub
 
+    ' ******************************************************************************************************************* Memo clock ******************
+
+    Private Sub TmrMemo_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TmrMemo.Tick
+        '   if enabled, a secret memo test has been decrypted.
+        '   The timer fires every second, the sub keeps score of the seconds.
+        '   If the number of seconds exceeds the stores value, the memo text is changed to "Its a secret".
+
+        Static noOfSeconds As Integer = 0
+
+        noOfSeconds += 1
+        TlStrpPrgrsBrMemo.Value = noOfSeconds
+
+        If noOfSeconds = usrSettings.usrMemoDecyptTimeOut Then
+            noOfSeconds = 0
+            showMemo(LstBxMemo.SelectedIndex)
+            TmrMemo.Enabled = False
+            TlStrpPrgrsBrMemo.Value = 0
+            TlStrpPrgrsBrMemo.Visible = False
+        End If
+    End Sub
+
+    ' ******************************************************************************************************************* Sayings clock ******************
+
+    Private Sub tmrSayings_Tick(sender As Object, e As EventArgs) Handles tmrSayings.Tick
+        '   If enabled, will display a random saying.  Enabled by checkbox in sayings option tab.
+        '   The timer fires every minute, the sub keeps score of the minutes.
+        '   If the number of minutes exceeds the stores value, the random saying is displayed.
+        Static noOfMinutes As Integer = 0
+
+        noOfMinutes += 1
+
+        If noOfMinutes > (usrSettings.usrSayingsDisplayTime) Then
+            noOfMinutes = 0
+            displayAction.DisplayReminder("Sayings", randomSayings(), "S")
+        End If
+    End Sub
+
+    '
+    '   End Of Clock Routines
+    '
+    '
     '   *************************************************************************************** Global Tab Change ****************************************
 
     Private Sub TbCntrl_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TbCntrl.SelectedIndexChanged
@@ -385,6 +428,26 @@
                 End If
             Case 8                                              '   Convert tab
                 FEMcommon.ButtonsVisible(False, 0, 0, 0)
+            Case 9                                              '   Sayings tab
+                FEMcommon.ButtonsVisible(False, 0, 0, 0)
+
+                If usrSettings.usrSayingsDisplay Then
+                    TbPgSayings.Enabled = True
+                    If sayings.Count = 0 Then
+                        btnDisplaySayings.Enabled = False
+                        txtBxSayings.Enabled = False
+                        lblSayingsNumber.Text = "There are no sayings."
+                    Else
+                        btnDisplaySayings.Enabled = True
+                        txtBxSayings.Enabled = True
+                        lblSayingsNumber.Text = "There are " & sayings.Count.ToString & " sayings."
+                        LoadSaying()
+                    End If
+                Else
+                    TbPgSayings.Enabled = False
+                    txtBxSayings.Clear()
+                    lblSayingsNumber.Text = "Sayings are not enabled."
+                End If
         End Select
 
         setTitleText()
@@ -671,7 +734,7 @@
         End If
         If ChckBxCountDownReminder.Checked Then                             '   do reminder action.
             ChckBxCountDownReminder.Checked = False
-            displayAction.DisplayReminder("CountDown", TxtBxCountDownReminder.Text)
+            displayAction.DisplayReminder("CountDown", TxtBxCountDownReminder.Text, "G")
         End If
         If ChckBxCountDownSystem.Checked Then                               '   do system action.
             If NtfyIcnKlock.Visible Then                                    '   if main form not visible, then show
@@ -862,7 +925,7 @@
     End Sub
 
     Private Sub btnReminderLoadSound_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderLoadSound.Click
-        ' Open file dialog to load sound file.
+        ' Open file dialogue to load sound file.
 
         OpenFileDialog1.FileName = ""
         OpenFileDialog1.Filter = "Sound Files|*.wav; *.mp3"
@@ -873,7 +936,7 @@
     End Sub
 
     Private Sub btnReminderLoadCommand_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReminderLoadCommand.Click
-        ' Open file dialog to load command file.
+        ' Open file dialogue to load command file.
 
         OpenFileDialog1.Filter = "All Files|*.*"
         If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
@@ -891,10 +954,10 @@
         End If
         If ChckBxReminderReminder.Checked Then                               '   do reminder action.
             ChckBxReminderReminder.Checked = False
-            displayAction.DisplayReminder("Reminder", TxtBxReminderReminder.Text)
+            displayAction.DisplayReminder("Reminder", TxtBxReminderReminder.Text, "G")
         End If
         If ChckBxReminderSystem.Checked Then                                 '   do system action.
-            If NtfyIcnKlock.Visible Then                                        '   if main form not visible, then show
+            If NtfyIcnKlock.Visible Then                                     '   if main form not visible, then show
                 NtfyIcnKlock.Visible = False                                 '   so abort button can be deployed.
                 Visible = True
             End If
@@ -1063,13 +1126,7 @@
     Private Sub FirstAndLastName_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtbxFriendsFirstName.TextChanged, txtbxFriendsLastName.TextChanged
         '   Only allow adding if first and last name exist.
 
-        If F_ADDING Then
-            If txtbxFriendsFirstName.Text <> "" And txtbxFriendsLastName.Text <> "" Then
-                btnAdd.Enabled = True
-            Else
-                btnAdd.Enabled = False
-            End If
-        End If
+        If F_ADDING Then btnAdd.Enabled = If((txtbxFriendsFirstName.Text <> "" And txtbxFriendsLastName.Text <> ""), True, False)
     End Sub
 
     Public Sub FriendsClearText()
@@ -1206,7 +1263,7 @@
             End If
 
         Catch ex As Exception
-            displayAction.DisplayReminder("ERROR :: populating friend", ex.Message)
+            displayAction.DisplayReminder("ERROR :: populating friend", ex.Message, "G")
         End Try
     End Sub
 
@@ -1252,11 +1309,7 @@
         normalFriendsDate()
 
         '   only allow to be added to events, if first name and dob contain data - does not check if valid.
-        If DtPckrFriendsDOB.Checked And txtbxFriendsFirstName.Text <> "" Then
-            ChckBxAddToEvents.Enabled = True
-        Else
-            ChckBxAddToEvents.Enabled = False
-        End If
+        ChckBxAddToEvents.Enabled = DtPckrFriendsDOB.Checked And txtbxFriendsFirstName.Text <> ""
     End Sub
 
     Private Sub blankFriendsDate()
@@ -1294,20 +1347,14 @@
         '   Post code may only contain upper case letters and numbers.
 
         If Char.IsLetterOrDigit(e.KeyChar) Then
-
-            If Char.IsLetter(e.KeyChar) Then
-                txtbxFriendsAddressPostCode.SelectedText = UCase(e.KeyChar)
-            Else
-                txtbxFriendsAddressPostCode.SelectedText = e.KeyChar
-            End If
-
+            txtbxFriendsAddressPostCode.SelectedText = If(Char.IsLetter(e.KeyChar), UCase(e.KeyChar), e.KeyChar)
             e.Handled = True
-
         End If
     End Sub
 
     Private Sub FriendsTelephone1_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtbxFriendsTelephone1.KeyPress, txtbxFriendsTelephone2.KeyPress, txtbxFriendsTelephone3.KeyPress
         '   Telephone numbers may only contain numbers.
+
 
         If Char.IsNumber(e.KeyChar) Then
 
@@ -1315,8 +1362,6 @@
             e.Handled = True
         ElseIf Char.IsPunctuation(e.KeyChar) Then
             e.Handled = True
-        Else
-
         End If
     End Sub
 
@@ -1373,13 +1418,7 @@
     Private Sub TxtBxEventsName_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TxtBxEventsName.TextChanged
         '   Only allow adding if name contains some text.
 
-        If E_ADDING Then
-            If TxtBxEventsName.Text <> "" Then
-                btnAdd.Enabled = True
-            Else
-                btnAdd.Enabled = False
-            End If
-        End If
+        If E_ADDING Then btnAdd.Enabled = If(TxtBxEventsName.Text <> "", True, False)
     End Sub
 
     Public Sub EventsClearText()
@@ -1441,7 +1480,7 @@
                 LstBxEvents.Items(LstBxEvents.SelectedIndex) = e
             End If
         Catch ex As Exception
-            displayAction.DisplayReminder("ERROR :: populating event", ex.Message)
+            displayAction.DisplayReminder("ERROR :: populating event", ex.Message, "G")
         End Try
     End Sub
 
@@ -1480,7 +1519,7 @@
         If reSave Then
             IOcommon.saveEvents()
         Else
-            displayAction.DisplayReminder("Events", "No events near")
+            displayAction.DisplayReminder("Events", "No events near", "G")
         End If
 
     End Sub
@@ -1544,7 +1583,7 @@
                 LstBxMemo.Items(LstBxMemo.SelectedIndex) = m
             End If
         Catch ex As Exception
-            displayAction.DisplayReminder("ERROR :: populating memo", ex.Message)
+            displayAction.DisplayReminder("ERROR :: populating memo", ex.Message, "G")
         End Try
     End Sub
 
@@ -1581,7 +1620,7 @@
                     TmrMemo.Enabled = True
                     TlStrpPrgrsBrMemo.Visible = True
                 Catch ex As Exception
-                    displayAction.DisplayReminder("Memo Error", "Seems to be the wrong password")
+                    displayAction.DisplayReminder("Memo Error", "Seems to be the wrong password", "G")
                 End Try
 
                 M_SHOW = False
@@ -1613,25 +1652,6 @@
 
         Return password
     End Function
-
-    Private Sub TmrMemo_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TmrMemo.Tick
-        '   if enabled, a secret memo test has been decrypted.
-        '   The timer fires every second, the sub keeps score of the seconds.
-        '   If the number of seconds exceeds the stores value, the memo text is changed to "Its a secret".
-
-        Static noOfSeconds As Integer = 0
-
-        noOfSeconds += 1
-        TlStrpPrgrsBrMemo.Value = noOfSeconds
-
-        If noOfSeconds = usrSettings.usrMemoDecyptTimeOut Then
-            noOfSeconds = 0
-            showMemo(LstBxMemo.SelectedIndex)
-            TmrMemo.Enabled = False
-            TlStrpPrgrsBrMemo.Value = 0
-            TlStrpPrgrsBrMemo.Visible = False
-        End If
-    End Sub
 
     ' ********************************************************************************************************************************* World Klock ******
     Private Sub CmbBxWorldKlockTimeZones_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CmbBxWorldKlockTimeZones.SelectedIndexChanged
@@ -1690,6 +1710,7 @@
 
     ' ******************************************************************************************************************************** Converter ******
     '   following sub are in conversionThings.vb
+
     Private Sub CmbBxConvertCategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbBxConvertCategory.SelectedIndexChanged
         '   The convert categories has changed - re-load the conversion items
 
@@ -1725,40 +1746,69 @@
         btnConvertStart.Enabled = True
     End Sub
 
+    ' ********************************************************************************************************************************** Sayings ******
+
+    Private Sub btnDisplaySayings_Click(sender As Object, e As EventArgs) Handles btnDisplaySayings.Click
+        ' Loads a random sayings and displays on the tab page.
+
+        LoadSaying()
+    End Sub
+
+    Private Sub btnReLoadSayings_Click(sender As Object, e As EventArgs) Handles btnReLoadSayings.Click
+        '   Reload the sayings from text files.
+
+        sayings.Clear()
+        loadSayings()
+
+        If sayings.Count = 0 Then
+            lblSayingsNumber.Text = "There are no sayings."
+        Else
+            lblSayingsNumber.Text = "There are " & sayings.Count.ToString & " sayings."
+            LoadSaying()
+        End If
+    End Sub
+
     ' ******************************************************************************************************************************** Global Stuff ******
+
     Private Sub frmKlock_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '   Apply current setting on form load.
 
-        TmrMain.Enabled = False                      '   Turn off main timer while we sort things out.
+        TmrMain.Enabled = False                         '   Turn off main timer while we sort things out.
 
-        startTime = My.Computer.Clock.TickCount      '   used for app running time.
-        displayOneTime = New selectTime              '   user selected time I
-        displayTwoTime = New selectTime              '   user selected time II
-        displayAction = New selectAction             '   user selected actions
-        displayTimer = New Timer                     '   timer stuff
-        usrSettings = New UserSettings               '   user settings
-        usrFonts = New UserFonts                     '   user fonts
-        usrVoice = New Voice                         '   user voice
+        startTime = My.Computer.Clock.TickCount         '   used for app running time.
+        displayOneTime = New selectTime                 '   user selected time I
+        displayTwoTime = New selectTime                 '   user selected time II
+        displayAction = New selectAction                '   user selected actions
+        displayTimer = New Timer                        '   timer stuff
+        usrSettings = New UserSettings                  '   user settings
+        usrFonts = New UserFonts                        '   user fonts
+        usrVoice = New Voice                            '   user voice
 
-        myManagedPower = New ManagedPower            '   system power source
+        myManagedPower = New ManagedPower               '   system power source
 
-        DtPckrFriendsDOB.MaxDate = Now()             '   nobody is born after today :-)
+        DtPckrFriendsDOB.MaxDate = Now()                '   nobody is born after today :-)
 
-        setSettings()                                '   load user settings
-        setTimeTypes()                               '   load time types into combo box.
-        setActionTypes()                             '   load action types into combo box.
-        setTimeZones(0)                              '   load time zones into combo box, making index 0 active.
+        setSettings()                                   '   load user settings
+        setTimeTypes()                                  '   load time types into combo box.
+        setActionTypes()                                '   load action types into combo box.
+        setTimeZones(0)                                 '   load time zones into combo box, making index 0 active.
 
         checkUnitsFile()                                '   check for units file - from conversionThings.ucheckUnitsFile()
         unitsLoad("LoadCategory")                       '   load conversion units - from conversionThings.unitsLoad()
+
+        loadSayings()                                   '   Loads the jokes, sayings etc.
 
         setTitleText()                                  '   set app title text
 
         FEMcommon.ButtonsVisible(False, 0, 0, 0)
 
-        TmrMain.Enabled = True                       '   Turn on main timer now things are sorted out.
+        TmrMain.Enabled = True                          '   Turn on main timer now things are sorted out.
 
         HlpPrvdrKlock.HelpNamespace = System.IO.Path.Combine(Application.StartupPath, "klock.chm") '   set up help location
+
+        LstBxFriends.Font = usrFonts.getFont()
+        LstBxEvents.Font = usrFonts.getFont()
+        LstBxMemo.Font = usrFonts.getFont()
     End Sub
 
     Private Sub frmKlock_Shown(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Shown
@@ -1789,12 +1839,7 @@
             ' Make sure that the active control is a TextBox control
             ' Do not use the Enter key as tab when a button has the focus!
             If ActiveControl.GetType Is GetType(TextBox) Or ActiveControl.GetType Is GetType(CheckBox) Or ActiveControl.GetType Is GetType(DateTimePicker) Then
-
-                If e.Shift Then                      ' Use Shift + Enter to move backwards through the tab order
-                    ProcessTabKey(False)
-                Else
-                    ProcessTabKey(True)
-                End If
+                ProcessTabKey(e.Shift)                     ' Use Shift + Enter to move backwards through the tab order
             End If
         End If
     End Sub
@@ -1807,7 +1852,7 @@
             usrSettings.usrFormLeft = Left
         End If
 
-        usrSettings.writeSettings()          '   save settings, not sure if anything has changed.
+        usrSettings.writeSettings()             '   save settings, not sure if anything has changed.
 
         KlockThings.RestoreMonitorSettings()    '   restore system monitor sleep settings, just in case been altered.
 
@@ -1845,24 +1890,15 @@
 
         TlStrpMnItmTime.Checked = usrSettings.usrTimeDisplayMinimised
         ChckBxReminderTimeCheck.Checked = usrSettings.usrReminderTimeChecked
-        DisplayTwoTimeFormatsToolStripMenuItem.Checked = usrSettings.usrTimeTwoFormats
         DisplayIdleTime.Checked = usrSettings.usrTimeIdleTime
         MonitorDisableSleep.Checked = usrSettings.usrDisableMonitorSleep
 
-        If usrSettings.usrTimeTwoFormats Then               '   switch on second time format, if desired.
-            CmbBxTimeTwo.Visible = True
-            LblTimeTwoTime.Visible = True
-            GroupBox14.Visible = True                    '   sorry i don't name groupboxs
-            GroupBox15.Visible = True
-        Else
-            CmbBxTimeTwo.Visible = False
-            LblTimeTwoTime.Visible = False
-            GroupBox14.Visible = False
-            GroupBox15.Visible = False
-        End If
-
-        DisplayTwoTimeFormatsToolStripMenuItem.Checked = usrSettings.usrTimeTwoFormats    '   Set menu check accordingly.
-        DisplayIdleTime.Checked = usrSettings.usrTimeIdleTime                             '   
+        CmbBxTimeTwo.Visible = usrSettings.usrTimeTwoFormats                                '   switch on second time format, if desired.
+        LblTimeTwoTime.Visible = usrSettings.usrTimeTwoFormats
+        GroupBox14.Visible = usrSettings.usrTimeTwoFormats                                  '   sorry i don't name group-boxes
+        GroupBox15.Visible = usrSettings.usrTimeTwoFormats
+        DisplayTwoTimeFormatsToolStripMenuItem.Checked = usrSettings.usrTimeTwoFormats      '   Set menu check accordingly.
+        DisplayIdleTime.Checked = usrSettings.usrTimeIdleTime                               '   
 
         If reloadFriends Then
             IOcommon.loadFriends()
@@ -1880,14 +1916,15 @@
         If LstBxEvents.Items.Count > 0 Then checkEvents()
         If reloadMemo Then IOcommon.loadMemo()
 
-        reloadFriends = False                        '   set to re-load friends file to false.
-        reloadEvents = False                         '   set to re-load events file to false.
-        reloadMemo = False                           '   set to re-load memo file to false
+        reloadFriends = False                                           '   set to re-load friends file to false.
+        reloadEvents = False                                            '   set to re-load events file to false.
+        reloadMemo = False                                              '   set to re-load memo file to false
 
-        TlStrpPrgrsBrMemo.Minimum = 0
+        TlStrpPrgrsBrMemo.Minimum = 0                                   '   set up memo
         TlStrpPrgrsBrMemo.Step = 1
         TlStrpPrgrsBrMemo.Maximum = usrSettings.usrMemoDecyptTimeOut
 
+        tmrSayings.Enabled = usrSettings.usrSayingsDisplay             '   set up saying timer.
     End Sub
 
     Sub setActionTypes()
@@ -1970,19 +2007,12 @@
     Private Sub DisplayTwoTimeFormatsToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles DisplayTwoTimeFormatsToolStripMenuItem.Click
         '   If chosen from menus, switch on two time formats.
 
-        If DisplayTwoTimeFormatsToolStripMenuItem.Checked Then
-            usrSettings.usrTimeTwoFormats = True
-            CmbBxTimeTwo.Visible = True
-            LblTimeTwoTime.Visible = True
-            GroupBox14.Visible = True                    '   sorry i don't name groupboxs
-            GroupBox15.Visible = True
-        Else
-            usrSettings.usrTimeTwoFormats = False
-            CmbBxTimeTwo.Visible = False
-            LblTimeTwoTime.Visible = False
-            GroupBox14.Visible = False
-            GroupBox15.Visible = False
-        End If
+        usrSettings.usrTimeTwoFormats = DisplayTwoTimeFormatsToolStripMenuItem.Checked
+        CmbBxTimeTwo.Visible = DisplayTwoTimeFormatsToolStripMenuItem.Checked
+        LblTimeTwoTime.Visible = DisplayTwoTimeFormatsToolStripMenuItem.Checked
+        GroupBox14.Visible = DisplayTwoTimeFormatsToolStripMenuItem.Checked                    '   sorry i don't name group-boxes
+        GroupBox15.Visible = DisplayTwoTimeFormatsToolStripMenuItem.Checked
+
     End Sub
 
     Private Sub DisplayIdleTimeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DisplayIdleTime.Click

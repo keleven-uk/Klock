@@ -56,7 +56,7 @@
             mciSendString("setaudio myAudio volume to " & Volume, Nothing, 0, 0)
 
         Else
-            DisplayReminder("ERROR", "Sorry, sound file seems to have gone away!!" & vbCr & s)
+            DisplayReminder("ERROR", "Sorry, sound file seems to have gone away!!" & vbCr & s, "G")
         End If      '   if My.Computer.FileSystem.FileExists(s)
     End Sub
 
@@ -71,16 +71,23 @@
         rtn = SendMessage(hWnd, WM_SYSCOMMAND, SC_SCREENSAVE, 0)
     End Sub
 
-    Public Sub DisplayReminder(ByVal title As String, ByVal message As String)
+    Public Sub DisplayReminder(ByVal title As String, ByVal message As String, mode As Char)
         '   Display the reminder message
+        '   Use different timeout for General [Reminder] and Sayings notifications
 
-        Dim Notification As New frmNotification(frmKlock.usrSettings.usrNotificationTimeOut, title, message, "R")
-
-        Notification.Show()
+        Select Case mode
+            Case "G"
+                Dim Notification As New frmNotification(title, message, "R")
+                Notification.Show()
+            Case "S"
+                Dim Notification As New frmNotification(title, message, "S")
+                Notification.Show()
+        End Select
     End Sub
 
     Public Sub DisplayEvent(ByVal e As Events)
-        '   Display the reminder message
+        '   Display the event message
+        '   Not used general sub above, pass in event object.
 
         Dim et As New eventThings
 
@@ -96,7 +103,7 @@
             message = et.eventmessage(e)
         End If
 
-        Dim Notification As New frmNotification(frmKlock.usrSettings.usrNotificationTimeOut, title, message, "E")
+        Dim Notification As New frmNotification(title, message, "E")
 
         Notification.Show()
     End Sub
@@ -125,7 +132,7 @@
             p.FileName = "shutdown.exe"
             Process.Start(p)
         Catch ex As System.ComponentModel.Win32Exception
-            DisplayReminder("ERROR", "Sorry, there seems to problems :: " & ex.Message)
+            DisplayReminder("ERROR", "Sorry, there seems to problems :: " & ex.Message, "G")
         End Try
     End Sub
 
@@ -140,7 +147,7 @@
             p.FileName = "shutdown.exe"
             Process.Start(p)
         Catch ex As System.ComponentModel.Win32Exception
-            DisplayReminder("ERROR", "Sorry, there seems to problems :: " & ex.Message)
+            DisplayReminder("ERROR", "Sorry, there seems to problems :: " & ex.Message, "G")
         End Try
     End Sub
 
@@ -156,10 +163,10 @@
                 Try
                     Process.Start(s)
                 Catch ex As System.ComponentModel.Win32Exception
-                    DisplayReminder("ERROR", "Sorry, can not be executed :: " & ex.Message)
+                    DisplayReminder("ERROR", "Sorry, can not be executed :: " & ex.Message, "G")
                 End Try
             Else
-                DisplayReminder("ERROR", "Sorry, file seems to have gone away!!")
+                DisplayReminder("ERROR", "Sorry, file seems to have gone away!!", "G")
             End If
         End If
     End Sub

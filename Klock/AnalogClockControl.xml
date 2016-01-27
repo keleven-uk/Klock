@@ -28,7 +28,7 @@ AnalogClockControl
  </summary>
 </member><member name="P:AnalogClock.Clock.CenterPoint">
 	<summary>
- Gets clock's center-point object.
+ Gets clock's centre-point object.
  </summary>
 </member><member name="P:AnalogClock.Clock.BigMarkers">
 	<summary>
@@ -48,7 +48,7 @@ AnalogClockControl
  </summary>
 </member><member name="P:AnalogClock.Clock.FrameColor">
 	<summary>
- Gets or sets the clock's frame color.
+ Gets or sets the clock's frame colour.
  </summary>
 </member><member name="P:AnalogClock.Clock.Running">
 	<summary>
@@ -80,12 +80,12 @@ AnalogClockControl
  </summary>
 </member><member name="M:AnalogClock.Clock.GetPoint(System.Drawing.PointF,System.Double,System.Single)">
 	<summary>
- Calculates and returns a point in the clock's cordinates.
+ Calculates and returns a point in the clock's coordinates.
  </summary>
-	<param name="startPoint">A starting point in the clock’s 
+	<param name="startPoint">A starting point in the clock's 
  area from which the point should be calculated.</param>
-	<param name="angle">An angle from x-axis (in radins).</param>
-	<param name="radius">The distans from the starting point to the point.</param>
+	<param name="angle">An angle from x-axis (in radians).</param>
+	<param name="radius">The distance from the starting point to the point.</param>
 </member><member name="M:AnalogClock.Clock.UpdateTime">
 	<summary>
  Updates the clock's hands.
@@ -100,17 +100,17 @@ AnalogClockControl
  </summary>
 </member><member name="M:AnalogClock.Clock.InitalizeBigMarkers(AnalogClock.Marker[])">
 	<summary>
- Initalizes the clock's big-markers by adding event handlers and updating the base-path.
+ Initializes the clock's big-markers by adding event handlers and updating the base-path.
  </summary>
 	<param name="markerArray">An array of AnalogClock.Marker object.</param>
 </member><member name="M:AnalogClock.Clock.InitalizeSmallMarkers(AnalogClock.Marker[])">
 	<summary>
- Initalizes the clock's small-markers by adding event handlers and updating the base-path.
+ Initializes the clock's small-markers by adding event handlers and updating the base-path.
  </summary>
 	<param name="markerArray">An array of AnalogClock.Marker object.</param>
 </member><member name="M:AnalogClock.Clock.InitalizeSymbols(AnalogClock.Symbol[])">
 	<summary>
- Initalizes the clock's symbols by adding event handlers.
+ Initializes the clock's symbols by adding event handlers.
  </summary>
 	<param name="symbolArray">An array of AnalogClock.Symbol object.</param>
 </member><member name="M:AnalogClock.Clock.OnPaint(System.Windows.Forms.PaintEventArgs)">
@@ -240,7 +240,7 @@ AnalogClockControl
 	<param name="name">The name of the element.</param>
 	<param name="angle">The angle of the element in degrees.</param>
 	<param name="clockRadius">The cluck's radius for the element.</param>
-	<param name="col">The color of the element.</param>
+	<param name="col">The colour of the element.</param>
 	<param name="width">The width of the element.</param>
 	<param name="relativeLength">The relative length of the 
  element that is directly proportional to its radius.</param>
@@ -250,7 +250,7 @@ AnalogClockControl
 	<param name="name">The name of the element.</param>
 	<param name="angle">The angle of the element in degrees.</param>
 	<param name="clockRadius">The cluck's radius for the element.</param>
-	<param name="col">The color of the element.</param>
+	<param name="col">The colour of the element.</param>
 	<param name="width">The width of the element.</param>
 	<param name="relativeLength">The relative length of the 
  element that is directly proportional to its radius.</param>
@@ -348,8 +348,8 @@ AnalogClockControl
  Gets or sets the drawing pen's width for the element."
  </summary>
 </member><member name="M:AnalogClock.PaintAttributes.#ctor(AnalogClock.PaintObject)">
-	<param name="obj">An AnalogClock.DrawObject enumaration value (Pen or Brush) 
- that specifies the drawing object fo the element.</param>
+	<param name="obj">An AnalogClock.DrawObject enumeration value (Pen or Brush) 
+ that specifies the drawing object of the element.</param>
 </member><member name="M:AnalogClock.PaintAttributes.#ctor(AnalogClock.PaintObject,System.Single)">
 	<param name="obj">A PaintObject enumaration value (Pen or Brush) 
  that specifies the drawing object fo the element.</param>
@@ -384,7 +384,7 @@ AnalogClockControl
 </summary>
 </member><member name="T:AnalogClock.CenterStyle">
 	<summary>
- Represents center style enumeration for AnalogClock.Center object.
+ Represents centre style enumeration for AnalogClock.Center object.
  </summary>
 </member><member name="P:AnalogClock.Center.PaintAttributes">
 	<summary>
@@ -408,7 +408,7 @@ AnalogClockControl
 	<param name="relativeRadius">The element's relative radius 
  that is directly proportional to the clock's radius.</param>
 </member><member name="M:AnalogClock.Center.#ctor(System.Drawing.Color,AnalogClock.CenterStyle,System.Boolean,System.Single,System.Single,AnalogClock.PaintAttributes,AnalogClock.SmoothMode,System.Object)">
-	<param name="col">The color of the element.</param>
+	<param name="col">The colour of the element.</param>
 	<param name="style">The style of the element.</param>
 	<param name="visible">The visibility of the element.</param>
 	<param name="clockRadius">The cluck's radius for the element.</param>
@@ -447,15 +447,15 @@ AnalogClockControl
  that contains the event data.</param>
 </member><member name="M:AnalogClock.Center.ToRegular">
 	<summary>
- Sets the element's base-path to regular style (head up position at the center of the clock).
+ Sets the element's base-path to regular style (head up position at the centre of the clock).
  </summary>
 </member><member name="M:AnalogClock.Center.ToStar8">
 	<summary>
- Sets the element's base-path to eight-vertices star style (head up position at the center of the clock).
+ Sets the element's base-path to eight-vertices star style (head up position at the centre of the clock).
  </summary>
 </member><member name="M:AnalogClock.Center.ToOctagon">
 	<summary>
- Set the element's base-path to octagon style (head up position at the center of the clock).
+ Set the element's base-path to octagon style (head up position at the centre of the clock).
  </summary>
 </member><member name="T:AnalogClock.Center">
 	<summary>
@@ -498,7 +498,7 @@ AnalogClockControl
  </summary>
 </member><member name="P:AnalogClock.Symbol.Offset">
 	<summary>
- Gets or sets the element's offset from the clock's-center (assuming the clock's-center at {0, 0}).
+ Gets or sets the element's offset from the clock's-centre (assuming the clock's-centre at {0, 0}).
  </summary>
 </member><member name="P:AnalogClock.Symbol.Upright">
 	<summary>
@@ -526,15 +526,14 @@ AnalogClockControl
 	<param name="angle">The angle of the element in degrees.</param>
 	<param name="index">The index of the element in the array.</param>
 	<param name="offset">The offset of the element from the 
- center of the clock.</param>
+ centre of the clock.</param>
 </member><member name="M:AnalogClock.Symbol.#ctor(System.String,System.Single,System.String,System.Drawing.Font,System.Drawing.Color,System.Drawing.Point,System.Int32,System.Boolean,System.Boolean,AnalogClock.SymbolStyle,System.Single,System.Single,System.Drawing.Text.TextRenderingHint,System.Object)">
 	<param name="name">The name of the element.</param>
 	<param name="angle">The angle of the element in degrees.</param>
 	<param name="text">The text of the element.</param>
 	<param name="font">The font of the element.</param>
-	<param name="col">The color of the element.</param>
-	<param name="offset">The offset of the element from the 
- center of the clock.</param>
+	<param name="col">The colour of the element.</param>
+	<param name="offset">The offset of the element from the centre of the clock.</param>
 	<param name="index">The index of the element in the array.</param>
 	<param name="visible">The visibility of the element.</param>
 	<param name="upright">The direction of the element.</param>
@@ -567,8 +566,8 @@ AnalogClockControl
  </summary>
 </member><member name="P:AnalogClock.Element.Radius">
 	<summary>
- Gets either the element's radius (from the center point to the element) or prime length (starting 
- from the center to the end of the element) that is directly proportional to the clock's radius.
+ Gets either the element's radius (from the centre point to the element) or prime length (starting 
+ from the centre to the end of the element) that is directly proportional to the clock's radius.
  </summary>
 </member><member name="P:AnalogClock.Element.Name">
 	<summary>
@@ -576,7 +575,7 @@ AnalogClockControl
  </summary>
 </member><member name="P:AnalogClock.Element.PivotalPoint">
 	<summary>
- Gets the clock's pivotal-point(the center of the element's rotation).
+ Gets the clock's pivotal-point(the centre of the element's rotation).
  </summary>
 </member><member name="P:AnalogClock.Element.ClockRadius">
 	<summary>
@@ -588,8 +587,8 @@ AnalogClockControl
  </summary>
 </member><member name="P:AnalogClock.Element.RelativeRadius">
 	<summary>
- Gets or sets either the element's relative radius (from the center point to the element) or relative prime 
- length (starting from the center to the end of the element) that is directly proportional to the clock's radius.
+ Gets or sets either the element's relative radius (from the centre point to the element) or relative prime 
+ length (starting from the centre to the end of the element) that is directly proportional to the clock's radius.
  </summary>
 </member><member name="P:AnalogClock.Element.Visible">
 	<summary>
@@ -597,7 +596,7 @@ AnalogClockControl
  </summary>
 </member><member name="P:AnalogClock.Element.Color">
 	<summary>
- Gets or sets the element's color.
+ Gets or sets the element's colour.
  </summary>
 </member><member name="P:AnalogClock.Element.Tag">
 	<summary>
@@ -606,7 +605,7 @@ AnalogClockControl
 </member><member name="M:AnalogClock.Element.#ctor(System.String,System.Single,System.Drawing.Color,System.Boolean,System.Single,System.Single,System.Object)">
 	<param name="name">The name of the element.</param>
 	<param name="angle">The angle of the element in degrees.</param>
-	<param name="col">The color of the element.</param>
+	<param name="col">The colour of the element.</param>
 	<param name="visible">The visibility of the element.</param>
 	<param name="relativeRadius">The relative radius of the 
  element that is directly proportional to the clock's radius.</param>
@@ -691,7 +690,7 @@ AnalogClockControl
  </summary>
 </member><member name="P:AnalogClock.Hand.PrimeLength">
 	<summary>
- Gets the element's prime length (from the center-point to its end).
+ Gets the element's prime length (from the centre-point to its end).
  </summary>
 </member><member name="P:AnalogClock.Hand.TailLength">
 	<summary>
@@ -708,7 +707,7 @@ AnalogClockControl
  the element's tail) that is directly proportional to the clock's radius.</param>
 	<param name="width">The element's width.</param>
 	<param name="tailRelativeLength">The element's tail length that is 
- directly proportional to the element's prime length (ends at the center).</param>
+ directly proportional to the element's prime length (ends at the centre).</param>
 	<param name="stepAngle">An integer value that 
  represents the element's smallest unit step in degrees.</param>
 </member><member name="M:AnalogClock.Hand.#ctor(System.String,System.Single,System.Single,System.Drawing.Color,System.Boolean,AnalogClock.PaintAttributes,AnalogClock.SmoothMode,System.Single,System.Single,System.Int32,AnalogClock.HandStyle,AnalogClock.HandMotion,System.Object)">
@@ -716,13 +715,13 @@ AnalogClockControl
 	<param name="clockRadius">The cluck's radius for the element.</param>
 	<param name="relativeRadius">The element's relative radius (a portion not including 
  the element's tail) that is directly proportional to the clock's radius.</param>
-	<param name="col">The color of the element.</param>
+	<param name="col">The colour of the element.</param>
 	<param name="visible">The element's visibility.</param>
 	<param name="paintAttributes">The paint attributes of the element.</param>
 	<param name="smoothMode">The smoothing mode of the element.</param>
 	<param name="width">The element's width.</param>
 	<param name="tailRelativeRadius">The element's tail relative radius (length) that is 
- directly proportional to the element's prime length (ends at the center).</param>
+ directly proportional to the element's prime length (ends at the centre).</param>
 	<param name="stepAngle">An integer value that 
  represents the element's smallest unit step in degrees.</param>
 	<param name="style">The style of the element.</param>

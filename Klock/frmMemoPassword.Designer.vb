@@ -86,7 +86,7 @@ Partial Class frmMemoPassword
         Me.Name = "frmMemoPassword"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Memo Passoword"
+        Me.Text = "Memo Password"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()

@@ -17,7 +17,7 @@ Module KlockThings
     '   A module of klock helper functions and procedures.
     '   placed here, to keep in one place and out of the way.
     '
-
+    Dim rnd As New Random()
 
     '   -------------------------------------------------------- Idle Time ----------------------------------------------------------------------------
     '   used for idle time [includes structure]
@@ -113,6 +113,8 @@ Module KlockThings
                 frmKlock.Text = "Klock - Reminds you of Memoranda."
             Case 8                                              '   Conversions tab
                 frmKlock.Text = "Klock - Helps with conversions :: " & frmKlock.CmbBxConvertTo.Text
+            Case 98                                              '   Sayings tab
+                frmKlock.Text = "Klock - Useful Sayings."
         End Select
     End Sub
 
@@ -208,21 +210,62 @@ Module KlockThings
                 e.Handled = True
             Case Keys.F12 And (e.Alt)                       '   display number of friends.
                 '   MessageBox.Show(String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
-                frmKlock.displayAction.DisplayReminder("Friends", String.Format("The are {0} friends", frmKlock.LstBxFriends.Items.Count.ToString))
+                frmKlock.displayAction.DisplayReminder("Friends", String.Format("The are {0} friends", frmKlock.LstBxFriends.Items.Count.ToString), "G")
                 e.Handled = True
         End Select
     End Sub
 
-    Private function klocksNotVisable() 
+    Private Function klocksNotVisable()
         '   Should return true if none of the extra klocks are running.
         '   Should make the klocks run once.
 
-        if frmAnalogueKlock.Visible Or frmSmallTextKlock.Visible Or frmBigTextKlock.Visible Then
-            Return False
-        Else
-            Return true
-        End If
-    End function
+        Return Not (frmAnalogueKlock.Visible Or frmSmallTextKlock.Visible Or frmBigTextKlock.Visible)
+    End Function
+
+    Public Sub loadSayings()
+        '   Loads all the text files in the sayings directory within the app directory
+
+        Dim line As String = ""
+        Dim saying As String = ""
+        Dim count As Integer = 0
+
+        For Each fileName As String In System.IO.Directory.GetFiles(IO.Path.Combine(Application.StartupPath, "sayings"), "*.txt")
+            Try
+                Using wordreader As New System.IO.StreamReader(fileName)
+
+                    While wordreader.Peek <> -1
+                        line = wordreader.ReadLine.Trim()
+
+                        If line = "" Then
+                            frmKlock.sayings.Add(saying)
+                            saying = ""
+                        Else
+                            saying += line & System.Environment.NewLine
+                        End If
+                    End While
+
+                    wordreader.Close()
+                End Using
+            Catch ex As Exception
+                frmKlock.displayAction.DisplayReminder("ERROR :: KlockThings.loadWords", ex.Message, "G")
+            End Try
+        Next
+
+    End Sub
+
+    Public Function randomSayings()
+        '   return a random saying from all loaded sayings.
+
+        Dim pos As Integer = rnd.Next(frmKlock.sayings.Count)
+
+        Return frmKlock.sayings(pos)
+    End Function
+
+    Public Sub LoadSaying()
+        '   reload all saying text file.
+
+        frmKlock.txtBxSayings.Text = randomSayings()
+    End Sub
 End Module
 
 

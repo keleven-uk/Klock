@@ -99,7 +99,7 @@ Module InfoCommon
 
     Sub updateDaylightSaving(ByVal currentYear As Integer)
         '   Updates the form with the daylight saving info for current date in the current year.
-        '   NB : currentyear can be selected from the form, so could be different from the year in current date.
+        '   NB : current year can be selected from the form, so could be different from the year in current date.
 
         ' Get the local time zone and the current date.
         Dim currentDate As DateTime = DateTime.Now
@@ -116,11 +116,7 @@ Module InfoCommon
         frmInfo.NmrcUpDwnYear.Value = currentYear
         frmInfo.Text = "Info - Daylight Saving"
 
-        If localZone.IsDaylightSavingTime(currentDate) Then
-            frmInfo.GroupBox1.Text = "Summer Time"
-        Else
-            frmInfo.GroupBox1.Text = "Winter Time"
-        End If
+        frmInfo.GroupBox1.Text = If(localZone.IsDaylightSavingTime(currentDate), "Summer Time", "Winter Time")
 
         frmInfo.Label1.Text = "Standard Time Name : " & localZone.StandardName
         frmInfo.Label2.Text = "Daylight Saving Time : " & localZone.DaylightName
@@ -131,7 +127,7 @@ Module InfoCommon
 
     Sub updateEasteDates(ByVal currentYear As Integer)
         '   Updates the form with the Easter dates for the current year.
-        '   NB : currentyear can be selected from the form, so could be different from the year in current date.
+        '   NB : current year can be selected from the form, so could be different from the year in current date.
 
 
         frmInfo.NmrcUpDwnYear.Visible = True

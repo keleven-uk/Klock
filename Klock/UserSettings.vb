@@ -96,6 +96,14 @@ Public Class UserSettings
     Private _usrNotificationFontColour As Color = Color.Black
     Private _usrNotificationTimeOut As Integer = 5000
     Private _usrNotificationOpacity As Integer = 80
+    '-------------------------------------------------------------------------------------------------------- Sayings Settings ------------
+    Private _usrSayingsDisplay As Boolean = True
+    Private _usrSayingsbackColour As Color = Color.LightGray
+    Private _usrSayingsFont As Font = frmOptions.DefaultFont
+    Private _usrSayingsFontColour As Color = Color.Black
+    Private _usrSayingsDisplayTime As Integer = 20                  '   held in minutes
+    Private _usrSayingsTimeOut As Integer = 5000
+    Private _usrSayingsOpacity As Integer = 80
     '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
     Private _usrDisableMonitorSleep As Boolean = False
     '-------------------------------------------------------------------------------------------------------- Internet Settings -----------
@@ -116,7 +124,7 @@ Public Class UserSettings
     Private _usrEventsThirdReminder As Integer = 1
 
     Private _usrEventNotificationOpacity As Integer = 80
-    Private _usrEventsTimerInterval As Integer = 60
+    Private _usrEventsTimerInterval As Integer = 60                  '   held in minutes
     '-------------------------------------------------------------------------------------------------------- Memo Settings -------------
     Private _usrMemoFile As String = "Memo.bin"
 
@@ -731,6 +739,7 @@ Public Class UserSettings
         End Set
     End Property
 
+    '------------------------------------------------------------------------------------------------------- Event Notification Settings -------
 
     Public Property usrEventNotificationFont() As Font
         Get
@@ -785,6 +794,71 @@ Public Class UserSettings
             _usrEventNotificationOpacity = value
         End Set
     End Property
+
+    '-------------------------------------------------------------------------------------------------------- Sayings Settings -------
+    Public Property usrSayingsDisplay() As Boolean
+        Get
+            Return _usrSayingsDisplay
+        End Get
+        Set(ByVal value As Boolean)
+            _usrSayingsDisplay = value
+        End Set
+    End Property
+
+    Public Property usrSayingsbackColour() As Color
+        Get
+            Return _usrSayingsbackColour
+        End Get
+        Set(ByVal value As Color)
+            _usrSayingsbackColour = value
+        End Set
+    End Property
+
+    Public Property usrSayingsFont() As Font
+        Get
+            Return _usrSayingsFont
+        End Get
+        Set(ByVal value As Font)
+            _usrSayingsFont = value
+        End Set
+    End Property
+
+    Public Property usrSayingsFontColour() As Color
+        Get
+            Return _usrSayingsFontColour
+        End Get
+        Set(ByVal value As Color)
+            _usrSayingsFontColour = value
+        End Set
+    End Property
+
+    Public Property usrSayingsDisplayTime() As Integer
+        Get
+            Return _usrSayingsDisplayTime
+        End Get
+        Set(ByVal value As Integer)
+            _usrSayingsDisplayTime = value
+        End Set
+    End Property
+
+    Public Property usrSayingsTimeOut() As Integer
+        Get
+            Return _usrSayingsTimeOut
+        End Get
+        Set(ByVal value As Integer)
+            _usrSayingsTimeOut = value
+        End Set
+    End Property
+
+    Public Property usrSayingsOpacity() As Integer
+        Get
+            Return _usrSayingsOpacity
+        End Get
+        Set(ByVal value As Integer)
+            _usrSayingsOpacity = value
+        End Set
+    End Property
+
     '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
     Public Property usrDisableMonitorSleep() As Boolean
         Get
@@ -1041,6 +1115,29 @@ Public Class UserSettings
                                   <NotificationTimeOut><%= usrNotificationTimeOut() %></NotificationTimeOut>
                                   <NotificationOpacity><%= usrNotificationOpacity() %></NotificationOpacity>
                               </Notification>
+                              <Sayings>
+                                  <SayingsDisplay><%= usrSayingsDisplay() %></SayingsDisplay>
+                                  <SayingsColour>
+                                      <SayingsColourR><%= usrSayingsbackColour().R %></SayingsColourR>
+                                      <SayingsColourG><%= usrSayingsbackColour().G %></SayingsColourG>
+                                      <SayingsColourB><%= usrSayingsbackColour().B %></SayingsColourB>
+                                      <SayingsColourA><%= usrSayingsbackColour().A %></SayingsColourA>
+                                  </SayingsColour>
+                                  <SayingsFont>
+                                      <SayingsFontName><%= usrSayingsFont().Name %></SayingsFontName>
+                                      <SayingsFontSize><%= usrSayingsFont().Size %></SayingsFontSize>
+                                      <SayingsFontStyle><%= 0 %></SayingsFontStyle>
+                                  </SayingsFont>
+                                  <SayingsFontColour>
+                                      <SayingsFontColourR><%= usrSayingsFontColour().R %></SayingsFontColourR>
+                                      <SayingsFontColourG><%= usrSayingsFontColour().G %></SayingsFontColourG>
+                                      <SayingsFontColourB><%= usrSayingsFontColour().B %></SayingsFontColourB>
+                                      <SayingsFontColourA><%= usrSayingsFontColour().A %></SayingsFontColourA>
+                                  </SayingsFontColour>
+                                  <SayingsDisplayTime><%= usrSayingsDisplayTime() %></SayingsDisplayTime>
+                                  <SayingsTimeOut><%= usrSayingsTimeOut() %></SayingsTimeOut>
+                                  <SayingsOpacity><%= usrSayingsOpacity() %></SayingsOpacity>
+                              </Sayings>
                               <Monitor>
                                   <DisableMonitorSleep><%= usrDisableMonitorSleep() %></DisableMonitorSleep>
                               </Monitor>
@@ -1151,7 +1248,7 @@ Public Class UserSettings
                                   <TimeVoiceMinutes>15</TimeVoiceMinutes>
                               </Time>
                               <BigKlock>
-                                  <BigKlockTop>100></BigKlockTop>
+                                  <BigKlockTop>100</BigKlockTop>
                                   <BigKlockLeft>100</BigKlockLeft>
                                   <BigKlockSavePosition>True</BigKlockSavePosition>
                                   <BigKlockBackColourR>0</BigKlockBackColourR>
@@ -1185,7 +1282,7 @@ Public Class UserSettings
                                   <SmallKlockOffColourA>255</SmallKlockOffColourA>
                               </SmallKlock>
                               <AnalogueKlock>
-                                  <AnalogueKlockTop>100></AnalogueKlockTop>
+                                  <AnalogueKlockTop>100</AnalogueKlockTop>
                                   <AnalogueKlockLeft>100</AnalogueKlockLeft>
                                   <AnalogueKlockSavePosition>True</AnalogueKlockSavePosition>
                                   <AnalogueKlockText>Klock</AnalogueKlockText>
@@ -1235,6 +1332,29 @@ Public Class UserSettings
                                   <NotificationTimeOut>5000</NotificationTimeOut>
                                   <NotificationOpacity>80</NotificationOpacity>
                               </Notification>
+                              <Sayings>
+                                  <SayingsDisplay>True</SayingsDisplay>
+                                  <SayingsColour>
+                                      <SayingsColourR>240</SayingsColourR>
+                                      <SayingsColourG>240</SayingsColourG>
+                                      <SayingsColourB>240</SayingsColourB>
+                                      <SayingsColourA>255</SayingsColourA>
+                                  </SayingsColour>
+                                  <SayingsFont>
+                                      <SayingsFontName>Microsoft Sans Serif</SayingsFontName>
+                                      <SayingsFontSize>8.25</SayingsFontSize>
+                                      <SayingsFontStyle>0</SayingsFontStyle>
+                                  </SayingsFont>
+                                  <SayingsFontColour>
+                                      <SayingsFontColourR>0</SayingsFontColourR>
+                                      <SayingsFontColourG>0</SayingsFontColourG>
+                                      <SayingsFontColourB>0</SayingsFontColourB>
+                                      <SayingsFontColourA>255</SayingsFontColourA>
+                                  </SayingsFontColour>
+                                  <SayingsDisplayTime>60000</SayingsDisplayTime>
+                                  <SayingsTimeOut>5000</SayingsTimeOut>
+                                  <SayingsOpacity>80</SayingsOpacity>
+                              </Sayings>
                               <Monitor>
                                   <DisableMonitorSleep>False</DisableMonitorSleep>
                               </Monitor>
@@ -1486,6 +1606,35 @@ Public Class UserSettings
             usrNotificationTimeOut = CType(readElement(ntfctn, "NotificationTimeOut", usrNotificationTimeOut()), Integer)
             usrNotificationOpacity = CType(readElement(ntfctn, "NotificationOpacity", usrNotificationOpacity()), Integer)
 
+            '-------------------------------------------------------------------------------------------------------- Sayings Settings -------
+
+            Dim syng = elem.Element("Sayings")
+
+            Dim syngClr = syng.Element("SayingsColour")
+            r = CType(readElement(syngClr, "SayingsColourR", usrSayingsbackColour().R), Byte)
+            g = CType(readElement(syngClr, "SayingsColourG", usrSayingsbackColour().G), Byte)
+            b = CType(readElement(syngClr, "SayingsColourB", usrSayingsbackColour().B), Byte)
+            a = CType(readElement(syngClr, "SayingsColourA", usrSayingsbackColour().A), Byte)
+            usrSayingsbackColour = Color.FromArgb(a, r, g, b)
+
+            Dim syngFnt = syng.Element("SayingsFont")
+            name = readElement(syngFnt, "SayingsFontName", usrSayingsFont().Name)       '   already a string
+            size = CType(readElement(syngFnt, "SayingsFontSize", usrSayingsFont().Size), Single)
+            style = CType(readElement(syngFnt, "SayingsFontStyle", 0), FontStyle)
+            usrSayingsFont() = New Font(name, size, style)
+
+            Dim syngFntClr = syng.Element("SayingsFontColour")
+            r = CType(readElement(syngFntClr, "SayingsFontColourR", usrSayingsFontColour().R), Byte)
+            g = CType(readElement(syngFntClr, "SayingsFontColourG", usrSayingsFontColour().G), Byte)
+            b = CType(readElement(syngFntClr, "SayingsFontColourB", usrSayingsFontColour().B), Byte)
+            a = CType(readElement(syngFntClr, "SayingsFontColourA", usrSayingsFontColour().A), Byte)
+            usrSayingsFontColour = Color.FromArgb(a, r, g, b)
+
+            usrSayingsDisplay = CType(readElement(syng, "SayingsDisplay", usrSayingsDisplay()), Boolean)
+            usrSayingsDisplayTime = CType(readElement(syng, "SayingsDisplayTime", usrSayingsDisplayTime()), Integer)
+            usrSayingsTimeOut = CType(readElement(syng, "SayingsTimeOut", usrSayingsTimeOut()), Integer)
+            usrSayingsOpacity = CType(readElement(syng, "SayingsOpacity", usrSayingsOpacity()), Integer)
+
             '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
             Dim mntr = elem.Element("Monitor")
 
@@ -1573,7 +1722,7 @@ Public Class UserSettings
         Try
             r = g.Element(s).Value
         Catch ex As Exception
-            frmKlock.displayAction.DisplayReminder("ERROR :: " & g.ToString & " :: " & s & " :::", ex.Message)
+            frmKlock.displayAction.DisplayReminder("ERROR :: " & g.ToString & " :: " & s & " :::", ex.Message, "G")
             r = d
         End Try
 

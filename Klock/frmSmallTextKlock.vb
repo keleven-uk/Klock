@@ -1,11 +1,11 @@
 ﻿Public Class frmSmallTextKlock
     '   Generates a small text screen which displays the current time from a seemingly random set of words.
 
-    Dim drag As Boolean                     '   Global variables used to make the form dragable.
+    Dim drag As Boolean                     '   Global variables used to make the form drag-able.
     Dim mousex As Integer                   '
     Dim mousey As Integer                   '
 
-    ' -------------------------------------------------------------------------------- procedures used to make form dragable -----------------
+    ' -------------------------------------------------------------------------------- procedures used to make form drag-able -----------------
 
     Private Sub pnlSmallKlock_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, pnlSmallKlock.MouseDown
 

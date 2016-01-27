@@ -4,7 +4,7 @@
 '   Holds the data for an event and the functions to expose them.
 
 '   the <Serializable()> bit, allows it to be stored easily in a binary file.
-'   the tostring function allows it to be stored in a listbox.
+'   the tostring function allows it to be stored in a list-box.
 
 
 '   An event can [has] to one of EventTypes.
@@ -41,9 +41,8 @@
     Public Overrides Function ToString() As String
 
         Dim first As String = EventName().PadRight(14, " ")
-        Dim second As String = EventDate().PadRight(10, " ")
 
-        Return String.Format("{0:000} {1} {2}", DaysToGo(), first, second)
+        Return String.Format("{0:000} {1}", DaysToGo(), first)
     End Function
 
     Public Function DaysToGo() As Integer

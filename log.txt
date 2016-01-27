@@ -1,3 +1,30 @@
+commit d07f0dcd61e92251a3374f8322f32c17f5e0b61f
+Author: kevin scott <coinflip@keleven.co.uk>
+Date:   Mon Jan 11 21:08:42 2016 +0000
+
+    [frmKlock.vb]
+    Added, A progress bar to the status bar that show time remaining when viewing a encrypted memo.
+    
+    [FEMcommon.vb]
+    Fixed, encrypt checbox enabled on viewing.
+    
+    [frmMemoPassword.vb]
+    Fixed, correctly sets focus on text box.
+
+ Klock/FEMcommon.vb               |    2 +
+ Klock/Klock.chm                  |  Bin 585714 -> 586782 bytes
+ Klock/Klock.iss                  |   10 +-
+ Klock/Klock.pdf                  |  Bin 3759327 -> 3759327 bytes
+ Klock/My Project/AssemblyInfo.vb |    4 +-
+ Klock/frmKlock.Designer.vb       |  638 +++---
+ Klock/frmKlock.vb                |   16 +-
+ Klock/frmMemoPassword.vb         |    2 +-
+ Klock/history.txt                |   61 +-
+ Klock/klock.hnd                  |  Bin 19640320 -> 19648512 bytes
+ Klock/klock.hnd-journal          |  Bin 49760 -> 0 bytes
+ log.txt                          | 4160 +-------------------------------------
+ 12 files changed, 455 insertions(+), 4438 deletions(-)
+
 commit fc338714ea70448307d604454334376b828d9ab7
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Sat Jan 2 15:22:10 2016 +0000

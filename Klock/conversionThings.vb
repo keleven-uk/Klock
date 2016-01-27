@@ -45,7 +45,7 @@ Module conversionThings
                 End Select
             Next
         Catch ex As Exception
-            frmKlock.displayAction.DisplayReminder("Units File Error", "Sorry, can't find units.txt. " & ex.Message)
+            frmKlock.displayAction.DisplayReminder("Units File Error", "Sorry, can't find units.txt. " & ex.Message, "G")
         End Try
 
     End Sub
@@ -89,7 +89,7 @@ Module conversionThings
             frmKlock.CmbBxConvertCategory.Items.Clear()
             unitsLoad("LoadCategory")
         Catch ex As Exception
-            frmKlock.displayAction.DisplayReminder("Units File Error", "Sorry, can't find units.txt. " & ex.Message)
+            frmKlock.displayAction.DisplayReminder("Units File Error", "Sorry, can't find units.txt. " & ex.Message, "G")
         End Try
     End Sub
 

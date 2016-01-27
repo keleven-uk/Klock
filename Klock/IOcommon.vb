@@ -7,7 +7,7 @@ Module IOcommon
 
     Public Sub saveFriends()
         '   Save friends to file in data directory.
-        '   Creates a list of all entries in the listview box and then writes this list to a binary file.
+        '   Creates a list of all entries in the list-view box and then writes this list to a binary file.
 
         Dim saveFile As FileStream = File.Create(getPath("Friend"))
 
@@ -25,7 +25,7 @@ Module IOcommon
         Try
             Formatter.Serialize(saveFile, AL)           '   Write list to binary file.
         Catch ex As Exception
-            frmKlock.displayAction.DisplayReminder("Friends Error", "Error saving Friends File." & vbCrLf & ex.Message)
+            frmKlock.displayAction.DisplayReminder("Friends Error", "Error saving Friends File." & vbCrLf & ex.Message, "G")
         End Try
 
         saveFile.Close()
@@ -34,8 +34,8 @@ Module IOcommon
     End Sub
 
     Public Sub loadFriends()
-        '   Loads friends from file and populate the listview box.
-        '   Loads file into a list and then transfers each item in the list to the listview box.
+        '   Loads friends from file and populate the list-view box.
+        '   Loads file into a list and then transfers each item in the list to the list-view box.
 
         Dim readFile As FileStream
 
@@ -43,7 +43,7 @@ Module IOcommon
             readFile = File.OpenRead(getPath("Friend"))
             readFile.Seek(0, SeekOrigin.Begin)
         Else
-            frmKlock.displayAction.DisplayReminder("Friends", "No Friends file found - will create if needed.")
+            frmKlock.displayAction.DisplayReminder("Friends", "No Friends file found - will create if needed.", "G")
             Exit Sub
         End If
 
@@ -55,7 +55,7 @@ Module IOcommon
         Try
             AL = Formatter.Deserialize(readFile)        '   loads file into the list.
         Catch ex As Exception
-            frmKlock.displayAction.DisplayReminder("Friends Error", "Error loading Friends File. " & ex.Message)
+            frmKlock.displayAction.DisplayReminder("Friends Error", "Error loading Friends File. " & ex.Message, "G")
             Exit Sub
         End Try
 
@@ -64,7 +64,7 @@ Module IOcommon
         frmKlock.knownCities.Clear()
 
         For Each p In AL                            '   For each item in the list.
-            frmKlock.LstBxFriends.Items.Add(p)      '   Populate listview.
+            frmKlock.LstBxFriends.Items.Add(p)      '   Populate list-view.
             frmKlock.FriendsAddToKnown(p)           '   Populate autocomplete collections.
         Next
 
@@ -75,7 +75,7 @@ Module IOcommon
 
     Public Sub saveEvents()
         '   Save Events to file in data directory.
-        '   Creates a list of all entries in the listview box and then writes this list to a binary file.
+        '   Creates a list of all entries in the list-view box and then writes this list to a binary file.
 
         Dim saveFile As FileStream = File.Create(getPath("Event"))
 
@@ -93,7 +93,7 @@ Module IOcommon
         Try
             Formatter.Serialize(saveFile, AL)           '   Write list to binary file.
         Catch ex As Exception
-            frmKlock.displayAction.DisplayReminder("Events Error", "Error saving Events File." & vbCrLf & ex.Message)
+            frmKlock.displayAction.DisplayReminder("Events Error", "Error saving Events File." & vbCrLf & ex.Message, "G")
         End Try
 
         saveFile.Close()
@@ -102,8 +102,8 @@ Module IOcommon
     End Sub
 
     Public Sub loadEvents()
-        '   Loads Events from file and populate the listview box.
-        '   Loads file into a list and then transfers each item in the list to the listview box.
+        '   Loads Events from file and populate the list-view box.
+        '   Loads file into a list and then transfers each item in the list to the list-view box.
 
         Dim readFile As FileStream
 
@@ -111,7 +111,7 @@ Module IOcommon
             readFile = File.OpenRead(getPath("Event"))
             readFile.Seek(0, SeekOrigin.Begin)
         Else
-            frmKlock.displayAction.DisplayReminder("Event", "No Event file found - will create if needed.")
+            frmKlock.displayAction.DisplayReminder("Event", "No Event file found - will create if needed.", "G")
             Exit Sub
         End If
 
@@ -123,7 +123,7 @@ Module IOcommon
         Try
             AL = Formatter.Deserialize(readFile)        '   loads file into the list.
         Catch ex As Exception
-            frmKlock.displayAction.DisplayReminder("Events Error", "Error Events Friends File. " & ex.Message)
+            frmKlock.displayAction.DisplayReminder("Events Error", "Error Events Friends File. " & ex.Message, "G")
             Exit Sub
         End Try
 
@@ -131,7 +131,7 @@ Module IOcommon
         frmKlock.LstBxEvents.Items.Clear()
 
         For Each e In AL                            '   For each item in the list.
-            frmKlock.LstBxEvents.Items.Add(e)       '   Populate listview.
+            frmKlock.LstBxEvents.Items.Add(e)       '   Populate list-view.
         Next
 
         readFile.Close()
@@ -149,7 +149,7 @@ Module IOcommon
 
     Public Sub saveMemo()
         '   Save Memo to file in data directory.
-        '   Creates a list of all Memo in the listview box and then writes this list to a binary file.
+        '   Creates a list of all Memo in the list-view box and then writes this list to a binary file.
 
         Dim saveFile As FileStream = File.Create(getPath("Memo"))
 
@@ -167,7 +167,7 @@ Module IOcommon
         Try
             Formatter.Serialize(saveFile, AL)       '   Write list to binary file.
         Catch ex As Exception
-            frmKlock.displayAction.DisplayReminder("Memo Error", "Error saving Memo File." & vbCrLf & ex.Message)
+            frmKlock.displayAction.DisplayReminder("Memo Error", "Error saving Memo File." & vbCrLf & ex.Message, "G")
         End Try
 
         saveFile.Close()
@@ -176,8 +176,8 @@ Module IOcommon
     End Sub
 
     Public Sub loadMemo()
-        '   Loads Memo from file and populate the listview box.
-        '   Loads file into a list and then transfers each item in the list to the listview box.
+        '   Loads Memo from file and populate the list-view box.
+        '   Loads file into a list and then transfers each item in the list to the list-view box.
 
         Dim readFile As FileStream
 
@@ -185,7 +185,7 @@ Module IOcommon
             readFile = File.OpenRead(getPath("Memo"))
             readFile.Seek(0, SeekOrigin.Begin)
         Else
-            frmKlock.displayAction.DisplayReminder("Memo", "No Memo file found - will create if needed.")
+            frmKlock.displayAction.DisplayReminder("Memo", "No Memo file found - will create if needed.", "G")
             Exit Sub
         End If
 
@@ -197,7 +197,7 @@ Module IOcommon
         Try
             AL = Formatter.Deserialize(readFile)        '   loads file into the list.
         Catch ex As Exception
-            frmKlock.displayAction.DisplayReminder("Memo Error", "Error Memo Friends File. " & ex.Message)
+            frmKlock.displayAction.DisplayReminder("Memo Error", "Error Memo Friends File. " & ex.Message, "G")
             Exit Sub
         End Try
 

@@ -17,13 +17,14 @@
 
         MyBase.New()
 
-        Try
-            pfc.AddFontFile(System.IO.Path.Combine(Application.StartupPath, "fonts\Semaphore.ttf"))
-            pfc.AddFontFile(System.IO.Path.Combine(Application.StartupPath, "fonts\NancyBlackett.ttf"))
-            pfc.AddFontFile(System.IO.Path.Combine(Application.StartupPath, "fonts\BrailleLatin.ttf"))
-            pfc.AddFontFile(System.IO.Path.Combine(Application.StartupPath, "fonts\BarCode39.ttf"))
+        Try                                                                                                 '   fonts are loaded alphabetically
+            pfc.AddFontFile(System.IO.Path.Combine(Application.StartupPath, "fonts\Semaphore.ttf"))         '   4
+            pfc.AddFontFile(System.IO.Path.Combine(Application.StartupPath, "fonts\NancyBlackett.ttf"))     '   3
+            pfc.AddFontFile(System.IO.Path.Combine(Application.StartupPath, "fonts\BrailleLatin.ttf"))      '   1
+            pfc.AddFontFile(System.IO.Path.Combine(Application.StartupPath, "fonts\BarCode39.ttf"))         '   0
+            pfc.AddFontFile(System.IO.Path.Combine(Application.StartupPath, "fonts\Hack-Regular.ttf"))      '   2
         Catch ex As Exception
-            frmKlock.displayAction.DisplayReminder("Font ERROR :: cannot find font file", ex.Message)
+            frmKlock.displayAction.DisplayReminder("Font ERROR :: cannot find font file", ex.Message, "G")
         End Try
     End Sub
 
@@ -33,28 +34,37 @@
 
         Dim rtnFont As Font = txtBigFont
 
-        If mode = "Time as Semaphore" Then
-            rtnFont = New Font(pfc.Families(3), 24, FontStyle.Regular)
-        ElseIf mode = "Time as Nancy Blackett Semaphore" Then
-            rtnFont = New Font(pfc.Families(2), 24, FontStyle.Regular)
-        ElseIf mode = "Time as Braille" Then
-            rtnFont = New Font(pfc.Families(1), 26, FontStyle.Regular)
-        ElseIf mode = "Time in a Barcode" Then
-            rtnFont = New Font(pfc.Families(0), 26, FontStyle.Regular)
-        Else                                                                '   text is either time in words or a reminder countdown text.
-            Dim textSize = g.MeasureString(tmStr, txtBigFont)
+        Select Case mode
+            Case "Time as Semaphore"
+                rtnFont = New Font(pfc.Families(4), 24, FontStyle.Regular)
+            Case "Time as Nancy Blackett Semaphore"
+                rtnFont = New Font(pfc.Families(3), 24, FontStyle.Regular)
+            Case "Time as Braille"
+                rtnFont = New Font(pfc.Families(1), 26, FontStyle.Regular)
+            Case "Time in a Barcode"
+                rtnFont = New Font(pfc.Families(0), 26, FontStyle.Regular)
+            Case Else                                           '   text is either time in words or a reminder countdown text.
+                Dim textSize = g.MeasureString(tmStr, txtBigFont)
 
-            Select Case textSize.Width
-                Case TEXT_WIDTH1 To TEXT_WIDTH2             '   400 to 500
-                    rtnFont = txtBigFont
-                Case TEXT_WIDTH2 To TEXT_WIDTH3             '   500 to 580
-                    rtnFont = txtSmlFont
-                Case Is > TEXT_WIDTH3                       '   > 580
-                    rtnFont = txtTnyFont
-                Case Else                                   '   < 400
-                    rtnFont = txtLrgFont
-            End Select
-        End If
+                Select Case textSize.Width
+                    Case TEXT_WIDTH1 To TEXT_WIDTH2             '   400 to 500
+                        rtnFont = txtBigFont
+                    Case TEXT_WIDTH2 To TEXT_WIDTH3             '   500 to 580
+                        rtnFont = txtSmlFont
+                    Case Is > TEXT_WIDTH3                       '   > 580
+                        rtnFont = txtTnyFont
+                    Case Else                                   '   < 400
+                        rtnFont = txtLrgFont
+                End Select
+        End Select
+
+        Return rtnFont
+    End Function
+
+    Public Function getFont() As Font
+        '   Returns a mono spaced fonts. used for the list-boxes.
+
+        Dim rtnFont As Font = New Font(pfc.Families(2), 8, FontStyle.Regular)
 
         Return rtnFont
     End Function

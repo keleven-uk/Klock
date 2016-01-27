@@ -27,7 +27,7 @@ Public Class frmNotification
     Dim mode As String
 
     'Creates a new Notification form object that is displayed for the specified length of time.
-    Public Sub New(ByVal lifeTime As Integer, ByVal message1 As String, ByVal message2 As String, ByVal m As String)
+    Public Sub New(ByVal message1 As String, ByVal message2 As String, ByVal mode As String)
         '   Mode can be either R for reminder, E for Event.
         '   Reminder are closed by the timer [using the value from the time out] - ** this is original code **
         '   Event are to be closed by buttons, only visible in event mode.
@@ -37,51 +37,75 @@ Public Class frmNotification
 
         ' Add any initialization after the InitializeComponent() call.
 
-        mode = m
-
         'Make sure the exit button is set properly
         btnExit.Image = My.Resources.btnHigh
 
         Width = 335
-        Height = 78
 
-        If mode = "R" Then
+        Dim noOfLines = Len(message2) \ 50      '   info line about 50 characters long.
 
-            '   set the for colour and opacity for the form {form opacity is 0 [0%] - 1.0 [100%]}
-            BackColor = frmKlock.usrSettings.usrNotificationbackColour
-            Opacity = frmKlock.usrSettings.usrNotificationOpacity / 100
-
-            'Set the time for which the form should be displayed and the message to display in milliseconds.
-            lifeTimer.Interval = lifeTime
-
-            lblMessage1.Font = frmKlock.usrSettings.usrNotificationFont
-            lblMessage1.ForeColor = frmKlock.usrSettings.usrNotificationFontColour
-            lblMessage1.Text = message1
-
-            lblMessage2.Font = frmKlock.usrSettings.usrNotificationFont
-            lblMessage2.ForeColor = frmKlock.usrSettings.usrNotificationFontColour
-            lblMessage2.Text = message2
+        If noOfLines < 3 Then
+            Height = 78
         Else
-            lifeTimer.Enabled = False        '   is event - don't need timer.
-
-            '   set the for colour and opacity for the form {form opacity is 0 [0%] - 1.0 [100%]}
-            Opacity = frmKlock.usrSettings.usrEventNotificationOpacity / 100
-
-            If message1.StartsWith("First") Then BackColor = frmKlock.usrSettings.usrFirstEventNotificationbackColour
-            If message1.StartsWith("Second") Then BackColor = frmKlock.usrSettings.usrSecondEventNotificationbackColour
-            If message1.StartsWith("Third") Then BackColor = frmKlock.usrSettings.usrThirdEventNotificationbackColour
-
-            btnExit.BackColor = BackColor
-
-            lblMessage1.Font = frmKlock.usrSettings.usrEventNotificationFont
-            lblMessage1.ForeColor = frmKlock.usrSettings.usrEventNotificationFontColour
-            lblMessage1.Text = message1
-
-            lblMessage2.Font = frmKlock.usrSettings.usrEventNotificationFont
-            lblMessage2.ForeColor = frmKlock.usrSettings.usrEventNotificationFontColour
-            lblMessage2.Text = message2
+            Height = 44 + (noOfLines * 22)
+            lblMessage2.Height = (noOfLines * 22)
         End If
 
+        Select Case mode
+            Case "R"            '   Reminder
+                lifeTimer.Enabled = True
+                '   set the for colour and opacity for the form {form opacity is 0 [0%] - 1.0 [100%]}
+                BackColor = frmKlock.usrSettings.usrNotificationbackColour
+                Opacity = frmKlock.usrSettings.usrNotificationOpacity / 100
+
+                'Set the time for which the form should be displayed and the message to display in milliseconds.
+                lifeTimer.Interval = frmKlock.usrSettings.usrNotificationTimeOut
+
+                lblMessage1.Font = frmKlock.usrSettings.usrNotificationFont
+                lblMessage1.ForeColor = frmKlock.usrSettings.usrNotificationFontColour
+                lblMessage1.Text = message1
+
+                lblMessage2.Font = frmKlock.usrSettings.usrNotificationFont
+                lblMessage2.ForeColor = frmKlock.usrSettings.usrNotificationFontColour
+                lblMessage2.Text = message2
+            Case "S"            '   Saying
+                'MessageBox.Show(message2 & " :: " & Len(message2).ToString & " :: " & noOfLines.ToString & " :: " & Height.ToString)
+                lifeTimer.Enabled = True
+                '   set the for colour and opacity for the form {form opacity is 0 [0%] - 1.0 [100%]}
+                BackColor = frmKlock.usrSettings.usrSayingsbackColour
+                Opacity = frmKlock.usrSettings.usrSayingsOpacity / 100
+
+                'Set the time for which the form should be displayed and the message to display in milliseconds.
+                lifeTimer.Interval = frmKlock.usrSettings.usrSayingsTimeOut
+
+                lblMessage1.Font = frmKlock.usrSettings.usrSayingsFont
+                lblMessage1.ForeColor = frmKlock.usrSettings.usrSayingsFontColour
+                lblMessage1.Text = message1
+
+                lblMessage2.Font = frmKlock.usrSettings.usrNotificationFont
+                lblMessage2.ForeColor = frmKlock.usrSettings.usrNotificationFontColour
+                lblMessage2.Text = message2
+            Case "E"            '   Event
+
+                lifeTimer.Enabled = False        '   is event - don't need timer.
+
+                '   set the for colour and opacity for the form {form opacity is 0 [0%] - 1.0 [100%]}
+                Opacity = frmKlock.usrSettings.usrEventNotificationOpacity / 100
+
+                If message1.StartsWith("First") Then BackColor = frmKlock.usrSettings.usrFirstEventNotificationbackColour
+                If message1.StartsWith("Second") Then BackColor = frmKlock.usrSettings.usrSecondEventNotificationbackColour
+                If message1.StartsWith("Third") Then BackColor = frmKlock.usrSettings.usrThirdEventNotificationbackColour
+
+                btnExit.BackColor = BackColor
+
+                lblMessage1.Font = frmKlock.usrSettings.usrEventNotificationFont
+                lblMessage1.ForeColor = frmKlock.usrSettings.usrEventNotificationFontColour
+                lblMessage1.Text = message1
+
+                lblMessage2.Font = frmKlock.usrSettings.usrEventNotificationFont
+                lblMessage2.ForeColor = frmKlock.usrSettings.usrEventNotificationFontColour
+                lblMessage2.Text = message2
+        End Select
 
         'Display the form by sliding up.
         animator = New FormAnimator(Me, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up, 500)

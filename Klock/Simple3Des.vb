@@ -35,7 +35,7 @@ Public Class Simple3Des
     Public Function EncryptData(
     ByVal plaintext As String) As String
 
-        ' Convert the plaintext string to a byte array. 
+        ' Convert the plain text string to a byte array. 
         Dim plaintextBytes() As Byte =
             System.Text.Encoding.Unicode.GetBytes(plaintext)
 
@@ -72,7 +72,7 @@ Public Class Simple3Des
         decStream.Write(encryptedBytes, 0, encryptedBytes.Length)
         decStream.FlushFinalBlock()
 
-        ' Convert the plaintext stream to a string. 
+        ' Convert the plain text stream to a string. 
         Return System.Text.Encoding.Unicode.GetString(ms.ToArray)
     End Function
 

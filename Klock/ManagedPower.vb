@@ -32,13 +32,8 @@ Public Class ManagedPower
 
             ' Print out power level
             ' If the power is not High, Low, or Critical, report it as "Medium".
-            Dim currentPowerLevel As String
-            If sysPowerStatus.BatteryFlag = 0 Then
-                currentPowerLevel = "Medium"
-            Else
-                currentPowerLevel = sysPowerStatus.BatteryFlag.ToString()
-            End If
-            text = "Power Status: " & currentPowerLevel
+
+            text = "Power Status: " & If(sysPowerStatus.BatteryFlag = 0, "Medium", sysPowerStatus.BatteryFlag.ToString())
 
         End If
 

@@ -683,7 +683,7 @@ Partial Class frmBigTextKlock
         Me.lbltwentyEighthDay.Name = "lbltwentyEighthDay"
         Me.lbltwentyEighthDay.Size = New System.Drawing.Size(141, 19)
         Me.lbltwentyEighthDay.TabIndex = 134
-        Me.lbltwentyEighthDay.Text = "twenty-eigth"
+        Me.lbltwentyEighthDay.Text = "twenty-eighth"
         '
         'lblTwentySeventhDay
         '

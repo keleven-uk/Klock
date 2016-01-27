@@ -2,6 +2,37 @@ The source tree is now held as a git repository https://github.com/keleven-uk/Kl
  converted from SVN as of build 42.
 I find the git commit number unwieldy, so still include SVN style build numbers.
 
+
+[Build [63] - V1.1.4.63 - January 2016
+
+commit d07f0dcd61e92251a3374f8322f32c17f5e0b61f
+Author: kevin scott <coinflip@keleven.co.uk>
+Date:   Mon Jan 11 21:08:42 2016 +0000
+
+    [frmKlock.vb]
+    Added, A progress bar to the status bar that show time remaining when viewing a encrypted memo.
+    
+    [FEMcommon.vb]
+    Fixed, encrypt checbox enabled on viewing.
+    
+    [frmMemoPassword.vb]
+    Fixed, correctly sets focus on text box.
+
+ Klock/FEMcommon.vb               |    2 +
+ Klock/Klock.chm                  |  Bin 585714 -> 586782 bytes
+ Klock/Klock.iss                  |   10 +-
+ Klock/Klock.pdf                  |  Bin 3759327 -> 3759327 bytes
+ Klock/My Project/AssemblyInfo.vb |    4 +-
+ Klock/frmKlock.Designer.vb       |  638 +++---
+ Klock/frmKlock.vb                |   16 +-
+ Klock/frmMemoPassword.vb         |    2 +-
+ Klock/history.txt                |   61 +-
+ Klock/klock.hnd                  |  Bin 19640320 -> 19648512 bytes
+ Klock/klock.hnd-journal          |  Bin 49760 -> 0 bytes
+ log.txt                          | 4160 +-------------------------------------
+ 12 files changed, 455 insertions(+), 4438 deletions(-)
+ 
+ 
 [Build [62] - V1.1.4.62 - January 2016
 
 commit fc338714ea70448307d604454334376b828d9ab7
@@ -505,7 +536,7 @@ Author: kevin scott <klock@keleven.co.uk>
 Date:   Thu Oct 8 20:01:55 2015 +0100
 
     Corrected the code for idle time and disallow monitor going to sleep.
-    Prevent monitor going to sleep can be toggled with [Alt] F7/F8 – [Alt] F7 to prevent, [Alt] F8 to restore.
+    Prevent monitor going to sleep can be toggled with [Alt] F7/F8 ï¿½ [Alt] F7 to prevent, [Alt] F8 to restore.
     Moved a couple of helper function to KlockThings.vb from Klock.vb
 
  Klock/FEMcommon.vb    |   6 +---

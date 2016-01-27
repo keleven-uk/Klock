@@ -515,14 +515,14 @@
     Private Function getMetricTime() As String
         '   Returns the current [local] time in Metric time.
         '   Metric time is the measure of time interval using the metric system, which defines the second as the base unit of time,
-        '   and multiple and submultiple units formed with metric prefixes, such as kiloseconds and milliseconds.
-        '   Only Kiloseconds are used here.
+        '   and multiple and submultiple units formed with metric prefixes, such as kilo-seconds and milliseconds.
+        '   Only Kilo-seconds are used here.
 
         Dim noOfSeconds As Integer = MilliSecondOfTheDay() / 1000
 
         Dim noOfK As Double = noOfSeconds / 1000
 
-        Return String.Format("{0:##.000} Kiloseconds", noOfK)
+        Return String.Format("{0:##.000} Kilo-seconds", noOfK)
     End Function
 
     Private Function getUnixTime() As String
@@ -594,23 +594,9 @@
         Dim codeMins As String = ""
         Dim codeSecs As String = ""
 
-        If hours < 9 Then
-            codeHours = toCode(hours)
-        Else
-            codeHours = String.Format("{0} {1}", toCode(Int(hours / 10)), toCode(hours Mod 10))
-        End If
-
-        If mins < 9 Then
-            codeMins = toCode(mins)
-        Else
-            codeMins = String.Format("{0} {1}", toCode(Int(mins / 10)), toCode(mins Mod 10))
-        End If
-
-        If secs < 9 Then
-            codeSecs = toCode(secs)
-        Else
-            codeSecs = String.Format("{0} {1}", toCode(Int(secs / 10)), toCode(secs Mod 10))
-        End If
+        codeHours = If(hours < 9, toCode(hours), String.Format("{0} {1}", toCode(Int(hours / 10)), toCode(hours Mod 10)))
+        codeMins = If(mins < 9, toCode(mins), String.Format("{0} {1}", toCode(Int(mins / 10)), toCode(mins Mod 10)))
+        codeSecs = If(secs < 9, toCode(secs), String.Format("{0} {1}", toCode(Int(secs / 10)), toCode(secs Mod 10)))
 
         Return String.Format("{0}  {1}  {2} ", codeHours, codeMins, codeSecs)
     End Function
