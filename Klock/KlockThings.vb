@@ -113,7 +113,7 @@ Module KlockThings
                 frmKlock.Text = "Klock - Reminds you of Memoranda."
             Case 8                                              '   Conversions tab
                 frmKlock.Text = "Klock - Helps with conversions :: " & frmKlock.CmbBxConvertTo.Text
-            Case 98                                              '   Sayings tab
+            Case 9                                              '   Sayings tab
                 frmKlock.Text = "Klock - Useful Sayings."
         End Select
     End Sub

@@ -168,7 +168,7 @@ Public Class frmOptions
 
         nmrcUpDwnNotificationTimeOut.Value = frmKlock.usrSettings.usrNotificationTimeOut / 1000
         nmrcUpDwnSayingNotificationTimeOut.Value = frmKlock.usrSettings.usrSayingsTimeOut / 1000
-        nmrcUpDwnSayingDisplay.Value = frmKlock.usrSettings.usrSayingsDisplayTime                   '   held in minutes
+        nmrcUpDwnSayingDisplay.Value = frmKlock.usrSettings.usrSayingsDisplayTime / 1000                  '   held in minutes
 
         nmrcUpDwnNotificationOpacity.Value = frmKlock.usrSettings.usrNotificationOpacity
         nmrcUpDwnEventNotificationOpacity.Value = frmKlock.usrSettings.usrEventNotificationOpacity
@@ -181,6 +181,12 @@ Public Class frmOptions
         '-------------------------------------------------------------------------------------------------------- Internet Settings ------------
 
         chckBxChckInternet.Checked = frmKlock.usrSettings.usrCheckInternet
+
+        '-------------------------------------------------------------------------------------------------------- Clipboard Monitor Settings --
+
+        chckBxClipboardMonitor.Checked = frmKlock.usrSettings.usrClipboardMonitor
+        chckBxClipboardSavePos.Checked = frmKlock.usrSettings.usrClipboardMonitorSavePosition
+        chckBxClipboardSavePos.Enabled = chckBxClipboardMonitor.Checked
 
         '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
@@ -312,6 +318,10 @@ Public Class frmOptions
         '-------------------------------------------------------------------------------------------------------- Internet Settings ------------
 
         frmKlock.usrSettings.usrCheckInternet = chckBxChckInternet.Checked
+        '-------------------------------------------------------------------------------------------------------- Clipboard Monitor Settings --
+
+        frmKlock.usrSettings.usrClipboardMonitor = chckBxClipboardMonitor.Checked
+        frmKlock.usrSettings.usrClipboardMonitorSavePosition = chckBxClipboardSavePos.Checked
 
         '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
@@ -1033,4 +1043,19 @@ Public Class frmOptions
         End Try
     End Sub
 
+
+    ' ********************************************************************************** Clipboard monitor stuff ***************************
+
+    Private Sub ChckBxClipboardMonitor_CheckedChanged(sender As Object, e As EventArgs) Handles chckBxClipboardMonitor.CheckedChanged
+        '   Determines if clipboard monitor is active.
+
+        frmKlock.usrSettings.usrClipboardMonitor = chckBxClipboardMonitor.Checked
+        chckBxClipboardSavePos.Enabled = chckBxClipboardMonitor.Checked
+    End Sub
+
+    Private Sub ChckBxClipboardSavePos_CheckedChanged(sender As Object, e As EventArgs) Handles chckBxClipboardSavePos.CheckedChanged
+        '   Determines if clipboard monitor form will save screen position.
+
+        frmKlock.usrSettings.usrClipboardMonitorSavePosition = chckBxClipboardSavePos.Checked
+    End Sub
 End Class

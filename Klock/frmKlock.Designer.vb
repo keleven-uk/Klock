@@ -1662,7 +1662,7 @@ Partial Class frmKlock
         Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(3, 78)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(121, 15)
+        Me.Label5.Size = New System.Drawing.Size(114, 15)
         Me.Label5.TabIndex = 10
         Me.Label5.Text = "Telephone Number"
         '
@@ -1948,7 +1948,7 @@ Partial Class frmKlock
         Me.ChckBxMemoEncypt.Enabled = False
         Me.ChckBxMemoEncypt.Location = New System.Drawing.Point(150, 19)
         Me.ChckBxMemoEncypt.Name = "ChckBxMemoEncypt"
-        Me.ChckBxMemoEncypt.Size = New System.Drawing.Size(62, 19)
+        Me.ChckBxMemoEncypt.Size = New System.Drawing.Size(66, 19)
         Me.ChckBxMemoEncypt.TabIndex = 2
         Me.ChckBxMemoEncypt.Text = "Encrypt"
         Me.ChckBxMemoEncypt.UseVisualStyleBackColor = True

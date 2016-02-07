@@ -108,6 +108,11 @@ Public Class UserSettings
     Private _usrDisableMonitorSleep As Boolean = False
     '-------------------------------------------------------------------------------------------------------- Internet Settings -----------
     Private _usrCheckInternet As Boolean = False
+    '-------------------------------------------------------------------------------------------------------- Clipboard Monitor Settings --
+    Private _usrClipboardMonitor As Boolean = False
+    Private _usrClipboardMonitorSavePosition As Boolean = True
+    Private _usrClipboardMonitorTop As Integer = 100
+    Private _usrClipboardMonitorLeft As Integer = 100
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
     Private _usrFriendsFile As String = "Friends.bin"
     '-------------------------------------------------------------------------------------------------------- Events Settings ------------
@@ -877,6 +882,43 @@ Public Class UserSettings
             _usrCheckInternet = value
         End Set
     End Property
+    '-------------------------------------------------------------------------------------------------------- Clipboard Monitor Settings --
+    Public Property usrClipboardMonitor() As Boolean
+        Get
+            Return _usrClipboardMonitor
+        End Get
+        Set(ByVal value As Boolean)
+            _usrClipboardMonitor = value
+        End Set
+    End Property
+
+    Public Property usrClipboardMonitorSavePosition() As Boolean
+        Get
+            Return _usrClipboardMonitorSavePosition
+        End Get
+        Set(ByVal value As Boolean)
+            _usrClipboardMonitorSavePosition = value
+        End Set
+    End Property
+
+    Public Property usrClipboardMonitorTop() As Integer
+        Get
+            Return _usrClipboardMonitorTop
+        End Get
+        Set(ByVal value As Integer)
+            _usrClipboardMonitorTop = value
+        End Set
+    End Property
+
+    Public Property usrClipboardMonitorLeft() As Integer
+        Get
+            Return _usrClipboardMonitorLeft
+        End Get
+        Set(ByVal value As Integer)
+            _usrClipboardMonitorLeft = value
+        End Set
+    End Property
+
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
     Public Property usrFriendsFile() As String
@@ -1144,6 +1186,12 @@ Public Class UserSettings
                               <Internet>
                                   <CheckInternet><%= usrCheckInternet() %></CheckInternet>
                               </Internet>
+                              <Clipboard>
+                                  <ClipboardMonitor><%= usrClipboardMonitor() %></ClipboardMonitor>
+                                  <ClipboardMonitorSavePosition><%= usrClipboardMonitorSavePosition() %></ClipboardMonitorSavePosition>
+                                  <ClipboardMonitorTop><%= usrClipboardMonitorTop() %></ClipboardMonitorTop>
+                                  <ClipboardMonitorLeft><%= usrClipboardMonitorLeft() %></ClipboardMonitorLeft>
+                              </Clipboard>
                               <Friends>
                                   <FriendsFileName><%= usrFriendsFile() %></FriendsFileName>
                               </Friends>
@@ -1361,6 +1409,12 @@ Public Class UserSettings
                               <Internet>
                                   <CheckInternet>False</CheckInternet>
                               </Internet>
+                              <Clipboard>
+                                  <ClipboardMonitor>false</ClipboardMonitor>
+                                  <ClipboardMonitorSavePosition>True</ClipboardMonitorSavePosition>
+                                  <ClipboardMonitorTop>100</ClipboardMonitorTop>
+                                  <ClipboardMonitorLeft>100</ClipboardMonitorLeft>
+                              </Clipboard>
                               <Friends>
                                   <FriendsDirectory><%= usrOptionsSavePath() %></FriendsDirectory>
                                   <FriendsFileName>Friends.bin</FriendsFileName>
@@ -1645,6 +1699,13 @@ Public Class UserSettings
 
             usrCheckInternet = CType(readElement(intrnt, "CheckInternet", usrCheckInternet()), Boolean)
 
+            '-------------------------------------------------------------------------------------------------------- Clipboard Monitor Settings --
+            Dim clpbrd = elem.Element("Clipboard")
+
+            usrClipboardMonitor = CType(readElement(clpbrd, "ClipboardMonitor", usrClipboardMonitor()), Boolean)
+            usrClipboardMonitorSavePosition = CType(readElement(clpbrd, "ClipboardMonitorSavePosition", usrClipboardMonitorSavePosition()), Boolean)
+            usrClipboardMonitorTop = CType(readElement(clpbrd, "ClipboardMonitorTop", usrClipboardMonitorTop()), Integer)
+            usrClipboardMonitorLeft = CType(readElement(clpbrd, "ClipboardMonitorLeft", usrClipboardMonitorLeft()), Integer)
             '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
             '   values are strings, so need to convert.
             Dim frnds = elem.Element("Friends")

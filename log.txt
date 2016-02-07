@@ -1,3 +1,86 @@
+commit 09901e8244b66d92c310c996ef9e43ec1f1a1f3f
+Author: kevin scott <coinflip@keleven.co.uk>
+Date:   Wed Jan 27 22:11:23 2016 +0000
+
+    Added the sayings tab.  This enables the displaying [via notifications] random sayings.
+    The sayings are held in text files, which reside in a sayings directory within the application directory.  A set of sample text files and the directory are included.
+    
+    [frmKlock.vb]
+    Added a timer for sayings.
+    Changed a number of if .. then .. else to if( , , )
+    
+    [UserSettings.vb]
+    Added settings for sayings
+    
+    [frmOptions.vb]
+    Logic to handle sayings settings.
+    
+    [selectTime.vb]
+    Changed a number of if .. then .. else to if( , , )
+    
+    [KlockThings.vb]
+    Added subs loadSayings() & randomSayings()
+    Changed return value of klockNotVisable()
+    
+    [frmNotification.vb]
+    Amended Notification, so it is handled sayings.
+    Amended the mode - to be either R, S or E - for Reminder, Sayings or Event.
+    Removed the time-out from the input parameters.  Each type of notification now correctly sets the time-out according to the user settings for that type - within this module.
+    This meant a change to all instance where notifications are called throughout klock.
+    
+    Added Hack-Regular.ttf to fonts directory.  A mono-spaced font used for list-boxes.
+    
+    Ran spell checker across klock.
+
+ Klock/AnalogClockControl.xml             |  67 +++---
+ Klock/Events.vb                          |   5 +-
+ Klock/FEMcommon.vb                       |  26 +--
+ Klock/IOcommon.vb                        |  40 ++--
+ Klock/InfoCommon.vb                      |  10 +-
+ Klock/Klock.chm                          | Bin 586782 -> 592466 bytes
+ Klock/Klock.iss                          |  23 +-
+ Klock/Klock.pdf                          | Bin 3759327 -> 3878742 bytes
+ Klock/Klock.vbproj                       |   2 +
+ Klock/KlockThings.vb                     |  61 ++++-
+ Klock/License.txt                        |   2 +-
+ Klock/ManagedPower.vb                    |   9 +-
+ Klock/Memo.vb                            |   2 +-
+ Klock/My Project/Application.Designer.vb |   2 +-
+ Klock/My Project/AssemblyInfo.vb         |   4 +-
+ Klock/My Project/Settings.Designer.vb    |   2 +-
+ Klock/My Project/app.manifest            |   6 +-
+ Klock/Person.vb                          |   2 +-
+ Klock/Simple3Des.vb                      |   4 +-
+ Klock/UserFonts.vb                       |  66 +++---
+ Klock/UserSettings.vb                    | 157 ++++++++++++-
+ Klock/Voice.vb                           |   2 +-
+ Klock/conversionThings.vb                |   4 +-
+ Klock/frmAnalogKlock.vb                  |   8 +-
+ Klock/frmBigTextKlock.Designer.vb        |   2 +-
+ Klock/frmBigTextKlock.vb                 |  31 ++-
+ Klock/frmKlock.Designer.vb               | 211 +++++++++++------
+ Klock/frmKlock.resx                      |   3 +
+ Klock/frmKlock.vb                        | 290 ++++++++++++-----------
+ Klock/frmMemoPassword.Designer.vb        |   2 +-
+ Klock/frmNotification.designer.vb        |   2 +-
+ Klock/frmNotification.vb                 |  98 +++++---
+ Klock/frmOptions.Designer.vb             | 242 +++++++++++++++----
+ Klock/frmOptions.vb                      | 129 ++++++++---
+ Klock/frmSmallTextKlock.vb               |   4 +-
+ Klock/history.txt                        |  33 ++-
+ Klock/klock.hnd                          | Bin 19648512 -> 19845120 bytes
+ Klock/selectAction.vb                    |  31 ++-
+ Klock/selectTime.vb                      |  26 +--
+ fonts/Hack-Regular.ttf                   | Bin 0 -> 394336 bytes
+ log.txt                                  |  27 +++
+ sayings/If you are not over 50.txt       |  71 ++++++
+ sayings/Tidbits.txt                      | 331 ++++++++++++++++++++++++++
+ sayings/jokes 2.txt                      | 146 ++++++++++++
+ sayings/jokes.txt                        | 132 +++++++++++
+ sayings/one liners.txt                   | 344 +++++++++++++++++++++++++++
+ sayings/stuff.txt                        | 387 +++++++++++++++++++++++++++++++
+ 47 files changed, 2525 insertions(+), 521 deletions(-)
+
 commit d07f0dcd61e92251a3374f8322f32c17f5e0b61f
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Mon Jan 11 21:08:42 2016 +0000

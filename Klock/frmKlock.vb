@@ -1,4 +1,6 @@
-﻿Public Class frmKlock
+﻿Imports System.Runtime.InteropServices
+
+Public Class frmKlock
 
     '   Main Klock application.       K. Scott    November 2012
     '
@@ -14,34 +16,36 @@
     '   December 2015   V1.1.3 - Added Big text Klock - more words                          [build 58]
     '   December 2015   V1.1.4 - Added Analogue Klock                                       [build 61]
     '   January 2016    V1.1.5 - Added Sayings                                              [build 64]
-
+    '   February 2016   V1.1.6 - Added clipboard manager                                    [build 65]
 
 
     Public startTime As Integer
 
-    Public displayOneTime As selectTime         '   instance of selectTime, allows different time formats.
-    Public displayTwoTime As selectTime         '   instance of selectTime, allows different time formats.
-    Public displayTimer As Timer                '   instance of timer, a wrapper of the stopwatch class.
-    Public displayAction As selectAction        '   instance of selectAction, allows different actions to be performed.
-    Public usrSettings As UserSettings          '   instance of user settings.
-    Public usrVoice As Voice                    '   instance of user voice
-    Public usrFonts As UserFonts                '   instance of user fonts.
-    Public myManagedPower As ManagedPower       '   instance of managed Power
+    Public displayOneTime As selectTime             '   instance of selectTime, allows different time formats.
+    Public displayTwoTime As selectTime             '   instance of selectTime, allows different time formats.
+    Public displayTimer As Timer                    '   instance of timer, a wrapper of the stopwatch class.
+    Public displayAction As selectAction            '   instance of selectAction, allows different actions to be performed.
+    Public usrSettings As UserSettings              '   instance of user settings.
+    Public usrVoice As Voice                        '   instance of user voice
+    Public usrFonts As UserFonts                    '   instance of user fonts.
+    Public myManagedPower As ManagedPower           '   instance of managed Power
 
-    Public CountDownTime As Integer             '   Holds number of minutes for the countdown timer.
-    Public ReminderDateTime As DateTime         '   Holds the date [and time] of the set reminder.
+    Public CountDownTime As Integer                 '   Holds number of minutes for the countdown timer.
+    Public ReminderDateTime As DateTime             '   Holds the date [and time] of the set reminder.
 
-    Public F_ADDING As Boolean = False          '   Will be true if adding an friend, false if editing.
-    Public E_ADDING As Boolean = False          '   Will be true if adding an event, false if editing.
-    Public M_ADDING As Boolean = False          '   Will be true if adding an memo, false if editing.
-    Public M_SHOW As Boolean = False            '   Will be true if displaying a secret memo test.
+    Public F_ADDING As Boolean = False              '   Will be true if adding an friend, false if editing.
+    Public E_ADDING As Boolean = False              '   Will be true if adding an event, false if editing.
+    Public M_ADDING As Boolean = False              '   Will be true if adding an memo, false if editing.
+    Public M_SHOW As Boolean = False                '   Will be true if displaying a secret memo test.
 
-    Public reloadFriends As Boolean = True      '   if true, friends file will be re-loaded
-    Public reloadEvents As Boolean = True       '   if true, events file will be re-loaded.
-    Public reloadMemo As Boolean = True         '   if true, memo file will be re-loaded.
+    Public CL_MONITORED As Boolean = False
 
-    Public grphcs As Graphics = CreateGraphics   '   create graphic object globally, used to measure time text width
-    Public hours() As String = {"twelve.mp3", "one.mp3", "two.mp3", "three.mp3", "four.mp3", "five.mp3", "six.mp3", "seven.mp3", "eight.mp3", 
+    Public reloadFriends As Boolean = True          '   if true, friends file will be re-loaded
+    Public reloadEvents As Boolean = True           '   if true, events file will be re-loaded.
+    Public reloadMemo As Boolean = True             '   if true, memo file will be re-loaded.
+
+    Public grphcs As Graphics = CreateGraphics()      '   create graphic object globally, used to measure time text width
+    Public hours() As String = {"twelve.mp3", "one.mp3", "two.mp3", "three.mp3", "four.mp3", "five.mp3", "six.mp3", "seven.mp3", "eight.mp3",
                                 "nine.mp3", "ten.mp3", "eleven.mp3", "twelve.mp3"}    '   create global, not every time.
 
     Public knownFirstNames As New AutoCompleteStringCollection      '   Auto Complete for friends first name.
@@ -1775,6 +1779,8 @@
 
         TmrMain.Enabled = False                         '   Turn off main timer while we sort things out.
 
+        FEMcommon.ButtonsVisible(False, 0, 0, 0)
+
         startTime = My.Computer.Clock.TickCount         '   used for app running time.
         displayOneTime = New selectTime                 '   user selected time I
         displayTwoTime = New selectTime                 '   user selected time II
@@ -1786,12 +1792,12 @@
 
         myManagedPower = New ManagedPower               '   system power source
 
-        DtPckrFriendsDOB.MaxDate = Now()                '   nobody is born after today :-)
-
         setSettings()                                   '   load user settings
         setTimeTypes()                                  '   load time types into combo box.
         setActionTypes()                                '   load action types into combo box.
         setTimeZones(0)                                 '   load time zones into combo box, making index 0 active.
+
+        DtPckrFriendsDOB.MaxDate = Now()                '   nobody is born after today :-)
 
         checkUnitsFile()                                '   check for units file - from conversionThings.ucheckUnitsFile()
         unitsLoad("LoadCategory")                       '   load conversion units - from conversionThings.unitsLoad()
@@ -1800,15 +1806,13 @@
 
         setTitleText()                                  '   set app title text
 
-        FEMcommon.ButtonsVisible(False, 0, 0, 0)
-
-        TmrMain.Enabled = True                          '   Turn on main timer now things are sorted out.
-
         HlpPrvdrKlock.HelpNamespace = System.IO.Path.Combine(Application.StartupPath, "klock.chm") '   set up help location
 
         LstBxFriends.Font = usrFonts.getFont()
         LstBxEvents.Font = usrFonts.getFont()
         LstBxMemo.Font = usrFonts.getFont()
+
+        TmrMain.Enabled = True                          '   Turn on main timer now things are sorted out.
     End Sub
 
     Private Sub frmKlock_Shown(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Shown
@@ -1825,7 +1829,15 @@
         '   Processes key presses at form level, before passed to components.
         '   The rest of the codes is so that enter is handled correctly when inputting a new friend / event / memo.  
         '   Pressing Enter Or hitting the tab key will do the same thing, that is move focus to the next data entry box.
-        '   
+
+        '   Hotkeys is in klockThings
+        '   Pressing F1, will open klock's help.
+        '   Pressing alt + F2, will open the options screen.
+        '   Pressing alt + F5, will open the text klock.
+        '   Pressing alt + F7, will disable the monitor from going to sleep.
+        '   Pressing alt + F8, will restore system settings for the monitor.
+        '   Pressing alt + F12, will shown total number of friends.
+
 
         HotKeys(e)
 
@@ -1857,6 +1869,8 @@
         KlockThings.RestoreMonitorSettings()    '   restore system monitor sleep settings, just in case been altered.
 
         grphcs.Dispose()
+
+        If usrSettings.usrClipboardMonitor Then ClipboardMonitorOff()       '   turn off clipboard monitoring
     End Sub
 
     Sub setSettings()
@@ -1925,6 +1939,12 @@
         TlStrpPrgrsBrMemo.Maximum = usrSettings.usrMemoDecyptTimeOut
 
         tmrSayings.Enabled = usrSettings.usrSayingsDisplay             '   set up saying timer.
+
+        If Not CL_MONITORED And usrSettings.usrClipboardMonitor Then                         '   set up clipboard monitoring
+            ClipboardMonitorON()
+        Else
+            ClipboardMonitorOff()
+        End If
     End Sub
 
     Sub setActionTypes()
@@ -1976,9 +1996,9 @@
     End Sub
 
     ' ********************************************************************************************************************** time menu stuff *************
-        Private Sub AnalogKlockToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AnalogKlockToolStripMenuItem.Click
+    Private Sub AnalogKlockToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AnalogKlockToolStripMenuItem.Click
 
-                NtfyIcnKlock.Visible = True
+        NtfyIcnKlock.Visible = True
         Visible = False
         frmAnalogueKlock.Show()
     End Sub
@@ -2092,4 +2112,83 @@
     End Sub
 
     ' ********************************************************************************************************************************* END **************
+
+    ' ** The following code is for the Clipboard Monitor stuff.
+    ' ** It is placed here, because it has to register the main form in the Clipboard chain.
+
+    Private Const WM_DRAWCLIPBOARD As Integer = &H308
+    Private Const WM_CHANGECBCHAIN As Integer = &H30D
+
+    Private mNextClipBoardViewerHWnd As IntPtr
+    Private Event OnClipboardChanged()
+
+    <DllImport("user32")>
+    Private Shared Function SetClipboardViewer(ByVal hWnd As IntPtr) As IntPtr
+    End Function
+
+    <DllImport("user32")>
+    Private Shared Function ChangeClipboardChain(ByVal hWnd As IntPtr, ByVal hWndNext As IntPtr) As <MarshalAs(UnmanagedType.Bool)> Boolean
+    End Function
+
+    <DllImport("user32")>
+    Private Shared Function SendMessage(ByVal hWnd As IntPtr, ByVal msg As Integer, ByVal wParam As IntPtr,
+        ByVal lParam As IntPtr) As IntPtr
+    End Function
+
+
+    Protected Overrides Sub WndProc(ByRef m As Message)
+        '   Override WndProc to get messages...
+
+        MyBase.WndProc(m)
+
+        Select Case m.Msg
+            Case WM_DRAWCLIPBOARD
+                '   if the wm_drawclipboard is received the clipboard changed do what you want and
+                '   send the message to the next window in the chain
+
+                RaiseEvent OnClipboardChanged()
+                SendMessage(mNextClipBoardViewerHWnd, m.Msg, m.WParam, m.LParam)
+
+            Case WM_CHANGECBCHAIN
+                '   Send to the next window 
+
+                If m.WParam.Equals(mNextClipBoardViewerHWnd) Then
+                    mNextClipBoardViewerHWnd = m.LParam
+                Else
+                    SendMessage(mNextClipBoardViewerHWnd, m.Msg, m.WParam, m.LParam)
+                End If
+        End Select
+
+    End Sub
+
+    Private Sub ClipBoardChanged()
+        '   Clipboard has data [text].
+        '   Only adds the data is not already remembered - so only one instance of data is displayed.
+        '   This gets around the problem been triggered by klock copying to the clipboard :-)
+
+        Dim data As IDataObject = Clipboard.GetDataObject()
+
+        If My.Computer.Clipboard.ContainsText Then
+            If Not frmClipboardMonitor.lstBxClipboardData.Items.Contains(My.Computer.Clipboard.GetText) Then
+                frmClipboardMonitor.lstBxClipboardData.Items.Add(My.Computer.Clipboard.GetText)
+                frmClipboardMonitor.Show()
+            End If
+        End If
+    End Sub
+
+    Sub ClipboardMonitorON()
+        '   Add yourself to the clipboard viewer chain.
+
+        mNextClipBoardViewerHWnd = SetClipboardViewer(Me.Handle)
+        AddHandler Me.OnClipboardChanged, AddressOf ClipBoardChanged
+
+        CL_MONITORED = True
+    End Sub
+
+    Public Sub ClipboardMonitorOff()
+        '   Remove yourself from the clipboard viewer chain.
+        ChangeClipboardChain(Me.Handle, mNextClipBoardViewerHWnd)
+
+        CL_MONITORED = False
+    End Sub
 End Class

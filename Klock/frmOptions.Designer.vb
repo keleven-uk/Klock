@@ -145,6 +145,9 @@ Partial Class frmOptions
         Me.btnSmlTxtKlckOffClr = New System.Windows.Forms.Button()
         Me.btnSmlTxtKlckFrClr = New System.Windows.Forms.Button()
         Me.tbPgOtherStuff = New System.Windows.Forms.TabPage()
+        Me.GroupBox26 = New System.Windows.Forms.GroupBox()
+        Me.chckBxClipboardMonitor = New System.Windows.Forms.CheckBox()
+        Me.chckBxClipboardSavePos = New System.Windows.Forms.CheckBox()
         Me.GroupBox20 = New System.Windows.Forms.GroupBox()
         Me.chckBxChckInternet = New System.Windows.Forms.CheckBox()
         Me.GroupBox19 = New System.Windows.Forms.GroupBox()
@@ -246,6 +249,7 @@ Partial Class frmOptions
         Me.GroupBox22.SuspendLayout()
         Me.GroupBox21.SuspendLayout()
         Me.tbPgOtherStuff.SuspendLayout()
+        Me.GroupBox26.SuspendLayout()
         Me.GroupBox20.SuspendLayout()
         Me.GroupBox19.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -364,7 +368,7 @@ Partial Class frmOptions
         Me.tbCntrlOptions.Controls.Add(Me.tbPgArchive)
         Me.tbCntrlOptions.Controls.Add(Me.tbPgEvents)
         Me.tbCntrlOptions.Controls.Add(Me.tbPgMemo)
-        Me.tbCntrlOptions.Location = New System.Drawing.Point(6, 6)
+        Me.tbCntrlOptions.Location = New System.Drawing.Point(12, 12)
         Me.tbCntrlOptions.Multiline = True
         Me.tbCntrlOptions.Name = "tbCntrlOptions"
         Me.tbCntrlOptions.SelectedIndex = 0
@@ -472,7 +476,7 @@ Partial Class frmOptions
         Me.chckBxOptionsRunOnStartup.Location = New System.Drawing.Point(268, 31)
         Me.chckBxOptionsRunOnStartup.Name = "chckBxOptionsRunOnStartup"
         Me.chckBxOptionsRunOnStartup.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.chckBxOptionsRunOnStartup.Size = New System.Drawing.Size(175, 17)
+        Me.chckBxOptionsRunOnStartup.Size = New System.Drawing.Size(178, 17)
         Me.chckBxOptionsRunOnStartup.TabIndex = 9
         Me.chckBxOptionsRunOnStartup.Text = "Run Klock on Windows Start up"
         Me.chckBxOptionsRunOnStartup.UseVisualStyleBackColor = True
@@ -1536,6 +1540,7 @@ Partial Class frmOptions
         'tbPgOtherStuff
         '
         Me.tbPgOtherStuff.BackColor = System.Drawing.SystemColors.Control
+        Me.tbPgOtherStuff.Controls.Add(Me.GroupBox26)
         Me.tbPgOtherStuff.Controls.Add(Me.GroupBox20)
         Me.tbPgOtherStuff.Controls.Add(Me.GroupBox19)
         Me.tbPgOtherStuff.Controls.Add(Me.GroupBox5)
@@ -1549,12 +1554,45 @@ Partial Class frmOptions
         Me.tbPgOtherStuff.TabIndex = 7
         Me.tbPgOtherStuff.Text = "Other Stuff"
         '
+        'GroupBox26
+        '
+        Me.GroupBox26.Controls.Add(Me.chckBxClipboardMonitor)
+        Me.GroupBox26.Controls.Add(Me.chckBxClipboardSavePos)
+        Me.GroupBox26.Location = New System.Drawing.Point(6, 214)
+        Me.GroupBox26.Name = "GroupBox26"
+        Me.GroupBox26.Size = New System.Drawing.Size(648, 47)
+        Me.GroupBox26.TabIndex = 5
+        Me.GroupBox26.TabStop = False
+        Me.GroupBox26.Text = "Clipboard Monitor"
+        '
+        'chckBxClipboardMonitor
+        '
+        Me.chckBxClipboardMonitor.AutoSize = True
+        Me.chckBxClipboardMonitor.Location = New System.Drawing.Point(116, 19)
+        Me.chckBxClipboardMonitor.Name = "chckBxClipboardMonitor"
+        Me.chckBxClipboardMonitor.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxClipboardMonitor.Size = New System.Drawing.Size(108, 17)
+        Me.chckBxClipboardMonitor.TabIndex = 1
+        Me.chckBxClipboardMonitor.Text = "Monitor Clipboard"
+        Me.chckBxClipboardMonitor.UseVisualStyleBackColor = True
+        '
+        'chckBxClipboardSavePos
+        '
+        Me.chckBxClipboardSavePos.AutoSize = True
+        Me.chckBxClipboardSavePos.Location = New System.Drawing.Point(386, 19)
+        Me.chckBxClipboardSavePos.Name = "chckBxClipboardSavePos"
+        Me.chckBxClipboardSavePos.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxClipboardSavePos.Size = New System.Drawing.Size(163, 17)
+        Me.chckBxClipboardSavePos.TabIndex = 0
+        Me.chckBxClipboardSavePos.Text = "Save Screen Position on Exit"
+        Me.chckBxClipboardSavePos.UseVisualStyleBackColor = True
+        '
         'GroupBox20
         '
         Me.GroupBox20.Controls.Add(Me.chckBxChckInternet)
-        Me.GroupBox20.Location = New System.Drawing.Point(9, 212)
+        Me.GroupBox20.Location = New System.Drawing.Point(334, 165)
         Me.GroupBox20.Name = "GroupBox20"
-        Me.GroupBox20.Size = New System.Drawing.Size(645, 41)
+        Me.GroupBox20.Size = New System.Drawing.Size(320, 41)
         Me.GroupBox20.TabIndex = 4
         Me.GroupBox20.TabStop = False
         Me.GroupBox20.Text = "Internet"
@@ -1575,7 +1613,7 @@ Partial Class frmOptions
         Me.GroupBox19.Controls.Add(Me.chckBxDisableMonitorSleep)
         Me.GroupBox19.Location = New System.Drawing.Point(9, 165)
         Me.GroupBox19.Name = "GroupBox19"
-        Me.GroupBox19.Size = New System.Drawing.Size(645, 41)
+        Me.GroupBox19.Size = New System.Drawing.Size(317, 41)
         Me.GroupBox19.TabIndex = 3
         Me.GroupBox19.TabStop = False
         Me.GroupBox19.Text = "Monitor"
@@ -2286,6 +2324,8 @@ Partial Class frmOptions
         Me.GroupBox21.ResumeLayout(False)
         Me.GroupBox21.PerformLayout()
         Me.tbPgOtherStuff.ResumeLayout(False)
+        Me.GroupBox26.ResumeLayout(False)
+        Me.GroupBox26.PerformLayout()
         Me.GroupBox20.ResumeLayout(False)
         Me.GroupBox20.PerformLayout()
         Me.GroupBox19.ResumeLayout(False)
@@ -2511,4 +2551,7 @@ Partial Class frmOptions
     Friend WithEvents lblSayings3 As Label
     Friend WithEvents nmrcUpDwnSayingDisplay As NumericUpDown
     Friend WithEvents ChckBxSayings As CheckBox
+    Friend WithEvents GroupBox26 As GroupBox
+    Friend WithEvents chckBxClipboardMonitor As CheckBox
+    Friend WithEvents chckBxClipboardSavePos As CheckBox
 End Class

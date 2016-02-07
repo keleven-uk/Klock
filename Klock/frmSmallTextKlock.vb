@@ -32,6 +32,13 @@
     Private Sub frmTextKlock_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         '   Processes key presses at form level, before passed to components.
 
+        '   Pressing F1, will open klock's help.
+        '   Pressing alt + F2, will open the options screen.
+        '   Pressing alt + F5, will open the text klock.
+        '   Pressing alt + F7, will disable the monitor from going to sleep.
+        '   Pressing alt + F8, will restore system settings for the monitor.
+        '   Pressing alt + F12, will shown total number of friends.
+
         HotKeys(e)              '   in KlockThings.vb
     End Sub
 
