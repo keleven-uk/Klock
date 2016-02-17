@@ -52,6 +52,7 @@ Public Class frmAnalogueKlock
     Private Sub frmAnalogueKlock_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         '   When form is closed turn off timer and re-load main form.
         '   and save klock position if needed.
+        '   and save klock mode if needed.
 
         frmKlock.NtfyIcnKlock.Visible = False
         frmKlock.Visible = True
@@ -60,6 +61,8 @@ Public Class frmAnalogueKlock
             frmKlock.usrSettings.usrAnalogueKlockTop = Top
             frmKlock.usrSettings.usrAnalogueKlockLeft = Left
         End If
+
+        frmKlock.usrSettings.writeSettings()                     '   save settings, not sure if anything has changed.
     End Sub
 
     Private Sub analogKlock_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown, analogueKlock.KeyDown
@@ -110,7 +113,7 @@ Public Class frmAnalogueKlock
 
         '   Set background colour of klock
 
-        If frmKlock.usrSettings.usrAnalogueKlcokTransparent Then        '   if transparent then set colour sutch.
+        If frmKlock.usrSettings.usrAnalogueKlcokTransparent Then        '   if transparent then set colour such.
             analogueKlock.BackColor = Color.Transparent
         Else
             analogueKlock.BackColor = frmKlock.usrSettings.usrAnalogueKlockBackColour
@@ -121,6 +124,8 @@ Public Class frmAnalogueKlock
         Dim x, y As Single
         Dim sz As SizeF
         Dim sbr As New SolidBrush(analogueKlock.ForeColor)
+        Dim t As String = ""
+
         '   Draw your name on the top, clock's background
 
         If frmKlock.usrSettings.usrAnalogueKlockText <> "" Then
@@ -134,14 +139,21 @@ Public Class frmAnalogueKlock
 
         If frmKlock.usrSettings.usrAnalogueKlockShowTime Then
             'Draw digital time on the bottom, clock's background
-            sz = e.Graphics.MeasureString(analogueKlock.Value.ToShortTimeString, Me.Font, New PointF(0, 0), StringFormat.GenericDefault)
+
+            If frmKlock.usrSettings.usrAnalogueKlockShowIdleTime Then
+                t = KlockThings.idleTime()
+            Else
+                t = analogueKlock.Value.ToShortTimeString
+            End If
+
+            sz = e.Graphics.MeasureString(t, Me.Font, New PointF(0, 0), StringFormat.GenericDefault)
             x = analogueKlock.CenterPoint.PivotalPoint.X - sz.Width / 2
             y = CSng(analogueKlock.Rectangle.Height - analogueKlock.Radius * 0.3 - sz.Height)
-            e.Graphics.DrawString(analogueKlock.Value.ToLongTimeString, Me.Font, sbr, x, y)
+            e.Graphics.DrawString(t, Me.Font, sbr, x, y)
             sbr.Dispose()
         End If
 
-        If frmKlock.usrSettings.usrAnalogueKlockShowDate Then
+            If frmKlock.usrSettings.usrAnalogueKlockShowDate Then
             'Draw month-day box on the clock's background
             Dim str As String = CType(analogueKlock.Value.Month, Months).ToString & " " & analogueKlock.Value.Day
             sz = e.Graphics.MeasureString(str, New Font("Tahoma", 10, FontStyle.Bold), New PointF(0, 0), StringFormat.GenericDefault)
@@ -316,6 +328,7 @@ Public Class frmAnalogueKlock
     Private Sub OptionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OptionsToolStripMenuItem.Click
         '   Load the options screen.
 
+        frmOptions.tbCntrlOptions.SelectedIndex = 3
         frmOptions.ShowDialog()
     End Sub
 
@@ -328,8 +341,17 @@ Public Class frmAnalogueKlock
     Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
         '   Close both analogue and the main klock form.
 
+        If frmKlock.usrSettings.usrRememberKlockMode Then        '   if desired, start in analogue klock next time.
+            frmKlock.usrSettings.usrStartKlockMode = 1
+        End If
+
         Close()
         frmKlock.Close()
     End Sub
 
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+        '   Display the about form.
+
+        HelpCommon.displayInfo(sender.ToString)
+    End Sub
 End Class

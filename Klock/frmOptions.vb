@@ -11,15 +11,23 @@ Public Class frmOptions
         '   When opened, set settings
 
         Dim tabs() As String = {"Fuzzy Time", "World Klock", "Count Down", "Timer", "Reminder", "Friends", "Events", "Memo", "Converter"}
+        Dim mode() As String = {"Klock", "Analogue Klock", "Small Text Klock", "Big text Klock"}
+
+        cmbBxDefaultTab.Items.AddRange(tabs)
+        cmbBxDefaultMode.Items.AddRange(mode)
+
+        '   Only allow to select start up mode, if klock not starting minimised.
+        If chckBxOptionsStartupMinimised.Checked Then
+            chckBxOptionsRememberKlockMode.Enabled = Not chckBxOptionsStartupMinimised.Checked
+            cmbBxDefaultMode.Enabled = Not chckBxOptionsStartupMinimised.Checked
+        Else
+            cmbBxDefaultMode.Enabled = chckBxOptionsRememberKlockMode.Checked
+        End If
 
         displayAction = New selectAction
 
         txtBxArchiveFile.Text = "Klock.zip"
         lblOptionSavepath.Text = System.IO.Path.Combine(frmKlock.usrSettings.usrOptionsSavePath(), frmKlock.usrSettings.usrOptionsSaveFile())
-
-        cmbBxDefaultTab.Items.AddRange(tabs)
-
-        tbCntrlOptions.SelectedIndex = 1
 
         checkPicture()
 
@@ -68,6 +76,7 @@ Public Class frmOptions
         'frmKlock.usrSettings.readSettings()     '   re-read settings, so we are always working current.
 
         cmbBxDefaultTab.SelectedIndex = frmKlock.usrSettings.usrDefaultTab
+        cmbBxDefaultMode.SelectedIndex = frmKlock.usrSettings.usrStartKlockMode
 
         '-------------------------------------------------------------------------------------------------------- Global Settings -------------
         BackColor = frmKlock.usrSettings.usrFormColour
@@ -83,6 +92,7 @@ Public Class frmOptions
         chckBxOptionsSavePos.Checked = frmKlock.usrSettings.usrSavePosition
         chckBxOptionsRunOnStartup.Checked = frmKlock.usrSettings.usrRunOnStartup
         chckBxOptionsStartupMinimised.Checked = frmKlock.usrSettings.usrStartMinimised
+        chckBxOptionsRememberKlockMode.Checked = frmKlock.usrSettings.usrRememberKlockMode
 
         trckBrOptionsVolume.Minimum = 0
         trckBrOptionsVolume.Maximum = 1000
@@ -140,6 +150,7 @@ Public Class frmOptions
         chckBxAnlgKlockTransparent.Checked = frmKlock.usrSettings.usrAnalogueKlcokTransparent
         chckBxAnlgKlockDate.Checked = frmKlock.usrSettings.usrAnalogueKlockShowDate
         chckBxAnlgKlockTime.Checked = frmKlock.usrSettings.usrAnalogueKlockShowTime
+        chckBxAnlgKlockIdleTime.Checked = frmKlock.usrSettings.usrAnalogueKlockShowIdleTime
         btnAnlgKlockBackColour.BackColor = frmKlock.usrSettings.usrAnalogueKlockBackColour
         chckBxAnlgKlockDisplayPicture.Checked = frmKlock.usrSettings.usrAnalogueKlockDisplayPicture
         txtBxAnlgKlockPictureLocation.Text = frmKlock.usrSettings.usrAnalogueKlockPicture
@@ -168,7 +179,7 @@ Public Class frmOptions
 
         nmrcUpDwnNotificationTimeOut.Value = frmKlock.usrSettings.usrNotificationTimeOut / 1000
         nmrcUpDwnSayingNotificationTimeOut.Value = frmKlock.usrSettings.usrSayingsTimeOut / 1000
-        nmrcUpDwnSayingDisplay.Value = frmKlock.usrSettings.usrSayingsDisplayTime / 1000                  '   held in minutes
+        nmrcUpDwnSayingDisplay.Value = frmKlock.usrSettings.usrSayingsDisplayTime                   '   held in minutes
 
         nmrcUpDwnNotificationOpacity.Value = frmKlock.usrSettings.usrNotificationOpacity
         nmrcUpDwnEventNotificationOpacity.Value = frmKlock.usrSettings.usrEventNotificationOpacity
@@ -221,11 +232,13 @@ Public Class frmOptions
         '    When closed, save settings.
 
         frmKlock.usrSettings.usrDefaultTab = cmbBxDefaultTab.SelectedIndex
+        frmKlock.usrSettings.usrStartKlockMode = cmbBxDefaultMode.SelectedIndex
 
         '-------------------------------------------------------------------------------------------------------- Global Settings -------------
         frmKlock.usrSettings.usrSavePosition = chckBxOptionsSavePos.Checked
         frmKlock.usrSettings.usrRunOnStartup = chckBxOptionsRunOnStartup.Checked
         frmKlock.usrSettings.usrStartMinimised = chckBxOptionsStartupMinimised.Checked
+        frmKlock.usrSettings.usrRememberKlockMode = chckBxOptionsRememberKlockMode.Checked
 
         If frmKlock.usrSettings.usrSavePosition Then
             frmKlock.usrSettings.usrFormTop = frmKlock.Top
@@ -276,6 +289,7 @@ Public Class frmOptions
         frmKlock.usrSettings.usrAnalogueKlcokTransparent = chckBxAnlgKlockTransparent.Checked
         frmKlock.usrSettings.usrAnalogueKlockShowDate = chckBxAnlgKlockDate.Checked
         frmKlock.usrSettings.usrAnalogueKlockShowTime = chckBxAnlgKlockTime.Checked
+        frmKlock.usrSettings.usrAnalogueKlockShowIdleTime = chckBxAnlgKlockIdleTime.Checked
         frmKlock.usrSettings.usrAnalogueKlockBackColour = btnAnlgKlockBackColour.BackColor
         frmKlock.usrSettings.usrAnalogueKlockDisplayPicture = chckBxAnlgKlockDisplayPicture.Checked
         'frmKlock.usrSettings.usrAnalogueKlockPicture = txtBxAnlgKlockPictureLocation.Text      ' already set to full path name.
@@ -342,7 +356,6 @@ Public Class frmOptions
         frmKlock.usrSettings.usrMemoUseDefaultPassword = chckBxMemoDefaultPassword.Checked
         frmKlock.usrSettings.usrMemoDefaultPassword = txtBxMemoDefaultPassword.Text
         frmKlock.usrSettings.usrMemoDecyptTimeOut = nmrcUpDwnMemoDecrypt.Value
-
 
         frmKlock.usrSettings.writeSettings()
         frmKlock.setSettings()
@@ -418,6 +431,17 @@ Public Class frmOptions
         End Try
     End Sub
 
+    Private Sub chckBxOptionsStartupMinimised_CheckedChanged(sender As Object, e As EventArgs) Handles chckBxOptionsStartupMinimised.CheckedChanged
+        '   Only allow to select start up mode, if klock not starting minimised.
+
+        chckBxOptionsRememberKlockMode.Enabled = Not chckBxOptionsStartupMinimised.Checked
+        cmbBxDefaultMode.Enabled = Not chckBxOptionsStartupMinimised.Checked
+    End Sub
+
+    Private Sub chckBxOptionsRememberKlockMode_CheckedChanged(sender As Object, e As EventArgs) Handles chckBxOptionsRememberKlockMode.CheckedChanged
+
+        cmbBxDefaultMode.Enabled = chckBxOptionsRememberKlockMode.Checked
+    End Sub
     '-----------------------------------------------------------Time---------------------------------------------------------------
 
     Private Sub chckBxTimeTwoFormats_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chckBxTimeTwoFormats.CheckedChanged
@@ -492,8 +516,16 @@ Public Class frmOptions
     End Sub
 
     Private Sub chckBxIdleTime_CheckedChanged(sender As Object, e As EventArgs) Handles chckBxIdleTime.CheckedChanged
+        '   Sets options for display idle time.
+        '   Is selected, then select to display on analogue klock.
 
         frmKlock.DisplayIdleTime.Checked = chckBxIdleTime.Checked
+
+        If chckBxIdleTime.Checked Then
+            frmKlock.usrSettings.usrAnalogueKlockShowIdleTime = True
+            chckBxAnlgKlockIdleTime.Checked = True
+            chckBxAnlgKlockTime.Checked = True
+        End If
     End Sub
 
 
@@ -611,6 +643,11 @@ Public Class frmOptions
         '   Display the digital time on the analogue klocks dial.
 
         frmKlock.usrSettings.usrAnalogueKlockShowTime = chckBxAnlgKlockTime.Checked
+    End Sub
+
+    Private Sub chckBxAnlgKlockIdleTime_CheckedChanged(sender As Object, e As EventArgs) Handles chckBxAnlgKlockIdleTime.CheckedChanged
+
+        frmKlock.usrSettings.usrAnalogueKlockShowIdleTime = chckBxAnlgKlockIdleTime.Checked
     End Sub
 
     Private Sub cxtBxAnlgKlock_TextChanged(sender As Object, e As EventArgs) Handles txtBxAnlgKlock.TextChanged
@@ -1058,4 +1095,5 @@ Public Class frmOptions
 
         frmKlock.usrSettings.usrClipboardMonitorSavePosition = chckBxClipboardSavePos.Checked
     End Sub
+
 End Class

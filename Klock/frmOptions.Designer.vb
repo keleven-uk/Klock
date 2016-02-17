@@ -43,6 +43,8 @@ Partial Class frmOptions
         Me.lblOptionSavepath = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.cmbBxDefaultMode = New System.Windows.Forms.ComboBox()
+        Me.chckBxOptionsRememberKlockMode = New System.Windows.Forms.CheckBox()
         Me.chckBxOptionsRunOnStartup = New System.Windows.Forms.CheckBox()
         Me.chckBxOptionsStartupMinimised = New System.Windows.Forms.CheckBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
@@ -217,6 +219,7 @@ Partial Class frmOptions
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.chckBxAnlgKlockIdleTime = New System.Windows.Forms.CheckBox()
         Me.tbCntrlOptions.SuspendLayout()
         Me.tbPgGlobal.SuspendLayout()
         Me.GroupBox17.SuspendLayout()
@@ -329,7 +332,7 @@ Partial Class frmOptions
         'chckBxOptionsSavePos
         '
         Me.chckBxOptionsSavePos.AutoSize = True
-        Me.chckBxOptionsSavePos.Location = New System.Drawing.Point(45, 31)
+        Me.chckBxOptionsSavePos.Location = New System.Drawing.Point(67, 19)
         Me.chckBxOptionsSavePos.Name = "chckBxOptionsSavePos"
         Me.chckBxOptionsSavePos.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chckBxOptionsSavePos.Size = New System.Drawing.Size(163, 17)
@@ -389,6 +392,7 @@ Partial Class frmOptions
         Me.tbPgGlobal.Size = New System.Drawing.Size(660, 265)
         Me.tbPgGlobal.TabIndex = 0
         Me.tbPgGlobal.Text = "Global"
+        Me.tbPgGlobal.UseVisualStyleBackColor = True
         '
         'GroupBox17
         '
@@ -460,6 +464,8 @@ Partial Class frmOptions
         '
         'GroupBox8
         '
+        Me.GroupBox8.Controls.Add(Me.cmbBxDefaultMode)
+        Me.GroupBox8.Controls.Add(Me.chckBxOptionsRememberKlockMode)
         Me.GroupBox8.Controls.Add(Me.chckBxOptionsRunOnStartup)
         Me.GroupBox8.Controls.Add(Me.chckBxOptionsSavePos)
         Me.GroupBox8.Controls.Add(Me.chckBxOptionsStartupMinimised)
@@ -470,10 +476,30 @@ Partial Class frmOptions
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Behaviour"
         '
+        'cmbBxDefaultMode
+        '
+        Me.cmbBxDefaultMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbBxDefaultMode.FormattingEnabled = True
+        Me.cmbBxDefaultMode.Location = New System.Drawing.Point(459, 28)
+        Me.cmbBxDefaultMode.Name = "cmbBxDefaultMode"
+        Me.cmbBxDefaultMode.Size = New System.Drawing.Size(121, 21)
+        Me.cmbBxDefaultMode.TabIndex = 12
+        '
+        'chckBxOptionsRememberKlockMode
+        '
+        Me.chckBxOptionsRememberKlockMode.AutoSize = True
+        Me.chckBxOptionsRememberKlockMode.Location = New System.Drawing.Point(272, 42)
+        Me.chckBxOptionsRememberKlockMode.Name = "chckBxOptionsRememberKlockMode"
+        Me.chckBxOptionsRememberKlockMode.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxOptionsRememberKlockMode.Size = New System.Drawing.Size(137, 17)
+        Me.chckBxOptionsRememberKlockMode.TabIndex = 11
+        Me.chckBxOptionsRememberKlockMode.Text = "Remember Klock Mode"
+        Me.chckBxOptionsRememberKlockMode.UseVisualStyleBackColor = True
+        '
         'chckBxOptionsRunOnStartup
         '
         Me.chckBxOptionsRunOnStartup.AutoSize = True
-        Me.chckBxOptionsRunOnStartup.Location = New System.Drawing.Point(268, 31)
+        Me.chckBxOptionsRunOnStartup.Location = New System.Drawing.Point(52, 42)
         Me.chckBxOptionsRunOnStartup.Name = "chckBxOptionsRunOnStartup"
         Me.chckBxOptionsRunOnStartup.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chckBxOptionsRunOnStartup.Size = New System.Drawing.Size(178, 17)
@@ -484,7 +510,7 @@ Partial Class frmOptions
         'chckBxOptionsStartupMinimised
         '
         Me.chckBxOptionsStartupMinimised.AutoSize = True
-        Me.chckBxOptionsStartupMinimised.Location = New System.Drawing.Point(505, 31)
+        Me.chckBxOptionsStartupMinimised.Location = New System.Drawing.Point(282, 19)
         Me.chckBxOptionsStartupMinimised.Name = "chckBxOptionsStartupMinimised"
         Me.chckBxOptionsStartupMinimised.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chckBxOptionsStartupMinimised.Size = New System.Drawing.Size(127, 17)
@@ -544,9 +570,11 @@ Partial Class frmOptions
         Me.tbPgNotification.Controls.Add(Me.GroupBox6)
         Me.tbPgNotification.Location = New System.Drawing.Point(4, 25)
         Me.tbPgNotification.Name = "tbPgNotification"
+        Me.tbPgNotification.Padding = New System.Windows.Forms.Padding(3)
         Me.tbPgNotification.Size = New System.Drawing.Size(660, 265)
         Me.tbPgNotification.TabIndex = 3
         Me.tbPgNotification.Text = "Notification"
+        Me.tbPgNotification.UseVisualStyleBackColor = True
         '
         'GroupBox25
         '
@@ -845,6 +873,7 @@ Partial Class frmOptions
         Me.tbPgTime.Size = New System.Drawing.Size(660, 265)
         Me.tbPgTime.TabIndex = 1
         Me.tbPgTime.Text = "Time"
+        Me.tbPgTime.UseVisualStyleBackColor = True
         '
         'GroupBox18
         '
@@ -1169,6 +1198,7 @@ Partial Class frmOptions
         Me.tbPgAnalogueKlock.Controls.Add(Me.GroupBox23)
         Me.tbPgAnalogueKlock.Location = New System.Drawing.Point(4, 25)
         Me.tbPgAnalogueKlock.Name = "tbPgAnalogueKlock"
+        Me.tbPgAnalogueKlock.Padding = New System.Windows.Forms.Padding(3)
         Me.tbPgAnalogueKlock.Size = New System.Drawing.Size(660, 265)
         Me.tbPgAnalogueKlock.TabIndex = 11
         Me.tbPgAnalogueKlock.Text = "Analogue Klock"
@@ -1215,6 +1245,7 @@ Partial Class frmOptions
         '
         'GroupBox23
         '
+        Me.GroupBox23.Controls.Add(Me.chckBxAnlgKlockIdleTime)
         Me.GroupBox23.Controls.Add(Me.chckBxAnlgKlockDisplayPicture)
         Me.GroupBox23.Controls.Add(Me.chckBxAnlgKlockSavePos)
         Me.GroupBox23.Controls.Add(Me.chckBxAnlgKlockTransparent)
@@ -1234,7 +1265,7 @@ Partial Class frmOptions
         'chckBxAnlgKlockDisplayPicture
         '
         Me.chckBxAnlgKlockDisplayPicture.AutoSize = True
-        Me.chckBxAnlgKlockDisplayPicture.Location = New System.Drawing.Point(85, 175)
+        Me.chckBxAnlgKlockDisplayPicture.Location = New System.Drawing.Point(85, 155)
         Me.chckBxAnlgKlockDisplayPicture.Name = "chckBxAnlgKlockDisplayPicture"
         Me.chckBxAnlgKlockDisplayPicture.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chckBxAnlgKlockDisplayPicture.Size = New System.Drawing.Size(152, 17)
@@ -1245,7 +1276,7 @@ Partial Class frmOptions
         'chckBxAnlgKlockSavePos
         '
         Me.chckBxAnlgKlockSavePos.AutoSize = True
-        Me.chckBxAnlgKlockSavePos.Location = New System.Drawing.Point(74, 206)
+        Me.chckBxAnlgKlockSavePos.Location = New System.Drawing.Point(74, 178)
         Me.chckBxAnlgKlockSavePos.Name = "chckBxAnlgKlockSavePos"
         Me.chckBxAnlgKlockSavePos.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chckBxAnlgKlockSavePos.Size = New System.Drawing.Size(163, 17)
@@ -1256,7 +1287,7 @@ Partial Class frmOptions
         'chckBxAnlgKlockTransparent
         '
         Me.chckBxAnlgKlockTransparent.AutoSize = True
-        Me.chckBxAnlgKlockTransparent.Location = New System.Drawing.Point(103, 152)
+        Me.chckBxAnlgKlockTransparent.Location = New System.Drawing.Point(103, 132)
         Me.chckBxAnlgKlockTransparent.Name = "chckBxAnlgKlockTransparent"
         Me.chckBxAnlgKlockTransparent.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chckBxAnlgKlockTransparent.Size = New System.Drawing.Size(134, 17)
@@ -1266,7 +1297,7 @@ Partial Class frmOptions
         '
         'btnAnlgKlockBackColour
         '
-        Me.btnAnlgKlockBackColour.Location = New System.Drawing.Point(192, 111)
+        Me.btnAnlgKlockBackColour.Location = New System.Drawing.Point(162, 210)
         Me.btnAnlgKlockBackColour.Name = "btnAnlgKlockBackColour"
         Me.btnAnlgKlockBackColour.Size = New System.Drawing.Size(75, 23)
         Me.btnAnlgKlockBackColour.TabIndex = 5
@@ -1276,7 +1307,7 @@ Partial Class frmOptions
         'lblAnlgKlockBackColour
         '
         Me.lblAnlgKlockBackColour.AutoSize = True
-        Me.lblAnlgKlockBackColour.Location = New System.Drawing.Point(50, 116)
+        Me.lblAnlgKlockBackColour.Location = New System.Drawing.Point(29, 216)
         Me.lblAnlgKlockBackColour.Name = "lblAnlgKlockBackColour"
         Me.lblAnlgKlockBackColour.Size = New System.Drawing.Size(127, 13)
         Me.lblAnlgKlockBackColour.TabIndex = 4
@@ -1314,6 +1345,7 @@ Partial Class frmOptions
         Me.txtBxAnlgKlock.Name = "txtBxAnlgKlock"
         Me.txtBxAnlgKlock.Size = New System.Drawing.Size(102, 20)
         Me.txtBxAnlgKlock.TabIndex = 1
+        Me.txtBxAnlgKlock.Text = "Klock"
         '
         'Label32
         '
@@ -1330,6 +1362,7 @@ Partial Class frmOptions
         Me.tbPgTextKlock.Controls.Add(Me.GroupBox21)
         Me.tbPgTextKlock.Location = New System.Drawing.Point(4, 25)
         Me.tbPgTextKlock.Name = "tbPgTextKlock"
+        Me.tbPgTextKlock.Padding = New System.Windows.Forms.Padding(3)
         Me.tbPgTextKlock.Size = New System.Drawing.Size(660, 265)
         Me.tbPgTextKlock.TabIndex = 10
         Me.tbPgTextKlock.Text = "Text Klock"
@@ -1553,6 +1586,7 @@ Partial Class frmOptions
         Me.tbPgOtherStuff.Size = New System.Drawing.Size(660, 265)
         Me.tbPgOtherStuff.TabIndex = 7
         Me.tbPgOtherStuff.Text = "Other Stuff"
+        Me.tbPgOtherStuff.UseVisualStyleBackColor = True
         '
         'GroupBox26
         '
@@ -1760,6 +1794,7 @@ Partial Class frmOptions
         Me.tbPgArchive.Size = New System.Drawing.Size(660, 265)
         Me.tbPgArchive.TabIndex = 6
         Me.tbPgArchive.Text = "Archive"
+        Me.tbPgArchive.UseVisualStyleBackColor = True
         '
         'GroupBox11
         '
@@ -1977,6 +2012,7 @@ Partial Class frmOptions
         Me.tbPgEvents.Controls.Add(Me.GroupBox14)
         Me.tbPgEvents.Location = New System.Drawing.Point(4, 25)
         Me.tbPgEvents.Name = "tbPgEvents"
+        Me.tbPgEvents.Padding = New System.Windows.Forms.Padding(3)
         Me.tbPgEvents.Size = New System.Drawing.Size(660, 265)
         Me.tbPgEvents.TabIndex = 8
         Me.tbPgEvents.Text = "Events"
@@ -2169,6 +2205,7 @@ Partial Class frmOptions
         Me.tbPgMemo.Controls.Add(Me.GroupBox16)
         Me.tbPgMemo.Location = New System.Drawing.Point(4, 25)
         Me.tbPgMemo.Name = "tbPgMemo"
+        Me.tbPgMemo.Padding = New System.Windows.Forms.Padding(3)
         Me.tbPgMemo.Size = New System.Drawing.Size(660, 265)
         Me.tbPgMemo.TabIndex = 9
         Me.tbPgMemo.Text = "Memo"
@@ -2260,6 +2297,17 @@ Partial Class frmOptions
         '
         Me.OpenFileDialog1.CheckFileExists = False
         Me.OpenFileDialog1.FileName = "openFileDialog"
+        '
+        'chckBxAnlgKlockIdleTime
+        '
+        Me.chckBxAnlgKlockIdleTime.AutoSize = True
+        Me.chckBxAnlgKlockIdleTime.Location = New System.Drawing.Point(18, 109)
+        Me.chckBxAnlgKlockIdleTime.Name = "chckBxAnlgKlockIdleTime"
+        Me.chckBxAnlgKlockIdleTime.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxAnlgKlockIdleTime.Size = New System.Drawing.Size(219, 17)
+        Me.chckBxAnlgKlockIdleTime.TabIndex = 12
+        Me.chckBxAnlgKlockIdleTime.Text = "Display Idle Time [instead of current time]"
+        Me.chckBxAnlgKlockIdleTime.UseVisualStyleBackColor = True
         '
         'frmOptions
         '
@@ -2554,4 +2602,7 @@ Partial Class frmOptions
     Friend WithEvents GroupBox26 As GroupBox
     Friend WithEvents chckBxClipboardMonitor As CheckBox
     Friend WithEvents chckBxClipboardSavePos As CheckBox
+    Friend WithEvents chckBxOptionsRememberKlockMode As CheckBox
+    Friend WithEvents cmbBxDefaultMode As ComboBox
+    Friend WithEvents chckBxAnlgKlockIdleTime As CheckBox
 End Class

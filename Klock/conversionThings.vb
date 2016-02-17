@@ -55,7 +55,7 @@ Module conversionThings
         '   There should always be a value to convert, checks whether numeric.
 
         If Not IsNumeric(frmKlock.TxtBxConvertValue.Text) Then
-            MessageBox.Show("Please Enter A Numeric Value to Convert")                                      '   Display error message, if no value is entered.
+            MessageBox.Show("Please Enter A Numeric Value to Convert", "Numeric Error", MessageBoxButtons.OK, MessageBoxIcon.Error) '   Display error message, if no value is entered.
         Else
             unitsLoad("SelectUnit")                                                                         '   Parse file to locate conversion rate.
             frmKlock.TxtBxConvertResult.Text = CStr(CDbl(frmKlock.TxtBxConvertValue.Text) * UnitConvVal)    '   If Value has been entered, compute conversion for unit.

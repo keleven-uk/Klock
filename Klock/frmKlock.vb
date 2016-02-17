@@ -1,4 +1,5 @@
-﻿Imports System.Runtime.InteropServices
+﻿Imports System.IO
+Imports System.Runtime.InteropServices
 
 Public Class frmKlock
 
@@ -1818,10 +1819,25 @@ Public Class frmKlock
     Private Sub frmKlock_Shown(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Shown
         '   If desired, start klock minimised i.e. in system tray.
         '   Did not seem to work in form load, so stuffed in here.
+        '
+        '   These things don't seem to work in frmKlock_Load
 
         If usrSettings.usrStartMinimised Then
             NtfyIcnKlock.Visible = True
             Visible = False
+        ElseIf usrSettings.usrRememberKlockMode Then
+            Select Case usrSettings.usrStartKlockMode
+                Case 0
+                    '                                                       move along nothing to see - start normal klock.
+                Case 1                                                  '   Start analogue klock
+                    AnalogKlockToolStripMenuItem.PerformClick()
+                Case 2                                                  '   start small text klock.
+                    TextKlockToolStripMenuItem.PerformClick()
+                Case 3                                                  '   start big text klock.
+                    BigTextKlockToolStripMenuItem.PerformClick()
+                Case Else
+
+            End Select
         End If
     End Sub
 
@@ -1857,20 +1873,25 @@ Public Class frmKlock
     End Sub
 
     Private Sub frmKlock_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        '   On form close and if needed, save form position.
+        '   On form close and if needed, [order seems to be important] 
+        '       Turn off clipboard monitoring and removed form from clipboard viewer chain.
+        '       Save Form position.
+        '       Write settings.
+        '       Restore monitor settings.
+        '       Dispose of graphics object.
+
+        If CL_MONITORED Then ClipboardMonitorOff()       '   turn off clipboard monitoring
 
         If usrSettings.usrSavePosition Then
             usrSettings.usrFormTop = Top
             usrSettings.usrFormLeft = Left
         End If
 
-        usrSettings.writeSettings()             '   save settings, not sure if anything has changed.
+        KlockThings.RestoreMonitorSettings()            '   restore system monitor sleep settings, just in case been altered.
 
-        KlockThings.RestoreMonitorSettings()    '   restore system monitor sleep settings, just in case been altered.
+        usrSettings.writeSettings()                     '   save settings, not sure if anything has changed.
 
         grphcs.Dispose()
-
-        If usrSettings.usrClipboardMonitor Then ClipboardMonitorOff()       '   turn off clipboard monitoring
     End Sub
 
     Sub setSettings()
@@ -1938,13 +1959,16 @@ Public Class frmKlock
         TlStrpPrgrsBrMemo.Step = 1
         TlStrpPrgrsBrMemo.Maximum = usrSettings.usrMemoDecyptTimeOut
 
-        tmrSayings.Enabled = usrSettings.usrSayingsDisplay             '   set up saying timer.
+        tmrSayings.Enabled = usrSettings.usrSayingsDisplay              '   set up saying timer.
 
-        If Not CL_MONITORED And usrSettings.usrClipboardMonitor Then                         '   set up clipboard monitoring
+        My.Computer.Clipboard.Clear()                                   '   Clear clipboard on start up.
+
+        If usrSettings.usrClipboardMonitor Then    '   set up clipboard monitoring
             ClipboardMonitorON()
         Else
             ClipboardMonitorOff()
         End If
+
     End Sub
 
     Sub setActionTypes()
@@ -1992,6 +2016,7 @@ Public Class frmKlock
         '   Called from main menu [file / options] and system tray right click menu.
 
         usrSettings.writeSettings()      '   save settings, not sure if anything has changed.
+        frmOptions.tbCntrlOptions.SelectedIndex = 0
         frmOptions.ShowDialog()
     End Sub
 
@@ -2114,7 +2139,7 @@ Public Class frmKlock
     ' ********************************************************************************************************************************* END **************
 
     ' ** The following code is for the Clipboard Monitor stuff.
-    ' ** It is placed here, because it has to register the main form in the Clipboard chain.
+    ' ** It is placed here, because it has to register the main form [klock] in the Clipboard viewer chain.
 
     Private Const WM_DRAWCLIPBOARD As Integer = &H308
     Private Const WM_CHANGECBCHAIN As Integer = &H30D
@@ -2162,33 +2187,46 @@ Public Class frmKlock
     End Sub
 
     Private Sub ClipBoardChanged()
-        '   Clipboard has data [text].
+        '   Clipboard has data.
         '   Only adds the data is not already remembered - so only one instance of data is displayed.
         '   This gets around the problem been triggered by klock copying to the clipboard :-)
 
-        Dim data As IDataObject = Clipboard.GetDataObject()
+        '   Handles data as text, file, image
 
-        If My.Computer.Clipboard.ContainsText Then
-            If Not frmClipboardMonitor.lstBxClipboardData.Items.Contains(My.Computer.Clipboard.GetText) Then
-                frmClipboardMonitor.lstBxClipboardData.Items.Add(My.Computer.Clipboard.GetText)
-                frmClipboardMonitor.Show()
-            End If
-        End If
+        frmClipboardMonitor.handleClipboardChanged()
     End Sub
 
     Sub ClipboardMonitorON()
         '   Add yourself to the clipboard viewer chain.
+        '   CL_MONITORED is used to we don't add ourself twice.
 
-        mNextClipBoardViewerHWnd = SetClipboardViewer(Me.Handle)
-        AddHandler Me.OnClipboardChanged, AddressOf ClipBoardChanged
+        If CL_MONITORED Then Exit Sub
 
-        CL_MONITORED = True
+        Try
+            mNextClipBoardViewerHWnd = SetClipboardViewer(Me.Handle)
+            AddHandler Me.OnClipboardChanged, AddressOf ClipBoardChanged
+            CL_MONITORED = True
+        Catch ex As ArgumentException
+            MessageBox.Show("ERROR :: adding to clipboard viewer chain" & ex.Message, "Clipboard Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
     End Sub
 
     Public Sub ClipboardMonitorOff()
         '   Remove yourself from the clipboard viewer chain.
-        ChangeClipboardChain(Me.Handle, mNextClipBoardViewerHWnd)
+        '   CL_MONITORED is used to we don't try and remove ourselves twice.
 
-        CL_MONITORED = False
+        If Not CL_MONITORED Then Exit Sub
+
+        Try
+            ChangeClipboardChain(Me.Handle, mNextClipBoardViewerHWnd)
+            CL_MONITORED = False
+        Catch ex As ArgumentException
+            MessageBox.Show("ERROR :: Removing from  clipboard viewer chain" & ex.Message, "Clipboard Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
     End Sub
+
+
+
 End Class

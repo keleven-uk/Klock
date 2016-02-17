@@ -21,6 +21,12 @@ Public Class UserSettings
 
     '   local versions of the user settings.
     '   NB : important to set default on all user settings will be used if not present in xml file.
+
+    '   StartKlock mode
+    '   0 = main klock
+    '   1 - Analogue Klock
+    '   2 = Small text Klock
+    '   3 = Big text Klock
     '-------------------------------------------------------------------------------------------------------- Global Settings -------------
     Private _usrDefaultTab As Integer = 0
     Private _usrFormColour As Color = Color.LightGray
@@ -31,6 +37,8 @@ Public Class UserSettings
     Private _usrSavePosition As Boolean = True
     Private _usrStartMinimised As Boolean = False
     Private _usrRunOnStartup As Boolean = False
+    Private _usrRememberKlockMode As Boolean = False
+    Private _usrStartKlockMode As Integer = 0
     Private _usrSoundVolume As Integer = 10
     Private _usrOptionsSavePath As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock")
     Private _usrOptionsSaveFile As String = "klock.xml"
@@ -50,10 +58,10 @@ Public Class UserSettings
     Private _usrTimeHalfChimes As Boolean = False
     Private _usrTimeQuarterChimes As Boolean = False
     Private _usrTimeThreeQuartersChimes As Boolean = False
-    Private _usrTimeDisplayMinimised As Boolean = False         '   Notification to tell time if klock in system tray
-    Private _usrTimeDisplayMinutes As Integer = 15
-    Private _usrTimeVoiceMinimised As Boolean = False           '   Voice to tell time if klock in system tray
-    Private _usrTimeVoiceMinutes As Integer = 15
+    Private _usrTimeDisplayMinimised As Boolean = False             '   Notification to tell time if klock in system tray
+    Private _usrTimeDisplayMinutes As Integer = 15                  '   held in minutes
+    Private _usrTimeVoiceMinimised As Boolean = False               '   Voice to tell time if klock in system tray
+    Private _usrTimeVoiceMinutes As Integer = 15                    '   held in minutes
     '-------------------------------------------------------------------------------------------------------- Big Klock Settings ----------
     Private _usrBigKlockTop As Integer = 100
     Private _usrBigKlockLeft As Integer = 100
@@ -76,6 +84,7 @@ Public Class UserSettings
     Private _usrAnalogueKlcokTransparent As Boolean = False
     Private _usrAnalogueKlockShowDate As Boolean = True
     Private _usrAnalogueKlockShowTime As Boolean = True
+    Private _usrAnalogueKlockShowIdleTime As Boolean = False
     Private _usrAnalogueKlockBackColour As Color = Color.LightSlateGray
     Private _usrAnalogueKlockDisplayPicture As Boolean = False
     Private _usrAnalogueKlockPicture As String = ""
@@ -113,6 +122,7 @@ Public Class UserSettings
     Private _usrClipboardMonitorSavePosition As Boolean = True
     Private _usrClipboardMonitorTop As Integer = 100
     Private _usrClipboardMonitorLeft As Integer = 100
+    Private _usrClipboardSavePath As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "Klock\Clipsave")
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
     Private _usrFriendsFile As String = "Friends.bin"
     '-------------------------------------------------------------------------------------------------------- Events Settings ------------
@@ -227,6 +237,24 @@ Public Class UserSettings
         End Get
         Set(ByVal value As Boolean)
             _usrRunOnStartup = value
+        End Set
+    End Property
+
+    Public Property usrRememberKlockMode() As Boolean
+        Get
+            Return _usrRememberKlockMode
+        End Get
+        Set(ByVal value As Boolean)
+            _usrRememberKlockMode = value
+        End Set
+    End Property
+
+    Public Property usrStartKlockMode() As Integer
+        Get
+            Return _usrStartKlockMode
+        End Get
+        Set(ByVal value As Integer)
+            _usrStartKlockMode = value
         End Set
     End Property
 
@@ -600,6 +628,15 @@ Public Class UserSettings
         End Set
     End Property
 
+    Public Property usrAnalogueKlockShowIdleTime() As Boolean
+        Get
+            Return _usrAnalogueKlockShowIdleTime
+        End Get
+        Set(ByVal value As Boolean)
+            _usrAnalogueKlockShowIdleTime = value
+        End Set
+    End Property
+
     Public Property usrAnalogueKlockDisplayPicture() As Boolean
         Get
             Return _usrAnalogueKlockDisplayPicture
@@ -919,7 +956,13 @@ Public Class UserSettings
         End Set
     End Property
 
-    '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
+    Public ReadOnly Property usrClipboardSavePath() As String     '   returns path to save settings file - read-only
+        Get
+            Return _usrClipboardSavePath
+        End Get
+    End Property
+
+    '------------------------------------------------------------------------------------------------------ Friends Settings ------------
 
     Public Property usrFriendsFile() As String
         Get
@@ -1049,6 +1092,8 @@ Public Class UserSettings
                                   <SavePosition><%= usrSavePosition() %></SavePosition>
                                   <StartMinimised><%= usrStartMinimised() %></StartMinimised>
                                   <RunOnStartup><%= usrRunOnStartup() %></RunOnStartup>
+                                  <usrRememberKlockMode><%= usrRememberKlockMode() %></usrRememberKlockMode>
+                                  <usrStartKlockMode><%= usrStartKlockMode %></usrStartKlockMode>
                                   <SoundVolume><%= usrSoundVolume() %></SoundVolume>
                                   <usrOptionsSavePath><%= usrOptionsSavePath() %></usrOptionsSavePath>
                               </Global>
@@ -1114,6 +1159,7 @@ Public Class UserSettings
                                   <AnalogueKlcokTransparent><%= usrAnalogueKlcokTransparent() %></AnalogueKlcokTransparent>
                                   <AnalogueKlockShowDate><%= usrAnalogueKlockShowDate() %></AnalogueKlockShowDate>
                                   <AnalogueKlockShowTime><%= usrAnalogueKlockShowTime() %></AnalogueKlockShowTime>
+                                  <AnalogueKlockShowIdleTime><%= usrAnalogueKlockShowIdleTime() %></AnalogueKlockShowIdleTime>
                                   <AnalogueKlockBackColourR><%= usrAnalogueKlockBackColour().R %></AnalogueKlockBackColourR>
                                   <AnalogueKlockBackColourG><%= usrAnalogueKlockBackColour().G %></AnalogueKlockBackColourG>
                                   <AnalogueKlockBackColourB><%= usrAnalogueKlockBackColour().B %></AnalogueKlockBackColourB>
@@ -1272,6 +1318,8 @@ Public Class UserSettings
                                   <SavePosition>False</SavePosition>
                                   <StartMinimised>False</StartMinimised>
                                   <RunOnStartup>False</RunOnStartup>
+                                  <usrRememberKlockMode>False</usrRememberKlockMode>
+                                  <usrStartKlockMode>0</usrStartKlockMode>
                                   <SoundVolume>100</SoundVolume>
                                   <usrOptionsSavePath><%= usrOptionsSavePath() %></usrOptionsSavePath>
                               </Global>
@@ -1337,6 +1385,7 @@ Public Class UserSettings
                                   <AnalogueKlcokTransparent>False</AnalogueKlcokTransparent>
                                   <AnalogueKlockShowDate>True</AnalogueKlockShowDate>
                                   <AnalogueKlockShowTime>True</AnalogueKlockShowTime>
+                                  <AnalogueKlockShowIdleTime>False</AnalogueKlockShowIdleTime>
                                   <AnalogueKlockBackColourR>119</AnalogueKlockBackColourR>
                                   <AnalogueKlockBackColourG>136</AnalogueKlockBackColourG>
                                   <AnalogueKlockBackColourB>153</AnalogueKlockBackColourB>
@@ -1399,7 +1448,7 @@ Public Class UserSettings
                                       <SayingsFontColourB>0</SayingsFontColourB>
                                       <SayingsFontColourA>255</SayingsFontColourA>
                                   </SayingsFontColour>
-                                  <SayingsDisplayTime>60000</SayingsDisplayTime>
+                                  <SayingsDisplayTime>20</SayingsDisplayTime>
                                   <SayingsTimeOut>5000</SayingsTimeOut>
                                   <SayingsOpacity>80</SayingsOpacity>
                               </Sayings>
@@ -1514,6 +1563,8 @@ Public Class UserSettings
             usrSavePosition = CType(readElement(glbl, "SavePosition", usrSavePosition()), Boolean)
             usrStartMinimised = CType(readElement(glbl, "StartMinimised", usrStartMinimised()), Boolean)
             usrRunOnStartup = CType(readElement(glbl, "RunOnStartup", usrRunOnStartup()), Boolean)
+            usrRememberKlockMode = CType(readElement(glbl, "usrRememberKlockMode", usrRememberKlockMode()), Boolean)
+            usrStartKlockMode = CType(readElement(glbl, "usrStartKlockMode", usrStartKlockMode()), Integer)
             usrSoundVolume = CType(readElement(glbl, "SoundVolume", usrSoundVolume()), Integer)
 
             '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
@@ -1601,6 +1652,7 @@ Public Class UserSettings
             usrAnalogueKlcokTransparent = CType(readElement(anlklck, "AnalogueKlcokTransparent", usrAnalogueKlcokTransparent()), Boolean)
             usrAnalogueKlockShowDate = CType(readElement(anlklck, "AnalogueKlockShowDate", usrAnalogueKlockShowDate()), Boolean)
             usrAnalogueKlockShowTime = CType(readElement(anlklck, "AnalogueKlockShowTime", usrAnalogueKlockShowTime()), Boolean)
+            usrAnalogueKlockShowIdleTime = CType(readElement(anlklck, "AnalogueKlockShowIdleTime", usrAnalogueKlockShowIdleTime()), Boolean)
 
             r = CType(readElement(anlklck, "AnalogueKlockBackColourR", usrAnalogueKlockBackColour().R), Byte)
             g = CType(readElement(anlklck, "AnalogueKlockBackColourG", usrAnalogueKlockBackColour().G), Byte)
@@ -1769,7 +1821,7 @@ Public Class UserSettings
             usrMemoDecyptTimeOut = CType(readElement(memo, "MemoDecyptTimeOut", usrMemoDecyptTimeOut()), Integer)
 
         Catch ex As Exception
-            MessageBox.Show("Error reading stream!  " & ex.Message, "Error")
+            MessageBox.Show("Error reading stream!  " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -1819,7 +1871,7 @@ Public Class UserSettings
                 writeDefaultSettings()
             End If
         Catch ex As Exception
-            MessageBox.Show("Error reading version!  " & ex.Message, "Error")
+            MessageBox.Show("Error reading version!  " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub

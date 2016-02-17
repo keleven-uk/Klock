@@ -77,6 +77,8 @@ Module KlockThings
         frmKlock.stsLbIdkeTime.ForeColor = Color.Blue
         frmSmallTextKlock.stsLbIdkeTime.ForeColor = Color.Blue
         frmBigTextKlock.stsLbIdkeTime.ForeColor = Color.Blue
+        frmClipboardMonitor.stsLbIdkeTime.ForeColor = Color.Blue
+        frmAnalogueKlock.ForeColor = Color.Blue
     End Sub
 
     Public Sub RestoreMonitorSettings()
@@ -85,7 +87,8 @@ Module KlockThings
         frmKlock.stsLbIdkeTime.ForeColor = Color.Black
         frmSmallTextKlock.stsLbIdkeTime.ForeColor = Color.Black
         frmBigTextKlock.stsLbIdkeTime.ForeColor = Color.LightGreen
-
+        frmClipboardMonitor.stsLbIdkeTime.ForeColor = Color.Black
+        frmAnalogueKlock.ForeColor = Color.Black
     End Sub
 
     '
@@ -174,6 +177,7 @@ Module KlockThings
                 e.Handled = True
             Case Keys.F2 And (e.Alt)
                 frmKlock.usrSettings.writeSettings()        '   save settings, not sure if anything has changed.
+                frmOptions.tbCntrlOptions.SelectedIndex = 0
                 frmOptions.ShowDialog()
             Case Keys.F3 And (e.Alt)                        '   show analogue klock
                 If klocksNotVisable() Then
@@ -266,6 +270,38 @@ Module KlockThings
 
         frmKlock.txtBxSayings.Text = randomSayings()
     End Sub
+
+
+    Public Function itemForecolor(type As String) As Color
+        '   Returns a colour for use in the clipboard history fore colour.
+        '   used in frmClipboardMonitor.addToList()
+
+
+        Select Case type                                        '   set up text colour depending on object type
+            Case "Text"
+                Return Color.Red
+            Case "UNI"
+                Return Color.DeepPink
+            Case "RTF"
+                Return Color.BurlyWood
+            Case "HTML"
+                Return Color.DarkSlateBlue
+            Case "CSVL"
+                Return Color.Firebrick
+            Case "File"
+                Return Color.Blue
+            Case "Dir"
+                Return Color.LightBlue
+            Case "Audio"
+                Return Color.DarkGoldenrod
+            Case "Image"
+                Return Color.Green
+            Case "Error"
+                Return Color.DarkOrange
+            Case Else
+                '   probably error, ignore
+        End Select
+    End Function
 End Module
 
 

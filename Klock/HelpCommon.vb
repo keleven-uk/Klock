@@ -21,7 +21,7 @@ Module HelpCommon
                 frmHelp.Text = "Klock History"
                 loadtextFile("history.txt")
                 frmHelp.ShowDialog()
-            Case "&About"
+            Case "&About", "About"
                 frmAbout.ShowDialog()
         End Select
 
@@ -38,7 +38,7 @@ Module HelpCommon
             Next
 
         Catch ex As Exception
-            MessageBox.Show("File wasn't found!" & ex.Message, "Error")
+            MessageBox.Show("File wasn't found!" & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 End Module
