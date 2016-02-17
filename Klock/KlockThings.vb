@@ -77,6 +77,7 @@ Module KlockThings
         frmKlock.stsLbIdkeTime.ForeColor = Color.Blue
         frmSmallTextKlock.stsLbIdkeTime.ForeColor = Color.Blue
         frmBigTextKlock.stsLbIdkeTime.ForeColor = Color.Blue
+        frmClipboardMonitor.stsLbIdkeTime.ForeColor = Color.Blue
     End Sub
 
     Public Sub RestoreMonitorSettings()
@@ -85,7 +86,7 @@ Module KlockThings
         frmKlock.stsLbIdkeTime.ForeColor = Color.Black
         frmSmallTextKlock.stsLbIdkeTime.ForeColor = Color.Black
         frmBigTextKlock.stsLbIdkeTime.ForeColor = Color.LightGreen
-
+        frmClipboardMonitor.stsLbIdkeTime.ForeColor = Color.Black
     End Sub
 
     '

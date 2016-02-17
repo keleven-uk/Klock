@@ -113,6 +113,7 @@ Public Class UserSettings
     Private _usrClipboardMonitorSavePosition As Boolean = True
     Private _usrClipboardMonitorTop As Integer = 100
     Private _usrClipboardMonitorLeft As Integer = 100
+    Private _usrClipboardSavePath As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "Klock\Clipsave")
     '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
     Private _usrFriendsFile As String = "Friends.bin"
     '-------------------------------------------------------------------------------------------------------- Events Settings ------------
@@ -919,7 +920,13 @@ Public Class UserSettings
         End Set
     End Property
 
-    '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
+    Public ReadOnly Property usrClipboardSavePath() As String     '   returns path to save settings file - read-only
+        Get
+            Return _usrClipboardSavePath
+        End Get
+    End Property
+
+    '------------------------------------------------------------------------------------------------------ Friends Settings ------------
 
     Public Property usrFriendsFile() As String
         Get

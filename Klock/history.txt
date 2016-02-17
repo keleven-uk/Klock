@@ -6,6 +6,46 @@ Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Wed Jan 27 22:11:23 2016 +0000
 
 
+[Build [64] - V1.1.6.65 - February 2016
+
+commit bb59a04c4330e8cdc6d6b911e6d2f46958fd67cb
+Author: kevin scott <coinflip@keleven.co.uk>
+Date:   Sun Feb 7 15:34:45 2016 +0000
+
+    Added clipboard monitor.  This monitors the clipboard, and if enabled, 
+    launches a new window to display the contents of the clipboard.  
+    frmClipboardMonitor.vb was contains.
+    
+    Added clipboard options to User and frmOptions.vb.
+    
+    Added to text files in sayings.
+
+ Klock.sln                             |   2 +-
+ Klock/Klock.chm                       | Bin 592466 -> 687438 bytes
+ Klock/Klock.iss                       |   4 +-
+ Klock/Klock.pdf                       | Bin 3878742 -> 3921339 bytes
+ Klock/Klock.vbproj                    |   9 ++
+ Klock/KlockThings.vb                  |   2 +-
+ Klock/My Project/AssemblyInfo.vb      |   4 +-
+ Klock/UserSettings.vb                 |  61 ++++++++++
+ Klock/frmAnalogKlock.vb               |   7 ++
+ Klock/frmBigTextKlock.vb              |   7 ++
+ Klock/frmClipboardMonitor.Designer.vb | 222 ++++++++++++++++++++++++++++++++++
+ Klock/frmClipboardMonitor.resx        | 222 ++++++++++++++++++++++++++++++++++
+ Klock/frmClipboardMonitor.vb          | 109 +++++++++++++++++
+ Klock/frmKlock.Designer.vb            |   4 +-
+ Klock/frmKlock.vb                     | 169 ++++++++++++++++++++------
+ Klock/frmOptions.Designer.vb          |  53 +++++++-
+ Klock/frmOptions.vb                   |  27 ++++-
+ Klock/frmSmallTextKlock.vb            |   7 ++
+ Klock/history.txt                     |  87 +++++++++++++
+ Klock/klock.hnd                       | Bin 19845120 -> 19877888 bytes
+ log.txt                               |  83 +++++++++++++
+ sayings/Paraprosdokians.txt           | 151 +++++++++++++++++++++++
+ sayings/inspiration quotations.txt    |  49 ++++++++
+ 23 files changed, 1230 insertions(+), 49 deletions(-)
+ 
+ 
 [Build [64] - V1.1.5.64 - January 2016
 
     Added the sayings tab.  This enables the displaying [via notifications] random sayings.

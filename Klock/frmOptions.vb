@@ -168,7 +168,7 @@ Public Class frmOptions
 
         nmrcUpDwnNotificationTimeOut.Value = frmKlock.usrSettings.usrNotificationTimeOut / 1000
         nmrcUpDwnSayingNotificationTimeOut.Value = frmKlock.usrSettings.usrSayingsTimeOut / 1000
-        nmrcUpDwnSayingDisplay.Value = frmKlock.usrSettings.usrSayingsDisplayTime / 1000                  '   held in minutes
+        nmrcUpDwnSayingDisplay.Value = frmKlock.usrSettings.usrSayingsDisplayTime                  '   held in minutes
 
         nmrcUpDwnNotificationOpacity.Value = frmKlock.usrSettings.usrNotificationOpacity
         nmrcUpDwnEventNotificationOpacity.Value = frmKlock.usrSettings.usrEventNotificationOpacity
@@ -342,7 +342,6 @@ Public Class frmOptions
         frmKlock.usrSettings.usrMemoUseDefaultPassword = chckBxMemoDefaultPassword.Checked
         frmKlock.usrSettings.usrMemoDefaultPassword = txtBxMemoDefaultPassword.Text
         frmKlock.usrSettings.usrMemoDecyptTimeOut = nmrcUpDwnMemoDecrypt.Value
-
 
         frmKlock.usrSettings.writeSettings()
         frmKlock.setSettings()
@@ -1057,5 +1056,9 @@ Public Class frmOptions
         '   Determines if clipboard monitor form will save screen position.
 
         frmKlock.usrSettings.usrClipboardMonitorSavePosition = chckBxClipboardSavePos.Checked
+    End Sub
+
+    Private Sub nmrcUpDwnSayingDisplay_ValueChanged(sender As Object, e As EventArgs) Handles nmrcUpDwnSayingDisplay.ValueChanged
+
     End Sub
 End Class

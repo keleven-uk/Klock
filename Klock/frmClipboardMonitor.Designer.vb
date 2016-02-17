@@ -25,7 +25,9 @@ Partial Class frmClipboardMonitor
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmClipboardMonitor))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.lstBxClipboardData = New System.Windows.Forms.ListBox()
+        Me.LstVwClipboardData = New System.Windows.Forms.ListView()
+        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnClearClipboard = New System.Windows.Forms.Button()
         Me.btnExit = New System.Windows.Forms.Button()
@@ -38,6 +40,7 @@ Partial Class frmClipboardMonitor
         Me.stsLbIdkeTime = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TlStrpPrgrsBrMemo = New System.Windows.Forms.ToolStripProgressBar()
         Me.tmrClipboardMonitor = New System.Windows.Forms.Timer(Me.components)
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.StsStrpInfo.SuspendLayout()
@@ -49,38 +52,50 @@ Partial Class frmClipboardMonitor
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.GroupBox1.Controls.Add(Me.lstBxClipboardData)
+        Me.GroupBox1.Controls.Add(Me.LstVwClipboardData)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(373, 159)
+        Me.GroupBox1.Size = New System.Drawing.Size(634, 255)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
-        'lstBxClipboardData
+        'LstVwClipboardData
         '
-        Me.lstBxClipboardData.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.LstVwClipboardData.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lstBxClipboardData.FormattingEnabled = True
-        Me.lstBxClipboardData.Location = New System.Drawing.Point(6, 10)
-        Me.lstBxClipboardData.Name = "lstBxClipboardData"
-        Me.lstBxClipboardData.ScrollAlwaysVisible = True
-        Me.lstBxClipboardData.Size = New System.Drawing.Size(354, 147)
-        Me.lstBxClipboardData.TabIndex = 0
+        Me.LstVwClipboardData.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader3, Me.ColumnHeader2})
+        Me.LstVwClipboardData.FullRowSelect = True
+        Me.LstVwClipboardData.GridLines = True
+        Me.LstVwClipboardData.Location = New System.Drawing.Point(7, 12)
+        Me.LstVwClipboardData.MultiSelect = False
+        Me.LstVwClipboardData.Name = "LstVwClipboardData"
+        Me.LstVwClipboardData.Size = New System.Drawing.Size(622, 237)
+        Me.LstVwClipboardData.TabIndex = 0
+        Me.LstVwClipboardData.UseCompatibleStateImageBehavior = False
+        Me.LstVwClipboardData.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader1
+        '
+        Me.ColumnHeader1.Text = "Type"
+        '
+        'ColumnHeader2
+        '
+        Me.ColumnHeader2.Text = "Data"
+        Me.ColumnHeader2.Width = 418
         '
         'GroupBox2
         '
-        Me.GroupBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.GroupBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.AutoSize = True
         Me.GroupBox2.Controls.Add(Me.btnClearClipboard)
         Me.GroupBox2.Controls.Add(Me.btnExit)
         Me.GroupBox2.Controls.Add(Me.btnClear)
         Me.GroupBox2.Controls.Add(Me.btnCopy)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 171)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 271)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(373, 83)
+        Me.GroupBox2.Size = New System.Drawing.Size(634, 83)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         '
@@ -124,11 +139,11 @@ Partial Class frmClipboardMonitor
         'StsStrpInfo
         '
         Me.StsStrpInfo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsLblTime, Me.StsLblDate, Me.StsLblKeys, Me.stsLbIdkeTime, Me.TlStrpPrgrsBrMemo})
-        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 263)
+        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 359)
         Me.StsStrpInfo.Name = "StsStrpInfo"
         Me.StsStrpInfo.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.StsStrpInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.StsStrpInfo.Size = New System.Drawing.Size(392, 24)
+        Me.StsStrpInfo.Size = New System.Drawing.Size(653, 24)
         Me.StsStrpInfo.SizingGrip = False
         Me.StsStrpInfo.TabIndex = 2
         '
@@ -183,11 +198,17 @@ Partial Class frmClipboardMonitor
         Me.tmrClipboardMonitor.Enabled = True
         Me.tmrClipboardMonitor.Interval = 1000
         '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "Time"
+        Me.ColumnHeader3.Width = 132
+        '
         'frmClipboardMonitor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(392, 287)
+        Me.AutoScroll = True
+        Me.ClientSize = New System.Drawing.Size(653, 383)
         Me.Controls.Add(Me.StsStrpInfo)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
@@ -206,7 +227,6 @@ Partial Class frmClipboardMonitor
     End Sub
 
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents lstBxClipboardData As ListBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents btnExit As Button
     Friend WithEvents btnClear As Button
@@ -219,4 +239,8 @@ Partial Class frmClipboardMonitor
     Friend WithEvents stsLbIdkeTime As ToolStripStatusLabel
     Friend WithEvents TlStrpPrgrsBrMemo As ToolStripProgressBar
     Friend WithEvents tmrClipboardMonitor As Windows.Forms.Timer
+    Friend WithEvents LstVwClipboardData As ListView
+    Friend WithEvents ColumnHeader1 As ColumnHeader
+    Friend WithEvents ColumnHeader2 As ColumnHeader
+    Friend WithEvents ColumnHeader3 As ColumnHeader
 End Class
