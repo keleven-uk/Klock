@@ -2,7 +2,11 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Klock"
+<<<<<<< HEAD
 #define MyAppVersion "1.1.6.67"
+=======
+#define MyAppVersion "1.1.6.66"
+>>>>>>> c14a6a4336064a90bb44f2d8f299c3b3d4a8c556
 #define MyAppPublisher "keleven"
 #define MyAppURL "www.keleven.co.uk"
 #define MyAppExeName "Klock.exe"
@@ -28,7 +32,11 @@ DefaultGroupName={#MyAppName}
 ;LicenseFile=License.txt
 InfoAfterFile=Klock\License.txt
 OutputDir=D:\My\shed\code\projects
+<<<<<<< HEAD
 OutputBaseFilename=Klock_11667
+=======
+OutputBaseFilename=Klock_11666
+>>>>>>> c14a6a4336064a90bb44f2d8f299c3b3d4a8c556
 SetupIconFile=Klock\Klock.ico
 Compression=lzma
 SolidCompression=yes

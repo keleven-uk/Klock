@@ -51,6 +51,16 @@
         frmKlock.usrSettings.writeSettings()             '   save settings, not sure if anything has changed.
     End Sub
 
+    'Private Sub lstBxClipboardData_SelectedIndexChanged(sender As Object, e As EventArgs)
+    '    '   Only enable copy button, it there is items to copy.
+
+    '    If LstVwClipboardData.Items.Count = 0 Then
+    '        btnCopy.Enabled = False
+    '    Else
+    '        btnCopy.Enabled = True
+    '    End If
+    'End Sub
+
     Private Sub LstVwClipboardData_SelectedIndexChanged(sender As Object, e As EventArgs) Handles LstVwClipboardData.SelectedIndexChanged
         '   Only enable copy button, it there is items to copy.
 

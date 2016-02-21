@@ -177,7 +177,6 @@ Module KlockThings
                 e.Handled = True
             Case Keys.F2 And (e.Alt)
                 frmKlock.usrSettings.writeSettings()        '   save settings, not sure if anything has changed.
-                frmOptions.tbCntrlOptions.SelectedIndex = 0
                 frmOptions.ShowDialog()
             Case Keys.F3 And (e.Alt)                        '   show analogue klock
                 If klocksNotVisable() Then
