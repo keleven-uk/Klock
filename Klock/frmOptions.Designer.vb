@@ -116,6 +116,7 @@ Partial Class frmOptions
         Me.txtBxAnlgKlockPictureLocation = New System.Windows.Forms.TextBox()
         Me.btnAnlgKlockPictureLocation = New System.Windows.Forms.Button()
         Me.GroupBox23 = New System.Windows.Forms.GroupBox()
+        Me.chckBxAnlgKlockIdleTime = New System.Windows.Forms.CheckBox()
         Me.chckBxAnlgKlockDisplayPicture = New System.Windows.Forms.CheckBox()
         Me.chckBxAnlgKlockSavePos = New System.Windows.Forms.CheckBox()
         Me.chckBxAnlgKlockTransparent = New System.Windows.Forms.CheckBox()
@@ -219,7 +220,7 @@ Partial Class frmOptions
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.chckBxAnlgKlockIdleTime = New System.Windows.Forms.CheckBox()
+        Me.chckBxAnlgKlockSaveSize = New System.Windows.Forms.CheckBox()
         Me.tbCntrlOptions.SuspendLayout()
         Me.tbPgGlobal.SuspendLayout()
         Me.GroupBox17.SuspendLayout()
@@ -1245,6 +1246,7 @@ Partial Class frmOptions
         '
         'GroupBox23
         '
+        Me.GroupBox23.Controls.Add(Me.chckBxAnlgKlockSaveSize)
         Me.GroupBox23.Controls.Add(Me.chckBxAnlgKlockIdleTime)
         Me.GroupBox23.Controls.Add(Me.chckBxAnlgKlockDisplayPicture)
         Me.GroupBox23.Controls.Add(Me.chckBxAnlgKlockSavePos)
@@ -1261,6 +1263,17 @@ Partial Class frmOptions
         Me.GroupBox23.TabIndex = 0
         Me.GroupBox23.TabStop = False
         Me.GroupBox23.Text = "Analogue Klock Settings"
+        '
+        'chckBxAnlgKlockIdleTime
+        '
+        Me.chckBxAnlgKlockIdleTime.AutoSize = True
+        Me.chckBxAnlgKlockIdleTime.Location = New System.Drawing.Point(18, 109)
+        Me.chckBxAnlgKlockIdleTime.Name = "chckBxAnlgKlockIdleTime"
+        Me.chckBxAnlgKlockIdleTime.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxAnlgKlockIdleTime.Size = New System.Drawing.Size(219, 17)
+        Me.chckBxAnlgKlockIdleTime.TabIndex = 12
+        Me.chckBxAnlgKlockIdleTime.Text = "Display Idle Time [instead of current time]"
+        Me.chckBxAnlgKlockIdleTime.UseVisualStyleBackColor = True
         '
         'chckBxAnlgKlockDisplayPicture
         '
@@ -1297,7 +1310,7 @@ Partial Class frmOptions
         '
         'btnAnlgKlockBackColour
         '
-        Me.btnAnlgKlockBackColour.Location = New System.Drawing.Point(162, 210)
+        Me.btnAnlgKlockBackColour.Location = New System.Drawing.Point(162, 224)
         Me.btnAnlgKlockBackColour.Name = "btnAnlgKlockBackColour"
         Me.btnAnlgKlockBackColour.Size = New System.Drawing.Size(75, 23)
         Me.btnAnlgKlockBackColour.TabIndex = 5
@@ -1307,7 +1320,7 @@ Partial Class frmOptions
         'lblAnlgKlockBackColour
         '
         Me.lblAnlgKlockBackColour.AutoSize = True
-        Me.lblAnlgKlockBackColour.Location = New System.Drawing.Point(29, 216)
+        Me.lblAnlgKlockBackColour.Location = New System.Drawing.Point(29, 229)
         Me.lblAnlgKlockBackColour.Name = "lblAnlgKlockBackColour"
         Me.lblAnlgKlockBackColour.Size = New System.Drawing.Size(127, 13)
         Me.lblAnlgKlockBackColour.TabIndex = 4
@@ -2298,16 +2311,16 @@ Partial Class frmOptions
         Me.OpenFileDialog1.CheckFileExists = False
         Me.OpenFileDialog1.FileName = "openFileDialog"
         '
-        'chckBxAnlgKlockIdleTime
+        'chckBxAnlgKlockSaveSize
         '
-        Me.chckBxAnlgKlockIdleTime.AutoSize = True
-        Me.chckBxAnlgKlockIdleTime.Location = New System.Drawing.Point(18, 109)
-        Me.chckBxAnlgKlockIdleTime.Name = "chckBxAnlgKlockIdleTime"
-        Me.chckBxAnlgKlockIdleTime.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.chckBxAnlgKlockIdleTime.Size = New System.Drawing.Size(219, 17)
-        Me.chckBxAnlgKlockIdleTime.TabIndex = 12
-        Me.chckBxAnlgKlockIdleTime.Text = "Display Idle Time [instead of current time]"
-        Me.chckBxAnlgKlockIdleTime.UseVisualStyleBackColor = True
+        Me.chckBxAnlgKlockSaveSize.AutoSize = True
+        Me.chckBxAnlgKlockSaveSize.Location = New System.Drawing.Point(98, 201)
+        Me.chckBxAnlgKlockSaveSize.Name = "chckBxAnlgKlockSaveSize"
+        Me.chckBxAnlgKlockSaveSize.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxAnlgKlockSaveSize.Size = New System.Drawing.Size(139, 17)
+        Me.chckBxAnlgKlockSaveSize.TabIndex = 13
+        Me.chckBxAnlgKlockSaveSize.Text = "Save Klock Size on Exit"
+        Me.chckBxAnlgKlockSaveSize.UseVisualStyleBackColor = True
         '
         'frmOptions
         '
@@ -2605,4 +2618,5 @@ Partial Class frmOptions
     Friend WithEvents chckBxOptionsRememberKlockMode As CheckBox
     Friend WithEvents cmbBxDefaultMode As ComboBox
     Friend WithEvents chckBxAnlgKlockIdleTime As CheckBox
+    Friend WithEvents chckBxAnlgKlockSaveSize As CheckBox
 End Class

@@ -42,7 +42,7 @@ Module KlockThings
 
         Dim hms = TimeSpan.FromMilliseconds(GetTickCount() - lii.dwTime)
 
-        idleTime = String.Format("Idle Time :: {0:00}:{1:00}:{2:00}", hms.Hours, hms.Minutes, hms.Seconds)
+        idleTime = String.Format("{0:00}:{1:00}:{2:00}", hms.Hours, hms.Minutes, hms.Seconds)
     End Function
 
     '   -------------------------------------------------------------- Monitor going to sleep ----------------------------------------------------------------------
@@ -122,7 +122,7 @@ Module KlockThings
     End Sub
 
     '
-    ' --------------------------------------------------------------------------------------------mins to string --------------------------------------------
+    ' -------------------------------------------------------------------------------------------- mins to string --------------------------------------------
     '
     Function minsToString(ByVal m As Integer) As String
         '   Reformat number of seconds in string in minutes and seconds [mm:ss].
@@ -135,7 +135,9 @@ Module KlockThings
 
         Return String.Format("{0:00}:{1:00}", hours, mins)
     End Function
-
+    '
+    ' -------------------------------------------------------------------------------------------- Easter dates ---------------------------------------------
+    '
     Function easterDate(Year_of_easter As Integer) As DateTime
         '   Calculates the date of Easter Sunday for a given year.
         '   see http://aa.usno.navy.mil/faq/docs/easter.php
@@ -146,8 +148,9 @@ Module KlockThings
         easter_date = easter_date.AddDays(+d + (d > 48) + 6 - ((y + y \ 4 + d + (d > 48) + 1) Mod 7))
         Return (easter_date)
     End Function
-
-
+    '
+    ' -------------------------------------------------------------------------------------------- Have Internet --------------------------------------------
+    '
     Public Function HaveInternetConnection() As Boolean
         '   Checks to see in connected to the internet by pinging a well know site.
         '   If checkInternet is set to false, in user settings, no check is made.
@@ -162,7 +165,9 @@ Module KlockThings
         End Try
 
     End Function
-
+    '
+    ' -------------------------------------------------------------------------------------------- Hot Keys ----------------------------------------------
+    '
     Public Sub HotKeys(ByVal e As System.Windows.Forms.KeyEventArgs)
         '   Pressing F1, will open klock's help.
         '   Pressing alt + F2, will open the options screen.
@@ -217,14 +222,18 @@ Module KlockThings
                 e.Handled = True
         End Select
     End Sub
-
+    '
+    ' -------------------------------------------------------------------------------------------- Klock not viable -----------------------------------------
+    '
     Private Function klocksNotVisable()
         '   Should return true if none of the extra klocks are running.
         '   Should make the klocks run once.
 
         Return Not (frmAnalogueKlock.Visible Or frmSmallTextKlock.Visible Or frmBigTextKlock.Visible)
     End Function
-
+    '
+    ' -------------------------------------------------------------------------------------------- load sayings ---------------------------------------------
+    '
     Public Sub loadSayings()
         '   Loads all the text files in the sayings directory within the app directory
 
@@ -255,7 +264,9 @@ Module KlockThings
         Next
 
     End Sub
-
+    '
+    ' -------------------------------------------------------------------------------------------- random saying --------------------------------------------
+    '
     Public Function randomSayings()
         '   return a random saying from all loaded sayings.
 
@@ -263,18 +274,20 @@ Module KlockThings
 
         Return frmKlock.sayings(pos)
     End Function
-
+    '
+    ' -------------------------------------------------------------------------------------------- load saying ---------------------------------------------
+    '
     Public Sub LoadSaying()
         '   reload all saying text file.
 
         frmKlock.txtBxSayings.Text = randomSayings()
     End Sub
-
-
+    '
+    ' -------------------------------------------------------------------------------------------- items forecolour ----------------------------------------
+    '
     Public Function itemForecolor(type As String) As Color
         '   Returns a colour for use in the clipboard history fore colour.
         '   used in frmClipboardMonitor.addToList()
-
 
         Select Case type                                        '   set up text colour depending on object type
             Case "Text"
@@ -300,6 +313,31 @@ Module KlockThings
             Case Else
                 '   probably error, ignore
         End Select
+    End Function
+    '
+    ' -------------------------------------------------------------------------------------------- status info ---------------------------------------------
+    '
+    Public Function statusInfo() As String
+        '   generates the status bar info string according to state of keys.
+
+        Dim strKey As String = "cns off"
+
+        If My.Computer.Keyboard.CapsLock.ToString() Then strKey = Replace(strKey, "c", "C")
+        If My.Computer.Keyboard.NumLock.ToString() Then strKey = Replace(strKey, "n", "N")
+        If My.Computer.Keyboard.ScrollLock.ToString() Then strKey = Replace(strKey, "s", "S")
+        If KlockThings.HaveInternetConnection() Then strKey = Replace(strKey, "off", "ON")
+
+        Return strKey
+    End Function
+    '
+    ' -------------------------------------------------------------------------------------------- status date ---------------------------------------------
+    '
+    Public Function statusTime() As String
+        '   Return system time in either 12/24 hour format.
+
+        Return If(frmKlock.usrSettings.usrTimeSystem24Hour,
+                String.Format("{0:HH:mm:ss}", System.DateTime.Now),
+                String.Format("{0:hh:mm:ss tt}", System.DateTime.Now))
     End Function
 End Module
 

@@ -107,8 +107,6 @@ Public Class frmKlock
     Private Sub updateStatusBar()
         '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
 
-        Dim strKey As String = "cns off"
-
         '                                               if running on battery, change status info colour to red as a warning.
         If myManagedPower.powerSource().Contains("AC") Then
             stsLblTime.ForeColor = Color.Black
@@ -120,22 +118,15 @@ Public Class frmKlock
             StsLblKeys.ForeColor = Color.Red
         End If
 
-        If My.Computer.Keyboard.CapsLock.ToString() Then strKey = Replace(strKey, "c", "C")
-        If My.Computer.Keyboard.NumLock.ToString() Then strKey = Replace(strKey, "n", "N")
-        If My.Computer.Keyboard.ScrollLock.ToString() Then strKey = Replace(strKey, "s", "S")
-        If KlockThings.HaveInternetConnection() Then strKey = Replace(strKey, "off", "ON")
-
-        stsLblTime.Text = If(usrSettings.usrTimeSystem24Hour, String.Format("{0:HH:mm:ss}", System.DateTime.Now), String.Format("{0:hh:mm:ss tt}", System.DateTime.Now))
-
-        '   Me.stsLblTime.Text = Format(Now, "Long Time")
+        stsLblTime.Text = statusTime()
         StsLblDate.Text = Format(Now, "Long Date")
-        StsLblKeys.Text = strKey
+        StsLblKeys.Text = statusInfo()
 
         '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleeping.
 
         If usrSettings.usrTimeIdleTime Or usrSettings.usrDisableMonitorSleep Then
             stsLbIdkeTime.Visible = True
-            stsLbIdkeTime.Text = KlockThings.idleTime()
+            stsLbIdkeTime.Text = "Idle Time :: " & KlockThings.idleTime()
         Else
             stsLbIdkeTime.Visible = False
         End If
@@ -1359,7 +1350,6 @@ Public Class frmKlock
 
     Private Sub FriendsTelephone1_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtbxFriendsTelephone1.KeyPress, txtbxFriendsTelephone2.KeyPress, txtbxFriendsTelephone3.KeyPress
         '   Telephone numbers may only contain numbers.
-
 
         If Char.IsNumber(e.KeyChar) Then
 

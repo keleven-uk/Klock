@@ -51,8 +51,9 @@ Public Class frmAnalogueKlock
 
     Private Sub frmAnalogueKlock_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         '   When form is closed turn off timer and re-load main form.
-        '   and save klock position if needed.
-        '   and save klock mode if needed.
+        '   and save analogue klock position if needed.
+        '   and save analogue klock mode if needed.
+        '   and save analogue klock size if needed.
 
         frmKlock.NtfyIcnKlock.Visible = False
         frmKlock.Visible = True
@@ -60,6 +61,11 @@ Public Class frmAnalogueKlock
         If frmKlock.usrSettings.usrAnalogueKlockSavePosition Then
             frmKlock.usrSettings.usrAnalogueKlockTop = Top
             frmKlock.usrSettings.usrAnalogueKlockLeft = Left
+        End If
+
+        If frmKlock.usrSettings.usrAnalogueKlockSizePosition Then
+            frmKlock.usrSettings.usrAnalogueKlockWidth = Width
+            frmKlock.usrSettings.usrAnalogueKlockHeight = Height
         End If
 
         frmKlock.usrSettings.writeSettings()                     '   save settings, not sure if anything has changed.
@@ -75,12 +81,32 @@ Public Class frmAnalogueKlock
         '   Pressing alt + F8, will restore system settings for the monitor.
         '   Pressing alt + F12, will shown total number of friends.
 
-        HotKeys(e)              '   in KlockThings.vb
+        '   pressing + [on numeric keyboard or main keyboard] will increase the size of the analogue klock.
+        '   pressing - [on numeric keyboard or main keyboard] will increase the size of the analogue klock.
+
+        'MessageBox.Show(e.KeyCode.ToString)
+        Select Case e.KeyCode
+            Case Keys.Add, Keys.Oemplus And (e.Shift)
+                Dim rect As Rectangle = Screen.FromControl(Me).Bounds   '   should be size on screen containing analogue klock.
+                If Width < rect.Width And Height < rect.Height Then
+                    Width += 1
+                    Height += 1
+                End If
+                e.Handled = True
+            Case Keys.Subtract, Keys.OemMinus And (e.Shift)
+                If Width > 100 And Height > 100 Then
+                    Width -= 1
+                    Height -= 1
+                End If
+                e.Handled = True
+            Case Else
+                HotKeys(e)              '   in KlockThings.vb
+        End Select
     End Sub
 
     Private Sub frmAnalogueKlock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '   Set Transparency key on load - makes the form disappear.
-        '   and load klock position if needed.
+        '   and load analogue klock position and size, if needed.
 
         Me.TransparencyKey = Color.LightBlue
         Me.BackColor = Color.LightBlue
@@ -88,6 +114,11 @@ Public Class frmAnalogueKlock
         If frmKlock.usrSettings.usrAnalogueKlockSavePosition Then
             Top = frmKlock.usrSettings.usrAnalogueKlockTop
             Left = frmKlock.usrSettings.usrAnalogueKlockLeft
+        End If
+
+        If frmKlock.usrSettings.usrAnalogueKlockSizePosition Then
+            Width = frmKlock.usrSettings.usrAnalogueKlockWidth
+            Height = frmKlock.usrSettings.usrAnalogueKlockHeight
         End If
 
         analogueKlockRefresh()
@@ -146,7 +177,7 @@ Public Class frmAnalogueKlock
                 t = analogueKlock.Value.ToShortTimeString
             End If
 
-            sz = e.Graphics.MeasureString(t, Me.Font, New PointF(0, 0), StringFormat.GenericDefault)
+            sz = e.Graphics.MeasureString(t, New Font("Lucida Calligraphy", 10, FontStyle.Italic), New PointF(0, 0), StringFormat.GenericDefault)
             x = analogueKlock.CenterPoint.PivotalPoint.X - sz.Width / 2
             y = CSng(analogueKlock.Rectangle.Height - analogueKlock.Radius * 0.3 - sz.Height)
             e.Graphics.DrawString(t, Me.Font, sbr, x, y)

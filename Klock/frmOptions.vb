@@ -146,6 +146,7 @@ Public Class frmOptions
         '-------------------------------------------------------------------------------------------------------- Analogue Klock ------------
 
         chckBxAnlgKlockSavePos.Checked = frmKlock.usrSettings.usrAnalogueKlockSavePosition
+        chckBxAnlgKlockSaveSize.Checked = frmKlock.usrSettings.usrAnalogueKlockSizePosition
         txtBxAnlgKlock.Text = frmKlock.usrSettings.usrAnalogueKlockText
         chckBxAnlgKlockTransparent.Checked = frmKlock.usrSettings.usrAnalogueKlcokTransparent
         chckBxAnlgKlockDate.Checked = frmKlock.usrSettings.usrAnalogueKlockShowDate
@@ -285,6 +286,7 @@ Public Class frmOptions
         '-------------------------------------------------------------------------------------------------------- Analogue Klock  Settings ----
 
         frmKlock.usrSettings.usrAnalogueKlockSavePosition = chckBxAnlgKlockSavePos.Checked
+        frmKlock.usrSettings.usrAnalogueKlockSizePosition = chckBxAnlgKlockSaveSize.Checked
         frmKlock.usrSettings.usrAnalogueKlockText = txtBxAnlgKlock.Text
         frmKlock.usrSettings.usrAnalogueKlcokTransparent = chckBxAnlgKlockTransparent.Checked
         frmKlock.usrSettings.usrAnalogueKlockShowDate = chckBxAnlgKlockDate.Checked

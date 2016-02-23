@@ -51,15 +51,8 @@
         frmKlock.usrSettings.writeSettings()             '   save settings, not sure if anything has changed.
     End Sub
 
-    'Private Sub lstBxClipboardData_SelectedIndexChanged(sender As Object, e As EventArgs)
-    '    '   Only enable copy button, it there is items to copy.
-
-    '    If LstVwClipboardData.Items.Count = 0 Then
-    '        btnCopy.Enabled = False
-    '    Else
-    '        btnCopy.Enabled = True
-    '    End If
-    'End Sub
+    '   Private Sub lstBxClipboardData_SelectedIndexChanged(sender As Object, e As EventArgs)
+    '   Only enable copy button, it there is items to copy.
 
     Private Sub LstVwClipboardData_SelectedIndexChanged(sender As Object, e As EventArgs) Handles LstVwClipboardData.SelectedIndexChanged
         '   Only enable copy button, it there is items to copy.
@@ -148,7 +141,6 @@
                     '   probably error, ignore
             End Select
 
-
         Catch ex As ArgumentException
             MessageBox.Show("ERROR :: Copying to clipboard" & ex.Message, "Clipboard Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -165,18 +157,15 @@
         '   A kludge is used to stop this, CL_IMAGE is used to indicate that an image is being processed
         '   and not to be added to the history a second time.
 
-
         Dim arr As String() = New String(2) {}
         Dim itm As ListViewItem
         Dim found As Boolean = False
 
         arr(0) = type
-        arr(1) = Format(Now, "Short Date") & " : " & If(frmKlock.usrSettings.usrTimeSystem24Hour, String.Format("{0:HH:mm:ss}", System.DateTime.Now), String.Format("{0:hh:mm:ss tt}", System.DateTime.Now))
+        arr(1) = Format(Now, "Short Date") & " : " & statusTime()
         arr(2) = text
 
         itm = New ListViewItem(arr)
-
-        itm.ForeColor = itemForecolor(type)
 
         '   iterate through items to see if already there - items.contains does not seem to work.
 
@@ -187,6 +176,7 @@
         If CL_IMAGE Then found = True                             '   image copy kludge, see addToList()
 
         If Not found Then
+            itm.ForeColor = itemForecolor(type)
             LstVwClipboardData.Items.Add(itm)
             LstVwClipboardData.Items.Item(LstVwClipboardData.Items.Count - 1).EnsureVisible()
 
@@ -208,8 +198,6 @@
     Private Sub updateStatusBar()
         '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
 
-        Dim strKey As String = "cns off"
-
         '                                               if running on battery, change status info colour to red as a warning.
         If frmKlock.myManagedPower.powerSource().Contains("AC") Then
             stsLblTime.ForeColor = Color.Black
@@ -221,22 +209,15 @@
             StsLblKeys.ForeColor = Color.Red
         End If
 
-        If My.Computer.Keyboard.CapsLock.ToString() Then strKey = Replace(strKey, "c", "C")
-        If My.Computer.Keyboard.NumLock.ToString() Then strKey = Replace(strKey, "n", "N")
-        If My.Computer.Keyboard.ScrollLock.ToString() Then strKey = Replace(strKey, "s", "S")
-        If KlockThings.HaveInternetConnection() Then strKey = Replace(strKey, "off", "ON")
-
-        stsLblTime.Text = If(frmKlock.usrSettings.usrTimeSystem24Hour, String.Format("{0:HH:mm:ss}", System.DateTime.Now), String.Format("{0:hh:mm:ss tt}", System.DateTime.Now))
-
-        '   Me.stsLblTime.Text = Format(Now, "Long Time")
+        stsLblTime.Text = statusTime()
         StsLblDate.Text = Format(Now, "Long Date")
-        StsLblKeys.Text = strKey
+        StsLblKeys.Text = statusInfo()
 
         '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleeping.
 
         If frmKlock.usrSettings.usrTimeIdleTime Or frmKlock.usrSettings.usrDisableMonitorSleep Then
             stsLbIdkeTime.Visible = True
-            stsLbIdkeTime.Text = KlockThings.idleTime()
+            stsLbIdkeTime.Text = "Idle Time :: " & KlockThings.idleTime()
         Else
             stsLbIdkeTime.Visible = False
         End If

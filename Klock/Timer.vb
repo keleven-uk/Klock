@@ -19,12 +19,12 @@
         '   Returns the elapsed time to the milliseconds - HH:MM:SS:MS
 
         Get
-            Try
+            If stopWatch.IsRunning() Then
                 Dim ts As TimeSpan = stopWatch.Elapsed
                 Return String.Format("{0:00}:{1:00}:{2:00}:{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds)
-            Catch ex As ApplicationException
-                Throw New ApplicationException("Stopwatch not started")
-            End Try
+            Else
+                Return "00:00:00:00"
+            End If
         End Get
     End Property
 
@@ -32,12 +32,12 @@
         '   Returns the elapsed time to the second - HH:MM:SS
 
         Get
-            Try
+            If stopWatch.IsRunning() Then
                 Dim ts As TimeSpan = stopWatch.Elapsed
                 Return String.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds)
-            Catch ex As ApplicationException
-                Throw New ApplicationException("Stopwatch not started")
-            End Try
+            Else
+                Return "00:00:00"
+            End If
         End Get
     End Property
 

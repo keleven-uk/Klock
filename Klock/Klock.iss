@@ -2,11 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Klock"
-<<<<<<< HEAD
-#define MyAppVersion "1.1.6.67"
-=======
-#define MyAppVersion "1.1.6.66"
->>>>>>> c14a6a4336064a90bb44f2d8f299c3b3d4a8c556
+#define MyAppVersion "1.1.6.68"
 #define MyAppPublisher "keleven"
 #define MyAppURL "www.keleven.co.uk"
 #define MyAppExeName "Klock.exe"
@@ -32,11 +28,7 @@ DefaultGroupName={#MyAppName}
 ;LicenseFile=License.txt
 InfoAfterFile=Klock\License.txt
 OutputDir=D:\My\shed\code\projects
-<<<<<<< HEAD
-OutputBaseFilename=Klock_11667
-=======
-OutputBaseFilename=Klock_11666
->>>>>>> c14a6a4336064a90bb44f2d8f299c3b3d4a8c556
+OutputBaseFilename=Klock_11668
 SetupIconFile=Klock\Klock.ico
 Compression=lzma
 SolidCompression=yes
@@ -48,32 +40,18 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
-[Types]
-Name: prog; Description: "Klock program only"
-Name: full; Description: "Klock Program + source"
-
-[Components]
-Name: exe; Description: exe's only; Types: full prog
-Name: all; Description: Klock Program + source; Types: full
-
-
 [Files]
-Source: "Klock\bin\Release\Klock.exe"  ; DestDir: "{app}"         ; Components : exe; Flags: ignoreversion
-Source: "sounds\*"                     ; DestDir: "{app}\sounds"  ; Components : exe; Flags: ignoreversion
-Source: "fonts\*"                      ; DestDir: "{app}\fonts"   ; Components : exe; Flags: ignoreversion
-Source: "images\*"                     ; DestDir: "{app}\images"  ; Components : exe; Flags: ignoreversion
-Source: "sayings\*"                    ; DestDir: "{app}\sayings" ; Components : exe; Flags: ignoreversion
-Source: "Klock\klock.chm"              ; DestDir: "{app}"         ; Components : exe; Flags: ignoreversion
-Source: "Klock\klock.pdf"              ; DestDir: "{app}"         ; Components : exe; Flags: ignoreversion
-Source: "Klock\License.txt"            ; DestDir: "{app}"         ; Components : exe; Flags: ignoreversion
-Source: "Klock\history.txt"            ; DestDir: "{app}"         ; Components : exe; Flags: ignoreversion
-Source: "Klock\AnalogClockControl.dll" ; DestDir: "{app}"         ; Components : exe; Flags: ignoreversion
-Source: "Klock\AnalogClockControl.xml" ; DestDir: "{app}"         ; Components : exe; Flags: ignoreversion
-
-;  include source if directed :: NB needs a clean git checkout :: recursesubdirs for recursion
-;  install into My Documents foler.
-Source: "clean\*" ; DestDir: "{userdocs}\Keleven_source\Klock" ; Components : all; Flags: ignoreversion recursesubdirs
-
+Source: "Klock\bin\Release\Klock.exe"  ; DestDir: "{app}"         ;  Flags: ignoreversion
+Source: "sounds\*"                     ; DestDir: "{app}\sounds"  ;  Flags: ignoreversion
+Source: "fonts\*"                      ; DestDir: "{app}\fonts"   ;  Flags: ignoreversion
+Source: "images\*"                     ; DestDir: "{app}\images"  ;  Flags: ignoreversion
+Source: "sayings\*"                    ; DestDir: "{app}\sayings" ;  Flags: ignoreversion
+Source: "Klock\klock.chm"              ; DestDir: "{app}"         ;  Flags: ignoreversion
+Source: "Klock\klock.pdf"              ; DestDir: "{app}"         ;  Flags: ignoreversion
+Source: "Klock\License.txt"            ; DestDir: "{app}"         ;  Flags: ignoreversion
+Source: "Klock\history.txt"            ; DestDir: "{app}"         ;  Flags: ignoreversion
+Source: "Klock\AnalogClockControl.dll" ; DestDir: "{app}"         ;  Flags: ignoreversion
+Source: "Klock\AnalogClockControl.xml" ; DestDir: "{app}"         ;  Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

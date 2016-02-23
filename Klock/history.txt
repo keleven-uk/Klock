@@ -2,14 +2,58 @@ The source tree is now held as a git repository https://github.com/keleven-uk/Kl
  converted from SVN as of build 42.
 I find the git commit number unwieldy, so still include SVN style build numbers.
 
+
+[Build [67] - V1.1.6.67 - February 2016
+
+commit 23d5c1eb7c914b4cd508e2f7d26888eb8a742157
+Author: kevin scott <coinflip@keleven.co.uk>
+Date:   Wed Feb 17 21:19:15 2016 +0000
+
+    Further work on Clipboard manager.
+    Amened so that the clipboard monitor is now aware of clipboard objects are files, images as well as text.
+    Also, should be able to differentiates between different types of text - RTF, CSV, Unicode & HTML.  Not sure if this works yet.
+    
+    [frmClipboardMonitor.vb]
+    Added code for different types of clipboard object.
+    Moved clipboard change logic form frmKlock.vb to here, makes calling addToList simpler.
+    
+    [UserSettings.vb]
+    Added option to specify which mode klock starts in.
+    Added option so that Analogue klock can display either time of idle time.
+    
+    [frmOptions.vb]
+    Added option for above.
+    
+    [frmKlock.vb]
+    Changes for above.
+    
+    [frmAnalogKlock.vb]
+    Amended so that text colour will reflect if monitor active is enabled.
+    Amended so that either time or idle time is displayed.
+
+ Klock/HelpCommon.vb                   |   4 +-
+ Klock/Klock.chm                       | Bin 687438 -> 701166 bytes
+ Klock/Klock.iss                       |   4 +-
+ Klock/Klock.pdf                       | Bin 3921339 -> 4075766 bytes
+ Klock/KlockThings.vb                  |  38 +++++-
+ Klock/My Project/AssemblyInfo.vb      |   4 +-
+ Klock/UserSettings.vb                 |  68 ++++++++--
+ Klock/conversionThings.vb             |   2 +-
+ Klock/frmAbout.vb                     |   2 +-
+ Klock/frmAnalogKlock.Designer.vb      |  26 +++-
+ Klock/frmAnalogKlock.vb               |  30 ++++-
+ Klock/frmClipboardMonitor.Designer.vb |  62 ++++++---
+ Klock/frmClipboardMonitor.vb          | 228 ++++++++++++++++++++++++++++++++--
+ Klock/frmKlock.vb                     |  84 +++++++++----
+ Klock/frmOptions.Designer.vb          |  67 ++++++++--
+ Klock/frmOptions.vb                   |  50 +++++++-
+ Klock/history.txt                     |  76 ++++++++++++
+ Klock/klock.hnd                       | Bin 19877888 -> 26415104 bytes
+ log.txt                               |  66 ++++++++++
+ 19 files changed, 724 insertions(+), 87 deletions(-)
+
 [Build [66] - V1.1.6.66 - February 2016
 
-commit 09901e8244b66d92c310c996ef9e43ec1f1a1f3f
-Author: kevin scott <coinflip@keleven.co.uk>
-Date:   Wed Jan 27 22:11:23 2016 +0000
-
-
-<<<<<<< HEAD
 commit c14a6a4336064a90bb44f2d8f299c3b3d4a8c556
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Wed Feb 17 21:19:15 2016 +0000

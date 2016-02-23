@@ -122,39 +122,26 @@
     Private Sub updateStatusBar(foreColour As Color)
         '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
 
-        Dim strKey As String = "cns off"
-
         '                                               if running on battery, change status info colour to red as a warning.
         If frmKlock.myManagedPower.powerSource().Contains("AC") Then
-            stsLblTime.ForeColor = foreColour
-            StsLblDate.ForeColor = foreColour
-            StsLblKeys.ForeColor = foreColour
+            stsLblTime.ForeColor = Color.Black
+            StsLblDate.ForeColor = Color.Black
+            StsLblKeys.ForeColor = Color.Black
         Else
             stsLblTime.ForeColor = Color.Red
             StsLblDate.ForeColor = Color.Red
             StsLblKeys.ForeColor = Color.Red
         End If
 
-        If My.Computer.Keyboard.CapsLock.ToString() Then strKey = Replace(strKey, "c", "C")
-        If My.Computer.Keyboard.NumLock.ToString() Then strKey = Replace(strKey, "n", "N")
-        If My.Computer.Keyboard.ScrollLock.ToString() Then strKey = Replace(strKey, "s", "S")
-        If KlockThings.HaveInternetConnection() Then strKey = Replace(strKey, "off", "ON")
-
-        If frmKlock.usrSettings.usrTimeSystem24Hour Then
-            stsLblTime.Text = String.Format("{0: HH:mm:ss}", System.DateTime.Now)
-        Else
-            stsLblTime.Text = String.Format("{0:hh:mm:ss tt}", System.DateTime.Now)
-        End If
-
-        '   Me.stsLblTime.Text = Format(Now, "Long Time")
+        stsLblTime.Text = statusTime()
         StsLblDate.Text = Format(Now, "long Date")
-        StsLblKeys.Text = strKey
+        StsLblKeys.Text = statusInfo()
 
         '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleeping.
 
         If frmKlock.usrSettings.usrTimeIdleTime Or frmKlock.usrSettings.usrDisableMonitorSleep Then
             stsLbIdkeTime.Visible = True
-            stsLbIdkeTime.Text = KlockThings.idleTime()
+            stsLbIdkeTime.Text = "Idle Time :: " & KlockThings.idleTime()
         Else
             stsLbIdkeTime.Visible = False
         End If
@@ -523,6 +510,4 @@
         lblArraySeconds(58) = lblFiftyEightSeconds
         lblArraySeconds(59) = lblFiftyNineSeconds
     End Sub
-
-
 End Class

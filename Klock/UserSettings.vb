@@ -79,7 +79,10 @@ Public Class UserSettings
     '------------------------------------------------------------------------------------------------------- analogue Klock Settings -----
     Private _usrAnalogueKlockTop As Integer = 100
     Private _usrAnalogueKlockLeft As Integer = 100
+    Private _usrAnalogueKlockWidth As Integer = 300
+    Private _usrAnalogueKlockHeight As Integer = 300
     Private _usrAnalogueKlockSavePosition As Boolean = True
+    Private _usrAnalogueKlockSizePosition As Boolean = True
     Private _usrAnalogueKlockText As String = "Klock"
     Private _usrAnalogueKlcokTransparent As Boolean = False
     Private _usrAnalogueKlockShowDate As Boolean = True
@@ -583,12 +586,39 @@ Public Class UserSettings
         End Set
     End Property
 
+    Public Property usrAnalogueKlockWidth() As Integer
+        Get
+            Return _usrAnalogueKlockWidth
+        End Get
+        Set(ByVal value As Integer)
+            _usrAnalogueKlockWidth = value
+        End Set
+    End Property
+
+    Public Property usrAnalogueKlockHeight() As Integer
+        Get
+            Return _usrAnalogueKlockHeight
+        End Get
+        Set(ByVal value As Integer)
+            _usrAnalogueKlockHeight = value
+        End Set
+    End Property
+
     Public Property usrAnalogueKlockSavePosition() As Boolean
         Get
             Return _usrAnalogueKlockSavePosition
         End Get
         Set(ByVal value As Boolean)
             _usrAnalogueKlockSavePosition = value
+        End Set
+    End Property
+
+    Public Property usrAnalogueKlockSizePosition() As Boolean
+        Get
+            Return _usrAnalogueKlockSizePosition
+        End Get
+        Set(ByVal value As Boolean)
+            _usrAnalogueKlockSizePosition = value
         End Set
     End Property
 
@@ -1154,7 +1184,10 @@ Public Class UserSettings
                               <AnalogueKlock>
                                   <AnalogueKlockTop><%= usrAnalogueKlockTop() %></AnalogueKlockTop>
                                   <AnalogueKlockLeft><%= usrAnalogueKlockLeft() %></AnalogueKlockLeft>
+                                  <AnalogueKlockWidth><%= usrAnalogueKlockWidth() %></AnalogueKlockWidth>
+                                  <AnalogueKlockHeight><%= usrAnalogueKlockHeight() %></AnalogueKlockHeight>
                                   <AnalogueKlockSavePosition><%= usrAnalogueKlockSavePosition() %></AnalogueKlockSavePosition>
+                                  <AnalogueKlockSizePosition><%= usrAnalogueKlockSizePosition() %></AnalogueKlockSizePosition>
                                   <AnalogueKlockText><%= usrAnalogueKlockText() %></AnalogueKlockText>
                                   <AnalogueKlcokTransparent><%= usrAnalogueKlcokTransparent() %></AnalogueKlcokTransparent>
                                   <AnalogueKlockShowDate><%= usrAnalogueKlockShowDate() %></AnalogueKlockShowDate>
@@ -1380,7 +1413,10 @@ Public Class UserSettings
                               <AnalogueKlock>
                                   <AnalogueKlockTop>100</AnalogueKlockTop>
                                   <AnalogueKlockLeft>100</AnalogueKlockLeft>
+                                  <AnalogueKlockWidth>300</AnalogueKlockWidth>
+                                  <AnalogueKlockHeight>300</AnalogueKlockHeight>
                                   <AnalogueKlockSavePosition>True</AnalogueKlockSavePosition>
+                                  <AnalogueKlockSizePosition>True</AnalogueKlockSizePosition>
                                   <AnalogueKlockText>Klock</AnalogueKlockText>
                                   <AnalogueKlcokTransparent>False</AnalogueKlcokTransparent>
                                   <AnalogueKlockShowDate>True</AnalogueKlockShowDate>
@@ -1647,7 +1683,10 @@ Public Class UserSettings
 
             usrAnalogueKlockTop = CType(readElement(anlklck, "AnalogueKlockTop", usrAnalogueKlockTop()), Integer)
             usrAnalogueKlockLeft = CType(readElement(anlklck, "AnalogueKlockLeft", usrAnalogueKlockLeft()), Integer)
+            usrAnalogueKlockWidth = CType(readElement(anlklck, "AnalogueKlockWidth", usrAnalogueKlockWidth()), Integer)
+            usrAnalogueKlockHeight = CType(readElement(anlklck, "AnalogueKlockHeight", usrAnalogueKlockHeight()), Integer)
             usrAnalogueKlockSavePosition = CType(readElement(anlklck, "AnalogueKlockSavePosition", usrAnalogueKlockSavePosition()), Boolean)
+            usrAnalogueKlockSizePosition = CType(readElement(anlklck, "AnalogueKlockSizePosition", usrAnalogueKlockSizePosition()), Boolean)
             usrAnalogueKlockText = readElement(anlklck, "AnalogueKlockText", usrAnalogueKlockText())
             usrAnalogueKlcokTransparent = CType(readElement(anlklck, "AnalogueKlcokTransparent", usrAnalogueKlcokTransparent()), Boolean)
             usrAnalogueKlockShowDate = CType(readElement(anlklck, "AnalogueKlockShowDate", usrAnalogueKlockShowDate()), Boolean)
