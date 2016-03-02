@@ -123,6 +123,7 @@ Public Class UserSettings
     '-------------------------------------------------------------------------------------------------------- Clipboard Monitor Settings --
     Private _usrClipboardMonitor As Boolean = False
     Private _usrClipboardMonitorSavePosition As Boolean = True
+    Private _usrClipboardMonitorSaveCSV As Boolean = True
     Private _usrClipboardMonitorTop As Integer = 100
     Private _usrClipboardMonitorLeft As Integer = 100
     Private _usrClipboardSavePath As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "Klock\Clipsave")
@@ -968,6 +969,15 @@ Public Class UserSettings
         End Set
     End Property
 
+    Public Property usrClipboardMonitorSaveCSV() As Boolean
+        Get
+            Return _usrClipboardMonitorSaveCSV
+        End Get
+        Set(ByVal value As Boolean)
+            _usrClipboardMonitorSaveCSV = value
+        End Set
+    End Property
+
     Public Property usrClipboardMonitorTop() As Integer
         Get
             Return _usrClipboardMonitorTop
@@ -1268,6 +1278,7 @@ Public Class UserSettings
                               <Clipboard>
                                   <ClipboardMonitor><%= usrClipboardMonitor() %></ClipboardMonitor>
                                   <ClipboardMonitorSavePosition><%= usrClipboardMonitorSavePosition() %></ClipboardMonitorSavePosition>
+                                  <ClipboardMonitorSaveCSV><%= usrClipboardMonitorSaveCSV() %></ClipboardMonitorSaveCSV>
                                   <ClipboardMonitorTop><%= usrClipboardMonitorTop() %></ClipboardMonitorTop>
                                   <ClipboardMonitorLeft><%= usrClipboardMonitorLeft() %></ClipboardMonitorLeft>
                               </Clipboard>
@@ -1497,6 +1508,7 @@ Public Class UserSettings
                               <Clipboard>
                                   <ClipboardMonitor>false</ClipboardMonitor>
                                   <ClipboardMonitorSavePosition>True</ClipboardMonitorSavePosition>
+                                  <ClipboardMonitorSaveCSV>True</ClipboardMonitorSaveCSV>
                                   <ClipboardMonitorTop>100</ClipboardMonitorTop>
                                   <ClipboardMonitorLeft>100</ClipboardMonitorLeft>
                               </Clipboard>
@@ -1795,6 +1807,7 @@ Public Class UserSettings
 
             usrClipboardMonitor = CType(readElement(clpbrd, "ClipboardMonitor", usrClipboardMonitor()), Boolean)
             usrClipboardMonitorSavePosition = CType(readElement(clpbrd, "ClipboardMonitorSavePosition", usrClipboardMonitorSavePosition()), Boolean)
+            usrClipboardMonitorSaveCSV = CType(readElement(clpbrd, "ClipboardMonitorSaveCSV", usrClipboardMonitorSaveCSV()), Boolean)
             usrClipboardMonitorTop = CType(readElement(clpbrd, "ClipboardMonitorTop", usrClipboardMonitorTop()), Integer)
             usrClipboardMonitorLeft = CType(readElement(clpbrd, "ClipboardMonitorLeft", usrClipboardMonitorLeft()), Integer)
             '-------------------------------------------------------------------------------------------------------- Friends Settings ------------

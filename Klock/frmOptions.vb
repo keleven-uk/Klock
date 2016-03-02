@@ -198,7 +198,9 @@ Public Class frmOptions
 
         chckBxClipboardMonitor.Checked = frmKlock.usrSettings.usrClipboardMonitor
         chckBxClipboardSavePos.Checked = frmKlock.usrSettings.usrClipboardMonitorSavePosition
+        chckBxClipboardSaveCSV.Checked = frmKlock.usrSettings.usrClipboardMonitorSaveCSV
         chckBxClipboardSavePos.Enabled = chckBxClipboardMonitor.Checked
+        chckBxClipboardSaveCSV.Enabled = chckBxClipboardMonitor.Checked
 
         '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
@@ -338,7 +340,7 @@ Public Class frmOptions
 
         frmKlock.usrSettings.usrClipboardMonitor = chckBxClipboardMonitor.Checked
         frmKlock.usrSettings.usrClipboardMonitorSavePosition = chckBxClipboardSavePos.Checked
-
+        frmKlock.usrSettings.usrClipboardMonitorSaveCSV = chckBxClipboardSaveCSV.Checked
         '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
 
         frmKlock.usrSettings.usrFriendsFile = txtBxOptionsFriendsFile.Text
@@ -1090,12 +1092,6 @@ Public Class frmOptions
 
         frmKlock.usrSettings.usrClipboardMonitor = chckBxClipboardMonitor.Checked
         chckBxClipboardSavePos.Enabled = chckBxClipboardMonitor.Checked
+        chckBxClipboardSaveCSV.Enabled = chckBxClipboardMonitor.Checked
     End Sub
-
-    Private Sub ChckBxClipboardSavePos_CheckedChanged(sender As Object, e As EventArgs) Handles chckBxClipboardSavePos.CheckedChanged
-        '   Determines if clipboard monitor form will save screen position.
-
-        frmKlock.usrSettings.usrClipboardMonitorSavePosition = chckBxClipboardSavePos.Checked
-    End Sub
-
 End Class

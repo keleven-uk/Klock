@@ -116,6 +116,7 @@ Partial Class frmOptions
         Me.txtBxAnlgKlockPictureLocation = New System.Windows.Forms.TextBox()
         Me.btnAnlgKlockPictureLocation = New System.Windows.Forms.Button()
         Me.GroupBox23 = New System.Windows.Forms.GroupBox()
+        Me.chckBxAnlgKlockSaveSize = New System.Windows.Forms.CheckBox()
         Me.chckBxAnlgKlockIdleTime = New System.Windows.Forms.CheckBox()
         Me.chckBxAnlgKlockDisplayPicture = New System.Windows.Forms.CheckBox()
         Me.chckBxAnlgKlockSavePos = New System.Windows.Forms.CheckBox()
@@ -220,7 +221,7 @@ Partial Class frmOptions
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.chckBxAnlgKlockSaveSize = New System.Windows.Forms.CheckBox()
+        Me.chckBxClipboardSaveCSV = New System.Windows.Forms.CheckBox()
         Me.tbCntrlOptions.SuspendLayout()
         Me.tbPgGlobal.SuspendLayout()
         Me.GroupBox17.SuspendLayout()
@@ -1264,6 +1265,17 @@ Partial Class frmOptions
         Me.GroupBox23.TabStop = False
         Me.GroupBox23.Text = "Analogue Klock Settings"
         '
+        'chckBxAnlgKlockSaveSize
+        '
+        Me.chckBxAnlgKlockSaveSize.AutoSize = True
+        Me.chckBxAnlgKlockSaveSize.Location = New System.Drawing.Point(98, 201)
+        Me.chckBxAnlgKlockSaveSize.Name = "chckBxAnlgKlockSaveSize"
+        Me.chckBxAnlgKlockSaveSize.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxAnlgKlockSaveSize.Size = New System.Drawing.Size(139, 17)
+        Me.chckBxAnlgKlockSaveSize.TabIndex = 13
+        Me.chckBxAnlgKlockSaveSize.Text = "Save Klock Size on Exit"
+        Me.chckBxAnlgKlockSaveSize.UseVisualStyleBackColor = True
+        '
         'chckBxAnlgKlockIdleTime
         '
         Me.chckBxAnlgKlockIdleTime.AutoSize = True
@@ -1603,6 +1615,7 @@ Partial Class frmOptions
         '
         'GroupBox26
         '
+        Me.GroupBox26.Controls.Add(Me.chckBxClipboardSaveCSV)
         Me.GroupBox26.Controls.Add(Me.chckBxClipboardMonitor)
         Me.GroupBox26.Controls.Add(Me.chckBxClipboardSavePos)
         Me.GroupBox26.Location = New System.Drawing.Point(6, 214)
@@ -1626,7 +1639,7 @@ Partial Class frmOptions
         'chckBxClipboardSavePos
         '
         Me.chckBxClipboardSavePos.AutoSize = True
-        Me.chckBxClipboardSavePos.Location = New System.Drawing.Point(386, 19)
+        Me.chckBxClipboardSavePos.Location = New System.Drawing.Point(422, 19)
         Me.chckBxClipboardSavePos.Name = "chckBxClipboardSavePos"
         Me.chckBxClipboardSavePos.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chckBxClipboardSavePos.Size = New System.Drawing.Size(163, 17)
@@ -1647,7 +1660,7 @@ Partial Class frmOptions
         'chckBxChckInternet
         '
         Me.chckBxChckInternet.AutoSize = True
-        Me.chckBxChckInternet.Location = New System.Drawing.Point(49, 18)
+        Me.chckBxChckInternet.Location = New System.Drawing.Point(85, 18)
         Me.chckBxChckInternet.Name = "chckBxChckInternet"
         Me.chckBxChckInternet.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chckBxChckInternet.Size = New System.Drawing.Size(172, 17)
@@ -2311,16 +2324,16 @@ Partial Class frmOptions
         Me.OpenFileDialog1.CheckFileExists = False
         Me.OpenFileDialog1.FileName = "openFileDialog"
         '
-        'chckBxAnlgKlockSaveSize
+        'chckBxClipboardSaveCSV
         '
-        Me.chckBxAnlgKlockSaveSize.AutoSize = True
-        Me.chckBxAnlgKlockSaveSize.Location = New System.Drawing.Point(98, 201)
-        Me.chckBxAnlgKlockSaveSize.Name = "chckBxAnlgKlockSaveSize"
-        Me.chckBxAnlgKlockSaveSize.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.chckBxAnlgKlockSaveSize.Size = New System.Drawing.Size(139, 17)
-        Me.chckBxAnlgKlockSaveSize.TabIndex = 13
-        Me.chckBxAnlgKlockSaveSize.Text = "Save Klock Size on Exit"
-        Me.chckBxAnlgKlockSaveSize.UseVisualStyleBackColor = True
+        Me.chckBxClipboardSaveCSV.AutoSize = True
+        Me.chckBxClipboardSaveCSV.Location = New System.Drawing.Point(246, 19)
+        Me.chckBxClipboardSaveCSV.Name = "chckBxClipboardSaveCSV"
+        Me.chckBxClipboardSaveCSV.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxClipboardSaveCSV.Size = New System.Drawing.Size(140, 17)
+        Me.chckBxClipboardSaveCSV.TabIndex = 2
+        Me.chckBxClipboardSaveCSV.Text = "Save as .CSV [else .bin]"
+        Me.chckBxClipboardSaveCSV.UseVisualStyleBackColor = True
         '
         'frmOptions
         '
@@ -2619,4 +2632,5 @@ Partial Class frmOptions
     Friend WithEvents cmbBxDefaultMode As ComboBox
     Friend WithEvents chckBxAnlgKlockIdleTime As CheckBox
     Friend WithEvents chckBxAnlgKlockSaveSize As CheckBox
+    Friend WithEvents chckBxClipboardSaveCSV As CheckBox
 End Class

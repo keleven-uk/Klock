@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports Microsoft.VisualBasic.FileIO
 
 Module conversionThings
 
@@ -22,32 +23,33 @@ Module conversionThings
         '   Distance, KN To Mile, 0.621371192
 
         Try
-            Dim tfLines() As String = System.IO.File.ReadAllLines(unitsFile)             '   file to load
+            Dim tfp As New TextFieldParser(unitsFile)
+            tfp.Delimiters = New String() {","}
+            tfp.TextFieldType = FieldType.Delimited
 
-            For Each line As String In tfLines                                          '   Load and read all lines in file
-                Dim field As String() = line.Split(","c)                                '   split using ,
+            While tfp.EndOfData = False
+                Dim fields = tfp.ReadFields()
 
                 Select Case Switch
                     Case "LoadCategory"
-                        If field(0) = "Category" Then
-                            frmKlock.CmbBxConvertCategory.Items.Add(field(1))
+                        If fields(0) = "Category" Then
+                            frmKlock.CmbBxConvertCategory.Items.Add(fields(1))
                             frmKlock.CmbBxConvertCategory.SelectedIndex = 0             '   Auto Select first Category.
                         End If
                     Case "LoadUnits"
-                        If field(0) = frmKlock.CmbBxConvertCategory.SelectedItem Then
-                            frmKlock.CmbBxConvertTo.Items.Add(field(1))
+                        If fields(0) = frmKlock.CmbBxConvertCategory.SelectedItem Then
+                            frmKlock.CmbBxConvertTo.Items.Add(fields(1))
                             frmKlock.CmbBxConvertTo.SelectedIndex = 0                   '   Auto Select first Unit.
                         End If
                     Case "SelectUnit"
-                        If field(1) = frmKlock.CmbBxConvertTo.SelectedItem Then
-                            UnitConvVal = CDbl(field(2))                                '   Load Unit's Conversion value, store in UnitConvVal as Double.
+                        If fields(1) = frmKlock.CmbBxConvertTo.SelectedItem Then
+                            UnitConvVal = CDbl(fields(2))                                '   Load Unit's Conversion value, store in UnitConvVal as Double.
                         End If
                 End Select
-            Next
+            End While
         Catch ex As Exception
             frmKlock.displayAction.DisplayReminder("Units File Error", "Sorry, can't find units.txt. " & ex.Message, "G")
         End Try
-
     End Sub
 
     Public Sub calculate()
@@ -60,7 +62,6 @@ Module conversionThings
             unitsLoad("SelectUnit")                                                                         '   Parse file to locate conversion rate.
             frmKlock.TxtBxConvertResult.Text = CStr(CDbl(frmKlock.TxtBxConvertValue.Text) * UnitConvVal)    '   If Value has been entered, compute conversion for unit.
         End If
-
     End Sub
 
     Public Sub clearTextBoxes()

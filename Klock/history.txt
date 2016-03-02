@@ -3,7 +3,47 @@ The source tree is now held as a git repository https://github.com/keleven-uk/Kl
 I find the git commit number unwieldy, so still include SVN style build numbers.
 
 
-[Build [67] - V1.1.6.67 - February 2016
+[Build [68] - V1.1.6.68 - February 2016
+
+commit 10b211c1be62dfb33832f871bec2f386e8235f33
+Author: Kevin Scott <klock@keleven.co.uk>
+Date:   Tue Feb 23 22:58:53 2016 +0000
+
+    [frmAnalogKlock.vb]
+    Added code to resize analogue klock using + & - keys.
+    Added code to save the size of the analogue klock, if required.
+    
+    [UserSettings.vb & frmOptions.vb]
+    Added options for save analogue klock size.
+    
+    [KlockThings.vb]
+    Moved statusInfo & statusTime to here from sub updateStatus in all forms.
+    
+    [Timer.vb]
+    Removed try clause and wrapped the getElaspedTime function in an If then Else.
+    Apparently, not to use a try clause in a Property.
+
+ Klock/Klock.chm                  | Bin 701166 -> 700690 bytes
+ Klock/Klock.iss                  |  48 ++++++++-------------------
+ Klock/Klock.pdf                  | Bin 4075766 -> 4078931 bytes
+ Klock/KlockThings.vb             |  64 +++++++++++++++++++++++++++--------
+ Klock/My Project/AssemblyInfo.vb |  16 +++------
+ Klock/Timer.vb                   |  16 ++++-----
+ Klock/UserSettings.vb            |  39 ++++++++++++++++++++++
+ Klock/frmAnalogKlock.Designer.vb |  27 ++++++++-------
+ Klock/frmAnalogKlock.vb          |  41 ++++++++++++++++++++---
+ Klock/frmBigTextKlock.vb         |  27 ++++-----------
+ Klock/frmClipboardMonitor.vb     |  33 ++++--------------
+ Klock/frmKlock.vb                |  16 ++-------
+ Klock/frmOptions.Designer.vb     |  38 ++++++++++++++-------
+ Klock/frmOptions.vb              |   2 ++
+ Klock/frmSmallTextKlock.vb       |  29 ++++------------
+ Klock/history.txt                |  52 ++++++++++++++++++++++++++---
+ Klock/klock.hnd                  | Bin 26415104 -> 26415104 bytes
+ log.txt                          |  70 +++++++++++++++++++++++++++++++++++++--
+ 18 files changed, 332 insertions(+), 186 deletions(-)
+ 
+ [Build [67] - V1.1.6.67 - February 2016
 
 commit 23d5c1eb7c914b4cd508e2f7d26888eb8a742157
 Author: kevin scott <coinflip@keleven.co.uk>

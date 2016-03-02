@@ -282,38 +282,7 @@ Module KlockThings
 
         frmKlock.txtBxSayings.Text = randomSayings()
     End Sub
-    '
-    ' -------------------------------------------------------------------------------------------- items forecolour ----------------------------------------
-    '
-    Public Function itemForecolor(type As String) As Color
-        '   Returns a colour for use in the clipboard history fore colour.
-        '   used in frmClipboardMonitor.addToList()
 
-        Select Case type                                        '   set up text colour depending on object type
-            Case "Text"
-                Return Color.Red
-            Case "UNI"
-                Return Color.DeepPink
-            Case "RTF"
-                Return Color.BurlyWood
-            Case "HTML"
-                Return Color.DarkSlateBlue
-            Case "CSVL"
-                Return Color.Firebrick
-            Case "File"
-                Return Color.Blue
-            Case "Dir"
-                Return Color.LightBlue
-            Case "Audio"
-                Return Color.DarkGoldenrod
-            Case "Image"
-                Return Color.Green
-            Case "Error"
-                Return Color.DarkOrange
-            Case Else
-                '   probably error, ignore
-        End Select
-    End Function
     '
     ' -------------------------------------------------------------------------------------------- status info ---------------------------------------------
     '

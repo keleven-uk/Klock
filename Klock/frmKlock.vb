@@ -1252,10 +1252,12 @@ Public Class frmKlock
             End If
 
             If mode = "ADD" Then
-                LstBxFriends.Items.Add(p)                                '   Populate list-view.
-                FriendsAddToKnown(p)                                     '   Populate autocomplete collections.
+                LstBxFriends.Items.Add(p)                               '   Populate list-view.
+                ListBoxEnsureVisible(LstBxFriends)                      '   Scowl list box if needed.
+                FriendsAddToKnown(p)                                    '   Populate autocomplete collections.
             Else    '   mode = "EDIT"
-                LstBxFriends.Items(LstBxFriends.SelectedIndex) = p    '   Update list-view.
+                LstBxFriends.Items(LstBxFriends.SelectedIndex) = p      '   Update list-view.
+                ListBoxEnsureVisible(LstBxFriends)                      '   Scowl list box if needed.
             End If
 
         Catch ex As Exception
@@ -1470,9 +1472,11 @@ Public Class frmKlock
             e.EventThirdReminder = True
 
             If mode = "ADD" Then
-                LstBxEvents.Items.Add(e)                             '   populate list-view
+                LstBxEvents.Items.Add(e)                             '   populate list box
+                ListBoxEnsureVisible(LstBxEvents)                    '   Scowl list box if needed.
             Else
                 LstBxEvents.Items(LstBxEvents.SelectedIndex) = e
+                ListBoxEnsureVisible(LstBxEvents)                    '   Scowl list box if needed.
             End If
         Catch ex As Exception
             displayAction.DisplayReminder("ERROR :: populating event", ex.Message, "G")
@@ -1574,8 +1578,10 @@ Public Class frmKlock
 
             If mode = "ADD" Then
                 LstBxMemo.Items.Add(m)
+                ListBoxEnsureVisible(LstBxMemo)                     '   Scowl list box if needed.
             Else
                 LstBxMemo.Items(LstBxMemo.SelectedIndex) = m
+                ListBoxEnsureVisible(LstBxMemo)                     '   Scowl list box if needed.
             End If
         Catch ex As Exception
             displayAction.DisplayReminder("ERROR :: populating memo", ex.Message, "G")

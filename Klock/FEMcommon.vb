@@ -373,6 +373,7 @@ Module FEMcommon
                     frmKlock.btnDelete.Enabled = False
                     frmKlock.btnEdit.Enabled = False
                 End If
+
                 IOcommon.saveMemo()
         End Select
     End Sub

@@ -1,4 +1,7 @@
-﻿Public Class frmClipboardMonitor
+﻿Imports System.Text
+Imports System.IO
+
+Public Class frmClipboardMonitor
     '   Manages the clipboard.
     '   When monitoring the clipboard is enabled in klock options], if something is copied to the clipboard
     '   is should be added to the list-box on this form.  Then any entry ion the list-box can then be
@@ -11,8 +14,9 @@
 
     Public CL_IMAGE As Boolean = False              '   image copy kludge, see addToList()
 
-
     Public displayAction As selectAction            '   instance of selectAction, allows different actions to be performed.
+    Public usrFonts As UserFonts                    '   instance of user fonts.
+
 
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
         '   Close button has been pressed.
@@ -26,6 +30,18 @@
         '   Start the time on form load.
 
         displayAction = New selectAction                '   user selected actions
+        usrFonts = New UserFonts                        '   user fonts
+
+        LstbxClipboardData.DrawMode = DrawMode.OwnerDrawFixed
+        LstbxClipboardData.Font = usrFonts.getFont()
+
+        If frmKlock.usrSettings.usrClipboardMonitorSaveCSV Then
+            btnSave.Text = "Save as .csv "
+            btnLoad.Text = "Load as .csv "
+        Else
+            btnSave.Text = "Save as .bin "
+            btnLoad.Text = "Load as .bin "
+        End If
 
         tmrClipboardMonitor.Enabled = True
         btnCopy.Enabled = False
@@ -51,36 +67,44 @@
         frmKlock.usrSettings.writeSettings()             '   save settings, not sure if anything has changed.
     End Sub
 
-    '   Private Sub lstBxClipboardData_SelectedIndexChanged(sender As Object, e As EventArgs)
-    '   Only enable copy button, it there is items to copy.
-
-    Private Sub LstVwClipboardData_SelectedIndexChanged(sender As Object, e As EventArgs) Handles LstVwClipboardData.SelectedIndexChanged
+    Private Sub LstbxClipboardData_SelectedIndexChanged(sender As Object, e As EventArgs) Handles LstbxClipboardData.SelectedIndexChanged
         '   Only enable copy button, it there is items to copy.
 
-        If LstVwClipboardData.Items.Count = 0 Then
+        If LstbxClipboardData.Items.Count = 0 Then
             btnCopy.Enabled = False
         Else
             btnCopy.Enabled = True
         End If
+    End Sub
 
+    Private Sub LstbxClipboardData_Click(sender As Object, e As EventArgs) Handles LstbxClipboardData.Click
+
+        If LstbxClipboardData.SelectedIndex >= 0 Then
+            LstbxClipboardData.SetSelected(LstbxClipboardData.SelectedIndex, True)
+            btnCopy_Click(sender, e)
+        End If
     End Sub
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         '   Clears the data in the list-box.
 
-        LstVwClipboardData.Items.Clear()
+        LstbxClipboardData.Items.Clear()
         btnCopy.Enabled = False
     End Sub
 
     Private Sub btnCopy_Click(sender As Object, e As EventArgs) Handles btnCopy.Click
         '   Copies the selected list-box entry to the clipboard.
 
+        Dim cl As New clipItem
+
         CL_IMAGE = False                                                                    '   image copy kludge, see addToList()
 
-        Dim itmText = LstVwClipboardData.FocusedItem.SubItems(2).Text
+        cl = LstbxClipboardData.Items(LstbxClipboardData.SelectedIndex)
+
+        Dim itmText = cl.itemText
 
         Try
-            Select Case LstVwClipboardData.FocusedItem.SubItems(0).Text
+            Select Case cl.itemType
 
                 Case "Text"                                                                 '   Copies text
 
@@ -110,7 +134,7 @@
                         My.Computer.Clipboard.SetFileDropList(filePaths)                    '   Copy file to clipboard
                     Else
                         displayAction.DisplayReminder("Clipboard Error", itmText & "No Longer Exists", "G")
-                        LstVwClipboardData.FocusedItem.Remove()
+                        LstbxClipboardData.Items(LstbxClipboardData.SelectedIndex).Remove()
                     End If
 
                 Case "Dir"                                                                 '   Copies dir - similar to file.
@@ -121,7 +145,7 @@
                         My.Computer.Clipboard.SetFileDropList(filePaths)                    '   Copy file to clipboard
                     Else
                         displayAction.DisplayReminder("Clipboard Error", itmText & "No Longer Exists", "G")
-                        LstVwClipboardData.FocusedItem.Remove()
+                        LstbxClipboardData.Items(LstbxClipboardData.SelectedIndex).Remove()
                     End If
 
                 Case "Image"                                                                '   Copies Images
@@ -134,7 +158,7 @@
                         i.Dispose()
                     Else
                         displayAction.DisplayReminder("Clipboard Error", itmText & "No Longer Exists", "G")
-                        LstVwClipboardData.FocusedItem.Remove()
+                        LstbxClipboardData.Items(LstbxClipboardData.SelectedIndex).Remove()
                     End If
 
                 Case Else
@@ -147,7 +171,7 @@
 
     End Sub
 
-    Public Sub addToList(text As String, type As String)
+    Public Sub addToList(text As String, dateTime As String, type As String)
         '   Clipboard has data.
         '   Only adds the data is not already remembered - so only one instance of data is displayed.
         '   This gets around the problem been triggered by klock copying to the clipboard :-)
@@ -157,28 +181,25 @@
         '   A kludge is used to stop this, CL_IMAGE is used to indicate that an image is being processed
         '   and not to be added to the history a second time.
 
-        Dim arr As String() = New String(2) {}
-        Dim itm As ListViewItem
+        Dim cl As New clipItem
         Dim found As Boolean = False
 
-        arr(0) = type
-        arr(1) = Format(Now, "Short Date") & " : " & statusTime()
-        arr(2) = text
-
-        itm = New ListViewItem(arr)
+        cl.itemType = type
+        cl.itemDateTime = dateTime
+        cl.itemText = text
 
         '   iterate through items to see if already there - items.contains does not seem to work.
 
-        For Each LvItem As ListViewItem In LstVwClipboardData.Items
-            If LvItem.SubItems(2).Text.Contains(text) Then found = True
+        For Each LbItem As clipItem In LstbxClipboardData.Items
+            If LbItem.itemText.Contains(text) Then found = True
         Next
 
         If CL_IMAGE Then found = True                             '   image copy kludge, see addToList()
 
         If Not found Then
-            itm.ForeColor = itemForecolor(type)
-            LstVwClipboardData.Items.Add(itm)
-            LstVwClipboardData.Items.Item(LstVwClipboardData.Items.Count - 1).EnsureVisible()
+
+            LstbxClipboardData.Items.Add(cl)
+            ListBoxEnsureVisible(LstbxClipboardData)
 
             If Not Visible Then Show()
         End If
@@ -264,34 +285,36 @@
 
         '   Handles data as text, file, image
 
+        Dim dateTime As String = (String.Format("{0} : {1}", Format(Now, "Short Date"), statusTime()))
+
         If My.Computer.Clipboard.ContainsText(TextDataFormat.Text) Then
 
-            addToList(My.Computer.Clipboard.GetText(TextDataFormat.Text), "Text")
+            addToList(My.Computer.Clipboard.GetText(TextDataFormat.Text), dateTime, "Text")
 
         ElseIf My.Computer.Clipboard.ContainsText(TextDataFormat.UnicodeText) Then
 
-            addToList(My.Computer.Clipboard.GetText(TextDataFormat.UnicodeText), "UNI")
+            addToList(My.Computer.Clipboard.GetText(TextDataFormat.UnicodeText), dateTime, "UNI")
 
         ElseIf My.Computer.Clipboard.ContainsText(TextDataFormat.Rtf) Then
 
-            addToList(My.Computer.Clipboard.GetText(TextDataFormat.Rtf), "RTF")
+            addToList(My.Computer.Clipboard.GetText(TextDataFormat.Rtf), dateTime, "RTF")
 
         ElseIf My.Computer.Clipboard.ContainsText(TextDataFormat.Html) Then
 
-            addToList(My.Computer.Clipboard.GetText(TextDataFormat.Html), "HTML")
+            addToList(My.Computer.Clipboard.GetText(TextDataFormat.Html), dateTime, "HTML")
 
         ElseIf My.Computer.Clipboard.ContainsText(TextDataFormat.CommaSeparatedValue) Then
 
-            addToList(My.Computer.Clipboard.GetText(TextDataFormat.CommaSeparatedValue), "CSV")
+            addToList(My.Computer.Clipboard.GetText(TextDataFormat.CommaSeparatedValue), dateTime, "CSV")
 
         ElseIf My.Computer.Clipboard.ContainsFileDropList Then
 
             Dim s As String = My.Computer.Clipboard.GetFileDropList.Item(0)
 
             If My.Computer.FileSystem.FileExists(s) Then
-                addToList(s, "File")
+                addToList(s, dateTime, "File")
             Else
-                addToList(s, "Dir")
+                addToList(s, dateTime, "Dir")
             End If
 
         ElseIf My.Computer.Clipboard.ContainsImage Then
@@ -300,7 +323,7 @@
 
             Dim fn As String = System.IO.Path.Combine(frmKlock.usrSettings.usrClipboardSavePath, Guid.NewGuid.ToString + ".png")
 
-            addToList(fn, "Image")
+            addToList(fn, dateTime, "Image")
             i.Save(fn, Imaging.ImageFormat.Png)
 
             i.Dispose()
@@ -309,4 +332,72 @@
             '   frmClipboardMonitor.addToList("Unknown clipboard type " & My.Computer.Clipboard.GetType.ToString, "Error")
         End If
     End Sub
+
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+
+        If frmKlock.usrSettings.usrClipboardMonitorSaveCSV Then
+            saveClipboardCVS()
+        Else
+            saveClipboardBIN()
+        End If
+    End Sub
+
+    Private Sub btnLoad_Click(sender As Object, e As EventArgs) Handles btnLoad.Click
+
+        If frmKlock.usrSettings.usrClipboardMonitorSaveCSV Then
+            loadClipboardCVS()
+        Else
+            loadClipboardBIN()
+        End If
+    End Sub
+
+    Private Sub LstbxClipboardData_DrawItem(sender As Object, e As DrawItemEventArgs) Handles LstbxClipboardData.DrawItem
+        '   This routine is called for every item when re-drawn.
+        '   This enables us to set the for-colour [brush colour] of each item.  :-)
+
+        e.DrawBackground()
+
+        Dim cl As New clipItem
+        Dim myBrush As Brush
+        Dim itm As String = LstbxClipboardData.Items(e.Index).ToString                      '   retrieve item as string.
+        Dim type As String = Microsoft.VisualBasic.Left(itm, cl.itemTypeSize()).Trim()      '   retrieve item type.
+
+        myBrush = itemBrushcolor(type)
+
+        e.Graphics.DrawString(itm, e.Font, myBrush, New RectangleF(e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height))
+        e.DrawFocusRectangle()
+
+    End Sub
+
+    Public Function itemBrushcolor(type As String) As Brush
+        '   Returns a colour for use in the clipboard history brush colour.
+        '   used in frmClipboardMonitor.LstbxClipboardData_DrawItem
+
+        Select Case type                                        '   set up text colour depending on object type
+            Case "Text"
+                Return Brushes.Red
+            Case "UNI"
+                Return Brushes.DeepPink
+            Case "RTF"
+                Return Brushes.BurlyWood
+            Case "HTML"
+                Return Brushes.DarkSlateBlue
+            Case "CSVL"
+                Return Brushes.Firebrick
+            Case "File"
+                Return Brushes.Blue
+            Case "Dir"
+                Return Brushes.LightBlue
+            Case "Audio"
+                Return Brushes.DarkGoldenrod
+            Case "Image"
+                Return Brushes.Green
+            Case "Error"
+                Return Brushes.DarkOrange
+            Case Else
+                '   probably error, ignore
+                Return Brushes.Black
+        End Select
+    End Function
+
 End Class
