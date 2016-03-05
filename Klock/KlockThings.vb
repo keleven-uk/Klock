@@ -1,16 +1,5 @@
-﻿'Imports System
-'Imports System.Collections.Generic
-'Imports System.ComponentModel
-'Imports System.Data
-'Imports System.Drawing
-'Imports System.Text
-'Imports System.Windows.Forms
-'Imports System.Net
-'Imports System.Net.Sockets
-'Imports System.Threading
-
+﻿Imports System.Text
 Imports System.Runtime.InteropServices 'APIs
-'Imports Microsoft.Win32         'For System Events
 
 Module KlockThings
     '
@@ -149,31 +138,18 @@ Module KlockThings
         Return (easter_date)
     End Function
     '
-    ' -------------------------------------------------------------------------------------------- Have Internet --------------------------------------------
-    '
-    Public Function HaveInternetConnection() As Boolean
-        '   Checks to see in connected to the internet by pinging a well know site.
-        '   If checkInternet is set to false, in user settings, no check is made.
-        '   NB if set to false - effectively shields klock from a valid internet connection.
-
-        If Not frmKlock.usrSettings.usrCheckInternet Then Return False
-
-        Try
-            Return My.Computer.Network.Ping("www.google.com")
-        Catch
-            Return False
-        End Try
-
-    End Function
-    '
     ' -------------------------------------------------------------------------------------------- Hot Keys ----------------------------------------------
     '
     Public Sub HotKeys(ByVal e As System.Windows.Forms.KeyEventArgs)
         '   Pressing F1, will open klock's help.
         '   Pressing alt + F2, will open the options screen.
-        '   Pressing alt + F5, will open the text klock.
+        '   Pressing alt + F3, will open the analogue klock.
+        '   Pressing alt + F4, will open the small text klock.
+        '   Pressing alt + F5, will open the big text klock.
+        '   Pressing alt + F6, will open the close all child klock and return to main klock.
         '   Pressing alt + F7, will disable the monitor from going to sleep.
         '   Pressing alt + F8, will restore system settings for the monitor.
+        '   Pressing alt + F9, will open the clipboard manager.
         '   Pressing alt + F12, will shown total number of friends.
 
         Select Case e.KeyCode
@@ -216,6 +192,8 @@ Module KlockThings
                 frmKlock.usrSettings.usrDisableMonitorSleep = False
                 KlockThings.RestoreMonitorSettings()
                 e.Handled = True
+            Case Keys.F9 And (e.Alt)                        '   show the clipboard manager.
+                frmClipboardMonitor.Show()
             Case Keys.F12 And (e.Alt)                       '   display number of friends.
                 '   MessageBox.Show(String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
                 frmKlock.displayAction.DisplayReminder("Friends", String.Format("The are {0} friends", frmKlock.LstBxFriends.Items.Count.ToString), "G")
@@ -237,8 +215,8 @@ Module KlockThings
     Public Sub loadSayings()
         '   Loads all the text files in the sayings directory within the app directory
 
-        Dim line As String = ""
-        Dim saying As String = ""
+        Dim line As String = String.Empty
+        Dim saying As New StringBuilder
         Dim count As Integer = 0
 
         For Each fileName As String In System.IO.Directory.GetFiles(IO.Path.Combine(Application.StartupPath, "sayings"), "*.txt")
@@ -248,11 +226,11 @@ Module KlockThings
                     While wordreader.Peek <> -1
                         line = wordreader.ReadLine.Trim()
 
-                        If line = "" Then
-                            frmKlock.sayings.Add(saying)
-                            saying = ""
+                        If line = String.Empty Then
+                            frmKlock.sayings.Add(saying.ToString)
+                            saying.Clear()
                         Else
-                            saying += line & System.Environment.NewLine
+                            saying.AppendLine(line)
                         End If
                     End While
 
@@ -289,14 +267,31 @@ Module KlockThings
     Public Function statusInfo() As String
         '   generates the status bar info string according to state of keys.
 
-        Dim strKey As String = "cns off"
+        Dim strKey As New StringBuilder("cns off")
 
-        If My.Computer.Keyboard.CapsLock.ToString() Then strKey = Replace(strKey, "c", "C")
-        If My.Computer.Keyboard.NumLock.ToString() Then strKey = Replace(strKey, "n", "N")
-        If My.Computer.Keyboard.ScrollLock.ToString() Then strKey = Replace(strKey, "s", "S")
-        If KlockThings.HaveInternetConnection() Then strKey = Replace(strKey, "off", "ON")
+        If My.Computer.Keyboard.CapsLock Then strKey.Replace("c", "C")
+        If My.Computer.Keyboard.NumLock Then strKey.Replace("n", "N")
+        If My.Computer.Keyboard.ScrollLock Then strKey.Replace("s", "S")
+        If HaveInternetConnection() Then strKey.Replace("off", "ON")
 
-        Return strKey
+        Return strKey.ToString()
+    End Function
+    '
+    ' -------------------------------------------------------------------------------------------- Have Internet --------------------------------------------
+    '
+    Public Function HaveInternetConnection() As Boolean
+        '   Checks to see in connected to the internet by pinging a well know site.
+        '   If checkInternet is set to false, in user settings, no check is made.
+        '   NB if set to false - effectively shields klock from a valid internet connection.
+
+        If Not frmKlock.usrSettings.usrCheckInternet Then Return False
+
+        Try
+            Return My.Computer.Network.Ping("www.google.com")
+        Catch ex As Exception
+            Return False
+        End Try
+
     End Function
     '
     ' -------------------------------------------------------------------------------------------- status date ---------------------------------------------

@@ -1,4 +1,5 @@
 ﻿Public Class UserFonts
+    Implements IDisposable
     '   tries to pick the correct font width for a given string.
 
     Public TEXT_WIDTH1 As Single = 400          '   the width bands to determine which font [below] to use - time labels.
@@ -69,4 +70,15 @@
         Return rtnFont
     End Function
 
+    Public Sub Dispose() Implements IDisposable.Dispose
+        '   dispose of the font objects
+
+        txtSmlFont.Dispose()
+        txtTnyFont.Dispose()
+        txtBigFont.Dispose()
+        txtLrgFont.Dispose()
+        pfc.Dispose()
+        GC.SuppressFinalize(Me)
+
+    End Sub
 End Class

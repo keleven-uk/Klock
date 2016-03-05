@@ -141,11 +141,8 @@ Public Class frmKlock
         Dim titletext As String = Text
 
         If usrSettings.usrTimerAdd And tmrTimer.Enabled Then          '   time is running
-            If usrSettings.usrTimerHigh Then                             '   are we displaying milliseconds in timer.
-                titletext = titletext & " .::. " & displayTimer.getHighElapsedTime() & " : "
-            Else
-                titletext = titletext & " .::. " & displayTimer.getLowElapsedTime() & " : "
-            End If
+            titletext = If(usrSettings.usrTimerHigh, titletext & " .::. " & displayTimer.getHighElapsedTime() & " : ",
+                                                     titletext & " .::. " & displayTimer.getLowElapsedTime() & " : ")
         End If
 
         If usrSettings.usrCountdownAdd And tmrCountDown.Enabled Then '   countdown is running.
@@ -153,11 +150,9 @@ Public Class frmKlock
         End If
 
         If usrSettings.usrReminderAdd And tmrReminder.Enabled Then
-            If usrSettings.usrReminderTimeChecked Then
-                titletext = titletext & " .::. Reminder set for " & ReminderDateTime.ToLongDateString & " @ " & ReminderDateTime.ToLongTimeString
-            Else
-                titletext = titletext & " .::. Reminder set for " & ReminderDateTime.ToLongDateString
-            End If
+            titletext = titletext & " .::. " & If(usrSettings.usrReminderTimeChecked,
+                                                    titletext & " .::. Reminder set for " & ReminderDateTime.ToLongDateString & " @ " & ReminderDateTime.ToLongTimeString,
+                                                    titletext & " .::. Reminder set for " & ReminderDateTime.ToLongDateString)
         End If
 
         Text = titletext
@@ -215,11 +210,8 @@ Public Class frmKlock
             displayAction.DisplayReminder("Time", displayOneTime.getTime(), "G")  '   display current time as a toast notification,if desired
 
             If usrSettings.usrTimerAdd And tmrTimer.Enabled Then          '   time is running
-                If usrSettings.usrTimerHigh Then                             '   are we displaying milliseconds in timer.
-                    displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getHighElapsedTime(), "G")
-                Else
-                    displayAction.DisplayReminder("Timer", "Timer Running :: " & displayTimer.getLowElapsedTime(), "G")
-                End If
+                Dim s As String = If(usrSettings.usrTimerHigh, displayTimer.getHighElapsedTime(), displayTimer.getLowElapsedTime())
+                displayAction.DisplayReminder("Timer", "Timer Running :: " & s, "G")
             End If
 
             If usrSettings.usrCountdownAdd And tmrCountDown.Enabled Then  '   countdown is running.
@@ -227,11 +219,9 @@ Public Class frmKlock
             End If
 
             If usrSettings.usrReminderAdd And tmrReminder.Enabled Then
-                If usrSettings.usrReminderTimeChecked Then
-                    displayAction.DisplayReminder("Reminder", "Reminder set for " & ReminderDateTime.ToLongDateString & " @ " & ReminderDateTime.ToLongTimeString, "G")
-                Else
-                    displayAction.DisplayReminder("Reminder", "Reminder set for " & ReminderDateTime.ToLongDateString, "G")
-                End If
+                Dim s As String = ReminderDateTime.ToLongDateString
+                If usrSettings.usrReminderTimeChecked Then s += " @ " & ReminderDateTime.ToLongTimeString
+                displayAction.DisplayReminder("Reminder", "Reminder set for " & s, "G")
             End If
 
             If usrSettings.usrWorldKlockAdd Then
@@ -436,7 +426,7 @@ Public Class frmKlock
                     Else
                         btnDisplaySayings.Enabled = True
                         txtBxSayings.Enabled = True
-                        lblSayingsNumber.Text = "There are " & sayings.Count.ToString & " sayings."
+                        lblSayingsNumber.Text = String.Format("There are {0} sayings.", sayings.Count)
                         LoadSaying()
                     End If
                 Else
@@ -1003,11 +993,8 @@ Public Class frmKlock
         ChckBxReminderTimeCheck.Visible = False
         TmPckrRiminder.Visible = False
 
-        If ChckBxReminderTimeCheck.Checked Then
-            lblReminderText.Text = String.Format("Reminder set for {0} @ {1}", ReminderDateTime.ToLongDateString, ReminderDateTime.ToShortTimeString)
-        Else
-            lblReminderText.Text = String.Format("Reminder set for {0}", ReminderDateTime.ToLongDateString)
-        End If
+        lblReminderText.Text = If(ChckBxReminderTimeCheck.Checked, String.Format("Reminder set for {0} @ {1}", ReminderDateTime.ToLongDateString, ReminderDateTime.ToShortTimeString),
+                                                                   String.Format("Reminder set for {0}", ReminderDateTime.ToLongDateString))
 
         ReminderDateTime = d            '   set global, so can be checked by reminder timer.
     End Sub
@@ -1130,23 +1117,23 @@ Public Class frmKlock
 
         FEMcommon.PanelTop()
 
-        txtbxFriendsFirstName.Text = ""
-        txtbxFriendsMiddleName.Text = ""
-        txtbxFriendsLastName.Text = ""
-        txtbxFriendsEmail1.Text = ""
-        txtbxFriendsEmail2.Text = ""
-        txtbxFriendsEmail3.Text = ""
-        txtbxFriendsTelephone1.Text = ""
-        txtbxFriendsTelephone2.Text = ""
-        txtbxFriendsTelephone3.Text = ""
-        txtbxFriendsAddressNo.Text = ""
-        txtbxFriendsAddressLine1.Text = ""
-        txtbxFriendsAddressLine2.Text = ""
-        txtbxFriendsAddressCity.Text = ""
-        txtbxFriendsAddressPostCode.Text = ""
-        txtbxFriendsAddressCounty.Text = ""
-        txtbxFriendsHomePage.Text = ""
-        txtbxFriendsNotes.Text = ""
+        txtbxFriendsFirstName.Text = String.Empty
+        txtbxFriendsMiddleName.Text = String.Empty
+        txtbxFriendsLastName.Text = String.Empty
+        txtbxFriendsEmail1.Text = String.Empty
+        txtbxFriendsEmail2.Text = String.Empty
+        txtbxFriendsEmail3.Text = String.Empty
+        txtbxFriendsTelephone1.Text = String.Empty
+        txtbxFriendsTelephone2.Text = String.Empty
+        txtbxFriendsTelephone3.Text = String.Empty
+        txtbxFriendsAddressNo.Text = String.Empty
+        txtbxFriendsAddressLine1.Text = String.Empty
+        txtbxFriendsAddressLine2.Text = String.Empty
+        txtbxFriendsAddressCity.Text = String.Empty
+        txtbxFriendsAddressPostCode.Text = String.Empty
+        txtbxFriendsAddressCounty.Text = String.Empty
+        txtbxFriendsHomePage.Text = String.Empty
+        txtbxFriendsNotes.Text = String.Empty
 
         blankFriendsDate()
     End Sub
@@ -1245,11 +1232,7 @@ Public Class frmKlock
             p.Notes = txtbxFriendsNotes.Text
             p.WebPage = txtbxFriendsHomePage.Text
 
-            If DtPckrFriendsDOB.Format = DateTimePickerFormat.Long Then  ' if no date selected, save as an empty string i.e." ".
-                p.DOB = DtPckrFriendsDOB.Value.ToShortDateString
-            Else
-                p.DOB = " "
-            End If
+            p.DOB = If(DtPckrFriendsDOB.Format = DateTimePickerFormat.Long, DtPckrFriendsDOB.Value.ToShortDateString, " ")  ' if no date selected, save as an empty string i.e." ".
 
             If mode = "ADD" Then
                 LstBxFriends.Items.Add(p)                               '   Populate list-view.
@@ -1421,8 +1404,8 @@ Public Class frmKlock
     Public Sub EventsClearText()
         '   Clears all date entry fields.
 
-        TxtBxEventsName.Text = ""
-        txtbxEventNotes.Text = ""
+        TxtBxEventsName.Text = String.Empty
+        txtbxEventNotes.Text = String.Empty
 
         DtTmPckrEventsDate.Value = Today
     End Sub
@@ -1545,7 +1528,7 @@ Public Class frmKlock
     Private Sub LstBxMemo_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstBxMemo.SelectedIndexChanged
         '   A new memo has been selected in the list-view box, display new entry
 
-        Dim password As String = ""
+        Dim password As String = String.Empty
 
         showMemo(LstBxMemo.SelectedIndex)
     End Sub
@@ -1637,18 +1620,16 @@ Public Class frmKlock
         '   returns -1 if cancel is pressed - unlikely to be a password.
 
 
-        Dim password As String = ""
+        Dim password As String = String.Empty
 
         If usrSettings.usrMemoUseDefaultPassword Then                            '   system set up to use default password.
             password = usrSettings.usrMemoDefaultPassword                        '   return default password.
         Else                                                                        '   prompt user for password.
             frmMemoPassword.ShowDialog()                                            '   display password form.
 
-            If frmMemoPassword.DialogResult = Windows.Forms.DialogResult.OK Then    '   user pressed ok on password.
-                password = frmMemoPassword.TxtBxMemoPassword.Text                   '   return user entered password.
-            Else                                                                    '   user pressed cancel on password form.
-                password = "-1"                                                     '   return -1 to tell the world, user pressed cancel.
-            End If
+            '   user pressed ok on password.  return user entered password.
+            '   user pressed cancel on password form.  return -1 to tell the world, user pressed cancel.
+            password = If(frmMemoPassword.DialogResult = Windows.Forms.DialogResult.OK, frmMemoPassword.TxtBxMemoPassword.Text, "-1")                                                    '   return -1 to tell the world, user pressed cancel.
         End If  '   Me.usrSettings.usrMemoUseDefaultPassword
 
         Return password
@@ -1764,7 +1745,7 @@ Public Class frmKlock
         If sayings.Count = 0 Then
             lblSayingsNumber.Text = "There are no sayings."
         Else
-            lblSayingsNumber.Text = "There are " & sayings.Count.ToString & " sayings."
+            lblSayingsNumber.Text = String.Format("There are {0} sayings.", sayings.Count)
             LoadSaying()
         End If
     End Sub

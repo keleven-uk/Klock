@@ -70,11 +70,7 @@ Public Class frmClipboardMonitor
     Private Sub LstbxClipboardData_SelectedIndexChanged(sender As Object, e As EventArgs) Handles LstbxClipboardData.SelectedIndexChanged
         '   Only enable copy button, it there is items to copy.
 
-        If LstbxClipboardData.Items.Count = 0 Then
-            btnCopy.Enabled = False
-        Else
-            btnCopy.Enabled = True
-        End If
+        btnCopy.Enabled = If(LstbxClipboardData.Items.Count = 0, False, True)
     End Sub
 
     Private Sub LstbxClipboardData_Click(sender As Object, e As EventArgs) Handles LstbxClipboardData.Click
@@ -197,7 +193,6 @@ Public Class frmClipboardMonitor
         If CL_IMAGE Then found = True                             '   image copy kludge, see addToList()
 
         If Not found Then
-
             LstbxClipboardData.Items.Add(cl)
             ListBoxEnsureVisible(LstbxClipboardData)
 
@@ -359,7 +354,10 @@ Public Class frmClipboardMonitor
 
         Dim cl As New clipItem
         Dim myBrush As Brush
-        Dim itm As String = LstbxClipboardData.Items(e.Index).ToString                      '   retrieve item as string.
+        Dim itm As String = String.Empty
+
+        If e.Index >= 0 Then itm = LstbxClipboardData.Items(e.Index).ToString               '   If there is anything to retrieve, retrieve item as string.
+
         Dim type As String = Microsoft.VisualBasic.Left(itm, cl.itemTypeSize()).Trim()      '   retrieve item type.
 
         myBrush = itemBrushcolor(type)

@@ -13,6 +13,7 @@ Module FEMcommon
     '
     '   Moved the guts of each routing into a separate module, trying to reduce clutter in main program file - [added about 2k to executable].
 
+    Public usrFonts As UserFonts                    '   instance of user fonts.
 
     Public Sub ButtonsVisible(ByVal b As Boolean, noFriends As Integer, noEvents As Integer, noMemo As Integer)
         '   Switch on the editing buttons.
@@ -39,12 +40,6 @@ Module FEMcommon
         '   printPreview produces a preview on screen first - better for debugging.
         '   TODO :: maybe an option.
 
-        'Dim printDialog As New PrintDialog
-
-        'Dim result As DialogResult = printDialog.ShowDialog()
-
-        'If result = DialogResult.OK Then docToPrint.Print()
-
         Dim PrintPreview As New PrintPreviewDialog
 
         PrintPreview.Document = docToPrint
@@ -59,7 +54,9 @@ Module FEMcommon
 
     Private Sub printItems(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles docToPrint.PrintPage
 
-        Dim printFont As New Font("Arial", 15, System.Drawing.FontStyle.Regular)
+        usrFonts = New UserFonts                        '   user fonts
+
+        Dim printFont = usrFonts.getFont()
         Dim crntView As ListBox = frmKlock.LstBxFriends                             '   just to give a default.
         Dim yPosition As Integer = 40
 
@@ -390,9 +387,6 @@ Module FEMcommon
                 frmKlock.pnlMemo.ScrollControlIntoView(frmKlock.lblMemoName)
         End Select
     End Sub
-
-
-
 End Module
 
 

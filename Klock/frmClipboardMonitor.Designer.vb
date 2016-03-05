@@ -56,7 +56,7 @@ Partial Class frmClipboardMonitor
         Me.GroupBox1.Controls.Add(Me.LstbxClipboardData)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(626, 208)
+        Me.GroupBox1.Size = New System.Drawing.Size(640, 194)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
@@ -68,7 +68,7 @@ Partial Class frmClipboardMonitor
         Me.LstbxClipboardData.FormattingEnabled = True
         Me.LstbxClipboardData.Location = New System.Drawing.Point(6, 19)
         Me.LstbxClipboardData.Name = "LstbxClipboardData"
-        Me.LstbxClipboardData.Size = New System.Drawing.Size(614, 173)
+        Me.LstbxClipboardData.Size = New System.Drawing.Size(628, 147)
         Me.LstbxClipboardData.TabIndex = 0
         '
         'GroupBox2
@@ -82,9 +82,9 @@ Partial Class frmClipboardMonitor
         Me.GroupBox2.Controls.Add(Me.btnExit)
         Me.GroupBox2.Controls.Add(Me.btnClear)
         Me.GroupBox2.Controls.Add(Me.btnCopy)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 224)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 210)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(634, 83)
+        Me.GroupBox2.Size = New System.Drawing.Size(640, 83)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         '
@@ -146,11 +146,11 @@ Partial Class frmClipboardMonitor
         'StsStrpInfo
         '
         Me.StsStrpInfo.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsLblTime, Me.StsLblDate, Me.StsLblKeys, Me.stsLbIdkeTime, Me.TlStrpPrgrsBrMemo})
-        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 312)
+        Me.StsStrpInfo.Location = New System.Drawing.Point(0, 298)
         Me.StsStrpInfo.Name = "StsStrpInfo"
         Me.StsStrpInfo.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.StsStrpInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.StsStrpInfo.Size = New System.Drawing.Size(645, 24)
+        Me.StsStrpInfo.Size = New System.Drawing.Size(659, 24)
         Me.StsStrpInfo.SizingGrip = False
         Me.StsStrpInfo.TabIndex = 2
         '
@@ -214,11 +214,12 @@ Partial Class frmClipboardMonitor
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(645, 336)
+        Me.ClientSize = New System.Drawing.Size(659, 322)
         Me.Controls.Add(Me.StsStrpInfo)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MinimumSize = New System.Drawing.Size(675, 361)
         Me.Name = "frmClipboardMonitor"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

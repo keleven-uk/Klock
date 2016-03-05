@@ -330,6 +330,7 @@ Module IOcommon
             csvFile.HasFieldsEnclosedInQuotes = False
 
             Dim cl As New clipItem
+            Dim itmtext As New StringBuilder
 
             While csvFile.EndOfData = False
                 Try
@@ -337,14 +338,15 @@ Module IOcommon
 
                     cl.itemType = currentRow(0)
                     cl.itemDateTime = currentRow(1)
-                    cl.itemText = currentRow(2)
+                    itmtext.Append(currentRow(2))
 
                     If currentRow.Length > 3 Then       '   multiple text - possible multiple commas.
                         For f = 3 To currentRow.Length - 1
-                            cl.itemText += currentRow(f)
+                            itmtext.Append(currentRow(f))
                         Next
                     End If
-                Catch ex As System.IndexOutOfRangeException
+                    cl.itemText = itmtext.ToString()
+                Catch ex As Exception
                     '   probable a carriage return, ignore for now.
                 End Try
 

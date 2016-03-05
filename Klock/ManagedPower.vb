@@ -13,10 +13,10 @@ Public Class ManagedPower
 
     Public Function powerSource() As String
 
-        Dim text As String = ""
+        Dim text As String = String.Empty
 
         If ManagedPower.GetSystemPowerStatus(sysPowerStatus) Then
-            text += "Power source: " + sysPowerStatus.ACLineStatus.ToString() + Environment.NewLine
+            text = "Power source: " + sysPowerStatus.ACLineStatus.ToString() + Environment.NewLine
         End If
 
         Return text
@@ -24,7 +24,7 @@ Public Class ManagedPower
 
     Public Function powerStatus() As String
 
-        Dim text As String = ""
+        Dim text As String = String.Empty
 
         If sysPowerStatus.BatteryFlag = ManagedPower._BatteryFlag.NoSystemBattery Then
             text = "No System Battery"
@@ -42,13 +42,13 @@ Public Class ManagedPower
 
     Public Function chargingStatus() As String
 
-        Dim text As String = ""
+        Dim text As String = String.Empty
 
         If Not sysPowerStatus.BatteryFlag = ManagedPower._BatteryFlag.NoSystemBattery Then
 
             ' Print the percentage of the battery life remaining.
             Dim currentBatteryPercentage = sysPowerStatus.BatteryLifePercent
-            text += Environment.NewLine + "Battery life remaining is " + sysPowerStatus.BatteryLifePercent.ToString() + "%"
+            text = Environment.NewLine + "Battery life remaining is " + sysPowerStatus.BatteryLifePercent.ToString() + "%"
 
         End If
 

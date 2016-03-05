@@ -144,11 +144,7 @@ Public Class frmAnalogueKlock
 
         '   Set background colour of klock
 
-        If frmKlock.usrSettings.usrAnalogueKlcokTransparent Then        '   if transparent then set colour such.
-            analogueKlock.BackColor = Color.Transparent
-        Else
-            analogueKlock.BackColor = frmKlock.usrSettings.usrAnalogueKlockBackColour
-        End If
+        analogueKlock.BackColor = If(frmKlock.usrSettings.usrAnalogueKlcokTransparent, Color.Transparent, frmKlock.usrSettings.usrAnalogueKlockBackColour)
 
         '   Painting some stuff on the clock's background.
 
@@ -171,11 +167,7 @@ Public Class frmAnalogueKlock
         If frmKlock.usrSettings.usrAnalogueKlockShowTime Then
             'Draw digital time on the bottom, clock's background
 
-            If frmKlock.usrSettings.usrAnalogueKlockShowIdleTime Then
-                t = KlockThings.idleTime()
-            Else
-                t = analogueKlock.Value.ToShortTimeString
-            End If
+            t = If(frmKlock.usrSettings.usrAnalogueKlockShowIdleTime, KlockThings.idleTime(), analogueKlock.Value.ToShortTimeString)
 
             sz = e.Graphics.MeasureString(t, New Font("Lucida Calligraphy", 10, FontStyle.Italic), New PointF(0, 0), StringFormat.GenericDefault)
             x = analogueKlock.CenterPoint.PivotalPoint.X - sz.Width / 2
@@ -184,7 +176,7 @@ Public Class frmAnalogueKlock
             sbr.Dispose()
         End If
 
-            If frmKlock.usrSettings.usrAnalogueKlockShowDate Then
+        If frmKlock.usrSettings.usrAnalogueKlockShowDate Then
             'Draw month-day box on the clock's background
             Dim str As String = CType(analogueKlock.Value.Month, Months).ToString & " " & analogueKlock.Value.Day
             sz = e.Graphics.MeasureString(str, New Font("Tahoma", 10, FontStyle.Bold), New PointF(0, 0), StringFormat.GenericDefault)
@@ -348,10 +340,6 @@ Public Class frmAnalogueKlock
             gPath.CloseAllFigures()
             e.CustomPath = gPath
             End If
-    End Sub
-
-    Private Sub analogueKlock_TimeChanged(sender As Object, e As EventArgs) Handles analogueKlock.TimeChanged
-
     End Sub
 
     ' ------------------------------------------------------------------------------------------------------------------------- Context menu -----------------

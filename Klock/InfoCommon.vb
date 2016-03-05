@@ -40,7 +40,7 @@ Module InfoCommon
                 frmInfo.GroupBox1.Text = "Operating System"
 
                 frmInfo.Label1.Text = "Computer Name : " & My.Computer.Name.ToString
-                frmInfo.Label2.Text = ""
+                frmInfo.Label2.Text = String.Empty
                 frmInfo.Label3.Text = "OS Full Name : " & My.Computer.Info.OSFullName
                 frmInfo.Label4.Text = "OS Platform : " & My.Computer.Info.OSPlatform
                 frmInfo.Label5.Text = "OS Version : " & My.Computer.Info.OSVersion
@@ -55,10 +55,10 @@ Module InfoCommon
                 frmInfo.GroupBox1.Text = "Power Source"
 
                 frmInfo.Label1.Text = frmKlock.myManagedPower.powerSource()
-                frmInfo.Label2.Text = ""
+                frmInfo.Label2.Text = String.Empty
                 frmInfo.Label3.Text = frmKlock.myManagedPower.powerStatus()
                 frmInfo.Label4.Text = frmKlock.myManagedPower.chargingStatus()
-                frmInfo.Label5.Text = ""
+                frmInfo.Label5.Text = String.Empty
 
                 frmInfo.TmrInfo.Enabled = True      '   switch on timer.
             Case "Internet Time"
@@ -73,11 +73,11 @@ Module InfoCommon
                 frmInfo.Text = "Info - Internet Time"
                 frmInfo.GroupBox1.Text = "Internet Time"
 
-                frmInfo.Label1.Text = ""
-                frmInfo.Label2.Text = ""
-                frmInfo.Label3.Text = ""
-                frmInfo.Label4.Text = ""
-                frmInfo.Label5.Text = ""
+                frmInfo.Label1.Text = String.Empty
+                frmInfo.Label2.Text = String.Empty
+                frmInfo.Label3.Text = String.Empty
+                frmInfo.Label4.Text = String.Empty
+                frmInfo.Label5.Text = String.Empty
 
         End Select
 
@@ -140,7 +140,7 @@ Module InfoCommon
         frmInfo.Text = "Info - Easter Dates"
         frmInfo.GroupBox1.Text = "Easter Dates"
 
-        frmInfo.Label1.Text = ""
+        frmInfo.Label1.Text = String.Empty
         frmInfo.Label2.Text = "Easter Dates - " & currentYear
         frmInfo.Label3.Text = String.Format("Good Friday   : {0}", KlockThings.easterDate(currentYear).AddDays(-2).ToLongDateString)
         frmInfo.Label4.Text = String.Format("Easter Sunday : {0}", KlockThings.easterDate(currentYear).ToLongDateString)
@@ -161,10 +161,10 @@ Module InfoCommon
         frmInfo.GroupBox1.Text = "Internet Time"
 
         frmInfo.Label1.Text = sntpTime.ToString
-        frmInfo.Label2.Text = ""
-        frmInfo.Label3.Text = ""
-        frmInfo.Label4.Text = ""
-        frmInfo.Label5.Text = ""
+        frmInfo.Label2.Text = String.Empty
+        frmInfo.Label3.Text = String.Empty
+        frmInfo.Label4.Text = String.Empty
+        frmInfo.Label5.Text = String.Empty
     End Sub
 
 End Module

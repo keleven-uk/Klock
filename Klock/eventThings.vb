@@ -12,7 +12,8 @@
     Public Function eventTitle(ByVal e As Events) As String
         '   Set the event title according to which reminder is being called
 
-        Dim s As String = ""
+        Dim s As String = String.Empty
+
         If e.EventFirstReminder Then
             s = "First Reminder"
         ElseIf e.EventSecondreminder Then
@@ -33,22 +34,16 @@
             Case 0                          '   Anniversaries Chosen
                 Dim age As Integer = e.NoOfYears()
 
-                If age = 0 Then
-                    s = String.Format("{0} have a wedding anniversary in {1} days", e.EventName, e.DaysToGo())
-                Else
-                    s = String.Format("{0} have a {1} wedding anniversary in {2} days", e.EventName, weddingAnniversary(e.NoOfYears()), e.DaysToGo())
-                End If
+                s = If(age = 0, String.Format("{0} have a wedding anniversary in {1} days", e.EventName, e.DaysToGo()),
+                                String.Format("{0} have a {1} wedding anniversary in {2} days", e.EventName, weddingAnniversary(e.NoOfYears()), e.DaysToGo()))
 
             Case 1                          '   Appointment Chosen
                 s = String.Format("{0} appointment in {1} days", e.EventName, e.DaysToGo())
             Case 2                          '   Birthdays Chosen
                 Dim age As Integer = e.NoOfYears()
 
-                If age = 0 Then
-                    s = String.Format("{0} has a birthday in {1} days", e.EventName, e.DaysToGo())
-                Else
-                    s = String.Format("{0} is {1} in {2} days", e.EventName, age, e.DaysToGo())
-                End If
+                s = If(age = 0, String.Format("{0} has a birthday in {1} days", e.EventName, e.DaysToGo()),
+                                String.Format("{0} is {1} in {2} days", e.EventName, age, e.DaysToGo()))
 
             Case 3                          '   Holidays Chosen
                 s = String.Format("{0} has a Holiday in {1} days", e.EventName, e.DaysToGo())
@@ -82,7 +77,7 @@
 
         Dim tens() As String = {"", "", "twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "ninety"}
 
-        Dim s As String = ""
+        Dim s As String = String.Empty
         Dim unit As Integer
         Dim ten As Integer
 

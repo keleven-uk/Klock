@@ -223,8 +223,8 @@
         Dim hour As Integer = Now.Hour
         Dim mins As Integer = Now.Minute
         Dim nrms As Integer = mins - (mins Mod 5)           '   gets nearest five minutes.
-        Dim ampm As String = ""
-        Dim sRtn As String = ""
+        Dim ampm As String = String.Empty
+        Dim sRtn As String = String.Empty
 
         ampm = If(hour < 12, "in the morning", "pm")        '   if hour less then 12, in the morning else afternoon
 
@@ -232,7 +232,7 @@
 
         Select Case nrms
             Case 0
-                sRtn = ""
+                sRtn = String.Empty
             Case 5
                 sRtn = "five past"
             Case 10
@@ -256,7 +256,7 @@
             Case 55
                 sRtn = "five to"
             Case 60
-                sRtn = ""
+                sRtn = String.Empty
         End Select
 
         If nrms > 30 Then hour += 1
@@ -269,9 +269,9 @@
 
         '   if "pm" then afternoon, subtract 12 - only use 12 hour clock.
 
-        If (hour = 12) And (sRtn = "") Then
+        If (hour = 12) And (sRtn = String.Empty) Then
             getFuzzyTime = "about Noon"
-        ElseIf (hour = 0) And (sRtn = "") Then
+        ElseIf (hour = 0) And (sRtn = String.Empty) Then
             getFuzzyTime = "about Midnight"
         ElseIf (hour = 24) And (sRtn = "") Then
             getFuzzyTime = "about Midnight"
@@ -281,23 +281,14 @@
                 ampm = If(hour >= 5, "in the evening", "in the afternoon")   '   if greater then five in the afternoon then evening.
             End If
 
-            If sRtn = "" Then
-                Return String.Format("about {0} ish {1}", hours(hour), ampm)
-            Else
-                Return String.Format("{0} {1} {2}", sRtn, hours(hour), ampm)
-            End If
+            Return If(sRtn = String.Empty, String.Format("about {0} ish {1}", hours(hour), ampm), String.Format("{0} {1} {2}", sRtn, hours(hour), ampm))
         End If
     End Function
 
     Private Function getLocalTime() As String
         '   returns local time
 
-        If use24Hour Then
-            Return String.Format("{0:HH:mm:ss}", System.DateTime.Now.ToLocalTime)
-        Else
-            Return String.Format("{0:hh:mm:ss tt}", System.DateTime.Now.ToLocalTime)
-        End If
-
+        Return If(use24Hour, String.Format("{0:HH:mm:ss}", System.DateTime.Now.ToLocalTime), String.Format("{0:hh:mm:ss tt}", System.DateTime.Now.ToLocalTime))
     End Function
 
     Private Function getSemaphoreTime() As String
@@ -331,7 +322,7 @@
 
         Dim hour As Integer = Now.Hour
         Dim mins As Integer = Now.Minute
-        Dim ampm As String = ""
+        Dim ampm As String = String.Empty
         Dim pasTo As String = "past"
 
         ampm = If(hour < 12, "in the morning", "pm")        '   if hour less then 12, in the morning else afternoon
@@ -341,7 +332,6 @@
             pasTo = "to"
             mins = 60 - mins
         End If
-
 
         '   generate output string according to the hour of the day.
         '   This looks more complicated then it should be, maybe separate if then's would be better and use exit sub's inside each.
@@ -353,7 +343,7 @@
             ampm = If(hour >= 5, "in the evening", "in the afternoon")   '   if greater then five in the afternoon then evening.
         End If
 
-        Dim minsStr As String = ""
+        Dim minsStr As String = String.Empty
 
         Select Case mins
             Case 0
@@ -376,11 +366,8 @@
     Private Function getUTCTime() As String
         '   returns current [local] time as a Universal Current Time.
 
-        If use24Hour Then
-            Return String.Format("{0:HH:mm:ss}", System.DateTime.Now.ToUniversalTime.ToLongTimeString)
-        Else
-            Return String.Format("{0:hh:mm:ss tt}", System.DateTime.Now.ToUniversalTime.ToLongTimeString)
-        End If
+        Return If(use24Hour, String.Format("{0:HH:mm:ss}", System.DateTime.Now.ToUniversalTime.ToLongTimeString),
+                             String.Format("{0:hh:mm:ss tt}", System.DateTime.Now.ToUniversalTime.ToLongTimeString))
     End Function
 
     Private Function getSwatchTime() As String
@@ -472,11 +459,8 @@
         Dim min As Integer = Math.Floor((noOfHexSecs - (hrs * 4096)) / 16)
         Dim sec As Integer = noOfHexSecs Mod 16
 
-        If frmKlock.usrSettings.usrTimeHexIntuitorFormat Then
-            Return String.Format("{0}_{1}_{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
-        Else
-            Return String.Format(".{0}{1}{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X"))
-        End If
+        Return If(frmKlock.usrSettings.usrTimeHexIntuitorFormat, String.Format("{0}_{1}_{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X")),
+                                                                 String.Format(".{0}{1}{2}", hrs.ToString("X"), min.ToString("X"), sec.ToString("X")))
     End Function
 
     Private Function getBinaryTime() As String
@@ -552,7 +536,7 @@
         '   NB : only number 0 -> 60.
         '   This maybe could be written better!!!!
 
-        Dim result As String = ""
+        Dim result As String = String.Empty
 
         Do
             Select Case time
@@ -590,9 +574,9 @@
         Dim mins As Integer = Now().Minute
         Dim secs As Integer = Now().Second
 
-        Dim codeHours As String = ""
-        Dim codeMins As String = ""
-        Dim codeSecs As String = ""
+        Dim codeHours As String = String.Empty
+        Dim codeMins As String = String.Empty
+        Dim codeSecs As String = String.Empty
 
         codeHours = If(hours < 9, toCode(hours), String.Format("{0} {1}", toCode(Int(hours / 10)), toCode(hours Mod 10)))
         codeMins = If(mins < 9, toCode(mins), String.Format("{0} {1}", toCode(Int(mins / 10)), toCode(mins Mod 10)))
@@ -604,7 +588,7 @@
     Private Function toCode(time As String) As String
         '   Returns string in Morse code.
 
-        Dim result As String = ""
+        Dim result As String = String.Empty
 
         Select Case time
             Case 1

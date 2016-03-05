@@ -91,8 +91,8 @@
 
         Dim et As New eventThings
 
-        Dim title As String = ""
-        Dim message As String = ""
+        Dim title As String = String.Empty
+        Dim message As String = String.Empty
 
         '                                                   remember the event name is held in title case.
         If e.EventName = "btnEventNotificationTest" Then
@@ -116,16 +116,16 @@
         Select Case s
             Case SystemTypes.ShutDown
                 frmKlock.Text = " Klock is Shutting Down PC"
-                p.Arguments = "-s " & "-t 10 " & "-c ""Shutting Down PC in 10 Seconds"""
+                p.Arguments = "-s -t 10 -c Shutting Down PC in 10 Seconds"
             Case SystemTypes.Restart
                 frmKlock.Text = " Klock is Restarting PC"
-                p.Arguments = "-r " & "-t 10 " & "-c ""Restarting Down PC in 10 Seconds"""
+                p.Arguments = "-r -t 10 -c Restarting Down PC in 10 Seconds"
             Case SystemTypes.GUI
                 frmKlock.Text = " Klock is Displaying GUI Interface"
                 p.Arguments = "-i "
             Case SystemTypes.LogOff
                 frmKlock.Text = " Klock is Logging off Current User"
-                p.Arguments = "-l " & "-t 10 " & "-c ""Logging off user in 10 Seconds by Klock"""
+                p.Arguments = "-l - t 10 -c Logging off user in 10 Seconds by Klock"
         End Select
 
         Try
@@ -157,7 +157,7 @@
         '   If the file has an association, the host will be run. i.e a .doc file will launch word.
 
         If s = String.Empty Then
-            MessageBox.Show("Even Klock cant run with nowt!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Even Klock can't run with nowt!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Else
             If My.Computer.FileSystem.FileExists(s) Then
                 Try

@@ -90,7 +90,7 @@ Public Class UserSettings
     Private _usrAnalogueKlockShowIdleTime As Boolean = False
     Private _usrAnalogueKlockBackColour As Color = Color.LightSlateGray
     Private _usrAnalogueKlockDisplayPicture As Boolean = False
-    Private _usrAnalogueKlockPicture As String = ""
+    Private _usrAnalogueKlockPicture As String = String.Empty
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
     Private _usrTimerHigh As Boolean = False
     Private _usrTimerClearSplit As Boolean = False
@@ -1571,10 +1571,10 @@ Public Class UserSettings
         '   Need to read each node [element] in order and level, the value is then converted to the desired type..
 
         Dim r, g, b, a As Byte
-        Dim name As String
-        Dim size As Single
+        Dim name As String = String.Empty
+        Dim size As Single = 0
         Dim style As FontStyle
-        Dim version As String
+        Dim version As String = String.Empty
 
         Try
             Dim elem As XElement = XElement.Load(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
@@ -1882,7 +1882,7 @@ Public Class UserSettings
         '   If found, then return the elements value.
         '   if not found, return the default [d]
 
-        Dim r As String = ""
+        Dim r As String = String.Empty
 
         Try
             r = g.Element(s).Value

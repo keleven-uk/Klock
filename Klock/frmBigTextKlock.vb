@@ -186,10 +186,7 @@
         pnlBigKlock.BackColor = backColour
 
         For Each lbl In pnlBigKlock.Controls     'if other then label appear on panel, then will have to check for this.
-            'If (lbl.GetType() Is GetType(Label)) Then
-            'lbl.Enabled = False
             lbl.ForeColor = offColour
-            'End If
         Next
 
         lblthe.ForeColor = foreColour

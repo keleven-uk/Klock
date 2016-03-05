@@ -1,4 +1,5 @@
 ﻿Imports Shell32
+Imports System.Environment
 
 Public Class frmOptions
 
@@ -686,8 +687,8 @@ Public Class frmOptions
             pctrBxAnlgKlockPicture.Enabled = False
             btnAnlgKlockPictureLocation.Enabled = False
             txtBxAnlgKlockPictureLocation.Enabled = False
-            txtBxAnlgKlockPictureLocation.Text = ""
-            pctrBxAnlgKlockPicture.ImageLocation = ""
+            txtBxAnlgKlockPictureLocation.Text = String.Empty
+            pctrBxAnlgKlockPicture.ImageLocation = String.Empty
             pctrBxAnlgKlockPicture.Image = Nothing
         End If
     End Sub
@@ -695,7 +696,7 @@ Public Class frmOptions
     Private Sub btnAnlgKlockPictureLocation_Click(sender As Object, e As EventArgs) Handles btnAnlgKlockPictureLocation.Click
         '   Load the background image for analogue klock.
 
-        OpenFileDialog1.InitialDirectory = Application.StartupPath
+        OpenFileDialog1.InitialDirectory = System.IO.Path.Combine(Application.StartupPath, "images")
         If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
             txtBxAnlgKlockPictureLocation.Text = OpenFileDialog1.SafeFileName
 

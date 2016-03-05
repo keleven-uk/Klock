@@ -76,6 +76,23 @@ The location of the Reminder, Friends, Events and memo files can be changed in
 the option screen.  A Zip Archive can then be save and re-loaded of this file
 
 
+Convert
+
+Implements a simple Conversion thingy.
+
+Different conversion can be selected from different categories.
+
+
+Sayings
+
+Implements a simple Sayings Display Thingy.
+A random saying can also be displayed at a user chosen interval in the system tray
+
+Clipboard manager
+
+Implements a simple Clipboard Monitor Thingy.
+The Clipboard manager remembers all things copied to the clipboard, remembers the history of the clipboard.
+
 
 
 
@@ -109,15 +126,7 @@ The application also contains a options screen [file / Options] which allows var
 NB: If the option is checked to start on windows start up, it only operates for the current user.
 
 
-Program partially tested on Windows XP, Windows 7 & 8 [both 32 & 64 bit].
+Program partially tested on Windows XP, Windows 7 & 10 [both 32 & 64 bit].
 
 
-The notification windows [or toast] is written by jmcilhinney and can be found at
-http://www.vbforums.com/showthread.php?351757-Animated-Window-Effects-with-quot-Toast-quot-popup-demo
 
-The Archive [zip] stuff uses a dll called DotNetZip - see http://DotNetZip.codeplex.com.
-This comes under the Microsoft Public License (Ms-PL) - which is included in the application folder.
-
-
-Much of the code for the friends tab was inspired from reading Mastering Visual 
-Basic 2010 by Evangelos Petroutsos.

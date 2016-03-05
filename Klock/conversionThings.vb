@@ -67,8 +67,8 @@ Module conversionThings
     Public Sub clearTextBoxes()
         '   Clear both text boxes on the convert tab.
 
-        frmKlock.TxtBxConvertResult.Text = ""
-        frmKlock.TxtBxConvertValue.Text = ""
+        frmKlock.TxtBxConvertResult.Text = String.Empty
+        frmKlock.TxtBxConvertValue.Text = String.Empty
     End Sub
 
     Public Sub addUnits()

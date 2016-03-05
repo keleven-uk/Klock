@@ -1,3 +1,57 @@
+commit b7384918f41b439c05a3b8fab4fcd89a8dd38cdb
+Author: Kevin Scott <klock@keleven.co.uk>
+Date:   Wed Mar 2 22:56:58 2016 +0000
+
+    Added buttons to save and load the clipboard history data.
+    
+    [IOcommon.vb]
+    Added logic to save and load the clipboard history in both CSB and BIN formats.
+    
+    [frmClipboardMonitor.vb]
+    mainly code for above.
+    The listview was changed to a list box, so that it can hold objects like friends, events and memo.
+    Added code to change the fore colour of items in the list box - in listBoxThings.vb
+    
+    [UserSettings.vb & frmOptions.vb]
+    Added settings for save clipboard as either CSV or bin.
+    
+    [conversionThings.vb]
+    Improved the code in unitsLoad() - changed the way csv file are parsed.
+    
+    [KlockThings.vb]
+    Removed itemForecolor() and moved back to frmClipboardMonitor.vb
+    
+    [listBoxThings.vb]
+    Added ListBoxEnsureVisable(), which will scroll a list box so that the last entry is always visible.
+    Called on all list box’s - Friends, Events, Memo & Clipboard.
+    
+    [clipItem.vb]
+    Added - class template for a clipboard item.
+
+ Klock/ApplicationEvents.vb            |  10 ++
+ Klock/FEMcommon.vb                    |   1 +
+ Klock/IOcommon.vb                     | 183 ++++++++++++++++++++++++++++++++--
+ Klock/Klock.chm                       | Bin 700690 -> 700180 bytes
+ Klock/Klock.iss                       |   8 +-
+ Klock/Klock.pdf                       | Bin 4078931 -> 4084233 bytes
+ Klock/Klock.vbproj                    |   3 +
+ Klock/KlockThings.vb                  |  33 +-----
+ Klock/My Project/AssemblyInfo.vb      |   4 +-
+ Klock/UserSettings.vb                 |  13 +++
+ Klock/clipItem.vb                     |  57 +++++++++++
+ Klock/conversionThings.vb             |  25 ++---
+ Klock/frmClipboardMonitor.Designer.vb |  85 ++++++++--------
+ Klock/frmClipboardMonitor.resx        |   6 ++
+ Klock/frmClipboardMonitor.vb          | 159 ++++++++++++++++++++++-------
+ Klock/frmKlock.vb                     |  14 ++-
+ Klock/frmOptions.Designer.vb          |  38 ++++---
+ Klock/frmOptions.vb                   |  12 +--
+ Klock/history.txt                     |  42 +++++++-
+ Klock/klock.hnd                       | Bin 26415104 -> 26517504 bytes
+ Klock/listBoxThings.vb                |  27 +++++
+ log.txt                               |  38 +++++++
+ 22 files changed, 604 insertions(+), 154 deletions(-)
+
 commit 10b211c1be62dfb33832f871bec2f386e8235f33
 Author: Kevin Scott <klock@keleven.co.uk>
 Date:   Tue Feb 23 22:58:53 2016 +0000

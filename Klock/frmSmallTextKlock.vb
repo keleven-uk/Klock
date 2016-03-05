@@ -136,10 +136,7 @@
         pnlSmallKlock.BackColor = backColour
 
         For Each lbl In pnlSmallKlock.Controls     'if other then label appear on panel, then will have to check for this.
-            'If (lbl.GetType() Is GetType(Label)) Then
-            'lbl.Enabled = False
             lbl.ForeColor = offColour
-            'End If
         Next
 
         lblIT.ForeColor = foreColour
@@ -152,8 +149,8 @@
         Dim hour As Integer = Now.Hour
         Dim mins As Integer = Now.Minute
         Dim nrms As Integer = mins - (mins Mod 5)           '   gets nearest five minutes.
-        Dim ampm As String = ""
-        Dim sRtn As String = ""
+        Dim ampm As String = String.Empty
+        Dim sRtn As String = String.Empty
 
         If hour < 12 Then                                   '   if hour less then 12, in the morning else afternoon
             ampm = "in the morning"
@@ -168,7 +165,7 @@
 
         Select Case nrms
             Case 0
-                sRtn = ""
+                sRtn = String.Empty
             Case 5
                 sRtn = "five past"
                 lblFIVEto.ForeColor = foreColour
@@ -216,7 +213,7 @@
                 lblFIVEto.ForeColor = foreColour
                 lblTO.ForeColor = foreColour
             Case 60
-                sRtn = ""
+                sRtn = String.Empty
         End Select
 
         If nrms > 30 Then hour += 1
@@ -229,13 +226,13 @@
 
         '   if "pm" then afternoon, subtract 12 - only use 12 hour clock.
 
-        If (hour = 12) And (sRtn = "") Then
+        If (hour = 12) And (sRtn = String.Empty) Then
             lblABOUT.ForeColor = foreColour
             lblNOON.ForeColor = foreColour
-        ElseIf (hour = 0) And (sRtn = "") Then
+        ElseIf (hour = 0) And (sRtn = String.Empty) Then
             lblABOUT.ForeColor = foreColour
             lblMIDNIGHT.ForeColor = foreColour
-        ElseIf (hour = 24) And (sRtn = "") Then
+        ElseIf (hour = 24) And (sRtn = String.Empty) Then
             lblABOUT.ForeColor = foreColour
             lblMIDNIGHT.ForeColor = foreColour
         Else
@@ -253,7 +250,7 @@
                 End If
             End If
 
-            If sRtn = "" Then lblABOUT.ForeColor = foreColour
+            If sRtn = String.Empty Then lblABOUT.ForeColor = foreColour
 
             Select Case hour
                 Case 0
@@ -286,7 +283,7 @@
 
             End Select
 
-            If sRtn = "" Then lblISH.ForeColor = foreColour
+            If sRtn = String.Empty Then lblISH.ForeColor = foreColour
         End If
     End Sub
 End Class
