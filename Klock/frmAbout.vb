@@ -107,9 +107,11 @@ Public Class frmAbout
         Try
             Shell("msinfo32.exe", AppWinStyle.NormalFocus)
         Catch ex As Exception
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmAbout.btnAboutMSinfo", ex)
             Try                         '   if fails, try hard coded location [I think for windows XP]
                 Shell("C:\Program Files\Common Files\Microsoft Shared\MSInfo\msinfo32.exe", AppWinStyle.NormalFocus)
             Catch ex1 As Exception
+                If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmAbout.btnAboutMSinfo", ex)
                 MessageBox.Show("Cannot find MSinfo! " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
 

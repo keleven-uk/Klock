@@ -1,5 +1,4 @@
-﻿Imports System.IO
-Imports System.Runtime.InteropServices
+﻿Imports System.Runtime.InteropServices
 
 Public Class frmKlock
 
@@ -18,6 +17,7 @@ Public Class frmKlock
     '   December 2015   V1.1.4 - Added Analogue Klock                                       [build 61]
     '   January 2016    V1.1.5 - Added Sayings                                              [build 64]
     '   February 2016   V1.1.6 - Added clipboard manager                                    [build 65]
+    '   March 2016      V1.1.7 - Added [error] logging                                      [build 71]
 
 
     Public startTime As Integer
@@ -30,6 +30,7 @@ Public Class frmKlock
     Public usrVoice As Voice                        '   instance of user voice
     Public usrFonts As UserFonts                    '   instance of user fonts.
     Public myManagedPower As ManagedPower           '   instance of managed Power
+    Public errLogger As Logger
 
     Public CountDownTime As Integer                 '   Holds number of minutes for the countdown timer.
     Public ReminderDateTime As DateTime             '   Holds the date [and time] of the set reminder.
@@ -200,6 +201,7 @@ Public Class frmKlock
         Try
             NtfyIcnKlock.Text = displayOneTime.getTitle & " : " & displayOneTime.getTime()    '   set icon tool tip to current time [must be less then 64 chars].
         Catch ex As Exception
+            If usrSettings.usrLogging Then errLogger.LogExceptionError("frmKlock.NotificationDispaly", ex)
             displayAction.DisplayReminder("Notification Error", ex.Message, "G")
         End Try
 
@@ -1244,6 +1246,7 @@ Public Class frmKlock
             End If
 
         Catch ex As Exception
+            If usrSettings.usrLogging Then errLogger.LogExceptionError("frmKlock.populateFriend", ex)
             displayAction.DisplayReminder("ERROR :: populating friend", ex.Message, "G")
         End Try
     End Sub
@@ -1462,6 +1465,7 @@ Public Class frmKlock
                 ListBoxEnsureVisible(LstBxEvents)                    '   Scowl list box if needed.
             End If
         Catch ex As Exception
+            If usrSettings.usrLogging Then errLogger.LogExceptionError("frmKlock.populateEvents", ex)
             displayAction.DisplayReminder("ERROR :: populating event", ex.Message, "G")
         End Try
     End Sub
@@ -1567,6 +1571,7 @@ Public Class frmKlock
                 ListBoxEnsureVisible(LstBxMemo)                     '   Scowl list box if needed.
             End If
         Catch ex As Exception
+            If usrSettings.usrLogging Then errLogger.LogExceptionError("frmKlock.populateMemo", ex)
             displayAction.DisplayReminder("ERROR :: populating memo", ex.Message, "G")
         End Try
     End Sub
@@ -1604,6 +1609,7 @@ Public Class frmKlock
                     TmrMemo.Enabled = True
                     TlStrpPrgrsBrMemo.Visible = True
                 Catch ex As Exception
+                    If usrSettings.usrLogging Then errLogger.LogExceptionError("frmKlock.showMemo", ex)
                     displayAction.DisplayReminder("Memo Error", "Seems to be the wrong password", "G")
                 End Try
 
@@ -1757,8 +1763,6 @@ Public Class frmKlock
 
         TmrMain.Enabled = False                         '   Turn off main timer while we sort things out.
 
-        FEMcommon.ButtonsVisible(False, 0, 0, 0)
-
         startTime = My.Computer.Clock.TickCount         '   used for app running time.
         displayOneTime = New selectTime                 '   user selected time I
         displayTwoTime = New selectTime                 '   user selected time II
@@ -1767,8 +1771,14 @@ Public Class frmKlock
         usrSettings = New UserSettings                  '   user settings
         usrFonts = New UserFonts                        '   user fonts
         usrVoice = New Voice                            '   user voice
-
+        errLogger = New Logger
         myManagedPower = New ManagedPower               '   system power source
+
+        errLogger.useLogging = usrSettings.usrLogging
+        errLogger.logdaysKeep = usrSettings.usrLogDaysKeep
+        errLogger.logFilePath = usrSettings.usrLogFilePath
+
+        If usrSettings.usrLogging Then errLogger.logMessage("frmKlock_Load", "Klock Starting")
 
         setSettings()                                   '   load user settings
         setTimeTypes()                                  '   load time types into combo box.
@@ -1789,6 +1799,8 @@ Public Class frmKlock
         LstBxFriends.Font = usrFonts.getFont()
         LstBxEvents.Font = usrFonts.getFont()
         LstBxMemo.Font = usrFonts.getFont()
+
+        FEMcommon.ButtonsVisible(False, 0, 0, 0)
 
         TmrMain.Enabled = True                          '   Turn on main timer now things are sorted out.
     End Sub
@@ -1857,6 +1869,8 @@ Public Class frmKlock
         '       Restore monitor settings.
         '       Dispose of graphics object.
 
+        If usrSettings.usrLogging Then errLogger.logMessage("frmKlock_FormClosing", "Klock Closing")
+
         If CL_MONITORED Then ClipboardMonitorOff()       '   turn off clipboard monitoring
 
         If usrSettings.usrSavePosition Then
@@ -1869,6 +1883,7 @@ Public Class frmKlock
         usrSettings.writeSettings()                     '   save settings, not sure if anything has changed.
 
         grphcs.Dispose()
+
     End Sub
 
     Sub setSettings()
@@ -1983,6 +1998,8 @@ Public Class frmKlock
     Private Sub closeKlock(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click, MnItmExit.Click, TlStrpMnItmExit.Click
         '   Close application.
         '   Called from close button, main menu [file / exit] and system tray right click menu.
+
+        If usrSettings.usrLogging Then errLogger.logMessage("closeKlockd", "Klock Closing")
 
         Close()
     End Sub
@@ -2184,6 +2201,7 @@ Public Class frmKlock
             AddHandler Me.OnClipboardChanged, AddressOf ClipBoardChanged
             CL_MONITORED = True
         Catch ex As ArgumentException
+            If usrSettings.usrLogging Then errLogger.LogExceptionError("frmKlock.ClipboardMonitorON", ex)
             MessageBox.Show("ERROR :: adding to clipboard viewer chain" & ex.Message, "Clipboard Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
@@ -2199,6 +2217,7 @@ Public Class frmKlock
             ChangeClipboardChain(Me.Handle, mNextClipBoardViewerHWnd)
             CL_MONITORED = False
         Catch ex As ArgumentException
+            If usrSettings.usrLogging Then errLogger.LogExceptionError("frmKlock.ClipboardMonitorOff", ex)
             MessageBox.Show("ERROR :: Removing from  clipboard viewer chain" & ex.Message, "Clipboard Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 

@@ -132,6 +132,7 @@
             p.FileName = "shutdown.exe"
             Process.Start(p)
         Catch ex As System.ComponentModel.Win32Exception
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("selectActions.ProcessStartInfo", ex)
             DisplayReminder("ERROR", "Sorry, there seems to problems :: " & ex.Message, "G")
         End Try
     End Sub
@@ -147,6 +148,7 @@
             p.FileName = "shutdown.exe"
             Process.Start(p)
         Catch ex As System.ComponentModel.Win32Exception
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("selectActions.AbortSystemCommand", ex)
             DisplayReminder("ERROR", "Sorry, there seems to problems :: " & ex.Message, "G")
         End Try
     End Sub
@@ -163,6 +165,7 @@
                 Try
                     Process.Start(s)
                 Catch ex As System.ComponentModel.Win32Exception
+                    If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("selectActions.DoCommand", ex)
                     DisplayReminder("ERROR", "Sorry, can not be executed :: " & ex.Message, "G")
                 End Try
             Else

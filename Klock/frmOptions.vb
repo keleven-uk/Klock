@@ -1,5 +1,6 @@
-﻿Imports Shell32
-Imports System.Environment
+﻿Imports System.Environment
+Imports System.IO
+Imports System.IO.Compression
 
 Public Class frmOptions
 
@@ -27,7 +28,7 @@ Public Class frmOptions
 
         displayAction = New selectAction
 
-        txtBxArchiveFile.Text = "Klock.zip"
+        txtBxArchiveFile.Text = "Klock_" & DateTime.Now.ToString("ddMMyyyy") & ".zip"
         lblOptionSavepath.Text = System.IO.Path.Combine(frmKlock.usrSettings.usrOptionsSavePath(), frmKlock.usrSettings.usrOptionsSaveFile())
 
         checkPicture()
@@ -60,6 +61,9 @@ Public Class frmOptions
                 showArchiveButtons(False)
             Case 8              '   Memo options
                 showArchiveButtons(False)
+            Case 9              '   Logging options
+                showArchiveButtons(False)
+                poolForLogs()
         End Select
     End Sub
 
@@ -73,8 +77,6 @@ Public Class frmOptions
 
     Sub setSettings()
         '   Apply the current settings.
-
-        'frmKlock.usrSettings.readSettings()     '   re-read settings, so we are always working current.
 
         cmbBxDefaultTab.SelectedIndex = frmKlock.usrSettings.usrDefaultTab
         cmbBxDefaultMode.SelectedIndex = frmKlock.usrSettings.usrStartKlockMode
@@ -228,6 +230,12 @@ Public Class frmOptions
         txtBxMemoDefaultPassword.Text = frmKlock.usrSettings.usrMemoDefaultPassword
 
         nmrcUpDwnMemoDecrypt.Value = frmKlock.usrSettings.usrMemoDecyptTimeOut
+
+        '-------------------------------------------------------------------------------------------------------- Logging Settings ----------
+
+        ChckBxLoging.Checked = frmKlock.usrSettings.usrLogging
+        nmrcUpDwnLogDaysKeep.Value = frmKlock.usrSettings.usrLogDaysKeep
+        lblLogFilePath.Text = "Log File Location : " & frmKlock.usrSettings.usrLogFilePath
     End Sub
 
     ' ************************************************************************************* global options *****************************
@@ -362,6 +370,12 @@ Public Class frmOptions
         frmKlock.usrSettings.usrMemoDefaultPassword = txtBxMemoDefaultPassword.Text
         frmKlock.usrSettings.usrMemoDecyptTimeOut = nmrcUpDwnMemoDecrypt.Value
 
+        '-------------------------------------------------------------------------------------------------------- Logging Settings ----------
+
+        frmKlock.usrSettings.usrLogging = ChckBxLoging.Checked
+        frmKlock.usrSettings.usrLogDaysKeep = nmrcUpDwnLogDaysKeep.Value
+
+
         frmKlock.usrSettings.writeSettings()
         frmKlock.setSettings()
 
@@ -432,6 +446,7 @@ Public Class frmOptions
                 My.Computer.Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True).DeleteValue(Application.ProductName)
             End If
         Catch ex As Exception
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmOptions.ChckBxOptionsRunOnStartup_CheckedChanged", ex)
             displayAction.DisplayReminder("Registry Error :: Cant write entry to Registry", ex.Message, "G")
         End Try
     End Sub
@@ -964,6 +979,58 @@ Public Class frmOptions
         nmrcUpDwnMemoDecrypt.Enabled = chckBxMemoDefaultPassword.Checked
     End Sub
 
+    '------------------------------------------------------------------------------------------------------ Logging Settings ----------
+
+    Private Sub ChckBxLoging_CheckedChanged(sender As Object, e As EventArgs) Handles ChckBxLoging.CheckedChanged
+        '   Only enable logging settings, if logging is enabled.
+
+        nmrcUpDwnLogDaysKeep.Enabled = ChckBxLoging.Checked
+        lblLogFilePath.Enabled = ChckBxLoging.Checked
+        lstBxLogFiles.Enabled = ChckBxLoging.Checked
+
+        '   if enabled, the re-scan directory for log files.
+        If ChckBxLoging.Checked Then
+            poolForLogs()
+        Else
+            lstBxLogFiles.Items.Clear()
+        End If
+    End Sub
+
+    Private Sub poolForLogs()
+        '   Pool the chosen directory for log files.
+        '   At the moment that is .log files in application data directory.
+
+        lstBxLogFiles.Items.Clear()
+
+        For i As Integer = 0 To frmKlock.errLogger.poolLogs().Count - 1
+            lstBxLogFiles.Items.Add(frmKlock.errLogger.poolLogs(i))
+        Next
+    End Sub
+
+    Private Sub lstBxLogFiles_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstBxLogFiles.SelectedIndexChanged
+        '   If an entry in the log file list is clicked, the log file is loaded into the default text editor.
+
+        Dim fName As String = lstBxLogFiles.Items(lstBxLogFiles.SelectedIndex)
+
+        '   in case file has been removed.
+        If Not My.Computer.FileSystem.FileExists(fName) Then Exit Sub
+
+        Dim ps As New ProcessStartInfo()
+        With ps
+            .FileName = fName
+            .UseShellExecute = True
+        End With
+
+        Try
+            Dim p As New Process
+            p.StartInfo = ps
+            p.Start()
+        Catch ex As Exception
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmOptions.lstBxLogFiles_SelectedIndexChanged", ex)
+            frmKlock.displayAction.DisplayReminder("Log File Error", "Sorry, can't find log. " & ex.Message, "G")
+        End Try
+    End Sub
+
     ' **************************************************************************************** Archive stuff ***************************
 
     Private Sub btnOptionsPathReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsPathReset.Click
@@ -1016,44 +1083,29 @@ Public Class frmOptions
         '   Saves the friends, events, memo & settings files to Archive [zip].
         '   If the achieve already exists, it will only be overwritten on user prompt.
 
-        Dim zippath As String = System.IO.Path.Combine(txtBxArchiveDirectory.Text, txtBxArchiveFile.Text) '   path of destination zip file.
+        Dim zippath As String = Path.Combine(txtBxArchiveDirectory.Text, txtBxArchiveFile.Text)       '   path of destination zip file.
         Dim zipdir As String = frmKlock.usrSettings.usrOptionsSavePath                                          '   path of source directory.
+        Dim ziperror As Boolean = True
 
-        If My.Computer.FileSystem.FileExists(zippath) Then      '   file already exists, prompt user.
-            Dim reply As MsgBoxResult
-
-            reply = MsgBox("This will over write existing Archive file", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
-
-            If reply = MsgBoxResult.No Then     '   Not to over write, exit sub.
-                btnArchiveSave.Enabled = False
-                Exit Sub
-            End If
+        If Not fileExists(zippath) Then         '   archive already exists and not to overwrite.
+            btnArchiveSave.Enabled = False
+            Exit Sub
         End If
 
-        '1) Lets create an empty Zip File .
-        'The following data represents an empty zip file .
-
-        Dim startBuffer() As Byte = {80, 75, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-        ' Data for an empty zip file .
-        FileIO.FileSystem.WriteAllBytes(zippath, startBuffer, False)
-
-        'We have successfully made the empty zip file .
-
-        '2) Use the Shell32 to zip your files .
-        ' Declare new shell class
-        Dim sc As New Shell32.Shell()
-        'Declare the folder which contains the files you want to zip .
-        Dim input As Shell32.Folder = sc.NameSpace(zipdir)
-        'Declare  your created empty zip file as folder  .
-        Dim output As Shell32.Folder = sc.NameSpace(zippath)
-        'Copy the files into the empty zip file using the CopyHere command .
-
-        Try
-            output.CopyHere(input.Items, 4)                                     '   save Archive
-            displayAction.DisplayReminder("Saving File Okay", "Archiving Data Files Successful.", "G")
-        Catch ex As Exception
-            displayAction.DisplayReminder("Saving File Error", "Error archiving Data Files. " & ex.Message, "G")
-        End Try
+        Using archive As ZipArchive = ZipFile.Open(zippath, ZipArchiveMode.Update)
+            For Each file As String In My.Computer.FileSystem.GetFiles(zipdir)
+                If Not file.EndsWith(".log") Then
+                    Try
+                        archive.CreateEntryFromFile(file, My.Computer.FileSystem.GetName(file), CompressionLevel.Optimal)
+                    Catch ex As Exception
+                        ziperror = False
+                        If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmOptions.btnArchiveSave_Click", ex)
+                        displayAction.DisplayReminder("Saving File Error", "Error archiving Data Files. " & ex.Message, "G")
+                    End Try
+                End If
+            Next
+            If ziperror Then displayAction.DisplayReminder("Saving File Okay", "Archiving Data Files Successful.", "G")
+        End Using
     End Sub
 
     Private Sub btnArchiveLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchiveLoad.Click
@@ -1061,30 +1113,48 @@ Public Class frmOptions
         '   The file will only be overwritten, if it exists, on user prompt.
         '   If the path does not exist, it will be created.
 
-        Dim zippath As String = System.IO.Path.Combine(txtBxArchiveDirectory.Text, txtBxArchiveFile.Text) '   path of source sip file.
-        Dim zipdir As String = frmKlock.usrSettings.usrOptionsSavePath                                          '   path of destination directory.
+        '   Could use archive.ExtractToDirectory(zipdir), if file checking was not used.
 
-        Dim sc As New Shell32.Shell()
+
+        Dim zippath As String = Path.Combine(txtBxArchiveDirectory.Text, txtBxArchiveFile.Text)   '   path of source sip file.
+        Dim zipdir As String = frmKlock.usrSettings.usrOptionsSavePath                                      '   path of destination directory.
+        Dim ziperror As Boolean = True
 
         If Not My.Computer.FileSystem.DirectoryExists(zipdir) Then
             My.Computer.FileSystem.CreateDirectory(zipdir)
         End If
 
-        'Declare the folder where the files will be extracted
-        Dim output As Shell32.Folder = sc.NameSpace(zipdir)
-        'Declare your input zip file as folder  .
-        Dim input As Shell32.Folder = sc.NameSpace(zippath)
-        'Extract the files from the zip file using the CopyHere command .
-
-        Try                                           '   catch extract error, if any.
-            output.CopyHere(input.Items, 4)
-            frmKlock.reloadFriends = True             '   set to re-load friends file.
-            displayAction.DisplayReminder("Loading File Okay", "Loading Data Files Successful.", "G")
-        Catch ex As Exception
-            displayAction.DisplayReminder("Loading File Error", "Error Loading Data Files. " & ex.Message, "G")
-        End Try
+        Using archive As ZipArchive = ZipFile.OpenRead(zippath)
+            For Each entry As ZipArchiveEntry In archive.Entries
+                Try
+                    If fileExists(Path.Combine(zipdir, entry.FullName)) Then  '   archive already exists and to overwrite.
+                        entry.ExtractToFile(Path.Combine(zipdir, entry.FullName))
+                    End If
+                Catch ex As Exception
+                    ziperror = False
+                    If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmOptions.btnArchiveLoad_Click", ex)
+                    displayAction.DisplayReminder("Loading File Error", "Error Loading Data Files. " & ex.Message, "G")
+                End Try
+            Next
+            If ziperror Then displayAction.DisplayReminder("Loading File Okay", "Loading Data Files Successful.", "G")
+        End Using
     End Sub
 
+    Private Function fileExists(file As String) As Boolean
+        '   Checks if a file exists, if it does prompt the user.
+        '   returns false if file exits and user says no to overwrite
+        '   returns true if either file does not exist or file does and user says yes to overwrite.
+
+        If My.Computer.FileSystem.FileExists(file) Then      '   file already exists, prompt user.
+            Dim reply As MsgBoxResult
+
+            reply = MsgBox("This will over write existing file : " & file.ToString, MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
+
+            Return If(reply = MsgBoxResult.No, False, True)
+        Else
+            Return True
+        End If
+    End Function
 
     ' ********************************************************************************** Clipboard monitor stuff ***************************
 
@@ -1095,4 +1165,5 @@ Public Class frmOptions
         chckBxClipboardSavePos.Enabled = chckBxClipboardMonitor.Checked
         chckBxClipboardSaveCSV.Enabled = chckBxClipboardMonitor.Checked
     End Sub
+
 End Class

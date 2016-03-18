@@ -1,6 +1,63 @@
 The source tree is now held as a git repository https://github.com/keleven-uk/Klock.git,
- converted from SVN as of build 42.
+converted from SVN as of build 42.
 I find the git commit number unwieldy, so still include SVN style build numbers.
+
+[Build [70] - V1.1.6.70 - March 2016
+[Lines of code = 13872]
+[maintainability index = 79]
+
+commit 268357d7ce75bd2270f69de1e77e3df50879c7ed
+Author: Kevin Scott <klock@keleven.co.uk>
+Date:   Sat Mar 5 21:55:51 2016 +0000
+
+Made if / then / else statements into ternary statements across solution.
+Used string builder instead of & in string concatenation across statement.
+Tidied up string concatenation across solution.
+Amended string initialisation to string.empty instead of "" across solution.
+
+Added extra hot keys - runs text klock, analogue klock and clipboard manager.
+
+Added dispose of fonts in UserFonts.vb
+
+The printing of the listboxes not uses the same font as display i.e. Hack-Regular instead of Arial
+
+Added more images to images directory.
+
+Klock/FEMcommon.vb                    |  14 ++---
+Klock/IOcommon.vb                     |   8 +--
+Klock/InfoCommon.vb                   |  26 ++++-----
+Klock/Klock.chm                       | Bin 700180 -> 706648 bytes
+Klock/Klock.iss                       |   4 +-
+Klock/Klock.pdf                       | Bin 4084233 -> 4054883 bytes
+Klock/KlockThings.vb                  |  79 +++++++++++++--------------
+Klock/ManagedPower.vb                 |  10 ++--
+Klock/My Project/AssemblyInfo.vb      |   4 +-
+Klock/UserFonts.vb                    |  12 +++++
+Klock/UserSettings.vb                 |  10 ++--
+Klock/conversionThings.vb             |   4 +-
+Klock/eventThings.vb                  |  19 +++----
+Klock/frmAbout.vb                     |   4 --
+Klock/frmAnalogKlock.vb               |  18 ++-----
+Klock/frmBigTextKlock.vb              |   3 --
+Klock/frmClipboardMonitor.Designer.vb |  15 +++---
+Klock/frmClipboardMonitor.vb          |  12 ++---
+Klock/frmKlock.vb                     |  97 ++++++++++++++--------------------
+Klock/frmOptions.vb                   |   7 +--
+Klock/frmSmallTextKlock.vb            |  21 ++++----
+Klock/history.txt                     |  57 ++++++++++++++++++++
+Klock/klock.hnd                       | Bin 26517504 -> 26587136 bytes
+Klock/selectAction.vb                 |  12 ++---
+Klock/selectTime.vb                   |  54 +++++++------------
+README.md                             |  27 ++++++----
+images/5.png                          | Bin 0 -> 15965 bytes
+images/Circle_Grey.png                | Bin 0 -> 31425 bytes
+images/Circle_Orange.png              | Bin 0 -> 38440 bytes
+images/Circle_Red.png                 | Bin 0 -> 36422 bytes
+images/Circle_Yellow.png              | Bin 0 -> 31923 bytes
+images/Easter.jpeg                    | Bin 0 -> 48274 bytes
+images/happy Easter.png               | Bin 0 -> 49239 bytes
+log.txt                               |  54 +++++++++++++++++++
+34 files changed, 316 insertions(+), 255 deletions(-)
 
 [Build [69] - V1.1.6.68 - February 2016
 [Lines of code = 13904]
@@ -10,144 +67,144 @@ commit b7384918f41b439c05a3b8fab4fcd89a8dd38cdb
 Author: Kevin Scott <klock@keleven.co.uk>
 Date:   Wed Mar 2 22:56:58 2016 +0000
 
-    Added buttons to save and load the clipboard history data.
-    
-    [IOcommon.vb]
-    Added logic to save and load the clipboard history in both CSB and BIN formats.
-    
-    [frmClipboardMonitor.vb]
-    mainly code for above.
-    The listview was changed to a list box, so that it can hold objects like friends, events and memo.
-    Added code to change the fore colour of items in the list box - in listBoxThings.vb
-    
-    [UserSettings.vb & frmOptions.vb]
-    Added settings for save clipboard as either CSV or bin.
-    
-    [conversionThings.vb]
-    Improved the code in unitsLoad() - changed the way csv file are parsed.
-    
-    [KlockThings.vb]
-    Removed itemForecolor() and moved back to frmClipboardMonitor.vb
-    
-    [listBoxThings.vb]
-    Added ListBoxEnsureVisable(), which will scroll a list box so that the last entry is always visible.
-    Called on all list box’s - Friends, Events, Memo & Clipboard.
-    
-    [clipItem.vb]
-    Added - class template for a clipboard item.
+Added buttons to save and load the clipboard history data.
 
- Klock/ApplicationEvents.vb            |  10 ++
- Klock/FEMcommon.vb                    |   1 +
- Klock/IOcommon.vb                     | 183 ++++++++++++++++++++++++++++++++--
- Klock/Klock.chm                       | Bin 700690 -> 700180 bytes
- Klock/Klock.iss                       |   8 +-
- Klock/Klock.pdf                       | Bin 4078931 -> 4084233 bytes
- Klock/Klock.vbproj                    |   3 +
- Klock/KlockThings.vb                  |  33 +-----
- Klock/My Project/AssemblyInfo.vb      |   4 +-
- Klock/UserSettings.vb                 |  13 +++
- Klock/clipItem.vb                     |  57 +++++++++++
- Klock/conversionThings.vb             |  25 ++---
- Klock/frmClipboardMonitor.Designer.vb |  85 ++++++++--------
- Klock/frmClipboardMonitor.resx        |   6 ++
- Klock/frmClipboardMonitor.vb          | 159 ++++++++++++++++++++++-------
- Klock/frmKlock.vb                     |  14 ++-
- Klock/frmOptions.Designer.vb          |  38 ++++---
- Klock/frmOptions.vb                   |  12 +--
- Klock/history.txt                     |  42 +++++++-
- Klock/klock.hnd                       | Bin 26415104 -> 26517504 bytes
- Klock/listBoxThings.vb                |  27 +++++
- log.txt                               |  38 +++++++
- 22 files changed, 604 insertions(+), 154 deletions(-)
- 
+[IOcommon.vb]
+Added logic to save and load the clipboard history in both CSB and BIN formats.
+
+[frmClipboardMonitor.vb]
+mainly code for above.
+The listview was changed to a list box, so that it can hold objects like friends, events and memo.
+Added code to change the fore colour of items in the list box - in listBoxThings.vb
+
+[UserSettings.vb & frmOptions.vb]
+Added settings for save clipboard as either CSV or bin.
+
+[conversionThings.vb]
+Improved the code in unitsLoad() - changed the way csv file are parsed.
+
+[KlockThings.vb]
+Removed itemForecolor() and moved back to frmClipboardMonitor.vb
+
+[listBoxThings.vb]
+Added ListBoxEnsureVisable(), which will scroll a list box so that the last entry is always visible.
+Called on all list box’s - Friends, Events, Memo & Clipboard.
+
+[clipItem.vb]
+Added - class template for a clipboard item.
+
+Klock/ApplicationEvents.vb            |  10 ++
+Klock/FEMcommon.vb                    |   1 +
+Klock/IOcommon.vb                     | 183 ++++++++++++++++++++++++++++++++--
+Klock/Klock.chm                       | Bin 700690 -> 700180 bytes
+Klock/Klock.iss                       |   8 +-
+Klock/Klock.pdf                       | Bin 4078931 -> 4084233 bytes
+Klock/Klock.vbproj                    |   3 +
+Klock/KlockThings.vb                  |  33 +-----
+Klock/My Project/AssemblyInfo.vb      |   4 +-
+Klock/UserSettings.vb                 |  13 +++
+Klock/clipItem.vb                     |  57 +++++++++++
+Klock/conversionThings.vb             |  25 ++---
+Klock/frmClipboardMonitor.Designer.vb |  85 ++++++++--------
+Klock/frmClipboardMonitor.resx        |   6 ++
+Klock/frmClipboardMonitor.vb          | 159 ++++++++++++++++++++++-------
+Klock/frmKlock.vb                     |  14 ++-
+Klock/frmOptions.Designer.vb          |  38 ++++---
+Klock/frmOptions.vb                   |  12 +--
+Klock/history.txt                     |  42 +++++++-
+Klock/klock.hnd                       | Bin 26415104 -> 26517504 bytes
+Klock/listBoxThings.vb                |  27 +++++
+log.txt                               |  38 +++++++
+22 files changed, 604 insertions(+), 154 deletions(-)
+
 [Build [68] - V1.1.6.68 - February 2016
 
 commit 10b211c1be62dfb33832f871bec2f386e8235f33
 Author: Kevin Scott <klock@keleven.co.uk>
 Date:   Tue Feb 23 22:58:53 2016 +0000
 
-    [frmAnalogKlock.vb]
-    Added code to resize analogue klock using + & - keys.
-    Added code to save the size of the analogue klock, if required.
-    
-    [UserSettings.vb & frmOptions.vb]
-    Added options for save analogue klock size.
-    
-    [KlockThings.vb]
-    Moved statusInfo & statusTime to here from sub updateStatus in all forms.
-    
-    [Timer.vb]
-    Removed try clause and wrapped the getElaspedTime function in an If then Else.
-    Apparently, not to use a try clause in a Property.
+[frmAnalogKlock.vb]
+Added code to resize analogue klock using + & - keys.
+Added code to save the size of the analogue klock, if required.
 
- Klock/Klock.chm                  | Bin 701166 -> 700690 bytes
- Klock/Klock.iss                  |  48 ++++++++-------------------
- Klock/Klock.pdf                  | Bin 4075766 -> 4078931 bytes
- Klock/KlockThings.vb             |  64 +++++++++++++++++++++++++++--------
- Klock/My Project/AssemblyInfo.vb |  16 +++------
- Klock/Timer.vb                   |  16 ++++-----
- Klock/UserSettings.vb            |  39 ++++++++++++++++++++++
- Klock/frmAnalogKlock.Designer.vb |  27 ++++++++-------
- Klock/frmAnalogKlock.vb          |  41 ++++++++++++++++++++---
- Klock/frmBigTextKlock.vb         |  27 ++++-----------
- Klock/frmClipboardMonitor.vb     |  33 ++++--------------
- Klock/frmKlock.vb                |  16 ++-------
- Klock/frmOptions.Designer.vb     |  38 ++++++++++++++-------
- Klock/frmOptions.vb              |   2 ++
- Klock/frmSmallTextKlock.vb       |  29 ++++------------
- Klock/history.txt                |  52 ++++++++++++++++++++++++++---
- Klock/klock.hnd                  | Bin 26415104 -> 26415104 bytes
- log.txt                          |  70 +++++++++++++++++++++++++++++++++++++--
- 18 files changed, 332 insertions(+), 186 deletions(-)
- 
- [Build [67] - V1.1.6.67 - February 2016
+[UserSettings.vb & frmOptions.vb]
+Added options for save analogue klock size.
+
+[KlockThings.vb]
+Moved statusInfo & statusTime to here from sub updateStatus in all forms.
+
+[Timer.vb]
+Removed try clause and wrapped the getElaspedTime function in an If then Else.
+Apparently, not to use a try clause in a Property.
+
+Klock/Klock.chm                  | Bin 701166 -> 700690 bytes
+Klock/Klock.iss                  |  48 ++++++++-------------------
+Klock/Klock.pdf                  | Bin 4075766 -> 4078931 bytes
+Klock/KlockThings.vb             |  64 +++++++++++++++++++++++++++--------
+Klock/My Project/AssemblyInfo.vb |  16 +++------
+Klock/Timer.vb                   |  16 ++++-----
+Klock/UserSettings.vb            |  39 ++++++++++++++++++++++
+Klock/frmAnalogKlock.Designer.vb |  27 ++++++++-------
+Klock/frmAnalogKlock.vb          |  41 ++++++++++++++++++++---
+Klock/frmBigTextKlock.vb         |  27 ++++-----------
+Klock/frmClipboardMonitor.vb     |  33 ++++--------------
+Klock/frmKlock.vb                |  16 ++-------
+Klock/frmOptions.Designer.vb     |  38 ++++++++++++++-------
+Klock/frmOptions.vb              |   2 ++
+Klock/frmSmallTextKlock.vb       |  29 ++++------------
+Klock/history.txt                |  52 ++++++++++++++++++++++++++---
+Klock/klock.hnd                  | Bin 26415104 -> 26415104 bytes
+log.txt                          |  70 +++++++++++++++++++++++++++++++++++++--
+18 files changed, 332 insertions(+), 186 deletions(-)
+
+[Build [67] - V1.1.6.67 - February 2016
 
 commit 23d5c1eb7c914b4cd508e2f7d26888eb8a742157
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Wed Feb 17 21:19:15 2016 +0000
 
-    Further work on Clipboard manager.
-    Amened so that the clipboard monitor is now aware of clipboard objects are files, images as well as text.
-    Also, should be able to differentiates between different types of text - RTF, CSV, Unicode & HTML.  Not sure if this works yet.
-    
-    [frmClipboardMonitor.vb]
-    Added code for different types of clipboard object.
-    Moved clipboard change logic form frmKlock.vb to here, makes calling addToList simpler.
-    
-    [UserSettings.vb]
-    Added option to specify which mode klock starts in.
-    Added option so that Analogue klock can display either time of idle time.
-    
-    [frmOptions.vb]
-    Added option for above.
-    
-    [frmKlock.vb]
-    Changes for above.
-    
-    [frmAnalogKlock.vb]
-    Amended so that text colour will reflect if monitor active is enabled.
-    Amended so that either time or idle time is displayed.
+Further work on Clipboard manager.
+Amened so that the clipboard monitor is now aware of clipboard objects are files, images as well as text.
+Also, should be able to differentiates between different types of text - RTF, CSV, Unicode & HTML.  Not sure if this works yet.
 
- Klock/HelpCommon.vb                   |   4 +-
- Klock/Klock.chm                       | Bin 687438 -> 701166 bytes
- Klock/Klock.iss                       |   4 +-
- Klock/Klock.pdf                       | Bin 3921339 -> 4075766 bytes
- Klock/KlockThings.vb                  |  38 +++++-
- Klock/My Project/AssemblyInfo.vb      |   4 +-
- Klock/UserSettings.vb                 |  68 ++++++++--
- Klock/conversionThings.vb             |   2 +-
- Klock/frmAbout.vb                     |   2 +-
- Klock/frmAnalogKlock.Designer.vb      |  26 +++-
- Klock/frmAnalogKlock.vb               |  30 ++++-
- Klock/frmClipboardMonitor.Designer.vb |  62 ++++++---
- Klock/frmClipboardMonitor.vb          | 228 ++++++++++++++++++++++++++++++++--
- Klock/frmKlock.vb                     |  84 +++++++++----
- Klock/frmOptions.Designer.vb          |  67 ++++++++--
- Klock/frmOptions.vb                   |  50 +++++++-
- Klock/history.txt                     |  76 ++++++++++++
- Klock/klock.hnd                       | Bin 19877888 -> 26415104 bytes
- log.txt                               |  66 ++++++++++
- 19 files changed, 724 insertions(+), 87 deletions(-)
+[frmClipboardMonitor.vb]
+Added code for different types of clipboard object.
+Moved clipboard change logic form frmKlock.vb to here, makes calling addToList simpler.
+
+[UserSettings.vb]
+Added option to specify which mode klock starts in.
+Added option so that Analogue klock can display either time of idle time.
+
+[frmOptions.vb]
+Added option for above.
+
+[frmKlock.vb]
+Changes for above.
+
+[frmAnalogKlock.vb]
+Amended so that text colour will reflect if monitor active is enabled.
+Amended so that either time or idle time is displayed.
+
+Klock/HelpCommon.vb                   |   4 +-
+Klock/Klock.chm                       | Bin 687438 -> 701166 bytes
+Klock/Klock.iss                       |   4 +-
+Klock/Klock.pdf                       | Bin 3921339 -> 4075766 bytes
+Klock/KlockThings.vb                  |  38 +++++-
+Klock/My Project/AssemblyInfo.vb      |   4 +-
+Klock/UserSettings.vb                 |  68 ++++++++--
+Klock/conversionThings.vb             |   2 +-
+Klock/frmAbout.vb                     |   2 +-
+Klock/frmAnalogKlock.Designer.vb      |  26 +++-
+Klock/frmAnalogKlock.vb               |  30 ++++-
+Klock/frmClipboardMonitor.Designer.vb |  62 ++++++---
+Klock/frmClipboardMonitor.vb          | 228 ++++++++++++++++++++++++++++++++--
+Klock/frmKlock.vb                     |  84 +++++++++----
+Klock/frmOptions.Designer.vb          |  67 ++++++++--
+Klock/frmOptions.vb                   |  50 +++++++-
+Klock/history.txt                     |  76 ++++++++++++
+Klock/klock.hnd                       | Bin 19877888 -> 26415104 bytes
+log.txt                               |  66 ++++++++++
+19 files changed, 724 insertions(+), 87 deletions(-)
 
 [Build [66] - V1.1.6.66 - February 2016
 
@@ -155,35 +212,35 @@ commit c14a6a4336064a90bb44f2d8f299c3b3d4a8c556
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Wed Feb 17 21:19:15 2016 +0000
 
-    Further work on Clipboard manager.
-    
-    [frmClipboardMonitor.vb]
-    Added the ability to to handle files of type file, directory and image, as well as text.
-    Images are saved in temp directory, this created and deleted automatically by this form.
-    
-    [frmKlock.vb]
-    Changes for above.
-    
-    [UserSettings.vb]
-    Added setting for temp directory - 
-    hard coded to System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "Klock\Clipsave")
+Further work on Clipboard manager.
 
- Klock/Klock.chm                       | Bin 687438 -> 688896 bytes
- Klock/Klock.iss                       |   4 +-
- Klock/Klock.pdf                       | Bin 3921339 -> 3921339 bytes
- Klock/KlockThings.vb                  |   3 +-
- Klock/My Project/AssemblyInfo.vb      |   4 +-
- Klock/UserSettings.vb                 |   9 +-
- Klock/frmClipboardMonitor.Designer.vb |  62 +++++++----
- Klock/frmClipboardMonitor.vb          | 187 ++++++++++++++++++++++++++++++++--
- Klock/frmKlock.vb                     | 105 +++++++++++++++----
- Klock/frmOptions.vb                   |   7 +-
- Klock/history.txt                     |  40 ++++++++
- Klock/klock.hnd                       | Bin 19877888 -> 26230784 bytes
- log.txt                               |  35 +++++++
- 13 files changed, 402 insertions(+), 54 deletions(-)
- 
- 
+[frmClipboardMonitor.vb]
+Added the ability to to handle files of type file, directory and image, as well as text.
+Images are saved in temp directory, this created and deleted automatically by this form.
+
+[frmKlock.vb]
+Changes for above.
+
+[UserSettings.vb]
+Added setting for temp directory - 
+hard coded to System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "Klock\Clipsave")
+
+Klock/Klock.chm                       | Bin 687438 -> 688896 bytes
+Klock/Klock.iss                       |   4 +-
+Klock/Klock.pdf                       | Bin 3921339 -> 3921339 bytes
+Klock/KlockThings.vb                  |   3 +-
+Klock/My Project/AssemblyInfo.vb      |   4 +-
+Klock/UserSettings.vb                 |   9 +-
+Klock/frmClipboardMonitor.Designer.vb |  62 +++++++----
+Klock/frmClipboardMonitor.vb          | 187 ++++++++++++++++++++++++++++++++--
+Klock/frmKlock.vb                     | 105 +++++++++++++++----
+Klock/frmOptions.vb                   |   7 +-
+Klock/history.txt                     |  40 ++++++++
+Klock/klock.hnd                       | Bin 19877888 -> 26230784 bytes
+log.txt                               |  35 +++++++
+13 files changed, 402 insertions(+), 54 deletions(-)
+
+
 [Build [65] - V1.1.6.65 - February 2016
 =======
 [Build [64] - V1.1.6.65 - February 2016
@@ -193,123 +250,123 @@ commit bb59a04c4330e8cdc6d6b911e6d2f46958fd67cb
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Sun Feb 7 15:34:45 2016 +0000
 
-    Added clipboard monitor.  This monitors the clipboard, and if enabled, 
-    launches a new window to display the contents of the clipboard.  
-    frmClipboardMonitor.vb was contains.
-    
-    Added clipboard options to User and frmOptions.vb.
-    
-    Added to text files in sayings.
+Added clipboard monitor.  This monitors the clipboard, and if enabled, 
+launches a new window to display the contents of the clipboard.  
+frmClipboardMonitor.vb was contains.
 
- Klock.sln                             |   2 +-
- Klock/Klock.chm                       | Bin 592466 -> 687438 bytes
- Klock/Klock.iss                       |   4 +-
- Klock/Klock.pdf                       | Bin 3878742 -> 3921339 bytes
- Klock/Klock.vbproj                    |   9 ++
- Klock/KlockThings.vb                  |   2 +-
- Klock/My Project/AssemblyInfo.vb      |   4 +-
- Klock/UserSettings.vb                 |  61 ++++++++++
- Klock/frmAnalogKlock.vb               |   7 ++
- Klock/frmBigTextKlock.vb              |   7 ++
- Klock/frmClipboardMonitor.Designer.vb | 222 ++++++++++++++++++++++++++++++++++
- Klock/frmClipboardMonitor.resx        | 222 ++++++++++++++++++++++++++++++++++
- Klock/frmClipboardMonitor.vb          | 109 +++++++++++++++++
- Klock/frmKlock.Designer.vb            |   4 +-
- Klock/frmKlock.vb                     | 169 ++++++++++++++++++++------
- Klock/frmOptions.Designer.vb          |  53 +++++++-
- Klock/frmOptions.vb                   |  27 ++++-
- Klock/frmSmallTextKlock.vb            |   7 ++
- Klock/history.txt                     |  87 +++++++++++++
- Klock/klock.hnd                       | Bin 19845120 -> 19877888 bytes
- log.txt                               |  83 +++++++++++++
- sayings/Paraprosdokians.txt           | 151 +++++++++++++++++++++++
- sayings/inspiration quotations.txt    |  49 ++++++++
- 23 files changed, 1230 insertions(+), 49 deletions(-)
- 
- 
+Added clipboard options to User and frmOptions.vb.
+
+Added to text files in sayings.
+
+Klock.sln                             |   2 +-
+Klock/Klock.chm                       | Bin 592466 -> 687438 bytes
+Klock/Klock.iss                       |   4 +-
+Klock/Klock.pdf                       | Bin 3878742 -> 3921339 bytes
+Klock/Klock.vbproj                    |   9 ++
+Klock/KlockThings.vb                  |   2 +-
+Klock/My Project/AssemblyInfo.vb      |   4 +-
+Klock/UserSettings.vb                 |  61 ++++++++++
+Klock/frmAnalogKlock.vb               |   7 ++
+Klock/frmBigTextKlock.vb              |   7 ++
+Klock/frmClipboardMonitor.Designer.vb | 222 ++++++++++++++++++++++++++++++++++
+Klock/frmClipboardMonitor.resx        | 222 ++++++++++++++++++++++++++++++++++
+Klock/frmClipboardMonitor.vb          | 109 +++++++++++++++++
+Klock/frmKlock.Designer.vb            |   4 +-
+Klock/frmKlock.vb                     | 169 ++++++++++++++++++++------
+Klock/frmOptions.Designer.vb          |  53 +++++++-
+Klock/frmOptions.vb                   |  27 ++++-
+Klock/frmSmallTextKlock.vb            |   7 ++
+Klock/history.txt                     |  87 +++++++++++++
+Klock/klock.hnd                       | Bin 19845120 -> 19877888 bytes
+log.txt                               |  83 +++++++++++++
+sayings/Paraprosdokians.txt           | 151 +++++++++++++++++++++++
+sayings/inspiration quotations.txt    |  49 ++++++++
+23 files changed, 1230 insertions(+), 49 deletions(-)
+
+
 [Build [64] - V1.1.5.64 - January 2016
 
-    Added the sayings tab.  This enables the displaying [via notifications] random sayings.
-    The sayings are held in text files, which reside in a sayings directory within the application directory.  
-    A set of sample text files and the directory are included.
-    
-    [frmKlock.vb]
-    Added a timer for sayings.
-    Changed a number of if .. then .. else to if( , , )
-    
-    [UserSettings.vb]
-    Added settings for sayings
-    
-    [frmOptions.vb]
-    Logic to handle sayings settings.
-    
-    [selectTime.vb]
-    Changed a number of if .. then .. else to if( , , )
-    
-    [KlockThings.vb]
-    Added subs loadSayings() & randomSayings()
-    Changed return value of klockNotVisable()
-    
-    [frmNotification.vb]
-    Amended Notification, so it is handled sayings.
-    Amended the mode - to be either R, S or E - for Reminder, Sayings or Event.
-    Removed the time-out from the input parameters.  
-    Each type of notification now correctly sets the time-out according to the user settings for that type - within this module.
-    This meant a change to all instance where notifications are called throughout klock.
-    
-    Added Hack-Regular.ttf to fonts directory.  A mono-spaced font used for list-boxes.
-    
-    Ran spell checker across klock.
+Added the sayings tab.  This enables the displaying [via notifications] random sayings.
+The sayings are held in text files, which reside in a sayings directory within the application directory.  
+A set of sample text files and the directory are included.
 
- Klock/AnalogClockControl.xml             |  67 +++---
- Klock/Events.vb                          |   5 +-
- Klock/FEMcommon.vb                       |  26 +--
- Klock/IOcommon.vb                        |  40 ++--
- Klock/InfoCommon.vb                      |  10 +-
- Klock/Klock.chm                          | Bin 586782 -> 592466 bytes
- Klock/Klock.iss                          |  23 +-
- Klock/Klock.pdf                          | Bin 3759327 -> 3878742 bytes
- Klock/Klock.vbproj                       |   2 +
- Klock/KlockThings.vb                     |  61 ++++-
- Klock/License.txt                        |   2 +-
- Klock/ManagedPower.vb                    |   9 +-
- Klock/Memo.vb                            |   2 +-
- Klock/My Project/Application.Designer.vb |   2 +-
- Klock/My Project/AssemblyInfo.vb         |   4 +-
- Klock/My Project/Settings.Designer.vb    |   2 +-
- Klock/My Project/app.manifest            |   6 +-
- Klock/Person.vb                          |   2 +-
- Klock/Simple3Des.vb                      |   4 +-
- Klock/UserFonts.vb                       |  66 +++---
- Klock/UserSettings.vb                    | 157 ++++++++++++-
- Klock/Voice.vb                           |   2 +-
- Klock/conversionThings.vb                |   4 +-
- Klock/frmAnalogKlock.vb                  |   8 +-
- Klock/frmBigTextKlock.Designer.vb        |   2 +-
- Klock/frmBigTextKlock.vb                 |  31 ++-
- Klock/frmKlock.Designer.vb               | 211 +++++++++++------
- Klock/frmKlock.resx                      |   3 +
- Klock/frmKlock.vb                        | 290 ++++++++++++-----------
- Klock/frmMemoPassword.Designer.vb        |   2 +-
- Klock/frmNotification.designer.vb        |   2 +-
- Klock/frmNotification.vb                 |  98 +++++---
- Klock/frmOptions.Designer.vb             | 242 +++++++++++++++----
- Klock/frmOptions.vb                      | 129 ++++++++---
- Klock/frmSmallTextKlock.vb               |   4 +-
- Klock/history.txt                        |  33 ++-
- Klock/klock.hnd                          | Bin 19648512 -> 19845120 bytes
- Klock/selectAction.vb                    |  31 ++-
- Klock/selectTime.vb                      |  26 +--
- fonts/Hack-Regular.ttf                   | Bin 0 -> 394336 bytes
- log.txt                                  |  27 +++
- sayings/If you are not over 50.txt       |  71 ++++++
- sayings/Tidbits.txt                      | 331 ++++++++++++++++++++++++++
- sayings/jokes 2.txt                      | 146 ++++++++++++
- sayings/jokes.txt                        | 132 +++++++++++
- sayings/one liners.txt                   | 344 +++++++++++++++++++++++++++
- sayings/stuff.txt                        | 387 +++++++++++++++++++++++++++++++
- 47 files changed, 2525 insertions(+), 521 deletions(-)
- 
+[frmKlock.vb]
+Added a timer for sayings.
+Changed a number of if .. then .. else to if( , , )
+
+[UserSettings.vb]
+Added settings for sayings
+
+[frmOptions.vb]
+Logic to handle sayings settings.
+
+[selectTime.vb]
+Changed a number of if .. then .. else to if( , , )
+
+[KlockThings.vb]
+Added subs loadSayings() & randomSayings()
+Changed return value of klockNotVisable()
+
+[frmNotification.vb]
+Amended Notification, so it is handled sayings.
+Amended the mode - to be either R, S or E - for Reminder, Sayings or Event.
+Removed the time-out from the input parameters.  
+Each type of notification now correctly sets the time-out according to the user settings for that type - within this module.
+This meant a change to all instance where notifications are called throughout klock.
+
+Added Hack-Regular.ttf to fonts directory.  A mono-spaced font used for list-boxes.
+
+Ran spell checker across klock.
+
+Klock/AnalogClockControl.xml             |  67 +++---
+Klock/Events.vb                          |   5 +-
+Klock/FEMcommon.vb                       |  26 +--
+Klock/IOcommon.vb                        |  40 ++--
+Klock/InfoCommon.vb                      |  10 +-
+Klock/Klock.chm                          | Bin 586782 -> 592466 bytes
+Klock/Klock.iss                          |  23 +-
+Klock/Klock.pdf                          | Bin 3759327 -> 3878742 bytes
+Klock/Klock.vbproj                       |   2 +
+Klock/KlockThings.vb                     |  61 ++++-
+Klock/License.txt                        |   2 +-
+Klock/ManagedPower.vb                    |   9 +-
+Klock/Memo.vb                            |   2 +-
+Klock/My Project/Application.Designer.vb |   2 +-
+Klock/My Project/AssemblyInfo.vb         |   4 +-
+Klock/My Project/Settings.Designer.vb    |   2 +-
+Klock/My Project/app.manifest            |   6 +-
+Klock/Person.vb                          |   2 +-
+Klock/Simple3Des.vb                      |   4 +-
+Klock/UserFonts.vb                       |  66 +++---
+Klock/UserSettings.vb                    | 157 ++++++++++++-
+Klock/Voice.vb                           |   2 +-
+Klock/conversionThings.vb                |   4 +-
+Klock/frmAnalogKlock.vb                  |   8 +-
+Klock/frmBigTextKlock.Designer.vb        |   2 +-
+Klock/frmBigTextKlock.vb                 |  31 ++-
+Klock/frmKlock.Designer.vb               | 211 +++++++++++------
+Klock/frmKlock.resx                      |   3 +
+Klock/frmKlock.vb                        | 290 ++++++++++++-----------
+Klock/frmMemoPassword.Designer.vb        |   2 +-
+Klock/frmNotification.designer.vb        |   2 +-
+Klock/frmNotification.vb                 |  98 +++++---
+Klock/frmOptions.Designer.vb             | 242 +++++++++++++++----
+Klock/frmOptions.vb                      | 129 ++++++++---
+Klock/frmSmallTextKlock.vb               |   4 +-
+Klock/history.txt                        |  33 ++-
+Klock/klock.hnd                          | Bin 19648512 -> 19845120 bytes
+Klock/selectAction.vb                    |  31 ++-
+Klock/selectTime.vb                      |  26 +--
+fonts/Hack-Regular.ttf                   | Bin 0 -> 394336 bytes
+log.txt                                  |  27 +++
+sayings/If you are not over 50.txt       |  71 ++++++
+sayings/Tidbits.txt                      | 331 ++++++++++++++++++++++++++
+sayings/jokes 2.txt                      | 146 ++++++++++++
+sayings/jokes.txt                        | 132 +++++++++++
+sayings/one liners.txt                   | 344 +++++++++++++++++++++++++++
+sayings/stuff.txt                        | 387 +++++++++++++++++++++++++++++++
+47 files changed, 2525 insertions(+), 521 deletions(-)
+
 
 [Build [63] - V1.1.4.63 - January 2016
 
@@ -317,312 +374,312 @@ commit d07f0dcd61e92251a3374f8322f32c17f5e0b61f
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Mon Jan 11 21:08:42 2016 +0000
 
-    [frmKlock.vb]
-    Added, A progress bar to the status bar that show time remaining when viewing a encrypted memo.
-    
-    [FEMcommon.vb]
-    Fixed, encrypt checbox enabled on viewing.
-    
-    [frmMemoPassword.vb]
-    Fixed, correctly sets focus on text box.
+[frmKlock.vb]
+Added, A progress bar to the status bar that show time remaining when viewing a encrypted memo.
 
- Klock/FEMcommon.vb               |    2 +
- Klock/Klock.chm                  |  Bin 585714 -> 586782 bytes
- Klock/Klock.iss                  |   10 +-
- Klock/Klock.pdf                  |  Bin 3759327 -> 3759327 bytes
- Klock/My Project/AssemblyInfo.vb |    4 +-
- Klock/frmKlock.Designer.vb       |  638 +++---
- Klock/frmKlock.vb                |   16 +-
- Klock/frmMemoPassword.vb         |    2 +-
- Klock/history.txt                |   61 +-
- Klock/klock.hnd                  |  Bin 19640320 -> 19648512 bytes
- Klock/klock.hnd-journal          |  Bin 49760 -> 0 bytes
- log.txt                          | 4160 +-------------------------------------
- 12 files changed, 455 insertions(+), 4438 deletions(-)
- 
- 
+[FEMcommon.vb]
+Fixed, encrypt checbox enabled on viewing.
+
+[frmMemoPassword.vb]
+Fixed, correctly sets focus on text box.
+
+Klock/FEMcommon.vb               |    2 +
+Klock/Klock.chm                  |  Bin 585714 -> 586782 bytes
+Klock/Klock.iss                  |   10 +-
+Klock/Klock.pdf                  |  Bin 3759327 -> 3759327 bytes
+Klock/My Project/AssemblyInfo.vb |    4 +-
+Klock/frmKlock.Designer.vb       |  638 +++---
+Klock/frmKlock.vb                |   16 +-
+Klock/frmMemoPassword.vb         |    2 +-
+Klock/history.txt                |   61 +-
+Klock/klock.hnd                  |  Bin 19640320 -> 19648512 bytes
+Klock/klock.hnd-journal          |  Bin 49760 -> 0 bytes
+log.txt                          | 4160 +-------------------------------------
+12 files changed, 455 insertions(+), 4438 deletions(-)
+
+
 [Build [62] - V1.1.4.62 - January 2016
 
 commit fc338714ea70448307d604454334376b828d9ab7
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Sat Jan 2 15:22:10 2016 +0000
 
-    Completed Analogue Klock [Hopefully]
-    
-    Added settings for show text, show date, show time & transparency for analogue Klock.
-    Added settings for save screen position for analogue, Small and big text klocks.
-    
-    Added a folder of selected imaged to application folder.  Thses images are to be used with the analogue klock.
+Completed Analogue Klock [Hopefully]
 
- Klock/Klock.chm                  |  Bin 565934 -> 585714 bytes
- Klock/Klock.iss                  |   15 +-
- Klock/Klock.pdf                  |  Bin 3407282 -> 3759327 bytes
- Klock/My Project/AssemblyInfo.vb |    4 +-
- Klock/UserSettings.vb            |  279 ++-
- Klock/frmAnalogKlock.Designer.vb |   27 +-
- Klock/frmAnalogKlock.resx        | 1133 +++++++++++
- Klock/frmAnalogKlock.vb          |  119 +-
- Klock/frmBigTextKlock.vb         |   11 +
- Klock/frmKlock.vb                |   18 +-
- Klock/frmOptions.Designer.vb     | 1856 +++++++++--------
- Klock/frmOptions.resx            |    4 +-
- Klock/frmOptions.vb              |  530 ++---
- Klock/frmSmallTextKlock.vb       |   10 +
- Klock/history.txt                |   41 +
- Klock/klock.hnd                  |  Bin 18350080 -> 19640320 bytes
- Klock/klock.hnd-journal          |  Bin 0 -> 49760 bytes
- git push.txt                     |    4 -
- images/England.png               |  Bin 0 -> 11015 bytes
- images/European-union.png        |  Bin 0 -> 24751 bytes
- images/Ireland.png               |  Bin 0 -> 17536 bytes
- images/Isle-of-man.png           |  Bin 0 -> 41383 bytes
- images/Northern-ireland.png      |  Bin 0 -> 16983 bytes
- images/Scotland.png              |  Bin 0 -> 22837 bytes
- images/United-kingdom.png        |  Bin 0 -> 17513 bytes
- images/Wales.png                 |  Bin 0 -> 51009 bytes
- images/balls.png                 |  Bin 0 -> 120187 bytes
- images/bells.png                 |  Bin 0 -> 92477 bytes
- images/berries.png               |  Bin 0 -> 102094 bytes
- images/biscuits.png              |  Bin 0 -> 95905 bytes
- images/bowknot.png               |  Bin 0 -> 89343 bytes
- images/calendar.png              |  Bin 0 -> 72499 bytes
- images/candle.png                |  Bin 0 -> 111852 bytes
- images/candy.png                 |  Bin 0 -> 83853 bytes
- images/fireplace.png             |  Bin 0 -> 106919 bytes
- images/gift.png                  |  Bin 0 -> 90847 bytes
- images/redhat.png                |  Bin 0 -> 101352 bytes
- images/sanda-cauls.png           |  Bin 0 -> 96394 bytes
- images/snowflake.png             |  Bin 0 -> 114558 bytes
- images/snowman.png               |  Bin 0 -> 100203 bytes
- images/socks.png                 |  Bin 0 -> 84794 bytes
- images/tree.png                  |  Bin 0 -> 117095 bytes
- log.txt                          | 4160 ++++++++++++++++++++++++++++++++++++++
- 43 files changed, 6957 insertions(+), 1254 deletions(-)
+Added settings for show text, show date, show time & transparency for analogue Klock.
+Added settings for save screen position for analogue, Small and big text klocks.
+
+Added a folder of selected imaged to application folder.  Thses images are to be used with the analogue klock.
+
+Klock/Klock.chm                  |  Bin 565934 -> 585714 bytes
+Klock/Klock.iss                  |   15 +-
+Klock/Klock.pdf                  |  Bin 3407282 -> 3759327 bytes
+Klock/My Project/AssemblyInfo.vb |    4 +-
+Klock/UserSettings.vb            |  279 ++-
+Klock/frmAnalogKlock.Designer.vb |   27 +-
+Klock/frmAnalogKlock.resx        | 1133 +++++++++++
+Klock/frmAnalogKlock.vb          |  119 +-
+Klock/frmBigTextKlock.vb         |   11 +
+Klock/frmKlock.vb                |   18 +-
+Klock/frmOptions.Designer.vb     | 1856 +++++++++--------
+Klock/frmOptions.resx            |    4 +-
+Klock/frmOptions.vb              |  530 ++---
+Klock/frmSmallTextKlock.vb       |   10 +
+Klock/history.txt                |   41 +
+Klock/klock.hnd                  |  Bin 18350080 -> 19640320 bytes
+Klock/klock.hnd-journal          |  Bin 0 -> 49760 bytes
+git push.txt                     |    4 -
+images/England.png               |  Bin 0 -> 11015 bytes
+images/European-union.png        |  Bin 0 -> 24751 bytes
+images/Ireland.png               |  Bin 0 -> 17536 bytes
+images/Isle-of-man.png           |  Bin 0 -> 41383 bytes
+images/Northern-ireland.png      |  Bin 0 -> 16983 bytes
+images/Scotland.png              |  Bin 0 -> 22837 bytes
+images/United-kingdom.png        |  Bin 0 -> 17513 bytes
+images/Wales.png                 |  Bin 0 -> 51009 bytes
+images/balls.png                 |  Bin 0 -> 120187 bytes
+images/bells.png                 |  Bin 0 -> 92477 bytes
+images/berries.png               |  Bin 0 -> 102094 bytes
+images/biscuits.png              |  Bin 0 -> 95905 bytes
+images/bowknot.png               |  Bin 0 -> 89343 bytes
+images/calendar.png              |  Bin 0 -> 72499 bytes
+images/candle.png                |  Bin 0 -> 111852 bytes
+images/candy.png                 |  Bin 0 -> 83853 bytes
+images/fireplace.png             |  Bin 0 -> 106919 bytes
+images/gift.png                  |  Bin 0 -> 90847 bytes
+images/redhat.png                |  Bin 0 -> 101352 bytes
+images/sanda-cauls.png           |  Bin 0 -> 96394 bytes
+images/snowflake.png             |  Bin 0 -> 114558 bytes
+images/snowman.png               |  Bin 0 -> 100203 bytes
+images/socks.png                 |  Bin 0 -> 84794 bytes
+images/tree.png                  |  Bin 0 -> 117095 bytes
+log.txt                          | 4160 ++++++++++++++++++++++++++++++++++++++
+43 files changed, 6957 insertions(+), 1254 deletions(-)
 
 
 [Build [61] - V1.1.4.61 - December 2015
 
-    Moved to V1.1.4.
-    
-    Deleted Ionic.Zip.Reduced.dll - not used any more.
-    Added AnalogClockControl.dll - used for Analogue Klock.
-    
-    Added frmAnalogueKlock.vb and supporting files.
-    This enables the display of time in a analogue clock dial on the display.
-    
-    Added entries to userSettings for user control of analogue klock.
+Moved to V1.1.4.
 
- Klock/AnalogClockControl.dll                  | Bin 0 -> 70144 bytes
- Klock/AnalogClockControl.xml                  | 785 ++++++++++++++++++++++++++
- Klock/Ionic.Zip.Reduced.dll                   | Bin 253440 -> 0 bytes
- Klock/Ionic_License.txt                       |  33 --
- Klock/Klock.chm                               | Bin 569198 -> 565934 bytes
- Klock/Klock.iss                               |   4 +-
- Klock/Klock.pdf                               | Bin 2801771 -> 3407282 bytes
- Klock/Klock.vbproj                            |  15 +-
- Klock/KlockThings.vb                          |  26 +-
- Klock/My Project/AssemblyInfo.vb              |   4 +-
- Klock/My Project/Resources.Designer.vb        |  14 +-
- Klock/My Project/Settings.Designer.vb         |   4 +-
- Klock/Resources/69190__acclivity__thepips.wav | Bin 706412 -> 0 bytes
- Klock/UserSettings.vb                         |  87 +++
- Klock/app.config                              |  10 +-
- Klock/frmAnalogKlock.Designer.vb              | 105 ++++
- Klock/frmAnalogKlock.resx                     | 123 ++++
- Klock/frmAnalogKlock.vb                       | 293 ++++++++++
- Klock/frmKlock.Designer.vb                    | 766 ++++++++++++-------------
- Klock/frmKlock.vb                             |  23 +-
- Klock/frmOptions.Designer.vb                  | 345 +++++++----
- Klock/frmOptions.vb                           |  74 ++-
- Klock/frmSmallTextKlock.vb                    |   4 +-
- Klock/history.txt                             |  31 +
- Klock/klock.hnd                               | Bin 18190336 -> 18350080 bytes
- log.txt                                       |  32 ++
- 26 files changed, 2211 insertions(+), 567 deletions(-)
- 
- 
+Deleted Ionic.Zip.Reduced.dll - not used any more.
+Added AnalogClockControl.dll - used for Analogue Klock.
+
+Added frmAnalogueKlock.vb and supporting files.
+This enables the display of time in a analogue clock dial on the display.
+
+Added entries to userSettings for user control of analogue klock.
+
+Klock/AnalogClockControl.dll                  | Bin 0 -> 70144 bytes
+Klock/AnalogClockControl.xml                  | 785 ++++++++++++++++++++++++++
+Klock/Ionic.Zip.Reduced.dll                   | Bin 253440 -> 0 bytes
+Klock/Ionic_License.txt                       |  33 --
+Klock/Klock.chm                               | Bin 569198 -> 565934 bytes
+Klock/Klock.iss                               |   4 +-
+Klock/Klock.pdf                               | Bin 2801771 -> 3407282 bytes
+Klock/Klock.vbproj                            |  15 +-
+Klock/KlockThings.vb                          |  26 +-
+Klock/My Project/AssemblyInfo.vb              |   4 +-
+Klock/My Project/Resources.Designer.vb        |  14 +-
+Klock/My Project/Settings.Designer.vb         |   4 +-
+Klock/Resources/69190__acclivity__thepips.wav | Bin 706412 -> 0 bytes
+Klock/UserSettings.vb                         |  87 +++
+Klock/app.config                              |  10 +-
+Klock/frmAnalogKlock.Designer.vb              | 105 ++++
+Klock/frmAnalogKlock.resx                     | 123 ++++
+Klock/frmAnalogKlock.vb                       | 293 ++++++++++
+Klock/frmKlock.Designer.vb                    | 766 ++++++++++++-------------
+Klock/frmKlock.vb                             |  23 +-
+Klock/frmOptions.Designer.vb                  | 345 +++++++----
+Klock/frmOptions.vb                           |  74 ++-
+Klock/frmSmallTextKlock.vb                    |   4 +-
+Klock/history.txt                             |  31 +
+Klock/klock.hnd                               | Bin 18190336 -> 18350080 bytes
+log.txt                                       |  32 ++
+26 files changed, 2211 insertions(+), 567 deletions(-)
+
+
 [Build [60] - V1.1.3.60 - December 2015
 
-    Added option to change the colours of the text [both active and
-    non-active], the colour of the background for both text klocks.
-    
-    Added appropriate entries into user settings.
-    
-    Moved the handling of hot keys into KlockThings.vb, and then called from
-    frmKlock.vb, frmSmallTextKlock.vb & frmBigTextKlock.vb.  Therefore the
-    code is only in one place.
-    
-    Corrected bug in the help calling logic.
+Added option to change the colours of the text [both active and
+non-active], the colour of the background for both text klocks.
 
- Klock/HelpCommon.vb                 |   90 +-
- Klock/KlockThings.vb                |  372 +--
- Klock/My Project/AssemblyInfo.vb    |   76 +-
- Klock/UserSettings.vb               | 2575 +++++++++--------
- Klock/frmBigTextKlock.Designer.vb   | 5370 ++++++++++++++++++-----------------
- Klock/frmBigTextKlock.vb            | 1042 ++++---
- Klock/frmKlock.vb                   | 4131 +++++++++++++--------------
- Klock/frmOptions.Designer.vb        | 4050 +++++++++++++-------------
- Klock/frmOptions.vb                 | 1606 ++++++-----
- Klock/frmSmallTextKlock.Designer.vb | 1313 +++++----
- Klock/frmSmallTextKlock.resx        | 1374 +++++----
- Klock/frmSmallTextKlock.vb          |  591 ++--
- Klock/history.txt                   | 4306 ++++++++++++++--------------
- Klock/klock.hnd                     |  Bin 18026496 -> 18190336 bytes
- log.txt                             |   15 +
- 15 files changed, 13700 insertions(+), 13211 deletions(-)
- 
- 
+Added appropriate entries into user settings.
+
+Moved the handling of hot keys into KlockThings.vb, and then called from
+frmKlock.vb, frmSmallTextKlock.vb & frmBigTextKlock.vb.  Therefore the
+code is only in one place.
+
+Corrected bug in the help calling logic.
+
+Klock/HelpCommon.vb                 |   90 +-
+Klock/KlockThings.vb                |  372 +--
+Klock/My Project/AssemblyInfo.vb    |   76 +-
+Klock/UserSettings.vb               | 2575 +++++++++--------
+Klock/frmBigTextKlock.Designer.vb   | 5370 ++++++++++++++++++-----------------
+Klock/frmBigTextKlock.vb            | 1042 ++++---
+Klock/frmKlock.vb                   | 4131 +++++++++++++--------------
+Klock/frmOptions.Designer.vb        | 4050 +++++++++++++-------------
+Klock/frmOptions.vb                 | 1606 ++++++-----
+Klock/frmSmallTextKlock.Designer.vb | 1313 +++++----
+Klock/frmSmallTextKlock.resx        | 1374 +++++----
+Klock/frmSmallTextKlock.vb          |  591 ++--
+Klock/history.txt                   | 4306 ++++++++++++++--------------
+Klock/klock.hnd                     |  Bin 18026496 -> 18190336 bytes
+log.txt                             |   15 +
+15 files changed, 13700 insertions(+), 13211 deletions(-)
+
+
 [Build [59] - V1.1.3.59 - December 2015
 
 commit 13c5ecd31bbec3ed6bb064c35c0774ac2f56943b
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Thu Dec 10 21:07:12 2015 +0000
 
-    Finished [I think] BigTextKlock.
+Finished [I think] BigTextKlock.
 
- Klock/KlockThings.vb              |   3 +
- Klock/My Project/AssemblyInfo.vb  |   4 +-
- Klock/frmBigTextKlock.Designer.vb | 874 +++++++++++++++++++-------------------
- Klock/frmBigTextKlock.vb          | 202 +++++++--
- Klock/frmSmallTextKlock.vb        | 179 --------
- Klock/history.txt                 |  35 ++
- log.txt                           |  33 ++
- 7 files changed, 672 insertions(+), 658 deletions(-)
- 
- 
+Klock/KlockThings.vb              |   3 +
+Klock/My Project/AssemblyInfo.vb  |   4 +-
+Klock/frmBigTextKlock.Designer.vb | 874 +++++++++++++++++++-------------------
+Klock/frmBigTextKlock.vb          | 202 +++++++--
+Klock/frmSmallTextKlock.vb        | 179 --------
+Klock/history.txt                 |  35 ++
+log.txt                           |  33 ++
+7 files changed, 672 insertions(+), 658 deletions(-)
+
+
 [Build [58] - V1.1.3.58 - December 2015
 
 commit 999848f18ec1250b80ca078986e4658cc5a86f21
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Sun Dec 6 22:27:53 2015 +0000
 
-    Start of big text klock.
-    
-    Renamed existing text klock to small text klock.
-    
-    Added new files BigtextKlock.*
-    
-    The big text klock is similar to the small text klock, except it also
-    included the date and updates every second.
+Start of big text klock.
 
- Klock/Klock.iss                     |    4 +-
- Klock/Klock.vbproj                  |   19 +-
- Klock/KlockThings.vb                |    4 +-
- Klock/My Project/AssemblyInfo.vb    |    4 +-
- Klock/frmBigTextKlock.Designer.vb   | 2663 +++++++++++++++++++++++++++++++++++
- Klock/frmBigTextKlock.resx          |  679 +++++++++
- Klock/frmBigTextKlock.vb            |  423 ++++++
- Klock/frmKlock.Designer.vb          |   12 +-
- Klock/frmKlock.vb                   |   31 +-
- Klock/frmSmallTextKlock.Designer.vb |  676 +++++++++
- Klock/frmSmallTextKlock.resx        |  697 +++++++++
- Klock/frmSmallTextKlock.vb          |  480 +++++++
- Klock/frmTextKlock.Designer.vb      |  676 ---------
- Klock/frmTextKlock.resx             |  697 ---------
- Klock/frmTextKlock.vb               |  300 ----
- Klock/history.txt                   |   56 +-
- Klock/klock.hnd                     |  Bin 18026496 -> 18026496 bytes
- log.txt                             |   55 +
- 18 files changed, 5780 insertions(+), 1696 deletions(-)
- 
- 
+Renamed existing text klock to small text klock.
+
+Added new files BigtextKlock.*
+
+The big text klock is similar to the small text klock, except it also
+included the date and updates every second.
+
+Klock/Klock.iss                     |    4 +-
+Klock/Klock.vbproj                  |   19 +-
+Klock/KlockThings.vb                |    4 +-
+Klock/My Project/AssemblyInfo.vb    |    4 +-
+Klock/frmBigTextKlock.Designer.vb   | 2663 +++++++++++++++++++++++++++++++++++
+Klock/frmBigTextKlock.resx          |  679 +++++++++
+Klock/frmBigTextKlock.vb            |  423 ++++++
+Klock/frmKlock.Designer.vb          |   12 +-
+Klock/frmKlock.vb                   |   31 +-
+Klock/frmSmallTextKlock.Designer.vb |  676 +++++++++
+Klock/frmSmallTextKlock.resx        |  697 +++++++++
+Klock/frmSmallTextKlock.vb          |  480 +++++++
+Klock/frmTextKlock.Designer.vb      |  676 ---------
+Klock/frmTextKlock.resx             |  697 ---------
+Klock/frmTextKlock.vb               |  300 ----
+Klock/history.txt                   |   56 +-
+Klock/klock.hnd                     |  Bin 18026496 -> 18026496 bytes
+log.txt                             |   55 +
+18 files changed, 5780 insertions(+), 1696 deletions(-)
+
+
 [Build [57] - V1.1.2.57 -  November 2015
 
 commit 7dd480e5509266664331b8eaa14c3e5021026594
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Thu Nov 26 21:42:36 2015 +0000
 
-    Removed all references to Me. - as per prompting from VS 2015.
-    
-    Changed both Licence.txt & history.txt to be proper text file and not
-    embedded resources.
-    Both files are now loaded using text file commands and not stream commands
-    main executable about 30K smaller.
+Removed all references to Me. - as per prompting from VS 2015.
 
- Klock/ApplicationEvents.vb       |    1 -
- Klock/Events.vb                  |   11 +-
- Klock/FormAnimator.vb            |   43 +-
- Klock/Help.Designer.vb           |   70 --
- Klock/Help.resx                  | 1262 --------------------
- Klock/Help.txt                   |  123 --
- Klock/Help.vb                    |   38 -
- Klock/HelpCommon.vb              |   47 +-
- Klock/Info.Designer.vb           |  149 ---
- Klock/Info.resx                  | 1256 --------------------
- Klock/Info.vb                    |   32 -
- Klock/Klock.Designer.vb          | 1962 -------------------------------
- Klock/Klock.chm                  |  Bin 555600 -> 569198 bytes
- Klock/Klock.iss                  |    2 +-
- Klock/Klock.pdf                  |  Bin 2786776 -> 2801771 bytes
- Klock/Klock.resx                 | 2415 --------------------------------------
- Klock/Klock.vb                   | 1912 ------------------------------
- Klock/Klock.vbproj               |   19 +-
- Klock/Memo.vb                    |    2 +-
- Klock/My Project/AssemblyInfo.vb |    4 +-
- Klock/Person.vb                  |    6 +-
- Klock/UserSettings.vb            |  122 +-
- Klock/Voice.vb                   |    8 +-
- Klock/conversionThings.vb        |    2 +-
- Klock/eventThings.vb             |  122 +-
- Klock/frmAbout.vb                |   72 +-
- Klock/frmHelp.Designer.vb        |   70 ++
- Klock/frmHelp.resx               | 1262 ++++++++++++++++++++
- Klock/frmHelp.vb                 |   16 +
- Klock/frmInfo.vb                 |   20 +-
- Klock/frmKlock.vb                | 1516 ++++++++++++------------
- Klock/frmLicense.Designer.vb     |   70 --
- Klock/frmLicense.resx            | 1262 --------------------
- Klock/frmLicense.vb              |   16 -
- Klock/frmMemoPassword.vb         |   12 +-
- Klock/frmNotification.vb         |   72 +-
- Klock/frmOptions.vb              |  508 ++++----
- Klock/frmTextKlock.vb            |  230 ++--
- Klock/history.txt                |   47 +-
- Klock/klock.hnd                  |  Bin 17883136 -> 18026496 bytes
- Klock/selectTime.vb              |    6 +-
- log.txt                          |   39 +
- 42 files changed, 2839 insertions(+), 11987 deletions(-)
- 
+Changed both Licence.txt & history.txt to be proper text file and not
+embedded resources.
+Both files are now loaded using text file commands and not stream commands
+main executable about 30K smaller.
+
+Klock/ApplicationEvents.vb       |    1 -
+Klock/Events.vb                  |   11 +-
+Klock/FormAnimator.vb            |   43 +-
+Klock/Help.Designer.vb           |   70 --
+Klock/Help.resx                  | 1262 --------------------
+Klock/Help.txt                   |  123 --
+Klock/Help.vb                    |   38 -
+Klock/HelpCommon.vb              |   47 +-
+Klock/Info.Designer.vb           |  149 ---
+Klock/Info.resx                  | 1256 --------------------
+Klock/Info.vb                    |   32 -
+Klock/Klock.Designer.vb          | 1962 -------------------------------
+Klock/Klock.chm                  |  Bin 555600 -> 569198 bytes
+Klock/Klock.iss                  |    2 +-
+Klock/Klock.pdf                  |  Bin 2786776 -> 2801771 bytes
+Klock/Klock.resx                 | 2415 --------------------------------------
+Klock/Klock.vb                   | 1912 ------------------------------
+Klock/Klock.vbproj               |   19 +-
+Klock/Memo.vb                    |    2 +-
+Klock/My Project/AssemblyInfo.vb |    4 +-
+Klock/Person.vb                  |    6 +-
+Klock/UserSettings.vb            |  122 +-
+Klock/Voice.vb                   |    8 +-
+Klock/conversionThings.vb        |    2 +-
+Klock/eventThings.vb             |  122 +-
+Klock/frmAbout.vb                |   72 +-
+Klock/frmHelp.Designer.vb        |   70 ++
+Klock/frmHelp.resx               | 1262 ++++++++++++++++++++
+Klock/frmHelp.vb                 |   16 +
+Klock/frmInfo.vb                 |   20 +-
+Klock/frmKlock.vb                | 1516 ++++++++++++------------
+Klock/frmLicense.Designer.vb     |   70 --
+Klock/frmLicense.resx            | 1262 --------------------
+Klock/frmLicense.vb              |   16 -
+Klock/frmMemoPassword.vb         |   12 +-
+Klock/frmNotification.vb         |   72 +-
+Klock/frmOptions.vb              |  508 ++++----
+Klock/frmTextKlock.vb            |  230 ++--
+Klock/history.txt                |   47 +-
+Klock/klock.hnd                  |  Bin 17883136 -> 18026496 bytes
+Klock/selectTime.vb              |    6 +-
+log.txt                          |   39 +
+42 files changed, 2839 insertions(+), 11987 deletions(-)
+
 [Build [56] - V1.1.2.56 - November 2015
 
 commit 74b52a324acf49b18e4739457a9a43a25b80767c
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Wed Nov 18 21:25:27 2015 +0000
 
-    The main change, added the convert tab.
-    Also ran Visual Studio spell check on the solution.
-    
-    [frmKlock.vb]
-    Added logic for convert tab.
-    
-    [converionThings.vb]
-    Added module in hold helper functions for the convert tab.
+The main change, added the convert tab.
+Also ran Visual Studio spell check on the solution.
 
- Klock/FEMcommon.vb               |   4 +-
- Klock/IOcommon.vb                |  20 ++---
- Klock/InfoCommon.vb              |   4 +-
- Klock/Klock.chm                  | Bin 541976 -> 555600 bytes
- Klock/Klock.iss                  |   6 +-
- Klock/Klock.pdf                  | Bin 2699928 -> 2786776 bytes
- Klock/Klock.vbproj               |   1 +
- Klock/KlockThings.vb             |  10 +--
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/SNTPClient.vb              |   9 +--
- Klock/UserFonts.vb               |   2 +-
- Klock/conversionThings.vb        | 141 +++++++++++++++++++++++++++++++++++
- Klock/frmAbout.vb                |   2 +-
- Klock/frmInfo.vb                 |   2 +-
- Klock/frmKlock.Designer.vb       | 157 +++++++++++++++++++++++++++++++++++++++
- Klock/frmKlock.vb                | 143 ++++++++++++++++++++++-------------
- Klock/frmLicense.vb              |   4 -
- Klock/frmOptions.vb              |   2 +-
- Klock/frmTextKlock.Designer.vb   |   4 +-
- Klock/frmTextKlock.vb            |  10 +--
- Klock/history.txt                |  81 ++++++++++++++++++++
- Klock/klock.hnd                  | Bin 17678336 -> 17883136 bytes
- Klock/selectTime.vb              |  22 +++---
- log.txt                          |  77 +++++++++++++++++++
- 24 files changed, 598 insertions(+), 107 deletions(-)
+[frmKlock.vb]
+Added logic for convert tab.
+
+[converionThings.vb]
+Added module in hold helper functions for the convert tab.
+
+Klock/FEMcommon.vb               |   4 +-
+Klock/IOcommon.vb                |  20 ++---
+Klock/InfoCommon.vb              |   4 +-
+Klock/Klock.chm                  | Bin 541976 -> 555600 bytes
+Klock/Klock.iss                  |   6 +-
+Klock/Klock.pdf                  | Bin 2699928 -> 2786776 bytes
+Klock/Klock.vbproj               |   1 +
+Klock/KlockThings.vb             |  10 +--
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/SNTPClient.vb              |   9 +--
+Klock/UserFonts.vb               |   2 +-
+Klock/conversionThings.vb        | 141 +++++++++++++++++++++++++++++++++++
+Klock/frmAbout.vb                |   2 +-
+Klock/frmInfo.vb                 |   2 +-
+Klock/frmKlock.Designer.vb       | 157 +++++++++++++++++++++++++++++++++++++++
+Klock/frmKlock.vb                | 143 ++++++++++++++++++++++-------------
+Klock/frmLicense.vb              |   4 -
+Klock/frmOptions.vb              |   2 +-
+Klock/frmTextKlock.Designer.vb   |   4 +-
+Klock/frmTextKlock.vb            |  10 +--
+Klock/history.txt                |  81 ++++++++++++++++++++
+Klock/klock.hnd                  | Bin 17678336 -> 17883136 bytes
+Klock/selectTime.vb              |  22 +++---
+log.txt                          |  77 +++++++++++++++++++
+24 files changed, 598 insertions(+), 107 deletions(-)
 
 commit 7a40258eebcc5147045cf2d866a4dac6f7ca6634
 Author: kevin scott <coinflip@keleven.co.uk>
@@ -634,27 +691,27 @@ commit 7a40258eebcc5147045cf2d866a4dac6f7ca6634
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Thu Nov 12 23:05:28 2015 +0000
 
-    Delete unused files.
+Delete unused files.
 
- Klock/About.Designer.vb       |  484 ---------------
- Klock/About.resx              | 1358 -----------------------------------------
- Klock/About.vb                |  148 -----
- Klock/DataButtons.vb          |  261 --------
- Klock/License.Designer.vb     |   70 ---
- Klock/License.resx            | 1262 --------------------------------------
- Klock/License.vb              |   44 --
- Klock/ListViewColumnSorter.vb |   81 ---
- Klock/ListViewPrint.vb        |  185 ------
- Klock/Module1.vb              |    3 -
- Klock/Options.Designer.vb     | 1143 ----------------------------------
- Klock/Options.resx            | 1265 --------------------------------------
- Klock/Options.vb              |  464 --------------
- Klock/TimeHelp.Designer.vb    |   70 ---
- Klock/TimeHelp.resx           | 1253 -------------------------------------
- Klock/TimeHelp.vb             |   26 -
- Klock/fuzzyTime.vb            |    3 -
- Sounds/thepips.wav            |  Bin 706412 -> 0 bytes
- 18 files changed, 8120 deletions(-)
+Klock/About.Designer.vb       |  484 ---------------
+Klock/About.resx              | 1358 -----------------------------------------
+Klock/About.vb                |  148 -----
+Klock/DataButtons.vb          |  261 --------
+Klock/License.Designer.vb     |   70 ---
+Klock/License.resx            | 1262 --------------------------------------
+Klock/License.vb              |   44 --
+Klock/ListViewColumnSorter.vb |   81 ---
+Klock/ListViewPrint.vb        |  185 ------
+Klock/Module1.vb              |    3 -
+Klock/Options.Designer.vb     | 1143 ----------------------------------
+Klock/Options.resx            | 1265 --------------------------------------
+Klock/Options.vb              |  464 --------------
+Klock/TimeHelp.Designer.vb    |   70 ---
+Klock/TimeHelp.resx           | 1253 -------------------------------------
+Klock/TimeHelp.vb             |   26 -
+Klock/fuzzyTime.vb            |    3 -
+Sounds/thepips.wav            |  Bin 706412 -> 0 bytes
+18 files changed, 8120 deletions(-)
 
 [Build [54] - V1.1.1.54 - November 2015
 
@@ -662,103 +719,103 @@ commit 9a66ff613edbdca3fe30071ac91e5c7696142796
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Thu Nov 12 22:54:37 2015 +0000
 
-    [frmKlock.vb]
-    Added indication on internet connectivity to status bar.
-    Added menu item for internet time.
-    Changed thepips.wav to thepips.mp3.
-    
-    [frmOptions.vb & userOptions.vb]
-    Added option to check for internet connectivity
-    
-    [SNTPClient.vb]
-    Added the actual code that queries the internet time server.
-    
-    [frmtextKlock.vb]
-    Added indication of internet connectivity to the status bar.
-    
-    [infoCommon.vb]
-    Added stuff for internet time - added combobox to hold servers and button
-    to run query.  Calls code from SNTPClient.vb to actually access the time
-    server.
-    
-    [klockThings.vb]
-    Added check for internet connectivity.
+[frmKlock.vb]
+Added indication on internet connectivity to status bar.
+Added menu item for internet time.
+Changed thepips.wav to thepips.mp3.
 
- Klock.sln                                |   9 +-
- Klock/InfoCommon.vb                      |  60 +++-
- Klock/Klock.chm                          | Bin 541396 -> 541976 bytes
- Klock/Klock.pdf                          | Bin 2697704 -> 2699928 bytes
- Klock/Klock.vbproj                       |   8 +-
- Klock/KlockThings.vb                     |  33 +-
- Klock/My Project/Application.Designer.vb |   4 +-
- Klock/My Project/Application.myapp       |   2 +-
- Klock/My Project/AssemblyInfo.vb         |   4 +-
- Klock/SNTPClient.vb                      | 593 +++++++++++++++++++++++++++++++
- Klock/UserSettings.vb                    |  22 ++
- Klock/frmInfo.Designer.vb                |  37 ++
- Klock/frmInfo.vb                         |  25 +-
- Klock/frmKlock.Designer.vb               |  20 +-
- Klock/frmKlock.vb                        |  28 +-
- Klock/frmOptions.Designer.vb             |  45 ++-
- Klock/frmOptions.vb                      |  12 +-
- Klock/frmTextKlock.Designer.vb           |  12 +-
- Klock/frmTextKlock.vb                    |   5 +-
- Klock/history.txt                        |  50 +++
- Klock/klock.hnd                          | Bin 9388032 -> 17678336 bytes
- Sounds/thepips.mp3                       | Bin 0 -> 40874 bytes
- log.txt                                  | 257 ++++----------
- 23 files changed, 991 insertions(+), 235 deletions(-)
- 
+[frmOptions.vb & userOptions.vb]
+Added option to check for internet connectivity
+
+[SNTPClient.vb]
+Added the actual code that queries the internet time server.
+
+[frmtextKlock.vb]
+Added indication of internet connectivity to the status bar.
+
+[infoCommon.vb]
+Added stuff for internet time - added combobox to hold servers and button
+to run query.  Calls code from SNTPClient.vb to actually access the time
+server.
+
+[klockThings.vb]
+Added check for internet connectivity.
+
+Klock.sln                                |   9 +-
+Klock/InfoCommon.vb                      |  60 +++-
+Klock/Klock.chm                          | Bin 541396 -> 541976 bytes
+Klock/Klock.pdf                          | Bin 2697704 -> 2699928 bytes
+Klock/Klock.vbproj                       |   8 +-
+Klock/KlockThings.vb                     |  33 +-
+Klock/My Project/Application.Designer.vb |   4 +-
+Klock/My Project/Application.myapp       |   2 +-
+Klock/My Project/AssemblyInfo.vb         |   4 +-
+Klock/SNTPClient.vb                      | 593 +++++++++++++++++++++++++++++++
+Klock/UserSettings.vb                    |  22 ++
+Klock/frmInfo.Designer.vb                |  37 ++
+Klock/frmInfo.vb                         |  25 +-
+Klock/frmKlock.Designer.vb               |  20 +-
+Klock/frmKlock.vb                        |  28 +-
+Klock/frmOptions.Designer.vb             |  45 ++-
+Klock/frmOptions.vb                      |  12 +-
+Klock/frmTextKlock.Designer.vb           |  12 +-
+Klock/frmTextKlock.vb                    |   5 +-
+Klock/history.txt                        |  50 +++
+Klock/klock.hnd                          | Bin 9388032 -> 17678336 bytes
+Sounds/thepips.mp3                       | Bin 0 -> 40874 bytes
+log.txt                                  | 257 ++++----------
+23 files changed, 991 insertions(+), 235 deletions(-)
+
 [Build [53] - V1.1.1.53 - November 2015
 
 commit b00487f76276093a5a9980773404925dc11ae8fb
 Author: kevin scott <coinflip@keleven.co.uk>
 Date:   Tue Nov 3 21:00:21 2015 +0000
 
-    [frmKlock.vb]
-    Removed code that launches help, about form - moved to HelpCommon.vb
-    
-    [KlockThings.vb]
-    Added the colour of the idle time display on the textKlock to
-    KeepMonitorActive() & RestoreMonitorActive()
-    Added function easterDates()
-    
-    [InfoCommon.vb]
-    Moved common code into functions.
-    Added code for the select year for Daylight Saving & Easter Dates.
-    
-    [Klock.iss]
-    Amended issue scripts for current version.
-    Added help.pdf to install.
-    
-    [HelpCommon.vb]
-    File added - contains common code for the Help menu.
-    
-    [frmLicence.vb]
-    Moved code for loading of licence to HelpCommon.vb
-    Also used to load History - selected form HelpCommon.vb
+[frmKlock.vb]
+Removed code that launches help, about form - moved to HelpCommon.vb
 
- Klock/HelpCommon.vb              |  59 ++++++
- Klock/InfoCommon.vb              |  91 ++++++--
- Klock/Klock.chm                  | Bin 532568 -> 541396 bytes
- Klock/Klock.iss                  |  16 +-
- Klock/Klock.pdf                  | Bin 2503468 -> 2697704 bytes
- Klock/Klock.vbproj               |   8 +-
- Klock/KlockThings.vb             |  13 ++
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/frmInfo.Designer.vb        |  33 ++-
- Klock/frmInfo.vb                 |  15 +-
- Klock/frmKlock.Designer.vb       |  27 ++-
- Klock/frmKlock.vb                |  41 ++--
- Klock/frmLicense.vb              |  27 +--
- Klock/frmTextKlock.Designer.vb   |  73 ++++++-
- Klock/frmTextKlock.resx          |   3 +
- Klock/frmTextKlock.vb            |  64 +++++-
- Klock/history.txt                | 433 ++++++++++++++++++++++++++++++++++-----
- Klock/klock.hnd                  | Bin 9134080 -> 9388032 bytes
- Klock/selectTime.vb              |   2 +-
- log.txt                          | 244 ++++++++++++++++++++--
- 20 files changed, 992 insertions(+), 161 deletions(-)
+[KlockThings.vb]
+Added the colour of the idle time display on the textKlock to
+KeepMonitorActive() & RestoreMonitorActive()
+Added function easterDates()
+
+[InfoCommon.vb]
+Moved common code into functions.
+Added code for the select year for Daylight Saving & Easter Dates.
+
+[Klock.iss]
+Amended issue scripts for current version.
+Added help.pdf to install.
+
+[HelpCommon.vb]
+File added - contains common code for the Help menu.
+
+[frmLicence.vb]
+Moved code for loading of licence to HelpCommon.vb
+Also used to load History - selected form HelpCommon.vb
+
+Klock/HelpCommon.vb              |  59 ++++++
+Klock/InfoCommon.vb              |  91 ++++++--
+Klock/Klock.chm                  | Bin 532568 -> 541396 bytes
+Klock/Klock.iss                  |  16 +-
+Klock/Klock.pdf                  | Bin 2503468 -> 2697704 bytes
+Klock/Klock.vbproj               |   8 +-
+Klock/KlockThings.vb             |  13 ++
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/frmInfo.Designer.vb        |  33 ++-
+Klock/frmInfo.vb                 |  15 +-
+Klock/frmKlock.Designer.vb       |  27 ++-
+Klock/frmKlock.vb                |  41 ++--
+Klock/frmLicense.vb              |  27 +--
+Klock/frmTextKlock.Designer.vb   |  73 ++++++-
+Klock/frmTextKlock.resx          |   3 +
+Klock/frmTextKlock.vb            |  64 +++++-
+Klock/history.txt                | 433 ++++++++++++++++++++++++++++++++++-----
+Klock/klock.hnd                  | Bin 9134080 -> 9388032 bytes
+Klock/selectTime.vb              |   2 +-
+log.txt                          | 244 ++++++++++++++++++++--
+20 files changed, 992 insertions(+), 161 deletions(-)
 
 [Build [52] - V1.1.1.52 - October 2015
 
@@ -766,50 +823,50 @@ commit 14b2fe6dfcde2e0f8a6e3fc0a05968ba48fefc4f
 Author: kevin scott <klock@keleven.co.uk>
 Date:   Mon Oct 26 15:51:48 2015 +0000
 
-    [frmklock.vb]
-    When a friend is added, if DOB is entered this can now create an event automatically.
-    When a reminder is set, now displays the remaining time.
-    Changes to how a button is called, for print button.
-    Changed DOB in person to save as short date string.
-    Only allows an event to be added if first text box and date are valid.
-    Added alt + F keys for quick access.
-    
-    [Events.vb]
-    Corrected bug in days to go, if events is this month.
-    
-    [FEMcommon.vb]
-    Added print button.
-    
-    [InfoComon.vb]
-    Changed call to Culture for windows 10.
-    
-    [frmOptions.vb]
-    Added messages, when archive is either saved or loaded.
-    
-    [frmTextKlock.vb]
-    Corrected bug, main form is displayed when textklock is closed.
-    
-    [Help.hd]
-    Updated help for idle time.
+[frmklock.vb]
+When a friend is added, if DOB is entered this can now create an event automatically.
+When a reminder is set, now displays the remaining time.
+Changes to how a button is called, for print button.
+Changed DOB in person to save as short date string.
+Only allows an event to be added if first text box and date are valid.
+Added alt + F keys for quick access.
 
- Klock/Events.vb                |   1 +
- Klock/FEMcommon.vb             |  87 +++++++++++++-
- Klock/InfoCommon.vb            |   3 +
- Klock/Klock.chm                | Bin 530470 -> 532568 bytes
- Klock/Klock.pdf                | Bin 0 -> 2503468 bytes
- Klock/Klock.vbproj             |   2 -
- Klock/ListViewColumnSorter.vb  |  12 +-
- Klock/ListViewPrint.vb         | 259 +++++++++++++++++++++--------------------
- Klock/Timer.vb                 |   2 +-
- Klock/UserFonts.vb             |   2 +-
- Klock/frmKlock.Designer.vb     |  76 ++++++++----
- Klock/frmKlock.vb              | 134 ++++++++++++++-------
- Klock/frmOptions.vb            |   8 +-
- Klock/frmTextKlock.Designer.vb |   2 +-
- Klock/frmTextKlock.vb          |  24 ++++
- Klock/klock.hnd                | Bin 9211904 -> 9134080 bytes
- log.txt                        |  39 +++++++
- 17 files changed, 431 insertions(+), 220 deletions(-)
+[Events.vb]
+Corrected bug in days to go, if events is this month.
+
+[FEMcommon.vb]
+Added print button.
+
+[InfoComon.vb]
+Changed call to Culture for windows 10.
+
+[frmOptions.vb]
+Added messages, when archive is either saved or loaded.
+
+[frmTextKlock.vb]
+Corrected bug, main form is displayed when textklock is closed.
+
+[Help.hd]
+Updated help for idle time.
+
+Klock/Events.vb                |   1 +
+Klock/FEMcommon.vb             |  87 +++++++++++++-
+Klock/InfoCommon.vb            |   3 +
+Klock/Klock.chm                | Bin 530470 -> 532568 bytes
+Klock/Klock.pdf                | Bin 0 -> 2503468 bytes
+Klock/Klock.vbproj             |   2 -
+Klock/ListViewColumnSorter.vb  |  12 +-
+Klock/ListViewPrint.vb         | 259 +++++++++++++++++++++--------------------
+Klock/Timer.vb                 |   2 +-
+Klock/UserFonts.vb             |   2 +-
+Klock/frmKlock.Designer.vb     |  76 ++++++++----
+Klock/frmKlock.vb              | 134 ++++++++++++++-------
+Klock/frmOptions.vb            |   8 +-
+Klock/frmTextKlock.Designer.vb |   2 +-
+Klock/frmTextKlock.vb          |  24 ++++
+Klock/klock.hnd                | Bin 9211904 -> 9134080 bytes
+log.txt                        |  39 +++++++
+17 files changed, 431 insertions(+), 220 deletions(-)
 
 
 [Build 51] - V1.1.1.51 October 2015
@@ -819,7 +876,7 @@ Merge: 450f77e 31aff2a
 Author: kevin scott <klock@keleven.co.uk>
 Date:   Fri Oct 9 19:41:15 2015 +0100
 
-    Merge branch 'master' of https://github.com/keleven-uk/Klock
+Merge branch 'master' of https://github.com/keleven-uk/Klock
 
 
 [Build 50] - V1.1.1.50 - October 2015
@@ -828,13 +885,13 @@ commit 450f77e5b7edf5b3095946e95f73fc143a936c31
 Author: kevin scott <klock@keleven.co.uk>
 Date:   Fri Oct 9 19:40:33 2015 +0100
 
-    Amended help file and install script.
+Amended help file and install script.
 
- Klock/Klock.chm | Bin 614204 -> 530470 bytes
- Klock/Klock.iss |  24 ++++++++++++------------
- Klock/klock.hnd | Bin 8843264 -> 9211904 bytes
- log.txt         |  16 ++++++++++++++++
- 4 files changed, 28 insertions(+), 12 deletions(-)
+Klock/Klock.chm | Bin 614204 -> 530470 bytes
+Klock/Klock.iss |  24 ++++++++++++------------
+Klock/klock.hnd | Bin 8843264 -> 9211904 bytes
+log.txt         |  16 ++++++++++++++++
+4 files changed, 28 insertions(+), 12 deletions(-)
 
 
 [Build 49] - V1.1.1.49 - October 2015
@@ -843,20 +900,20 @@ commit 31aff2a0898d9270d0ae7d99118b5ca373ab7932
 Author: kevin scott <klock@keleven.co.uk>
 Date:   Thu Oct 8 20:01:55 2015 +0100
 
-    Corrected the code for idle time and disallow monitor going to sleep.
-    Prevent monitor going to sleep can be toggled with [Alt] F7/F8 � [Alt] F7 to prevent, [Alt] F8 to restore.
-    Moved a couple of helper function to KlockThings.vb from Klock.vb
+Corrected the code for idle time and disallow monitor going to sleep.
+Prevent monitor going to sleep can be toggled with [Alt] F7/F8 � [Alt] F7 to prevent, [Alt] F8 to restore.
+Moved a couple of helper function to KlockThings.vb from Klock.vb
 
- Klock/FEMcommon.vb    |   6 +---
- Klock/Klock.chm       | Bin 614204 -> 530470 bytes
- Klock/Klock.iss       |  24 +++++++-------
- Klock/KlockThings.vb  |  47 +++++++++++++++++++++++++--
- Klock/frmKlock.vb     |  87 +++++++++++++++++++-------------------------------
- Klock/frmOptions.vb   |  12 ++++++-
- Klock/frmTextKlock.vb |   5 +++
- Klock/klock.hnd       | Bin 8843264 -> 9211904 bytes
- log.txt               |  16 ++++++++++
- 9 files changed, 122 insertions(+), 75 deletions(-)
+Klock/FEMcommon.vb    |   6 +---
+Klock/Klock.chm       | Bin 614204 -> 530470 bytes
+Klock/Klock.iss       |  24 +++++++-------
+Klock/KlockThings.vb  |  47 +++++++++++++++++++++++++--
+Klock/frmKlock.vb     |  87 +++++++++++++++++++-------------------------------
+Klock/frmOptions.vb   |  12 ++++++-
+Klock/frmTextKlock.vb |   5 +++
+Klock/klock.hnd       | Bin 8843264 -> 9211904 bytes
+log.txt               |  16 ++++++++++
+9 files changed, 122 insertions(+), 75 deletions(-)
 
 
 [Build 48] - V1.1.1.48 - October 2015
@@ -865,17 +922,17 @@ commit 10cd52e7f228c22fa6180d1cdf4d5b67e2581e1d
 Author: kevin scott <klock@keleven.co.uk>
 Date:   Sun Oct 4 22:24:13 2015 +0100
 
-    The amended files form the last push.
+The amended files form the last push.
 
- Klock/Klock.vbproj               |    1 +
- Klock/My Project/AssemblyInfo.vb |    6 +-
- Klock/UserSettings.vb            |   49 +-
- Klock/frmKlock.Designer.vb       |   80 +-
- Klock/frmKlock.vb                |   62 +-
- Klock/frmOptions.Designer.vb     |   43 +
- Klock/frmOptions.vb              |   24 +
- log.txt                          | 1614 ++++++++++++++++++++++++++++++++++++++
- 8 files changed, 1834 insertions(+), 45 deletions(-)
+Klock/Klock.vbproj               |    1 +
+Klock/My Project/AssemblyInfo.vb |    6 +-
+Klock/UserSettings.vb            |   49 +-
+Klock/frmKlock.Designer.vb       |   80 +-
+Klock/frmKlock.vb                |   62 +-
+Klock/frmOptions.Designer.vb     |   43 +
+Klock/frmOptions.vb              |   24 +
+log.txt                          | 1614 ++++++++++++++++++++++++++++++++++++++
+8 files changed, 1834 insertions(+), 45 deletions(-)
 
 
 [Build 47] - V1.1.1.47 - Moved to VS 2015 - September 2015.
@@ -884,13 +941,13 @@ commit 5b2b0deccdaa9c477c3b2141b46b80797a231eb6
 Author: kevin scott <klock@keleven.co.uk>
 Date:   Sun Oct 4 22:19:06 2015 +0100
 
-    Added display idle time in system tray
-    Added disable monitor going to sleep
-    
-    Amendments to klock.vb, usrSetting.vb & frmOptions
+Added display idle time in system tray
+Added disable monitor going to sleep
 
- Klock/KlockThings.vb | 74 ++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
+Amendments to klock.vb, usrSetting.vb & frmOptions
+
+Klock/KlockThings.vb | 74 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+1 file changed, 74 insertions(+)
 
 
 [Build 46] - V1.1.0.46 - July 2015
@@ -899,24 +956,24 @@ commit 848ce86c95f5af5b5d447d36029a44b43982354e
 Author: kevin scott <klock@keleven.co.uk>
 Date:   Thu Jul 30 20:13:29 2015 +0100
 
-    Changed all IFF for IF, they are better apparently.
-    	Performance increase, only the argument needed is evaluated.
-    
-    Amended all function to use Return instead of <function name> =
-    	Also a performance increase and more readability.
+Changed all IFF for IF, they are better apparently.
+Performance increase, only the argument needed is evaluated.
 
- Klock/Events.vb       |  4 +--
- Klock/IOcommon.vb     |  2 +-
- Klock/ManagedPower.vb |  6 ++---
- Klock/Person.vb       |  2 +-
- Klock/UserFonts.vb    |  2 +-
- Klock/UserSettings.vb |  2 +-
- Klock/eventThings.vb  | 10 +++----
- Klock/frmAbout.vb     |  4 +--
- Klock/frmKlock.vb     | 16 ++++++------
- Klock/frmOptions.vb   |  8 +++---
- Klock/selectTime.vb   | 72 +++++++++++++++++++++++++--------------------------
- 11 files changed, 64 insertions(+), 64 deletions(-)
+Amended all function to use Return instead of <function name> =
+Also a performance increase and more readability.
+
+Klock/Events.vb       |  4 +--
+Klock/IOcommon.vb     |  2 +-
+Klock/ManagedPower.vb |  6 ++---
+Klock/Person.vb       |  2 +-
+Klock/UserFonts.vb    |  2 +-
+Klock/UserSettings.vb |  2 +-
+Klock/eventThings.vb  | 10 +++----
+Klock/frmAbout.vb     |  4 +--
+Klock/frmKlock.vb     | 16 ++++++------
+Klock/frmOptions.vb   |  8 +++---
+Klock/selectTime.vb   | 72 +++++++++++++++++++++++++--------------------------
+11 files changed, 64 insertions(+), 64 deletions(-)
 
 
 [Build 45] - V1.1.0.45 - July 2015
@@ -925,30 +982,30 @@ commit d3ea48a97c838488d705a6a4c463e98ad326c115
 Author: Kevin Scott <klock@keleven.co.uk>
 Date:   Thu Jul 9 21:25:08 2015 +0100
 
-    [frmklock.vb]
-    Added dim f as System.TimeZoneInfo - switch on strict infer
-    Added version info to header
-    
-    [frmAbout.vb]
-    Removed RC1 to version number.
-    
-    [selectTime.vb]
-    Corrected bugs in Swatch Time, New Earth Time, Julian Time & Decimal Time.
-    
-    Updated Help system.
-    Updated Application issue set up script
+[frmklock.vb]
+Added dim f as System.TimeZoneInfo - switch on strict infer
+Added version info to header
 
- Klock/Help.txt                   |   70 +-
- Klock/Klock.iss                  |   10 +-
- Klock/Klock.vbproj               |   12 +-
- Klock/My Project/AssemblyInfo.vb |    6 +-
- Klock/frmAbout.vb                |    5 +-
- Klock/frmKlock.vb                |    7 +-
- Klock/history.txt                | 2117 +++++++++++++++++++++++++++-----------
- Klock/klock.hnd                  |  Bin 8769536 -> 8843264 bytes
- Klock/selectTime.vb              |   17 +-
- git push.txt                     |    4 +
- 10 files changed, 1618 insertions(+), 630 deletions(-)
+[frmAbout.vb]
+Removed RC1 to version number.
+
+[selectTime.vb]
+Corrected bugs in Swatch Time, New Earth Time, Julian Time & Decimal Time.
+
+Updated Help system.
+Updated Application issue set up script
+
+Klock/Help.txt                   |   70 +-
+Klock/Klock.iss                  |   10 +-
+Klock/Klock.vbproj               |   12 +-
+Klock/My Project/AssemblyInfo.vb |    6 +-
+Klock/frmAbout.vb                |    5 +-
+Klock/frmKlock.vb                |    7 +-
+Klock/history.txt                | 2117 +++++++++++++++++++++++++++-----------
+Klock/klock.hnd                  |  Bin 8769536 -> 8843264 bytes
+Klock/selectTime.vb              |   17 +-
+git push.txt                     |    4 +
+10 files changed, 1618 insertions(+), 630 deletions(-)
 
 
 [Build 44] - V1.1.0.44 - June 2015
@@ -957,13 +1014,13 @@ commit 313cc53a0e4071b9728948df93ae0e46c72c3696
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Mon Jun 15 19:37:03 2015 +0100
 
-    Completed history.txt to be complete SVN history.
-    
-    Completed readme.md to reflect current state of Klock.
+Completed history.txt to be complete SVN history.
 
- Klock/history.txt |  46 ++++++++++++++++++++
- README.md         | 123 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 169 insertions(+)
+Completed readme.md to reflect current state of Klock.
+
+Klock/history.txt |  46 ++++++++++++++++++++
+README.md         | 123 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2 files changed, 169 insertions(+)
 
 
 [Build 43] - V1.1.0.43 - June 2015
@@ -972,15 +1029,15 @@ commit ceaffebdecadbd32a50e75413f72bb4617b29c2e
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 11 20:04:31 2015 +0100
 
-    Added new files .gitignore & License.
-    Licence used is the GNU GENERAL PUBLIC LICENSE V 3.
-    
-    Added to previously empty README file.
+Added new files .gitignore & License.
+Licence used is the GNU GENERAL PUBLIC LICENSE V 3.
 
- .gitignore | 223 ++++++++++++++++++++++++++++
- LICENSE    | 479 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- README.md  |   3 -
- 3 files changed, 702 insertions(+), 3 deletions(-)
+Added to previously empty README file.
+
+.gitignore | 223 ++++++++++++++++++++++++++++
+LICENSE    | 479 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+README.md  |   3 -
+3 files changed, 702 insertions(+), 3 deletions(-)
 
 
 [Build 42] - V1.1.0.42 - Converted to git from svn. - Moved to VS2013 
@@ -989,10 +1046,10 @@ commit b72f9d546f9a5812c7857d2de29d5a75b4d8c04e
 Author: keleven-uk <github@keleven.co.uk>
 Date:   Thu Jun 11 19:36:23 2015 +0100
 
-    Create README.md
+Create README.md
 
- README.md | 3 +++
- 1 file changed, 3 insertions(+)
+README.md | 3 +++
+1 file changed, 3 insertions(+)
 
 
 [Build 41] - V1.0.6.41 - July 2014
@@ -1001,20 +1058,20 @@ commit 3ab5b3bd9883d9deff2f6e1f70a3ce5ddfc3eebf
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:37:15 2015 +0100
 
-    Added text klock in new window.
+Added text klock in new window.
 
- Klock/Events.vb                  |   2 +-
- Klock/Klock.iss                  |   6 +-
- Klock/Klock.vbproj               |   9 +
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/frmKlock.Designer.vb       |  78 +++--
- Klock/frmKlock.vb                |  38 ++-
- Klock/frmTextKlock.Designer.vb   | 611 ++++++++++++++++++++++++++++++++++
- Klock/frmTextKlock.resx          | 694 +++++++++++++++++++++++++++++++++++++++
- Klock/frmTextKlock.vb            | 214 ++++++++++++
- Klock/selectAction.vb            |   2 +-
- Klock/textKlock.ico              | Bin 0 -> 32862 bytes
- 11 files changed, 1623 insertions(+), 35 deletions(-)
+Klock/Events.vb                  |   2 +-
+Klock/Klock.iss                  |   6 +-
+Klock/Klock.vbproj               |   9 +
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/frmKlock.Designer.vb       |  78 +++--
+Klock/frmKlock.vb                |  38 ++-
+Klock/frmTextKlock.Designer.vb   | 611 ++++++++++++++++++++++++++++++++++
+Klock/frmTextKlock.resx          | 694 +++++++++++++++++++++++++++++++++++++++
+Klock/frmTextKlock.vb            | 214 ++++++++++++
+Klock/selectAction.vb            |   2 +-
+Klock/textKlock.ico              | Bin 0 -> 32862 bytes
+11 files changed, 1623 insertions(+), 35 deletions(-)
 
 
 [Build 40] - V1.0.6.40 - July 2014
@@ -1023,17 +1080,17 @@ commit bc05000c40f64e1d50670cd9f120bcf065a1e97d
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:35:50 2015 +0100
 
-    Include into V1.0.6 all the non-agent updates from V1.0.5.
+Include into V1.0.6 all the non-agent updates from V1.0.5.
 
- Klock/Klock.chm                  | Bin 612310 -> 614204 bytes
- Klock/My Project/AssemblyInfo.vb |   6 +++---
- Klock/UserSettings.vb            |   6 +++---
- Klock/frmAbout.Designer.vb       |  16 ++++++++--------
- Klock/frmKlock.vb                |  11 +++++++----
- Klock/frmOptions.Designer.vb     |   2 +-
- Klock/frmOptions.vb              |   2 ++
- Klock/klock.hnd                  | Bin 8761344 -> 8769536 bytes
- 8 files changed, 24 insertions(+), 19 deletions(-)
+Klock/Klock.chm                  | Bin 612310 -> 614204 bytes
+Klock/My Project/AssemblyInfo.vb |   6 +++---
+Klock/UserSettings.vb            |   6 +++---
+Klock/frmAbout.Designer.vb       |  16 ++++++++--------
+Klock/frmKlock.vb                |  11 +++++++----
+Klock/frmOptions.Designer.vb     |   2 +-
+Klock/frmOptions.vb              |   2 ++
+Klock/klock.hnd                  | Bin 8761344 -> 8769536 bytes
+8 files changed, 24 insertions(+), 19 deletions(-)
 
 
 [Build 39] - V1.0.6.39 - July 2014
@@ -1042,31 +1099,31 @@ commit 9a7dc0e8e148aa276e36da41692946222acc0792
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:34:08 2015 +0100
 
-    New Version to develop text klock. Copied from V1.0.4.41.
-    
-    V1.0.4.41 -> 1.0.6.45
-    
-    NB: this version bypasses the V1.0.5 branch.
-    
-    Added the ability to sort and print the list views. [not sure about this]
+New Version to develop text klock. Copied from V1.0.4.41.
 
- Klock/Klock.chm                  | Bin 642956 -> 612310 bytes
- Klock/Klock.iss                  | 150 +------------------------------
- Klock/Klock.vbproj               |   5 +-
- Klock/ListViewColumnSorter.vb    |  85 ++++++++++++++++++
- Klock/ListViewPrint.vb           | 184 +++++++++++++++++++++++++++++++++++++++
- Klock/My Project/AssemblyInfo.vb |   6 +-
- Klock/UserSettings.vb            |  69 +--------------
- Klock/frmAbout.vb                |   2 +-
- Klock/frmKlock.Designer.vb       |  14 ---
- Klock/frmKlock.resx              |   9 --
- Klock/frmKlock.vb                |  43 ++-------
- Klock/frmOptions.Designer.vb     | 171 ++----------------------------------
- Klock/frmOptions.vb              | 112 ++----------------------
- Klock/history.txt                |  54 +++---------
- Klock/klock.hnd                  | Bin 9662464 -> 8761344 bytes
- Klock/wip.txt                    |   1 -
- 16 files changed, 310 insertions(+), 595 deletions(-)
+V1.0.4.41 -> 1.0.6.45
+
+NB: this version bypasses the V1.0.5 branch.
+
+Added the ability to sort and print the list views. [not sure about this]
+
+Klock/Klock.chm                  | Bin 642956 -> 612310 bytes
+Klock/Klock.iss                  | 150 +------------------------------
+Klock/Klock.vbproj               |   5 +-
+Klock/ListViewColumnSorter.vb    |  85 ++++++++++++++++++
+Klock/ListViewPrint.vb           | 184 +++++++++++++++++++++++++++++++++++++++
+Klock/My Project/AssemblyInfo.vb |   6 +-
+Klock/UserSettings.vb            |  69 +--------------
+Klock/frmAbout.vb                |   2 +-
+Klock/frmKlock.Designer.vb       |  14 ---
+Klock/frmKlock.resx              |   9 --
+Klock/frmKlock.vb                |  43 ++-------
+Klock/frmOptions.Designer.vb     | 171 ++----------------------------------
+Klock/frmOptions.vb              | 112 ++----------------------
+Klock/history.txt                |  54 +++---------
+Klock/klock.hnd                  | Bin 9662464 -> 8761344 bytes
+Klock/wip.txt                    |   1 -
+16 files changed, 310 insertions(+), 595 deletions(-)
 
 
 [Build 38] - V1.0.5.38 - November 2013
@@ -1075,16 +1132,16 @@ commit c50cbacaf29b7866e8830ffed611bbe228fc1993
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:30:57 2015 +0100
 
-    Code as at 1 February 2014
+Code as at 1 February 2014
 
- Klock/Klock.chm                  | Bin 612310 -> 642956 bytes
- Klock/Klock.iss                  | 150 ++++++++++++++++++++++++++++++++++++++-
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/frmOptions.vb              |   3 +
- Klock/history.txt                |  54 +++++++++++---
- Klock/klock.hnd                  | Bin 8761344 -> 9662464 bytes
- Klock/selectAgent.vb             |   2 +
- 7 files changed, 198 insertions(+), 15 deletions(-)
+Klock/Klock.chm                  | Bin 612310 -> 642956 bytes
+Klock/Klock.iss                  | 150 ++++++++++++++++++++++++++++++++++++++-
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/frmOptions.vb              |   3 +
+Klock/history.txt                |  54 +++++++++++---
+Klock/klock.hnd                  | Bin 8761344 -> 9662464 bytes
+Klock/selectAgent.vb             |   2 +
+7 files changed, 198 insertions(+), 15 deletions(-)
 
 
 [Build 37] - V1.0.5.37 - November 2013
@@ -1093,32 +1150,32 @@ commit 4ba616197ce82ad4f2621f2d5a054a701d975485
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:29:24 2015 +0100
 
-    Added selectAgent.vb, a wrapper class for MS agents.  Although, I use
-    DoubleAgent, an open source alternative.
-    
-    [frmKlock.vb, frmOptions.vb & UserSettings.vb)
-    
-    Added: code for Agents.
-    
-    If Agents are chosen, notification display and notification speech are not called.
-    
-    [frmOptions.vb]
-    
-    Fixed: incorrect text on 12 / 24 hour label  [thanks Zach].
+Added selectAgent.vb, a wrapper class for MS agents.  Although, I use
+DoubleAgent, an open source alternative.
 
- Klock/Klock.iss                  |   4 +-
- Klock/Klock.vbproj               |   3 +
- Klock/My Project/AssemblyInfo.vb |   6 +-
- Klock/UserSettings.vb            |  69 +++++++++++++++-
- Klock/frmAbout.vb                |   2 +-
- Klock/frmKlock.Designer.vb       |  14 ++++
- Klock/frmKlock.resx              |   9 +++
- Klock/frmKlock.vb                |  43 ++++++++--
- Klock/frmOptions.Designer.vb     | 171 +++++++++++++++++++++++++++++++++++++--
- Klock/frmOptions.vb              | 109 +++++++++++++++++++++++--
- Klock/selectAgent.vb             | 107 ++++++++++++++++++++++++
- Klock/wip.txt                    |   1 +
- 12 files changed, 510 insertions(+), 28 deletions(-)
+[frmKlock.vb, frmOptions.vb & UserSettings.vb)
+
+Added: code for Agents.
+
+If Agents are chosen, notification display and notification speech are not called.
+
+[frmOptions.vb]
+
+Fixed: incorrect text on 12 / 24 hour label  [thanks Zach].
+
+Klock/Klock.iss                  |   4 +-
+Klock/Klock.vbproj               |   3 +
+Klock/My Project/AssemblyInfo.vb |   6 +-
+Klock/UserSettings.vb            |  69 +++++++++++++++-
+Klock/frmAbout.vb                |   2 +-
+Klock/frmKlock.Designer.vb       |  14 ++++
+Klock/frmKlock.resx              |   9 +++
+Klock/frmKlock.vb                |  43 ++++++++--
+Klock/frmOptions.Designer.vb     | 171 +++++++++++++++++++++++++++++++++++++--
+Klock/frmOptions.vb              | 109 +++++++++++++++++++++++--
+Klock/selectAgent.vb             | 107 ++++++++++++++++++++++++
+Klock/wip.txt                    |   1 +
+12 files changed, 510 insertions(+), 28 deletions(-)
 
 
 [Build 36] - V1.0.4.36 - October 2013
@@ -1127,30 +1184,30 @@ commit 48525cc846dfdb11f485c0e89b95610f069eb405
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:26:39 2015 +0100
 
-    Spelt check of sources and slight clean-up of code.
+Spelt check of sources and slight clean-up of code.
 
- Klock/Events.vb                        |  15 +++++---
- Klock/FEMcommon.vb                     |   4 +--
- Klock/InfoCommon.vb                    |   4 ++-
- Klock/Klock.chm                        | Bin 622270 -> 612310 bytes
- Klock/Klock.iss                        |   5 ++-
- Klock/Klock.vbproj                     |  10 +++---
- Klock/Memo.vb                          |   7 +++-
- Klock/My Project/AssemblyInfo.vb       |   4 +--
- Klock/My Project/Resources.Designer.vb |  16 ++++-----
- Klock/Person.vb                        |   9 +++++
- Klock/UserFonts.vb                     |  62 +++++++++++++++++++++++++++++++++
- Klock/Voice.vb                         |   2 +-
- Klock/eventThings.vb                   |   6 ++--
- Klock/frmAbout.vb                      |   4 +--
- Klock/frmInfo.vb                       |  22 +++++-------
- Klock/frmKlock.vb                      |  10 +++---
- Klock/frmMemoPassword.vb               |   6 ++--
- Klock/frmOptions.vb                    |   6 ++--
- Klock/history.txt                      |  21 +++++++++++
- Klock/klock.hnd                        | Bin 8720384 -> 8761344 bytes
- Klock/selectTime.vb                    |  12 +++----
- 21 files changed, 159 insertions(+), 66 deletions(-)
+Klock/Events.vb                        |  15 +++++---
+Klock/FEMcommon.vb                     |   4 +--
+Klock/InfoCommon.vb                    |   4 ++-
+Klock/Klock.chm                        | Bin 622270 -> 612310 bytes
+Klock/Klock.iss                        |   5 ++-
+Klock/Klock.vbproj                     |  10 +++---
+Klock/Memo.vb                          |   7 +++-
+Klock/My Project/AssemblyInfo.vb       |   4 +--
+Klock/My Project/Resources.Designer.vb |  16 ++++-----
+Klock/Person.vb                        |   9 +++++
+Klock/UserFonts.vb                     |  62 +++++++++++++++++++++++++++++++++
+Klock/Voice.vb                         |   2 +-
+Klock/eventThings.vb                   |   6 ++--
+Klock/frmAbout.vb                      |   4 +--
+Klock/frmInfo.vb                       |  22 +++++-------
+Klock/frmKlock.vb                      |  10 +++---
+Klock/frmMemoPassword.vb               |   6 ++--
+Klock/frmOptions.vb                    |   6 ++--
+Klock/history.txt                      |  21 +++++++++++
+Klock/klock.hnd                        | Bin 8720384 -> 8761344 bytes
+Klock/selectTime.vb                    |  12 +++----
+21 files changed, 159 insertions(+), 66 deletions(-)
 
 
 [Build 35] - V1.0.4.35 - October 2013
@@ -1159,57 +1216,57 @@ commit f19f723739065ffe584390d73ab9f874297e638e
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:25:05 2015 +0100
 
-    Added sounds & fonts directory to top level.
-    
-    Added UserFonts.vb :: A class to manage the custom fonts used.
-    
-    Also returns the correct fonts size for a given text width.
-    
-    [frmKlock.vb]
-    
-    Moved some code in to UserFonts.vb
-    
-    Fixed a bug, the text files of a notification icon cannot exceed 64
-    characters.
-    
-    Moved code that loads the info forms into one sub.
-    
-    Simplified the code for the memo password.
-    
-    [frmOptions.vb & UserSettings.vb]
-    
-    Removed option for blank memo passwords.
-    
-    [selectTime.vb]
-    
-    Added Semaphore Time, Nancy Blackett Time & Barcode Time.
-    
-    Amended Braille Time to use fonts instead of Unicode characters
+Added sounds & fonts directory to top level.
 
- Klock/Events.vb              |   6 ++
- Klock/FEMcommon.vb           |   9 +-
- Klock/InfoCommon.vb          |   8 +-
- Klock/Klock.chm              | Bin 622000 -> 622270 bytes
- Klock/Klock.iss              |  11 +--
- Klock/Klock.vbproj           |   1 +
- Klock/ManagedPower.vb        |   5 ++
- Klock/Memo.vb                |   5 ++
- Klock/Timer.vb               |   5 ++
- Klock/UserSettings.vb        |  13 ---
- Klock/eventThings.vb         |   2 +
- Klock/frmKlock.Designer.vb   |  52 +++++------
- Klock/frmKlock.vb            | 111 +++++++-----------------
- Klock/frmMemoPassword.vb     |   2 +-
- Klock/frmOptions.Designer.vb | 201 ++++++++++++++++++++-----------------------
- Klock/frmOptions.vb          |   3 -
- Klock/klock.hnd              | Bin 7655424 -> 8720384 bytes
- Klock/selectAction.vb        |   5 ++
- Klock/selectTime.vb          |  91 ++++++++++++++------
- fonts/BarCode39.ttf          | Bin 0 -> 22492 bytes
- fonts/BrailleLatin.ttf       | Bin 0 -> 30204 bytes
- fonts/NancyBlackett.ttf      | Bin 0 -> 41836 bytes
- fonts/Semaphore.ttf          | Bin 0 -> 12344 bytes
- 23 files changed, 260 insertions(+), 270 deletions(-)
+Added UserFonts.vb :: A class to manage the custom fonts used.
+
+Also returns the correct fonts size for a given text width.
+
+[frmKlock.vb]
+
+Moved some code in to UserFonts.vb
+
+Fixed a bug, the text files of a notification icon cannot exceed 64
+characters.
+
+Moved code that loads the info forms into one sub.
+
+Simplified the code for the memo password.
+
+[frmOptions.vb & UserSettings.vb]
+
+Removed option for blank memo passwords.
+
+[selectTime.vb]
+
+Added Semaphore Time, Nancy Blackett Time & Barcode Time.
+
+Amended Braille Time to use fonts instead of Unicode characters
+
+Klock/Events.vb              |   6 ++
+Klock/FEMcommon.vb           |   9 +-
+Klock/InfoCommon.vb          |   8 +-
+Klock/Klock.chm              | Bin 622000 -> 622270 bytes
+Klock/Klock.iss              |  11 +--
+Klock/Klock.vbproj           |   1 +
+Klock/ManagedPower.vb        |   5 ++
+Klock/Memo.vb                |   5 ++
+Klock/Timer.vb               |   5 ++
+Klock/UserSettings.vb        |  13 ---
+Klock/eventThings.vb         |   2 +
+Klock/frmKlock.Designer.vb   |  52 +++++------
+Klock/frmKlock.vb            | 111 +++++++-----------------
+Klock/frmMemoPassword.vb     |   2 +-
+Klock/frmOptions.Designer.vb | 201 ++++++++++++++++++++-----------------------
+Klock/frmOptions.vb          |   3 -
+Klock/klock.hnd              | Bin 7655424 -> 8720384 bytes
+Klock/selectAction.vb        |   5 ++
+Klock/selectTime.vb          |  91 ++++++++++++++------
+fonts/BarCode39.ttf          | Bin 0 -> 22492 bytes
+fonts/BrailleLatin.ttf       | Bin 0 -> 30204 bytes
+fonts/NancyBlackett.ttf      | Bin 0 -> 41836 bytes
+fonts/Semaphore.ttf          | Bin 0 -> 12344 bytes
+23 files changed, 260 insertions(+), 270 deletions(-)
 
 
 [Build 34] - V1.0.4.35 - October 2013
@@ -1218,42 +1275,42 @@ commit 124af388fb3ae98b53ba7700a254b1967c7a87c4
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:22:13 2015 +0100
 
-    Finished the code for Memo, included the encryption bit.
-    
-    Added : frmMemoPassword.vb & Simple3Des.vb.
-    
-    [frmKlock.vb, frmOptions.vb, FEMcommon.vb & UserSettings.vb]
-    
-    Added code for the memo encryption.
-    
-    TODO :: still needs further testing.
+Finished the code for Memo, included the encryption bit.
 
- Klock/Events.vb                   |  14 +-
- Klock/FEMcommon.vb                |  28 ++-
- Klock/IOcommon.vb                 | 234 +++++++++++++++++++++
- Klock/Klock.chm                   | Bin 397200 -> 622000 bytes
- Klock/Klock.iss                   |   6 +-
- Klock/Klock.vbproj                |  15 +-
- Klock/Memo.vb                     |   7 +-
- Klock/My Project/AssemblyInfo.vb  |   4 +-
- Klock/Person.vb                   |   7 +-
- Klock/Simple3Des.vb               |  79 +++++++
- Klock/UserSettings.vb             | 235 +++++++++++++++------
- Klock/eventThings.vb              |  21 +-
- Klock/frmAbout.vb                 |  10 +-
- Klock/frmInfo.vb                  |   3 +-
- Klock/frmKlock.Designer.vb        |  67 ++++--
- Klock/frmKlock.resx               |   5 +-
- Klock/frmKlock.vb                 | 420 ++++++++++++++------------------------
- Klock/frmMemoPassword.Designer.vb | 100 +++++++++
- Klock/frmMemoPassword.resx        | 120 +++++++++++
- Klock/frmMemoPassword.vb          |  25 +++
- Klock/frmOptions.Designer.vb      | 269 +++++++++++++++++++++---
- Klock/frmOptions.vb               | 118 ++++++++---
- Klock/history.txt                 |  40 ++++
- Klock/klock.hnd                   | Bin 3493888 -> 7655424 bytes
- Klock/selectTime.vb               | 105 +++++++++-
- 25 files changed, 1462 insertions(+), 470 deletions(-)
+Added : frmMemoPassword.vb & Simple3Des.vb.
+
+[frmKlock.vb, frmOptions.vb, FEMcommon.vb & UserSettings.vb]
+
+Added code for the memo encryption.
+
+TODO :: still needs further testing.
+
+Klock/Events.vb                   |  14 +-
+Klock/FEMcommon.vb                |  28 ++-
+Klock/IOcommon.vb                 | 234 +++++++++++++++++++++
+Klock/Klock.chm                   | Bin 397200 -> 622000 bytes
+Klock/Klock.iss                   |   6 +-
+Klock/Klock.vbproj                |  15 +-
+Klock/Memo.vb                     |   7 +-
+Klock/My Project/AssemblyInfo.vb  |   4 +-
+Klock/Person.vb                   |   7 +-
+Klock/Simple3Des.vb               |  79 +++++++
+Klock/UserSettings.vb             | 235 +++++++++++++++------
+Klock/eventThings.vb              |  21 +-
+Klock/frmAbout.vb                 |  10 +-
+Klock/frmInfo.vb                  |   3 +-
+Klock/frmKlock.Designer.vb        |  67 ++++--
+Klock/frmKlock.resx               |   5 +-
+Klock/frmKlock.vb                 | 420 ++++++++++++++------------------------
+Klock/frmMemoPassword.Designer.vb | 100 +++++++++
+Klock/frmMemoPassword.resx        | 120 +++++++++++
+Klock/frmMemoPassword.vb          |  25 +++
+Klock/frmOptions.Designer.vb      | 269 +++++++++++++++++++++---
+Klock/frmOptions.vb               | 118 ++++++++---
+Klock/history.txt                 |  40 ++++
+Klock/klock.hnd                   | Bin 3493888 -> 7655424 bytes
+Klock/selectTime.vb               | 105 +++++++++-
+25 files changed, 1462 insertions(+), 470 deletions(-)
 
 
 [Build 33] - V1.0.4.33 - October 2013
@@ -1262,58 +1319,58 @@ commit 182438ce99bad06098a461d5361c92821626f55a
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:20:53 2015 +0100
 
-    Renamed DataButtons.vb to FEMcommon.vb - common logic for Freiends, Events
-    & Memo.
-    
-    Added InfoCommon.vb = Common logic for the Info menu options.
-    
-    Added Memo.vb - a class for the memo object.
-    
-    [frmKlock.vb]
-    
-    Added code to support Memo.
-    
-    Added code to support the InfoCommon.vb & FEMcommon.vb
-    
-    [frmOptions.vb]
-    
-    Added code for option for memo file name.
-    
-    Although the file name for the settings file is fixed, removed the label
-    and
-    
-    placed in a text box - as others.
-    
-    [UserSettings.vb]
-    
-    Added code for option for memo file name.
-    
-    Moved some notification code into the correct sections.
+Renamed DataButtons.vb to FEMcommon.vb - common logic for Freiends, Events
+& Memo.
 
- Klock/Events.vb                  |   2 -
- Klock/FEMcommon.vb               | 319 +++++++++++++++++++++++++++++++++++++++
- Klock/InfoCommon.vb              |  62 ++++++++
- Klock/Klock.chm                  | Bin 396250 -> 397200 bytes
- Klock/Klock.iss                  |   4 +-
- Klock/Klock.vbproj               |   4 +-
- Klock/Memo.vb                    |  56 +++++++
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/Person.vb                  |   2 +-
- Klock/UserSettings.vb            |  61 +++++---
- Klock/Voice.vb                   |   4 -
- Klock/eventThings.vb             |   4 -
- Klock/frmAbout.vb                |   2 -
- Klock/frmKlock.Designer.vb       | 122 ++++++++++++++-
- Klock/frmKlock.vb                | 285 ++++++++++++++++++++--------------
- Klock/frmLicense.vb              |   1 -
- Klock/frmNotification.vb         |   6 -
- Klock/frmOptions.Designer.vb     | 152 +++++++++++--------
- Klock/frmOptions.vb              |  49 ++++--
- Klock/history.txt                |  66 +++++++-
- Klock/klock.hnd                  | Bin 3493888 -> 3493888 bytes
- Klock/selectAction.vb            |   6 -
- Klock/selectTime.vb              |  22 +--
- 23 files changed, 969 insertions(+), 264 deletions(-)
+Added InfoCommon.vb = Common logic for the Info menu options.
+
+Added Memo.vb - a class for the memo object.
+
+[frmKlock.vb]
+
+Added code to support Memo.
+
+Added code to support the InfoCommon.vb & FEMcommon.vb
+
+[frmOptions.vb]
+
+Added code for option for memo file name.
+
+Although the file name for the settings file is fixed, removed the label
+and
+
+placed in a text box - as others.
+
+[UserSettings.vb]
+
+Added code for option for memo file name.
+
+Moved some notification code into the correct sections.
+
+Klock/Events.vb                  |   2 -
+Klock/FEMcommon.vb               | 319 +++++++++++++++++++++++++++++++++++++++
+Klock/InfoCommon.vb              |  62 ++++++++
+Klock/Klock.chm                  | Bin 396250 -> 397200 bytes
+Klock/Klock.iss                  |   4 +-
+Klock/Klock.vbproj               |   4 +-
+Klock/Memo.vb                    |  56 +++++++
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/Person.vb                  |   2 +-
+Klock/UserSettings.vb            |  61 +++++---
+Klock/Voice.vb                   |   4 -
+Klock/eventThings.vb             |   4 -
+Klock/frmAbout.vb                |   2 -
+Klock/frmKlock.Designer.vb       | 122 ++++++++++++++-
+Klock/frmKlock.vb                | 285 ++++++++++++++++++++--------------
+Klock/frmLicense.vb              |   1 -
+Klock/frmNotification.vb         |   6 -
+Klock/frmOptions.Designer.vb     | 152 +++++++++++--------
+Klock/frmOptions.vb              |  49 ++++--
+Klock/history.txt                |  66 +++++++-
+Klock/klock.hnd                  | Bin 3493888 -> 3493888 bytes
+Klock/selectAction.vb            |   6 -
+Klock/selectTime.vb              |  22 +--
+23 files changed, 969 insertions(+), 264 deletions(-)
 
 
 [Build 32] - V1.0.3.32 - July 2013
@@ -1322,30 +1379,30 @@ commit 204b928f26e451ebff0fa77acaa56a1bf17161a4
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:18:37 2015 +0100
 
-    Still working through the Events.
-    
-    Added DataButtons.vb, which contains logic common to the buttons of both
-    friends and Events.
-    
-    [frmKlock.vb]
-    
-    Mainly the movement of code from here to DataButtons.vb.
-    
-    [Events.vb]
-    
-    Simplification of the events objects.
-    
-    Removed Events periods and checkboxes for one off or recuring, for now.
+Still working through the Events.
 
- Klock/DataButtons.vb             | 261 ++++++++++++++++++++++++
- Klock/Events.vb                  |  38 ----
- Klock/Klock.iss                  |   4 +-
- Klock/Klock.vbproj               |   7 +
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/frmKlock.Designer.vb       | 281 ++++++++-----------------
- Klock/frmKlock.vb                | 431 +++++++--------------------------------
- Klock/frmOptions.vb              |  22 +-
- 8 files changed, 445 insertions(+), 603 deletions(-)
+Added DataButtons.vb, which contains logic common to the buttons of both
+friends and Events.
+
+[frmKlock.vb]
+
+Mainly the movement of code from here to DataButtons.vb.
+
+[Events.vb]
+
+Simplification of the events objects.
+
+Removed Events periods and checkboxes for one off or recuring, for now.
+
+Klock/DataButtons.vb             | 261 ++++++++++++++++++++++++
+Klock/Events.vb                  |  38 ----
+Klock/Klock.iss                  |   4 +-
+Klock/Klock.vbproj               |   7 +
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/frmKlock.Designer.vb       | 281 ++++++++-----------------
+Klock/frmKlock.vb                | 431 +++++++--------------------------------
+Klock/frmOptions.vb              |  22 +-
+8 files changed, 445 insertions(+), 603 deletions(-)
 
 
 [Build 31] - V1.0.3.31 - July 2013
@@ -1354,54 +1411,54 @@ commit e0324346375853889e3c58097ee972d4c56b3052
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:17:18 2015 +0100
 
-    Still working through the Events.
-    
-    Added eventThings.vb, which contains things to format the event message
-    i.e. list of wedding anniversaries etc.
-    
-    [frmKlock.vb]
-    
-    Added code to handle default time formats.
-    
-    Added code for events check.
-    
-    Removed some debug code.
-    
-    [frmOptions.vb]
-    
-    Added code to handle default time formats.
-    
-    [UserSettings.vb]
-    
-    Added code to handle default time formats.
-    
-    [Events.vb]
-    
-    Added function NoOfYears()
-    
-    [frmNotification.vb]
-    
-    Amended code that display the notification.  It can now be called in
-    reminder or event mode.
-    
-    Corrected spelling mistakes in all modules.
+Still working through the Events.
 
- Klock/Events.vb                  |  20 +++-
- Klock/Klock.iss                  |   4 +-
- Klock/Klock.vbproj               |   1 +
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/UserSettings.vb            |  42 ++++++--
- Klock/Voice.vb                   |  10 +-
- Klock/eventThings.vb             | 175 +++++++++++++++++++++++++++++++
- Klock/frmAbout.vb                |   4 +-
- Klock/frmKlock.Designer.vb       |  47 ++++++---
- Klock/frmKlock.vb                |  93 ++++++++++-------
- Klock/frmNotification.vb         |  18 ++--
- Klock/frmOptions.Designer.vb     | 218 ++++++++++++++++++++++++---------------
- Klock/frmOptions.vb              |  35 +++++--
- Klock/selectAction.vb            |  35 +++++--
- Klock/selectTime.vb              |  18 ++--
- 15 files changed, 529 insertions(+), 195 deletions(-)
+Added eventThings.vb, which contains things to format the event message
+i.e. list of wedding anniversaries etc.
+
+[frmKlock.vb]
+
+Added code to handle default time formats.
+
+Added code for events check.
+
+Removed some debug code.
+
+[frmOptions.vb]
+
+Added code to handle default time formats.
+
+[UserSettings.vb]
+
+Added code to handle default time formats.
+
+[Events.vb]
+
+Added function NoOfYears()
+
+[frmNotification.vb]
+
+Amended code that display the notification.  It can now be called in
+reminder or event mode.
+
+Corrected spelling mistakes in all modules.
+
+Klock/Events.vb                  |  20 +++-
+Klock/Klock.iss                  |   4 +-
+Klock/Klock.vbproj               |   1 +
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/UserSettings.vb            |  42 ++++++--
+Klock/Voice.vb                   |  10 +-
+Klock/eventThings.vb             | 175 +++++++++++++++++++++++++++++++
+Klock/frmAbout.vb                |   4 +-
+Klock/frmKlock.Designer.vb       |  47 ++++++---
+Klock/frmKlock.vb                |  93 ++++++++++-------
+Klock/frmNotification.vb         |  18 ++--
+Klock/frmOptions.Designer.vb     | 218 ++++++++++++++++++++++++---------------
+Klock/frmOptions.vb              |  35 +++++--
+Klock/selectAction.vb            |  35 +++++--
+Klock/selectTime.vb              |  18 ++--
+15 files changed, 529 insertions(+), 195 deletions(-)
 
 
 [Build 30] - V1.0.3.30 - July 2013
@@ -1410,25 +1467,25 @@ commit 02d0150cf79472e9523c1e4f00dbc397a8f698c1
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:16:01 2015 +0100
 
-    The archive stuff used a third party library from Ionic to produced the
-    zip file.
-    
-    Found an article which uses shell32 to produce the zip files a lot more
-    simply.
-    
-    This creates a native windows zip directory and copies the files into it.
-    
-    Removed Ionic.Zip.Reduced.dll & Ionic_License.txt.
+The archive stuff used a third party library from Ionic to produced the
+zip file.
 
- Klock/Klock.iss                  |   6 +-
- Klock/Klock.vbproj               |  14 ++-
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/UserSettings.vb            |  32 +----
- Klock/frmKlock.vb                |  35 ++----
- Klock/frmOptions.Designer.vb     | 245 ++++++++++++++++-----------------------
- Klock/frmOptions.vb              | 142 +++++++++--------------
- Klock/klock.hnd                  | Bin 3493888 -> 3493888 bytes
- 8 files changed, 183 insertions(+), 295 deletions(-)
+Found an article which uses shell32 to produce the zip files a lot more
+simply.
+
+This creates a native windows zip directory and copies the files into it.
+
+Removed Ionic.Zip.Reduced.dll & Ionic_License.txt.
+
+Klock/Klock.iss                  |   6 +-
+Klock/Klock.vbproj               |  14 ++-
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/UserSettings.vb            |  32 +----
+Klock/frmKlock.vb                |  35 ++----
+Klock/frmOptions.Designer.vb     | 245 ++++++++++++++++-----------------------
+Klock/frmOptions.vb              | 142 +++++++++--------------
+Klock/klock.hnd                  | Bin 3493888 -> 3493888 bytes
+8 files changed, 183 insertions(+), 295 deletions(-)
 
 
 [build 29] - V1.0.3.29 - July 2013
@@ -1437,46 +1494,46 @@ commit 27ff19caa743ef01cb9d8b2f284be88f35767834
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:12:06 2015 +0100
 
-    Most of code for Events is now written - needs testing [lots].
-    
-    [frmKlock.vb]
-    
-    It seems that the timer maximum interval is a couple of minutes.
-    
-    Now uses static variables to count the minutes.
-    
-    More code for Events.
-    
-    [frmNotification.vb]
-    
-    Amended original code to run differnet for notification called as either
-    reminder of events.
-    
-    Reminders will be closed by the time, but events will be closed by the
-    user.
-    
-    [frmOptions.vb] & [UserSettings.vb]
-    
-    More options added for Events.
-    
-    [selectAction.vb]
-    
-    Added new action = DisplayEvent()
+Most of code for Events is now written - needs testing [lots].
 
- Klock/Events.vb                  |  12 +-
- Klock/Klock.chm                  | Bin 394814 -> 396250 bytes
- Klock/Klock.iss                  |   4 +-
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/UserSettings.vb            | 159 ++++++++++++++
- Klock/frmKlock.Designer.vb       |  62 ++----
- Klock/frmKlock.vb                | 110 +++++++---
- Klock/frmNotification.vb         |  58 +++--
- Klock/frmOptions.Designer.vb     | 446 ++++++++++++++++++++++++++++-----------
- Klock/frmOptions.vb              |  64 ++++++
- Klock/history.txt                |  39 +++-
- Klock/klock.hnd                  | Bin 3493888 -> 3493888 bytes
- Klock/selectAction.vb            |  12 +-
- 13 files changed, 734 insertions(+), 236 deletions(-)
+[frmKlock.vb]
+
+It seems that the timer maximum interval is a couple of minutes.
+
+Now uses static variables to count the minutes.
+
+More code for Events.
+
+[frmNotification.vb]
+
+Amended original code to run differnet for notification called as either
+reminder of events.
+
+Reminders will be closed by the time, but events will be closed by the
+user.
+
+[frmOptions.vb] & [UserSettings.vb]
+
+More options added for Events.
+
+[selectAction.vb]
+
+Added new action = DisplayEvent()
+
+Klock/Events.vb                  |  12 +-
+Klock/Klock.chm                  | Bin 394814 -> 396250 bytes
+Klock/Klock.iss                  |   4 +-
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/UserSettings.vb            | 159 ++++++++++++++
+Klock/frmKlock.Designer.vb       |  62 ++----
+Klock/frmKlock.vb                | 110 +++++++---
+Klock/frmNotification.vb         |  58 +++--
+Klock/frmOptions.Designer.vb     | 446 ++++++++++++++++++++++++++++-----------
+Klock/frmOptions.vb              |  64 ++++++
+Klock/history.txt                |  39 +++-
+Klock/klock.hnd                  | Bin 3493888 -> 3493888 bytes
+Klock/selectAction.vb            |  12 +-
+13 files changed, 734 insertions(+), 236 deletions(-)
 
 
 [Build 28] - V1.0.3.28 - July 2013
@@ -1485,24 +1542,24 @@ commit cd67dc6367a2523beb5b7e9d459212767390ab3c
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:10:33 2015 +0100
 
-    Further code added for Events - still not completed.
-    
-    It seems that some of the settings are not saving [but some are].
-    
-    Needs further investigation.  Correct in build 34, I think.
+Further code added for Events - still not completed.
 
- Klock/Events.vb                  |  62 +++++++++++++-
- Klock/Klock.chm                  | Bin 371462 -> 394814 bytes
- Klock/Klock.iss                  |   6 +-
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/UserSettings.vb            | 162 +++++++++++++++++++++++------------
- Klock/frmKlock.Designer.vb       |  18 +++-
- Klock/frmKlock.resx              |   3 +
- Klock/frmKlock.vb                |  93 ++++++++++----------
- Klock/frmOptions.Designer.vb     | 177 +++++++++++++++++++++++++++++++++++++++
- Klock/frmOptions.vb              |  99 ++++++++++++++++------
- Klock/klock.hnd                  | Bin 3194880 -> 3493888 bytes
- 11 files changed, 495 insertions(+), 129 deletions(-)
+It seems that some of the settings are not saving [but some are].
+
+Needs further investigation.  Correct in build 34, I think.
+
+Klock/Events.vb                  |  62 +++++++++++++-
+Klock/Klock.chm                  | Bin 371462 -> 394814 bytes
+Klock/Klock.iss                  |   6 +-
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/UserSettings.vb            | 162 +++++++++++++++++++++++------------
+Klock/frmKlock.Designer.vb       |  18 +++-
+Klock/frmKlock.resx              |   3 +
+Klock/frmKlock.vb                |  93 ++++++++++----------
+Klock/frmOptions.Designer.vb     | 177 +++++++++++++++++++++++++++++++++++++++
+Klock/frmOptions.vb              |  99 ++++++++++++++++------
+Klock/klock.hnd                  | Bin 3194880 -> 3493888 bytes
+11 files changed, 495 insertions(+), 129 deletions(-)
 
 
 [Build 27] - V1.0.3.27 - July 2013
@@ -1511,32 +1568,32 @@ commit ebd9469be8d51a817e12e57c36b589417739def8
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:09:00 2015 +0100
 
-    This is the first version to contain the Events tab.
-    
-    tabs are now - Fuzzy Time / World Klock / Countdown / Timer / Reminders /
-    Friends / Events.
-    
-    New file added - Events.vb - class wrapper for the event object.
-    
-    New Events code added to frmKlock.vb, frmOptions.vb & UserSettings.vb.
-    
-    The code for the Events is closely based on the code for Friends.
-    
-    All the code should be there - needs testing.  This version is committed
-    to protect the code base.
+This is the first version to contain the Events tab.
 
- Klock/Events.vb                  | 108 ++++++++++++
- Klock/Klock.chm                  | Bin 344590 -> 371462 bytes
- Klock/Klock.iss                  |   4 +-
- Klock/Klock.vbproj               |   1 +
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/UserSettings.vb            |  53 +++++-
- Klock/frmKlock.Designer.vb       | 320 +++++++++++++++++++++++++++++++++--
- Klock/frmKlock.vb                | 357 +++++++++++++++++++++++++++++++++++++--
- Klock/frmOptions.Designer.vb     | 268 +++++++++++++++++++----------
- Klock/frmOptions.vb              | 125 +++++++++++---
- Klock/klock.hnd                  | Bin 3194880 -> 3194880 bytes
- 11 files changed, 1086 insertions(+), 154 deletions(-)
+tabs are now - Fuzzy Time / World Klock / Countdown / Timer / Reminders /
+Friends / Events.
+
+New file added - Events.vb - class wrapper for the event object.
+
+New Events code added to frmKlock.vb, frmOptions.vb & UserSettings.vb.
+
+The code for the Events is closely based on the code for Friends.
+
+All the code should be there - needs testing.  This version is committed
+to protect the code base.
+
+Klock/Events.vb                  | 108 ++++++++++++
+Klock/Klock.chm                  | Bin 344590 -> 371462 bytes
+Klock/Klock.iss                  |   4 +-
+Klock/Klock.vbproj               |   1 +
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/UserSettings.vb            |  53 +++++-
+Klock/frmKlock.Designer.vb       | 320 +++++++++++++++++++++++++++++++++--
+Klock/frmKlock.vb                | 357 +++++++++++++++++++++++++++++++++++++--
+Klock/frmOptions.Designer.vb     | 268 +++++++++++++++++++----------
+Klock/frmOptions.vb              | 125 +++++++++++---
+Klock/klock.hnd                  | Bin 3194880 -> 3194880 bytes
+11 files changed, 1086 insertions(+), 154 deletions(-)
 
 
 [Build 26] - V1.0.2.26 - June 2013
@@ -1545,38 +1602,38 @@ commit 25a69ce17e91c59431d0e8d6c6dd1c8687a7411a
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:06:44 2015 +0100
 
-    Renamed
-    
-    About.vb   -> frmAbout.vb
-    
-    Info.vb    -> frmInfo.vb
-    
-    Klock      -> frmKlock.vb
-    
-    License.vb -> frmLicense.vb
-    
-    Options.vb -> frmOptions.vb
+Renamed
 
- Klock/Klock.chm              |  Bin 343634 -> 344590 bytes
- Klock/Klock.vbproj           |   50 +-
- Klock/frmAbout.Designer.vb   |  484 +++++++++
- Klock/frmAbout.resx          | 1358 ++++++++++++++++++++++++
- Klock/frmAbout.vb            |  148 +++
- Klock/frmInfo.Designer.vb    |  149 +++
- Klock/frmInfo.resx           | 1256 ++++++++++++++++++++++
- Klock/frmInfo.vb             |   32 +
- Klock/frmKlock.Designer.vb   | 1962 ++++++++++++++++++++++++++++++++++
- Klock/frmKlock.resx          | 2415 ++++++++++++++++++++++++++++++++++++++++++
- Klock/frmKlock.vb            | 1912 +++++++++++++++++++++++++++++++++
- Klock/frmLicense.Designer.vb |   70 ++
- Klock/frmLicense.resx        | 1262 ++++++++++++++++++++++
- Klock/frmLicense.vb          |   44 +
- Klock/frmOptions.Designer.vb | 1143 ++++++++++++++++++++
- Klock/frmOptions.resx        | 1265 ++++++++++++++++++++++
- Klock/frmOptions.vb          |  464 ++++++++
- Klock/history.txt            |   31 +
- Klock/klock.hnd              |  Bin 3194880 -> 3194880 bytes
- 19 files changed, 14020 insertions(+), 25 deletions(-)
+About.vb   -> frmAbout.vb
+
+Info.vb    -> frmInfo.vb
+
+Klock      -> frmKlock.vb
+
+License.vb -> frmLicense.vb
+
+Options.vb -> frmOptions.vb
+
+Klock/Klock.chm              |  Bin 343634 -> 344590 bytes
+Klock/Klock.vbproj           |   50 +-
+Klock/frmAbout.Designer.vb   |  484 +++++++++
+Klock/frmAbout.resx          | 1358 ++++++++++++++++++++++++
+Klock/frmAbout.vb            |  148 +++
+Klock/frmInfo.Designer.vb    |  149 +++
+Klock/frmInfo.resx           | 1256 ++++++++++++++++++++++
+Klock/frmInfo.vb             |   32 +
+Klock/frmKlock.Designer.vb   | 1962 ++++++++++++++++++++++++++++++++++
+Klock/frmKlock.resx          | 2415 ++++++++++++++++++++++++++++++++++++++++++
+Klock/frmKlock.vb            | 1912 +++++++++++++++++++++++++++++++++
+Klock/frmLicense.Designer.vb |   70 ++
+Klock/frmLicense.resx        | 1262 ++++++++++++++++++++++
+Klock/frmLicense.vb          |   44 +
+Klock/frmOptions.Designer.vb | 1143 ++++++++++++++++++++
+Klock/frmOptions.resx        | 1265 ++++++++++++++++++++++
+Klock/frmOptions.vb          |  464 ++++++++
+Klock/history.txt            |   31 +
+Klock/klock.hnd              |  Bin 3194880 -> 3194880 bytes
+19 files changed, 14020 insertions(+), 25 deletions(-)
 
 
 [Build 25] - V1.0.2.25 - June 2013
@@ -1585,66 +1642,66 @@ commit 39d638a77260dd56ea99f0f22387aa5a691a6071
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:05:06 2015 +0100
 
-    Finally settled on the help System.
-    
-    It will consist of a single complied help page - klock.chm.
-    
-    This file is created using helpNDoc.
-    
-    So, added klock.hnd & klock.chm to project.
-    
-    The previous help system has been removed.
-    
-    [klock.vb]
-    
-    Amended : code to reflect new help system and removal of the old one.
-    
-    Added   : Created file path using System.IO.Path.Combine instead of
-    combining strings.
-    
-    Added   : stuff to auto-scale the font size on the time labels.
-    
-    Removed : duplicate code in sub TbCntrl_SelectedIndexChanged.
-    
-    Added   : new action, Run windows Screen Saver, to Countdown & Reminder
-    
-    [UserSettings.vb & options.vb]
-    
-    Added   : Created file path using System.IO.Path.Combine instead of
-    combining string.
-    
-    [ManagedPower.vb]
-    
-    Simplified code and removed duplicate code.
-    
-    [selectAction.vb]
-    
-    Added : user action - run windows screen saver.
-    
-    [selectTime.vb]
-    
-    Moved string arrays globally - so can be used by more then one sub and are
-    not
-    
-    re-created every sub call.
+Finally settled on the help System.
 
- Klock/Help.txt                   |   4 +-
- Klock/Klock.Designer.vb          |  68 +++++++---
- Klock/Klock.chm                  | Bin 0 -> 343634 bytes
- Klock/Klock.iss                  |  18 +--
- Klock/Klock.resx                 |   3 +
- Klock/Klock.vb                   | 271 +++++++++++++++++++++++----------------
- Klock/Klock.vbproj               |  21 +--
- Klock/ManagedPower.vb            |  71 +---------
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/Options.Designer.vb        | 190 +++++++++++++--------------
- Klock/Options.vb                 | 188 +++++++++++++--------------
- Klock/UserSettings.vb            |  18 +--
- Klock/history.txt                |  30 ++++-
- Klock/klock.hnd                  | Bin 0 -> 3194880 bytes
- Klock/selectAction.vb            |  25 +++-
- Klock/selectTime.vb              |  27 ++--
- 16 files changed, 502 insertions(+), 436 deletions(-)
+It will consist of a single complied help page - klock.chm.
+
+This file is created using helpNDoc.
+
+So, added klock.hnd & klock.chm to project.
+
+The previous help system has been removed.
+
+[klock.vb]
+
+Amended : code to reflect new help system and removal of the old one.
+
+Added   : Created file path using System.IO.Path.Combine instead of
+combining strings.
+
+Added   : stuff to auto-scale the font size on the time labels.
+
+Removed : duplicate code in sub TbCntrl_SelectedIndexChanged.
+
+Added   : new action, Run windows Screen Saver, to Countdown & Reminder
+
+[UserSettings.vb & options.vb]
+
+Added   : Created file path using System.IO.Path.Combine instead of
+combining string.
+
+[ManagedPower.vb]
+
+Simplified code and removed duplicate code.
+
+[selectAction.vb]
+
+Added : user action - run windows screen saver.
+
+[selectTime.vb]
+
+Moved string arrays globally - so can be used by more then one sub and are
+not
+
+re-created every sub call.
+
+Klock/Help.txt                   |   4 +-
+Klock/Klock.Designer.vb          |  68 +++++++---
+Klock/Klock.chm                  | Bin 0 -> 343634 bytes
+Klock/Klock.iss                  |  18 +--
+Klock/Klock.resx                 |   3 +
+Klock/Klock.vb                   | 271 +++++++++++++++++++++++----------------
+Klock/Klock.vbproj               |  21 +--
+Klock/ManagedPower.vb            |  71 +---------
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/Options.Designer.vb        | 190 +++++++++++++--------------
+Klock/Options.vb                 | 188 +++++++++++++--------------
+Klock/UserSettings.vb            |  18 +--
+Klock/history.txt                |  30 ++++-
+Klock/klock.hnd                  | Bin 0 -> 3194880 bytes
+Klock/selectAction.vb            |  25 +++-
+Klock/selectTime.vb              |  27 ++--
+16 files changed, 502 insertions(+), 436 deletions(-)
 
 
 [Build 24] - V1.0.2.24 - June 2013
@@ -1653,72 +1710,72 @@ commit 80658e71d76c1a443932538d4d163d3ae75162cd
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:03:14 2015 +0100
 
-    Added managedPower.vb - which is a wrapper class around a system call to
-    
-    determine the type of power source and the state of the battery.
-    
-    [Klock.vb]
-    
-    Added code for the above ManagedPower class.
-    
-    Added : if running on battery, status labels appear in red.
-    
-    Added : Quick start buttons to countdown; these are for 30, 60 & 90
-    minutes.
-    
-    Added : speech to user actions - countdown & reminder.
-    
-    Added : New Info window to display power source and battery state.
-    
-    Changed : locations of user settings file & default for friends file to be
-    
-    windows local user data directory.
-    
-    Bug : not saving form location of close down - Fixed.
-    
-    [options.vb]
-    
-    Added : label to display current directory where settings file is saved.
-    
-    [UserSettings.vb]
-    
-    Added : extra settings to save default directory for settings file.
-    
-    Added : the ability to re-writs settings xml file with defaults.
-    
-    [selectTime.vb]
-    
-    Added : New time format; time in words.
-    
-    [selectAction.vb]
-    
-    Added : New action - speech.
+Added managedPower.vb - which is a wrapper class around a system call to
 
- Klock/About.resx                       | 1219 +++++++++++++++++++++++++++++---
- Klock/Help.resx                        | 1219 +++++++++++++++++++++++++++++---
- Klock/Help.txt                         |    7 +-
- Klock/Info.Designer.vb                 |    9 +
- Klock/Info.resx                        | 1136 +++++++++++++++++++++++++++++
- Klock/Info.vb                          |   26 +
- Klock/Klock.Designer.vb                |  167 +++--
- Klock/Klock.vb                         |  153 ++--
- Klock/Klock.vbproj                     |    1 +
- Klock/License.resx                     | 1219 +++++++++++++++++++++++++++++---
- Klock/ManagedPower.vb                  |  152 ++++
- Klock/My Project/AssemblyInfo.vb       |    4 +-
- Klock/My Project/Resources.Designer.vb |    2 +-
- Klock/Options.Designer.vb              |  119 +++-
- Klock/Options.resx                     | 1219 +++++++++++++++++++++++++++++---
- Klock/Options.vb                       |   29 +-
- Klock/Resources/klock.png              |  Bin 9175 -> 11333 bytes
- Klock/TimeHelp.Designer.vb             |   10 +-
- Klock/TimeHelp.resx                    | 1133 +++++++++++++++++++++++++++++
- Klock/UserSettings.vb                  |  292 ++++++--
- Klock/Voice.vb                         |    8 +-
- Klock/history.txt                      |   31 +
- Klock/selectAction.vb                  |    2 +-
- Klock/selectTime.vb                    |   54 ++
- 24 files changed, 7642 insertions(+), 569 deletions(-)
+determine the type of power source and the state of the battery.
+
+[Klock.vb]
+
+Added code for the above ManagedPower class.
+
+Added : if running on battery, status labels appear in red.
+
+Added : Quick start buttons to countdown; these are for 30, 60 & 90
+minutes.
+
+Added : speech to user actions - countdown & reminder.
+
+Added : New Info window to display power source and battery state.
+
+Changed : locations of user settings file & default for friends file to be
+
+windows local user data directory.
+
+Bug : not saving form location of close down - Fixed.
+
+[options.vb]
+
+Added : label to display current directory where settings file is saved.
+
+[UserSettings.vb]
+
+Added : extra settings to save default directory for settings file.
+
+Added : the ability to re-writs settings xml file with defaults.
+
+[selectTime.vb]
+
+Added : New time format; time in words.
+
+[selectAction.vb]
+
+Added : New action - speech.
+
+Klock/About.resx                       | 1219 +++++++++++++++++++++++++++++---
+Klock/Help.resx                        | 1219 +++++++++++++++++++++++++++++---
+Klock/Help.txt                         |    7 +-
+Klock/Info.Designer.vb                 |    9 +
+Klock/Info.resx                        | 1136 +++++++++++++++++++++++++++++
+Klock/Info.vb                          |   26 +
+Klock/Klock.Designer.vb                |  167 +++--
+Klock/Klock.vb                         |  153 ++--
+Klock/Klock.vbproj                     |    1 +
+Klock/License.resx                     | 1219 +++++++++++++++++++++++++++++---
+Klock/ManagedPower.vb                  |  152 ++++
+Klock/My Project/AssemblyInfo.vb       |    4 +-
+Klock/My Project/Resources.Designer.vb |    2 +-
+Klock/Options.Designer.vb              |  119 +++-
+Klock/Options.resx                     | 1219 +++++++++++++++++++++++++++++---
+Klock/Options.vb                       |   29 +-
+Klock/Resources/klock.png              |  Bin 9175 -> 11333 bytes
+Klock/TimeHelp.Designer.vb             |   10 +-
+Klock/TimeHelp.resx                    | 1133 +++++++++++++++++++++++++++++
+Klock/UserSettings.vb                  |  292 ++++++--
+Klock/Voice.vb                         |    8 +-
+Klock/history.txt                      |   31 +
+Klock/selectAction.vb                  |    2 +-
+Klock/selectTime.vb                    |   54 ++
+24 files changed, 7642 insertions(+), 569 deletions(-)
 
 
 [Build 23] - V1.0.2.23 - June 2013
@@ -1727,65 +1784,65 @@ commit 0269530fe8e641f15ec09b271accda2c5d847806
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 22:01:42 2015 +0100
 
-    Stated the help system.  Will consists on a number of html files that are
-    
-    loaded into a custom form - still in development.
-    
-    Added Speech - using Microsoft SAPI.
-    
-    [Klock.vb]
-    
-    Added bits to call speech to time stuff.
-    
-    Added bits for speech being added to user actions - countdown & reminder.
-    
-    Added bits so that, when display time - the title reflects the time
-    format.
-    
-    Enabled help button - call new help form
-    
-    [about.vb]
-    
-    The call to msinfo32.exe, failed on Windows XP.  The XP path has been hard
-    coded for the moment.
-    
-    [Options.vb & UserSettings.vb]
-    
-    Added options for time to speech, with a minute interval.
-    
-    [selectActions.vb]
-    
-    Added option for speech to enum types.
-    
-    [selectTime.vb]
-    
-    Added time format - FlowTime.html.
-    
-    Added bits to return a fancy title for the current time format.
-    
-    Corrected marsSotDate & CoordinateMarsTime.
-    
-    [Voice.vb]
-    
-    Added new wrapper class for SAPI.
+Stated the help system.  Will consists on a number of html files that are
 
- Klock/About.vb                   |  11 +-
- Klock/Klock.Designer.vb          |  98 ++++++---
- Klock/Klock.iss                  |   7 +-
- Klock/Klock.vb                   | 115 ++++++++--
- Klock/Klock.vbproj               |  11 +
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/Options.Designer.vb        | 439 ++++++++++++++++++++-------------------
- Klock/Options.vb                 |  18 +-
- Klock/TimeHelp.Designer.vb       |  68 ++++++
- Klock/TimeHelp.resx              | 120 +++++++++++
- Klock/TimeHelp.vb                |  26 +++
- Klock/UserSettings.vb            |  58 ++++--
- Klock/Voice.vb                   |  51 +++++
- Klock/history.txt                |  22 ++
- Klock/selectAction.vb            |   1 +
- Klock/selectTime.vb              |  98 ++++++++-
- 16 files changed, 847 insertions(+), 300 deletions(-)
+loaded into a custom form - still in development.
+
+Added Speech - using Microsoft SAPI.
+
+[Klock.vb]
+
+Added bits to call speech to time stuff.
+
+Added bits for speech being added to user actions - countdown & reminder.
+
+Added bits so that, when display time - the title reflects the time
+format.
+
+Enabled help button - call new help form
+
+[about.vb]
+
+The call to msinfo32.exe, failed on Windows XP.  The XP path has been hard
+coded for the moment.
+
+[Options.vb & UserSettings.vb]
+
+Added options for time to speech, with a minute interval.
+
+[selectActions.vb]
+
+Added option for speech to enum types.
+
+[selectTime.vb]
+
+Added time format - FlowTime.html.
+
+Added bits to return a fancy title for the current time format.
+
+Corrected marsSotDate & CoordinateMarsTime.
+
+[Voice.vb]
+
+Added new wrapper class for SAPI.
+
+Klock/About.vb                   |  11 +-
+Klock/Klock.Designer.vb          |  98 ++++++---
+Klock/Klock.iss                  |   7 +-
+Klock/Klock.vb                   | 115 ++++++++--
+Klock/Klock.vbproj               |  11 +
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/Options.Designer.vb        | 439 ++++++++++++++++++++-------------------
+Klock/Options.vb                 |  18 +-
+Klock/TimeHelp.Designer.vb       |  68 ++++++
+Klock/TimeHelp.resx              | 120 +++++++++++
+Klock/TimeHelp.vb                |  26 +++
+Klock/UserSettings.vb            |  58 ++++--
+Klock/Voice.vb                   |  51 +++++
+Klock/history.txt                |  22 ++
+Klock/selectAction.vb            |   1 +
+Klock/selectTime.vb              |  98 ++++++++-
+16 files changed, 847 insertions(+), 300 deletions(-)
 
 
 [Build 22] - V1.0.2.22 - June 2013
@@ -1794,58 +1851,58 @@ commit 710b8452ba35e4b4b73675d1079fab6c9e88e81f
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:59:51 2015 +0100
 
-    The main change in this version is that user settings have been moved from
-    
-    internal project settings [handled vie VB.net] to being handled by the
-    application
-    
-    and held in an XML file.  The settings are held internally within a
-    settings object,
-    
-    which is populated from the XML file at the start and loaded into the file
-    when changed.
-    
-    There seemed to be problems with settings not been carried over between
-    different
-    
-    versions.  Also, the settings where hidden within the system.
-    
-    The settings are now visible inside the XML file and can be read by any
-    version of Klock.
-    
-    UserSettings.vb as been added.
-    
-    [Klock.VB]
-    
-    Added a OS info screen.
-    
-    [selectTime.vb]
-    
-    Added PercentTime, MarsSolDate & CoordinatedMarsTime.
-    
-    The Mars time function need to be checked against known good sources.
+The main change in this version is that user settings have been moved from
 
- Klock/About.Designer.vb               |   2 +
- Klock/About.resx                      |   3 -
- Klock/Help.Designer.vb                |   6 +-
- Klock/Info.Designer.vb                |   2 +
- Klock/Klock.Designer.vb               |  53 +--
- Klock/Klock.iss                       |   6 +-
- Klock/Klock.vb                        | 316 ++++++++++--------
- Klock/Klock.vbproj                    |   1 +
- Klock/License.Designer.vb             |   6 +-
- Klock/My Project/AssemblyInfo.vb      |   4 +-
- Klock/My Project/Settings.Designer.vb | 408 -----------------------
- Klock/My Project/Settings.settings    | 107 +-----
- Klock/Options.Designer.vb             |  82 ++---
- Klock/Options.vb                      | 178 +++++-----
- Klock/UserSettings.vb                 | 594 ++++++++++++++++++++++++++++++++++
- Klock/app.config                      | 109 -------
- Klock/frmNotification.vb              |  12 +-
- Klock/history.txt                     |  19 ++
- Klock/selectAction.vb                 |   4 +-
- Klock/selectTime.vb                   |  64 +++-
- 20 files changed, 1026 insertions(+), 950 deletions(-)
+internal project settings [handled vie VB.net] to being handled by the
+application
+
+and held in an XML file.  The settings are held internally within a
+settings object,
+
+which is populated from the XML file at the start and loaded into the file
+when changed.
+
+There seemed to be problems with settings not been carried over between
+different
+
+versions.  Also, the settings where hidden within the system.
+
+The settings are now visible inside the XML file and can be read by any
+version of Klock.
+
+UserSettings.vb as been added.
+
+[Klock.VB]
+
+Added a OS info screen.
+
+[selectTime.vb]
+
+Added PercentTime, MarsSolDate & CoordinatedMarsTime.
+
+The Mars time function need to be checked against known good sources.
+
+Klock/About.Designer.vb               |   2 +
+Klock/About.resx                      |   3 -
+Klock/Help.Designer.vb                |   6 +-
+Klock/Info.Designer.vb                |   2 +
+Klock/Klock.Designer.vb               |  53 +--
+Klock/Klock.iss                       |   6 +-
+Klock/Klock.vb                        | 316 ++++++++++--------
+Klock/Klock.vbproj                    |   1 +
+Klock/License.Designer.vb             |   6 +-
+Klock/My Project/AssemblyInfo.vb      |   4 +-
+Klock/My Project/Settings.Designer.vb | 408 -----------------------
+Klock/My Project/Settings.settings    | 107 +-----
+Klock/Options.Designer.vb             |  82 ++---
+Klock/Options.vb                      | 178 +++++-----
+Klock/UserSettings.vb                 | 594 ++++++++++++++++++++++++++++++++++
+Klock/app.config                      | 109 -------
+Klock/frmNotification.vb              |  12 +-
+Klock/history.txt                     |  19 ++
+Klock/selectAction.vb                 |   4 +-
+Klock/selectTime.vb                   |  64 +++-
+20 files changed, 1026 insertions(+), 950 deletions(-)
 
 
 [[Build 21] - V1.0.1.21 - March 2013
@@ -1854,35 +1911,35 @@ commit 87d801acf6a674239d0764fb96e265b32b6c61bf
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:55:45 2015 +0100
 
-    [klock.vb]
-    
-    Corrected bug - did not reload friends, if path was changed in options.
-    
-    Amended font of friend list view to be Lucida Sans Typewriter, 8.25pt
-    
-    Amended font of Fuzzy Time label to be Lucida Calligraphy, 17pt
-    
-    [selectTime.vb]
-    
-    Renamed hexTime to TrueHexTime - Splits day into 16 hours
-    
-    Added RomanTime, BinaryTime, OctTime & HexTime - different representations
-    of current time.
-    
-    [Person.vb]
-    
-    Amended the space padding in Person.ToString()
+[klock.vb]
 
- Klock/Help.txt                   |   6 +
- Klock/Klock.Designer.vb          |  41 +-
- Klock/Klock.iss                  |   4 +-
- Klock/Klock.vb                   |  17 +-
- Klock/License.txt                | 934 ++++++++++++++++-----------------------
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/Person.vb                  |   4 +-
- Klock/history.txt                |  16 +
- Klock/selectTime.vb              | 130 +++++-
- 9 files changed, 548 insertions(+), 608 deletions(-)
+Corrected bug - did not reload friends, if path was changed in options.
+
+Amended font of friend list view to be Lucida Sans Typewriter, 8.25pt
+
+Amended font of Fuzzy Time label to be Lucida Calligraphy, 17pt
+
+[selectTime.vb]
+
+Renamed hexTime to TrueHexTime - Splits day into 16 hours
+
+Added RomanTime, BinaryTime, OctTime & HexTime - different representations
+of current time.
+
+[Person.vb]
+
+Amended the space padding in Person.ToString()
+
+Klock/Help.txt                   |   6 +
+Klock/Klock.Designer.vb          |  41 +-
+Klock/Klock.iss                  |   4 +-
+Klock/Klock.vb                   |  17 +-
+Klock/License.txt                | 934 ++++++++++++++++-----------------------
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/Person.vb                  |   4 +-
+Klock/history.txt                |  16 +
+Klock/selectTime.vb              | 130 +++++-
+9 files changed, 548 insertions(+), 608 deletions(-)
 
 
 [Build 20] - V1.0.1.20 - March 2013
@@ -1891,44 +1948,44 @@ commit 0063b61af38cf1ba1c599ee55866d0b925752da0
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:50:53 2015 +0100
 
-    [Klock.vb]
-    
-    Added option to display two time formates, at the same time.
-    
-    Added World Klock tab - allows the time from each time zone to be
-    displayed.
-    
-    Amended the order of the main tabs - World Klock now tab 1.
-    
-    Added Info to main menu.
-    
-    Added sub menu to Info - to display information on daylight saving time.
-    
-    Added sub menu to Info - to display information on current computer
-    culture.
-    
-    [Options.vb]
-    
-    Added options to add World Klock to notification pop ups.
+[Klock.vb]
 
- Klock/Help.Designer.vb                |   5 +-
- Klock/Help.txt                        |   7 +-
- Klock/Info.Designer.vb                | 138 ++++++++++++++++++++++++++++++
- Klock/Info.resx                       | 120 ++++++++++++++++++++++++++
- Klock/Info.vb                         |   6 ++
- Klock/Klock.Designer.vb               | 148 +++++++++++++++++++++++++++++++-
- Klock/Klock.vb                        | 155 ++++++++++++++++++++++++++++++----
- Klock/Klock.vbproj                    |   9 ++
- Klock/License.Designer.vb             |   5 +-
- Klock/License.txt                     |  17 ++--
- Klock/My Project/AssemblyInfo.vb      |   4 +-
- Klock/My Project/Settings.Designer.vb |  12 +++
- Klock/My Project/Settings.settings    |   3 +
- Klock/Options.Designer.vb             |  68 ++++++++++++---
- Klock/Options.vb                      |   2 +
- Klock/app.config                      |   3 +
- Klock/history.txt                     |  22 +++++
- 17 files changed, 677 insertions(+), 47 deletions(-)
+Added option to display two time formates, at the same time.
+
+Added World Klock tab - allows the time from each time zone to be
+displayed.
+
+Amended the order of the main tabs - World Klock now tab 1.
+
+Added Info to main menu.
+
+Added sub menu to Info - to display information on daylight saving time.
+
+Added sub menu to Info - to display information on current computer
+culture.
+
+[Options.vb]
+
+Added options to add World Klock to notification pop ups.
+
+Klock/Help.Designer.vb                |   5 +-
+Klock/Help.txt                        |   7 +-
+Klock/Info.Designer.vb                | 138 ++++++++++++++++++++++++++++++
+Klock/Info.resx                       | 120 ++++++++++++++++++++++++++
+Klock/Info.vb                         |   6 ++
+Klock/Klock.Designer.vb               | 148 +++++++++++++++++++++++++++++++-
+Klock/Klock.vb                        | 155 ++++++++++++++++++++++++++++++----
+Klock/Klock.vbproj                    |   9 ++
+Klock/License.Designer.vb             |   5 +-
+Klock/License.txt                     |  17 ++--
+Klock/My Project/AssemblyInfo.vb      |   4 +-
+Klock/My Project/Settings.Designer.vb |  12 +++
+Klock/My Project/Settings.settings    |   3 +
+Klock/Options.Designer.vb             |  68 ++++++++++++---
+Klock/Options.vb                      |   2 +
+Klock/app.config                      |   3 +
+Klock/history.txt                     |  22 +++++
+17 files changed, 677 insertions(+), 47 deletions(-)
 
 
 [Build 19] - V1.0.1.19 - March 2013
@@ -1937,59 +1994,59 @@ commit aa41b524bb5bb240ef30edc2299bfdaa44acf797
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:48:21 2015 +0100
 
-    The achieving[zip] of files is done using Ionic.Zip.Reduced.dll - added
-    the file and licence file to repository.
-    
-    [klock.vb]
-    
-    Added the ability to display two time formats, the second is configured
-    via user setting.
-    
-    This meant rename lbltime to lbltimeOntTime.
-    
-    Added logic, so that the friends list is only re-read if altered.
-    
-    Corrected bug: the abort became visible as soon system was chosen,
-    
-    should only be visible when the action is being performed
-    [countdown/remind].
-    
-    Added, so that the friends panel will always scroll to the top on edit.
-    entry and display.
-    
-    Changed function key to F12 from F5 that display total number of friends
-    on system.
-    
-    {options.vb]
-    
-    Added option to display two time formats.
-    
-    Added option to display hex time in HexIntuitor format [underscore
-    sperator].
-    
-    Re-wrote the load and save achieve files - seems to be better.
-    
-    [selectTime.vb]
-    
-    Added HexTime, MetricTime & UnixTime.
-    
-    Amended fuzztime to be cleaner and hopefully work at midnight.
+The achieving[zip] of files is done using Ionic.Zip.Reduced.dll - added
+the file and licence file to repository.
 
- Klock/Help.txt                        |  43 ++++--
- Klock/Ionic.Zip.Reduced.dll           | Bin 0 -> 253440 bytes
- Klock/Ionic_License.txt               |  33 +++++
- Klock/Klock.Designer.vb               | 245 +++++++++++++++++++++-------------
- Klock/Klock.iss                       |  16 ++-
- Klock/Klock.vb                        |  75 ++++++++---
- Klock/My Project/AssemblyInfo.vb      |   4 +-
- Klock/My Project/Settings.Designer.vb |  26 +++-
- Klock/My Project/Settings.settings    |   6 +
- Klock/Options.Designer.vb             |  52 ++++++--
- Klock/Options.vb                      |  76 +++++++----
- Klock/app.config                      |   6 +
- Klock/history.txt                     |  91 +++++++++++++
- Klock/selectTime.vb                   | 174 +++++++++++++++---------
- 14 files changed, 620 insertions(+), 227 deletions(-)
+[klock.vb]
+
+Added the ability to display two time formats, the second is configured
+via user setting.
+
+This meant rename lbltime to lbltimeOntTime.
+
+Added logic, so that the friends list is only re-read if altered.
+
+Corrected bug: the abort became visible as soon system was chosen,
+
+should only be visible when the action is being performed
+[countdown/remind].
+
+Added, so that the friends panel will always scroll to the top on edit.
+entry and display.
+
+Changed function key to F12 from F5 that display total number of friends
+on system.
+
+{options.vb]
+
+Added option to display two time formats.
+
+Added option to display hex time in HexIntuitor format [underscore
+sperator].
+
+Re-wrote the load and save achieve files - seems to be better.
+
+[selectTime.vb]
+
+Added HexTime, MetricTime & UnixTime.
+
+Amended fuzztime to be cleaner and hopefully work at midnight.
+
+Klock/Help.txt                        |  43 ++++--
+Klock/Ionic.Zip.Reduced.dll           | Bin 0 -> 253440 bytes
+Klock/Ionic_License.txt               |  33 +++++
+Klock/Klock.Designer.vb               | 245 +++++++++++++++++++++-------------
+Klock/Klock.iss                       |  16 ++-
+Klock/Klock.vb                        |  75 ++++++++---
+Klock/My Project/AssemblyInfo.vb      |   4 +-
+Klock/My Project/Settings.Designer.vb |  26 +++-
+Klock/My Project/Settings.settings    |   6 +
+Klock/Options.Designer.vb             |  52 ++++++--
+Klock/Options.vb                      |  76 +++++++----
+Klock/app.config                      |   6 +
+Klock/history.txt                     |  91 +++++++++++++
+Klock/selectTime.vb                   | 174 +++++++++++++++---------
+14 files changed, 620 insertions(+), 227 deletions(-)
 
 
 [Build 18] - V1.0.1.18 - March 2013
@@ -1998,35 +2055,35 @@ commit 4fe14328cae8af8806800c178479d43025d396de
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:45:46 2015 +0100
 
-    [Klock.vb]
-    
-    The data directory for storing the friends data, is not now hard coded -
-    it can be user configured.
-    
-    [Options.vb]
-    
-    Changes for the user selection of the friends file name and directory.
-    
-    Added the ability to save friends file to Archive file [zip].
-    
-    Added logic for setting the friends file name and directory.
-    
-    Added logic for setting the friends achieve file name and directory.
+[Klock.vb]
 
- Klock/Help.Designer.vb                |  10 +-
- Klock/Help.txt                        |  36 +----
- Klock/Klock.Designer.vb               |  36 +++--
- Klock/Klock.iss                       |   7 +-
- Klock/Klock.vb                        |  43 +++--
- Klock/Klock.vbproj                    |   3 +
- Klock/My Project/AssemblyInfo.vb      |   4 +-
- Klock/My Project/Settings.Designer.vb |  32 +++-
- Klock/My Project/Settings.settings    |  10 +-
- Klock/Options.Designer.vb             | 287 +++++++++++++++++++++++++++++-----
- Klock/Options.resx                    |   6 +
- Klock/Options.vb                      | 191 ++++++++++++++++++----
- Klock/app.config                      |   8 +-
- 13 files changed, 520 insertions(+), 153 deletions(-)
+The data directory for storing the friends data, is not now hard coded -
+it can be user configured.
+
+[Options.vb]
+
+Changes for the user selection of the friends file name and directory.
+
+Added the ability to save friends file to Archive file [zip].
+
+Added logic for setting the friends file name and directory.
+
+Added logic for setting the friends achieve file name and directory.
+
+Klock/Help.Designer.vb                |  10 +-
+Klock/Help.txt                        |  36 +----
+Klock/Klock.Designer.vb               |  36 +++--
+Klock/Klock.iss                       |   7 +-
+Klock/Klock.vb                        |  43 +++--
+Klock/Klock.vbproj                    |   3 +
+Klock/My Project/AssemblyInfo.vb      |   4 +-
+Klock/My Project/Settings.Designer.vb |  32 +++-
+Klock/My Project/Settings.settings    |  10 +-
+Klock/Options.Designer.vb             | 287 +++++++++++++++++++++++++++++-----
+Klock/Options.resx                    |   6 +
+Klock/Options.vb                      | 191 ++++++++++++++++++----
+Klock/app.config                      |   8 +-
+13 files changed, 520 insertions(+), 153 deletions(-)
 
 
 [Build 17] - V1.0.1.17 - March 2013
@@ -2035,32 +2092,32 @@ commit 2a96c0a403b0dcf3ffa68b6ca69be95c3121fa79
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:43:50 2015 +0100
 
-    [klock.vb]
-    
-    Switched some of the error message box to display as notification windows.
-    
-    [klock.iss]
-    
-    Added un-install entry, so that registry items for the run on windows
-    start are removed.
-    
-    [options.vb]
-    
-    Fixed bug in test notification button code, called the notification
-    incorrectly.
-    
-    [selectaction.vb]
-    
-    Switched some of the error message box to display as notification windows.
+[klock.vb]
 
- Klock/Help.Designer.vb           | 10 +++++--
- Klock/Help.txt                   | 36 ++++++++++++++++++------
- Klock/Klock.iss                  | 10 +++++--
- Klock/Klock.vb                   |  2 +-
- Klock/My Project/AssemblyInfo.vb |  4 +--
- Klock/Options.vb                 | 60 +++++++++++++++++++++-------------------
- Klock/selectAction.vb            |  8 +++---
- 7 files changed, 82 insertions(+), 48 deletions(-)
+Switched some of the error message box to display as notification windows.
+
+[klock.iss]
+
+Added un-install entry, so that registry items for the run on windows
+start are removed.
+
+[options.vb]
+
+Fixed bug in test notification button code, called the notification
+incorrectly.
+
+[selectaction.vb]
+
+Switched some of the error message box to display as notification windows.
+
+Klock/Help.Designer.vb           | 10 +++++--
+Klock/Help.txt                   | 36 ++++++++++++++++++------
+Klock/Klock.iss                  | 10 +++++--
+Klock/Klock.vb                   |  2 +-
+Klock/My Project/AssemblyInfo.vb |  4 +--
+Klock/Options.vb                 | 60 +++++++++++++++++++++-------------------
+Klock/selectAction.vb            |  8 +++---
+7 files changed, 82 insertions(+), 48 deletions(-)
 
 
 [Build 16] - V1.0.1.16 - March 2013
@@ -2069,40 +2126,40 @@ commit 1116f984189c70f0335c503c1e581dfb12d3616e
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:42:10 2015 +0100
 
-    [klock.vb]
-    
-    Don't bother updating form, if running in system tray.
-    
-    Added update of title and notifications for countdown, timer and
-    reminders.  This can be set for each.
-    
-    Checks for data directory and creates if necessary.
-    
-    [options.vb]
-    
-    Added user options to add countdown, timer and reminder to form title and
-    notifications.
-    
-    Added options to run klock on windows start up [and registry entries].
-    
-    Added option to start klock minimised.
-    
-    [selectTime.vb]
-    
-    Amended fuzzytime so that one in the afternoon now read about oneish in
-    the afternoon [same for all hours].
+[klock.vb]
 
- Klock/Klock.Designer.vb                  | 182 +++++------
- Klock/Klock.vb                           | 280 +++++++++++-----
- Klock/My Project/Application.Designer.vb |   4 +-
- Klock/My Project/Application.myapp       |   2 +-
- Klock/My Project/Settings.Designer.vb    |  74 ++++-
- Klock/My Project/Settings.settings       |  18 ++
- Klock/Options.Designer.vb                | 528 +++++++++++++++++++++----------
- Klock/Options.vb                         |  42 ++-
- Klock/app.config                         |  18 ++
- Klock/selectTime.vb                      |  11 +-
- 10 files changed, 825 insertions(+), 334 deletions(-)
+Don't bother updating form, if running in system tray.
+
+Added update of title and notifications for countdown, timer and
+reminders.  This can be set for each.
+
+Checks for data directory and creates if necessary.
+
+[options.vb]
+
+Added user options to add countdown, timer and reminder to form title and
+notifications.
+
+Added options to run klock on windows start up [and registry entries].
+
+Added option to start klock minimised.
+
+[selectTime.vb]
+
+Amended fuzzytime so that one in the afternoon now read about oneish in
+the afternoon [same for all hours].
+
+Klock/Klock.Designer.vb                  | 182 +++++------
+Klock/Klock.vb                           | 280 +++++++++++-----
+Klock/My Project/Application.Designer.vb |   4 +-
+Klock/My Project/Application.myapp       |   2 +-
+Klock/My Project/Settings.Designer.vb    |  74 ++++-
+Klock/My Project/Settings.settings       |  18 ++
+Klock/Options.Designer.vb                | 528 +++++++++++++++++++++----------
+Klock/Options.vb                         |  42 ++-
+Klock/app.config                         |  18 ++
+Klock/selectTime.vb                      |  11 +-
+10 files changed, 825 insertions(+), 334 deletions(-)
 
 
 [Build 15] - V1.0.1.15 - March 2013
@@ -2111,19 +2168,19 @@ commit 0882f8af046be5e9745e51d14f791f3847b5672d
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:40:27 2015 +0100
 
-    [klock.vb]
-    
-    Completed logic for friends tab.
-    
-    Friends can be added(saved in friends.bin), edited and deleted.
+[klock.vb]
 
- Klock/Klock.Designer.vb          |   5 +-
- Klock/Klock.iss                  |   4 +-
- Klock/Klock.vb                   | 406 +++++++++++++++++++++++++++++++++++++++
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/Person.vb                  |   4 +-
- Klock/selectAction.vb            |   2 +-
- 6 files changed, 415 insertions(+), 10 deletions(-)
+Completed logic for friends tab.
+
+Friends can be added(saved in friends.bin), edited and deleted.
+
+Klock/Klock.Designer.vb          |   5 +-
+Klock/Klock.iss                  |   4 +-
+Klock/Klock.vb                   | 406 +++++++++++++++++++++++++++++++++++++++
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/Person.vb                  |   4 +-
+Klock/selectAction.vb            |   2 +-
+6 files changed, 415 insertions(+), 10 deletions(-)
 
 
 [Build 14] - V1.0.1.14 - March 2013
@@ -2132,23 +2189,23 @@ commit 981dfbe4a38805a9e39b7565c024d8f3f295ea04
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:38:32 2015 +0100
 
-    [person.vb]
-    
-    Added file.  Contains the class info for a Person[friend].
-    
-    [klock.vb]
-    
-    Added all the gui work for the friends tab.
-    
-    Added auto complete stuff for the friends text boxes.
+[person.vb]
 
- Klock/Klock.Designer.vb          | 594 ++++++++++++++++++++++++++++++++++++---
- Klock/Klock.iss                  |   6 +-
- Klock/Klock.vb                   |  95 ++++++-
- Klock/Klock.vbproj               |   3 +-
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/Person.vb                  | 219 +++++++++++++++
- 6 files changed, 872 insertions(+), 49 deletions(-)
+Added file.  Contains the class info for a Person[friend].
+
+[klock.vb]
+
+Added all the gui work for the friends tab.
+
+Added auto complete stuff for the friends text boxes.
+
+Klock/Klock.Designer.vb          | 594 ++++++++++++++++++++++++++++++++++++---
+Klock/Klock.iss                  |   6 +-
+Klock/Klock.vb                   |  95 ++++++-
+Klock/Klock.vbproj               |   3 +-
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/Person.vb                  | 219 +++++++++++++++
+6 files changed, 872 insertions(+), 49 deletions(-)
 
 
 [Build 13] - V1.0.0.13 - November 2012
@@ -2157,25 +2214,25 @@ commit af0a1757496c3020922d4ab4d9ed0c6171dc9a99
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:33:29 2015 +0100
 
-    [klock.vb]
-    
-    Gave the reminder section its own timer.  Moved reminder checking code
-    from main timer into the reminder timer.
-    
-    Finally got the file filter logic right on the open dialogues [i hope].
-    
-    Changed the logic in the action calling sub [both countdown and reminder]
-    - setting the checked to false calls the appropriate checkchanged sub,
-      this disables the controls better.
-    
-      Further bugs squashed.
+[klock.vb]
 
- Klock/Klock.Designer.vb          | 22 +++++++---
- Klock/Klock.iss                  |  4 +-
- Klock/Klock.resx                 |  9 ++--
- Klock/Klock.vb                   | 92 +++++++++++++++++++++++-----------------
- Klock/My Project/AssemblyInfo.vb |  4 +-
- 5 files changed, 81 insertions(+), 50 deletions(-)
+Gave the reminder section its own timer.  Moved reminder checking code
+from main timer into the reminder timer.
+
+Finally got the file filter logic right on the open dialogues [i hope].
+
+Changed the logic in the action calling sub [both countdown and reminder]
+- setting the checked to false calls the appropriate checkchanged sub,
+this disables the controls better.
+
+Further bugs squashed.
+
+Klock/Klock.Designer.vb          | 22 +++++++---
+Klock/Klock.iss                  |  4 +-
+Klock/Klock.resx                 |  9 ++--
+Klock/Klock.vb                   | 92 +++++++++++++++++++++++-----------------
+Klock/My Project/AssemblyInfo.vb |  4 +-
+5 files changed, 81 insertions(+), 50 deletions(-)
 
 
 [Build 12] - V1.0.0.12 - November 2012
@@ -2184,35 +2241,35 @@ commit f56e18050937793197fe7c60d7efe555e082b17f
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:31:53 2015 +0100
 
-    [timer.vb]
-    
-    Added try catch clauses to the get time routines.
-    
-    [selectTime.vb]
-    
-    Changed if/then/else to IIF
-    
-    [klock.vb]
-    
-    Changed if/then/else to IIF
-    
-    Further cleaning of code and removal of duplicate code in time and
-    countdowns actions.
-    
-    Removal of duplicate subs - made one sub handle several events.
+[timer.vb]
 
- Klock/Klock.Designer.vb          |  24 +--
- Klock/Klock.iss                  |   4 +-
- Klock/Klock.vb                   | 441 +++++++++++++++------------------------
- Klock/License.vb                 |   2 +-
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/Options.Designer.vb        |  72 +++----
- Klock/Options.vb                 |  21 +-
- Klock/Timer.vb                   |  18 +-
- Klock/history.txt                |   6 +
- Klock/selectAction.vb            |   2 +-
- Klock/selectTime.vb              |  21 +-
- 11 files changed, 254 insertions(+), 361 deletions(-)
+Added try catch clauses to the get time routines.
+
+[selectTime.vb]
+
+Changed if/then/else to IIF
+
+[klock.vb]
+
+Changed if/then/else to IIF
+
+Further cleaning of code and removal of duplicate code in time and
+countdowns actions.
+
+Removal of duplicate subs - made one sub handle several events.
+
+Klock/Klock.Designer.vb          |  24 +--
+Klock/Klock.iss                  |   4 +-
+Klock/Klock.vb                   | 441 +++++++++++++++------------------------
+Klock/License.vb                 |   2 +-
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/Options.Designer.vb        |  72 +++----
+Klock/Options.vb                 |  21 +-
+Klock/Timer.vb                   |  18 +-
+Klock/history.txt                |   6 +
+Klock/selectAction.vb            |   2 +-
+Klock/selectTime.vb              |  21 +-
+11 files changed, 254 insertions(+), 361 deletions(-)
 
 
 [Build 11] - V1.0.0.11 - November 2012
@@ -2221,17 +2278,17 @@ commit 37557a975ccf2bf893f0347e02a558f0f1d4e4a8
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:30:09 2015 +0100
 
-    [Klock.vb]
-    
-    Amended flow through main clock tick [again].
-    
-    cleaned code.
+[Klock.vb]
 
- Klock/Klock.iss                  |   2 +-
- Klock/Klock.vb                   | 142 +++++++++++++++++++--------------------
- Klock/My Project/AssemblyInfo.vb |   4 +-
- Klock/history.txt                |  19 ++++++
- 4 files changed, 93 insertions(+), 74 deletions(-)
+Amended flow through main clock tick [again].
+
+cleaned code.
+
+Klock/Klock.iss                  |   2 +-
+Klock/Klock.vb                   | 142 +++++++++++++++++++--------------------
+Klock/My Project/AssemblyInfo.vb |   4 +-
+Klock/history.txt                |  19 ++++++
+4 files changed, 93 insertions(+), 74 deletions(-)
 
 
 [Build 10] - V1.0.0.10 - November 2012
@@ -2240,44 +2297,44 @@ commit 95357412c5a39ae6a8baacfe63976ae7b5329e41
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:26:33 2015 +0100
 
-    [selectAction.vb]
-    
-    Added sub to abort system command i.e. system shut-down.
-    
-    Added to work around to the audio play (mciSendString), this could fail if
-    the
-    
-    path either contained more then 128 characters or contained spaces.
-    
-    The filename had to be escaped with extra """.
-    
-    [Klock.vb]
-    
-    Re-wrote main clock tick sub - better flow, also uses the same minute
-    throughout.
-    
-    Added a catch to the Countdown start, to disable the start button is the
-    
-    value to moved back to zero.
-    
-    Added the logic behind the system button(both countdown & reminder)
-    
-    If a system command is executed and the main form is not visible,
-    
-    show main form - so aboth button can be used.
-    
-    Fixed bug in Reminder System check sub.
-    
-    Fixed bug in Reminder date generation.
+[selectAction.vb]
 
- Klock/Klock.Designer.vb          | 39 ++++++++++++++++---
- Klock/Klock.iss                  |  4 +-
- Klock/Klock.vb                   | 84 ++++++++++++++++++++++++++++++++--------
- Klock/Klock.vbproj               |  8 +---
- Klock/My Project/AssemblyInfo.vb |  4 +-
- Klock/history.txt                | 27 ++++++++++++-
- Klock/selectAction.vb            | 31 ++++++++++++---
- 7 files changed, 159 insertions(+), 38 deletions(-)
+Added sub to abort system command i.e. system shut-down.
+
+Added to work around to the audio play (mciSendString), this could fail if
+the
+
+path either contained more then 128 characters or contained spaces.
+
+The filename had to be escaped with extra """.
+
+[Klock.vb]
+
+Re-wrote main clock tick sub - better flow, also uses the same minute
+throughout.
+
+Added a catch to the Countdown start, to disable the start button is the
+
+value to moved back to zero.
+
+Added the logic behind the system button(both countdown & reminder)
+
+If a system command is executed and the main form is not visible,
+
+show main form - so aboth button can be used.
+
+Fixed bug in Reminder System check sub.
+
+Fixed bug in Reminder date generation.
+
+Klock/Klock.Designer.vb          | 39 ++++++++++++++++---
+Klock/Klock.iss                  |  4 +-
+Klock/Klock.vb                   | 84 ++++++++++++++++++++++++++++++++--------
+Klock/Klock.vbproj               |  8 +---
+Klock/My Project/AssemblyInfo.vb |  4 +-
+Klock/history.txt                | 27 ++++++++++++-
+Klock/selectAction.vb            | 31 ++++++++++++---
+7 files changed, 159 insertions(+), 38 deletions(-)
 
 
 [Build 9] - V1.0.0.9 - November 2012
@@ -2286,43 +2343,43 @@ commit ad15bbeaf932aea7d5f16d73f3bbea9272a83667
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:24:41 2015 +0100
 
-    Changed sound files from .wav to .mp3 to save space.
+Changed sound files from .wav to .mp3 to save space.
 
- Klock/Klock.iss              |   2 +-
- Klock/Klock.vb               |   4 ++--
- Klock/Options.vb             |   2 +-
- Klock/selectAction.vb        |  23 ++++++++++-------------
- Sounds/eight.mp3             | Bin 0 -> 979530 bytes
- Sounds/eight.wav             | Bin 7766576 -> 0 bytes
- Sounds/eleven.mp3            | Bin 0 -> 1162381 bytes
- Sounds/eleven.wav            | Bin 9241136 -> 0 bytes
- Sounds/five.mp3              | Bin 0 -> 801223 bytes
- Sounds/five.wav              | Bin 6324784 -> 0 bytes
- Sounds/four.mp3              | Bin 0 -> 739385 bytes
- Sounds/four.wav              | Bin 5833264 -> 0 bytes
- Sounds/halfchime.mp3         | Bin 0 -> 319514 bytes
- Sounds/halfchime.wav         | Bin 2474548 -> 0 bytes
- Sounds/nine.mp3              | Bin 0 -> 1040899 bytes
- Sounds/nine.wav              | Bin 8258096 -> 0 bytes
- Sounds/one.mp3               | Bin 0 -> 559035 bytes
- Sounds/one.wav               | Bin 4375088 -> 0 bytes
- Sounds/quarterchime.mp3      | Bin 0 -> 241462 bytes
- Sounds/quarterchime.wav      | Bin 1913396 -> 0 bytes
- Sounds/seven.mp3             | Bin 0 -> 919940 bytes
- Sounds/seven.wav             | Bin 7291440 -> 0 bytes
- Sounds/six.mp3               | Bin 0 -> 862013 bytes
- Sounds/six.wav               | Bin 6816304 -> 0 bytes
- Sounds/ten.mp3               | Bin 0 -> 1101951 bytes
- Sounds/ten.wav               | Bin 8749616 -> 0 bytes
- Sounds/three.mp3             | Bin 0 -> 679164 bytes
- Sounds/three.wav             | Bin 5341744 -> 0 bytes
- Sounds/threequarterchime.mp3 | Bin 0 -> 383064 bytes
- Sounds/threequarterchime.wav | Bin 3007028 -> 0 bytes
- Sounds/twelve.mp3            | Bin 0 -> 1223752 bytes
- Sounds/twelve.wav            | Bin 9732660 -> 0 bytes
- Sounds/two.mp3               | Bin 0 -> 620614 bytes
- Sounds/two.wav               | Bin 4866608 -> 0 bytes
- 34 files changed, 14 insertions(+), 17 deletions(-)
+Klock/Klock.iss              |   2 +-
+Klock/Klock.vb               |   4 ++--
+Klock/Options.vb             |   2 +-
+Klock/selectAction.vb        |  23 ++++++++++-------------
+Sounds/eight.mp3             | Bin 0 -> 979530 bytes
+Sounds/eight.wav             | Bin 7766576 -> 0 bytes
+Sounds/eleven.mp3            | Bin 0 -> 1162381 bytes
+Sounds/eleven.wav            | Bin 9241136 -> 0 bytes
+Sounds/five.mp3              | Bin 0 -> 801223 bytes
+Sounds/five.wav              | Bin 6324784 -> 0 bytes
+Sounds/four.mp3              | Bin 0 -> 739385 bytes
+Sounds/four.wav              | Bin 5833264 -> 0 bytes
+Sounds/halfchime.mp3         | Bin 0 -> 319514 bytes
+Sounds/halfchime.wav         | Bin 2474548 -> 0 bytes
+Sounds/nine.mp3              | Bin 0 -> 1040899 bytes
+Sounds/nine.wav              | Bin 8258096 -> 0 bytes
+Sounds/one.mp3               | Bin 0 -> 559035 bytes
+Sounds/one.wav               | Bin 4375088 -> 0 bytes
+Sounds/quarterchime.mp3      | Bin 0 -> 241462 bytes
+Sounds/quarterchime.wav      | Bin 1913396 -> 0 bytes
+Sounds/seven.mp3             | Bin 0 -> 919940 bytes
+Sounds/seven.wav             | Bin 7291440 -> 0 bytes
+Sounds/six.mp3               | Bin 0 -> 862013 bytes
+Sounds/six.wav               | Bin 6816304 -> 0 bytes
+Sounds/ten.mp3               | Bin 0 -> 1101951 bytes
+Sounds/ten.wav               | Bin 8749616 -> 0 bytes
+Sounds/three.mp3             | Bin 0 -> 679164 bytes
+Sounds/three.wav             | Bin 5341744 -> 0 bytes
+Sounds/threequarterchime.mp3 | Bin 0 -> 383064 bytes
+Sounds/threequarterchime.wav | Bin 3007028 -> 0 bytes
+Sounds/twelve.mp3            | Bin 0 -> 1223752 bytes
+Sounds/twelve.wav            | Bin 9732660 -> 0 bytes
+Sounds/two.mp3               | Bin 0 -> 620614 bytes
+Sounds/two.wav               | Bin 4866608 -> 0 bytes
+34 files changed, 14 insertions(+), 17 deletions(-)
 
 
 [Build 8] - V1.0.0.8 - November 2012
@@ -2331,72 +2388,72 @@ commit c73cf1e972b82149267f2625eee23a441413fd0b
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:19:39 2015 +0100
 
-    Added sounds directory including the hourly sounds for the pip and chimes
-    [in .wav format].
-    
-    Added the term Me. to component calls.
-    
-    [Options.vb]
-    
-    Added sound volume to global tab.
-    
-    Added user settings for Hourly sounds[either pips of chimes], Sounds
-    volume.
-    
-    Screen notification of time, Notification Opacity and time out.
-    
-    [selectAction.vb]
-    
-    Changed method of audio play to mciSendString using API calls from
-    My.Computer.Audio.Play,
-    
-    this allow for the volume to be specified.
-    
-    [klock.vb]
-    
-    Added reminder tab - code and logic.
-    
-    Added Hourly sounds [either pips or chimes.
+Added sounds directory including the hourly sounds for the pip and chimes
+[in .wav format].
 
- Klock/About.vb                         |  80 ++--
- Klock/FormAnimator.vb                  |   2 +-
- Klock/Help.vb                          |   8 +-
- Klock/Klock.Designer.vb                | 376 +++++++++++++++++--
- Klock/Klock.iss                        |  18 +-
- Klock/Klock.vb                         | 643 +++++++++++++++++++++++++--------
- Klock/Klock.vbproj                     |   1 +
- Klock/License.vb                       |   6 +-
- Klock/My Project/AssemblyInfo.vb       |   4 +-
- Klock/My Project/Resources.Designer.vb |   6 -
- Klock/My Project/Resources.resx        |   3 -
- Klock/My Project/Settings.Designer.vb  | 134 ++++++-
- Klock/My Project/Settings.settings     |  35 +-
- Klock/Options.Designer.vb              | 351 ++++++++++++++++--
- Klock/Options.vb                       | 204 ++++++++---
- Klock/Timer.vb                         |  10 +-
- Klock/app.config                       |  35 +-
- Klock/frmNotification.designer.vb      |   4 +-
- Klock/frmNotification.vb               |  16 +-
- Klock/history.txt                      |  65 ++++
- Klock/selectAction.vb                  |  30 +-
- Klock/selectTime.vb                    |  10 +-
- Sounds/eight.wav                       | Bin 0 -> 7766576 bytes
- Sounds/eleven.wav                      | Bin 0 -> 9241136 bytes
- Sounds/five.wav                        | Bin 0 -> 6324784 bytes
- Sounds/four.wav                        | Bin 0 -> 5833264 bytes
- Sounds/halfchime.wav                   | Bin 0 -> 2474548 bytes
- Sounds/nine.wav                        | Bin 0 -> 8258096 bytes
- Sounds/one.wav                         | Bin 0 -> 4375088 bytes
- Sounds/quarterchime.wav                | Bin 0 -> 1913396 bytes
- Sounds/seven.wav                       | Bin 0 -> 7291440 bytes
- Sounds/six.wav                         | Bin 0 -> 6816304 bytes
- Sounds/ten.wav                         | Bin 0 -> 8749616 bytes
- Sounds/thepips.wav                     | Bin 0 -> 706412 bytes
- Sounds/three.wav                       | Bin 0 -> 5341744 bytes
- Sounds/threequarterchime.wav           | Bin 0 -> 3007028 bytes
- Sounds/twelve.wav                      | Bin 0 -> 9732660 bytes
- Sounds/two.wav                         | Bin 0 -> 4866608 bytes
- 38 files changed, 1672 insertions(+), 369 deletions(-)
+Added the term Me. to component calls.
+
+[Options.vb]
+
+Added sound volume to global tab.
+
+Added user settings for Hourly sounds[either pips of chimes], Sounds
+volume.
+
+Screen notification of time, Notification Opacity and time out.
+
+[selectAction.vb]
+
+Changed method of audio play to mciSendString using API calls from
+My.Computer.Audio.Play,
+
+this allow for the volume to be specified.
+
+[klock.vb]
+
+Added reminder tab - code and logic.
+
+Added Hourly sounds [either pips or chimes.
+
+Klock/About.vb                         |  80 ++--
+Klock/FormAnimator.vb                  |   2 +-
+Klock/Help.vb                          |   8 +-
+Klock/Klock.Designer.vb                | 376 +++++++++++++++++--
+Klock/Klock.iss                        |  18 +-
+Klock/Klock.vb                         | 643 +++++++++++++++++++++++++--------
+Klock/Klock.vbproj                     |   1 +
+Klock/License.vb                       |   6 +-
+Klock/My Project/AssemblyInfo.vb       |   4 +-
+Klock/My Project/Resources.Designer.vb |   6 -
+Klock/My Project/Resources.resx        |   3 -
+Klock/My Project/Settings.Designer.vb  | 134 ++++++-
+Klock/My Project/Settings.settings     |  35 +-
+Klock/Options.Designer.vb              | 351 ++++++++++++++++--
+Klock/Options.vb                       | 204 ++++++++---
+Klock/Timer.vb                         |  10 +-
+Klock/app.config                       |  35 +-
+Klock/frmNotification.designer.vb      |   4 +-
+Klock/frmNotification.vb               |  16 +-
+Klock/history.txt                      |  65 ++++
+Klock/selectAction.vb                  |  30 +-
+Klock/selectTime.vb                    |  10 +-
+Sounds/eight.wav                       | Bin 0 -> 7766576 bytes
+Sounds/eleven.wav                      | Bin 0 -> 9241136 bytes
+Sounds/five.wav                        | Bin 0 -> 6324784 bytes
+Sounds/four.wav                        | Bin 0 -> 5833264 bytes
+Sounds/halfchime.wav                   | Bin 0 -> 2474548 bytes
+Sounds/nine.wav                        | Bin 0 -> 8258096 bytes
+Sounds/one.wav                         | Bin 0 -> 4375088 bytes
+Sounds/quarterchime.wav                | Bin 0 -> 1913396 bytes
+Sounds/seven.wav                       | Bin 0 -> 7291440 bytes
+Sounds/six.wav                         | Bin 0 -> 6816304 bytes
+Sounds/ten.wav                         | Bin 0 -> 8749616 bytes
+Sounds/thepips.wav                     | Bin 0 -> 706412 bytes
+Sounds/three.wav                       | Bin 0 -> 5341744 bytes
+Sounds/threequarterchime.wav           | Bin 0 -> 3007028 bytes
+Sounds/twelve.wav                      | Bin 0 -> 9732660 bytes
+Sounds/two.wav                         | Bin 0 -> 4866608 bytes
+38 files changed, 1672 insertions(+), 369 deletions(-)
 
 
 [Build 7] - V1.0.0.7 - November 2012
@@ -2405,47 +2462,47 @@ commit bf319e6c599e00dd1c36d2885095e9ba9195fb6b
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:16:10 2015 +0100
 
-    selectTime.vb]
-    
-    Added midnight fix for fuzzytime.
-    
-    [Options.vb]
-    
-    Added checkbox to time tab for hourly pips.
-    
-    Added checkbox to time tab for display current time in toast notification.
-    
-    [Klock.vb]
-    
-    Added to time to play hourly pips if desired.
-    
-    Corrected logic for showing toast notification every 5 minutes.
-    
-    Added logic to handle time item on system tray strip menu.
+selectTime.vb]
 
- Klock/FormAnimator.vb                         | 152 ++++++++++++++++++++++++++
- Klock/Klock.iss                               |   2 +-
- Klock/Klock.vb                                |  34 +++---
- Klock/Klock.vbproj                            |   1 +
- Klock/My Project/AssemblyInfo.vb              |   4 +-
- Klock/My Project/Resources.Designer.vb        |   6 +
- Klock/My Project/Resources.resx               |   3 +
- Klock/My Project/Settings.Designer.vb         |  18 ++-
- Klock/My Project/Settings.settings            |   5 +-
- Klock/Options.Designer.vb                     |  54 +++++++--
- Klock/Options.vb                              |  16 +++
- Klock/Resources/69190__acclivity__thepips.wav | Bin 0 -> 706412 bytes
- Klock/Resources/btnClicked.png                | Bin 0 -> 2980 bytes
- Klock/Resources/btnHigh.png                   | Bin 0 -> 2955 bytes
- Klock/Resources/btnLow.png                    | Bin 0 -> 2973 bytes
- Klock/Resources/klock.png                     | Bin 0 -> 9175 bytes
- Klock/app.config                              |   5 +-
- Klock/frmNotification.designer.vb             | 108 ++++++++++++++++++
- Klock/frmNotification.resx                    | 123 +++++++++++++++++++++
- Klock/frmNotification.vb                      | 148 +++++++++++++++++++++++++
- Klock/selectTime.vb                           |   2 +-
- Klock/wip.txt                                 |   6 -
- 22 files changed, 646 insertions(+), 41 deletions(-)
+Added midnight fix for fuzzytime.
+
+[Options.vb]
+
+Added checkbox to time tab for hourly pips.
+
+Added checkbox to time tab for display current time in toast notification.
+
+[Klock.vb]
+
+Added to time to play hourly pips if desired.
+
+Corrected logic for showing toast notification every 5 minutes.
+
+Added logic to handle time item on system tray strip menu.
+
+Klock/FormAnimator.vb                         | 152 ++++++++++++++++++++++++++
+Klock/Klock.iss                               |   2 +-
+Klock/Klock.vb                                |  34 +++---
+Klock/Klock.vbproj                            |   1 +
+Klock/My Project/AssemblyInfo.vb              |   4 +-
+Klock/My Project/Resources.Designer.vb        |   6 +
+Klock/My Project/Resources.resx               |   3 +
+Klock/My Project/Settings.Designer.vb         |  18 ++-
+Klock/My Project/Settings.settings            |   5 +-
+Klock/Options.Designer.vb                     |  54 +++++++--
+Klock/Options.vb                              |  16 +++
+Klock/Resources/69190__acclivity__thepips.wav | Bin 0 -> 706412 bytes
+Klock/Resources/btnClicked.png                | Bin 0 -> 2980 bytes
+Klock/Resources/btnHigh.png                   | Bin 0 -> 2955 bytes
+Klock/Resources/btnLow.png                    | Bin 0 -> 2973 bytes
+Klock/Resources/klock.png                     | Bin 0 -> 9175 bytes
+Klock/app.config                              |   5 +-
+Klock/frmNotification.designer.vb             | 108 ++++++++++++++++++
+Klock/frmNotification.resx                    | 123 +++++++++++++++++++++
+Klock/frmNotification.vb                      | 148 +++++++++++++++++++++++++
+Klock/selectTime.vb                           |   2 +-
+Klock/wip.txt                                 |   6 -
+22 files changed, 646 insertions(+), 41 deletions(-)
 
 
 [Build 6] - V1.0.0.6 - November 2012
@@ -2454,34 +2511,34 @@ commit aafacf812eba19caecd96f20f44329bf6d1ac776
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:14:07 2015 +0100
 
-    Added code to display "toast" messages i.e. a notification window rises
-    form the system tray.
-    
-    This uses code by user jmcilhinney  at
-    http://www.vbforums.com/showthread.php?351757-Animated-Window-Effects-with-quot-Toast-quot-popup-demo
-    
-    Finished the right-click menu of the system tray icon.  The item time is
-    now checkable.
-    
-    If checked a toast showing the current chosen time format is display every
-    5 minutes.
-    
-    A user property holds this state between runs.
+Added code to display "toast" messages i.e. a notification window rises
+form the system tray.
 
- Klock/Klock.Designer.vb                | 33 +++++++------
- Klock/Klock.iss                        |  4 +-
- Klock/Klock.vb                         | 14 ++++++
- Klock/Klock.vbproj                     | 14 ++++++
- Klock/My Project/AssemblyInfo.vb       |  4 +-
- Klock/My Project/Resources.Designer.vb | 30 +++++++++++-
- Klock/My Project/Resources.resx        | 13 +++++
- Klock/My Project/Settings.Designer.vb  | 12 +++++
- Klock/My Project/Settings.settings     |  3 ++
- Klock/app.config                       |  3 ++
- Klock/selectAction.vb                  |  4 +-
- Klock/selectTime.vb                    | 89 +++++++++++++++++++++++-----------
- Klock/wip.txt                          | 12 ++---
- 13 files changed, 178 insertions(+), 57 deletions(-)
+This uses code by user jmcilhinney  at
+http://www.vbforums.com/showthread.php?351757-Animated-Window-Effects-with-quot-Toast-quot-popup-demo
+
+Finished the right-click menu of the system tray icon.  The item time is
+now checkable.
+
+If checked a toast showing the current chosen time format is display every
+5 minutes.
+
+A user property holds this state between runs.
+
+Klock/Klock.Designer.vb                | 33 +++++++------
+Klock/Klock.iss                        |  4 +-
+Klock/Klock.vb                         | 14 ++++++
+Klock/Klock.vbproj                     | 14 ++++++
+Klock/My Project/AssemblyInfo.vb       |  4 +-
+Klock/My Project/Resources.Designer.vb | 30 +++++++++++-
+Klock/My Project/Resources.resx        | 13 +++++
+Klock/My Project/Settings.Designer.vb  | 12 +++++
+Klock/My Project/Settings.settings     |  3 ++
+Klock/app.config                       |  3 ++
+Klock/selectAction.vb                  |  4 +-
+Klock/selectTime.vb                    | 89 +++++++++++++++++++++++-----------
+Klock/wip.txt                          | 12 ++---
+13 files changed, 178 insertions(+), 57 deletions(-)
 
 
 [Build 5] - V1.0.0.5 - November 2012
@@ -2490,34 +2547,34 @@ commit fa2b860b2843726ad360bbd414a0e37f2b2d2515
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:11:34 2015 +0100
 
-    New time modules - UTC, Swatch, Julian, decimal & NET
-    
-    Added system tray icon and associated right click menu [coded for menu
-    items show and exit]
-    
-    Added code to hide button to show tray icon and hide main form, show in
-    tray icon menu reverses.
-    
-    Actions called by countdown timer seem to now work.
-    
-    Changed logic on action combo box - looks better.
+New time modules - UTC, Swatch, Julian, decimal & NET
 
- Klock/Klock.Designer.vb               |   59 +-
- Klock/Klock.ico                       |  Bin 5430 -> 67646 bytes
- Klock/Klock.iss                       |    4 +-
- Klock/Klock.resx                      | 2359 +++++++++++++++++++++++++++++++--
- Klock/Klock.vb                        |  154 ++-
- Klock/Klock.vbproj                    |    2 +-
- Klock/My Project/AssemblyInfo.vb      |    4 +-
- Klock/My Project/Settings.Designer.vb |   24 +
- Klock/My Project/Settings.settings    |    6 +
- Klock/Options.Designer.vb             |   89 +-
- Klock/Options.vb                      |   19 +-
- Klock/app.config                      |    6 +
- Klock/selectAction.vb                 |   54 +-
- Klock/selectTime.vb                   |  106 +-
- Klock/wip.txt                         |   13 +
- 15 files changed, 2669 insertions(+), 230 deletions(-)
+Added system tray icon and associated right click menu [coded for menu
+items show and exit]
+
+Added code to hide button to show tray icon and hide main form, show in
+tray icon menu reverses.
+
+Actions called by countdown timer seem to now work.
+
+Changed logic on action combo box - looks better.
+
+Klock/Klock.Designer.vb               |   59 +-
+Klock/Klock.ico                       |  Bin 5430 -> 67646 bytes
+Klock/Klock.iss                       |    4 +-
+Klock/Klock.resx                      | 2359 +++++++++++++++++++++++++++++++--
+Klock/Klock.vb                        |  154 ++-
+Klock/Klock.vbproj                    |    2 +-
+Klock/My Project/AssemblyInfo.vb      |    4 +-
+Klock/My Project/Settings.Designer.vb |   24 +
+Klock/My Project/Settings.settings    |    6 +
+Klock/Options.Designer.vb             |   89 +-
+Klock/Options.vb                      |   19 +-
+Klock/app.config                      |    6 +
+Klock/selectAction.vb                 |   54 +-
+Klock/selectTime.vb                   |  106 +-
+Klock/wip.txt                         |   13 +
+15 files changed, 2669 insertions(+), 230 deletions(-)
 
 
 [Build 4] - V1.0.0.4 - November 2012
@@ -2526,24 +2583,24 @@ commit 528442789a1427d9baecbab77aeb6a5057343dcb
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:08:12 2015 +0100
 
-    Finished countdown.
-    
-    Finished countdown actions - needs testing.
+Finished countdown.
 
- Klock/Klock.Designer.vb               | 173 +++++++++++++++-----
- Klock/Klock.resx                      |   6 +
- Klock/Klock.vb                        | 298 +++++++++++++++++++++++++++++++++-
- Klock/Klock.vbproj                    |   1 +
- Klock/My Project/AssemblyInfo.vb      |   4 +-
- Klock/My Project/Settings.Designer.vb |  24 +++
- Klock/My Project/Settings.settings    |   6 +
- Klock/Options.Designer.vb             | 130 +++++++++++++--
- Klock/Options.vb                      |  86 ++++++----
- Klock/app.config                      |   6 +
- Klock/selectAction.vb                 |  77 +++++++++
- Klock/selectTime.vb                   |  21 ++-
- 12 files changed, 734 insertions(+), 98 deletions(-)
- 
+Finished countdown actions - needs testing.
+
+Klock/Klock.Designer.vb               | 173 +++++++++++++++-----
+Klock/Klock.resx                      |   6 +
+Klock/Klock.vb                        | 298 +++++++++++++++++++++++++++++++++-
+Klock/Klock.vbproj                    |   1 +
+Klock/My Project/AssemblyInfo.vb      |   4 +-
+Klock/My Project/Settings.Designer.vb |  24 +++
+Klock/My Project/Settings.settings    |   6 +
+Klock/Options.Designer.vb             | 130 +++++++++++++--
+Klock/Options.vb                      |  86 ++++++----
+Klock/app.config                      |   6 +
+Klock/selectAction.vb                 |  77 +++++++++
+Klock/selectTime.vb                   |  21 ++-
+12 files changed, 734 insertions(+), 98 deletions(-)
+
 
 [Build 3] - V1.0.0.3 - November 2012
 
@@ -2551,19 +2608,19 @@ commit daab157607290d080c16af4be0cb28c9a3285c29
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:05:58 2015 +0100
 
-    Added SelectTime.vb, which will contain the various time functions.
-    
-    Added functions for fuzzytime and local time.
-    
-    Added Timer.vb, a wrapper class for the stopwatch class.
+Added SelectTime.vb, which will contain the various time functions.
 
- Klock/Klock.Designer.vb | 435 +++++++++++++++++++++++++-----------------------
- Klock/Klock.resx        |   3 +
- Klock/Klock.vb          | 101 ++++++++++-
- Klock/Klock.vbproj      |   3 +-
- Klock/Timer.vb          |  49 ++++++
- Klock/selectTime.vb     | 148 ++++++++++++++++
- 6 files changed, 523 insertions(+), 216 deletions(-)
+Added functions for fuzzytime and local time.
+
+Added Timer.vb, a wrapper class for the stopwatch class.
+
+Klock/Klock.Designer.vb | 435 +++++++++++++++++++++++++-----------------------
+Klock/Klock.resx        |   3 +
+Klock/Klock.vb          | 101 ++++++++++-
+Klock/Klock.vbproj      |   3 +-
+Klock/Timer.vb          |  49 ++++++
+Klock/selectTime.vb     | 148 ++++++++++++++++
+6 files changed, 523 insertions(+), 216 deletions(-)
 
 
 [Build 2] - V1.0.0.2 - November 2012
@@ -2572,18 +2629,18 @@ commit e362ff514186cb920f47ed06348564a9ad8fdd33
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 21:04:33 2015 +0100
 
-    Made GUID unique.
-    
-    Working on time tab.
+Made GUID unique.
 
- .gitignore.swp                   | Bin 16384 -> 0 bytes
- Klock/Klock.Designer.vb          | 442 ++++++++++++++++++++++++++++++++++++++-
- Klock/Klock.vb                   |  14 +-
- Klock/Klock.vbproj               |   2 +
- Klock/Module1.vb                 |   3 +
- Klock/My Project/AssemblyInfo.vb |   6 +-
- Klock/fuzzyTime.vb               |   3 +
- 7 files changed, 459 insertions(+), 11 deletions(-)
+Working on time tab.
+
+.gitignore.swp                   | Bin 16384 -> 0 bytes
+Klock/Klock.Designer.vb          | 442 ++++++++++++++++++++++++++++++++++++++-
+Klock/Klock.vb                   |  14 +-
+Klock/Klock.vbproj               |   2 +
+Klock/Module1.vb                 |   3 +
+Klock/My Project/AssemblyInfo.vb |   6 +-
+Klock/fuzzyTime.vb               |   3 +
+7 files changed, 459 insertions(+), 11 deletions(-)
 
 
 [Build 1] - V1.0.0.1 - November 2012
@@ -2592,43 +2649,42 @@ commit 4ac0655dcddec340e6448b54cdb00ea5a8e945f0
 Author: Kevin Scott <keleven-uk@keleven.co.uk>
 Date:   Thu Jun 4 20:59:48 2015 +0100
 
-    Version 1 of Klock.
-    
-    Basically a renaming og my standard VB template.
-    This gives minimum menus - Help, Licence & about.
+Version 1 of Klock.
 
- .gitignore.swp                           | Bin 0 -> 16384 bytes
- Klock.sln                                |  20 +
- Klock/About.Designer.vb                  | 482 ++++++++++++++++++++++
- Klock/About.resx                         | 324 +++++++++++++++
- Klock/About.vb                           | 139 +++++++
- Klock/ApplicationEvents.vb               |   1 +
- Klock/Help.Designer.vb                   |  65 +++
- Klock/Help.resx                          | 225 +++++++++++
- Klock/Help.txt                           |  64 +++
- Klock/Help.vb                            |  38 ++
- Klock/Klock.Designer.vb                  | 182 +++++++++
- Klock/Klock.ico                          | Bin 0 -> 5430 bytes
- Klock/Klock.iss                          |  71 ++++
- Klock/Klock.resx                         | 225 +++++++++++
- Klock/Klock.vb                           | 109 +++++
- Klock/Klock.vbproj                       | 241 +++++++++++
- Klock/License.Designer.vb                |  65 +++
- Klock/License.resx                       | 225 +++++++++++
- Klock/License.txt                        | 674 +++++++++++++++++++++++++++++++
- Klock/License.vb                         |  44 ++
- Klock/My Project/Application.Designer.vb |  38 ++
- Klock/My Project/Application.myapp       |  10 +
- Klock/My Project/AssemblyInfo.vb         |  39 ++
- Klock/My Project/Resources.Designer.vb   |  63 +++
- Klock/My Project/Resources.resx          | 120 ++++++
- Klock/My Project/Settings.Designer.vb    | 145 +++++++
- Klock/My Project/Settings.settings       |  24 ++
- Klock/My Project/app.manifest            |  48 +++
- Klock/Options.Designer.vb                | 148 +++++++
- Klock/Options.resx                       | 222 ++++++++++
- Klock/Options.vb                         |  84 ++++
- Klock/Settings.vb                        |  11 +
- Klock/app.config                         |  52 +++
- 33 files changed, 4198 insertions(+)
+Basically a renaming og my standard VB template.
+This gives minimum menus - Help, Licence & about.
 
+.gitignore.swp                           | Bin 0 -> 16384 bytes
+Klock.sln                                |  20 +
+Klock/About.Designer.vb                  | 482 ++++++++++++++++++++++
+Klock/About.resx                         | 324 +++++++++++++++
+Klock/About.vb                           | 139 +++++++
+Klock/ApplicationEvents.vb               |   1 +
+Klock/Help.Designer.vb                   |  65 +++
+Klock/Help.resx                          | 225 +++++++++++
+Klock/Help.txt                           |  64 +++
+Klock/Help.vb                            |  38 ++
+Klock/Klock.Designer.vb                  | 182 +++++++++
+Klock/Klock.ico                          | Bin 0 -> 5430 bytes
+Klock/Klock.iss                          |  71 ++++
+Klock/Klock.resx                         | 225 +++++++++++
+Klock/Klock.vb                           | 109 +++++
+Klock/Klock.vbproj                       | 241 +++++++++++
+Klock/License.Designer.vb                |  65 +++
+Klock/License.resx                       | 225 +++++++++++
+Klock/License.txt                        | 674 +++++++++++++++++++++++++++++++
+Klock/License.vb                         |  44 ++
+Klock/My Project/Application.Designer.vb |  38 ++
+Klock/My Project/Application.myapp       |  10 +
+Klock/My Project/AssemblyInfo.vb         |  39 ++
+Klock/My Project/Resources.Designer.vb   |  63 +++
+Klock/My Project/Resources.resx          | 120 ++++++
+Klock/My Project/Settings.Designer.vb    | 145 +++++++
+Klock/My Project/Settings.settings       |  24 ++
+Klock/My Project/app.manifest            |  48 +++
+Klock/Options.Designer.vb                | 148 +++++++
+Klock/Options.resx                       | 222 ++++++++++
+Klock/Options.vb                         |  84 ++++
+Klock/Settings.vb                        |  11 +
+Klock/app.config                         |  52 +++
+33 files changed, 4198 insertions(+)

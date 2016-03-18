@@ -24,6 +24,7 @@
             Active() = True
 
         Catch ex As Exception                   '   something has gone wrong, display error and set active to false.
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("Voice.New", ex)
             displayAction.DisplayReminder("Voice Error :: Error with SAPI", ex.Message, "G")
             Active() = False
         End Try

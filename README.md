@@ -1,10 +1,13 @@
+About Klock
+
 Klock - a clock with a k.
 
-A multifunction timing thingy, where some [but not necessary all] of the 
-functions are useful.
+A multifunction timing thingy, where some [but not necessary all] of the functions are useful.
 
-The multifunction timing thingy is split into Eight pages;
-Fuzzy Time, World Klock, Countdown, Timer, Reminder, Friends, Events and Memo.
+The multifunction timing thingy is split into Eleven pages;
+Fuzzy Time, World Klock, Countdown, Timer, Reminder, Friends, Events, Memo, Conversions, Sayings & Clipboard Monitor.
+
+Klock currently consists on about 14000 lines of VB.net 2015 code.  Also Klock boasts about 100 user options, so that Klock can be extensively customised.
 
 
 Fuzzy Time
@@ -58,6 +61,7 @@ memo section for notes.
 Pressing F12 with the Friends tab viable, will show the total number of 
 friends klock knows about.
 
+
 Events
 
 Implements a events option.
@@ -87,6 +91,7 @@ Sayings
 
 Implements a simple Sayings Display Thingy.
 A random saying can also be displayed at a user chosen interval in the system tray
+
 
 Clipboard manager
 

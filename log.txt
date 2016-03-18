@@ -1,3 +1,56 @@
+commit 268357d7ce75bd2270f69de1e77e3df50879c7ed
+Author: Kevin Scott <klock@keleven.co.uk>
+Date:   Sat Mar 5 21:55:51 2016 +0000
+
+    Made if / then / else statements into ternary statements across solution.
+    Used string builder instead of & in string concatenation across statement.
+    Tidied up string concatenation across solution.
+    Amended string initialisation to string.empty instead of "" across solution.
+    
+    Added extra hot keys - runs text klock, analogue klock and clipboard manager.
+    
+    Added dispose of fonts in UserFonts.vb
+    
+    The printing of the listboxes not uses the same font as display i.e. Hack-Regular instead of Arial
+    
+    Added more images to images directory.
+
+ Klock/FEMcommon.vb                    |  14 ++---
+ Klock/IOcommon.vb                     |   8 +--
+ Klock/InfoCommon.vb                   |  26 ++++-----
+ Klock/Klock.chm                       | Bin 700180 -> 706648 bytes
+ Klock/Klock.iss                       |   4 +-
+ Klock/Klock.pdf                       | Bin 4084233 -> 4054883 bytes
+ Klock/KlockThings.vb                  |  79 +++++++++++++--------------
+ Klock/ManagedPower.vb                 |  10 ++--
+ Klock/My Project/AssemblyInfo.vb      |   4 +-
+ Klock/UserFonts.vb                    |  12 +++++
+ Klock/UserSettings.vb                 |  10 ++--
+ Klock/conversionThings.vb             |   4 +-
+ Klock/eventThings.vb                  |  19 +++----
+ Klock/frmAbout.vb                     |   4 --
+ Klock/frmAnalogKlock.vb               |  18 ++-----
+ Klock/frmBigTextKlock.vb              |   3 --
+ Klock/frmClipboardMonitor.Designer.vb |  15 +++---
+ Klock/frmClipboardMonitor.vb          |  12 ++---
+ Klock/frmKlock.vb                     |  97 ++++++++++++++--------------------
+ Klock/frmOptions.vb                   |   7 +--
+ Klock/frmSmallTextKlock.vb            |  21 ++++----
+ Klock/history.txt                     |  57 ++++++++++++++++++++
+ Klock/klock.hnd                       | Bin 26517504 -> 26587136 bytes
+ Klock/selectAction.vb                 |  12 ++---
+ Klock/selectTime.vb                   |  54 +++++++------------
+ README.md                             |  27 ++++++----
+ images/5.png                          | Bin 0 -> 15965 bytes
+ images/Circle_Grey.png                | Bin 0 -> 31425 bytes
+ images/Circle_Orange.png              | Bin 0 -> 38440 bytes
+ images/Circle_Red.png                 | Bin 0 -> 36422 bytes
+ images/Circle_Yellow.png              | Bin 0 -> 31923 bytes
+ images/Easter.jpeg                    | Bin 0 -> 48274 bytes
+ images/happy Easter.png               | Bin 0 -> 49239 bytes
+ log.txt                               |  54 +++++++++++++++++++
+ 34 files changed, 316 insertions(+), 255 deletions(-)
+
 commit b7384918f41b439c05a3b8fab4fcd89a8dd38cdb
 Author: Kevin Scott <klock@keleven.co.uk>
 Date:   Wed Mar 2 22:56:58 2016 +0000

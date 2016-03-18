@@ -1,9 +1,5 @@
-﻿Imports System
-Imports System.IO
-Imports System.Xml
-Imports System.Environment
-Imports System.Runtime.Serialization
-Imports System.Runtime.Serialization.Formatters.Binary
+﻿Imports System.Environment
+
 
 'When you're writing .NET code, it's recommended that you use the functions explicitly designed for this purpose, 
 'rather than relying on environment variables such as %appdata%.
@@ -150,6 +146,10 @@ Public Class UserSettings
     Private _usrMemoUseDefaultPassword As Boolean = False
     Private _usrMemoDefaultPassword As String = "klock"
     Private _usrMemoDecyptTimeOut As Integer = 30
+    '-------------------------------------------------------------------------------------------------------- Logging Settings ----------
+    Private _usrLogging As Boolean = True
+    Private _usrLogDaysKeep As Integer = 10
+    Private _usrLogFilePath As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock\Klog_" & DateTime.Now.ToString("ddMMyyyy") & ".log")
 
     '   run on set up - blank at the moment.
     Public Sub New()
@@ -282,8 +282,7 @@ Public Class UserSettings
             Return _usrOptionsSaveFile
         End Get
     End Property
-
-    '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
+    '------------------------------------------------------------------------------------------------------ Time Settings ---------------
     Public Property usrTimeDefaultFormat() As Integer
         Get
             Return _usrTimeDefaultFormat
@@ -1098,7 +1097,34 @@ Public Class UserSettings
         End Set
     End Property
 
-    '-------------------------------------------------------------------------------------------------------- file methods ------------
+    '--------------------------------------------------------------------------------------------------------Logging Settings ---------
+
+    Public Property usrLogging() As Boolean
+        Get
+            Return _usrLogging
+        End Get
+        Set(ByVal value As Boolean)
+            _usrLogging = value
+        End Set
+    End Property
+
+    Public Property usrLogDaysKeep() As Integer
+        Get
+            Return _usrLogDaysKeep
+        End Get
+        Set(ByVal value As Integer)
+            _usrLogDaysKeep = value
+        End Set
+    End Property
+
+    Public ReadOnly Property usrLogFilePath() As String     '   returns path to save settings file - read-only
+        Get
+            Return _usrLogFilePath
+        End Get
+    End Property
+
+
+    '--------------------------------------------------------------------------------------------------- User Settings methods ------------
 
     Public Sub writeSettings()
         '   Writes all settings out to a XML file.  
@@ -1328,6 +1354,11 @@ Public Class UserSettings
                                   <MemoDefaultPassword><%= usrMemoDefaultPassword() %></MemoDefaultPassword>
                                   <MemoDecyptTimeOut><%= usrMemoDecyptTimeOut() %></MemoDecyptTimeOut>
                               </Memo>
+                              <Logging>
+                                  <Logging><%= usrLogging() %></Logging>
+                                  <LogDaysKeep><%= usrLogDaysKeep() %></LogDaysKeep>
+                                  <LogFilePath><%= usrLogFilePath() %></LogFilePath>
+                              </Logging>
                           </klock>
 
         xmlSettings.Save(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
@@ -1560,6 +1591,11 @@ Public Class UserSettings
                                   <MemoDefaultPassword>klock</MemoDefaultPassword>
                                   <MemoDecyptTimeOut>30</MemoDecyptTimeOut>
                               </Memo>
+                              <Logging>
+                                  <Logging>True</Logging>
+                                  <LogDaysKeep>10</LogDaysKeep>
+                                  <LogFilePath><%= usrLogFilePath() %></LogFilePath>
+                              </Logging>
                           </klock>
 
         xmlSettings.Save(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
@@ -1872,7 +1908,15 @@ Public Class UserSettings
             usrMemoDefaultPassword = readElement(memo, "MemoDefaultPassword", usrMemoDefaultPassword())
             usrMemoDecyptTimeOut = CType(readElement(memo, "MemoDecyptTimeOut", usrMemoDecyptTimeOut()), Integer)
 
+            '-------------------------------------------------------------------------------------------------------- Logging Settings ---------
+
+            Dim log = elem.Element("Logging")
+
+            usrLogging = CType(readElement(log, "Logging", usrLogging()), Boolean)
+            usrLogDaysKeep = CType(readElement(log, "LogDaysKeep", usrLogDaysKeep()), Integer)
+
         Catch ex As Exception
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("UserSettings.readSettings", ex)
             MessageBox.Show("Error reading stream!  " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
@@ -1887,6 +1931,7 @@ Public Class UserSettings
         Try
             r = g.Element(s).Value
         Catch ex As Exception
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("UserSettings.readElement", ex)
             frmKlock.displayAction.DisplayReminder("ERROR :: " & g.ToString & " :: " & s & " :::", ex.Message, "G")
             r = d
         End Try
@@ -1923,6 +1968,7 @@ Public Class UserSettings
                 writeDefaultSettings()
             End If
         Catch ex As Exception
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("UserSettings.checkVersion", ex)
             MessageBox.Show("Error reading version!  " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 

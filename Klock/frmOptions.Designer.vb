@@ -150,6 +150,7 @@ Partial Class frmOptions
         Me.btnSmlTxtKlckFrClr = New System.Windows.Forms.Button()
         Me.tbPgOtherStuff = New System.Windows.Forms.TabPage()
         Me.GroupBox26 = New System.Windows.Forms.GroupBox()
+        Me.chckBxClipboardSaveCSV = New System.Windows.Forms.CheckBox()
         Me.chckBxClipboardMonitor = New System.Windows.Forms.CheckBox()
         Me.chckBxClipboardSavePos = New System.Windows.Forms.CheckBox()
         Me.GroupBox20 = New System.Windows.Forms.GroupBox()
@@ -216,12 +217,19 @@ Partial Class frmOptions
         Me.Label23 = New System.Windows.Forms.Label()
         Me.txtBxMemoDefaultPassword = New System.Windows.Forms.TextBox()
         Me.chckBxMemoDefaultPassword = New System.Windows.Forms.CheckBox()
+        Me.tbPgLogging = New System.Windows.Forms.TabPage()
+        Me.GroupBox28 = New System.Windows.Forms.GroupBox()
+        Me.lstBxLogFiles = New System.Windows.Forms.ListBox()
+        Me.GroupBox27 = New System.Windows.Forms.GroupBox()
+        Me.lblLogFilePath = New System.Windows.Forms.Label()
+        Me.nmrcUpDwnLogDaysKeep = New System.Windows.Forms.NumericUpDown()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.ChckBxLoging = New System.Windows.Forms.CheckBox()
         Me.btnArchiveLoad = New System.Windows.Forms.Button()
         Me.btnArchiveSave = New System.Windows.Forms.Button()
         Me.btnOptionsCancel = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.chckBxClipboardSaveCSV = New System.Windows.Forms.CheckBox()
         Me.tbCntrlOptions.SuspendLayout()
         Me.tbPgGlobal.SuspendLayout()
         Me.GroupBox17.SuspendLayout()
@@ -276,6 +284,10 @@ Partial Class frmOptions
         Me.tbPgMemo.SuspendLayout()
         Me.GroupBox16.SuspendLayout()
         CType(Me.nmrcUpDwnMemoDecrypt, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tbPgLogging.SuspendLayout()
+        Me.GroupBox28.SuspendLayout()
+        Me.GroupBox27.SuspendLayout()
+        CType(Me.nmrcUpDwnLogDaysKeep, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnOptionsClose
@@ -373,6 +385,7 @@ Partial Class frmOptions
         Me.tbCntrlOptions.Controls.Add(Me.tbPgArchive)
         Me.tbCntrlOptions.Controls.Add(Me.tbPgEvents)
         Me.tbCntrlOptions.Controls.Add(Me.tbPgMemo)
+        Me.tbCntrlOptions.Controls.Add(Me.tbPgLogging)
         Me.tbCntrlOptions.Location = New System.Drawing.Point(12, 12)
         Me.tbCntrlOptions.Multiline = True
         Me.tbCntrlOptions.Name = "tbCntrlOptions"
@@ -1625,6 +1638,17 @@ Partial Class frmOptions
         Me.GroupBox26.TabStop = False
         Me.GroupBox26.Text = "Clipboard Monitor"
         '
+        'chckBxClipboardSaveCSV
+        '
+        Me.chckBxClipboardSaveCSV.AutoSize = True
+        Me.chckBxClipboardSaveCSV.Location = New System.Drawing.Point(246, 19)
+        Me.chckBxClipboardSaveCSV.Name = "chckBxClipboardSaveCSV"
+        Me.chckBxClipboardSaveCSV.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxClipboardSaveCSV.Size = New System.Drawing.Size(140, 17)
+        Me.chckBxClipboardSaveCSV.TabIndex = 2
+        Me.chckBxClipboardSaveCSV.Text = "Save as .CSV [else .bin]"
+        Me.chckBxClipboardSaveCSV.UseVisualStyleBackColor = True
+        '
         'chckBxClipboardMonitor
         '
         Me.chckBxClipboardMonitor.AutoSize = True
@@ -2290,6 +2314,86 @@ Partial Class frmOptions
         Me.chckBxMemoDefaultPassword.Text = "Use Default Password"
         Me.chckBxMemoDefaultPassword.UseVisualStyleBackColor = True
         '
+        'tbPgLogging
+        '
+        Me.tbPgLogging.Controls.Add(Me.GroupBox28)
+        Me.tbPgLogging.Controls.Add(Me.GroupBox27)
+        Me.tbPgLogging.Location = New System.Drawing.Point(4, 25)
+        Me.tbPgLogging.Name = "tbPgLogging"
+        Me.tbPgLogging.Size = New System.Drawing.Size(660, 265)
+        Me.tbPgLogging.TabIndex = 12
+        Me.tbPgLogging.Text = "Logging"
+        Me.tbPgLogging.UseVisualStyleBackColor = True
+        '
+        'GroupBox28
+        '
+        Me.GroupBox28.Controls.Add(Me.lstBxLogFiles)
+        Me.GroupBox28.Location = New System.Drawing.Point(6, 59)
+        Me.GroupBox28.Name = "GroupBox28"
+        Me.GroupBox28.Size = New System.Drawing.Size(648, 192)
+        Me.GroupBox28.TabIndex = 1
+        Me.GroupBox28.TabStop = False
+        Me.GroupBox28.Text = "Logs"
+        '
+        'lstBxLogFiles
+        '
+        Me.lstBxLogFiles.FormattingEnabled = True
+        Me.lstBxLogFiles.Location = New System.Drawing.Point(9, 12)
+        Me.lstBxLogFiles.Name = "lstBxLogFiles"
+        Me.lstBxLogFiles.Size = New System.Drawing.Size(623, 173)
+        Me.lstBxLogFiles.TabIndex = 0
+        '
+        'GroupBox27
+        '
+        Me.GroupBox27.Controls.Add(Me.lblLogFilePath)
+        Me.GroupBox27.Controls.Add(Me.nmrcUpDwnLogDaysKeep)
+        Me.GroupBox27.Controls.Add(Me.Label4)
+        Me.GroupBox27.Controls.Add(Me.ChckBxLoging)
+        Me.GroupBox27.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox27.Name = "GroupBox27"
+        Me.GroupBox27.Size = New System.Drawing.Size(648, 47)
+        Me.GroupBox27.TabIndex = 0
+        Me.GroupBox27.TabStop = False
+        Me.GroupBox27.Text = "Logging Options"
+        '
+        'lblLogFilePath
+        '
+        Me.lblLogFilePath.AutoSize = True
+        Me.lblLogFilePath.Location = New System.Drawing.Point(302, 20)
+        Me.lblLogFilePath.Name = "lblLogFilePath"
+        Me.lblLogFilePath.Size = New System.Drawing.Size(97, 13)
+        Me.lblLogFilePath.TabIndex = 3
+        Me.lblLogFilePath.Text = "Log File Location : "
+        '
+        'nmrcUpDwnLogDaysKeep
+        '
+        Me.nmrcUpDwnLogDaysKeep.Location = New System.Drawing.Point(234, 16)
+        Me.nmrcUpDwnLogDaysKeep.Maximum = New Decimal(New Integer() {365, 0, 0, 0})
+        Me.nmrcUpDwnLogDaysKeep.Name = "nmrcUpDwnLogDaysKeep"
+        Me.nmrcUpDwnLogDaysKeep.Size = New System.Drawing.Size(48, 20)
+        Me.nmrcUpDwnLogDaysKeep.TabIndex = 2
+        Me.nmrcUpDwnLogDaysKeep.Value = New Decimal(New Integer() {10, 0, 0, 0})
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(120, 20)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(108, 13)
+        Me.Label4.TabIndex = 1
+        Me.Label4.Text = "Days to keep log files"
+        '
+        'ChckBxLoging
+        '
+        Me.ChckBxLoging.AutoSize = True
+        Me.ChckBxLoging.Location = New System.Drawing.Point(9, 19)
+        Me.ChckBxLoging.Name = "ChckBxLoging"
+        Me.ChckBxLoging.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxLoging.Size = New System.Drawing.Size(95, 17)
+        Me.ChckBxLoging.TabIndex = 0
+        Me.ChckBxLoging.Text = "Logging in use"
+        Me.ChckBxLoging.UseVisualStyleBackColor = True
+        '
         'btnArchiveLoad
         '
         Me.btnArchiveLoad.Enabled = False
@@ -2323,17 +2427,6 @@ Partial Class frmOptions
         '
         Me.OpenFileDialog1.CheckFileExists = False
         Me.OpenFileDialog1.FileName = "openFileDialog"
-        '
-        'chckBxClipboardSaveCSV
-        '
-        Me.chckBxClipboardSaveCSV.AutoSize = True
-        Me.chckBxClipboardSaveCSV.Location = New System.Drawing.Point(246, 19)
-        Me.chckBxClipboardSaveCSV.Name = "chckBxClipboardSaveCSV"
-        Me.chckBxClipboardSaveCSV.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.chckBxClipboardSaveCSV.Size = New System.Drawing.Size(140, 17)
-        Me.chckBxClipboardSaveCSV.TabIndex = 2
-        Me.chckBxClipboardSaveCSV.Text = "Save as .CSV [else .bin]"
-        Me.chckBxClipboardSaveCSV.UseVisualStyleBackColor = True
         '
         'frmOptions
         '
@@ -2431,6 +2524,11 @@ Partial Class frmOptions
         Me.GroupBox16.ResumeLayout(False)
         Me.GroupBox16.PerformLayout()
         CType(Me.nmrcUpDwnMemoDecrypt, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tbPgLogging.ResumeLayout(False)
+        Me.GroupBox28.ResumeLayout(False)
+        Me.GroupBox27.ResumeLayout(False)
+        Me.GroupBox27.PerformLayout()
+        CType(Me.nmrcUpDwnLogDaysKeep, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2633,4 +2731,12 @@ Partial Class frmOptions
     Friend WithEvents chckBxAnlgKlockIdleTime As CheckBox
     Friend WithEvents chckBxAnlgKlockSaveSize As CheckBox
     Friend WithEvents chckBxClipboardSaveCSV As CheckBox
+    Friend WithEvents tbPgLogging As TabPage
+    Friend WithEvents GroupBox28 As GroupBox
+    Friend WithEvents GroupBox27 As GroupBox
+    Friend WithEvents ChckBxLoging As CheckBox
+    Friend WithEvents nmrcUpDwnLogDaysKeep As NumericUpDown
+    Friend WithEvents Label4 As Label
+    Friend WithEvents lblLogFilePath As Label
+    Friend WithEvents lstBxLogFiles As ListBox
 End Class

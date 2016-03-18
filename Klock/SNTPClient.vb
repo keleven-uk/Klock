@@ -326,7 +326,8 @@ Namespace InternetTime
                                 Try
                                     Dim Host As IPHostEntry = Dns.GetHostByAddress(Address)
                                     val = Host.HostName + " (" + Address + ")"
-                                Catch e As Exception
+                                Catch ex As Exception
+                                    If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("SNTPClient. ReferenceID", ex)
                                     val = "N/A"
                                 End Try
                             Case 4 '// Version 4, Reference ID is the timestamp of last update
@@ -481,8 +482,9 @@ Namespace InternetTime
                     Throw New Exception("Invalid response from " + TimeServer)
                 End If
                 DestinationTimestamp = DateTime.Now
-            Catch e As SocketException
-                Throw New Exception(e.Message)
+            Catch ex As SocketException
+                If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("SNTPClient. Connect", ex)
+                Throw New Exception(ex.Message)
             End Try
 
             '// Update system time

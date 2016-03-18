@@ -217,7 +217,6 @@ Module KlockThings
 
         Dim line As String = String.Empty
         Dim saying As New StringBuilder
-        Dim count As Integer = 0
 
         For Each fileName As String In System.IO.Directory.GetFiles(IO.Path.Combine(Application.StartupPath, "sayings"), "*.txt")
             Try
@@ -237,6 +236,7 @@ Module KlockThings
                     wordreader.Close()
                 End Using
             Catch ex As Exception
+                If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("KlockThings.loadSayings", ex)
                 frmKlock.displayAction.DisplayReminder("ERROR :: KlockThings.loadWords", ex.Message, "G")
             End Try
         Next
@@ -289,6 +289,7 @@ Module KlockThings
         Try
             Return My.Computer.Network.Ping("www.google.com")
         Catch ex As Exception
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("KlockThings.HaveInternetConnection", ex)
             Return False
         End Try
 

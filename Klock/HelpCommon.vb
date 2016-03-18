@@ -38,6 +38,7 @@ Module HelpCommon
             Next
 
         Catch ex As Exception
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("HelpCommon.loadtextFile", ex)
             MessageBox.Show("File wasn't found!" & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
