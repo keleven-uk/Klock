@@ -115,17 +115,21 @@
 
         Select Case s
             Case SystemTypes.ShutDown
+                If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.logMessage("selectAction.DoSystemCommand", " Shutdown System")
                 frmKlock.Text = " Klock is Shutting Down PC"
-                p.Arguments = "-s -t 10 -c Shutting Down PC in 10 Seconds"
+                p.Arguments = "-s -t 10 -c ""Shutting Down PC In 10 Seconds"""
             Case SystemTypes.Restart
+                If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.logMessage("selectAction.DoSystemCommand", " Restart System")
                 frmKlock.Text = " Klock is Restarting PC"
-                p.Arguments = "-r -t 10 -c Restarting Down PC in 10 Seconds"
+                p.Arguments = "-r -t 10 -c ""Restarting Down PC in 10 Seconds"""
             Case SystemTypes.GUI
+                If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.logMessage("selectAction.DoSystemCommand", " Shutdown GUI")
                 frmKlock.Text = " Klock is Displaying GUI Interface"
                 p.Arguments = "-i "
             Case SystemTypes.LogOff
+                If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.logMessage("selectAction.DoSystemCommand", " Logoff System")
                 frmKlock.Text = " Klock is Logging off Current User"
-                p.Arguments = "-l - t 10 -c Logging off user in 10 Seconds by Klock"
+                p.Arguments = "-l - t 10 -c ""Logging off user in 10 Seconds by Klock"""
         End Select
 
         Try
@@ -142,7 +146,7 @@
 
         Dim p As New ProcessStartInfo
 
-        p.Arguments = "-a "
+        p.Arguments = "-a"
 
         Try
             p.FileName = "shutdown.exe"

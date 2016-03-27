@@ -2,6 +2,63 @@ The source tree is now held as a git repository https://github.com/keleven-uk/Kl
 converted from SVN as of build 42.
 I find the git commit number unwieldy, so still include SVN style build numbers.
 
+
+[Build [70] - V1.1.7.71 - March 2016
+[Lines of code = 14120]
+[maintainability index = 78]
+
+commit e233a10b03aca02865c3f008748851641eef9690
+Author: Kevin Scott <klock@keleven.co.uk>
+Date:   Fri Mar 18 23:23:32 2016 +0000
+
+    Moved to .net 4.5 - For making zip files easier, is this workable.
+    
+    Also added logging - error logs can be generated if desired.
+    So, all try catch clauses now can write to the error log with the exception.
+                         
+    Added Logger.vb - cose for error logging.
+     
+    [frmOptions_Load]
+    Amended subs for writing and reading archive files - nor use .net 4.5 io.system.compression.
+    
+    [UserSettings.vb]
+    Added settings for logging.
+    
+    [frmKlock.vb]
+    Changes for above.
+    
+    [frmClipboardMonitor.vb]
+    Amended calling logging for list-box.
+
+ Klock/HelpCommon.vb                      |    1 +
+ Klock/IOcommon.vb                        |   10 +
+ Klock/Klock.chm                          |  Bin 706648 -> 759180 bytes
+ Klock/Klock.iss                          |    4 +-
+ Klock/Klock.pdf                          |  Bin 4054883 -> 4170613 bytes
+ Klock/Klock.vbproj                       |   12 +-
+ Klock/KlockThings.vb                     |    3 +-
+ Klock/My Project/Application.Designer.vb |    2 +-
+ Klock/My Project/AssemblyInfo.vb         |    4 +-
+ Klock/My Project/Settings.Designer.vb    |    2 +-
+ Klock/SNTPClient.vb                      |    8 +-
+ Klock/UserFonts.vb                       |    1 +
+ Klock/UserSettings.vb                    |   64 +-
+ Klock/Voice.vb                           |    1 +
+ Klock/app.config                         |    2 +-
+ Klock/conversionThings.vb                |    2 +
+ Klock/frmAbout.vb                        |    2 +
+ Klock/frmClipboardMonitor.vb             |    9 +-
+ Klock/frmKlock.vb                        |   29 +-
+ Klock/frmOptions.Designer.vb             |  130 +-
+ Klock/frmOptions.vb                      |  181 +-
+ Klock/history.txt                        | 4256 +++++++++++++++---------------
+ Klock/klock.hnd                          |  Bin 26587136 -> 26791936 bytes
+ Klock/selectAction.vb                    |    3 +
+ README.md                                |   13 +-
+ log.txt                                  |   53 +
+ 26 files changed, 2590 insertions(+), 2202 deletions(-)
+ 
+ 
 [Build [70] - V1.1.6.70 - March 2016
 [Lines of code = 13872]
 [maintainability index = 79]

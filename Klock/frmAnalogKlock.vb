@@ -130,6 +130,13 @@ Public Class frmAnalogueKlock
         '   preform a analogue klock refresh i.e. re-draw.
         '   if set up to draw background image and it exists then display it, otherwise clear image.
 
+        Dim currentDate As Date = Date.Now
+        Dim localZone As TimeZone = TimeZone.CurrentTimeZone
+        Dim offset As TimeSpan
+
+        offset = If(localZone.IsDaylightSavingTime(currentDate), New TimeSpan(0, 1, 0, 0, 0), New TimeSpan(0, 0, 0, 0, 0))
+        analogueKlock.UtcOffset = offset
+
         If frmKlock.usrSettings.usrAnalogueKlockDisplayPicture And My.Computer.FileSystem.FileExists(frmKlock.usrSettings.usrAnalogueKlockPicture) Then
             analogueKlock.BackgroundImageLayout = ImageLayout.Zoom
             analogueKlock.BackgroundImage = System.Drawing.Bitmap.FromFile(frmKlock.usrSettings.usrAnalogueKlockPicture)

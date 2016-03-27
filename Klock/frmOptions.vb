@@ -1097,6 +1097,7 @@ Public Class frmOptions
                 If Not file.EndsWith(".log") Then
                     Try
                         archive.CreateEntryFromFile(file, My.Computer.FileSystem.GetName(file), CompressionLevel.Optimal)
+                        If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.logMessage("frmOptions.btnArchiveSave_Click", " Archiving file :: " & file)
                     Catch ex As Exception
                         ziperror = False
                         If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmOptions.btnArchiveSave_Click", ex)
@@ -1128,7 +1129,8 @@ Public Class frmOptions
             For Each entry As ZipArchiveEntry In archive.Entries
                 Try
                     If fileExists(Path.Combine(zipdir, entry.FullName)) Then  '   archive already exists and to overwrite.
-                        entry.ExtractToFile(Path.Combine(zipdir, entry.FullName))
+                        entry.ExtractToFile(Path.Combine(zipdir, entry.FullName), True)
+                        If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.logMessage("frmOptions.btnArchiveLoad_Click", " Restoring file :: " & entry.FullName)
                     End If
                 Catch ex As Exception
                     ziperror = False

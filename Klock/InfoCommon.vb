@@ -102,7 +102,7 @@ Module InfoCommon
         '   NB : current year can be selected from the form, so could be different from the year in current date.
 
         ' Get the local time zone and the current date.
-        Dim currentDate As DateTime = DateTime.Now
+        Dim currentDate As Date = Date.Now
 
         Dim localZone As TimeZone = TimeZone.CurrentTimeZone
         Dim daylight As DaylightTime = localZone.GetDaylightChanges(currentYear)
