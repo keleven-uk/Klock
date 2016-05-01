@@ -71,6 +71,7 @@ Partial Class frmSmallTextKlock
         Me.StsLblKeys = New System.Windows.Forms.ToolStripStatusLabel()
         Me.stsLbIdkeTime = New System.Windows.Forms.ToolStripStatusLabel()
         Me.pnlSmallKlock = New System.Windows.Forms.Panel()
+        Me.toTpSmallTextKlock = New System.Windows.Forms.ToolTip(Me.components)
         Me.StsStrpInfo.SuspendLayout()
         Me.pnlSmallKlock.SuspendLayout()
         Me.SuspendLayout()
@@ -566,6 +567,15 @@ Partial Class frmSmallTextKlock
         Me.pnlSmallKlock.Size = New System.Drawing.Size(309, 202)
         Me.pnlSmallKlock.TabIndex = 53
         '
+        'toTpSmallTextKlock
+        '
+        Me.toTpSmallTextKlock.AutoPopDelay = 5000
+        Me.toTpSmallTextKlock.InitialDelay = 0
+        Me.toTpSmallTextKlock.IsBalloon = True
+        Me.toTpSmallTextKlock.ReshowDelay = 100
+        Me.toTpSmallTextKlock.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
+        Me.toTpSmallTextKlock.ToolTipTitle = "Klock"
+        '
         'frmSmallTextKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -634,4 +644,5 @@ Partial Class frmSmallTextKlock
     Friend WithEvents StsLblKeys As ToolStripStatusLabel
     Friend WithEvents stsLbIdkeTime As ToolStripStatusLabel
     Friend WithEvents pnlSmallKlock As Panel
+    Friend WithEvents toTpSmallTextKlock As ToolTip
 End Class

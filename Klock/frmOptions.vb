@@ -447,7 +447,7 @@ Public Class frmOptions
             End If
         Catch ex As Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmOptions.ChckBxOptionsRunOnStartup_CheckedChanged", ex)
-            displayAction.DisplayReminder("Registry Error :: Cant write entry to Registry", ex.Message, "G")
+            displayAction.DisplayReminder(ex.Message, "G", "Registry Error :: Cant write entry to Registry")
         End Try
     End Sub
 
@@ -765,7 +765,7 @@ Public Class frmOptions
     Private Sub btnNotificationTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNotificationTest.Click
         '   Display a test notification, showing the current notification opacity.
 
-        displayAction.DisplayReminder("Notification Test", String.Format(" Opacity = {0}", frmKlock.usrSettings.usrNotificationOpacity), "G")
+        displayAction.DisplayReminder(String.Format(" Opacity = {0}", frmKlock.usrSettings.usrNotificationOpacity), "G", "Notification Test")
     End Sub
 
     '-------------------------------------------------------------- Sayings ------------------------------------------------------------------
@@ -829,7 +829,7 @@ Public Class frmOptions
     Private Sub btnSayingNotificationTest_Click(sender As Object, e As EventArgs) Handles btnSayingNotificationTest.Click
         '   Display a test Sayings, showing the current Sayings opacity.
 
-        displayAction.DisplayReminder("Sayings Test", String.Format(" Opacity = {0}", frmKlock.usrSettings.usrSayingsOpacity), "S")
+        displayAction.DisplayReminder(String.Format(" Opacity = {0}", frmKlock.usrSettings.usrSayingsOpacity), "S", "Sayings Test")
     End Sub
 
     '-----------------------------------------------------------Event Notification--------------------------------------------------------------
@@ -1027,7 +1027,7 @@ Public Class frmOptions
             p.Start()
         Catch ex As Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmOptions.lstBxLogFiles_SelectedIndexChanged", ex)
-            frmKlock.displayAction.DisplayReminder("Log File Error", "Sorry, can't find log. " & ex.Message, "G")
+            frmKlock.displayAction.DisplayReminder("Sorry, can't find log. " & ex.Message, "G", "Log File Error")
         End Try
     End Sub
 
@@ -1101,11 +1101,11 @@ Public Class frmOptions
                     Catch ex As Exception
                         ziperror = False
                         If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmOptions.btnArchiveSave_Click", ex)
-                        displayAction.DisplayReminder("Saving File Error", "Error archiving Data Files. " & ex.Message, "G")
+                        displayAction.DisplayReminder("Error archiving Data Files. " & ex.Message, "G", "Saving File Error")
                     End Try
                 End If
             Next
-            If ziperror Then displayAction.DisplayReminder("Saving File Okay", "Archiving Data Files Successful.", "G")
+            If ziperror Then displayAction.DisplayReminder("Archiving Data Files Successful.", "G", "Saving File Okay")
         End Using
     End Sub
 
@@ -1135,10 +1135,10 @@ Public Class frmOptions
                 Catch ex As Exception
                     ziperror = False
                     If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmOptions.btnArchiveLoad_Click", ex)
-                    displayAction.DisplayReminder("Loading File Error", "Error Loading Data Files. " & ex.Message, "G")
+                    displayAction.DisplayReminder("Error Loading Data Files. " & ex.Message, "G", "Loading File Error")
                 End Try
             Next
-            If ziperror Then displayAction.DisplayReminder("Loading File Okay", "Loading Data Files Successful.", "G")
+            If ziperror Then displayAction.DisplayReminder("Loading Data Files Successful.", "G", "Loading File Okay")
         End Using
     End Sub
 

@@ -28,7 +28,7 @@ Module IOcommon
             Formatter.Serialize(saveFile, AL)           '   Write list to binary file.
         Catch ex As Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("IOcommon.saveFriends", ex)
-            frmKlock.displayAction.DisplayReminder("Friends Error", "Error saving Friends File." & vbCrLf & ex.Message, "G")
+            frmKlock.displayAction.DisplayReminder("Error saving Friends File." & vbCrLf & ex.Message, "G", "Friends Error")
         End Try
 
         saveFile.Close()
@@ -46,7 +46,7 @@ Module IOcommon
             readFile = File.OpenRead(getPath("Friend"))
             readFile.Seek(0, SeekOrigin.Begin)
         Else
-            frmKlock.displayAction.DisplayReminder("Friends", "No Friends file found - will create if needed.", "G")
+            frmKlock.displayAction.DisplayReminder("No Friends file found - will create if needed.", "G", "Friends")
             Exit Sub
         End If
 
@@ -59,7 +59,7 @@ Module IOcommon
             AL = Formatter.Deserialize(readFile)        '   loads file into the list.
         Catch ex As Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("IOcommon.loadFriends", ex)
-            frmKlock.displayAction.DisplayReminder("Friends Error", "Error loading Friends File. " & ex.Message, "G")
+            frmKlock.displayAction.DisplayReminder("Error loading Friends File. " & ex.Message, "G", "Friends Error")
             Exit Sub
         End Try
 
@@ -98,7 +98,7 @@ Module IOcommon
             Formatter.Serialize(saveFile, AL)           '   Write list to binary file.
         Catch ex As Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("IOcommon.saveEvents", ex)
-            frmKlock.displayAction.DisplayReminder("Events Error", "Error saving Events File." & vbCrLf & ex.Message, "G")
+            frmKlock.displayAction.DisplayReminder("Error saving Events File." & vbCrLf & ex.Message, "G", "Events Error")
         End Try
 
         saveFile.Close()
@@ -116,7 +116,7 @@ Module IOcommon
             readFile = File.OpenRead(getPath("Event"))
             readFile.Seek(0, SeekOrigin.Begin)
         Else
-            frmKlock.displayAction.DisplayReminder("Event", "No Event file found - will create if needed.", "G")
+            frmKlock.displayAction.DisplayReminder("No Event file found - will create if needed.", "G", "Event")
             Exit Sub
         End If
 
@@ -129,7 +129,7 @@ Module IOcommon
             AL = Formatter.Deserialize(readFile)        '   loads file into the list.
         Catch ex As Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("IOcommon.loadEvents", ex)
-            frmKlock.displayAction.DisplayReminder("Events Error", "Error Events Friends File. " & ex.Message, "G")
+            frmKlock.displayAction.DisplayReminder("Error Events Friends File. " & ex.Message, "G", "Events Error")
             Exit Sub
         End Try
 
@@ -174,7 +174,7 @@ Module IOcommon
             Formatter.Serialize(saveFile, AL)       '   Write list to binary file.
         Catch ex As Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("IOcommon.saveMemo", ex)
-            frmKlock.displayAction.DisplayReminder("Memo Error", "Error saving Memo File." & vbCrLf & ex.Message, "G")
+            frmKlock.displayAction.DisplayReminder("Error saving Memo File." & vbCrLf & ex.Message, "G", "Memo Error")
         End Try
 
         saveFile.Close()
@@ -192,7 +192,7 @@ Module IOcommon
             readFile = File.OpenRead(getPath("Memo"))
             readFile.Seek(0, SeekOrigin.Begin)
         Else
-            frmKlock.displayAction.DisplayReminder("Memo", "No Memo file found - will create if needed.", "G")
+            frmKlock.displayAction.DisplayReminder("No Memo file found - will create if needed.", "G", "Memo")
             Exit Sub
         End If
 
@@ -205,7 +205,7 @@ Module IOcommon
             AL = Formatter.Deserialize(readFile)        '   loads file into the list.
         Catch ex As Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("IOcommon.loadMemo", ex)
-            frmKlock.displayAction.DisplayReminder("Memo Error", "Error Memo Friends File. " & ex.Message, "G")
+            frmKlock.displayAction.DisplayReminder("Error Memo Friends File. " & ex.Message, "G", "Memo Error")
             Exit Sub
         End Try
 
@@ -276,7 +276,7 @@ Module IOcommon
                 csvFile.Dispose()
             Catch ex As Exception
                 If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("IOcommon.saveClipboardCVS", ex)
-                frmKlock.displayAction.DisplayReminder("Clipboard Error", "Error saving Clipboard CSV File." & vbCrLf & ex.Message, "G")
+                frmKlock.displayAction.DisplayReminder("Error saving Clipboard CSV File." & vbCrLf & ex.Message, "G", "Clipboard Error")
             End Try
         End If
     End Sub
@@ -310,7 +310,7 @@ Module IOcommon
                 Formatter.Serialize(binFileName, AL)           '   Write list to binary file.
             Catch ex As Exception
                 If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("IOcommon.saveClipboardBIN", ex)
-                frmKlock.displayAction.DisplayReminder("Clipboard Error", "Error saving Clipboard binary File." & vbCrLf & ex.Message, "G")
+                frmKlock.displayAction.DisplayReminder("Error saving Clipboard binary File." & vbCrLf & ex.Message, "G", "Clipboard Error")
             End Try
 
             binFileName.Close()
@@ -383,7 +383,7 @@ Module IOcommon
                 readFile = File.OpenRead(frmClipboardMonitor.OpenFileDialog1.FileName)
                 readFile.Seek(0, SeekOrigin.Begin)
             Else
-                frmKlock.displayAction.DisplayReminder("Clipboard", "No Clipboard file found - will create if needed.", "G")
+                frmKlock.displayAction.DisplayReminder("No Clipboard file found - will create if needed.", "G", "Clipboard")
                 Exit Sub
             End If
 
@@ -396,7 +396,7 @@ Module IOcommon
                 AL = Formatter.Deserialize(readFile)        '   loads file into the list.
             Catch ex As Exception
                 If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("IOcommon.loadClipboardBIN", ex)
-                frmKlock.displayAction.DisplayReminder("Clipboard Error", "Error loading Clipboard File. " & ex.Message, "G")
+                frmKlock.displayAction.DisplayReminder("Error loading Clipboard File. " & ex.Message, "G", "Clipboard Error")
                 Exit Sub
             End Try
 

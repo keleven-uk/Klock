@@ -98,7 +98,11 @@ Public Class frmKlock
                 updateWorldKlock()                                                   '   Update World Klock.
             End If                                                                   '   If Me.TbCntrl.SelectedIndex = 0 [or 1] Then
         Else                                                                         '   else If Me.Visible Then
-            NotificationDispaly(currentSecond)                                       '   display a notification, if desired
+            If klocksNotVisable() Then
+                NotificationDispaly(currentSecond)                                   '   display a notification, if desired and no extra klocks are running.
+            Else                                                                     '   extra klocks is running
+                setToolTip()                                                         '   are any extras running?  if so, set tool tip
+            End If
         End If                                                                       '   If Me.Visible Then
 
         playHourlyChimes(currentSecond)                                              '   Play a hourly chime,  if desired.
@@ -138,25 +142,6 @@ Public Class frmKlock
         '   Updates application title.
 
         setTitleText()
-
-        Dim titletext As String = Text
-
-        If usrSettings.usrTimerAdd And tmrTimer.Enabled Then          '   time is running
-            titletext = If(usrSettings.usrTimerHigh, titletext & " .::. " & displayTimer.getHighElapsedTime() & " : ",
-                                                     titletext & " .::. " & displayTimer.getLowElapsedTime() & " : ")
-        End If
-
-        If usrSettings.usrCountdownAdd And tmrCountDown.Enabled Then '   countdown is running.
-            titletext = titletext & " .::. " & minsToString(CountDownTime)
-        End If
-
-        If usrSettings.usrReminderAdd And tmrReminder.Enabled Then
-            titletext = titletext & " .::. " & If(usrSettings.usrReminderTimeChecked,
-                                                    titletext & " .::. Reminder set for " & ReminderDateTime.ToLongDateString & " @ " & ReminderDateTime.ToLongTimeString,
-                                                    titletext & " .::. Reminder set for " & ReminderDateTime.ToLongDateString)
-        End If
-
-        Text = titletext
     End Sub
 
     Private Sub playHourlyChimes(ByVal m As Integer)
@@ -193,7 +178,7 @@ Public Class frmKlock
         If usrSettings.usrTimeVoiceMinimised And (Math.Floor(m Mod noSecs) = 0) Then usrVoice.Say(displayOneTime.getTime())
     End Sub
 
-    Private Sub NotificationDispaly(ByVal m As Integer)
+    Private Sub NotificationDispaly(m As Integer)
         '   If desired, check the status of notifications - should display the time every ?? minutes.
         '   Also, display result to time and countdown, if there running.  TO DO, should they be on their own settings?
 
@@ -202,29 +187,16 @@ Public Class frmKlock
             NtfyIcnKlock.Text = displayOneTime.getTitle & " : " & displayOneTime.getTime()    '   set icon tool tip to current time [must be less then 64 chars].
         Catch ex As Exception
             If usrSettings.usrLogging Then errLogger.LogExceptionError("frmKlock.NotificationDispaly", ex)
-            displayAction.DisplayReminder("Notification Error", ex.Message, "G")
+            displayAction.DisplayReminder(ex.Message, "G", "Notification Error")
         End Try
 
         Dim noSecs As Integer = usrSettings.usrTimeDisplayMinutes * 60
 
         If usrSettings.usrTimeDisplayMinimised And (Math.Floor(m Mod noSecs) = 0) Then
 
-            displayAction.DisplayReminder("Time", displayOneTime.getTime(), "G")  '   display current time as a toast notification,if desired
+            Dim text As String = displayOneTime.getTime() & Environment.NewLine & setExtaraTitletext(True)
 
-            If usrSettings.usrTimerAdd And tmrTimer.Enabled Then          '   time is running
-                Dim s As String = If(usrSettings.usrTimerHigh, displayTimer.getHighElapsedTime(), displayTimer.getLowElapsedTime())
-                displayAction.DisplayReminder("Timer", "Timer Running :: " & s, "G")
-            End If
-
-            If usrSettings.usrCountdownAdd And tmrCountDown.Enabled Then  '   countdown is running.
-                displayAction.DisplayReminder("Countdown", "Countdown Running :: " & minsToString(CountDownTime), "G")
-            End If
-
-            If usrSettings.usrReminderAdd And tmrReminder.Enabled Then
-                Dim s As String = ReminderDateTime.ToLongDateString
-                If usrSettings.usrReminderTimeChecked Then s += " @ " & ReminderDateTime.ToLongTimeString
-                displayAction.DisplayReminder("Reminder", "Reminder set for " & s, "G")
-            End If
+            displayAction.DisplayReminder(text, "G", "Time")  '   display current time as a toast notification,if desired
 
             If usrSettings.usrWorldKlockAdd Then
 
@@ -237,7 +209,7 @@ Public Class frmKlock
                     wctext = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, CmbBxWorldKlockTimeZones.SelectedItem).ToLongDateString & " :: " & TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Now, CmbBxWorldKlockTimeZones.SelectedItem).ToLongTimeString
                 End If
 
-                displayAction.DisplayReminder("World Klock :: " & CmbBxWorldKlockTimeZones.SelectedItem.ToString, wctext, "G")
+                displayAction.DisplayReminder(wctext, "G", "World Klock :: " & CmbBxWorldKlockTimeZones.SelectedItem.ToString)
             End If
 
         End If          '   If Me.usrsettings.usrTimeDislayMinimised
@@ -340,7 +312,7 @@ Public Class frmKlock
 
         If noOfMinutes > (usrSettings.usrSayingsDisplayTime) Then
             noOfMinutes = 0
-            displayAction.DisplayReminder("Sayings", randomSayings(), "S")
+            displayAction.DisplayReminder(randomSayings(), "S", "Sayings")
         End If
     End Sub
 
@@ -722,7 +694,7 @@ Public Class frmKlock
         End If
         If ChckBxCountDownReminder.Checked Then                             '   do reminder action.
             ChckBxCountDownReminder.Checked = False
-            displayAction.DisplayReminder("CountDown", TxtBxCountDownReminder.Text, "G")
+            displayAction.DisplayReminder(TxtBxCountDownReminder.Text, "G", "CountDown")
         End If
         If ChckBxCountDownSystem.Checked Then                               '   do system action.
             If NtfyIcnKlock.Visible Then                                    '   if main form not visible, then show
@@ -942,7 +914,7 @@ Public Class frmKlock
         End If
         If ChckBxReminderReminder.Checked Then                               '   do reminder action.
             ChckBxReminderReminder.Checked = False
-            displayAction.DisplayReminder("Reminder", TxtBxReminderReminder.Text, "G")
+            displayAction.DisplayReminder(TxtBxReminderReminder.Text, "G", "Reminder")
         End If
         If ChckBxReminderSystem.Checked Then                                 '   do system action.
             If NtfyIcnKlock.Visible Then                                     '   if main form not visible, then show
@@ -1247,7 +1219,7 @@ Public Class frmKlock
 
         Catch ex As Exception
             If usrSettings.usrLogging Then errLogger.LogExceptionError("frmKlock.populateFriend", ex)
-            displayAction.DisplayReminder("ERROR :: populating friend", ex.Message, "G")
+            displayAction.DisplayReminder(ex.Message, "G", "ERROR :: populating friend")
         End Try
     End Sub
 
@@ -1466,7 +1438,7 @@ Public Class frmKlock
             End If
         Catch ex As Exception
             If usrSettings.usrLogging Then errLogger.LogExceptionError("frmKlock.populateEvents", ex)
-            displayAction.DisplayReminder("ERROR :: populating event", ex.Message, "G")
+            displayAction.DisplayReminder(ex.Message, "G", "ERROR :: populating event")
         End Try
     End Sub
 
@@ -1505,7 +1477,7 @@ Public Class frmKlock
         If reSave Then
             IOcommon.saveEvents()
         Else
-            displayAction.DisplayReminder("Events", "No events near", "G")
+            displayAction.DisplayReminder("No events near", "G", "Events")
         End If
 
     End Sub
@@ -1530,9 +1502,14 @@ Public Class frmKlock
     End Sub
 
     Private Sub LstBxMemo_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstBxMemo.SelectedIndexChanged
-        '   A new memo has been selected in the list-view box, display new entry
+        '   A new memo has been selected in the list-view box, display new entry.
+        '   If timer and progress bar are running - stop.
 
-        Dim password As String = String.Empty
+        If TlStrpPrgrsBrMemo.Visible Then           '   if progress bar is running, so must timer.
+            TmrMemo.Enabled = False
+            TlStrpPrgrsBrMemo.Visible = False
+            TlStrpPrgrsBrMemo.Value = 0
+        End If
 
         showMemo(LstBxMemo.SelectedIndex)
     End Sub
@@ -1572,7 +1549,7 @@ Public Class frmKlock
             End If
         Catch ex As Exception
             If usrSettings.usrLogging Then errLogger.LogExceptionError("frmKlock.populateMemo", ex)
-            displayAction.DisplayReminder("ERROR :: populating memo", ex.Message, "G")
+            displayAction.DisplayReminder(ex.Message, "G", "ERROR :: populating memo")
         End Try
     End Sub
 
@@ -1610,7 +1587,7 @@ Public Class frmKlock
                     TlStrpPrgrsBrMemo.Visible = True
                 Catch ex As Exception
                     If usrSettings.usrLogging Then errLogger.LogExceptionError("frmKlock.showMemo", ex)
-                    displayAction.DisplayReminder("Memo Error", "Seems to be the wrong password", "G")
+                    displayAction.DisplayReminder("Seems to be the wrong password", "G", "Memo Error")
                 End Try
 
                 M_SHOW = False
@@ -2095,7 +2072,8 @@ Public Class frmKlock
                                                                                                        CultureToolStripMenuItem.Click,
                                                                                                        OSToolStripMenuItem.Click,
                                                                                                        PowerSourceToolStripMenuItem.Click,
-                                                                                                       EasterToolStripMenuItem.Click
+                                                                                                       EasterToolStripMenuItem.Click,
+                                                                                                       LentToolStripMenuItem.Click
         '   A Generic handler for the Info menu.
 
         InfoCommon.displayInfo(sender.ToString)
@@ -2222,7 +2200,5 @@ Public Class frmKlock
         End Try
 
     End Sub
-
-
 
 End Class

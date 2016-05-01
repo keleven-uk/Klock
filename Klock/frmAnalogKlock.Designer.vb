@@ -31,6 +31,7 @@ Partial Class frmAnalogueKlock
         Me.CloseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.toTpAnalogKlock = New System.Windows.Forms.ToolTip(Me.components)
         Me.CntxtMnStrpAnalogueKlock.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -94,6 +95,15 @@ Partial Class frmAnalogueKlock
         Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.AboutToolStripMenuItem.Text = "About"
         '
+        'toTpAnalogKlock
+        '
+        Me.toTpAnalogKlock.AutoPopDelay = 5000
+        Me.toTpAnalogKlock.InitialDelay = 5
+        Me.toTpAnalogKlock.IsBalloon = True
+        Me.toTpAnalogKlock.ReshowDelay = 100
+        Me.toTpAnalogKlock.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
+        Me.toTpAnalogKlock.ToolTipTitle = "Klock"
+        '
         'frmAnalogueKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -122,4 +132,5 @@ Partial Class frmAnalogueKlock
     Friend WithEvents ReturnToKlockToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents toTpAnalogKlock As ToolTip
 End Class

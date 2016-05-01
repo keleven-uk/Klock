@@ -66,7 +66,7 @@ Public Class Logger
         Dim lgDate As String = String.Format("Time: {0}", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"))
         Dim procID As String = Process.GetCurrentProcess.Id.ToString()
 
-        writeMessage(String.Format("{0} : {1} : {2} : {3}", procID, lgDate, location, m))
+        writeLogMessage(String.Format("{0} : {1} : {2} : {3}", procID, lgDate, location, m))
     End Sub
 
 
@@ -89,7 +89,7 @@ Public Class Logger
         message += "-----------------------------------------------------------"
         message += Environment.NewLine
 
-        writeMessage(message)
+        writeLogMessage(message)
 
     End Sub
 
@@ -124,16 +124,46 @@ Public Class Logger
     End Function
 
 
-    Private Sub writeMessage(m As String)
+    Private Sub writeLogMessage(m As String)
         '   A private sub that actually writes to the file.
         '   A new file will be created if not present.
         '   Therefore a new file should be created each day, if the date is in the filename.
 
         Dim path As String = logFilePath()
 
+        If Not My.Computer.FileSystem.FileExists(path) Then
+            writeLogheader(path)
+        End If
+
         Try
             Using writer As New StreamWriter(path, True)
                 writer.WriteLine(m)
+                writer.Close()
+            End Using
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub writeLogheader(path As String)
+        '   If the log file does not exist, this will be called to write a header - thus creating the file.
+
+        Dim message As String = Environment.NewLine
+
+        message += "-----------------------------------------------------------"
+        message += Environment.NewLine
+        message += String.Format("Application      : {0}{1}", My.Application.Info.ProductName, Environment.NewLine)
+        message += String.Format("Description      : {0}{1}", My.Application.Info.Description, Environment.NewLine)
+        message += String.Format("User             : {0}{1}", My.User.Name, Environment.NewLine)
+        message += String.Format("Operation System : {0}{1}", My.Computer.Info.OSFullName, Environment.NewLine)
+        message += String.Format("PC name          : {0}{1}", My.Computer.Name, Environment.NewLine)
+        message += String.Format("Date             : {0}{1}", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), Environment.NewLine)
+        message += "-----------------------------------------------------------"
+        message += Environment.NewLine
+
+        Try
+            Using writer As New StreamWriter(path, True)
+                writer.WriteLine(message)
                 writer.Close()
             End Using
         Catch ex As Exception

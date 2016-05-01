@@ -56,7 +56,7 @@
             mciSendString("setaudio myAudio volume to " & Volume, Nothing, 0, 0)
 
         Else
-            DisplayReminder("ERROR", "Sorry, sound file seems to have gone away!!" & vbCr & s, "G")
+            DisplayReminder("Sorry, sound file seems to have gone away!!" & vbCr & s, "G", "ERROR")
         End If      '   if My.Computer.FileSystem.FileExists(s)
     End Sub
 
@@ -71,7 +71,7 @@
         rtn = SendMessage(hWnd, WM_SYSCOMMAND, SC_SCREENSAVE, 0)
     End Sub
 
-    Public Sub DisplayReminder(ByVal title As String, ByVal message As String, mode As Char)
+    Public Sub DisplayReminder(message As String, mode As Char, title As String)
         '   Display the reminder message
         '   Use different timeout for General [Reminder] and Sayings notifications
 
@@ -137,7 +137,7 @@
             Process.Start(p)
         Catch ex As System.ComponentModel.Win32Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("selectActions.ProcessStartInfo", ex)
-            DisplayReminder("ERROR", "Sorry, there seems to problems :: " & ex.Message, "G")
+            DisplayReminder("Sorry, there seems to problems :: " & ex.Message, "G", "ERROR")
         End Try
     End Sub
 
@@ -153,7 +153,7 @@
             Process.Start(p)
         Catch ex As System.ComponentModel.Win32Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("selectActions.AbortSystemCommand", ex)
-            DisplayReminder("ERROR", "Sorry, there seems to problems :: " & ex.Message, "G")
+            DisplayReminder("Sorry, there seems to problems :: " & ex.Message, "G", "ERROR")
         End Try
     End Sub
 
@@ -170,10 +170,10 @@
                     Process.Start(s)
                 Catch ex As System.ComponentModel.Win32Exception
                     If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("selectActions.DoCommand", ex)
-                    DisplayReminder("ERROR", "Sorry, can not be executed :: " & ex.Message, "G")
+                    DisplayReminder("Sorry, can not be executed :: " & ex.Message, "G", "ERROR")
                 End Try
             Else
-                DisplayReminder("ERROR", "Sorry, file seems to have gone away!!", "G")
+                DisplayReminder("Sorry, file seems to have gone away!!", "G", "ERROR")
             End If
         End If
     End Sub

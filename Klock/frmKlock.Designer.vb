@@ -47,6 +47,7 @@ Partial Class frmKlock
         Me.InfoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DaylightSavingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EasterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LentToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CultureToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PowerSourceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -443,7 +444,7 @@ Partial Class frmKlock
         '
         'InfoToolStripMenuItem
         '
-        Me.InfoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DaylightSavingToolStripMenuItem, Me.EasterToolStripMenuItem, Me.CultureToolStripMenuItem, Me.OSToolStripMenuItem, Me.PowerSourceToolStripMenuItem})
+        Me.InfoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DaylightSavingToolStripMenuItem, Me.EasterToolStripMenuItem, Me.LentToolStripMenuItem, Me.CultureToolStripMenuItem, Me.OSToolStripMenuItem, Me.PowerSourceToolStripMenuItem})
         Me.InfoToolStripMenuItem.Name = "InfoToolStripMenuItem"
         Me.InfoToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
         Me.InfoToolStripMenuItem.Text = "&Info"
@@ -459,6 +460,12 @@ Partial Class frmKlock
         Me.EasterToolStripMenuItem.Name = "EasterToolStripMenuItem"
         Me.EasterToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.EasterToolStripMenuItem.Text = "Easter Dates"
+        '
+        'LentToolStripMenuItem
+        '
+        Me.LentToolStripMenuItem.Name = "LentToolStripMenuItem"
+        Me.LentToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
+        Me.LentToolStripMenuItem.Text = "Lent Dates"
         '
         'CultureToolStripMenuItem
         '
@@ -2655,4 +2662,5 @@ End Sub
     Friend WithEvents btnDisplaySayings As Button
     Friend WithEvents tmrSayings As Windows.Forms.Timer
     Friend WithEvents btnReLoadSayings As Button
+    Friend WithEvents LentToolStripMenuItem As ToolStripMenuItem
 End Class

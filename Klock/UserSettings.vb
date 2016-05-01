@@ -157,7 +157,7 @@ Public Class UserSettings
         MyBase.New()
 
         checkDataFile()             '   checks for settings file, if not present - will create.
-        checkVersion()              '   checks version of settings file, if different from app - then write default settings file.
+        'checkVersion()              '   checks version of settings file, if different from app - then write default settings file.
     End Sub
 
 
@@ -1932,7 +1932,7 @@ Public Class UserSettings
             r = g.Element(s).Value
         Catch ex As Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("UserSettings.readElement", ex)
-            frmKlock.displayAction.DisplayReminder("ERROR :: " & g.ToString & " :: " & s & " :::", ex.Message, "G")
+            frmKlock.displayAction.DisplayReminder(ex.Message, "G", "ERROR :: " & g.ToString & " :: " & s & " :::")
             r = d
         End Try
 
@@ -1968,7 +1968,6 @@ Public Class UserSettings
                 writeDefaultSettings()
             End If
         Catch ex As Exception
-            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("UserSettings.checkVersion", ex)
             MessageBox.Show("Error reading version!  " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 

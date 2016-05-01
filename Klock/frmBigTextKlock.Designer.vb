@@ -225,10 +225,11 @@ Partial Class frmBigTextKlock
         Me.lblMorning = New System.Windows.Forms.Label()
         Me.lblEvening = New System.Windows.Forms.Label()
         Me.pnlBigKlock = New System.Windows.Forms.Panel()
+        Me.lblAfternoon = New System.Windows.Forms.Label()
         Me.lblClose = New System.Windows.Forms.Label()
         Me.lblInThe = New System.Windows.Forms.Label()
         Me.lblAndMinutes = New System.Windows.Forms.Label()
-        Me.lblAfternoon = New System.Windows.Forms.Label()
+        Me.toTpBigTextKlock = New System.Windows.Forms.ToolTip(Me.components)
         Me.StsStrpInfo.SuspendLayout()
         Me.pnlBigKlock.SuspendLayout()
         Me.SuspendLayout()
@@ -681,7 +682,7 @@ Partial Class frmBigTextKlock
         Me.lbltwentyEighthDay.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbltwentyEighthDay.Location = New System.Drawing.Point(192, 108)
         Me.lbltwentyEighthDay.Name = "lbltwentyEighthDay"
-        Me.lbltwentyEighthDay.Size = New System.Drawing.Size(141, 19)
+        Me.lbltwentyEighthDay.Size = New System.Drawing.Size(152, 19)
         Me.lbltwentyEighthDay.TabIndex = 134
         Me.lbltwentyEighthDay.Text = "twenty-eighth"
         '
@@ -2425,6 +2426,16 @@ Partial Class frmBigTextKlock
         Me.pnlBigKlock.Size = New System.Drawing.Size(882, 529)
         Me.pnlBigKlock.TabIndex = 295
         '
+        'lblAfternoon
+        '
+        Me.lblAfternoon.AutoSize = True
+        Me.lblAfternoon.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblAfternoon.Location = New System.Drawing.Point(185, 171)
+        Me.lblAfternoon.Name = "lblAfternoon"
+        Me.lblAfternoon.Size = New System.Drawing.Size(108, 19)
+        Me.lblAfternoon.TabIndex = 299
+        Me.lblAfternoon.Text = "Afternoon"
+        '
         'lblClose
         '
         Me.lblClose.AutoSize = True
@@ -2455,15 +2466,14 @@ Partial Class frmBigTextKlock
         Me.lblAndMinutes.TabIndex = 295
         Me.lblAndMinutes.Text = "And"
         '
-        'lblAfternoon
+        'toTpBigTextKlock
         '
-        Me.lblAfternoon.AutoSize = True
-        Me.lblAfternoon.Font = New System.Drawing.Font("Lucida Console", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAfternoon.Location = New System.Drawing.Point(185, 171)
-        Me.lblAfternoon.Name = "lblAfternoon"
-        Me.lblAfternoon.Size = New System.Drawing.Size(108, 19)
-        Me.lblAfternoon.TabIndex = 299
-        Me.lblAfternoon.Text = "Afternoon"
+        Me.toTpBigTextKlock.AutoPopDelay = 5000
+        Me.toTpBigTextKlock.InitialDelay = 0
+        Me.toTpBigTextKlock.IsBalloon = True
+        Me.toTpBigTextKlock.ReshowDelay = 100
+        Me.toTpBigTextKlock.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
+        Me.toTpBigTextKlock.ToolTipTitle = "Klock"
         '
         'frmBigTextKlock
         '
@@ -2690,4 +2700,5 @@ Partial Class frmBigTextKlock
     Friend WithEvents lblInThe As Label
     Friend WithEvents lblClose As Label
     Friend WithEvents lblAfternoon As Label
+    Friend WithEvents toTpBigTextKlock As ToolTip
 End Class

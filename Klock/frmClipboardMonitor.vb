@@ -129,7 +129,7 @@ Public Class frmClipboardMonitor
                         filePaths.Add(itmText)                                              '   Get file name from list-view.
                         My.Computer.Clipboard.SetFileDropList(filePaths)                    '   Copy file to clipboard
                     Else
-                        displayAction.DisplayReminder("Clipboard Error", itmText & "No Longer Exists", "G")
+                        displayAction.DisplayReminder(itmText & "No Longer Exists", "G", "Clipboard Error")
                         LstbxClipboardData.Items.Remove(cl)
                     End If
 
@@ -140,7 +140,7 @@ Public Class frmClipboardMonitor
                         filePaths.Add(itmText)                                              '   Get file name from list-view.
                         My.Computer.Clipboard.SetFileDropList(filePaths)                    '   Copy file to clipboard
                     Else
-                        displayAction.DisplayReminder("Clipboard Error", itmText & "No Longer Exists", "G")
+                        displayAction.DisplayReminder(itmText & "No Longer Exists", "G", "Clipboard Error")
                         LstbxClipboardData.Items.Remove(cl)
                     End If
 
@@ -153,7 +153,7 @@ Public Class frmClipboardMonitor
                         My.Computer.Clipboard.SetImage(i)                                   '   Copy image to clipboard
                         i.Dispose()
                     Else
-                        displayAction.DisplayReminder("Clipboard Error", itmText & "No Longer Exists", "G")
+                        displayAction.DisplayReminder(itmText & "No Longer Exists", "G", "Clipboard Error")
                         LstbxClipboardData.Items.Remove(cl)
                     End If
 
@@ -253,7 +253,7 @@ Public Class frmClipboardMonitor
                 My.Computer.FileSystem.CreateDirectory(dir)
             Catch ex As ArgumentException
                 If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmClipboardMonitor.CreateClipboardSave", ex)
-                displayAction.DisplayReminder("Clipboard Error", ex.Message, "G")
+                displayAction.DisplayReminder(ex.Message, "G", "Clipboard Error")
             End Try
         End If
     End Sub
@@ -268,7 +268,7 @@ Public Class frmClipboardMonitor
                 My.Computer.FileSystem.DeleteDirectory(dir, FileIO.DeleteDirectoryOption.DeleteAllContents)
             Catch ex As ArgumentException
                 If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmClipboardMonitor.DeleteClipboardSave", ex)
-                displayAction.DisplayReminder("Clipboard Error", ex.Message, "G")
+                displayAction.DisplayReminder(ex.Message, "G", "Clipboard Error")
             End Try
         End If
     End Sub

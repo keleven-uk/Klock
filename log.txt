@@ -1,3 +1,27 @@
+commit 6cb81cbfe9290658a2c30bd60ea5fd5b6e60010d
+Author: Kevin Scott <klock@keleven.co.uk>
+Date:   Sun Mar 27 20:38:24 2016 +0100
+
+    Some of the Logger.vb was added in the previous version.
+    
+    Added Logger.vb - A Logging class, which enables logging messages to a text file.  It exposes two functions logMessage & LogExceptionError, one log a text message and the second to log information about an exception.  Logging can be turned on or off by setting useLoggin accordingly.  The class will also supply a list of log files already generated, deleting any files older then LogDaysKeep.
+    
+    [frmAnalogKlock.vb] - corrected bug, current time not changing on british summer time.  Added a value to analogueKlock.offset depending on daylight saving time.
+
+ Klock/InfoCommon.vb              |   2 +-
+ Klock/Klock.chm                  | Bin 759180 -> 760568 bytes
+ Klock/Klock.iss                  |   4 +-
+ Klock/Klock.pdf                  | Bin 4170613 -> 4170613 bytes
+ Klock/Logger.vb                  | 143 +++++++++++++++++++++++++++++++++++++++
+ Klock/My Project/AssemblyInfo.vb |   4 +-
+ Klock/frmAnalogKlock.vb          |   7 ++
+ Klock/frmOptions.vb              |   4 +-
+ Klock/history.txt                |  57 ++++++++++++++++
+ Klock/klock.hnd                  | Bin 26791936 -> 27000832 bytes
+ Klock/selectAction.vb            |  12 ++--
+ log.txt                          |  49 ++++++++++++++
+ 12 files changed, 272 insertions(+), 10 deletions(-)
+
 commit e233a10b03aca02865c3f008748851641eef9690
 Author: Kevin Scott <klock@keleven.co.uk>
 Date:   Fri Mar 18 23:23:32 2016 +0000

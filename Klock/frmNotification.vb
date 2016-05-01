@@ -42,7 +42,7 @@ Public Class frmNotification
 
         Width = 335
 
-        Dim noOfLines = Len(message2) \ 50      '   info line about 50 characters long.
+        Dim noOfLines = message2.Split(Environment.NewLine).Length      ' count lines by counting carriage returns.
 
         If noOfLines < 3 Then
             Height = 78

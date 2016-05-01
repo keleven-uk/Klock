@@ -13,6 +13,8 @@ Module InfoCommon
                 updateDaylightSaving(currentYear)
             Case "Easter Dates"
                 updateEasteDates(currentYear)
+            Case "Lent Dates"
+                updateLentDates(currentYear)
             Case "Current Culture"
             Case "Culture"                  '   seems to have changed in windows 10
                 frmInfo.NmrcUpDwnYear.Visible = False
@@ -93,6 +95,8 @@ Module InfoCommon
                 updateDaylightSaving(year)
             Case "Easter Dates"
                 updateEasteDates(year)
+            Case "Lent Dates"
+                updateLentDates(year)
         End Select
 
     End Sub
@@ -145,6 +149,29 @@ Module InfoCommon
         frmInfo.Label3.Text = String.Format("Good Friday   : {0}", KlockThings.easterDate(currentYear).AddDays(-2).ToLongDateString)
         frmInfo.Label4.Text = String.Format("Easter Sunday : {0}", KlockThings.easterDate(currentYear).ToLongDateString)
         frmInfo.Label5.Text = String.Format("Easter Monday : {0}", KlockThings.easterDate(currentYear).AddDays(+1).ToLongDateString)
+    End Sub
+
+
+    Sub updateLentDates(ByVal currentYear As Integer)
+        '   Updates the form with the lent dates for the current year.
+        '   lent start on Ash Wednesday, which is 46 days before Easter Sunday.
+        '   NB : current year can be selected from the form, so could be different from the year in current date.
+
+        frmInfo.NmrcUpDwnYear.Visible = True
+        frmInfo.NmrcUpDwnYear.Value = currentYear
+        frmInfo.Label6.Visible = False
+        frmInfo.CmbBxTimeServers.Visible = False
+        frmInfo.BtnQueryServer.Visible = False
+        frmInfo.ChckBxSynchKlock.Visible = False
+
+        frmInfo.Text = "Info - Lent Dates"
+        frmInfo.GroupBox1.Text = "Lent Dates"
+
+        frmInfo.Label1.Text = String.Empty
+        frmInfo.Label2.Text = "Lent Dates - " & currentYear
+        frmInfo.Label3.Text = String.Format("Lent Starts [Ash Wednesday] : {0}", KlockThings.easterDate(currentYear).AddDays(-46).ToLongDateString)
+        frmInfo.Label4.Text = String.Format("Lent Ends   [Easter Sunday] : {0}", KlockThings.easterDate(currentYear).ToLongDateString)
+        frmInfo.Label5.Text = ""
     End Sub
 
 

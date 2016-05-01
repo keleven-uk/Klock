@@ -49,7 +49,7 @@ Module conversionThings
             End While
         Catch ex As Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("conversionThings.unitsLoad", ex)
-            frmKlock.displayAction.DisplayReminder("Units File Error", "Sorry, can't find units.txt. " & ex.Message, "G")
+            frmKlock.displayAction.DisplayReminder("Sorry, can't find units.txt. " & ex.Message, "G", "Units File Error")
         End Try
     End Sub
 
@@ -92,7 +92,7 @@ Module conversionThings
             unitsLoad("LoadCategory")
         Catch ex As Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("conversionThings.addUnits", ex)
-            frmKlock.displayAction.DisplayReminder("Units File Error", "Sorry, can't find units.txt. " & ex.Message, "G")
+            frmKlock.displayAction.DisplayReminder("Sorry, can't find units.txt. " & ex.Message, "G", "Units File Error")
         End Try
     End Sub
 

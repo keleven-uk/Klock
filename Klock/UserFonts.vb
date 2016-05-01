@@ -26,7 +26,7 @@
             pfc.AddFontFile(System.IO.Path.Combine(Application.StartupPath, "fonts\Hack-Regular.ttf"))      '   2
         Catch ex As Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("userFonts.New", ex)
-            frmKlock.displayAction.DisplayReminder("Font ERROR :: cannot find font file", ex.Message, "G")
+            frmKlock.displayAction.DisplayReminder(ex.Message, "G", "Font ERROR :: cannot find font file")
         End Try
     End Sub
 

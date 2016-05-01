@@ -25,6 +25,7 @@
         BarcodeTime
         TrueHexTime
         BinaryTime
+        BCDTime
         OctTime
         HexTime
         PercentTime
@@ -95,6 +96,8 @@
                     innerTime = getTrueHexTime()
                 Case TimeTypes.BinaryTime
                     innerTime = getBinaryTime()
+                Case TimeTypes.BCDTime
+                    innerTime = getBCDTime()
                 Case TimeTypes.OctTime
                     innerTime = getOctTime()
                 Case TimeTypes.HexTime
@@ -154,6 +157,8 @@
                     TimeTitle = "Time as True Hexadecimal [i.e. 16 hours]"
                 Case TimeTypes.BinaryTime
                     TimeTitle = "Time as Binary [base 2] format"
+                Case TimeTypes.BCDTime
+                    TimeTitle = "Time as BCD"
                 Case TimeTypes.OctTime
                     TimeTitle = "Time as octal [base 8] format"
                 Case TimeTypes.HexTime
@@ -222,13 +227,11 @@
 
         Dim hour As Integer = Now.Hour
         Dim mins As Integer = Now.Minute
-        Dim nrms As Integer = mins - (mins Mod 5)           '   gets nearest five minutes.
-        Dim ampm As String = String.Empty
+        Dim nrms As Integer = mins - (mins Mod 5)                   '   gets nearest five minutes.
+        Dim ampm As String = If(hour < 12, "in the morning", "pm")  '   if hour less then 12, in the morning else afternoon
         Dim sRtn As String = String.Empty
 
-        ampm = If(hour < 12, "in the morning", "pm")        '   if hour less then 12, in the morning else afternoon
-
-        If (mins Mod 5) > 2 Then nrms += 5                  '   closer to next five minutes, go to next.
+        If (mins Mod 5) > 2 Then nrms += 5                          '   closer to next five minutes, go to next.
 
         Select Case nrms
             Case 0
@@ -322,10 +325,8 @@
 
         Dim hour As Integer = Now.Hour
         Dim mins As Integer = Now.Minute
-        Dim ampm As String = String.Empty
+        Dim ampm As String = If(hour < 12, "in the morning", "pm")        '   if hour less then 12, in the morning else afternoon
         Dim pasTo As String = "past"
-
-        ampm = If(hour < 12, "in the morning", "pm")        '   if hour less then 12, in the morning else afternoon
 
         If mins > 30 Then                                   '   past the half hour - minuted to the hour.
             hour += 1
@@ -474,6 +475,30 @@
         Return String.Format("{0}:{1}:{2}", Convert.ToString(hour, 2), Convert.ToString(mins, 2), Convert.ToString(secs, 2))
     End Function
 
+    Private Function getBCDTime() As String
+        '   Returns current [local] time in Binary-Coded Decimal [base 2] format.
+        '   This is only a binary representation of the current time.
+        '   If below 9, still return a two bcd string i.e first digit is 0.
+        '   NB \ is integer division.
+
+        Dim hour As Integer = Now.Hour
+        Dim mins As Integer = Now.Minute
+        Dim secs As Integer = Now.Second
+
+        Dim codeHour As String = String.Empty
+        Dim codeMins As String = String.Empty
+        Dim codeSecs As String = String.Empty
+
+        codeHour = If(hour < 9, String.Format("0 {0}", Convert.ToString(hour, 2)),
+                                String.Format("{0} {1}", Convert.ToString(hour \ 10, 2), Convert.ToString(hour Mod 10, 2)))
+        codeMins = If(mins < 9, String.Format("0 {0}", Convert.ToString(mins, 2)),
+                                String.Format("{0} {1}", Convert.ToString(mins \ 10, 2), Convert.ToString(mins Mod 10, 2)))
+        codeSecs = If(secs < 9, String.Format("0 {0}", Convert.ToString(secs, 2)),
+                                String.Format("{0} {1}", Convert.ToString(secs \ 10, 2), Convert.ToString(secs Mod 10, 2)))
+
+        Return String.Format("{0}:{1}:{2}", codeHour, codeMins, codeSecs)
+    End Function
+
     Private Function getOctTime() As String
         '   Returns current [local] time in octal [base 8] format.
         '   This is only a octal representation of the current time.
@@ -569,23 +594,20 @@
 
     Private Function getMorseTime() As String
         '   Returns the current [local] time with each digit represented by a different encoding.
+        '   NB \ is integer division.
 
-        Dim hours As Integer = Now().Hour
+        Dim hour As Integer = Now().Hour
         Dim mins As Integer = Now().Minute
         Dim secs As Integer = Now().Second
 
-        Dim codeHours As String = String.Empty
-        Dim codeMins As String = String.Empty
-        Dim codeSecs As String = String.Empty
+        Dim codeHour As String = If(hour < 9, toMorse(hour), String.Format("{0} {1}", toMorse(hour \ 10), toMorse(hour Mod 10)))
+        Dim codeMins As String = If(mins < 9, toMorse(mins), String.Format("{0} {1}", toMorse(mins \ 10), toMorse(mins Mod 10)))
+        Dim codeSecs As String = If(secs < 9, toMorse(secs), String.Format("{0} {1}", toMorse(secs \ 10), toMorse(secs Mod 10)))
 
-        codeHours = If(hours < 9, toCode(hours), String.Format("{0} {1}", toCode(Int(hours / 10)), toCode(hours Mod 10)))
-        codeMins = If(mins < 9, toCode(mins), String.Format("{0} {1}", toCode(Int(mins / 10)), toCode(mins Mod 10)))
-        codeSecs = If(secs < 9, toCode(secs), String.Format("{0} {1}", toCode(Int(secs / 10)), toCode(secs Mod 10)))
-
-        Return String.Format("{0}  {1}  {2} ", codeHours, codeMins, codeSecs)
+        Return String.Format("{0}  {1}  {2}", codeHour, codeMins, codeSecs)
     End Function
 
-    Private Function toCode(time As String) As String
+    Private Function toMorse(time As String) As String
         '   Returns string in Morse code.
 
         Dim result As String = String.Empty

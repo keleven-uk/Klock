@@ -108,8 +108,48 @@ Module KlockThings
             Case 9                                              '   Sayings tab
                 frmKlock.Text = "Klock - Useful Sayings."
         End Select
+
+        frmKlock.Text = frmKlock.Text & setExtaraTitletext()
     End Sub
 
+    Public Function setExtaraTitletext(Optional ByVal CR As Boolean = False) As String
+        '   Check to see if timer, countdown or reminder is running - if any are then add to title test.
+        '   CR is an optional parameter - if True then add newlines.  Form title does not use newlines, but notifications does.
+
+        Dim ExtaraTitletext As String = String.Empty
+
+        If frmKlock.usrSettings.usrTimerAdd And frmKlock.tmrTimer.Enabled Then                  '   time is running
+            ExtaraTitletext = ExtaraTitletext & " .:Timer:. " & If(frmKlock.usrSettings.usrTimerHigh, frmKlock.displayTimer.getHighElapsedTime(),
+                                                                                                      frmKlock.displayTimer.getLowElapsedTime())
+            If CR Then ExtaraTitletext += Environment.NewLine
+        End If
+
+        If frmKlock.usrSettings.usrCountdownAdd And frmKlock.tmrCountDown.Enabled Then          '   countdown is running.
+            ExtaraTitletext = ExtaraTitletext & " .:Countdown:. " & minsToString(frmKlock.CountDownTime)
+            If CR Then ExtaraTitletext += Environment.NewLine
+        End If
+
+        If frmKlock.usrSettings.usrReminderAdd And frmKlock.tmrReminder.Enabled Then            '   reminder is running
+            ExtaraTitletext = ExtaraTitletext & " .:Reminder:. Reminder set for " & If(frmKlock.usrSettings.usrReminderTimeChecked,
+                                                                                       frmKlock.ReminderDateTime.ToLongDateString & " @ " & frmKlock.ReminderDateTime.ToLongTimeString,
+                                                                                       frmKlock.ReminderDateTime.ToLongDateString)
+            If CR Then ExtaraTitletext += Environment.NewLine
+        End If
+
+        Return ExtaraTitletext
+    End Function
+
+    Public Sub setToolTip()
+        '   Set the tool tip for any extra klocks, if running.
+
+        Dim txt As String = setExtaraTitletext(True)
+
+        If Len(txt) <> 0 Then '   are any extras running?  if so, set tool tip - but only if something to set.
+            If frmAnalogueKlock.Visible Then frmAnalogueKlock.toTpAnalogKlock.SetToolTip(frmAnalogueKlock.analogueKlock, txt)
+            If frmBigTextKlock.Visible Then frmBigTextKlock.toTpBigTextKlock.SetToolTip(frmBigTextKlock.pnlBigKlock, txt)
+            If frmSmallTextKlock.Visible Then frmSmallTextKlock.toTpSmallTextKlock.SetToolTip(frmSmallTextKlock.pnlSmallKlock, txt)
+        End If
+    End Sub
     '
     ' -------------------------------------------------------------------------------------------- mins to string --------------------------------------------
     '
@@ -196,14 +236,14 @@ Module KlockThings
                 frmClipboardMonitor.Show()
             Case Keys.F12 And (e.Alt)                       '   display number of friends.
                 '   MessageBox.Show(String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
-                frmKlock.displayAction.DisplayReminder("Friends", String.Format("The are {0} friends", frmKlock.LstBxFriends.Items.Count.ToString), "G")
+                frmKlock.displayAction.DisplayReminder(String.Format("The are {0} friends", frmKlock.LstBxFriends.Items.Count.ToString), "G", "Friends")
                 e.Handled = True
         End Select
     End Sub
     '
     ' -------------------------------------------------------------------------------------------- Klock not viable -----------------------------------------
     '
-    Private Function klocksNotVisable()
+    Public Function klocksNotVisable()
         '   Should return true if none of the extra klocks are running.
         '   Should make the klocks run once.
 
@@ -237,7 +277,7 @@ Module KlockThings
                 End Using
             Catch ex As Exception
                 If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("KlockThings.loadSayings", ex)
-                frmKlock.displayAction.DisplayReminder("ERROR :: KlockThings.loadWords", ex.Message, "G")
+                frmKlock.displayAction.DisplayReminder(ex.Message, "G", "ERROR :: KlockThings.loadWords")
             End Try
         Next
 
