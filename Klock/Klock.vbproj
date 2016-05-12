@@ -146,6 +146,12 @@
     <Compile Include="frmBigTextKlock.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmBinaryKlock.Designer.vb">
+      <DependentUpon>frmBinaryKlock.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmBinaryKlock.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmClipboardMonitor.Designer.vb">
       <DependentUpon>frmClipboardMonitor.vb</DependentUpon>
     </Compile>
@@ -241,6 +247,9 @@
     <EmbeddedResource Include="frmBigTextKlock.resx">
       <DependentUpon>frmBigTextKlock.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBinaryKlock.resx">
+      <DependentUpon>frmBinaryKlock.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmClipboardMonitor.resx">
       <DependentUpon>frmClipboardMonitor.vb</DependentUpon>

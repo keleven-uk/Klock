@@ -39,6 +39,7 @@ Partial Class frmKlock
         Me.AnalogKlockToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TextKlockToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BigTextKlockToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BinaryKlockToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DisplayTwoTimeFormatsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DisplayIdleTime = New System.Windows.Forms.ToolStripMenuItem()
         Me.InternetTimeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -384,7 +385,7 @@ Partial Class frmKlock
         '
         'TimeToolStripMenuItem
         '
-        Me.TimeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AnalogKlockToolStripMenuItem, Me.TextKlockToolStripMenuItem, Me.BigTextKlockToolStripMenuItem, Me.DisplayTwoTimeFormatsToolStripMenuItem, Me.DisplayIdleTime, Me.InternetTimeToolStripMenuItem})
+        Me.TimeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AnalogKlockToolStripMenuItem, Me.TextKlockToolStripMenuItem, Me.BigTextKlockToolStripMenuItem, Me.BinaryKlockToolStripMenuItem, Me.DisplayTwoTimeFormatsToolStripMenuItem, Me.DisplayIdleTime, Me.InternetTimeToolStripMenuItem})
         Me.TimeToolStripMenuItem.Name = "TimeToolStripMenuItem"
         Me.TimeToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
         Me.TimeToolStripMenuItem.Text = "Time"
@@ -407,6 +408,12 @@ Partial Class frmKlock
         Me.BigTextKlockToolStripMenuItem.Name = "BigTextKlockToolStripMenuItem"
         Me.BigTextKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
         Me.BigTextKlockToolStripMenuItem.Text = "Big Text Klock"
+        '
+        'BinaryKlockToolStripMenuItem
+        '
+        Me.BinaryKlockToolStripMenuItem.Name = "BinaryKlockToolStripMenuItem"
+        Me.BinaryKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.BinaryKlockToolStripMenuItem.Text = "Binary Klock"
         '
         'DisplayTwoTimeFormatsToolStripMenuItem
         '
@@ -2663,4 +2670,5 @@ End Sub
     Friend WithEvents tmrSayings As Windows.Forms.Timer
     Friend WithEvents btnReLoadSayings As Button
     Friend WithEvents LentToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BinaryKlockToolStripMenuItem As ToolStripMenuItem
 End Class

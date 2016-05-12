@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Klock"
-#define MyAppVersion "1.1.7.73"
+#define MyAppVersion "1.1.8.74"
 #define MyAppPublisher "keleven"
 #define MyAppURL "www.keleven.co.uk"
 #define MyAppExeName "Klock.exe"
@@ -29,13 +29,24 @@ DefaultGroupName={#MyAppName}
 ;LicenseFile=License.txt
 InfoAfterFile=Klock\License.txt
 OutputDir=D:\My\shed\code\projects
-OutputBaseFilename=Klock_11773
+OutputBaseFilename=Klock_11874
 SetupIconFile=Klock\Klock.ico
 Compression=lzma
 SolidCompression=yes
 DisableStartupPrompt=False
 UsePreviousAppDir=False
 SetupLogging=True
+
+
+; "ArchitecturesInstallIn64BitMode=x64" requests that the install be
+; done in "64-bit mode" on x64, meaning it should use the native
+; 64-bit Program Files directory and the 64-bit view of the registry.
+; On all other architectures it will install in "32-bit mode".
+; ArchitecturesInstallIn64BitMode=x64
+; Note: We don't set ProcessorsAllowed because we want this
+; installation to run on all architectures (including Itanium,
+; since it's capable of running 32-bit code too).
+   
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -44,18 +55,21 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
+; installs either klock_x64 or klock_x86 - but names them klock.exe
 [Files]
-Source: "Klock\bin\Release\Klock.exe"  ; DestDir: "{app}"         ;  Flags: ignoreversion
-Source: "sounds\*"                     ; DestDir: "{app}\sounds"  ;  Flags: ignoreversion
-Source: "fonts\*"                      ; DestDir: "{app}\fonts"   ;  Flags: ignoreversion
-Source: "images\*"                     ; DestDir: "{app}\images"  ;  Flags: ignoreversion
-Source: "sayings\*"                    ; DestDir: "{app}\sayings" ;  Flags: ignoreversion
-Source: "Klock\klock.chm"              ; DestDir: "{app}"         ;  Flags: ignoreversion
-Source: "Klock\klock.pdf"              ; DestDir: "{app}"         ;  Flags: ignoreversion
-Source: "Klock\License.txt"            ; DestDir: "{app}"         ;  Flags: ignoreversion
-Source: "Klock\history.txt"            ; DestDir: "{app}"         ;  Flags: ignoreversion
-Source: "Klock\AnalogClockControl.dll" ; DestDir: "{app}"         ;  Flags: ignoreversion
-Source: "Klock\AnalogClockControl.xml" ; DestDir: "{app}"         ;  Flags: ignoreversion
+;Source: "Klock\bin\Release\Klock_x64.exe" ; DestDir: "{app}"         ; DestName: {#MyAppExeName};  Flags: ignoreversion  ; Check: Is64BitInstallMode
+;Source: "Klock\bin\Release\Klock_x86.exe" ; DestDir: "{app}"         ; DestName: {#MyAppExeName};  Flags: ignoreversion  ; Check: not Is64BitInstallMode
+Source: "Klock\bin\Release\Klock.exe"     ; DestDir: "{app}"         ; DestName: {#MyAppExeName};  Flags: ignoreversion
+Source: "sounds\*"                        ; DestDir: "{app}\sounds"  ;  Flags: ignoreversion
+Source: "fonts\*"                         ; DestDir: "{app}\fonts"   ;  Flags: ignoreversion
+Source: "images\*"                        ; DestDir: "{app}\images"  ;  Flags: ignoreversion
+Source: "sayings\*"                       ; DestDir: "{app}\sayings" ;  Flags: ignoreversion
+Source: "Klock\klock.chm"                 ; DestDir: "{app}"         ;  Flags: ignoreversion
+Source: "Klock\klock.pdf"                 ; DestDir: "{app}"         ;  Flags: ignoreversion
+Source: "Klock\License.txt"               ; DestDir: "{app}"         ;  Flags: ignoreversion
+Source: "Klock\history.txt"               ; DestDir: "{app}"         ;  Flags: ignoreversion
+Source: "Klock\AnalogClockControl.dll"    ; DestDir: "{app}"         ;  Flags: ignoreversion
+Source: "Klock\AnalogClockControl.xml"    ; DestDir: "{app}"         ;  Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -71,3 +85,4 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 ;  removed registry settings for the run on windows start up - might have been set.
 [Registry]
 Root: HKCU ; subkey : "SOFTWARE\Microsoft\Windows\CurrentVersion\Run" ; ValueType: string; ValueName: "{#MyAppName}"; Flags: uninsdeletevalue
+

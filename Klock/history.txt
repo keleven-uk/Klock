@@ -3,6 +3,68 @@ converted from SVN as of build 42.
 I find the git commit number unwieldy, so still include SVN style build numbers.
 
 
+[Build [73] - V1.1.7.73 - April 2016
+[Lines of code = 13890]
+[maintainability index = 79]
+
+commit bfd109709b7a391a7c0bdf7dc3770a5d0887e288
+Author: Kevin Scott <klock@keleven.co.uk>
+Date:   Sun May 1 21:39:21 2016 +0100
+
+    [KlockThings.vb]
+    Added sub that adds to title text if timer, countdown or reminder is running.
+    This is then used for form tittle or tool tip etc.
+    
+    [selectTime.vb]
+    Added time function - BCD time.
+    Amended getMorseTime() to be more concise.
+    
+    [Logger.vb]
+    Added sub writeLogheader()
+    
+    [InfoCommon.vb]
+    Added code to calculate and display Lent dates.
+    
+    [Klock.vb]
+    Added code to call toltips for extra klocks.
+    Moved code to set title text into KlockThings.vb from both form title text and notifications.
+    Corrected bug : the count down progress bar on secret memo did not close on memo close early.
+    
+    [ApplicationEvents.vb]
+    Added MyApplication_UnhandledException() to log any un seen exceptions.
+
+ Klock/ApplicationEvents.vb          |  12 ++++++
+ Klock/IOcommon.vb                   |  26 ++++++------
+ Klock/InfoCommon.vb                 |  27 +++++++++++++
+ Klock/Klock.chm                     | Bin 760568 -> 863060 bytes
+ Klock/Klock.iss                     |   4 +-
+ Klock/Klock.pdf                     | Bin 4170613 -> 4908377 bytes
+ Klock/KlockThings.vb                |  46 +++++++++++++++++++--
+ Klock/Logger.vb                     |  36 +++++++++++++++--
+ Klock/My Project/AssemblyInfo.vb    |   4 +-
+ Klock/UserFonts.vb                  |   2 +-
+ Klock/UserSettings.vb               |   5 +--
+ Klock/Voice.vb                      |   2 +-
+ Klock/conversionThings.vb           |   4 +-
+ Klock/frmAnalogKlock.Designer.vb    |  11 +++++
+ Klock/frmAnalogKlock.resx           |   6 +++
+ Klock/frmBigTextKlock.Designer.vb   |  31 +++++++++-----
+ Klock/frmBigTextKlock.resx          |   3 ++
+ Klock/frmClipboardMonitor.vb        |  10 ++---
+ Klock/frmKlock.Designer.vb          |  10 ++++-
+ Klock/frmKlock.vb                   |  78 +++++++++++++-----------------------
+ Klock/frmNotification.vb            |   2 +-
+ Klock/frmOptions.vb                 |  16 ++++----
+ Klock/frmSmallTextKlock.Designer.vb |  11 +++++
+ Klock/frmSmallTextKlock.resx        |   3 ++
+ Klock/history.txt                   |  37 ++++++++++++++++-
+ Klock/klock.hnd                     | Bin 27000832 -> 27131904 bytes
+ Klock/selectAction.vb               |  12 +++---
+ Klock/selectTime.vb                 |  58 ++++++++++++++++++---------
+ log.txt                             |  24 +++++++++++
+ 29 files changed, 349 insertions(+), 131 deletions(-)
+ 
+ 
 [Build [72] - V1.1.7.72 - March 2016
 [Lines of code = 14133]
 [maintainability index = 78]

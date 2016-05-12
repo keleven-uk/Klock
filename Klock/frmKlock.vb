@@ -18,6 +18,7 @@ Public Class frmKlock
     '   January 2016    V1.1.5 - Added Sayings                                              [build 64]
     '   February 2016   V1.1.6 - Added clipboard manager                                    [build 65]
     '   March 2016      V1.1.7 - Added [error] logging                                      [build 71]
+    '   May 2016        V1.1.8 - added Binary Klock                                         [build 74]
 
 
     Public startTime As Integer
@@ -1801,6 +1802,8 @@ Public Class frmKlock
                     TextKlockToolStripMenuItem.PerformClick()
                 Case 3                                                  '   start big text klock.
                     BigTextKlockToolStripMenuItem.PerformClick()
+                Case 4
+                    BinaryKlockToolStripMenuItem.PerformClick()
                 Case Else
 
             End Select
@@ -1812,16 +1815,20 @@ Public Class frmKlock
         '   The rest of the codes is so that enter is handled correctly when inputting a new friend / event / memo.  
         '   Pressing Enter Or hitting the tab key will do the same thing, that is move focus to the next data entry box.
 
-        '   Hotkeys is in klockThings
         '   Pressing F1, will open klock's help.
         '   Pressing alt + F2, will open the options screen.
-        '   Pressing alt + F5, will open the text klock.
-        '   Pressing alt + F7, will disable the monitor from going to sleep.
-        '   Pressing alt + F8, will restore system settings for the monitor.
+        '   Pressing alt + F3, will open the analogue klock.
+        '   Pressing alt + F4, will open the small text klock.
+        '   Pressing alt + F5, will open the big text klock.
+        '   Pressing alt + F6, will open the binary klock.
+        '   Pressing alt + F7, will close all child klock and return to main klock.
+        '   Pressing alt + F8, will disable the monitor from going to sleep.
+        '   Pressing alt + F9, will restore system settings for the monitor.
+        '   Pressing alt + F10, will open the clipboard manager.
         '   Pressing alt + F12, will shown total number of friends.
 
 
-        HotKeys(e)
+        HotKeys(e, Me)              '   in KlockThings.vb
 
         If TbCntrl.SelectedIndex < 5 Then   '   if not friends / events / memo tab - ignore reminder of sub.
             Exit Sub
@@ -2017,6 +2024,16 @@ Public Class frmKlock
         Visible = False
 
         frmBigTextKlock.Show()
+    End Sub
+
+    Private Sub BinaryKlockToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BinaryKlockToolStripMenuItem.Click
+        '   if chosen from menus, switch on binary klock - appears in a separate window.
+        '   Will hide main window when created.
+
+        NtfyIcnKlock.Visible = True
+        Visible = False
+
+        frmBinaryKlock.Show()
     End Sub
 
 

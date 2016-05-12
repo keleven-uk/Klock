@@ -32,6 +32,8 @@ Partial Class frmAnalogueKlock
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.toTpAnalogKlock = New System.Windows.Forms.ToolTip(Me.components)
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.CntxtMnStrpAnalogueKlock.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -61,9 +63,9 @@ Partial Class frmAnalogueKlock
         '
         'CntxtMnStrpAnalogueKlock
         '
-        Me.CntxtMnStrpAnalogueKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OptionsToolStripMenuItem, Me.ReturnToKlockToolStripMenuItem, Me.CloseToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
+        Me.CntxtMnStrpAnalogueKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OptionsToolStripMenuItem, Me.ReturnToKlockToolStripMenuItem, Me.CloseToolStripMenuItem, Me.ToolStripSeparator2, Me.HelpToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem})
         Me.CntxtMnStrpAnalogueKlock.Name = "CntxtMnStrpAnalogueKlock"
-        Me.CntxtMnStrpAnalogueKlock.Size = New System.Drawing.Size(156, 98)
+        Me.CntxtMnStrpAnalogueKlock.Size = New System.Drawing.Size(156, 148)
         Me.CntxtMnStrpAnalogueKlock.Text = "Analogue Klock"
         '
         'OptionsToolStripMenuItem
@@ -104,6 +106,17 @@ Partial Class frmAnalogueKlock
         Me.toTpAnalogKlock.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
         Me.toTpAnalogKlock.ToolTipTitle = "Klock"
         '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.HelpToolStripMenuItem.Text = "Help"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(152, 6)
+        '
         'frmAnalogueKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -133,4 +146,6 @@ Partial Class frmAnalogueKlock
     Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents toTpAnalogKlock As ToolTip
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
 End Class

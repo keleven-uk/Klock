@@ -13,7 +13,7 @@ Public Class frmOptions
         '   When opened, set settings
 
         Dim tabs() As String = {"Fuzzy Time", "World Klock", "Count Down", "Timer", "Reminder", "Friends", "Events", "Memo", "Converter"}
-        Dim mode() As String = {"Klock", "Analogue Klock", "Small Text Klock", "Big text Klock"}
+        Dim mode() As String = {"Klock", "Analogue Klock", "Small Text Klock", "Big text Klock", "Binary Klock"}
 
         cmbBxDefaultTab.Items.AddRange(tabs)
         cmbBxDefaultMode.Items.AddRange(mode)
@@ -146,6 +146,14 @@ Public Class frmOptions
         btnBgTxtKlckBckClr.BackColor = frmKlock.usrSettings.usrBigKlockBackColour
         btnBgTxtKlckOffClr.BackColor = frmKlock.usrSettings.usrBigKlockOffColour
 
+        '-------------------------------------------------------------------------------------------------------- Binary  Settings -----------
+
+        chckBxBnryKlockSavePos.Checked = frmKlock.usrSettings.usrBinaryKlockSavePosition
+        btnBnryKlckBckClr.BackColor = frmKlock.usrSettings.usrBinaryKlockBackColour
+        btnBnryKlckFrClr.BackColor = frmKlock.usrSettings.usrBinaryKlockForeColour
+        btnBnryKlckOffClr.BackColor = frmKlock.usrSettings.usrBinaryKlockOffColour
+        RdBtnBCD.Checked = frmKlock.usrSettings.usrBinaryUseBCD
+        RdBtnBinary.Checked = Not frmKlock.usrSettings.usrBinaryUseBCD
         '-------------------------------------------------------------------------------------------------------- Analogue Klock ------------
 
         chckBxAnlgKlockSavePos.Checked = frmKlock.usrSettings.usrAnalogueKlockSavePosition
@@ -294,6 +302,13 @@ Public Class frmOptions
         frmKlock.usrSettings.usrBigKlockForeColour = btnBgTxtKlckFrClr.BackColor
         frmKlock.usrSettings.usrBigKlockOffColour = btnBgTxtKlckOffClr.BackColor
 
+        '-------------------------------------------------------------------------------------------------------- Binary  Settings -----------
+
+        frmKlock.usrSettings.usrBinaryKlockSavePosition = chckBxBnryKlockSavePos.Checked
+        frmKlock.usrSettings.usrBinaryKlockBackColour = btnBnryKlckBckClr.BackColor
+        frmKlock.usrSettings.usrBinaryKlockForeColour = btnBnryKlckFrClr.BackColor
+        frmKlock.usrSettings.usrBinaryKlockOffColour = btnBnryKlckOffClr.BackColor
+        frmKlock.usrSettings.usrBinaryUseBCD = If(RdBtnBCD.Checked, True, False)
         '-------------------------------------------------------------------------------------------------------- Analogue Klock  Settings ----
 
         frmKlock.usrSettings.usrAnalogueKlockSavePosition = chckBxAnlgKlockSavePos.Checked
@@ -627,6 +642,48 @@ Public Class frmOptions
         frmKlock.usrSettings.usrBigKlockBackColour = Color.Black
         frmKlock.usrSettings.usrBigKlockForeColour = Color.LightGreen
         frmKlock.usrSettings.usrBigKlockOffColour = Color.LightSlateGray
+
+        setSettings()
+    End Sub
+
+    '-----------------------------------------------------------Binary Klock-----------------------------------------------------------------
+
+    Private Sub btnBnryKlckFrClr_Click(sender As Object, e As EventArgs) Handles btnBnryKlckFrClr.Click
+        '   Sets the Fore colour for the Binary klock
+
+        clrDlgFormColour.Color = frmKlock.usrSettings.usrBinaryKlockForeColour
+        If clrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrBinaryKlockForeColour = clrDlgFormColour.Color
+            setSettings()
+        End If
+    End Sub
+
+    Private Sub btnBnryKlckBckClr_Click(sender As Object, e As EventArgs) Handles btnBnryKlckBckClr.Click
+        '   Sets the Back colour for the Binary klock
+
+        clrDlgFormColour.Color = frmKlock.usrSettings.usrBinaryKlockBackColour
+        If clrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrBinaryKlockBackColour = clrDlgFormColour.Color
+            setSettings()
+        End If
+    End Sub
+
+    Private Sub btnBnryKlckOffClr_Click(sender As Object, e As EventArgs) Handles btnBnryKlckOffClr.Click
+        '   Sets the Off colour for the Binary klock
+
+        clrDlgFormColour.Color = frmKlock.usrSettings.usrBinaryKlockOffColour
+        If clrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrBinaryKlockOffColour = clrDlgFormColour.Color
+            setSettings()
+        End If
+    End Sub
+
+    Private Sub btnResetBnryKlock_Click(sender As Object, e As EventArgs) Handles btnResetBnryKlock.Click
+        '   reset colours for Binary klock.
+
+        frmKlock.usrSettings.usrBinaryKlockBackColour = Color.Black
+        frmKlock.usrSettings.usrBinaryKlockForeColour = Color.LightGreen
+        frmKlock.usrSettings.usrBinaryKlockOffColour = Color.LightSlateGray
 
         setSettings()
     End Sub

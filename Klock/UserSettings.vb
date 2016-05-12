@@ -23,6 +23,8 @@ Public Class UserSettings
     '   1 - Analogue Klock
     '   2 = Small text Klock
     '   3 = Big text Klock
+    '   4 = Binary klock
+    '
     '-------------------------------------------------------------------------------------------------------- Global Settings -------------
     Private _usrDefaultTab As Integer = 0
     Private _usrFormColour As Color = Color.LightGray
@@ -72,6 +74,14 @@ Public Class UserSettings
     Private _usrSmallKlockBackColour As Color = Color.Black
     Private _usrSmallKlockForeColour As Color = Color.LightGreen
     Private _usrSmallKlockOffColour As Color = Color.LightSlateGray
+    '-------------------------------------------------------------------------------------------------------- Binary Klock Settings -------
+    Private _usrBinaryKlockTop As Integer = 100
+    Private _usrBinaryKlockLeft As Integer = 100
+    Private _usrBinaryKlockSavePosition As Boolean = True
+    Private _usrBinaryKlockBackColour As Color = Color.Black
+    Private _usrBinaryKlockForeColour As Color = Color.LightGreen
+    Private _usrBinaryKlockOffColour As Color = Color.LightSlateGray
+    Private _usrBinaryUseBCD As Boolean = True                          '   if false use a true binary klock
     '------------------------------------------------------------------------------------------------------- analogue Klock Settings -----
     Private _usrAnalogueKlockTop As Integer = 100
     Private _usrAnalogueKlockLeft As Integer = 100
@@ -566,7 +576,72 @@ Public Class UserSettings
         End Set
     End Property
 
-    '------------------------------------------------------------------------------------------------------- analogue Klock Settings -----
+    '-------------------------------------------------------------------------------------------------------- Binary Klock Settings ------------
+
+    Public Property usrBinaryKlockTop() As Integer
+        Get
+            Return _usrBinaryKlockTop
+        End Get
+        Set(ByVal value As Integer)
+            _usrBinaryKlockTop = value
+        End Set
+    End Property
+
+    Public Property usrBinaryKlockLeft() As Integer
+        Get
+            Return _usrBinaryKlockLeft
+        End Get
+        Set(ByVal value As Integer)
+            _usrBinaryKlockLeft = value
+        End Set
+    End Property
+
+    Public Property usrBinaryKlockSavePosition() As Boolean
+        Get
+            Return _usrBinaryKlockSavePosition
+        End Get
+        Set(ByVal value As Boolean)
+            _usrBinaryKlockSavePosition = value
+        End Set
+    End Property
+
+    Public Property usrBinaryKlockBackColour() As Color
+        Get
+            Return _usrBinaryKlockBackColour
+        End Get
+        Set(ByVal value As Color)
+            _usrBinaryKlockBackColour = value
+        End Set
+    End Property
+
+    Public Property usrBinaryKlockForeColour() As Color
+        Get
+            Return _usrBinaryKlockForeColour
+        End Get
+        Set(ByVal value As Color)
+            _usrBinaryKlockForeColour = value
+        End Set
+    End Property
+
+    Public Property usrBinaryKlockOffColour() As Color
+        Get
+            Return _usrBinaryKlockOffColour
+        End Get
+        Set(ByVal value As Color)
+            _usrBinaryKlockOffColour = value
+        End Set
+    End Property
+
+    Public Property usrBinaryUseBCD() As Boolean
+        Get
+            Return _usrBinaryUseBCD
+        End Get
+        Set(ByVal value As Boolean)
+            _usrBinaryUseBCD = value
+        End Set
+    End Property
+
+    '------------------------------------------------------------------------------------------------------- analogue Klock Settings ----- 
 
     Public Property usrAnalogueKlockTop() As Integer
         Get
@@ -1217,6 +1292,24 @@ Public Class UserSettings
                                   <SmallKlockOffColourB><%= usrSmallKlockOffColour().B %></SmallKlockOffColourB>
                                   <SmallKlockOffColourA><%= usrSmallKlockOffColour().A %></SmallKlockOffColourA>
                               </SmallKlock>
+                              <BinaryKlock>
+                                  <BinaryKlockTop><%= usrBinaryKlockTop() %></BinaryKlockTop>
+                                  <BinaryKlockLeft><%= usrBinaryKlockLeft() %></BinaryKlockLeft>
+                                  <BinaryKlockSavePosition><%= usrBinaryKlockSavePosition() %></BinaryKlockSavePosition>
+                                  <BinaryKlockBackColourR><%= usrBinaryKlockBackColour().R %></BinaryKlockBackColourR>
+                                  <BinaryKlockBackColourG><%= usrBinaryKlockBackColour().G %></BinaryKlockBackColourG>
+                                  <BinaryKlockBackColourB><%= usrBinaryKlockBackColour().B %></BinaryKlockBackColourB>
+                                  <BinaryKlockBackColourA><%= usrBinaryKlockBackColour().A %></BinaryKlockBackColourA>
+                                  <BinaryKlockForeColourR><%= usrBinaryKlockForeColour().R %></BinaryKlockForeColourR>
+                                  <BinaryKlockForeColourG><%= usrBinaryKlockForeColour().G %></BinaryKlockForeColourG>
+                                  <BinaryKlockForeColourB><%= usrBinaryKlockForeColour().B %></BinaryKlockForeColourB>
+                                  <BinaryKlockForeColourA><%= usrBinaryKlockForeColour().A %></BinaryKlockForeColourA>
+                                  <BinaryKlockOffColourR><%= usrBinaryKlockOffColour().R %></BinaryKlockOffColourR>
+                                  <BinaryKlockOffColourG><%= usrBinaryKlockOffColour().G %></BinaryKlockOffColourG>
+                                  <BinaryKlockOffColourB><%= usrBinaryKlockOffColour().B %></BinaryKlockOffColourB>
+                                  <BinaryKlockOffColourA><%= usrBinaryKlockOffColour().A %></BinaryKlockOffColourA>
+                                  <BinaryUseBCD><%= usrBinaryUseBCD %></BinaryUseBCD>
+                              </BinaryKlock>
                               <AnalogueKlock>
                                   <AnalogueKlockTop><%= usrAnalogueKlockTop() %></AnalogueKlockTop>
                                   <AnalogueKlockLeft><%= usrAnalogueKlockLeft() %></AnalogueKlockLeft>
@@ -1452,6 +1545,24 @@ Public Class UserSettings
                                   <SmallKlockOffColourB>153</SmallKlockOffColourB>
                                   <SmallKlockOffColourA>255</SmallKlockOffColourA>
                               </SmallKlock>
+                              <BinaryKlock>
+                                  <BinaryKlockTop>100</BinaryKlockTop>
+                                  <BinaryKlockLeft>100</BinaryKlockLeft>
+                                  <BinaryKlockSavePosition>True</BinaryKlockSavePosition>
+                                  <BinaryKlockBackColourR>0</BinaryKlockBackColourR>
+                                  <BinaryKlockBackColourG>0</BinaryKlockBackColourG>
+                                  <BinaryKlockBackColourB>0</BinaryKlockBackColourB>
+                                  <BinaryKlockBackColourA>255</BinaryKlockBackColourA>
+                                  <BinaryKlockForeColourR>144</BinaryKlockForeColourR>
+                                  <BinaryKlockForeColourG>144</BinaryKlockForeColourG>
+                                  <BinaryKlockForeColourB>238</BinaryKlockForeColourB>
+                                  <BinaryKlockForeColourA>255</BinaryKlockForeColourA>
+                                  <BinaryKlockOffColourR>119</BinaryKlockOffColourR>
+                                  <BinaryKlockOffColourG>136</BinaryKlockOffColourG>
+                                  <BinaryKlockOffColourB>153</BinaryKlockOffColourB>
+                                  <BinaryKlockOffColourA>255</BinaryKlockOffColourA>
+                                  <BinaryUseBCD>True</BinaryUseBCD>
+                              </BinaryKlock>
                               <AnalogueKlock>
                                   <AnalogueKlockTop>100</AnalogueKlockTop>
                                   <AnalogueKlockLeft>100</AnalogueKlockLeft>
@@ -1724,6 +1835,34 @@ Public Class UserSettings
             b = CType(readElement(smlklck, "SmallKlockOffColourB", usrSmallKlockOffColour().B), Byte)
             a = CType(readElement(smlklck, "SmallKlockOffColourA", usrSmallKlockOffColour().A), Byte)
             usrSmallKlockOffColour = Color.FromArgb(a, r, g, b)
+
+            '-------------------------------------------------------------------------------------------------------- Binary Klock Settings ---------
+
+            Dim bnryklck = elem.Element("BinaryKlock")
+
+            usrBinaryKlockTop = CType(readElement(bnryklck, "BinaryKlockTop", usrBinaryKlockTop()), Integer)
+            usrBinaryKlockLeft = CType(readElement(bnryklck, "BinaryKlockLeft", usrBinaryKlockLeft()), Integer)
+            usrBinaryKlockSavePosition = CType(readElement(bnryklck, "BinaryKlockSavePosition", usrBinaryKlockSavePosition()), Boolean)
+
+            r = CType(readElement(bnryklck, "BinaryKlockBackColourR", usrBinaryKlockBackColour().R), Byte)
+            g = CType(readElement(bnryklck, "BinaryKlockBackColourG", usrBinaryKlockBackColour().G), Byte)
+            b = CType(readElement(bnryklck, "BinaryKlockBackColourB", usrBinaryKlockBackColour().B), Byte)
+            a = CType(readElement(bnryklck, "BinaryKlockBackColourA", usrBinaryKlockBackColour().A), Byte)
+            usrBinaryKlockBackColour = Color.FromArgb(a, r, g, b)
+
+            r = CType(readElement(bnryklck, "BinaryKlockForeColourR", usrBinaryKlockForeColour().R), Byte)
+            g = CType(readElement(bnryklck, "BinaryKlockForeColourG", usrBinaryKlockForeColour().G), Byte)
+            b = CType(readElement(bnryklck, "BinaryKlockForeColourB", usrBinaryKlockForeColour().B), Byte)
+            a = CType(readElement(bnryklck, "BinaryKlockForeColourA", usrBinaryKlockForeColour().A), Byte)
+            usrBinaryKlockForeColour = Color.FromArgb(a, r, g, b)
+
+            r = CType(readElement(bnryklck, "BinaryKlockOffColourR", usrBinaryKlockOffColour().R), Byte)
+            g = CType(readElement(bnryklck, "BinaryKlockOffColourG", usrBinaryKlockOffColour().G), Byte)
+            b = CType(readElement(bnryklck, "BinaryKlockOffColourB", usrBinaryKlockOffColour().B), Byte)
+            a = CType(readElement(bnryklck, "BinaryKlockOffColourA", usrBinaryKlockOffColour().A), Byte)
+            usrBinaryKlockOffColour = Color.FromArgb(a, r, g, b)
+
+            usrBinaryUseBCD = CType(readElement(bnryklck, "BinaryUseBCD", usrBinaryUseBCD()), Boolean)
 
             '------------------------------------------------------------------------------------------------------- analogue Klock Settings -----
 

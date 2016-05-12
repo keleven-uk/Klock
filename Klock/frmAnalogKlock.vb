@@ -76,9 +76,14 @@ Public Class frmAnalogueKlock
 
         '   Pressing F1, will open klock's help.
         '   Pressing alt + F2, will open the options screen.
-        '   Pressing alt + F5, will open the text klock.
-        '   Pressing alt + F7, will disable the monitor from going to sleep.
-        '   Pressing alt + F8, will restore system settings for the monitor.
+        '   Pressing alt + F3, will open the analogue klock.
+        '   Pressing alt + F4, will open the small text klock.
+        '   Pressing alt + F5, will open the big text klock.
+        '   Pressing alt + F6, will open the binary klock.
+        '   Pressing alt + F7, will close all child klock and return to main klock.
+        '   Pressing alt + F8, will disable the monitor from going to sleep.
+        '   Pressing alt + F9, will restore system settings for the monitor.
+        '   Pressing alt + F10, will open the clipboard manager.
         '   Pressing alt + F12, will shown total number of friends.
 
         '   pressing + [on numeric keyboard or main keyboard] will increase the size of the analogue klock.
@@ -100,7 +105,7 @@ Public Class frmAnalogueKlock
                 End If
                 e.Handled = True
             Case Else
-                HotKeys(e)              '   in KlockThings.vb
+                HotKeys(e, Me)              '   in KlockThings.vb
         End Select
     End Sub
 
@@ -354,7 +359,7 @@ Public Class frmAnalogueKlock
     Private Sub OptionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OptionsToolStripMenuItem.Click
         '   Load the options screen.
 
-        frmOptions.tbCntrlOptions.SelectedIndex = 3
+        frmOptions.tbCntrlOptions.SelectedIndex = 4
         frmOptions.ShowDialog()
     End Sub
 
@@ -375,9 +380,17 @@ Public Class frmAnalogueKlock
         frmKlock.Close()
     End Sub
 
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        '   Display the help file.
+
+        Help.ShowHelp(frmKlock, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
+    End Sub
+
     Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
         '   Display the about form.
 
         HelpCommon.displayInfo(sender.ToString)
     End Sub
+
+
 End Class

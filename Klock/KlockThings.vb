@@ -148,6 +148,7 @@ Module KlockThings
             If frmAnalogueKlock.Visible Then frmAnalogueKlock.toTpAnalogKlock.SetToolTip(frmAnalogueKlock.analogueKlock, txt)
             If frmBigTextKlock.Visible Then frmBigTextKlock.toTpBigTextKlock.SetToolTip(frmBigTextKlock.pnlBigKlock, txt)
             If frmSmallTextKlock.Visible Then frmSmallTextKlock.toTpSmallTextKlock.SetToolTip(frmSmallTextKlock.pnlSmallKlock, txt)
+            If frmBinaryKlock.Visible Then frmBinaryKlock.toTpBinaryKlock.SetToolTip(frmBinaryKlock.PctrBxBinaryKlock, txt)
         End If
     End Sub
     '
@@ -180,16 +181,17 @@ Module KlockThings
     '
     ' -------------------------------------------------------------------------------------------- Hot Keys ----------------------------------------------
     '
-    Public Sub HotKeys(ByVal e As System.Windows.Forms.KeyEventArgs)
+    Public Sub HotKeys(ByVal e As System.Windows.Forms.KeyEventArgs, frm As Form)
         '   Pressing F1, will open klock's help.
         '   Pressing alt + F2, will open the options screen.
         '   Pressing alt + F3, will open the analogue klock.
         '   Pressing alt + F4, will open the small text klock.
         '   Pressing alt + F5, will open the big text klock.
-        '   Pressing alt + F6, will open the close all child klock and return to main klock.
-        '   Pressing alt + F7, will disable the monitor from going to sleep.
-        '   Pressing alt + F8, will restore system settings for the monitor.
-        '   Pressing alt + F9, will open the clipboard manager.
+        '   Pressing alt + F6, will open the binary klock.
+        '   Pressing alt + F7, will close all child klock and return to main klock.
+        '   Pressing alt + F8, will disable the monitor from going to sleep.
+        '   Pressing alt + F9, will restore system settings for the monitor.
+        '   Pressing alt + F10, will open the clipboard manager.
         '   Pressing alt + F12, will shown total number of friends.
 
         Select Case e.KeyCode
@@ -200,39 +202,37 @@ Module KlockThings
                 frmKlock.usrSettings.writeSettings()        '   save settings, not sure if anything has changed.
                 frmOptions.ShowDialog()
             Case Keys.F3 And (e.Alt)                        '   show analogue klock
-                If klocksNotVisable() Then
-                    frmKlock.NtfyIcnKlock.Visible = True
-                    frmKlock.Visible = False
-                    frmAnalogueKlock.Show()
-                End If
+                killChildKlocks(frm)
+                frmKlock.Visible = False
+                frmAnalogueKlock.Show()
                 e.Handled = True
             Case Keys.F4 And (e.Alt)                        '   show small text klock
-                If klocksNotVisable() Then
-                    frmKlock.NtfyIcnKlock.Visible = True
-                    frmKlock.Visible = False
-                    frmSmallTextKlock.Show()
-                End If
+                killChildKlocks(frm)
+                frmKlock.Visible = False
+                frmSmallTextKlock.Show()
                 e.Handled = True
             Case Keys.F5 And (e.Alt)                        '   show big text klock
-                If klocksNotVisable() Then
-                    frmKlock.NtfyIcnKlock.Visible = True
-                    frmKlock.Visible = False
-                    frmBigTextKlock.Show()
-                End If
+                killChildKlocks(frm)
+                frmKlock.Visible = False
+                frmBigTextKlock.Show()
                 e.Handled = True
-            Case Keys.F6 And (e.Alt)                        '   
-                If frmSmallTextKlock.Visible Then frmSmallTextKlock.Close()
-                If frmBigTextKlock.Visible Then frmBigTextKlock.Close()
-                If frmAnalogueKlock.visible Then frmAnalogueKlock.close()
-            Case Keys.F7 And (e.Alt)                        '   disable monitor sleeping to true
+            Case Keys.F6 And (e.Alt)                        '   show binary klock   
+                killChildKlocks(frm)
+                frmKlock.Visible = False
+                frmBinaryKlock.Show()
+                e.Handled = True
+            Case Keys.F7 And (e.Alt)                        '   kill all child klocks  
+                killChildKlocks(frm)
+                e.Handled = True
+            Case Keys.F8 And (e.Alt)                        '   disable monitor sleeping to true
                 KlockThings.KeepMonitorActive()
                 frmKlock.usrSettings.usrDisableMonitorSleep = True
                 e.Handled = True
-            Case Keys.F8 And (e.Alt)                        '   disable monitor sleeping to false
+            Case Keys.F9 And (e.Alt)                        '   disable monitor sleeping to false
                 frmKlock.usrSettings.usrDisableMonitorSleep = False
                 KlockThings.RestoreMonitorSettings()
                 e.Handled = True
-            Case Keys.F9 And (e.Alt)                        '   show the clipboard manager.
+            Case Keys.F10 And (e.Alt)                        '   show the clipboard manager.
                 frmClipboardMonitor.Show()
             Case Keys.F12 And (e.Alt)                       '   display number of friends.
                 '   MessageBox.Show(String.Format("The are {0} friends", Me.LstBxFriends.Items.Count.ToString))
@@ -247,8 +247,21 @@ Module KlockThings
         '   Should return true if none of the extra klocks are running.
         '   Should make the klocks run once.
 
-        Return Not (frmAnalogueKlock.Visible Or frmSmallTextKlock.Visible Or frmBigTextKlock.Visible)
+        Return Not (frmAnalogueKlock.Visible Or frmSmallTextKlock.Visible Or frmBigTextKlock.Visible Or frmBinaryKlock.Visible)
     End Function
+    '
+    '-------------------------------------------------------------------------------------------- Kill all child klocks --------------------------------------
+    '
+    Private Sub killChildKlocks(frm As Form)
+        '   If the frm is the main klock form then send to system tray, else clost the form.
+
+        If frm.Name = "frmKlock" Then
+            frmKlock.NtfyIcnKlock.Visible = True
+            frmKlock.Visible = False
+        Else
+            frm.Close()
+        End If
+    End Sub
     '
     ' -------------------------------------------------------------------------------------------- load sayings ---------------------------------------------
     '
