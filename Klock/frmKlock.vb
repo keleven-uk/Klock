@@ -19,6 +19,7 @@ Public Class frmKlock
     '   February 2016   V1.1.6 - Added clipboard manager                                    [build 65]
     '   March 2016      V1.1.7 - Added [error] logging                                      [build 71]
     '   May 2016        V1.1.8 - added Binary Klock                                         [build 74]
+    '   May 2016        V1.1.9 - added Sticky Notes                                         [build 75]
 
 
     Public startTime As Integer
@@ -2125,7 +2126,7 @@ Public Class frmKlock
         usrSettings.usrTimeDisplayMinimised = If(TlStrpMnItmTime.Checked, True, False)
     End Sub
 
-    ' ********************************************************************************************************************************* END **************
+
 
     ' ** The following code is for the Clipboard Monitor stuff.
     ' ** It is placed here, because it has to register the main form [klock] in the Clipboard viewer chain.
@@ -2218,4 +2219,13 @@ Public Class frmKlock
 
     End Sub
 
+    ' ********************************************************************************************************************************* Sticky Notes *****
+
+    Private Sub NewStickyNoteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewStickyNoteToolStripMenuItem.Click, NewSticktNoteToolStripMenuItem.Click
+        '   Create a new sticky note.
+
+        newStickyNote()
+    End Sub
+
+    ' ********************************************************************************************************************************* END **************
 End Class

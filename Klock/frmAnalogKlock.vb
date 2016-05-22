@@ -392,5 +392,9 @@ Public Class frmAnalogueKlock
         HelpCommon.displayInfo(sender.ToString)
     End Sub
 
+    Private Sub NewStickyNoteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewStickyNoteToolStripMenuItem.Click
+        '   Create a new sticky note.
 
+        newStickyNote()
+    End Sub
 End Class

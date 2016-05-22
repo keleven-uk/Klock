@@ -47,7 +47,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
@@ -170,6 +170,12 @@
     <Compile Include="frmSmallTextKlock.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmStickyNote.Designer.vb">
+      <DependentUpon>frmStickyNote.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmStickyNote.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="HelpCommon.vb" />
     <Compile Include="InfoCommon.vb" />
     <Compile Include="IOcommon.vb" />
@@ -275,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSmallTextKlock.resx">
       <DependentUpon>frmSmallTextKlock.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStickyNote.resx">
+      <DependentUpon>frmStickyNote.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>PublicVbMyResourcesResXFileCodeGenerator</Generator>

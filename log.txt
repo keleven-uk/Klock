@@ -1,3 +1,60 @@
+commit 39eb84dc35da3b9251ced5d2b378ca451d85c59b
+Author: Kevin Scott <klock@keleven.co.uk>
+Date:   Thu May 12 22:00:53 2016 +0100
+
+    [frmBinaryKlock.vb]
+    Added the ability to display the time as a Binary Klock.
+    The Binary Klock has two modes, BCD and True Binary - selectable in user options.
+    
+    [UserSettings.vb]
+    Added options for Binary Klock.
+    
+    [frmBigTextKlock.vb]
+    Changed the fore colour of the status bar to that of the fore colour of the Big Text Klock.
+    Added logic for right click context menu.
+    
+    [frmOptions.vb]
+    Added stuff for Binary Klock.
+    
+    [frmSmallTextKlock.vb]
+    Changed the fore colour of the status bar to that of the fore colour of the Small Text Klock.
+    Added logic for right click context menu.
+    
+    [KlockThings.vb]
+    Added Binary Klock Tool Tip to setToolTip()
+    Added Binary Klock to hot keys and re-ordered.
+    Added killChildKlocks()
+    
+    [frmKlock.vb]
+    Added menu option to call Binary Klock.
+
+ Klock/Klock.chm                     | Bin 863060 -> 934484 bytes
+ Klock/Klock.iss                     |  41 +-
+ Klock/Klock.pdf                     | Bin 4908377 -> 5532907 bytes
+ Klock/Klock.vbproj                  |   9 +
+ Klock/KlockThings.vb                |  69 +--
+ Klock/My Project/AssemblyInfo.vb    |   4 +-
+ Klock/UserSettings.vb               | 141 +++++-
+ Klock/frmAnalogKlock.Designer.vb    |  19 +-
+ Klock/frmAnalogKlock.vb             |  23 +-
+ Klock/frmBigTextKlock.Designer.vb   |  67 +++
+ Klock/frmBigTextKlock.resx          |   3 +
+ Klock/frmBigTextKlock.vb            |  73 ++-
+ Klock/frmBinaryKlock.Designer.vb    | 195 ++++++++
+ Klock/frmBinaryKlock.resx           | 132 ++++++
+ Klock/frmBinaryKlock.vb             | 283 ++++++++++++
+ Klock/frmKlock.Designer.vb          |  10 +-
+ Klock/frmKlock.vb                   |  27 +-
+ Klock/frmOptions.Designer.vb        | 871 +++++++++++++++++++++---------------
+ Klock/frmOptions.vb                 |  59 ++-
+ Klock/frmSmallTextKlock.Designer.vb |  65 +++
+ Klock/frmSmallTextKlock.resx        |   3 +
+ Klock/frmSmallTextKlock.vb          |  69 ++-
+ Klock/history.txt                   |  62 +++
+ Klock/klock.hnd                     | Bin 27131904 -> 27598848 bytes
+ log.txt                             |  57 +++
+ 25 files changed, 1848 insertions(+), 434 deletions(-)
+
 commit bfd109709b7a391a7c0bdf7dc3770a5d0887e288
 Author: Kevin Scott <klock@keleven.co.uk>
 Date:   Sun May 1 21:39:21 2016 +0100

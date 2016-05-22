@@ -183,6 +183,7 @@ Module KlockThings
     '
     Public Sub HotKeys(ByVal e As System.Windows.Forms.KeyEventArgs, frm As Form)
         '   Pressing F1, will open klock's help.
+        '   Pressing F2, will open a new sticky note.
         '   Pressing alt + F2, will open the options screen.
         '   Pressing alt + F3, will open the analogue klock.
         '   Pressing alt + F4, will open the small text klock.
@@ -197,6 +198,9 @@ Module KlockThings
         Select Case e.KeyCode
             Case Keys.F1
                 Help.ShowHelp(frmKlock, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
+                e.Handled = True
+            Case Keys.F2
+                newStickyNote()
                 e.Handled = True
             Case Keys.F2 And (e.Alt)
                 frmKlock.usrSettings.writeSettings()        '   save settings, not sure if anything has changed.
@@ -357,6 +361,16 @@ Module KlockThings
                 String.Format("{0:HH:mm:ss}", System.DateTime.Now),
                 String.Format("{0:hh:mm:ss tt}", System.DateTime.Now))
     End Function
+    '
+    ' -------------------------------------------------------------------------------------------- status date ---------------------------------------------
+    '
+    Public Sub newStickyNote()
+        '   Create a new sticky note.
+
+        Dim note As New frmStickyNote()
+
+        note.Show()
+    End Sub
 End Module
 
 

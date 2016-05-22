@@ -52,6 +52,8 @@ Partial Class frmKlock
         Me.CultureToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PowerSourceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StickyNoteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NewStickyNoteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmSubHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnItmLicense = New System.Windows.Forms.ToolStripMenuItem()
@@ -231,6 +233,7 @@ Partial Class frmKlock
         Me.CntxtMnStrpKlock = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.TlStrpMnItmShow = New System.Windows.Forms.ToolStripMenuItem()
         Me.TlStrpMnItmTime = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NewSticktNoteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TlStrpMnItmHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.TlStrpMnItmOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.TlStrpMnItmExit = New System.Windows.Forms.ToolStripMenuItem()
@@ -354,7 +357,7 @@ Partial Class frmKlock
         '
         'MnStrpMain
         '
-        Me.MnStrpMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmFile, Me.TimeToolStripMenuItem, Me.MonitorToolStripMenuItem, Me.InfoToolStripMenuItem, Me.MnItmHelp})
+        Me.MnStrpMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnItmFile, Me.TimeToolStripMenuItem, Me.MonitorToolStripMenuItem, Me.InfoToolStripMenuItem, Me.StickyNoteToolStripMenuItem, Me.MnItmHelp})
         Me.MnStrpMain.Location = New System.Drawing.Point(0, 0)
         Me.MnStrpMain.Name = "MnStrpMain"
         Me.MnStrpMain.Size = New System.Drawing.Size(696, 24)
@@ -491,6 +494,19 @@ Partial Class frmKlock
         Me.PowerSourceToolStripMenuItem.Name = "PowerSourceToolStripMenuItem"
         Me.PowerSourceToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.PowerSourceToolStripMenuItem.Text = "Power Source"
+        '
+        'StickyNoteToolStripMenuItem
+        '
+        Me.StickyNoteToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewStickyNoteToolStripMenuItem})
+        Me.StickyNoteToolStripMenuItem.Name = "StickyNoteToolStripMenuItem"
+        Me.StickyNoteToolStripMenuItem.Size = New System.Drawing.Size(79, 20)
+        Me.StickyNoteToolStripMenuItem.Text = "Sticky Note"
+        '
+        'NewStickyNoteToolStripMenuItem
+        '
+        Me.NewStickyNoteToolStripMenuItem.Name = "NewStickyNoteToolStripMenuItem"
+        Me.NewStickyNoteToolStripMenuItem.Size = New System.Drawing.Size(98, 22)
+        Me.NewStickyNoteToolStripMenuItem.Text = "New"
         '
         'MnItmHelp
         '
@@ -2240,39 +2256,45 @@ Partial Class frmKlock
         '
         'CntxtMnStrpKlock
         '
-        Me.CntxtMnStrpKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TlStrpMnItmShow, Me.TlStrpMnItmTime, Me.TlStrpMnItmHelp, Me.TlStrpMnItmOptions, Me.TlStrpMnItmExit})
+        Me.CntxtMnStrpKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TlStrpMnItmShow, Me.TlStrpMnItmTime, Me.NewSticktNoteToolStripMenuItem, Me.TlStrpMnItmHelp, Me.TlStrpMnItmOptions, Me.TlStrpMnItmExit})
         Me.CntxtMnStrpKlock.Name = "CntxtMnStrpKlock"
-        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(117, 114)
+        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(160, 158)
         '
         'TlStrpMnItmShow
         '
         Me.TlStrpMnItmShow.Name = "TlStrpMnItmShow"
-        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(116, 22)
+        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(159, 22)
         Me.TlStrpMnItmShow.Text = "Show"
         '
         'TlStrpMnItmTime
         '
         Me.TlStrpMnItmTime.CheckOnClick = True
         Me.TlStrpMnItmTime.Name = "TlStrpMnItmTime"
-        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(116, 22)
+        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(159, 22)
         Me.TlStrpMnItmTime.Text = "Time"
+        '
+        'NewSticktNoteToolStripMenuItem
+        '
+        Me.NewSticktNoteToolStripMenuItem.Name = "NewSticktNoteToolStripMenuItem"
+        Me.NewSticktNoteToolStripMenuItem.Size = New System.Drawing.Size(159, 22)
+        Me.NewSticktNoteToolStripMenuItem.Text = "New Stickt Note"
         '
         'TlStrpMnItmHelp
         '
         Me.TlStrpMnItmHelp.Name = "TlStrpMnItmHelp"
-        Me.TlStrpMnItmHelp.Size = New System.Drawing.Size(116, 22)
+        Me.TlStrpMnItmHelp.Size = New System.Drawing.Size(159, 22)
         Me.TlStrpMnItmHelp.Text = "Help"
         '
         'TlStrpMnItmOptions
         '
         Me.TlStrpMnItmOptions.Name = "TlStrpMnItmOptions"
-        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(116, 22)
+        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(159, 22)
         Me.TlStrpMnItmOptions.Text = "Options"
         '
         'TlStrpMnItmExit
         '
         Me.TlStrpMnItmExit.Name = "TlStrpMnItmExit"
-        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(116, 22)
+        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(159, 22)
         Me.TlStrpMnItmExit.Text = "Exit"
         '
         'tmrReminder
@@ -2671,4 +2693,7 @@ End Sub
     Friend WithEvents btnReLoadSayings As Button
     Friend WithEvents LentToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BinaryKlockToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents StickyNoteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents NewStickyNoteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents NewSticktNoteToolStripMenuItem As ToolStripMenuItem
 End Class

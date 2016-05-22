@@ -97,6 +97,10 @@ Public Class UserSettings
     Private _usrAnalogueKlockBackColour As Color = Color.LightSlateGray
     Private _usrAnalogueKlockDisplayPicture As Boolean = False
     Private _usrAnalogueKlockPicture As String = String.Empty
+    '-------------------------------------------------------------------------------------------------------- Sticky Notes Settings -------
+    Private _usrStickyNoteBackColour As Color = Color.Yellow
+    Private _usrStickyNoteForeColour As Color = Color.Black
+    Private _usrStickyNoteFont As Font = frmOptions.DefaultFont
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
     Private _usrTimerHigh As Boolean = False
     Private _usrTimerClearSplit As Boolean = False
@@ -768,6 +772,36 @@ Public Class UserSettings
             _usrAnalogueKlockBackColour = value
         End Set
     End Property
+
+    '------------------------------------------------------------------------------------------------------- Sticky Notes Settings ------- 
+
+    Public Property usrStickyNoteBackColour() As Color
+        Get
+            Return _usrStickyNoteBackColour
+        End Get
+        Set(ByVal value As Color)
+            _usrStickyNoteBackColour = value
+        End Set
+    End Property
+
+    Public Property usrStickyNoteForeColour() As Color
+        Get
+            Return _usrStickyNoteForeColour
+        End Get
+        Set(ByVal value As Color)
+            _usrStickyNoteForeColour = value
+        End Set
+    End Property
+
+    Public Property usrStickyNoteFont() As Font
+        Get
+            Return _usrStickyNoteFont
+        End Get
+        Set(ByVal value As Font)
+            _usrStickyNoteFont = value
+        End Set
+    End Property
+
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
     Public Property usrTimerHigh() As Boolean
@@ -1329,6 +1363,16 @@ Public Class UserSettings
                                   <AnalogueKlockDisplayPicture><%= usrAnalogueKlockDisplayPicture() %></AnalogueKlockDisplayPicture>
                                   <AnalogueKlockPicture><%= usrAnalogueKlockPicture() %></AnalogueKlockPicture>
                               </AnalogueKlock>
+                              <StickyNote>
+                                  <usrStickyNoteBackColourR><%= usrStickyNoteBackColour().R %></usrStickyNoteBackColourR>
+                                  <usrStickyNoteBackColourG><%= usrStickyNoteBackColour().G %></usrStickyNoteBackColourG>
+                                  <usrStickyNoteBackColourB><%= usrStickyNoteBackColour().B %></usrStickyNoteBackColourB>
+                                  <usrStickyNoteBackColourA><%= usrStickyNoteBackColour().A %></usrStickyNoteBackColourA>
+                                  <usrStickyNoteForeColourR><%= usrStickyNoteForeColour().R %></usrStickyNoteForeColourR>
+                                  <usrStickyNoteForeColourG><%= usrStickyNoteForeColour().G %></usrStickyNoteForeColourG>
+                                  <usrStickyNoteForeColourB><%= usrStickyNoteForeColour().B %></usrStickyNoteForeColourB>
+                                  <usrStickyNoteForeColourA><%= usrStickyNoteForeColour().A %></usrStickyNoteForeColourA>
+                              </StickyNote>
                               <Timer>
                                   <TimerHigh><%= usrTimerHigh() %></TimerHigh>
                                   <TimerClearSplit><%= usrTimerClearSplit() %></TimerClearSplit>
@@ -1582,6 +1626,16 @@ Public Class UserSettings
                                   <AnalogueKlockDisplayPicture>False</AnalogueKlockDisplayPicture>
                                   <AnalogueKlockPicture></AnalogueKlockPicture>
                               </AnalogueKlock>
+                              <StickyNote>
+                                  <usrStickyNoteBackColourR><%= 255 %></usrStickyNoteBackColourR>
+                                  <usrStickyNoteBackColourG><%= 255 %></usrStickyNoteBackColourG>
+                                  <usrStickyNoteBackColourB><%= 0 %></usrStickyNoteBackColourB>
+                                  <usrStickyNoteBackColourA><%= 255 %></usrStickyNoteBackColourA>
+                                  <usrStickyNoteForeColourR><%= 0 %></usrStickyNoteForeColourR>
+                                  <usrStickyNoteForeColourG><%= 0 %></usrStickyNoteForeColourG>
+                                  <usrStickyNoteForeColourB><%= 0 %></usrStickyNoteForeColourB>
+                                  <usrStickyNoteForeColourA><%= 255 %></usrStickyNoteForeColourA>
+                              </StickyNote>
                               <Timer>
                                   <TimerHigh>False</TimerHigh>
                                   <TimerClearSplit>False</TimerClearSplit>
@@ -1888,6 +1942,22 @@ Public Class UserSettings
 
             usrAnalogueKlockDisplayPicture = CType(readElement(anlklck, "AnalogueKlockDisplayPicture", usrAnalogueKlockDisplayPicture()), Boolean)
             usrAnalogueKlockPicture = readElement(anlklck, "AnalogueKlockPicture", usrAnalogueKlockPicture())       '   already a string
+
+            '-------------------------------------------------------------------------------------------------------- Sticky Note Settings -------
+
+            Dim stckynt = elem.Element("StickyNote")
+
+            r = CType(readElement(stckynt, "usrStickyNoteBackColourR", usrStickyNoteBackColour().R), Byte)
+            g = CType(readElement(stckynt, "usrStickyNoteBackColourG", usrStickyNoteBackColour().G), Byte)
+            b = CType(readElement(stckynt, "usrStickyNoteBackColourB", usrStickyNoteBackColour().B), Byte)
+            a = CType(readElement(stckynt, "usrStickyNoteBackColourA", usrStickyNoteBackColour().A), Byte)
+            usrStickyNoteBackColour = Color.FromArgb(a, r, g, b)
+
+            r = CType(readElement(stckynt, "usrStickyNoteForeColourR", usrStickyNoteForeColour().R), Byte)
+            g = CType(readElement(stckynt, "usrStickyNoteForeColourG", usrStickyNoteForeColour().G), Byte)
+            b = CType(readElement(stckynt, "usrStickyNoteForeColourB", usrStickyNoteForeColour().B), Byte)
+            a = CType(readElement(stckynt, "usrStickyNoteForeColourA", usrStickyNoteForeColour().A), Byte)
+            usrStickyNoteForeColour = Color.FromArgb(a, r, g, b)
 
             '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
             Dim tmr = elem.Element("Timer")

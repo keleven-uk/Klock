@@ -30,18 +30,19 @@ Partial Class frmBinaryKlock
         Me.stsLbIdkeTime = New System.Windows.Forms.ToolStripStatusLabel()
         Me.PctrBxBinaryKlock = New System.Windows.Forms.PictureBox()
         Me.tmrBinaryKlock = New System.Windows.Forms.Timer(Me.components)
-        Me.CntxtMnStrpAnalogueKlock = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.toTpBinaryKlock = New System.Windows.Forms.ToolTip(Me.components)
         Me.OptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReturnToKlockToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NewStickyNoteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CloseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.toTpBinaryKlock = New System.Windows.Forms.ToolTip(Me.components)
+        Me.CntxtMnStrpBinaryKlock = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.StsStrpInfo.SuspendLayout()
         CType(Me.PctrBxBinaryKlock, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.CntxtMnStrpAnalogueKlock.SuspendLayout()
+        Me.CntxtMnStrpBinaryKlock.SuspendLayout()
         Me.SuspendLayout()
         '
         'StsStrpInfo
@@ -85,7 +86,7 @@ Partial Class frmBinaryKlock
         '
         'PctrBxBinaryKlock
         '
-        Me.PctrBxBinaryKlock.ContextMenuStrip = Me.CntxtMnStrpAnalogueKlock
+        Me.PctrBxBinaryKlock.ContextMenuStrip = Me.CntxtMnStrpBinaryKlock
         Me.PctrBxBinaryKlock.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PctrBxBinaryKlock.Location = New System.Drawing.Point(0, 0)
         Me.PctrBxBinaryKlock.Name = "PctrBxBinaryKlock"
@@ -97,53 +98,6 @@ Partial Class frmBinaryKlock
         '
         Me.tmrBinaryKlock.Interval = 1000
         '
-        'CntxtMnStrpAnalogueKlock
-        '
-        Me.CntxtMnStrpAnalogueKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OptionsToolStripMenuItem, Me.ReturnToKlockToolStripMenuItem, Me.CloseToolStripMenuItem, Me.ToolStripSeparator1, Me.HelpToolStripMenuItem, Me.ToolStripSeparator2, Me.AboutToolStripMenuItem})
-        Me.CntxtMnStrpAnalogueKlock.Name = "CntxtMnStrpAnalogueKlock"
-        Me.CntxtMnStrpAnalogueKlock.Size = New System.Drawing.Size(156, 126)
-        Me.CntxtMnStrpAnalogueKlock.Text = "Analogue Klock"
-        '
-        'OptionsToolStripMenuItem
-        '
-        Me.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem"
-        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.OptionsToolStripMenuItem.Text = "Options"
-        '
-        'ReturnToKlockToolStripMenuItem
-        '
-        Me.ReturnToKlockToolStripMenuItem.Name = "ReturnToKlockToolStripMenuItem"
-        Me.ReturnToKlockToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.ReturnToKlockToolStripMenuItem.Text = "Return to Klock"
-        '
-        'CloseToolStripMenuItem
-        '
-        Me.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem"
-        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.CloseToolStripMenuItem.Text = "Close All"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(152, 6)
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.HelpToolStripMenuItem.Text = "Help"
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(152, 6)
-        '
-        'AboutToolStripMenuItem
-        '
-        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.AboutToolStripMenuItem.Text = "About"
-        '
         'toTpBinaryKlock
         '
         Me.toTpBinaryKlock.AutoPopDelay = 5000
@@ -153,12 +107,65 @@ Partial Class frmBinaryKlock
         Me.toTpBinaryKlock.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
         Me.toTpBinaryKlock.ToolTipTitle = "Klock"
         '
+        'OptionsToolStripMenuItem
+        '
+        Me.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem"
+        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.OptionsToolStripMenuItem.Text = "Options"
+        '
+        'ReturnToKlockToolStripMenuItem
+        '
+        Me.ReturnToKlockToolStripMenuItem.Name = "ReturnToKlockToolStripMenuItem"
+        Me.ReturnToKlockToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.ReturnToKlockToolStripMenuItem.Text = "Return to Klock"
+        '
+        'NewStickyNoteToolStripMenuItem
+        '
+        Me.NewStickyNoteToolStripMenuItem.Name = "NewStickyNoteToolStripMenuItem"
+        Me.NewStickyNoteToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.NewStickyNoteToolStripMenuItem.Text = "New Sticky Note"
+        '
+        'CloseToolStripMenuItem
+        '
+        Me.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem"
+        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.CloseToolStripMenuItem.Text = "Close All"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(158, 6)
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.HelpToolStripMenuItem.Text = "Help"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(158, 6)
+        '
+        'AboutToolStripMenuItem
+        '
+        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.AboutToolStripMenuItem.Text = "About"
+        '
+        'CntxtMnStrpBinaryKlock
+        '
+        Me.CntxtMnStrpBinaryKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OptionsToolStripMenuItem, Me.ReturnToKlockToolStripMenuItem, Me.NewStickyNoteToolStripMenuItem, Me.CloseToolStripMenuItem, Me.ToolStripSeparator1, Me.HelpToolStripMenuItem, Me.ToolStripSeparator2, Me.AboutToolStripMenuItem})
+        Me.CntxtMnStrpBinaryKlock.Name = "CntxtMnStrpAnalogueKlock"
+        Me.CntxtMnStrpBinaryKlock.Size = New System.Drawing.Size(162, 148)
+        Me.CntxtMnStrpBinaryKlock.Text = "Analogue Klock"
+        '
         'frmBinaryKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(309, 224)
-        Me.ContextMenuStrip = Me.CntxtMnStrpAnalogueKlock
+        Me.ContextMenuStrip = Me.CntxtMnStrpBinaryKlock
         Me.Controls.Add(Me.PctrBxBinaryKlock)
         Me.Controls.Add(Me.StsStrpInfo)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -170,7 +177,7 @@ Partial Class frmBinaryKlock
         Me.StsStrpInfo.ResumeLayout(False)
         Me.StsStrpInfo.PerformLayout()
         CType(Me.PctrBxBinaryKlock, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.CntxtMnStrpAnalogueKlock.ResumeLayout(False)
+        Me.CntxtMnStrpBinaryKlock.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -183,13 +190,14 @@ Partial Class frmBinaryKlock
     Friend WithEvents stsLbIdkeTime As ToolStripStatusLabel
     Friend WithEvents PctrBxBinaryKlock As PictureBox
     Friend WithEvents tmrBinaryKlock As Windows.Forms.Timer
-    Friend WithEvents CntxtMnStrpAnalogueKlock As ContextMenuStrip
+    Friend WithEvents toTpBinaryKlock As ToolTip
+    Friend WithEvents CntxtMnStrpBinaryKlock As ContextMenuStrip
     Friend WithEvents OptionsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ReturnToKlockToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents NewStickyNoteToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CloseToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
-    Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
-    Friend WithEvents toTpBinaryKlock As ToolTip
+    Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
 End Class
