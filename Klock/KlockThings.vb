@@ -367,7 +367,7 @@ Module KlockThings
     Public Sub newStickyNote()
         '   Create a new sticky note.
 
-        Dim note As New frmStickyNote()
+        Dim note As New frmStickyNote(Nothing)
 
         note.Show()
     End Sub

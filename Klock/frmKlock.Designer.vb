@@ -249,6 +249,7 @@ Partial Class frmKlock
         Me.TmrMemo = New System.Windows.Forms.Timer(Me.components)
         Me.btnPrint = New System.Windows.Forms.Button()
         Me.tmrSayings = New System.Windows.Forms.Timer(Me.components)
+        Me.btnStickyNote = New System.Windows.Forms.Button()
         Me.StsStrpInfo.SuspendLayout()
         Me.MnStrpMain.SuspendLayout()
         Me.TbCntrl.SuspendLayout()
@@ -2211,27 +2212,27 @@ Partial Class frmKlock
         '
         'btnHide
         '
-        Me.btnHide.Location = New System.Drawing.Point(572, 189)
+        Me.btnHide.Location = New System.Drawing.Point(622, 189)
         Me.btnHide.Name = "btnHide"
-        Me.btnHide.Size = New System.Drawing.Size(75, 23)
+        Me.btnHide.Size = New System.Drawing.Size(65, 23)
         Me.btnHide.TabIndex = 33
         Me.btnHide.Text = "Hide"
         Me.btnHide.UseVisualStyleBackColor = True
         '
         'btnClose
         '
-        Me.btnClose.Location = New System.Drawing.Point(491, 189)
+        Me.btnClose.Location = New System.Drawing.Point(551, 189)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(75, 23)
+        Me.btnClose.Size = New System.Drawing.Size(65, 23)
         Me.btnClose.TabIndex = 4
         Me.btnClose.Text = "Close"
         Me.btnClose.UseVisualStyleBackColor = True
         '
         'btnHelp
         '
-        Me.btnHelp.Location = New System.Drawing.Point(410, 189)
+        Me.btnHelp.Location = New System.Drawing.Point(480, 189)
         Me.btnHelp.Name = "btnHelp"
-        Me.btnHelp.Size = New System.Drawing.Size(75, 23)
+        Me.btnHelp.Size = New System.Drawing.Size(65, 23)
         Me.btnHelp.TabIndex = 5
         Me.btnHelp.Text = "Help"
         Me.btnHelp.UseVisualStyleBackColor = True
@@ -2258,43 +2259,43 @@ Partial Class frmKlock
         '
         Me.CntxtMnStrpKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TlStrpMnItmShow, Me.TlStrpMnItmTime, Me.NewSticktNoteToolStripMenuItem, Me.TlStrpMnItmHelp, Me.TlStrpMnItmOptions, Me.TlStrpMnItmExit})
         Me.CntxtMnStrpKlock.Name = "CntxtMnStrpKlock"
-        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(160, 158)
+        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(153, 158)
         '
         'TlStrpMnItmShow
         '
         Me.TlStrpMnItmShow.Name = "TlStrpMnItmShow"
-        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(159, 22)
+        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(152, 22)
         Me.TlStrpMnItmShow.Text = "Show"
         '
         'TlStrpMnItmTime
         '
         Me.TlStrpMnItmTime.CheckOnClick = True
         Me.TlStrpMnItmTime.Name = "TlStrpMnItmTime"
-        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(159, 22)
+        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(152, 22)
         Me.TlStrpMnItmTime.Text = "Time"
         '
         'NewSticktNoteToolStripMenuItem
         '
         Me.NewSticktNoteToolStripMenuItem.Name = "NewSticktNoteToolStripMenuItem"
-        Me.NewSticktNoteToolStripMenuItem.Size = New System.Drawing.Size(159, 22)
-        Me.NewSticktNoteToolStripMenuItem.Text = "New Stickt Note"
+        Me.NewSticktNoteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.NewSticktNoteToolStripMenuItem.Text = "Sticky Note"
         '
         'TlStrpMnItmHelp
         '
         Me.TlStrpMnItmHelp.Name = "TlStrpMnItmHelp"
-        Me.TlStrpMnItmHelp.Size = New System.Drawing.Size(159, 22)
+        Me.TlStrpMnItmHelp.Size = New System.Drawing.Size(152, 22)
         Me.TlStrpMnItmHelp.Text = "Help"
         '
         'TlStrpMnItmOptions
         '
         Me.TlStrpMnItmOptions.Name = "TlStrpMnItmOptions"
-        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(159, 22)
+        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(152, 22)
         Me.TlStrpMnItmOptions.Text = "Options"
         '
         'TlStrpMnItmExit
         '
         Me.TlStrpMnItmExit.Name = "TlStrpMnItmExit"
-        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(159, 22)
+        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(152, 22)
         Me.TlStrpMnItmExit.Text = "Exit"
         '
         'tmrReminder
@@ -2381,11 +2382,21 @@ Partial Class frmKlock
         '
         Me.tmrSayings.Interval = 60000
         '
+        'btnStickyNote
+        '
+        Me.btnStickyNote.Location = New System.Drawing.Point(409, 189)
+        Me.btnStickyNote.Name = "btnStickyNote"
+        Me.btnStickyNote.Size = New System.Drawing.Size(65, 23)
+        Me.btnStickyNote.TabIndex = 35
+        Me.btnStickyNote.Text = "Sticky Note"
+        Me.btnStickyNote.UseVisualStyleBackColor = True
+        '
         'frmKlock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(696, 242)
+        Me.Controls.Add(Me.btnStickyNote)
         Me.Controls.Add(Me.btnPrint)
         Me.Controls.Add(Me.btnEventsCheck)
         Me.Controls.Add(Me.btnDelete)
@@ -2696,4 +2707,5 @@ End Sub
     Friend WithEvents StickyNoteToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents NewStickyNoteToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents NewSticktNoteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents btnStickyNote As Button
 End Class

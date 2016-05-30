@@ -43,6 +43,7 @@ Partial Class frmStickyNote
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RchTxtBxNote.ContextMenuStrip = Me.CntxtMnStrpStickyNote
+        Me.RchTxtBxNote.EnableAutoDragDrop = True
         Me.RchTxtBxNote.Location = New System.Drawing.Point(-1, 25)
         Me.RchTxtBxNote.Name = "RchTxtBxNote"
         Me.RchTxtBxNote.Size = New System.Drawing.Size(235, 209)
@@ -103,6 +104,7 @@ Partial Class frmStickyNote
         '
         'frmStickyNote
         '
+        Me.AllowDrop = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(234, 234)

@@ -101,6 +101,12 @@ Public Class UserSettings
     Private _usrStickyNoteBackColour As Color = Color.Yellow
     Private _usrStickyNoteForeColour As Color = Color.Black
     Private _usrStickyNoteFont As Font = frmOptions.DefaultFont
+    Private _usrStickyNoteFontColour As Color = Color.Black
+    Private _usrStickyNoteAllowFadeOut As Boolean = True
+    Private _usrStickyNoteMaxOpacity As Integer = 80
+    Private _usrStickyNoteMinOpacity As Integer = 20
+    Private _usrStickyNoteStpOpacity As Integer = 2
+    Private _usrStickyNoteSavePath As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock\stickyNotes.bin")
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
     Private _usrTimerHigh As Boolean = False
     Private _usrTimerClearSplit As Boolean = False
@@ -164,6 +170,7 @@ Public Class UserSettings
     Private _usrLogging As Boolean = True
     Private _usrLogDaysKeep As Integer = 10
     Private _usrLogFilePath As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "klock\Klog_" & DateTime.Now.ToString("ddMMyyyy") & ".log")
+
 
     '   run on set up - blank at the moment.
     Public Sub New()
@@ -802,6 +809,57 @@ Public Class UserSettings
         End Set
     End Property
 
+    Public Property usrStickyNoteFontColour() As Color
+        Get
+            Return _usrStickyNoteFontColour
+        End Get
+        Set(ByVal value As Color)
+            _usrStickyNoteFontColour = value
+        End Set
+    End Property
+
+    Public Property usrStickyNoteAllowFadeOut() As Boolean
+        Get
+            Return _usrStickyNoteAllowFadeOut
+        End Get
+        Set(ByVal value As Boolean)
+            _usrStickyNoteAllowFadeOut = value
+        End Set
+    End Property
+
+    Public Property usrStickyNoteMaxOpacity() As Integer
+        Get
+            Return _usrStickyNoteMaxOpacity
+        End Get
+        Set(ByVal value As Integer)
+            _usrStickyNoteMaxOpacity = value
+        End Set
+    End Property
+
+    Public Property usrStickyNoteMinOpacity() As Integer
+        Get
+            Return _usrStickyNoteMinOpacity
+        End Get
+        Set(ByVal value As Integer)
+            _usrStickyNoteMinOpacity = value
+        End Set
+    End Property
+
+    Public Property usrStickyNoteStpOpacity() As Integer
+        Get
+            Return _usrStickyNoteStpOpacity
+        End Get
+        Set(ByVal value As Integer)
+            _usrStickyNoteStpOpacity = value
+        End Set
+    End Property
+
+    Public ReadOnly Property usrStickyNoteSavePath() As String     '   returns path to save sticky notes file - read-only
+        Get
+            Return _usrStickyNoteSavePath
+        End Get
+    End Property
+
     '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
 
     Public Property usrTimerHigh() As Boolean
@@ -1267,10 +1325,10 @@ Public Class UserSettings
                                   <SavePosition><%= usrSavePosition() %></SavePosition>
                                   <StartMinimised><%= usrStartMinimised() %></StartMinimised>
                                   <RunOnStartup><%= usrRunOnStartup() %></RunOnStartup>
-                                  <usrRememberKlockMode><%= usrRememberKlockMode() %></usrRememberKlockMode>
-                                  <usrStartKlockMode><%= usrStartKlockMode %></usrStartKlockMode>
+                                  <RememberKlockMode><%= usrRememberKlockMode() %></RememberKlockMode>
+                                  <StartKlockMode><%= usrStartKlockMode %></StartKlockMode>
                                   <SoundVolume><%= usrSoundVolume() %></SoundVolume>
-                                  <usrOptionsSavePath><%= usrOptionsSavePath() %></usrOptionsSavePath>
+                                  <OptionsSavePath><%= usrOptionsSavePath() %></OptionsSavePath>
                               </Global>
                               <Time>
                                   <TimeDefaultFormat><%= usrTimeDefaultFormat() %></TimeDefaultFormat>
@@ -1364,14 +1422,30 @@ Public Class UserSettings
                                   <AnalogueKlockPicture><%= usrAnalogueKlockPicture() %></AnalogueKlockPicture>
                               </AnalogueKlock>
                               <StickyNote>
-                                  <usrStickyNoteBackColourR><%= usrStickyNoteBackColour().R %></usrStickyNoteBackColourR>
-                                  <usrStickyNoteBackColourG><%= usrStickyNoteBackColour().G %></usrStickyNoteBackColourG>
-                                  <usrStickyNoteBackColourB><%= usrStickyNoteBackColour().B %></usrStickyNoteBackColourB>
-                                  <usrStickyNoteBackColourA><%= usrStickyNoteBackColour().A %></usrStickyNoteBackColourA>
-                                  <usrStickyNoteForeColourR><%= usrStickyNoteForeColour().R %></usrStickyNoteForeColourR>
-                                  <usrStickyNoteForeColourG><%= usrStickyNoteForeColour().G %></usrStickyNoteForeColourG>
-                                  <usrStickyNoteForeColourB><%= usrStickyNoteForeColour().B %></usrStickyNoteForeColourB>
-                                  <usrStickyNoteForeColourA><%= usrStickyNoteForeColour().A %></usrStickyNoteForeColourA>
+                                  <StickyNoteFont>
+                                      <StickyNoteFontName><%= usrStickyNoteFont().Name %></StickyNoteFontName>
+                                      <StickyNoteFontSize><%= usrStickyNoteFont().Size %></StickyNoteFontSize>
+                                      <StickyNoteFontStyle><%= 0 %></StickyNoteFontStyle>
+                                  </StickyNoteFont>
+                                  <StickyNoteFontColour>
+                                      <StickyNoteFontColourR><%= usrStickyNoteFontColour().R %></StickyNoteFontColourR>
+                                      <StickyNoteFontColourG><%= usrStickyNoteFontColour().G %></StickyNoteFontColourG>
+                                      <StickyNoteFontColourB><%= usrStickyNoteFontColour().B %></StickyNoteFontColourB>
+                                      <StickyNoteFontColourA><%= usrStickyNoteFontColour().A %></StickyNoteFontColourA>
+                                  </StickyNoteFontColour>
+                                  <StickyNoteBackColourR><%= usrStickyNoteBackColour().R %></StickyNoteBackColourR>
+                                  <StickyNoteBackColourG><%= usrStickyNoteBackColour().G %></StickyNoteBackColourG>
+                                  <StickyNoteBackColourB><%= usrStickyNoteBackColour().B %></StickyNoteBackColourB>
+                                  <StickyNoteBackColourA><%= usrStickyNoteBackColour().A %></StickyNoteBackColourA>
+                                  <StickyNoteForeColourR><%= usrStickyNoteForeColour().R %></StickyNoteForeColourR>
+                                  <StickyNoteForeColourG><%= usrStickyNoteForeColour().G %></StickyNoteForeColourG>
+                                  <StickyNoteForeColourB><%= usrStickyNoteForeColour().B %></StickyNoteForeColourB>
+                                  <StickyNoteForeColourA><%= usrStickyNoteForeColour().A %></StickyNoteForeColourA>
+                                  <StickyNoteAllowFadeOut><%= usrStickyNoteAllowFadeOut() %></StickyNoteAllowFadeOut>
+                                  <StickyNoteMaxOpacity><%= usrStickyNoteMaxOpacity() %></StickyNoteMaxOpacity>
+                                  <StickyNoteMinOpacity><%= usrStickyNoteMinOpacity() %></StickyNoteMinOpacity>
+                                  <StickyNoteStpOpacity><%= usrStickyNoteStpOpacity() %></StickyNoteStpOpacity>
+                                  <StickyNoteSavePath><%= usrStickyNoteSavePath() %></StickyNoteSavePath>
                               </StickyNote>
                               <Timer>
                                   <TimerHigh><%= usrTimerHigh() %></TimerHigh>
@@ -1530,10 +1604,10 @@ Public Class UserSettings
                                   <SavePosition>False</SavePosition>
                                   <StartMinimised>False</StartMinimised>
                                   <RunOnStartup>False</RunOnStartup>
-                                  <usrRememberKlockMode>False</usrRememberKlockMode>
-                                  <usrStartKlockMode>0</usrStartKlockMode>
+                                  <RememberKlockMode>False</RememberKlockMode>
+                                  <StartKlockMode>0</StartKlockMode>
                                   <SoundVolume>100</SoundVolume>
-                                  <usrOptionsSavePath><%= usrOptionsSavePath() %></usrOptionsSavePath>
+                                  <OptionsSavePath><%= usrOptionsSavePath() %></OptionsSavePath>
                               </Global>
                               <Time>
                                   <TimeDefaultFormat>0</TimeDefaultFormat>
@@ -1627,14 +1701,30 @@ Public Class UserSettings
                                   <AnalogueKlockPicture></AnalogueKlockPicture>
                               </AnalogueKlock>
                               <StickyNote>
-                                  <usrStickyNoteBackColourR><%= 255 %></usrStickyNoteBackColourR>
-                                  <usrStickyNoteBackColourG><%= 255 %></usrStickyNoteBackColourG>
-                                  <usrStickyNoteBackColourB><%= 0 %></usrStickyNoteBackColourB>
-                                  <usrStickyNoteBackColourA><%= 255 %></usrStickyNoteBackColourA>
-                                  <usrStickyNoteForeColourR><%= 0 %></usrStickyNoteForeColourR>
-                                  <usrStickyNoteForeColourG><%= 0 %></usrStickyNoteForeColourG>
-                                  <usrStickyNoteForeColourB><%= 0 %></usrStickyNoteForeColourB>
-                                  <usrStickyNoteForeColourA><%= 255 %></usrStickyNoteForeColourA>
+                                  <StickyNoteFont>
+                                      <StickyNoteFontName>Microsoft Sans Serif</StickyNoteFontName>
+                                      <StickyNoteFontSize>8.25</StickyNoteFontSize>
+                                      <StickyNoteFontStyle>0</StickyNoteFontStyle>
+                                  </StickyNoteFont>
+                                  <StickyNoteFontColour>
+                                      <StickyNoteFontColourR>0</StickyNoteFontColourR>
+                                      <StickyNoteFontColourG>0</StickyNoteFontColourG>
+                                      <StickyNoteFontColourB>0</StickyNoteFontColourB>
+                                      <StickyNoteFontColourA>255</StickyNoteFontColourA>
+                                  </StickyNoteFontColour>
+                                  <usrStickyNoteBackColourR>255</usrStickyNoteBackColourR>
+                                  <usrStickyNoteBackColourG>255</usrStickyNoteBackColourG>
+                                  <usrStickyNoteBackColourB>0</usrStickyNoteBackColourB>
+                                  <usrStickyNoteBackColourA>255></usrStickyNoteBackColourA>
+                                  <usrStickyNoteForeColourR>0</usrStickyNoteForeColourR>
+                                  <usrStickyNoteForeColourG>0</usrStickyNoteForeColourG>
+                                  <usrStickyNoteForeColourB>0</usrStickyNoteForeColourB>
+                                  <usrStickyNoteForeColourA>255</usrStickyNoteForeColourA>
+                                  <StickyNoteAllowFadeOut>True</StickyNoteAllowFadeOut>
+                                  <StickyNoteMaxOpacity>80</StickyNoteMaxOpacity>
+                                  <StickyNoteMinOpacity>20</StickyNoteMinOpacity>
+                                  <StickyNoteStpOpacity>2</StickyNoteStpOpacity>
+                                  <StickyNoteSavePath><%= usrStickyNoteSavePath() %></StickyNoteSavePath>
                               </StickyNote>
                               <Timer>
                                   <TimerHigh>False</TimerHigh>
@@ -1812,8 +1902,8 @@ Public Class UserSettings
             usrSavePosition = CType(readElement(glbl, "SavePosition", usrSavePosition()), Boolean)
             usrStartMinimised = CType(readElement(glbl, "StartMinimised", usrStartMinimised()), Boolean)
             usrRunOnStartup = CType(readElement(glbl, "RunOnStartup", usrRunOnStartup()), Boolean)
-            usrRememberKlockMode = CType(readElement(glbl, "usrRememberKlockMode", usrRememberKlockMode()), Boolean)
-            usrStartKlockMode = CType(readElement(glbl, "usrStartKlockMode", usrStartKlockMode()), Integer)
+            usrRememberKlockMode = CType(readElement(glbl, "RememberKlockMode", usrRememberKlockMode()), Boolean)
+            usrStartKlockMode = CType(readElement(glbl, "StartKlockMode", usrStartKlockMode()), Integer)
             usrSoundVolume = CType(readElement(glbl, "SoundVolume", usrSoundVolume()), Integer)
 
             '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
@@ -1947,17 +2037,36 @@ Public Class UserSettings
 
             Dim stckynt = elem.Element("StickyNote")
 
-            r = CType(readElement(stckynt, "usrStickyNoteBackColourR", usrStickyNoteBackColour().R), Byte)
-            g = CType(readElement(stckynt, "usrStickyNoteBackColourG", usrStickyNoteBackColour().G), Byte)
-            b = CType(readElement(stckynt, "usrStickyNoteBackColourB", usrStickyNoteBackColour().B), Byte)
-            a = CType(readElement(stckynt, "usrStickyNoteBackColourA", usrStickyNoteBackColour().A), Byte)
+            Dim stckynFnt = stckynt.Element("StickyNoteFont")
+            name = readElement(stckynFnt, "StickyNoteFontName", usrStickyNoteFont().Name)       '   already a string
+            size = CType(readElement(stckynFnt, "StickyNoteFontSize", usrStickyNoteFont().Size), Single)
+            style = CType(readElement(stckynFnt, "StickyNoteFontStyle", 0), FontStyle)
+            usrStickyNoteFont() = New Font(name, size, style)
+
+            Dim stckyntFntClr = stckynt.Element("StickyNoteFontColour")
+            r = CType(readElement(stckyntFntClr, "StickyNoteFontColourR", usrStickyNoteFontColour().R), Byte)
+            g = CType(readElement(stckyntFntClr, "StickyNoteFontColourG", usrStickyNoteFontColour().G), Byte)
+            b = CType(readElement(stckyntFntClr, "StickyNoteFontColourB", usrStickyNoteFontColour().B), Byte)
+            a = CType(readElement(stckyntFntClr, "StickyNoteFontColourA", usrStickyNoteFontColour().A), Byte)
+            usrStickyNoteFontColour = Color.FromArgb(a, r, g, b)
+
+            r = CType(readElement(stckynt, "StickyNoteBackColourR", usrStickyNoteBackColour().R), Byte)
+            g = CType(readElement(stckynt, "StickyNoteBackColourG", usrStickyNoteBackColour().G), Byte)
+            b = CType(readElement(stckynt, "StickyNoteBackColourB", usrStickyNoteBackColour().B), Byte)
+            a = CType(readElement(stckynt, "StickyNoteBackColourA", usrStickyNoteBackColour().A), Byte)
             usrStickyNoteBackColour = Color.FromArgb(a, r, g, b)
 
-            r = CType(readElement(stckynt, "usrStickyNoteForeColourR", usrStickyNoteForeColour().R), Byte)
-            g = CType(readElement(stckynt, "usrStickyNoteForeColourG", usrStickyNoteForeColour().G), Byte)
-            b = CType(readElement(stckynt, "usrStickyNoteForeColourB", usrStickyNoteForeColour().B), Byte)
-            a = CType(readElement(stckynt, "usrStickyNoteForeColourA", usrStickyNoteForeColour().A), Byte)
+            r = CType(readElement(stckynt, "StickyNoteForeColourR", usrStickyNoteForeColour().R), Byte)
+            g = CType(readElement(stckynt, "StickyNoteForeColourG", usrStickyNoteForeColour().G), Byte)
+            b = CType(readElement(stckynt, "StickyNoteForeColourB", usrStickyNoteForeColour().B), Byte)
+            a = CType(readElement(stckynt, "StickyNoteForeColourA", usrStickyNoteForeColour().A), Byte)
             usrStickyNoteForeColour = Color.FromArgb(a, r, g, b)
+
+            usrStickyNoteAllowFadeOut = CType(readElement(stckynt, "StickyNoteAllowFadeOut", usrStickyNoteAllowFadeOut()), Boolean)
+
+            usrStickyNoteMaxOpacity = CType(readElement(stckynt, "StickyNoteMaxOpacity", usrStickyNoteMaxOpacity()), Integer)
+            usrStickyNoteMinOpacity = CType(readElement(stckynt, "StickyNoteMinOpacity", usrStickyNoteMinOpacity()), Integer)
+            usrStickyNoteStpOpacity = CType(readElement(stckynt, "StickyNoteStpOpacity", usrStickyNoteStpOpacity()), Integer)
 
             '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
             Dim tmr = elem.Element("Timer")
@@ -2141,6 +2250,7 @@ Public Class UserSettings
             r = g.Element(s).Value
         Catch ex As Exception
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("UserSettings.readElement", ex)
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.logMessage("UserSettings.readElement()", "ERROR :: " & g.ToString & " :: " & s & " :::")
             frmKlock.displayAction.DisplayReminder(ex.Message, "G", "ERROR :: " & g.ToString & " :: " & s & " :::")
             r = d
         End Try

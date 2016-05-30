@@ -126,13 +126,8 @@ Public NotInheritable Class FormAnimator
         If _form.MdiParent Is Nothing Then
             Dim flags As Integer = _method Or _direction
 
-            If _form.Visible Then
-                'Activate the form.
-                flags = flags Or AW_ACTIVATE
-            Else
-                'Hide the form.
-                flags = flags Or AW_HIDE
-            End If
+            'Activate or hide the form.
+            flags = If(_form.Visible, flags Or AW_ACTIVATE, flags Or AW_HIDE)
 
             FormAnimator.AnimateWindow(_form.Handle, _duration, flags)
         End If

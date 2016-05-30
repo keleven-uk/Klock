@@ -495,11 +495,8 @@ Namespace InternetTime
 
         '// Check if the response from server is valid
         Public Function IsResponseValid() As Boolean
-            If (SNTPData.Length < SNTPDataLength Or Mode <> _Mode.Server) Then
-                Return False
-            Else
-                Return True
-            End If
+
+            Return If((SNTPData.Length < SNTPDataLength Or Mode <> _Mode.Server), False, True)
         End Function
 
         '// Converts the object to string

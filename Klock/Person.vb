@@ -77,12 +77,7 @@
 
     Public Property EMail1() As String
         Get
-            If _email1 Is Nothing Then
-                Return " "
-            Else
-                Return _email1
-            End If
-
+            Return If(_email1 Is Nothing, " ", _email1)
         End Get
         Set(ByVal value As String)
             If value.Contains("@") Then

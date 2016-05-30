@@ -242,7 +242,7 @@
     Private Sub OptionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OptionsToolStripMenuItem.Click
         '   Load the options screen.
 
-        frmOptions.tbCntrlOptions.SelectedIndex = 6
+        frmOptions.tbCntrlOptions.SelectedIndex = 5
         frmOptions.ShowDialog()
     End Sub
 

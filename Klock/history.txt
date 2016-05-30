@@ -3,7 +3,52 @@ converted from SVN as of build 42.
 I find the git commit number unwieldy, so still include SVN style build numbers.
 
 
-[Build [73] - V1.1.7.74 - May 2016
+[Build [75] - V1.1.7.75 - May 2016
+[Lines of code = 15239]
+[maintainability index = 78]
+
+commit ab9ab26ec58288e637d53735ed6bfd08a277213c
+Author: Kevin Scott <klock@keleven.co.uk>
+Date:   Sun May 22 21:58:48 2016 +0100
+
+    Added a sticky note option, small, simple [usually yellow] forms can be placed on the screen as a visual reminder.  The colour of both the form and text can be selected as also can the font.  More work needs to be done to integrate user options and maybe some kind a persistence, where the notes can be saved when Klock is closed and re-appear when klock is next opened.
+    
+    Added frmStickyNote.vb.
+    
+    Amended UserSettings.vb with sticky notes options.
+    
+    Added option to create a new sticky note to all context menu and the maim menu of Klock.
+
+ Klock/Klock.chm                     | Bin 934484 -> 1023674 bytes
+ Klock/Klock.iss                     |   4 +-
+ Klock/Klock.pdf                     | Bin 5532907 -> 6433772 bytes
+ Klock/Klock.vbproj                  |  11 ++-
+ Klock/KlockThings.vb                |  14 ++++
+ Klock/My Project/AssemblyInfo.vb    |   4 +-
+ Klock/UserSettings.vb               |  70 ++++++++++++++++++
+ Klock/frmAnalogKlock.Designer.vb    |  44 +++++++-----
+ Klock/frmAnalogKlock.vb             |   4 ++
+ Klock/frmBigTextKlock.Designer.vb   |  51 +++++++------
+ Klock/frmBigTextKlock.resx          |   2 +-
+ Klock/frmBigTextKlock.vb            |  10 +++
+ Klock/frmBinaryKlock.Designer.vb    |  64 +++++++++--------
+ Klock/frmBinaryKlock.resx           |   2 +-
+ Klock/frmBinaryKlock.vb             |   7 ++
+ Klock/frmKlock.Designer.vb          |  41 ++++++++---
+ Klock/frmKlock.vb                   |  12 +++-
+ Klock/frmSmallTextKlock.Designer.vb |  45 +++++++-----
+ Klock/frmSmallTextKlock.resx        |   6 +-
+ Klock/frmSmallTextKlock.vb          |   6 ++
+ Klock/frmStickyNote.Designer.vb     | 137 +++++++++++++++++++++++++++++++++++
+ Klock/frmStickyNote.resx            | 132 ++++++++++++++++++++++++++++++++++
+ Klock/frmStickyNote.vb              | 140 ++++++++++++++++++++++++++++++++++++
+ Klock/history.txt                   |  62 ++++++++++++++++
+ Klock/klock.hnd                     | Bin 27598848 -> 27598848 bytes
+ log.txt                             |  57 +++++++++++++++
+ 26 files changed, 821 insertions(+), 104 deletions(-)
+ 
+ 
+[Build [74] - V1.1.7.74 - May 2016
 [Lines of code = 14602]
 [maintainability index = 79]
 

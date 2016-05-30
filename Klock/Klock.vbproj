@@ -236,6 +236,8 @@
     </Compile>
     <Compile Include="Simple3Des.vb" />
     <Compile Include="SNTPClient.vb" />
+    <Compile Include="stickyNote.vb" />
+    <Compile Include="stickyNotes.vb" />
     <Compile Include="Timer.vb" />
     <Compile Include="UserFonts.vb" />
     <Compile Include="UserSettings.vb" />

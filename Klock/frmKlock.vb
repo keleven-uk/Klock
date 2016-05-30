@@ -33,6 +33,7 @@ Public Class frmKlock
     Public usrFonts As UserFonts                    '   instance of user fonts.
     Public myManagedPower As ManagedPower           '   instance of managed Power
     Public errLogger As Logger
+    Public myStickyNotes As stickyNotes
 
     Public CountDownTime As Integer                 '   Holds number of minutes for the countdown timer.
     Public ReminderDateTime As DateTime             '   Holds the date [and time] of the set reminder.
@@ -1750,8 +1751,9 @@ Public Class frmKlock
         usrSettings = New UserSettings                  '   user settings
         usrFonts = New UserFonts                        '   user fonts
         usrVoice = New Voice                            '   user voice
-        errLogger = New Logger
         myManagedPower = New ManagedPower               '   system power source
+        errLogger = New Logger
+        myStickyNotes = New stickyNotes(usrSettings.usrStickyNoteSavePath)
 
         errLogger.useLogging = usrSettings.usrLogging
         errLogger.logdaysKeep = usrSettings.usrLogDaysKeep
@@ -1780,6 +1782,8 @@ Public Class frmKlock
         LstBxMemo.Font = usrFonts.getFont()
 
         FEMcommon.ButtonsVisible(False, 0, 0, 0)
+
+        If Not myStickyNotes.isEmpty() Then myStickyNotes.load()
 
         TmrMain.Enabled = True                          '   Turn on main timer now things are sorted out.
     End Sub
@@ -1946,6 +1950,11 @@ Public Class frmKlock
             ClipboardMonitorOff()
         End If
 
+        If usrSettings.usrDisableMonitorSleep Then
+            KeepMonitorActive()
+        Else
+            RestoreMonitorSettings()
+        End If
     End Sub
 
     Sub setActionTypes()
@@ -2221,11 +2230,12 @@ Public Class frmKlock
 
     ' ********************************************************************************************************************************* Sticky Notes *****
 
-    Private Sub NewStickyNoteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewStickyNoteToolStripMenuItem.Click, NewSticktNoteToolStripMenuItem.Click
+    Private Sub NewStickyNoteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewStickyNoteToolStripMenuItem.Click, NewSticktNoteToolStripMenuItem.Click, btnStickyNote.Click
         '   Create a new sticky note.
 
         newStickyNote()
     End Sub
+
 
     ' ********************************************************************************************************************************* END **************
 End Class

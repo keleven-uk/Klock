@@ -147,7 +147,19 @@ Partial Class frmOptions
         Me.chckBxAnlgKlockDate = New System.Windows.Forms.CheckBox()
         Me.txtBxAnlgKlock = New System.Windows.Forms.TextBox()
         Me.Label32 = New System.Windows.Forms.Label()
-        Me.tbPgTextKlock = New System.Windows.Forms.TabPage()
+        Me.tbPgExtraKlock = New System.Windows.Forms.TabPage()
+        Me.GroupBox29 = New System.Windows.Forms.GroupBox()
+        Me.RdBtnBinary = New System.Windows.Forms.RadioButton()
+        Me.RdBtnBCD = New System.Windows.Forms.RadioButton()
+        Me.chckBxBnryKlockSavePos = New System.Windows.Forms.CheckBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.btnResetBnryKlock = New System.Windows.Forms.Button()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.btnBnryKlckBckClr = New System.Windows.Forms.Button()
+        Me.btnBnryKlckOffClr = New System.Windows.Forms.Button()
+        Me.btnBnryKlckFrClr = New System.Windows.Forms.Button()
         Me.GroupBox22 = New System.Windows.Forms.GroupBox()
         Me.chckBxBgTxKlockSavePos = New System.Windows.Forms.CheckBox()
         Me.Label31 = New System.Windows.Forms.Label()
@@ -168,19 +180,21 @@ Partial Class frmOptions
         Me.btnSmlTxtKlckBckClr = New System.Windows.Forms.Button()
         Me.btnSmlTxtKlckOffClr = New System.Windows.Forms.Button()
         Me.btnSmlTxtKlckFrClr = New System.Windows.Forms.Button()
-        Me.tbPgBinaryKlock = New System.Windows.Forms.TabPage()
-        Me.GroupBox29 = New System.Windows.Forms.GroupBox()
-        Me.RdBtnBinary = New System.Windows.Forms.RadioButton()
-        Me.RdBtnBCD = New System.Windows.Forms.RadioButton()
-        Me.chckBxBnryKlockSavePos = New System.Windows.Forms.CheckBox()
-        Me.Label33 = New System.Windows.Forms.Label()
-        Me.btnResetBnryKlock = New System.Windows.Forms.Button()
-        Me.Label34 = New System.Windows.Forms.Label()
-        Me.Label35 = New System.Windows.Forms.Label()
-        Me.Label36 = New System.Windows.Forms.Label()
-        Me.btnBnryKlckBckClr = New System.Windows.Forms.Button()
-        Me.btnBnryKlckOffClr = New System.Windows.Forms.Button()
-        Me.btnBnryKlckFrClr = New System.Windows.Forms.Button()
+        Me.tbPgStickyNotes = New System.Windows.Forms.TabPage()
+        Me.GroupBox30 = New System.Windows.Forms.GroupBox()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.btnStckyNtFont = New System.Windows.Forms.Button()
+        Me.NmrcUpDwnStkyNtMaxOpacity = New System.Windows.Forms.NumericUpDown()
+        Me.NmrcUpDwnStkyNtfadeOutStep = New System.Windows.Forms.NumericUpDown()
+        Me.NmrcUpDwnStkyNtMinOpacity = New System.Windows.Forms.NumericUpDown()
+        Me.lblStckyNtfadeOutStep = New System.Windows.Forms.Label()
+        Me.lblStckyNtMinOpacity = New System.Windows.Forms.Label()
+        Me.lblStckyNtMaxOpacity = New System.Windows.Forms.Label()
+        Me.ChckBxAllowStckyNtfadeOut = New System.Windows.Forms.CheckBox()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.btnStckyNtkBgClr = New System.Windows.Forms.Button()
+        Me.btnStckyNtkFrClr = New System.Windows.Forms.Button()
         Me.tbPgArchive = New System.Windows.Forms.TabPage()
         Me.GroupBox11 = New System.Windows.Forms.GroupBox()
         Me.txtBxArchiveFile = New System.Windows.Forms.TextBox()
@@ -279,11 +293,15 @@ Partial Class frmOptions
         Me.GroupBox24.SuspendLayout()
         CType(Me.pctrBxAnlgKlockPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox23.SuspendLayout()
-        Me.tbPgTextKlock.SuspendLayout()
+        Me.tbPgExtraKlock.SuspendLayout()
+        Me.GroupBox29.SuspendLayout()
         Me.GroupBox22.SuspendLayout()
         Me.GroupBox21.SuspendLayout()
-        Me.tbPgBinaryKlock.SuspendLayout()
-        Me.GroupBox29.SuspendLayout()
+        Me.tbPgStickyNotes.SuspendLayout()
+        Me.GroupBox30.SuspendLayout()
+        CType(Me.NmrcUpDwnStkyNtMaxOpacity, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NmrcUpDwnStkyNtfadeOutStep, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NmrcUpDwnStkyNtMinOpacity, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tbPgArchive.SuspendLayout()
         Me.GroupBox11.SuspendLayout()
         Me.GroupBox10.SuspendLayout()
@@ -396,8 +414,8 @@ Partial Class frmOptions
         Me.tbCntrlOptions.Controls.Add(Me.tbPgTime)
         Me.tbCntrlOptions.Controls.Add(Me.tbPgOtherStuff)
         Me.tbCntrlOptions.Controls.Add(Me.tbPgAnalogueKlock)
-        Me.tbCntrlOptions.Controls.Add(Me.tbPgTextKlock)
-        Me.tbCntrlOptions.Controls.Add(Me.tbPgBinaryKlock)
+        Me.tbCntrlOptions.Controls.Add(Me.tbPgExtraKlock)
+        Me.tbCntrlOptions.Controls.Add(Me.tbPgStickyNotes)
         Me.tbCntrlOptions.Controls.Add(Me.tbPgArchive)
         Me.tbCntrlOptions.Controls.Add(Me.tbPgEvents)
         Me.tbCntrlOptions.Controls.Add(Me.tbPgMemo)
@@ -1635,17 +1653,145 @@ Partial Class frmOptions
         Me.Label32.TabIndex = 0
         Me.Label32.Text = "Klock Dial Text"
         '
-        'tbPgTextKlock
+        'tbPgExtraKlock
         '
-        Me.tbPgTextKlock.Controls.Add(Me.GroupBox22)
-        Me.tbPgTextKlock.Controls.Add(Me.GroupBox21)
-        Me.tbPgTextKlock.Location = New System.Drawing.Point(4, 25)
-        Me.tbPgTextKlock.Name = "tbPgTextKlock"
-        Me.tbPgTextKlock.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbPgTextKlock.Size = New System.Drawing.Size(740, 265)
-        Me.tbPgTextKlock.TabIndex = 10
-        Me.tbPgTextKlock.Text = "Text Klock"
-        Me.tbPgTextKlock.UseVisualStyleBackColor = True
+        Me.tbPgExtraKlock.Controls.Add(Me.GroupBox29)
+        Me.tbPgExtraKlock.Controls.Add(Me.GroupBox22)
+        Me.tbPgExtraKlock.Controls.Add(Me.GroupBox21)
+        Me.tbPgExtraKlock.Location = New System.Drawing.Point(4, 25)
+        Me.tbPgExtraKlock.Name = "tbPgExtraKlock"
+        Me.tbPgExtraKlock.Padding = New System.Windows.Forms.Padding(3)
+        Me.tbPgExtraKlock.Size = New System.Drawing.Size(740, 265)
+        Me.tbPgExtraKlock.TabIndex = 10
+        Me.tbPgExtraKlock.Text = "Extra Klocks"
+        Me.tbPgExtraKlock.UseVisualStyleBackColor = True
+        '
+        'GroupBox29
+        '
+        Me.GroupBox29.Controls.Add(Me.RdBtnBinary)
+        Me.GroupBox29.Controls.Add(Me.RdBtnBCD)
+        Me.GroupBox29.Controls.Add(Me.chckBxBnryKlockSavePos)
+        Me.GroupBox29.Controls.Add(Me.Label33)
+        Me.GroupBox29.Controls.Add(Me.btnResetBnryKlock)
+        Me.GroupBox29.Controls.Add(Me.Label34)
+        Me.GroupBox29.Controls.Add(Me.Label35)
+        Me.GroupBox29.Controls.Add(Me.Label36)
+        Me.GroupBox29.Controls.Add(Me.btnBnryKlckBckClr)
+        Me.GroupBox29.Controls.Add(Me.btnBnryKlckOffClr)
+        Me.GroupBox29.Controls.Add(Me.btnBnryKlckFrClr)
+        Me.GroupBox29.Location = New System.Drawing.Point(486, 6)
+        Me.GroupBox29.Name = "GroupBox29"
+        Me.GroupBox29.Size = New System.Drawing.Size(232, 253)
+        Me.GroupBox29.TabIndex = 3
+        Me.GroupBox29.TabStop = False
+        Me.GroupBox29.Text = "Binary Klock Settings"
+        '
+        'RdBtnBinary
+        '
+        Me.RdBtnBinary.AutoSize = True
+        Me.RdBtnBinary.Location = New System.Drawing.Point(105, 211)
+        Me.RdBtnBinary.Name = "RdBtnBinary"
+        Me.RdBtnBinary.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.RdBtnBinary.Size = New System.Drawing.Size(109, 17)
+        Me.RdBtnBinary.TabIndex = 16
+        Me.RdBtnBinary.TabStop = True
+        Me.RdBtnBinary.Text = "True Binary Klock"
+        Me.RdBtnBinary.UseVisualStyleBackColor = True
+        '
+        'RdBtnBCD
+        '
+        Me.RdBtnBCD.AutoSize = True
+        Me.RdBtnBCD.Location = New System.Drawing.Point(137, 188)
+        Me.RdBtnBCD.Name = "RdBtnBCD"
+        Me.RdBtnBCD.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.RdBtnBCD.Size = New System.Drawing.Size(77, 17)
+        Me.RdBtnBCD.TabIndex = 15
+        Me.RdBtnBCD.TabStop = True
+        Me.RdBtnBCD.Text = "BCD Klock"
+        Me.RdBtnBCD.UseVisualStyleBackColor = True
+        '
+        'chckBxBnryKlockSavePos
+        '
+        Me.chckBxBnryKlockSavePos.AutoSize = True
+        Me.chckBxBnryKlockSavePos.Location = New System.Drawing.Point(51, 149)
+        Me.chckBxBnryKlockSavePos.Name = "chckBxBnryKlockSavePos"
+        Me.chckBxBnryKlockSavePos.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.chckBxBnryKlockSavePos.Size = New System.Drawing.Size(163, 17)
+        Me.chckBxBnryKlockSavePos.TabIndex = 14
+        Me.chckBxBnryKlockSavePos.Text = "Save Screen Position on Exit"
+        Me.chckBxBnryKlockSavePos.UseVisualStyleBackColor = True
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(14, 113)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(114, 13)
+        Me.Label33.TabIndex = 13
+        Me.Label33.Text = "Reset colour to default"
+        '
+        'btnResetBnryKlock
+        '
+        Me.btnResetBnryKlock.Location = New System.Drawing.Point(139, 108)
+        Me.btnResetBnryKlock.Name = "btnResetBnryKlock"
+        Me.btnResetBnryKlock.Size = New System.Drawing.Size(75, 23)
+        Me.btnResetBnryKlock.TabIndex = 12
+        Me.btnResetBnryKlock.Text = "Reset"
+        Me.btnResetBnryKlock.UseVisualStyleBackColor = True
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(14, 86)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(91, 13)
+        Me.Label34.TabIndex = 11
+        Me.Label34.Text = "Change off colour"
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.Location = New System.Drawing.Point(14, 60)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(103, 13)
+        Me.Label35.TabIndex = 10
+        Me.Label35.Text = "Change back colour"
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(14, 34)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(97, 13)
+        Me.Label36.TabIndex = 9
+        Me.Label36.Text = "Change fore colour"
+        '
+        'btnBnryKlckBckClr
+        '
+        Me.btnBnryKlckBckClr.Location = New System.Drawing.Point(139, 53)
+        Me.btnBnryKlckBckClr.Name = "btnBnryKlckBckClr"
+        Me.btnBnryKlckBckClr.Size = New System.Drawing.Size(75, 23)
+        Me.btnBnryKlckBckClr.TabIndex = 8
+        Me.btnBnryKlckBckClr.Text = "..."
+        Me.btnBnryKlckBckClr.UseVisualStyleBackColor = True
+        '
+        'btnBnryKlckOffClr
+        '
+        Me.btnBnryKlckOffClr.Location = New System.Drawing.Point(139, 79)
+        Me.btnBnryKlckOffClr.Name = "btnBnryKlckOffClr"
+        Me.btnBnryKlckOffClr.Size = New System.Drawing.Size(75, 23)
+        Me.btnBnryKlckOffClr.TabIndex = 7
+        Me.btnBnryKlckOffClr.Text = "..."
+        Me.btnBnryKlckOffClr.UseVisualStyleBackColor = True
+        '
+        'btnBnryKlckFrClr
+        '
+        Me.btnBnryKlckFrClr.Location = New System.Drawing.Point(139, 27)
+        Me.btnBnryKlckFrClr.Name = "btnBnryKlckFrClr"
+        Me.btnBnryKlckFrClr.Size = New System.Drawing.Size(75, 23)
+        Me.btnBnryKlckFrClr.TabIndex = 6
+        Me.btnBnryKlckFrClr.Text = "..."
+        Me.btnBnryKlckFrClr.UseVisualStyleBackColor = True
         '
         'GroupBox22
         '
@@ -1658,9 +1804,9 @@ Partial Class frmOptions
         Me.GroupBox22.Controls.Add(Me.btnBgTxtKlckBckClr)
         Me.GroupBox22.Controls.Add(Me.btnBgTxtKlckOffClr)
         Me.GroupBox22.Controls.Add(Me.btnBgTxtKlckFrClr)
-        Me.GroupBox22.Location = New System.Drawing.Point(373, 6)
+        Me.GroupBox22.Location = New System.Drawing.Point(246, 6)
         Me.GroupBox22.Name = "GroupBox22"
-        Me.GroupBox22.Size = New System.Drawing.Size(361, 253)
+        Me.GroupBox22.Size = New System.Drawing.Size(232, 253)
         Me.GroupBox22.TabIndex = 1
         Me.GroupBox22.TabStop = False
         Me.GroupBox22.Text = "Big Text Klock Settings"
@@ -1668,7 +1814,7 @@ Partial Class frmOptions
         'chckBxBgTxKlockSavePos
         '
         Me.chckBxBgTxKlockSavePos.AutoSize = True
-        Me.chckBxBgTxKlockSavePos.Location = New System.Drawing.Point(92, 165)
+        Me.chckBxBgTxKlockSavePos.Location = New System.Drawing.Point(51, 165)
         Me.chckBxBgTxKlockSavePos.Name = "chckBxBgTxKlockSavePos"
         Me.chckBxBgTxKlockSavePos.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chckBxBgTxKlockSavePos.Size = New System.Drawing.Size(163, 17)
@@ -1679,7 +1825,7 @@ Partial Class frmOptions
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(55, 129)
+        Me.Label31.Location = New System.Drawing.Point(14, 129)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(114, 13)
         Me.Label31.TabIndex = 13
@@ -1687,7 +1833,7 @@ Partial Class frmOptions
         '
         'btnResetBigKlock
         '
-        Me.btnResetBigKlock.Location = New System.Drawing.Point(180, 124)
+        Me.btnResetBigKlock.Location = New System.Drawing.Point(139, 124)
         Me.btnResetBigKlock.Name = "btnResetBigKlock"
         Me.btnResetBigKlock.Size = New System.Drawing.Size(75, 23)
         Me.btnResetBigKlock.TabIndex = 12
@@ -1697,7 +1843,7 @@ Partial Class frmOptions
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(55, 102)
+        Me.Label27.Location = New System.Drawing.Point(14, 102)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(91, 13)
         Me.Label27.TabIndex = 11
@@ -1706,7 +1852,7 @@ Partial Class frmOptions
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(55, 76)
+        Me.Label28.Location = New System.Drawing.Point(14, 76)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(103, 13)
         Me.Label28.TabIndex = 10
@@ -1715,7 +1861,7 @@ Partial Class frmOptions
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(55, 50)
+        Me.Label29.Location = New System.Drawing.Point(14, 50)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(97, 13)
         Me.Label29.TabIndex = 9
@@ -1723,7 +1869,7 @@ Partial Class frmOptions
         '
         'btnBgTxtKlckBckClr
         '
-        Me.btnBgTxtKlckBckClr.Location = New System.Drawing.Point(180, 69)
+        Me.btnBgTxtKlckBckClr.Location = New System.Drawing.Point(139, 69)
         Me.btnBgTxtKlckBckClr.Name = "btnBgTxtKlckBckClr"
         Me.btnBgTxtKlckBckClr.Size = New System.Drawing.Size(75, 23)
         Me.btnBgTxtKlckBckClr.TabIndex = 8
@@ -1732,7 +1878,7 @@ Partial Class frmOptions
         '
         'btnBgTxtKlckOffClr
         '
-        Me.btnBgTxtKlckOffClr.Location = New System.Drawing.Point(180, 95)
+        Me.btnBgTxtKlckOffClr.Location = New System.Drawing.Point(139, 95)
         Me.btnBgTxtKlckOffClr.Name = "btnBgTxtKlckOffClr"
         Me.btnBgTxtKlckOffClr.Size = New System.Drawing.Size(75, 23)
         Me.btnBgTxtKlckOffClr.TabIndex = 7
@@ -1741,7 +1887,7 @@ Partial Class frmOptions
         '
         'btnBgTxtKlckFrClr
         '
-        Me.btnBgTxtKlckFrClr.Location = New System.Drawing.Point(180, 43)
+        Me.btnBgTxtKlckFrClr.Location = New System.Drawing.Point(139, 43)
         Me.btnBgTxtKlckFrClr.Name = "btnBgTxtKlckFrClr"
         Me.btnBgTxtKlckFrClr.Size = New System.Drawing.Size(75, 23)
         Me.btnBgTxtKlckFrClr.TabIndex = 6
@@ -1761,7 +1907,7 @@ Partial Class frmOptions
         Me.GroupBox21.Controls.Add(Me.btnSmlTxtKlckFrClr)
         Me.GroupBox21.Location = New System.Drawing.Point(6, 6)
         Me.GroupBox21.Name = "GroupBox21"
-        Me.GroupBox21.Size = New System.Drawing.Size(361, 253)
+        Me.GroupBox21.Size = New System.Drawing.Size(232, 253)
         Me.GroupBox21.TabIndex = 0
         Me.GroupBox21.TabStop = False
         Me.GroupBox21.Text = "Small Text Klock Settings"
@@ -1769,7 +1915,7 @@ Partial Class frmOptions
         'chckBxSmlTxKlockSavePos
         '
         Me.chckBxSmlTxKlockSavePos.AutoSize = True
-        Me.chckBxSmlTxKlockSavePos.Location = New System.Drawing.Point(80, 165)
+        Me.chckBxSmlTxKlockSavePos.Location = New System.Drawing.Point(49, 165)
         Me.chckBxSmlTxKlockSavePos.Name = "chckBxSmlTxKlockSavePos"
         Me.chckBxSmlTxKlockSavePos.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.chckBxSmlTxKlockSavePos.Size = New System.Drawing.Size(163, 17)
@@ -1780,7 +1926,7 @@ Partial Class frmOptions
         'Label30
         '
         Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(43, 129)
+        Me.Label30.Location = New System.Drawing.Point(12, 129)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(114, 13)
         Me.Label30.TabIndex = 7
@@ -1788,7 +1934,7 @@ Partial Class frmOptions
         '
         'btnResetSmallKlock
         '
-        Me.btnResetSmallKlock.Location = New System.Drawing.Point(168, 124)
+        Me.btnResetSmallKlock.Location = New System.Drawing.Point(137, 124)
         Me.btnResetSmallKlock.Name = "btnResetSmallKlock"
         Me.btnResetSmallKlock.Size = New System.Drawing.Size(75, 23)
         Me.btnResetSmallKlock.TabIndex = 6
@@ -1798,7 +1944,7 @@ Partial Class frmOptions
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(43, 102)
+        Me.Label26.Location = New System.Drawing.Point(12, 102)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(91, 13)
         Me.Label26.TabIndex = 5
@@ -1807,7 +1953,7 @@ Partial Class frmOptions
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(43, 76)
+        Me.Label25.Location = New System.Drawing.Point(12, 76)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(103, 13)
         Me.Label25.TabIndex = 4
@@ -1816,7 +1962,7 @@ Partial Class frmOptions
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(43, 50)
+        Me.Label24.Location = New System.Drawing.Point(12, 50)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(97, 13)
         Me.Label24.TabIndex = 3
@@ -1824,7 +1970,7 @@ Partial Class frmOptions
         '
         'btnSmlTxtKlckBckClr
         '
-        Me.btnSmlTxtKlckBckClr.Location = New System.Drawing.Point(168, 69)
+        Me.btnSmlTxtKlckBckClr.Location = New System.Drawing.Point(137, 69)
         Me.btnSmlTxtKlckBckClr.Name = "btnSmlTxtKlckBckClr"
         Me.btnSmlTxtKlckBckClr.Size = New System.Drawing.Size(75, 23)
         Me.btnSmlTxtKlckBckClr.TabIndex = 2
@@ -1833,7 +1979,7 @@ Partial Class frmOptions
         '
         'btnSmlTxtKlckOffClr
         '
-        Me.btnSmlTxtKlckOffClr.Location = New System.Drawing.Point(168, 95)
+        Me.btnSmlTxtKlckOffClr.Location = New System.Drawing.Point(137, 95)
         Me.btnSmlTxtKlckOffClr.Name = "btnSmlTxtKlckOffClr"
         Me.btnSmlTxtKlckOffClr.Size = New System.Drawing.Size(75, 23)
         Me.btnSmlTxtKlckOffClr.TabIndex = 1
@@ -1842,149 +1988,161 @@ Partial Class frmOptions
         '
         'btnSmlTxtKlckFrClr
         '
-        Me.btnSmlTxtKlckFrClr.Location = New System.Drawing.Point(168, 43)
+        Me.btnSmlTxtKlckFrClr.Location = New System.Drawing.Point(137, 43)
         Me.btnSmlTxtKlckFrClr.Name = "btnSmlTxtKlckFrClr"
         Me.btnSmlTxtKlckFrClr.Size = New System.Drawing.Size(75, 23)
         Me.btnSmlTxtKlckFrClr.TabIndex = 0
         Me.btnSmlTxtKlckFrClr.Text = "..."
         Me.btnSmlTxtKlckFrClr.UseVisualStyleBackColor = True
         '
-        'tbPgBinaryKlock
+        'tbPgStickyNotes
         '
-        Me.tbPgBinaryKlock.Controls.Add(Me.GroupBox29)
-        Me.tbPgBinaryKlock.Location = New System.Drawing.Point(4, 25)
-        Me.tbPgBinaryKlock.Name = "tbPgBinaryKlock"
-        Me.tbPgBinaryKlock.Size = New System.Drawing.Size(740, 265)
-        Me.tbPgBinaryKlock.TabIndex = 13
-        Me.tbPgBinaryKlock.Text = "Binary Klock"
-        Me.tbPgBinaryKlock.UseVisualStyleBackColor = True
+        Me.tbPgStickyNotes.Controls.Add(Me.GroupBox30)
+        Me.tbPgStickyNotes.Location = New System.Drawing.Point(4, 25)
+        Me.tbPgStickyNotes.Name = "tbPgStickyNotes"
+        Me.tbPgStickyNotes.Size = New System.Drawing.Size(740, 265)
+        Me.tbPgStickyNotes.TabIndex = 13
+        Me.tbPgStickyNotes.Text = "Sticky Notes"
+        Me.tbPgStickyNotes.UseVisualStyleBackColor = True
         '
-        'GroupBox29
+        'GroupBox30
         '
-        Me.GroupBox29.Controls.Add(Me.RdBtnBinary)
-        Me.GroupBox29.Controls.Add(Me.RdBtnBCD)
-        Me.GroupBox29.Controls.Add(Me.chckBxBnryKlockSavePos)
-        Me.GroupBox29.Controls.Add(Me.Label33)
-        Me.GroupBox29.Controls.Add(Me.btnResetBnryKlock)
-        Me.GroupBox29.Controls.Add(Me.Label34)
-        Me.GroupBox29.Controls.Add(Me.Label35)
-        Me.GroupBox29.Controls.Add(Me.Label36)
-        Me.GroupBox29.Controls.Add(Me.btnBnryKlckBckClr)
-        Me.GroupBox29.Controls.Add(Me.btnBnryKlckOffClr)
-        Me.GroupBox29.Controls.Add(Me.btnBnryKlckFrClr)
-        Me.GroupBox29.Location = New System.Drawing.Point(3, 6)
-        Me.GroupBox29.Name = "GroupBox29"
-        Me.GroupBox29.Size = New System.Drawing.Size(734, 253)
-        Me.GroupBox29.TabIndex = 2
-        Me.GroupBox29.TabStop = False
-        Me.GroupBox29.Text = "Binary Klock Settings"
+        Me.GroupBox30.Controls.Add(Me.Label37)
+        Me.GroupBox30.Controls.Add(Me.btnStckyNtFont)
+        Me.GroupBox30.Controls.Add(Me.NmrcUpDwnStkyNtMaxOpacity)
+        Me.GroupBox30.Controls.Add(Me.NmrcUpDwnStkyNtfadeOutStep)
+        Me.GroupBox30.Controls.Add(Me.NmrcUpDwnStkyNtMinOpacity)
+        Me.GroupBox30.Controls.Add(Me.lblStckyNtfadeOutStep)
+        Me.GroupBox30.Controls.Add(Me.lblStckyNtMinOpacity)
+        Me.GroupBox30.Controls.Add(Me.lblStckyNtMaxOpacity)
+        Me.GroupBox30.Controls.Add(Me.ChckBxAllowStckyNtfadeOut)
+        Me.GroupBox30.Controls.Add(Me.Label39)
+        Me.GroupBox30.Controls.Add(Me.Label40)
+        Me.GroupBox30.Controls.Add(Me.btnStckyNtkBgClr)
+        Me.GroupBox30.Controls.Add(Me.btnStckyNtkFrClr)
+        Me.GroupBox30.Location = New System.Drawing.Point(3, 3)
+        Me.GroupBox30.Name = "GroupBox30"
+        Me.GroupBox30.Size = New System.Drawing.Size(734, 259)
+        Me.GroupBox30.TabIndex = 0
+        Me.GroupBox30.TabStop = False
+        Me.GroupBox30.Text = "Sticky Notes"
         '
-        'RdBtnBinary
+        'Label37
         '
-        Me.RdBtnBinary.AutoSize = True
-        Me.RdBtnBinary.Location = New System.Drawing.Point(156, 211)
-        Me.RdBtnBinary.Name = "RdBtnBinary"
-        Me.RdBtnBinary.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.RdBtnBinary.Size = New System.Drawing.Size(109, 17)
-        Me.RdBtnBinary.TabIndex = 16
-        Me.RdBtnBinary.TabStop = True
-        Me.RdBtnBinary.Text = "True Binary Klock"
-        Me.RdBtnBinary.UseVisualStyleBackColor = True
+        Me.Label37.AutoSize = True
+        Me.Label37.Location = New System.Drawing.Point(22, 95)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(86, 13)
+        Me.Label37.TabIndex = 23
+        Me.Label37.Text = "Sticky Note Font"
         '
-        'RdBtnBCD
+        'btnStckyNtFont
         '
-        Me.RdBtnBCD.AutoSize = True
-        Me.RdBtnBCD.Location = New System.Drawing.Point(188, 188)
-        Me.RdBtnBCD.Name = "RdBtnBCD"
-        Me.RdBtnBCD.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.RdBtnBCD.Size = New System.Drawing.Size(77, 17)
-        Me.RdBtnBCD.TabIndex = 15
-        Me.RdBtnBCD.TabStop = True
-        Me.RdBtnBCD.Text = "BCD Klock"
-        Me.RdBtnBCD.UseVisualStyleBackColor = True
+        Me.btnStckyNtFont.Location = New System.Drawing.Point(134, 88)
+        Me.btnStckyNtFont.Name = "btnStckyNtFont"
+        Me.btnStckyNtFont.Size = New System.Drawing.Size(75, 23)
+        Me.btnStckyNtFont.TabIndex = 24
+        Me.btnStckyNtFont.Text = "..."
+        Me.btnStckyNtFont.UseVisualStyleBackColor = True
         '
-        'chckBxBnryKlockSavePos
+        'NmrcUpDwnStkyNtMaxOpacity
         '
-        Me.chckBxBnryKlockSavePos.AutoSize = True
-        Me.chckBxBnryKlockSavePos.Location = New System.Drawing.Point(102, 149)
-        Me.chckBxBnryKlockSavePos.Name = "chckBxBnryKlockSavePos"
-        Me.chckBxBnryKlockSavePos.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.chckBxBnryKlockSavePos.Size = New System.Drawing.Size(163, 17)
-        Me.chckBxBnryKlockSavePos.TabIndex = 14
-        Me.chckBxBnryKlockSavePos.Text = "Save Screen Position on Exit"
-        Me.chckBxBnryKlockSavePos.UseVisualStyleBackColor = True
+        Me.NmrcUpDwnStkyNtMaxOpacity.Location = New System.Drawing.Point(436, 76)
+        Me.NmrcUpDwnStkyNtMaxOpacity.Name = "NmrcUpDwnStkyNtMaxOpacity"
+        Me.NmrcUpDwnStkyNtMaxOpacity.Size = New System.Drawing.Size(50, 20)
+        Me.NmrcUpDwnStkyNtMaxOpacity.TabIndex = 22
+        Me.NmrcUpDwnStkyNtMaxOpacity.Value = New Decimal(New Integer() {80, 0, 0, 0})
         '
-        'Label33
+        'NmrcUpDwnStkyNtfadeOutStep
         '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(65, 113)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(114, 13)
-        Me.Label33.TabIndex = 13
-        Me.Label33.Text = "Reset colour to default"
+        Me.NmrcUpDwnStkyNtfadeOutStep.Location = New System.Drawing.Point(436, 145)
+        Me.NmrcUpDwnStkyNtfadeOutStep.Maximum = New Decimal(New Integer() {20, 0, 0, 0})
+        Me.NmrcUpDwnStkyNtfadeOutStep.Name = "NmrcUpDwnStkyNtfadeOutStep"
+        Me.NmrcUpDwnStkyNtfadeOutStep.Size = New System.Drawing.Size(50, 20)
+        Me.NmrcUpDwnStkyNtfadeOutStep.TabIndex = 21
+        Me.NmrcUpDwnStkyNtfadeOutStep.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
-        'btnResetBnryKlock
+        'NmrcUpDwnStkyNtMinOpacity
         '
-        Me.btnResetBnryKlock.Location = New System.Drawing.Point(190, 108)
-        Me.btnResetBnryKlock.Name = "btnResetBnryKlock"
-        Me.btnResetBnryKlock.Size = New System.Drawing.Size(75, 23)
-        Me.btnResetBnryKlock.TabIndex = 12
-        Me.btnResetBnryKlock.Text = "Reset"
-        Me.btnResetBnryKlock.UseVisualStyleBackColor = True
+        Me.NmrcUpDwnStkyNtMinOpacity.Location = New System.Drawing.Point(436, 112)
+        Me.NmrcUpDwnStkyNtMinOpacity.Name = "NmrcUpDwnStkyNtMinOpacity"
+        Me.NmrcUpDwnStkyNtMinOpacity.Size = New System.Drawing.Size(50, 20)
+        Me.NmrcUpDwnStkyNtMinOpacity.TabIndex = 20
+        Me.NmrcUpDwnStkyNtMinOpacity.Value = New Decimal(New Integer() {20, 0, 0, 0})
         '
-        'Label34
+        'lblStckyNtfadeOutStep
         '
-        Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(65, 86)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(91, 13)
-        Me.Label34.TabIndex = 11
-        Me.Label34.Text = "Change off colour"
+        Me.lblStckyNtfadeOutStep.AutoSize = True
+        Me.lblStckyNtfadeOutStep.Location = New System.Drawing.Point(341, 147)
+        Me.lblStckyNtfadeOutStep.Name = "lblStckyNtfadeOutStep"
+        Me.lblStckyNtfadeOutStep.Size = New System.Drawing.Size(76, 13)
+        Me.lblStckyNtfadeOutStep.TabIndex = 18
+        Me.lblStckyNtfadeOutStep.Text = "Fade Out Step"
         '
-        'Label35
+        'lblStckyNtMinOpacity
         '
-        Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(65, 60)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(103, 13)
-        Me.Label35.TabIndex = 10
-        Me.Label35.Text = "Change back colour"
+        Me.lblStckyNtMinOpacity.AutoSize = True
+        Me.lblStckyNtMinOpacity.Location = New System.Drawing.Point(330, 114)
+        Me.lblStckyNtMinOpacity.Name = "lblStckyNtMinOpacity"
+        Me.lblStckyNtMinOpacity.Size = New System.Drawing.Size(87, 13)
+        Me.lblStckyNtMinOpacity.TabIndex = 17
+        Me.lblStckyNtMinOpacity.Text = "Minimum Opacity"
         '
-        'Label36
+        'lblStckyNtMaxOpacity
         '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(65, 34)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(97, 13)
-        Me.Label36.TabIndex = 9
-        Me.Label36.Text = "Change fore colour"
+        Me.lblStckyNtMaxOpacity.AutoSize = True
+        Me.lblStckyNtMaxOpacity.Location = New System.Drawing.Point(327, 78)
+        Me.lblStckyNtMaxOpacity.Name = "lblStckyNtMaxOpacity"
+        Me.lblStckyNtMaxOpacity.Size = New System.Drawing.Size(90, 13)
+        Me.lblStckyNtMaxOpacity.TabIndex = 16
+        Me.lblStckyNtMaxOpacity.Text = "Maximum Opacity"
         '
-        'btnBnryKlckBckClr
+        'ChckBxAllowStckyNtfadeOut
         '
-        Me.btnBnryKlckBckClr.Location = New System.Drawing.Point(190, 53)
-        Me.btnBnryKlckBckClr.Name = "btnBnryKlckBckClr"
-        Me.btnBnryKlckBckClr.Size = New System.Drawing.Size(75, 23)
-        Me.btnBnryKlckBckClr.TabIndex = 8
-        Me.btnBnryKlckBckClr.Text = "..."
-        Me.btnBnryKlckBckClr.UseVisualStyleBackColor = True
+        Me.ChckBxAllowStckyNtfadeOut.AutoSize = True
+        Me.ChckBxAllowStckyNtfadeOut.Location = New System.Drawing.Point(330, 37)
+        Me.ChckBxAllowStckyNtfadeOut.Name = "ChckBxAllowStckyNtfadeOut"
+        Me.ChckBxAllowStckyNtfadeOut.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ChckBxAllowStckyNtfadeOut.Size = New System.Drawing.Size(153, 17)
+        Me.ChckBxAllowStckyNtfadeOut.TabIndex = 15
+        Me.ChckBxAllowStckyNtfadeOut.Text = "Allow Sticky Note fade Out"
+        Me.ChckBxAllowStckyNtfadeOut.UseVisualStyleBackColor = True
         '
-        'btnBnryKlckOffClr
+        'Label39
         '
-        Me.btnBnryKlckOffClr.Location = New System.Drawing.Point(190, 79)
-        Me.btnBnryKlckOffClr.Name = "btnBnryKlckOffClr"
-        Me.btnBnryKlckOffClr.Size = New System.Drawing.Size(75, 23)
-        Me.btnBnryKlckOffClr.TabIndex = 7
-        Me.btnBnryKlckOffClr.Text = "..."
-        Me.btnBnryKlckOffClr.UseVisualStyleBackColor = True
+        Me.Label39.AutoSize = True
+        Me.Label39.Location = New System.Drawing.Point(9, 66)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(103, 13)
+        Me.Label39.TabIndex = 14
+        Me.Label39.Text = "Change back colour"
         '
-        'btnBnryKlckFrClr
+        'Label40
         '
-        Me.btnBnryKlckFrClr.Location = New System.Drawing.Point(190, 27)
-        Me.btnBnryKlckFrClr.Name = "btnBnryKlckFrClr"
-        Me.btnBnryKlckFrClr.Size = New System.Drawing.Size(75, 23)
-        Me.btnBnryKlckFrClr.TabIndex = 6
-        Me.btnBnryKlckFrClr.Text = "..."
-        Me.btnBnryKlckFrClr.UseVisualStyleBackColor = True
+        Me.Label40.AutoSize = True
+        Me.Label40.Location = New System.Drawing.Point(9, 40)
+        Me.Label40.Name = "Label40"
+        Me.Label40.Size = New System.Drawing.Size(97, 13)
+        Me.Label40.TabIndex = 13
+        Me.Label40.Text = "Change fore colour"
+        '
+        'btnStckyNtkBgClr
+        '
+        Me.btnStckyNtkBgClr.Location = New System.Drawing.Point(134, 59)
+        Me.btnStckyNtkBgClr.Name = "btnStckyNtkBgClr"
+        Me.btnStckyNtkBgClr.Size = New System.Drawing.Size(75, 23)
+        Me.btnStckyNtkBgClr.TabIndex = 12
+        Me.btnStckyNtkBgClr.Text = "..."
+        Me.btnStckyNtkBgClr.UseVisualStyleBackColor = True
+        '
+        'btnStckyNtkFrClr
+        '
+        Me.btnStckyNtkFrClr.Location = New System.Drawing.Point(134, 33)
+        Me.btnStckyNtkFrClr.Name = "btnStckyNtkFrClr"
+        Me.btnStckyNtkFrClr.Size = New System.Drawing.Size(75, 23)
+        Me.btnStckyNtkFrClr.TabIndex = 11
+        Me.btnStckyNtkFrClr.Text = "..."
+        Me.btnStckyNtkFrClr.UseVisualStyleBackColor = True
         '
         'tbPgArchive
         '
@@ -2338,7 +2496,7 @@ Partial Class frmOptions
         'lblEventsInterval
         '
         Me.lblEventsInterval.AutoSize = True
-        Me.lblEventsInterval.Location = New System.Drawing.Point(98, 133)
+        Me.lblEventsInterval.Location = New System.Drawing.Point(68, 133)
         Me.lblEventsInterval.Name = "lblEventsInterval"
         Me.lblEventsInterval.Size = New System.Drawing.Size(122, 13)
         Me.lblEventsInterval.TabIndex = 7
@@ -2653,14 +2811,19 @@ Partial Class frmOptions
         CType(Me.pctrBxAnlgKlockPicture, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox23.ResumeLayout(False)
         Me.GroupBox23.PerformLayout()
-        Me.tbPgTextKlock.ResumeLayout(False)
+        Me.tbPgExtraKlock.ResumeLayout(False)
+        Me.GroupBox29.ResumeLayout(False)
+        Me.GroupBox29.PerformLayout()
         Me.GroupBox22.ResumeLayout(False)
         Me.GroupBox22.PerformLayout()
         Me.GroupBox21.ResumeLayout(False)
         Me.GroupBox21.PerformLayout()
-        Me.tbPgBinaryKlock.ResumeLayout(False)
-        Me.GroupBox29.ResumeLayout(False)
-        Me.GroupBox29.PerformLayout()
+        Me.tbPgStickyNotes.ResumeLayout(False)
+        Me.GroupBox30.ResumeLayout(False)
+        Me.GroupBox30.PerformLayout()
+        CType(Me.NmrcUpDwnStkyNtMaxOpacity, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NmrcUpDwnStkyNtfadeOutStep, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NmrcUpDwnStkyNtMinOpacity, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tbPgArchive.ResumeLayout(False)
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
@@ -2830,7 +2993,7 @@ Partial Class frmOptions
     Friend WithEvents chckBxDisableMonitorSleep As CheckBox
     Friend WithEvents GroupBox20 As GroupBox
     Friend WithEvents chckBxChckInternet As CheckBox
-    Friend WithEvents tbPgTextKlock As TabPage
+    Friend WithEvents tbPgExtraKlock As TabPage
     Friend WithEvents GroupBox22 As GroupBox
     Friend WithEvents GroupBox21 As GroupBox
     Friend WithEvents Label27 As Label
@@ -2895,7 +3058,7 @@ Partial Class frmOptions
     Friend WithEvents Label4 As Label
     Friend WithEvents lblLogFilePath As Label
     Friend WithEvents lstBxLogFiles As ListBox
-    Friend WithEvents tbPgBinaryKlock As TabPage
+    Friend WithEvents tbPgStickyNotes As TabPage
     Friend WithEvents GroupBox29 As GroupBox
     Friend WithEvents RdBtnBinary As RadioButton
     Friend WithEvents RdBtnBCD As RadioButton
@@ -2908,4 +3071,18 @@ Partial Class frmOptions
     Friend WithEvents btnBnryKlckBckClr As Button
     Friend WithEvents btnBnryKlckOffClr As Button
     Friend WithEvents btnBnryKlckFrClr As Button
+    Friend WithEvents GroupBox30 As GroupBox
+    Friend WithEvents Label39 As Label
+    Friend WithEvents Label40 As Label
+    Friend WithEvents btnStckyNtkBgClr As Button
+    Friend WithEvents btnStckyNtkFrClr As Button
+    Friend WithEvents ChckBxAllowStckyNtfadeOut As CheckBox
+    Friend WithEvents NmrcUpDwnStkyNtMaxOpacity As NumericUpDown
+    Friend WithEvents NmrcUpDwnStkyNtfadeOutStep As NumericUpDown
+    Friend WithEvents NmrcUpDwnStkyNtMinOpacity As NumericUpDown
+    Friend WithEvents lblStckyNtfadeOutStep As Label
+    Friend WithEvents lblStckyNtMinOpacity As Label
+    Friend WithEvents lblStckyNtMaxOpacity As Label
+    Friend WithEvents Label37 As Label
+    Friend WithEvents btnStckyNtFont As Button
 End Class

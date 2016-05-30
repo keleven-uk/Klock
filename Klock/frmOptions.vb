@@ -49,19 +49,21 @@ Public Class frmOptions
                 showArchiveButtons(False)
             Case 2              '   Time options
                 showArchiveButtons(False)
-            Case 3              '   Text Klock Options
+            Case 3              '   other Stuff
                 showArchiveButtons(False)
-            Case 4              '   Text Klock Options
+            Case 4              '   Analogue Klock options
                 showArchiveButtons(False)
-            Case 5              '   Other Stuff options
+            Case 5              '   Extra Klocks options
                 showArchiveButtons(False)
-            Case 6              '   Archive options
+            Case 6              '   Sticky Notes options
+                showArchiveButtons(False)
+            Case 7              '   Archive options
                 showArchiveButtons(True)
-            Case 7              '   Events options
+            Case 8              '   Event options
                 showArchiveButtons(False)
-            Case 8              '   Memo options
+            Case 9              '   memo options
                 showArchiveButtons(False)
-            Case 9              '   Logging options
+            Case 10              '   Logging options
                 showArchiveButtons(False)
                 poolForLogs()
         End Select
@@ -133,6 +135,17 @@ Public Class frmOptions
         chckBxTimeTimeOne12.Checked = Not frmKlock.usrSettings.usrTimeOne24Hour
         chckBxTimeTimeTwo24.Checked = frmKlock.usrSettings.usrTimeTwo24Hour
         chckBxTimeTimeTwo12.Checked = Not frmKlock.usrSettings.usrTimeTwo24Hour
+
+        '-------------------------------------------------------------------------------------------------------- Sticky Notes ------------
+
+        btnStckyNtkBgClr.BackColor = frmKlock.usrSettings.usrStickyNoteBackColour
+        btnStckyNtkFrClr.BackColor = frmKlock.usrSettings.usrStickyNoteForeColour
+
+        ChckBxAllowStckyNtfadeOut.Checked = frmKlock.usrSettings.usrStickyNoteAllowFadeOut
+
+        NmrcUpDwnStkyNtMaxOpacity.Value = frmKlock.usrSettings.usrStickyNoteMaxOpacity
+        NmrcUpDwnStkyNtMinOpacity.Value = frmKlock.usrSettings.usrStickyNoteMinOpacity
+        NmrcUpDwnStkyNtfadeOutStep.Value = frmKlock.usrSettings.usrStickyNoteStpOpacity
 
         '-------------------------------------------------------------------------------------------------------- Text Klock --------------
 
@@ -289,6 +302,17 @@ Public Class frmOptions
         frmKlock.usrSettings.usrTimeSystem24Hour = chckBxTimeSystem24.Checked
         frmKlock.usrSettings.usrTimeOne24Hour = chckBxTimeTimeOne24.Checked
         frmKlock.usrSettings.usrTimeTwo24Hour = chckBxTimeTimeTwo24.Checked
+
+        '-------------------------------------------------------------------------------------------------------- Sticky Notes ------------
+
+        frmKlock.usrSettings.usrStickyNoteBackColour = btnStckyNtkBgClr.BackColor
+        frmKlock.usrSettings.usrStickyNoteForeColour = btnStckyNtkFrClr.BackColor
+
+        frmKlock.usrSettings.usrStickyNoteAllowFadeOut = ChckBxAllowStckyNtfadeOut.Checked
+
+        frmKlock.usrSettings.usrStickyNoteMaxOpacity = NmrcUpDwnStkyNtMaxOpacity.Value
+        frmKlock.usrSettings.usrStickyNoteMinOpacity = NmrcUpDwnStkyNtMinOpacity.Value
+        frmKlock.usrSettings.usrStickyNoteStpOpacity = NmrcUpDwnStkyNtfadeOutStep.Value
 
         '-------------------------------------------------------------------------------------------------------- Text Klock  Settings -------
 
@@ -562,10 +586,53 @@ Public Class frmOptions
             chckBxAnlgKlockTime.Checked = True
         End If
     End Sub
+    '
+    '-----------------------------------------------------------Sticky Notes---------------------------------------------------------------
+    '
+    Private Sub btnStckyNtkFrClr_Click(sender As Object, e As EventArgs) Handles btnStckyNtkFrClr.Click
+        '   Sets the Fore colour for the Sticky Note.
 
+        clrDlgFormColour.Color = frmKlock.usrSettings.usrStickyNoteForeColour
+        If clrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrStickyNoteForeColour = clrDlgFormColour.Color
+            setSettings()
+        End If
+    End Sub
 
+    Private Sub btnStckyNtkBgClr_Click(sender As Object, e As EventArgs) Handles btnStckyNtkBgClr.Click
+        '   Sets the Back colour for the Sticky Note.
+
+        clrDlgFormColour.Color = frmKlock.usrSettings.usrStickyNoteBackColour
+        If clrDlgFormColour.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrStickyNoteBackColour = clrDlgFormColour.Color
+            setSettings()
+        End If
+    End Sub
+
+    Private Sub btnStckyNtFont_Click(sender As Object, e As EventArgs) Handles btnStckyNtFont.Click
+        '   Set the Sticky Note main font.
+        '   the font colour has to be handled separately.
+
+        fntDlgFont.Font = frmKlock.usrSettings.usrStickyNoteFont                   '   current Sticky Note font
+        fntDlgFont.Color = frmKlock.usrSettings.usrStickyNoteFontColour            '   current Sticky Note font colour
+
+        If fntDlgFont.ShowDialog() = DialogResult.OK Then
+            frmKlock.usrSettings.usrStickyNoteFont = fntDlgFont.Font
+            frmKlock.usrSettings.usrStickyNoteFontColour = fntDlgFont.Color
+        End If
+    End Sub
+
+    Private Sub ChckBxAllowStckyNtfadeOut_CheckedChanged(sender As Object, e As EventArgs) Handles ChckBxAllowStckyNtfadeOut.CheckedChanged
+
+        lblStckyNtMinOpacity.Enabled = ChckBxAllowStckyNtfadeOut.Checked
+        lblStckyNtfadeOutStep.Enabled = ChckBxAllowStckyNtfadeOut.Checked
+        NmrcUpDwnStkyNtMinOpacity.Enabled = ChckBxAllowStckyNtfadeOut.Checked
+        NmrcUpDwnStkyNtfadeOutStep.Enabled = ChckBxAllowStckyNtfadeOut.Checked
+    End Sub
+
+    '
     '-----------------------------------------------------------Text Klock---------------------------------------------------------------
-
+    '
     Private Sub btnSmlTxtKlckFrClr_Click(sender As Object, e As EventArgs) Handles btnSmlTxtKlckFrClr.Click
         '   Sets the Fore colour for the small text klock
 
@@ -648,7 +715,7 @@ Public Class frmOptions
 
     '-----------------------------------------------------------Binary Klock-----------------------------------------------------------------
 
-    Private Sub btnBnryKlckFrClr_Click(sender As Object, e As EventArgs) Handles btnBnryKlckFrClr.Click
+    Private Sub btnBnryKlckFrClr_Click(sender As Object, e As EventArgs)
         '   Sets the Fore colour for the Binary klock
 
         clrDlgFormColour.Color = frmKlock.usrSettings.usrBinaryKlockForeColour
@@ -658,7 +725,7 @@ Public Class frmOptions
         End If
     End Sub
 
-    Private Sub btnBnryKlckBckClr_Click(sender As Object, e As EventArgs) Handles btnBnryKlckBckClr.Click
+    Private Sub btnBnryKlckBckClr_Click(sender As Object, e As EventArgs)
         '   Sets the Back colour for the Binary klock
 
         clrDlgFormColour.Color = frmKlock.usrSettings.usrBinaryKlockBackColour
@@ -668,7 +735,7 @@ Public Class frmOptions
         End If
     End Sub
 
-    Private Sub btnBnryKlckOffClr_Click(sender As Object, e As EventArgs) Handles btnBnryKlckOffClr.Click
+    Private Sub btnBnryKlckOffClr_Click(sender As Object, e As EventArgs)
         '   Sets the Off colour for the Binary klock
 
         clrDlgFormColour.Color = frmKlock.usrSettings.usrBinaryKlockOffColour
@@ -678,7 +745,7 @@ Public Class frmOptions
         End If
     End Sub
 
-    Private Sub btnResetBnryKlock_Click(sender As Object, e As EventArgs) Handles btnResetBnryKlock.Click
+    Private Sub btnResetBnryKlock_Click(sender As Object, e As EventArgs)
         '   reset colours for Binary klock.
 
         frmKlock.usrSettings.usrBinaryKlockBackColour = Color.Black
@@ -1138,10 +1205,11 @@ Public Class frmOptions
 
     Private Sub btnArchiveSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchiveSave.Click
         '   Saves the friends, events, memo & settings files to Archive [zip].
+        '   Will also save sticky notes  and log files.
         '   If the achieve already exists, it will only be overwritten on user prompt.
 
         Dim zippath As String = Path.Combine(txtBxArchiveDirectory.Text, txtBxArchiveFile.Text)       '   path of destination zip file.
-        Dim zipdir As String = frmKlock.usrSettings.usrOptionsSavePath                                          '   path of source directory.
+        Dim zipdir As String = frmKlock.usrSettings.usrOptionsSavePath                                '   path of source directory.
         Dim ziperror As Boolean = True
 
         If Not fileExists(zippath) Then         '   archive already exists and not to overwrite.
@@ -1167,7 +1235,8 @@ Public Class frmOptions
     End Sub
 
     Private Sub btnArchiveLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchiveLoad.Click
-        '   Load the friends file from Archive.
+        '   Load the friends, events, memo & settings files from Archive.
+        '   Will also load sticky notes  and log files, if they where present during save.
         '   The file will only be overwritten, if it exists, on user prompt.
         '   If the path does not exist, it will be created.
 
@@ -1224,5 +1293,6 @@ Public Class frmOptions
         chckBxClipboardSavePos.Enabled = chckBxClipboardMonitor.Checked
         chckBxClipboardSaveCSV.Enabled = chckBxClipboardMonitor.Checked
     End Sub
+
 
 End Class

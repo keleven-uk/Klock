@@ -118,7 +118,7 @@
         Dim offColour As Color = frmKlock.usrSettings.usrBigKlockOffColour
 
         clearlabels(foreColour, backColour, offColour)
-        setTime(foreColour, backColour, offColour)
+        setTime(foreColour, offColour)
         updateStatusBar(foreColour, backColour)
     End Sub
 
@@ -154,7 +154,7 @@
         End If
     End Sub
 
-    Private Sub setTime(foreColour As Color, backColour As Color, offColour As Color)
+    Private Sub setTime(foreColour As Color, offColour As Color)
         '   Set the time to now().
         '   highlights appropriate labels to represent the time in words, in fact sets their colour to LightGreen.
 
