@@ -13,6 +13,8 @@ Public Class stickyNotes
     Dim StickyNotesStore As New Dictionary(Of Integer, stickyNote)      '   set up sticky note store.
     Dim StickyNotesFile As String = ""
 
+
+
     Public Sub New(f As String)
         MyBase.New()
 
@@ -30,22 +32,30 @@ Public Class stickyNotes
             StickyNotesStore(sn.noteID).noteTop = sn.noteTop
             StickyNotesStore(sn.noteID).noteLeft = sn.noteLeft
         Else
-            StickyNotesStore.Add(sn.noteID, sn)
+            Try
+                StickyNotesStore.Add(sn.noteID, sn)
+            Catch ex As Exception
+                If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("stickyNotes.Add", ex)
+            End Try
         End If
 
-        save()
+        Save()
     End Sub
 
-    Public Sub delete(sn As stickyNote)
+    Public Sub Delete(sn As stickyNote)
         '   Delete a sticky note from the store and then save the store.
         '   DOES NOT ASK.
 
-        StickyNotesStore.Remove(sn.noteID)
+        Try
+            StickyNotesStore.Remove(sn.noteID)
+        Catch ex As Exception
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("stickyNotes.Delete", ex)
+        End Try
 
-        save()
+        Save()
     End Sub
 
-    Public Sub save()
+    Public Sub Save()
         '   Save the store to a location specified when the store was created.
 
         Dim saveFile As FileStream = File.Create(StickyNotesFile)
@@ -65,7 +75,7 @@ Public Class stickyNotes
         Formatter = Nothing
     End Sub
 
-    Public Sub load()
+    Public Sub Load()
         '   Load the store to a location specified when the store was created.
         '   Then creates a new sticky note on screen for each item in the store.
 

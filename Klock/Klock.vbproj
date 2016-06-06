@@ -190,6 +190,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Memo.vb" />
+    <Compile Include="OptionThings.vb" />
     <Compile Include="Person.vb" />
     <Compile Include="frmNotification.designer.vb">
       <DependentUpon>frmNotification.vb</DependentUpon>

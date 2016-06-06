@@ -32,7 +32,7 @@
             myStickyNote.noteWidth = sn.noteWidth
             myStickyNote.noteTop = sn.noteTop
             myStickyNote.noteLeft = sn.noteLeft
-
+            If frmKlock.usrSettings.usrStickyNoteAllowFadeOut Then TmrStickyNote.Enabled = True
             frmKlock.myStickyNotes.Add(myStickyNote)
         Else                                            '   New blank sticky note.
             myStickyNote.noteID = Handle
@@ -51,7 +51,7 @@
     Private Sub frmStickyNote_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         '   The sticky note has been closed by user, remove from store.
 
-        frmKlock.myStickyNotes.delete(myStickyNote)
+        frmKlock.myStickyNotes.Delete(myStickyNote)
     End Sub
 
     Private Sub frmStickyNote_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -69,21 +69,21 @@
     '
     ' -------------------------------------------------------------------------------- procedures used to make form drag-able -----------------
     '
-    Private Sub frmStickyNote_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, RchTxtBxNote.MouseDown
+    Private Sub frmStickyNote_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, RchTxtBxNote.MouseDown, lblHeader.MouseDown
 
         drag = True
         mousex = Windows.Forms.Cursor.Position.X - Me.Left
         mousey = Windows.Forms.Cursor.Position.Y - Me.Top
     End Sub
 
-    Private Sub frmStickyNote_MouseEnter(sender As Object, e As EventArgs) Handles RchTxtBxNote.MouseEnter, MyBase.MouseEnter
+    Private Sub frmStickyNote_MouseEnter(sender As Object, e As EventArgs) Handles RchTxtBxNote.MouseEnter, MyBase.MouseEnter, lblHeader.MouseEnter
         '   Restore the sticky note if the mouse come back.
 
         TmrStickyNote.Enabled = False
         Opacity = MaxOpacity
     End Sub
 
-    Private Sub frmStickyNote_MouseLeave(sender As Object, e As EventArgs) Handles RchTxtBxNote.MouseLeave, MyBase.MouseLeave
+    Private Sub frmStickyNote_MouseLeave(sender As Object, e As EventArgs) Handles RchTxtBxNote.MouseLeave, MyBase.MouseLeave, lblHeader.MouseLeave
         '   Start fade out if the mouse leaves the stick note.
 
         '   When starts fading, save sticky note.
@@ -92,7 +92,7 @@
         If frmKlock.usrSettings.usrStickyNoteAllowFadeOut Then TmrStickyNote.Enabled = True
     End Sub
 
-    Private Sub frmStickyNote_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, RchTxtBxNote.MouseMove
+    Private Sub frmStickyNote_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, RchTxtBxNote.MouseMove, lblHeader.MouseMove
 
         If drag Then
             Me.Top = Windows.Forms.Cursor.Position.Y - mousey
@@ -100,7 +100,7 @@
         End If
     End Sub
 
-    Private Sub frmStickyNote_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, RchTxtBxNote.MouseUp
+    Private Sub frmStickyNote_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, RchTxtBxNote.MouseUp, lblHeader.MouseUp
 
         drag = False
     End Sub

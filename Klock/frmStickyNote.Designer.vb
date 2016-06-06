@@ -113,7 +113,7 @@ Partial Class frmStickyNote
         Me.Controls.Add(Me.lblHeader)
         Me.Controls.Add(Me.RchTxtBxNote)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
-        Me.MinimumSize = New System.Drawing.Size(110, 100)
+        Me.MinimumSize = New System.Drawing.Size(165, 160)
         Me.Name = "frmStickyNote"
         Me.Opacity = 0.8R
         Me.ShowIcon = False

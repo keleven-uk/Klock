@@ -55,7 +55,6 @@ Public Class UserSettings
     Private _usrTimeHourChimes As Boolean = False
     Private _usrTimeHalfChimes As Boolean = False
     Private _usrTimeQuarterChimes As Boolean = False
-    Private _usrTimeThreeQuartersChimes As Boolean = False
     Private _usrTimeDisplayMinimised As Boolean = False             '   Notification to tell time if klock in system tray
     Private _usrTimeDisplayMinutes As Integer = 15                  '   held in minutes
     Private _usrTimeVoiceMinimised As Boolean = False               '   Voice to tell time if klock in system tray
@@ -427,15 +426,6 @@ Public Class UserSettings
         End Get
         Set(ByVal value As Boolean)
             _usrTimeQuarterChimes = value
-        End Set
-    End Property
-
-    Public Property usrTimeThreeQuartersChimes() As Boolean
-        Get
-            Return _usrTimeThreeQuartersChimes
-        End Get
-        Set(ByVal value As Boolean)
-            _usrTimeThreeQuartersChimes = value
         End Set
     End Property
 
@@ -1329,6 +1319,7 @@ Public Class UserSettings
                                   <StartKlockMode><%= usrStartKlockMode %></StartKlockMode>
                                   <SoundVolume><%= usrSoundVolume() %></SoundVolume>
                                   <OptionsSavePath><%= usrOptionsSavePath() %></OptionsSavePath>
+                                  <OptionsSaveFile><%= usrOptionsSaveFile() %></OptionsSaveFile>
                               </Global>
                               <Time>
                                   <TimeDefaultFormat><%= usrTimeDefaultFormat() %></TimeDefaultFormat>
@@ -1518,6 +1509,7 @@ Public Class UserSettings
                                   <ClipboardMonitorSaveCSV><%= usrClipboardMonitorSaveCSV() %></ClipboardMonitorSaveCSV>
                                   <ClipboardMonitorTop><%= usrClipboardMonitorTop() %></ClipboardMonitorTop>
                                   <ClipboardMonitorLeft><%= usrClipboardMonitorLeft() %></ClipboardMonitorLeft>
+                                  <ClipboardSavePath><%= usrClipboardSavePath() %></ClipboardSavePath>
                               </Clipboard>
                               <Friends>
                                   <FriendsFileName><%= usrFriendsFile() %></FriendsFileName>
@@ -1608,6 +1600,7 @@ Public Class UserSettings
                                   <StartKlockMode>0</StartKlockMode>
                                   <SoundVolume>100</SoundVolume>
                                   <OptionsSavePath><%= usrOptionsSavePath() %></OptionsSavePath>
+                                  <OptionsSaveFile><%= usrOptionsSaveFile() %></OptionsSaveFile>
                               </Global>
                               <Time>
                                   <TimeDefaultFormat>0</TimeDefaultFormat>
@@ -1797,6 +1790,7 @@ Public Class UserSettings
                                   <ClipboardMonitorSaveCSV>True</ClipboardMonitorSaveCSV>
                                   <ClipboardMonitorTop>100</ClipboardMonitorTop>
                                   <ClipboardMonitorLeft>100</ClipboardMonitorLeft>
+                                  <ClipboardSavePath><%= usrClipboardSavePath() %></ClipboardSavePath>
                               </Clipboard>
                               <Friends>
                                   <FriendsDirectory><%= usrOptionsSavePath() %></FriendsDirectory>
@@ -2249,9 +2243,8 @@ Public Class UserSettings
         Try
             r = g.Element(s).Value
         Catch ex As Exception
-            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("UserSettings.readElement", ex)
-            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.logMessage("UserSettings.readElement()", "ERROR :: " & g.ToString & " :: " & s & " :::")
-            frmKlock.displayAction.DisplayReminder(ex.Message, "G", "ERROR :: " & g.ToString & " :: " & s & " :::")
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.logMessage("UserSettings.readElement()", String.Format("Setting Default for {0} to {1}", s, d))
+            frmKlock.displayAction.DisplayReminder(String.Format("Setting Default for {0} to {1}", s, d), "G", ex.Message)
             r = d
         End Try
 
@@ -2272,24 +2265,5 @@ Public Class UserSettings
         End If
     End Sub
 
-    Private Sub checkVersion()
-        '   checks version of settings file, if different from app - then write default settings file.
-
-        Dim version As String
-
-        Try
-            Dim elem As XElement = XElement.Load(System.IO.Path.Combine(usrOptionsSavePath(), usrOptionsSaveFile()))
-
-            Version = elem.Attribute("Version").Value.ToString
-
-            '   If version has changed, some settings might need to be added [will have been set to default].
-            If version <> My.Application.Info.Version.ToString() Then
-                writeDefaultSettings()
-            End If
-        Catch ex As Exception
-            MessageBox.Show("Error reading version!  " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-
-    End Sub
 End Class
 

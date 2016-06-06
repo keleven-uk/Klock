@@ -2919,7 +2919,6 @@ Partial Class frmOptions
     Friend WithEvents chckBxCountdownAdd As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox12 As System.Windows.Forms.GroupBox
     Friend WithEvents chckBxWorldKlockAdd As System.Windows.Forms.CheckBox
-    Private WithEvents chckBxOptionsVoice As System.Windows.Forms.CheckBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents upDwnVoiceDisplay As System.Windows.Forms.NumericUpDown
     Friend WithEvents lblOptionSavepath As System.Windows.Forms.Label
@@ -3085,4 +3084,5 @@ Partial Class frmOptions
     Friend WithEvents lblStckyNtMaxOpacity As Label
     Friend WithEvents Label37 As Label
     Friend WithEvents btnStckyNtFont As Button
+    Friend WithEvents chckBxOptionsVoice As CheckBox
 End Class

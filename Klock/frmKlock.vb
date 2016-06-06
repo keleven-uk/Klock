@@ -1783,7 +1783,7 @@ Public Class frmKlock
 
         FEMcommon.ButtonsVisible(False, 0, 0, 0)
 
-        If Not myStickyNotes.isEmpty() Then myStickyNotes.load()
+        If Not myStickyNotes.isEmpty() Then myStickyNotes.Load()
 
         TmrMain.Enabled = True                          '   Turn on main timer now things are sorted out.
     End Sub
@@ -1810,7 +1810,7 @@ Public Class frmKlock
                 Case 4
                     BinaryKlockToolStripMenuItem.PerformClick()
                 Case Else
-
+                    If usrSettings.usrLogging Then errLogger.logMessage("frmKlock_frmKlock_Shown", "usrSettings.usrRememberKlockMode outside range")
             End Select
         End If
     End Sub
@@ -1951,8 +1951,10 @@ Public Class frmKlock
         End If
 
         If usrSettings.usrDisableMonitorSleep Then
+            If usrSettings.usrLogging Then errLogger.logMessage("frmKlock_setSettings", "Keep Monitor Active")
             KeepMonitorActive()
         Else
+            If usrSettings.usrLogging Then errLogger.logMessage("frmKlock_setSettings", "Restore Monitor Settings")
             RestoreMonitorSettings()
         End If
     End Sub

@@ -20,7 +20,7 @@ Public Class frmAbout
 
         tmrAbout.Enabled = True
 
-        lblVersion.Text = "Klock Version :: " & My.Application.Info.Version.ToString()
+        lblVersion.Text = String.Format("Klock Version :: {0}   [{1}, {2}]", My.Application.Info.Version.ToString(), Now.ToLongDateString, Now.ToLongTimeString)
         lblCopyright.Text = My.Application.Info.Copyright
         lblDescription.Text = My.Application.Info.Description
         lblTitle.Text = My.Application.Info.Title

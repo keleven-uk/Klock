@@ -1,3 +1,40 @@
+commit a7cb71fc94d60677a3df43e371d058d603e5e145
+Author: Kevin Scott <klock@keleven.co.uk>
+Date:   Mon May 30 22:14:44 2016 +0100
+
+    [Added stickyNote.vb & stickyNotes.vb] - A stick Note class and a Sticky Note Store Class.  This allows the stick notes to be saved when Klock is closed.
+    
+    [UserSettings.vb & frmOptions.vb] - Added more sticky note options, mainly for fad out and file location of the sticky note store.
+    
+    [frmStickyNote.vb] - various changes to integrate the stick note sore so that notes are saved.
+    
+    [frmKlock.vb] - creates stick note store.
+
+ Klock/FormAnimator.vb            |   9 +-
+ Klock/Klock.chm                  | Bin 1023674 -> 1249156 bytes
+ Klock/Klock.iss                  |   4 +-
+ Klock/Klock.pdf                  | Bin 6433772 -> 7119477 bytes
+ Klock/Klock.vbproj               |   2 +
+ Klock/KlockThings.vb             |   2 +-
+ Klock/My Project/AssemblyInfo.vb |   4 +-
+ Klock/Person.vb                  |   7 +-
+ Klock/SNTPClient.vb              |   7 +-
+ Klock/UserSettings.vb            | 174 +++++++++---
+ Klock/frmBigTextKlock.vb         |   4 +-
+ Klock/frmBinaryKlock.vb          |   2 +-
+ Klock/frmKlock.Designer.vb       |  40 ++-
+ Klock/frmKlock.vb                |  14 +-
+ Klock/frmOptions.Designer.vb     | 563 +++++++++++++++++++++++++--------------
+ Klock/frmOptions.vb              |  98 ++++++-
+ Klock/frmStickyNote.Designer.vb  |   2 +
+ Klock/frmStickyNote.vb           | 184 +++++++++----
+ Klock/history.txt                |  47 +++-
+ Klock/klock.hnd                  | Bin 27598848 -> 47648768 bytes
+ Klock/stickyNote.vb              |  87 ++++++
+ Klock/stickyNotes.vb             | 121 +++++++++
+ log.txt                          |  40 +++
+ 23 files changed, 1076 insertions(+), 335 deletions(-)
+
 commit ab9ab26ec58288e637d53735ed6bfd08a277213c
 Author: Kevin Scott <klock@keleven.co.uk>
 Date:   Sun May 22 21:58:48 2016 +0100

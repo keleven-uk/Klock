@@ -77,343 +77,14 @@ Public Class frmOptions
         btnArchiveSave.Visible = b
     End Sub
 
-    Sub setSettings()
-        '   Apply the current settings.
 
-        cmbBxDefaultTab.SelectedIndex = frmKlock.usrSettings.usrDefaultTab
-        cmbBxDefaultMode.SelectedIndex = frmKlock.usrSettings.usrStartKlockMode
-
-        '-------------------------------------------------------------------------------------------------------- Global Settings -------------
-        BackColor = frmKlock.usrSettings.usrFormColour
-
-        lblColour.Font = frmKlock.usrSettings.usrFormFont
-        lblColour.ForeColor = frmKlock.usrSettings.usrFormFontColour
-        lblFont.Font = frmKlock.usrSettings.usrFormFont
-        lblFont.ForeColor = frmKlock.usrSettings.usrFormFontColour
-        lblDefaultColour.Font = frmKlock.usrSettings.usrFormFont
-        lblDefaultColour.ForeColor = frmKlock.usrSettings.usrFormFontColour
-        tbPgGlobal.BackColor = frmKlock.usrSettings.usrFormColour
-
-        chckBxOptionsSavePos.Checked = frmKlock.usrSettings.usrSavePosition
-        chckBxOptionsRunOnStartup.Checked = frmKlock.usrSettings.usrRunOnStartup
-        chckBxOptionsStartupMinimised.Checked = frmKlock.usrSettings.usrStartMinimised
-        chckBxOptionsRememberKlockMode.Checked = frmKlock.usrSettings.usrRememberKlockMode
-
-        trckBrOptionsVolume.Minimum = 0
-        trckBrOptionsVolume.Maximum = 1000
-        trckBrOptionsVolume.TickFrequency = 100
-        trckBrOptionsVolume.Value = frmKlock.usrSettings.usrSoundVolume
-
-        txtBxOptionsSettingsFile.Text = If(frmKlock.usrSettings.usrFriendsFile = "", "Klock.xml", frmKlock.usrSettings.usrOptionsSaveFile)
-        txtBxOptionsFriendsDirectory.Text = frmKlock.usrSettings.usrOptionsSavePath
-
-        '-------------------------------------------------------------------------------------------------------- Time Settings ---------------
-
-        cmbBxDefaultTimeFormat.SelectedIndex = frmKlock.usrSettings.usrTimeDefaultFormat
-        cmbBxDefaultTimeTwoFormat.SelectedIndex = frmKlock.usrSettings.usrTimeTWODefaultFormat
-
-        chckBxTimeTwoFormats.Checked = frmKlock.usrSettings.usrTimeTwoFormats
-        chckBxIdleTime.Checked = frmKlock.usrSettings.usrTimeIdleTime
-
-        chckBxTimeSwatch.Checked = frmKlock.usrSettings.usrTimeSwatchCentibeats
-        chckBxTimeNetSeconds.Checked = frmKlock.usrSettings.usrTimeNETSeconds
-        chckBxTimeHexIntuitor.Checked = frmKlock.usrSettings.usrTimeHexIntuitorFormat
-        chckBxTimeHourPips.Checked = frmKlock.usrSettings.usrTimeHourPips
-        chckBxTimeHourlyChimes.Checked = frmKlock.usrSettings.usrTimeHourChimes
-        chckBxTimeHalfChimes.Checked = frmKlock.usrSettings.usrTimeHalfChimes
-        chckBxTimeQuarterChimes.Checked = frmKlock.usrSettings.usrTimeQuarterChimes
-        chckBxTimeToast.Checked = frmKlock.usrSettings.usrTimeDisplayMinimised
-        upDwnTimeDisplay.Value = frmKlock.usrSettings.usrTimeDisplayMinutes
-        chckBxOptionsVoice.Checked = frmKlock.usrSettings.usrTimeVoiceMinimised
-        upDwnVoiceDisplay.Value = frmKlock.usrSettings.usrTimeVoiceMinutes
-
-        upDwnTimeDisplay.Enabled = frmKlock.usrSettings.usrTimeDisplayMinutes
-
-        chckBxTimeSystem24.Checked = frmKlock.usrSettings.usrTimeSystem24Hour
-        chckBxTimeSystem12.Checked = Not frmKlock.usrSettings.usrTimeSystem24Hour
-        chckBxTimeTimeOne24.Checked = frmKlock.usrSettings.usrTimeOne24Hour
-        chckBxTimeTimeOne12.Checked = Not frmKlock.usrSettings.usrTimeOne24Hour
-        chckBxTimeTimeTwo24.Checked = frmKlock.usrSettings.usrTimeTwo24Hour
-        chckBxTimeTimeTwo12.Checked = Not frmKlock.usrSettings.usrTimeTwo24Hour
-
-        '-------------------------------------------------------------------------------------------------------- Sticky Notes ------------
-
-        btnStckyNtkBgClr.BackColor = frmKlock.usrSettings.usrStickyNoteBackColour
-        btnStckyNtkFrClr.BackColor = frmKlock.usrSettings.usrStickyNoteForeColour
-
-        ChckBxAllowStckyNtfadeOut.Checked = frmKlock.usrSettings.usrStickyNoteAllowFadeOut
-
-        NmrcUpDwnStkyNtMaxOpacity.Value = frmKlock.usrSettings.usrStickyNoteMaxOpacity
-        NmrcUpDwnStkyNtMinOpacity.Value = frmKlock.usrSettings.usrStickyNoteMinOpacity
-        NmrcUpDwnStkyNtfadeOutStep.Value = frmKlock.usrSettings.usrStickyNoteStpOpacity
-
-        '-------------------------------------------------------------------------------------------------------- Text Klock --------------
-
-        chckBxSmlTxKlockSavePos.Checked = frmKlock.usrSettings.usrSmallKlockSavePosition
-        btnSmlTxtKlckFrClr.BackColor = frmKlock.usrSettings.usrSmallKlockForeColour
-        btnSmlTxtKlckBckClr.BackColor = frmKlock.usrSettings.usrSmallKlockBackColour
-        btnSmlTxtKlckOffClr.BackColor = frmKlock.usrSettings.usrSmallKlockOffColour
-
-        chckBxBgTxKlockSavePos.Checked = frmKlock.usrSettings.usrBigKlockSavePosition
-        btnBgTxtKlckFrClr.BackColor = frmKlock.usrSettings.usrBigKlockForeColour
-        btnBgTxtKlckBckClr.BackColor = frmKlock.usrSettings.usrBigKlockBackColour
-        btnBgTxtKlckOffClr.BackColor = frmKlock.usrSettings.usrBigKlockOffColour
-
-        '-------------------------------------------------------------------------------------------------------- Binary  Settings -----------
-
-        chckBxBnryKlockSavePos.Checked = frmKlock.usrSettings.usrBinaryKlockSavePosition
-        btnBnryKlckBckClr.BackColor = frmKlock.usrSettings.usrBinaryKlockBackColour
-        btnBnryKlckFrClr.BackColor = frmKlock.usrSettings.usrBinaryKlockForeColour
-        btnBnryKlckOffClr.BackColor = frmKlock.usrSettings.usrBinaryKlockOffColour
-        RdBtnBCD.Checked = frmKlock.usrSettings.usrBinaryUseBCD
-        RdBtnBinary.Checked = Not frmKlock.usrSettings.usrBinaryUseBCD
-        '-------------------------------------------------------------------------------------------------------- Analogue Klock ------------
-
-        chckBxAnlgKlockSavePos.Checked = frmKlock.usrSettings.usrAnalogueKlockSavePosition
-        chckBxAnlgKlockSaveSize.Checked = frmKlock.usrSettings.usrAnalogueKlockSizePosition
-        txtBxAnlgKlock.Text = frmKlock.usrSettings.usrAnalogueKlockText
-        chckBxAnlgKlockTransparent.Checked = frmKlock.usrSettings.usrAnalogueKlcokTransparent
-        chckBxAnlgKlockDate.Checked = frmKlock.usrSettings.usrAnalogueKlockShowDate
-        chckBxAnlgKlockTime.Checked = frmKlock.usrSettings.usrAnalogueKlockShowTime
-        chckBxAnlgKlockIdleTime.Checked = frmKlock.usrSettings.usrAnalogueKlockShowIdleTime
-        btnAnlgKlockBackColour.BackColor = frmKlock.usrSettings.usrAnalogueKlockBackColour
-        chckBxAnlgKlockDisplayPicture.Checked = frmKlock.usrSettings.usrAnalogueKlockDisplayPicture
-        txtBxAnlgKlockPictureLocation.Text = frmKlock.usrSettings.usrAnalogueKlockPicture
-
-        '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
-
-        chckBxTimerHigh.Checked = frmKlock.usrSettings.usrTimerHigh
-        chckBxClearSplit.Checked = frmKlock.usrSettings.usrTimerClearSplit
-        chckBxTimerAdd.Checked = frmKlock.usrSettings.usrTimerAdd
-
-        '-------------------------------------------------------------------------------------------------------- Countdown Settings ----------
-
-        chckBxCountdownAdd.Checked = frmKlock.usrSettings.usrCountdownAdd
-
-        '-------------------------------------------------------------------------------------------------------- Reminder Settings -----------
-
-        chckBxReminderAdd.Checked = frmKlock.usrSettings.usrReminderAdd
-
-        '-------------------------------------------------------------------------------------------------------- World Klock Settings --------
-
-        chckBxWorldKlockAdd.Checked = frmKlock.usrSettings.usrWorldKlockAdd
-
-        '-------------------------------------------------------------------------------------------------------- Notification Settings -------
-
-        ChckBxSayings.Checked = frmKlock.usrSettings.usrSayingsDisplay
-
-        nmrcUpDwnNotificationTimeOut.Value = frmKlock.usrSettings.usrNotificationTimeOut / 1000
-        nmrcUpDwnSayingNotificationTimeOut.Value = frmKlock.usrSettings.usrSayingsTimeOut / 1000
-        nmrcUpDwnSayingDisplay.Value = frmKlock.usrSettings.usrSayingsDisplayTime                   '   held in minutes
-
-        nmrcUpDwnNotificationOpacity.Value = frmKlock.usrSettings.usrNotificationOpacity
-        nmrcUpDwnEventNotificationOpacity.Value = frmKlock.usrSettings.usrEventNotificationOpacity
-        nmrcUpDwnSayingNotificationOpacity.Value = frmKlock.usrSettings.usrSayingsOpacity
-
-        '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
-
-        chckBxDisableMonitorSleep.Checked = frmKlock.usrSettings.usrDisableMonitorSleep
-
-        '-------------------------------------------------------------------------------------------------------- Internet Settings ------------
-
-        chckBxChckInternet.Checked = frmKlock.usrSettings.usrCheckInternet
-
-        '-------------------------------------------------------------------------------------------------------- Clipboard Monitor Settings --
-
-        chckBxClipboardMonitor.Checked = frmKlock.usrSettings.usrClipboardMonitor
-        chckBxClipboardSavePos.Checked = frmKlock.usrSettings.usrClipboardMonitorSavePosition
-        chckBxClipboardSaveCSV.Checked = frmKlock.usrSettings.usrClipboardMonitorSaveCSV
-        chckBxClipboardSavePos.Enabled = chckBxClipboardMonitor.Checked
-        chckBxClipboardSaveCSV.Enabled = chckBxClipboardMonitor.Checked
-
-        '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
-
-        txtBxOptionsFriendsFile.Text = If(frmKlock.usrSettings.usrFriendsFile = "", "Friends.bin", frmKlock.usrSettings.usrFriendsFile)
-
-        '-------------------------------------------------------------------------------------------------------- Events Settings ------------
-
-        txtBxOptionsEventsFile.Text = If(frmKlock.usrSettings.usrEventsFile = "", "Events.bin", frmKlock.usrSettings.usrEventsFile)
-
-        nmrcUpDwnFirstReminder.Value = frmKlock.usrSettings.usrEventsFirstReminder
-        nmrcUpDwnSecondReminder.Value = frmKlock.usrSettings.usrEventsSecondReminder
-        nmrcUpDwnThirdReminder.Value = frmKlock.usrSettings.usrEventsThirdReminder
-        nmrcUpDwnEventsInterval.Value = frmKlock.usrSettings.usrEventsTimerInterval                   '   held in minutes
-
-        pctrBxFirstEvent.BackColor = frmKlock.usrSettings.usrFirstEventNotificationbackColour
-        pctrBxSecondEvent.BackColor = frmKlock.usrSettings.usrSecondEventNotificationbackColour
-        pctrBxThirdEvent.BackColor = frmKlock.usrSettings.usrThirdEventNotificationbackColour
-
-        '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
-
-        txtBxOptionsMemoFile.Text = If(frmKlock.usrSettings.usrMemoFile = "", "Memo.bin", frmKlock.usrSettings.usrMemoFile)
-
-        chckBxMemoDefaultPassword.Checked = frmKlock.usrSettings.usrMemoUseDefaultPassword
-        txtBxMemoDefaultPassword.Text = frmKlock.usrSettings.usrMemoDefaultPassword
-
-        nmrcUpDwnMemoDecrypt.Value = frmKlock.usrSettings.usrMemoDecyptTimeOut
-
-        '-------------------------------------------------------------------------------------------------------- Logging Settings ----------
-
-        ChckBxLoging.Checked = frmKlock.usrSettings.usrLogging
-        nmrcUpDwnLogDaysKeep.Value = frmKlock.usrSettings.usrLogDaysKeep
-        lblLogFilePath.Text = "Log File Location : " & frmKlock.usrSettings.usrLogFilePath
-    End Sub
 
     ' ************************************************************************************* global options *****************************
 
     Private Sub btnOptionsClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOptionsClose.Click
         '    When closed, save settings.
 
-        frmKlock.usrSettings.usrDefaultTab = cmbBxDefaultTab.SelectedIndex
-        frmKlock.usrSettings.usrStartKlockMode = cmbBxDefaultMode.SelectedIndex
-
-        '-------------------------------------------------------------------------------------------------------- Global Settings -------------
-        frmKlock.usrSettings.usrSavePosition = chckBxOptionsSavePos.Checked
-        frmKlock.usrSettings.usrRunOnStartup = chckBxOptionsRunOnStartup.Checked
-        frmKlock.usrSettings.usrStartMinimised = chckBxOptionsStartupMinimised.Checked
-        frmKlock.usrSettings.usrRememberKlockMode = chckBxOptionsRememberKlockMode.Checked
-
-        If frmKlock.usrSettings.usrSavePosition Then
-            frmKlock.usrSettings.usrFormTop = frmKlock.Top
-            frmKlock.usrSettings.usrFormLeft = frmKlock.Left
-        End If
-
-        '-------------------------------------------------------------------------------------------------------- Time Settings --------------
-
-        frmKlock.usrSettings.usrTimeDefaultFormat = cmbBxDefaultTimeFormat.SelectedIndex
-        frmKlock.usrSettings.usrTimeTWODefaultFormat = cmbBxDefaultTimeTwoFormat.SelectedIndex
-
-        frmKlock.usrSettings.usrTimeTwoFormats = chckBxTimeTwoFormats.Checked
-        frmKlock.usrSettings.usrTimeIdleTime = chckBxIdleTime.Checked
-
-        frmKlock.usrSettings.usrTimeSwatchCentibeats = chckBxTimeSwatch.Checked
-        frmKlock.usrSettings.usrTimeNETSeconds = chckBxTimeNetSeconds.Checked
-        frmKlock.usrSettings.usrTimeHexIntuitorFormat = chckBxTimeHexIntuitor.Checked
-        frmKlock.usrSettings.usrTimeHourPips = chckBxTimeHourPips.Checked
-        frmKlock.usrSettings.usrTimeHourChimes = chckBxTimeHourlyChimes.Checked
-        frmKlock.usrSettings.usrTimeHalfChimes = chckBxTimeHalfChimes.Checked
-        frmKlock.usrSettings.usrTimeQuarterChimes = chckBxTimeQuarterChimes.Checked
-        frmKlock.usrSettings.usrTimeDisplayMinimised = chckBxTimeToast.Checked
-        frmKlock.usrSettings.usrTimeDisplayMinutes = upDwnTimeDisplay.Value
-        frmKlock.usrSettings.usrTimeVoiceMinimised = chckBxOptionsVoice.Checked
-        frmKlock.usrSettings.usrTimeVoiceMinutes = upDwnVoiceDisplay.Value
-        frmKlock.usrSettings.usrSoundVolume = trckBrOptionsVolume.Value
-
-        frmKlock.usrSettings.usrTimeSystem24Hour = chckBxTimeSystem24.Checked
-        frmKlock.usrSettings.usrTimeOne24Hour = chckBxTimeTimeOne24.Checked
-        frmKlock.usrSettings.usrTimeTwo24Hour = chckBxTimeTimeTwo24.Checked
-
-        '-------------------------------------------------------------------------------------------------------- Sticky Notes ------------
-
-        frmKlock.usrSettings.usrStickyNoteBackColour = btnStckyNtkBgClr.BackColor
-        frmKlock.usrSettings.usrStickyNoteForeColour = btnStckyNtkFrClr.BackColor
-
-        frmKlock.usrSettings.usrStickyNoteAllowFadeOut = ChckBxAllowStckyNtfadeOut.Checked
-
-        frmKlock.usrSettings.usrStickyNoteMaxOpacity = NmrcUpDwnStkyNtMaxOpacity.Value
-        frmKlock.usrSettings.usrStickyNoteMinOpacity = NmrcUpDwnStkyNtMinOpacity.Value
-        frmKlock.usrSettings.usrStickyNoteStpOpacity = NmrcUpDwnStkyNtfadeOutStep.Value
-
-        '-------------------------------------------------------------------------------------------------------- Text Klock  Settings -------
-
-        frmKlock.usrSettings.usrSmallKlockSavePosition = chckBxSmlTxKlockSavePos.Checked
-        frmKlock.usrSettings.usrSmallKlockBackColour = btnSmlTxtKlckBckClr.BackColor
-        frmKlock.usrSettings.usrSmallKlockForeColour = btnSmlTxtKlckFrClr.BackColor
-        frmKlock.usrSettings.usrSmallKlockOffColour = btnSmlTxtKlckOffClr.BackColor
-
-        frmKlock.usrSettings.usrBigKlockSavePosition = chckBxBgTxKlockSavePos.Checked
-        frmKlock.usrSettings.usrBigKlockBackColour = btnBgTxtKlckBckClr.BackColor
-        frmKlock.usrSettings.usrBigKlockForeColour = btnBgTxtKlckFrClr.BackColor
-        frmKlock.usrSettings.usrBigKlockOffColour = btnBgTxtKlckOffClr.BackColor
-
-        '-------------------------------------------------------------------------------------------------------- Binary  Settings -----------
-
-        frmKlock.usrSettings.usrBinaryKlockSavePosition = chckBxBnryKlockSavePos.Checked
-        frmKlock.usrSettings.usrBinaryKlockBackColour = btnBnryKlckBckClr.BackColor
-        frmKlock.usrSettings.usrBinaryKlockForeColour = btnBnryKlckFrClr.BackColor
-        frmKlock.usrSettings.usrBinaryKlockOffColour = btnBnryKlckOffClr.BackColor
-        frmKlock.usrSettings.usrBinaryUseBCD = If(RdBtnBCD.Checked, True, False)
-        '-------------------------------------------------------------------------------------------------------- Analogue Klock  Settings ----
-
-        frmKlock.usrSettings.usrAnalogueKlockSavePosition = chckBxAnlgKlockSavePos.Checked
-        frmKlock.usrSettings.usrAnalogueKlockSizePosition = chckBxAnlgKlockSaveSize.Checked
-        frmKlock.usrSettings.usrAnalogueKlockText = txtBxAnlgKlock.Text
-        frmKlock.usrSettings.usrAnalogueKlcokTransparent = chckBxAnlgKlockTransparent.Checked
-        frmKlock.usrSettings.usrAnalogueKlockShowDate = chckBxAnlgKlockDate.Checked
-        frmKlock.usrSettings.usrAnalogueKlockShowTime = chckBxAnlgKlockTime.Checked
-        frmKlock.usrSettings.usrAnalogueKlockShowIdleTime = chckBxAnlgKlockIdleTime.Checked
-        frmKlock.usrSettings.usrAnalogueKlockBackColour = btnAnlgKlockBackColour.BackColor
-        frmKlock.usrSettings.usrAnalogueKlockDisplayPicture = chckBxAnlgKlockDisplayPicture.Checked
-        'frmKlock.usrSettings.usrAnalogueKlockPicture = txtBxAnlgKlockPictureLocation.Text      ' already set to full path name.
-
-        '-------------------------------------------------------------------------------------------------------- Timer Settings --------------
-
-        frmKlock.usrSettings.usrTimerHigh = chckBxTimerHigh.Checked
-        frmKlock.usrSettings.usrTimerClearSplit = chckBxClearSplit.Checked
-        frmKlock.usrSettings.usrTimerAdd = chckBxTimerAdd.Checked
-
-        '-------------------------------------------------------------------------------------------------------- Countdown Settings ----------
-
-        frmKlock.usrSettings.usrCountdownAdd = chckBxCountdownAdd.Checked
-
-        '-------------------------------------------------------------------------------------------------------- Reminder Settings -----------
-
-        frmKlock.usrSettings.usrReminderTimeChecked = chckBxReminderTimeCheck.Checked
-        frmKlock.usrSettings.usrReminderAdd = chckBxReminderAdd.Checked
-
-        '-------------------------------------------------------------------------------------------------------- World Klock Settings --------
-
-        frmKlock.usrSettings.usrWorldKlockAdd = chckBxWorldKlockAdd.Checked
-
-        '-------------------------------------------------------------------------------------------------------- Notification Settings -------
-
-        frmKlock.usrSettings.usrSayingsDisplay = ChckBxSayings.Checked
-
-        frmKlock.usrSettings.usrNotificationTimeOut = nmrcUpDwnNotificationTimeOut.Value * 1000
-        frmKlock.usrSettings.usrSayingsTimeOut = nmrcUpDwnSayingNotificationTimeOut.Value * 1000
-        frmKlock.usrSettings.usrSayingsDisplayTime = nmrcUpDwnSayingDisplay.Value                   '   held in minutes
-
-        frmKlock.usrSettings.usrNotificationOpacity = nmrcUpDwnNotificationOpacity.Value
-        frmKlock.usrSettings.usrEventNotificationOpacity = nmrcUpDwnEventNotificationOpacity.Value
-        frmKlock.usrSettings.usrSayingsOpacity = nmrcUpDwnSayingNotificationOpacity.Value
-
-        '-------------------------------------------------------------------------------------------------------- Monitor Settings ------------
-
-        frmKlock.usrSettings.usrDisableMonitorSleep = chckBxDisableMonitorSleep.Checked
-
-        '-------------------------------------------------------------------------------------------------------- Internet Settings ------------
-
-        frmKlock.usrSettings.usrCheckInternet = chckBxChckInternet.Checked
-        '-------------------------------------------------------------------------------------------------------- Clipboard Monitor Settings --
-
-        frmKlock.usrSettings.usrClipboardMonitor = chckBxClipboardMonitor.Checked
-        frmKlock.usrSettings.usrClipboardMonitorSavePosition = chckBxClipboardSavePos.Checked
-        frmKlock.usrSettings.usrClipboardMonitorSaveCSV = chckBxClipboardSaveCSV.Checked
-        '-------------------------------------------------------------------------------------------------------- Friends Settings ------------
-
-        frmKlock.usrSettings.usrFriendsFile = txtBxOptionsFriendsFile.Text
-
-        '-------------------------------------------------------------------------------------------------------- Events Settings ------------
-
-        frmKlock.usrSettings.usrEventsFile = txtBxOptionsEventsFile.Text
-
-        frmKlock.usrSettings.usrEventsFirstReminder = nmrcUpDwnFirstReminder.Value
-        frmKlock.usrSettings.usrEventsSecondReminder = nmrcUpDwnSecondReminder.Value
-        frmKlock.usrSettings.usrEventsThirdReminder = nmrcUpDwnThirdReminder.Value
-        frmKlock.usrSettings.usrEventsTimerInterval = nmrcUpDwnEventsInterval.Value                   '   held in minutes
-
-        '-------------------------------------------------------------------------------------------------------- Memo Settings ------------
-
-        frmKlock.usrSettings.usrMemoFile = txtBxOptionsMemoFile.Text
-        frmKlock.usrSettings.usrMemoUseDefaultPassword = chckBxMemoDefaultPassword.Checked
-        frmKlock.usrSettings.usrMemoDefaultPassword = txtBxMemoDefaultPassword.Text
-        frmKlock.usrSettings.usrMemoDecyptTimeOut = nmrcUpDwnMemoDecrypt.Value
-
-        '-------------------------------------------------------------------------------------------------------- Logging Settings ----------
-
-        frmKlock.usrSettings.usrLogging = ChckBxLoging.Checked
-        frmKlock.usrSettings.usrLogDaysKeep = nmrcUpDwnLogDaysKeep.Value
-
+        loadSettings()
 
         frmKlock.usrSettings.writeSettings()
         frmKlock.setSettings()
@@ -807,31 +478,6 @@ Public Class frmOptions
         frmAnalogueKlock.analogueKlockRefresh()
     End Sub
 
-    Private Sub checkPicture()
-        '   Sets if a background image is displayed.
-
-        frmKlock.usrSettings.usrAnalogueKlockDisplayPicture = chckBxAnlgKlockDisplayPicture.Checked
-
-        If chckBxAnlgKlockDisplayPicture.Checked Then
-            pctrBxAnlgKlockPicture.Enabled = True
-            btnAnlgKlockPictureLocation.Enabled = True
-            txtBxAnlgKlockPictureLocation.Enabled = True
-            txtBxAnlgKlockPictureLocation.Text = frmKlock.usrSettings.usrAnalogueKlockPicture
-
-            If My.Computer.FileSystem.FileExists(frmKlock.usrSettings.usrAnalogueKlockPicture) Then
-                pctrBxAnlgKlockPicture.ImageLocation = frmKlock.usrSettings.usrAnalogueKlockPicture
-                pctrBxAnlgKlockPicture.Load()
-            End If
-        Else
-            pctrBxAnlgKlockPicture.Enabled = False
-            btnAnlgKlockPictureLocation.Enabled = False
-            txtBxAnlgKlockPictureLocation.Enabled = False
-            txtBxAnlgKlockPictureLocation.Text = String.Empty
-            pctrBxAnlgKlockPicture.ImageLocation = String.Empty
-            pctrBxAnlgKlockPicture.Image = Nothing
-        End If
-    End Sub
-
     Private Sub btnAnlgKlockPictureLocation_Click(sender As Object, e As EventArgs) Handles btnAnlgKlockPictureLocation.Click
         '   Load the background image for analogue klock.
 
@@ -1120,17 +766,6 @@ Public Class frmOptions
         End If
     End Sub
 
-    Private Sub poolForLogs()
-        '   Pool the chosen directory for log files.
-        '   At the moment that is .log files in application data directory.
-
-        lstBxLogFiles.Items.Clear()
-
-        For i As Integer = 0 To frmKlock.errLogger.poolLogs().Count - 1
-            lstBxLogFiles.Items.Add(frmKlock.errLogger.poolLogs(i))
-        Next
-    End Sub
-
     Private Sub lstBxLogFiles_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstBxLogFiles.SelectedIndexChanged
         '   If an entry in the log file list is clicked, the log file is loaded into the default text editor.
 
@@ -1205,7 +840,7 @@ Public Class frmOptions
 
     Private Sub btnArchiveSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnArchiveSave.Click
         '   Saves the friends, events, memo & settings files to Archive [zip].
-        '   Will also save sticky notes  and log files.
+        '   Will also save sticky notes and log files.
         '   If the achieve already exists, it will only be overwritten on user prompt.
 
         Dim zippath As String = Path.Combine(txtBxArchiveDirectory.Text, txtBxArchiveFile.Text)       '   path of destination zip file.
@@ -1219,16 +854,14 @@ Public Class frmOptions
 
         Using archive As ZipArchive = ZipFile.Open(zippath, ZipArchiveMode.Update)
             For Each file As String In My.Computer.FileSystem.GetFiles(zipdir)
-                If Not file.EndsWith(".log") Then
-                    Try
-                        archive.CreateEntryFromFile(file, My.Computer.FileSystem.GetName(file), CompressionLevel.Optimal)
-                        If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.logMessage("frmOptions.btnArchiveSave_Click", " Archiving file :: " & file)
-                    Catch ex As Exception
-                        ziperror = False
-                        If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmOptions.btnArchiveSave_Click", ex)
-                        displayAction.DisplayReminder("Error archiving Data Files. " & ex.Message, "G", "Saving File Error")
-                    End Try
-                End If
+                Try
+                    archive.CreateEntryFromFile(file, My.Computer.FileSystem.GetName(file), CompressionLevel.Optimal)
+                    If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.logMessage("frmOptions.btnArchiveSave_Click", " Archiving file :: " & file)
+                Catch ex As Exception
+                    ziperror = False
+                    If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("frmOptions.btnArchiveSave_Click", ex)
+                    displayAction.DisplayReminder("Error archiving Data Files. " & ex.Message, "G", "Saving File Error")
+                End Try
             Next
             If ziperror Then displayAction.DisplayReminder("Archiving Data Files Successful.", "G", "Saving File Okay")
         End Using
@@ -1241,7 +874,6 @@ Public Class frmOptions
         '   If the path does not exist, it will be created.
 
         '   Could use archive.ExtractToDirectory(zipdir), if file checking was not used.
-
 
         Dim zippath As String = Path.Combine(txtBxArchiveDirectory.Text, txtBxArchiveFile.Text)   '   path of source sip file.
         Dim zipdir As String = frmKlock.usrSettings.usrOptionsSavePath                                      '   path of destination directory.
@@ -1264,25 +896,14 @@ Public Class frmOptions
                     displayAction.DisplayReminder("Error Loading Data Files. " & ex.Message, "G", "Loading File Error")
                 End Try
             Next
-            If ziperror Then displayAction.DisplayReminder("Loading Data Files Successful.", "G", "Loading File Okay")
+            If ziperror Then
+                displayAction.DisplayReminder("Loading Data Files Successful.", "G", "Loading File Okay")
+
+                setSettings()                       '   apply new settings.
+                frmKlock.myStickyNotes.Load()       '   apply sticky notes
+            End If
         End Using
     End Sub
-
-    Private Function fileExists(file As String) As Boolean
-        '   Checks if a file exists, if it does prompt the user.
-        '   returns false if file exits and user says no to overwrite
-        '   returns true if either file does not exist or file does and user says yes to overwrite.
-
-        If My.Computer.FileSystem.FileExists(file) Then      '   file already exists, prompt user.
-            Dim reply As MsgBoxResult
-
-            reply = MsgBox("This will over write existing file : " & file.ToString, MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
-
-            Return If(reply = MsgBoxResult.No, False, True)
-        Else
-            Return True
-        End If
-    End Function
 
     ' ********************************************************************************** Clipboard monitor stuff ***************************
 
@@ -1293,6 +914,5 @@ Public Class frmOptions
         chckBxClipboardSavePos.Enabled = chckBxClipboardMonitor.Checked
         chckBxClipboardSaveCSV.Enabled = chckBxClipboardMonitor.Checked
     End Sub
-
 
 End Class
