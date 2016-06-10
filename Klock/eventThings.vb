@@ -9,22 +9,6 @@
         PopulateGifts()
     End Sub
 
-    Public Function eventTitle(ByVal e As Events) As String
-        '   Set the event title according to which reminder is being called
-
-        Dim s As String = String.Empty
-
-        If e.EventFirstReminder Then
-            s = "First Reminder"
-        ElseIf e.EventSecondreminder Then
-            s = "Second Reminder"
-        ElseIf e.EventThirdReminder Then
-            s = "Third reminder"
-        End If
-
-        Return s
-    End Function
-
     Public Function eventmessage(ByVal e As Events) As String
         '   Set an appropriate message according to the event type.
 
@@ -62,32 +46,17 @@
         Return s
     End Function
 
-    Private Function weddingAnniversary(ByVal n As Integer) As String
-        '   Selects the appropriate wedding gift, if known - otherwise returns the year number in words.
-
-        Return If(weddingAnniversaryGifts.ContainsKey(n), weddingAnniversaryGifts(n), toOrdinal(n))
-    End Function
-
-
-    Private Function toOrdinal(ByVal n As Integer) As String
-        '   returns the value in words.
-
-        Dim units() As String = {"Zeroth", "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth",
-                                "Eleventh", "Twelfth", "Thirteenth", "Fourteenth", "Fifteenth", "Sixteenth", "Seventeenth", "Eighteenth", "Nineteenth"}
-
-        Dim tens() As String = {"", "", "twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "ninety"}
+    Public Function eventTitle(ByVal e As Events) As String
+        '   Set the event title according to which reminder is being called
 
         Dim s As String = String.Empty
-        Dim unit As Integer
-        Dim ten As Integer
 
-        If n < 20 Then
-            s = units(n)
-        Else
-            ten = n / 10
-            unit = (n = unit) / 10
-
-            s = If(unit = 0, tens(ten) + "th", tens(ten) + units(unit))
+        If e.EventFirstReminder Then
+            s = "First Reminder"
+        ElseIf e.EventSecondreminder Then
+            s = "Second Reminder"
+        ElseIf e.EventThirdReminder Then
+            s = "Third reminder"
         End If
 
         Return s
@@ -154,4 +123,35 @@
         weddingAnniversaryGifts.Add(85, "Wine")
         weddingAnniversaryGifts.Add(90, "Stone")
     End Sub
+
+
+    Private Function toOrdinal(ByVal n As Integer) As String
+        '   returns the value in words.
+
+        Dim units() As String = {"Zeroth", "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth",
+                                "Eleventh", "Twelfth", "Thirteenth", "Fourteenth", "Fifteenth", "Sixteenth", "Seventeenth", "Eighteenth", "Nineteenth"}
+
+        Dim tens() As String = {"", "", "twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "ninety"}
+
+        Dim s As String = String.Empty
+        Dim unit As Integer
+        Dim ten As Integer
+
+        If n < 20 Then
+            s = units(n)
+        Else
+            ten = n / 10
+            unit = (n = unit) / 10
+
+            s = If(unit = 0, tens(ten) + "th", tens(ten) + units(unit))
+        End If
+
+        Return s
+    End Function
+
+    Private Function weddingAnniversary(ByVal n As Integer) As String
+        '   Selects the appropriate wedding gift, if known - otherwise returns the year number in words.
+
+        Return If(weddingAnniversaryGifts.ContainsKey(n), weddingAnniversaryGifts(n), toOrdinal(n))
+    End Function
 End Class

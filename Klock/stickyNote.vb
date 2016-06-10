@@ -1,6 +1,6 @@
 ﻿
 '   A Sticky Note class
-'   Holds the dats for a single sticky note.
+'   Holds the date for a single sticky note.
 
 '   the <Serializable()> bit, allows it to be stored easily in a binary file.
 
@@ -8,26 +8,26 @@
 Imports System.Net.Mime.MediaTypeNames
 
 <Serializable()> Public Class stickyNote
+    Private _body As String
+    Private _header As String
+    Private _height As Integer
 
     Private _id As Long
-    Private _header As String
-    Private _body As String
-    Private _height As Integer
-    Private _width As Integer
-    Private _top As Integer
     Private _left As Integer
+    Private _top As Integer
+    Private _width As Integer
 
     Public Sub New()
 
         MyBase.New()
     End Sub
 
-    Public Property noteID() As Long
+    Public Property noteBody() As String
         Get
-            Return _id
+            Return _body
         End Get
-        Set(ByVal value As Long)
-            _id = value
+        Set(ByVal value As String)
+            _body = value
         End Set
     End Property
 
@@ -40,15 +40,6 @@ Imports System.Net.Mime.MediaTypeNames
         End Set
     End Property
 
-    Public Property noteBody() As String
-        Get
-            Return _body
-        End Get
-        Set(ByVal value As String)
-            _body = value
-        End Set
-    End Property
-
     Public Property noteHeight() As Integer
         Get
             Return _height
@@ -58,12 +49,21 @@ Imports System.Net.Mime.MediaTypeNames
         End Set
     End Property
 
-    Public Property noteWidth() As Integer
+    Public Property noteID() As Long
         Get
-            Return _width
+            Return _id
+        End Get
+        Set(ByVal value As Long)
+            _id = value
+        End Set
+    End Property
+
+    Public Property noteLeft() As Integer
+        Get
+            Return _left
         End Get
         Set(ByVal value As Integer)
-            _width = value
+            _left = value
         End Set
     End Property
 
@@ -76,12 +76,12 @@ Imports System.Net.Mime.MediaTypeNames
         End Set
     End Property
 
-    Public Property noteLeft() As Integer
+    Public Property noteWidth() As Integer
         Get
-            Return _left
+            Return _width
         End Get
         Set(ByVal value As Integer)
-            _left = value
+            _width = value
         End Set
     End Property
 End Class

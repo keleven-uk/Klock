@@ -199,18 +199,28 @@ Namespace InternetTime
 
     Public Class SNTPClient
 
+        '// Destination Timestamp
+        Public DestinationTimestamp As DateTime
+        Private Const offOriginateTimestamp As Byte = 24
+        Private Const offReceiveTimestamp As Byte = 32
+
+        '// Offset constants for timestamps in the data structure
+        Private Const offReferenceID As Byte = 12
+        Private Const offReferenceTimestamp As Byte = 16
+        Private Const offTransmitTimestamp As Byte = 40
+
         '// NTP Data Structure Length
         Private Const SNTPDataLength As Byte = 47
 
         '// NTP Data Structure (as described in RFC 2030)
         Dim SNTPData(SNTPDataLength) As Byte
 
-        '// Offset constants for timestamps in the data structure
-        Private Const offReferenceID As Byte = 12
-        Private Const offReferenceTimestamp As Byte = 16
-        Private Const offOriginateTimestamp As Byte = 24
-        Private Const offReceiveTimestamp As Byte = 32
-        Private Const offTransmitTimestamp As Byte = 40
+        '// The URL of the time server we're connecting to
+        Private TimeServer As String
+
+        Public Sub New(ByVal host As String)
+            TimeServer = host
+        End Sub
 
         'Leap Indicator
         Public ReadOnly Property LeapIndicator() As _LeapIndicator
@@ -227,12 +237,12 @@ Namespace InternetTime
             End Get
         End Property
 
-        ' Version Number
-        Public ReadOnly Property VersionNumber() As Byte
+        '// Local clock offset (in milliseconds)
+        Public ReadOnly Property LocalClockOffset() As Int64
             Get
-                'Isolate bits 3 - 5
-                Dim bVal As Byte = (SNTPData(0) And &H38) >> 3
-                Return bVal
+                '// Thanks to DNH <dnharris@csrlink.net>
+                Dim span As TimeSpan = ReceiveTimestamp.Subtract(OriginateTimestamp).Add((TransmitTimestamp.Subtract(DestinationTimestamp)))
+                Return span.TotalMilliseconds / 2
             End Get
         End Property
 
@@ -257,19 +267,10 @@ Namespace InternetTime
             End Get
         End Property
 
-        'Stratum
-        Public ReadOnly Property Stratum() As _Stratum
+        '// Originate Timestamp
+        Public ReadOnly Property OriginateTimestamp() As DateTime
             Get
-                Dim bVal As Byte = SNTPData(1)
-                If (bVal = 0) Then
-                    Return _Stratum.Unspecified
-                ElseIf (bVal = 1) Then
-                    Return _Stratum.PrimaryReference
-                ElseIf (bVal <= 15) Then
-                    Return _Stratum.SecondaryReference
-                Else
-                    Return _Stratum.Reserved
-                End If
+                Return ComputeDate(GetMilliSeconds(offOriginateTimestamp))
             End Get
         End Property
 
@@ -291,21 +292,13 @@ Namespace InternetTime
             End Get
         End Property
 
-        'Root Delay (in milliseconds)
-        Public ReadOnly Property RootDelay() As Double
+        '// Receive Timestamp
+        Public ReadOnly Property ReceiveTimestamp() As DateTime
             Get
-                Dim temp As Int64 = 0
-                temp = 256 * (256 * (256 * SNTPData(4) + SNTPData(5)) + SNTPData(6)) + SNTPData(7)
-                Return 1000 * ((temp) / &H10000)
-            End Get
-        End Property
-
-        'Root Dispersion (in milliseconds)
-        Public ReadOnly Property RootDispersion() As Double
-            Get
-                Dim temp As Int64 = 0
-                temp = 256 * (256 * (256 * SNTPData(8) + SNTPData(9)) + SNTPData(10)) + SNTPData(11)
-                Return 1000 * ((temp) / &H10000)
+                Dim time As DateTime = ComputeDate(GetMilliSeconds(offReceiveTimestamp))
+                'Take care of the time zone
+                Dim offspan As TimeSpan = TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now)
+                Return time.Add(offspan)
             End Get
         End Property
 
@@ -353,20 +346,46 @@ Namespace InternetTime
             End Get
         End Property
 
-        '// Originate Timestamp
-        Public ReadOnly Property OriginateTimestamp() As DateTime
+        'Root Delay (in milliseconds)
+        Public ReadOnly Property RootDelay() As Double
             Get
-                Return ComputeDate(GetMilliSeconds(offOriginateTimestamp))
+                Dim temp As Int64 = 0
+                temp = 256 * (256 * (256 * SNTPData(4) + SNTPData(5)) + SNTPData(6)) + SNTPData(7)
+                Return 1000 * ((temp) / &H10000)
             End Get
         End Property
 
-        '// Receive Timestamp
-        Public ReadOnly Property ReceiveTimestamp() As DateTime
+        'Root Dispersion (in milliseconds)
+        Public ReadOnly Property RootDispersion() As Double
             Get
-                Dim time As DateTime = ComputeDate(GetMilliSeconds(offReceiveTimestamp))
-                'Take care of the time zone
-                Dim offspan As TimeSpan = TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now)
-                Return time.Add(offspan)
+                Dim temp As Int64 = 0
+                temp = 256 * (256 * (256 * SNTPData(8) + SNTPData(9)) + SNTPData(10)) + SNTPData(11)
+                Return 1000 * ((temp) / &H10000)
+            End Get
+        End Property
+
+        '// Round trip delay (in milliseconds)
+        Public ReadOnly Property RoundTripDelay() As Int64
+            Get
+                '// Thanks to DNH <dnharris@csrlink.net>
+                Dim span As TimeSpan = DestinationTimestamp.Subtract(OriginateTimestamp).Subtract(ReceiveTimestamp.Subtract(TransmitTimestamp))
+                Return span.TotalMilliseconds
+            End Get
+        End Property
+
+        'Stratum
+        Public ReadOnly Property Stratum() As _Stratum
+            Get
+                Dim bVal As Byte = SNTPData(1)
+                If (bVal = 0) Then
+                    Return _Stratum.Unspecified
+                ElseIf (bVal = 1) Then
+                    Return _Stratum.PrimaryReference
+                ElseIf (bVal <= 15) Then
+                    Return _Stratum.SecondaryReference
+                Else
+                    Return _Stratum.Reserved
+                End If
             End Get
         End Property
 
@@ -383,85 +402,14 @@ Namespace InternetTime
             End Set
         End Property
 
-        '// Destination Timestamp
-        Public DestinationTimestamp As DateTime
-
-        '// Round trip delay (in milliseconds)
-        Public ReadOnly Property RoundTripDelay() As Int64
+        ' Version Number
+        Public ReadOnly Property VersionNumber() As Byte
             Get
-                '// Thanks to DNH <dnharris@csrlink.net>
-                Dim span As TimeSpan = DestinationTimestamp.Subtract(OriginateTimestamp).Subtract(ReceiveTimestamp.Subtract(TransmitTimestamp))
-                Return span.TotalMilliseconds
+                'Isolate bits 3 - 5
+                Dim bVal As Byte = (SNTPData(0) And &H38) >> 3
+                Return bVal
             End Get
         End Property
-
-        '// Local clock offset (in milliseconds)
-        Public ReadOnly Property LocalClockOffset() As Int64
-            Get
-                '// Thanks to DNH <dnharris@csrlink.net>
-                Dim span As TimeSpan = ReceiveTimestamp.Subtract(OriginateTimestamp).Add((TransmitTimestamp.Subtract(DestinationTimestamp)))
-                Return span.TotalMilliseconds / 2
-            End Get
-        End Property
-
-        '// Compute date, given the number of milliseconds since January 1, 1900
-        Private Function ComputeDate(ByVal milliseconds As Decimal) As DateTime
-            Dim span As TimeSpan = TimeSpan.FromMilliseconds(milliseconds)
-            Dim time As DateTime = New DateTime(1900, 1, 1)
-            time = time.Add(span)
-            Return time
-        End Function
-
-        '// Compute the number of milliseconds, given the offset of a 8-byte array
-        Private Function GetMilliSeconds(ByVal offset As Byte) As Decimal
-            Dim intPart As Decimal = 0, fractPart As Decimal = 0
-            Dim i As Int32
-            For i = 0 To 3
-                intPart = Int(256 * intPart + SNTPData(offset + i))
-            Next
-            For i = 4 To 7
-                fractPart = Int(256 * fractPart + SNTPData(offset + i))
-            Next
-            Dim milliseconds As Decimal = Int(intPart * 1000 + (fractPart * 1000) / &H100000000L)
-            Return milliseconds
-        End Function
-
-        '// Compute the 8-byte array, given the date
-        Private Sub SetDate(ByVal offset As Byte, ByVal dateval As DateTime)
-            Dim intPart As Decimal = 0, fractPart As Decimal = 0
-            Dim StartOfCentury As DateTime = New DateTime(1900, 1, 1, 0, 0, 0)
-            Dim milliseconds As Decimal = Int(dateval.Subtract(StartOfCentury).TotalMilliseconds)
-            intPart = Int(milliseconds / 1000)
-            fractPart = Int(((milliseconds Mod 1000) * &H100000000L) / 1000)
-            Dim temp As Decimal = intPart
-            Dim i As Decimal
-            For i = 3 To 0 Step -1
-                SNTPData(offset + i) = Int(temp Mod 256)
-                temp = Int(temp / 256)
-            Next
-            temp = Int(fractPart)
-            For i = 7 To 4 Step -1
-                SNTPData(offset + i) = Int(temp Mod 256)
-                temp = Int(temp / 256)
-            Next
-        End Sub
-
-        '// Initialize the NTPClient data
-        Private Sub Initialize()
-            'Set version number to 4 and Mode to 3 (client)
-            SNTPData(0) = &H1B
-            'Initialize all other fields with 0
-            Dim i As Int32
-            For i = 1 To 47
-                SNTPData(i) = 0
-            Next
-            'Initialize the transmit timestamp
-            TransmitTimestamp = DateTime.Now
-        End Sub
-
-        Public Sub New(ByVal host As String)
-            TimeServer = host
-        End Sub
 
         '// Connect to the time server and update system time
         Public Sub Connect(ByVal UpdateSystemTime As Boolean)
@@ -554,20 +502,63 @@ Namespace InternetTime
             Return sb.ToString
         End Function
 
-        '// SYSTEMTIME structure used by SetSystemTime
-        <StructLayout(LayoutKind.Sequential)> Private Structure SYSTEMTIME
-            Public year As Int16
-            Public month As Int16
-            Public dayOfWeek As Int16
-            Public day As Int16
-            Public hour As Int16
-            Public minute As Int16
-            Public second As Int16
-            Public milliseconds As Int16
-        End Structure
-
         <DllImport("KERNEL32.DLL", EntryPoint:="SetLocalTime", SetLastError:=True, CharSet:=CharSet.Unicode, ExactSpelling:=False, CallingConvention:=CallingConvention.StdCall)> Private Shared Function SetLocalTime(ByRef time As SYSTEMTIME) As Int32
         End Function
+
+        '// Compute date, given the number of milliseconds since January 1, 1900
+        Private Function ComputeDate(ByVal milliseconds As Decimal) As DateTime
+            Dim span As TimeSpan = TimeSpan.FromMilliseconds(milliseconds)
+            Dim time As DateTime = New DateTime(1900, 1, 1)
+            time = time.Add(span)
+            Return time
+        End Function
+
+        '// Compute the number of milliseconds, given the offset of a 8-byte array
+        Private Function GetMilliSeconds(ByVal offset As Byte) As Decimal
+            Dim intPart As Decimal = 0, fractPart As Decimal = 0
+            Dim i As Int32
+            For i = 0 To 3
+                intPart = Int(256 * intPart + SNTPData(offset + i))
+            Next
+            For i = 4 To 7
+                fractPart = Int(256 * fractPart + SNTPData(offset + i))
+            Next
+            Dim milliseconds As Decimal = Int(intPart * 1000 + (fractPart * 1000) / &H100000000L)
+            Return milliseconds
+        End Function
+
+        '// Initialize the NTPClient data
+        Private Sub Initialize()
+            'Set version number to 4 and Mode to 3 (client)
+            SNTPData(0) = &H1B
+            'Initialize all other fields with 0
+            Dim i As Int32
+            For i = 1 To 47
+                SNTPData(i) = 0
+            Next
+            'Initialize the transmit timestamp
+            TransmitTimestamp = DateTime.Now
+        End Sub
+
+        '// Compute the 8-byte array, given the date
+        Private Sub SetDate(ByVal offset As Byte, ByVal dateval As DateTime)
+            Dim intPart As Decimal = 0, fractPart As Decimal = 0
+            Dim StartOfCentury As DateTime = New DateTime(1900, 1, 1, 0, 0, 0)
+            Dim milliseconds As Decimal = Int(dateval.Subtract(StartOfCentury).TotalMilliseconds)
+            intPart = Int(milliseconds / 1000)
+            fractPart = Int(((milliseconds Mod 1000) * &H100000000L) / 1000)
+            Dim temp As Decimal = intPart
+            Dim i As Decimal
+            For i = 3 To 0 Step -1
+                SNTPData(offset + i) = Int(temp Mod 256)
+                temp = Int(temp / 256)
+            Next
+            temp = Int(fractPart)
+            For i = 7 To 4 Step -1
+                SNTPData(offset + i) = Int(temp Mod 256)
+                temp = Int(temp / 256)
+            Next
+        End Sub
 
         '// Set system time according to transmit timestamp
         Private Sub SetTime()
@@ -585,7 +576,16 @@ Namespace InternetTime
             SetLocalTime(st)
         End Sub
 
-        '// The URL of the time server we're connecting to
-        Private TimeServer As String
+        '// SYSTEMTIME structure used by SetSystemTime
+        <StructLayout(LayoutKind.Sequential)> Private Structure SYSTEMTIME
+            Public year As Int16
+            Public month As Int16
+            Public dayOfWeek As Int16
+            Public day As Int16
+            Public hour As Int16
+            Public minute As Int16
+            Public second As Int16
+            Public milliseconds As Int16
+        End Structure
     End Class
 End Namespace

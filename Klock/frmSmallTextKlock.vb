@@ -5,26 +5,52 @@
     Dim mousex As Integer                   '
     Dim mousey As Integer                   '
 
-    ' -------------------------------------------------------------------------------- procedures used to make form drag-able -----------------
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+        '   Display the about form.
 
-    Private Sub pnlSmallKlock_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, pnlSmallKlock.MouseDown
-
-        drag = True
-        mousex = Windows.Forms.Cursor.Position.X - Me.Left
-        mousey = Windows.Forms.Cursor.Position.Y - Me.Top
+        HelpCommon.displayInfo(sender.ToString)
     End Sub
 
-    Private Sub pnlSmallKlock_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, pnlSmallKlock.MouseMove
+    Private Sub clearlabels(foreColour As Color, backColour As Color, offColour As Color)
+        '   Clear all labels, in fact sets their colour to ListSlateGray.
+        '   Set colour to LightGreen for labels that always on.
 
-        If drag Then
-            Top = Windows.Forms.Cursor.Position.Y - mousey
-            Left = Windows.Forms.Cursor.Position.X - mousex
+        Dim lbl As New Control
+
+        pnlSmallKlock.BackColor = backColour
+
+        For Each lbl In pnlSmallKlock.Controls     'if other then label appear on panel, then will have to check for this.
+            lbl.ForeColor = offColour
+        Next
+
+        lblIT.ForeColor = foreColour
+        lblIS.ForeColor = foreColour
+    End Sub
+
+    Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
+        '   Close both small text and the main klock form.
+
+        If frmKlock.usrSettings.usrRememberKlockMode Then        '   if desired, start in small text klock next time.
+            frmKlock.usrSettings.usrStartKlockMode = 2
         End If
+
+        Close()
+        frmKlock.Close()
     End Sub
 
-    Private Sub pnlSmallKlock_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, pnlSmallKlock.MouseUp
+    Private Sub frmTextKlock_FormClosed(sender As System.Object, e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
 
-        drag = False
+        If frmKlock.usrSettings.usrSmallKlockSavePosition Then
+            frmKlock.usrSettings.usrSmallKlockTop = Top
+            frmKlock.usrSettings.usrSmallKlockLeft = Left
+        End If
+
+        tmrTextKlock.Enabled = False
+
+        frmKlock.NtfyIcnKlock.Visible = False
+        frmKlock.Visible = True
+
+        frmKlock.TextKlockToolStripMenuItem.Checked = False
     End Sub
 
     ' ------------------------------------------------------------------------------------------------- key down ----------------------------
@@ -64,19 +90,10 @@
         setDisplay()
     End Sub
 
-    Private Sub frmTextKlock_FormClosed(sender As System.Object, e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        '   Display the help file.
 
-        If frmKlock.usrSettings.usrSmallKlockSavePosition Then
-            frmKlock.usrSettings.usrSmallKlockTop = Top
-            frmKlock.usrSettings.usrSmallKlockLeft = Left
-        End If
-
-        tmrTextKlock.Enabled = False
-
-        frmKlock.NtfyIcnKlock.Visible = False
-        frmKlock.Visible = True
-
-        frmKlock.TextKlockToolStripMenuItem.Checked = False
+        Help.ShowHelp(frmKlock, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
     End Sub
 
     Private Sub lblClose_Click(sender As Object, e As EventArgs) Handles lblClose.Click
@@ -84,9 +101,48 @@
         Close()
     End Sub
 
-    Private Sub tmrTextKlock_Tick(sender As System.Object, e As System.EventArgs) Handles tmrTextKlock.Tick
+    Private Sub NewStickyNoteToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles NewStickyNoteToolStripMenuItem.Click
+        '   Create a new sticky note.
 
-        setDisplay()
+        newStickyNote()
+    End Sub
+
+    ' ------------------------------------------------------------------------------------------------------------------------- Context menu -----------------
+
+
+    Private Sub OptionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OptionsToolStripMenuItem.Click
+        '   Load the options screen.
+
+        frmOptions.tbCntrlOptions.SelectedIndex = 5
+        frmOptions.ShowDialog()
+    End Sub
+
+    ' -------------------------------------------------------------------------------- procedures used to make form drag-able -----------------
+
+    Private Sub pnlSmallKlock_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, pnlSmallKlock.MouseDown
+
+        drag = True
+        mousex = Windows.Forms.Cursor.Position.X - Me.Left
+        mousey = Windows.Forms.Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub pnlSmallKlock_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, pnlSmallKlock.MouseMove
+
+        If drag Then
+            Top = Windows.Forms.Cursor.Position.Y - mousey
+            Left = Windows.Forms.Cursor.Position.X - mousex
+        End If
+    End Sub
+
+    Private Sub pnlSmallKlock_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, pnlSmallKlock.MouseUp
+
+        drag = False
+    End Sub
+
+    Private Sub ReturnToKlockToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReturnToKlockToolStripMenuItem.Click
+        '   Close small text klock and return to the main klock form.
+
+        Close()
     End Sub
 
     Private Sub setDisplay()
@@ -99,54 +155,6 @@
         clearlabels(foreColour, backColour, offColour)
         setTime(foreColour)
         updateStatusBar(foreColour, backColour)
-    End Sub
-
-    Private Sub updateStatusBar(foreColour As Color, backColour As Color)
-        '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
-
-        '                                               if running on battery, change status info colour to red as a warning.
-
-        StsStrpInfo.BackColor = backColour
-
-        If frmKlock.myManagedPower.powerSource().Contains("AC") Then
-            stsLblTime.ForeColor = foreColour
-            StsLblDate.ForeColor = foreColour
-            StsLblKeys.ForeColor = foreColour
-        Else
-            stsLblTime.ForeColor = Color.Red
-            StsLblDate.ForeColor = Color.Red
-            StsLblKeys.ForeColor = Color.Red
-        End If
-
-        stsLblTime.Text = statusTime()
-        StsLblDate.Text = Format(Now, "short Date")
-        StsLblKeys.Text = statusInfo()
-
-        '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleeping.
-
-        If frmKlock.usrSettings.usrTimeIdleTime Or frmKlock.usrSettings.usrDisableMonitorSleep Then
-            stsLbIdkeTime.ForeColor = foreColour
-            stsLbIdkeTime.Visible = True
-            stsLbIdkeTime.Text = "Idle Time :: " & KlockThings.idleTime()
-        Else
-            stsLbIdkeTime.Visible = False
-        End If
-    End Sub
-
-    Private Sub clearlabels(foreColour As Color, backColour As Color, offColour As Color)
-        '   Clear all labels, in fact sets their colour to ListSlateGray.
-        '   Set colour to LightGreen for labels that always on.
-
-        Dim lbl As New Control
-
-        pnlSmallKlock.BackColor = backColour
-
-        For Each lbl In pnlSmallKlock.Controls     'if other then label appear on panel, then will have to check for this.
-            lbl.ForeColor = offColour
-        Next
-
-        lblIT.ForeColor = foreColour
-        lblIS.ForeColor = foreColour
     End Sub
 
     Private Sub setTime(foreColour As Color)
@@ -293,48 +301,40 @@
         End If
     End Sub
 
-    ' ------------------------------------------------------------------------------------------------------------------------- Context menu -----------------
+    Private Sub tmrTextKlock_Tick(sender As System.Object, e As System.EventArgs) Handles tmrTextKlock.Tick
 
-
-    Private Sub OptionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OptionsToolStripMenuItem.Click
-        '   Load the options screen.
-
-        frmOptions.tbCntrlOptions.SelectedIndex = 5
-        frmOptions.ShowDialog()
+        setDisplay()
     End Sub
 
-    Private Sub ReturnToKlockToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReturnToKlockToolStripMenuItem.Click
-        '   Close small text klock and return to the main klock form.
+    Private Sub updateStatusBar(foreColour As Color, backColour As Color)
+        '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
 
-        Close()
-    End Sub
+        '                                               if running on battery, change status info colour to red as a warning.
 
-    Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
-        '   Close both small text and the main klock form.
+        StsStrpInfo.BackColor = backColour
 
-        If frmKlock.usrSettings.usrRememberKlockMode Then        '   if desired, start in small text klock next time.
-            frmKlock.usrSettings.usrStartKlockMode = 2
+        If frmKlock.myManagedPower.powerSource().Contains("AC") Then
+            stsLblTime.ForeColor = foreColour
+            StsLblDate.ForeColor = foreColour
+            StsLblKeys.ForeColor = foreColour
+        Else
+            stsLblTime.ForeColor = Color.Red
+            StsLblDate.ForeColor = Color.Red
+            StsLblKeys.ForeColor = Color.Red
         End If
 
-        Close()
-        frmKlock.Close()
-    End Sub
+        stsLblTime.Text = statusTime()
+        StsLblDate.Text = Format(Now, "short Date")
+        StsLblKeys.Text = statusInfo()
 
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-        '   Display the help file.
+        '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleeping.
 
-        Help.ShowHelp(frmKlock, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
-    End Sub
-
-    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
-        '   Display the about form.
-
-        HelpCommon.displayInfo(sender.ToString)
-    End Sub
-
-    Private Sub NewStickyNoteToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles NewStickyNoteToolStripMenuItem.Click
-        '   Create a new sticky note.
-
-        newStickyNote()
+        If frmKlock.usrSettings.usrTimeIdleTime Or frmKlock.usrSettings.usrDisableMonitorSleep Then
+            stsLbIdkeTime.ForeColor = foreColour
+            stsLbIdkeTime.Visible = True
+            stsLbIdkeTime.Text = "Idle Time :: " & KlockThings.idleTime()
+        Else
+            stsLbIdkeTime.Visible = False
+        End If
     End Sub
 End Class

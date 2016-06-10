@@ -6,12 +6,12 @@
     Public TEXT_WIDTH2 As Single = 500          '
     Public TEXT_WIDTH3 As Single = 580          '
 
-    Dim txtLrgFont As New Font("Lucida Calligraphy", 17, FontStyle.Regular)     '   large font.
+    Dim pfc As New System.Drawing.Text.PrivateFontCollection()
     Dim txtBigFont As New Font("Lucida Calligraphy", 16, FontStyle.Regular)     '   big font.
+
+    Dim txtLrgFont As New Font("Lucida Calligraphy", 17, FontStyle.Regular)     '   large font.
     Dim txtSmlFont As New Font("Lucida Calligraphy", 15, FontStyle.Regular)     '   small font.
     Dim txtTnyFont As New Font("Lucida Calligraphy", 14, FontStyle.Regular)     '   tiny font.
-
-    Dim pfc As New System.Drawing.Text.PrivateFontCollection()
 
     Public Sub New()
         '   at start, load the required fonts.
@@ -28,6 +28,18 @@
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("userFonts.New", ex)
             frmKlock.displayAction.DisplayReminder(ex.Message, "G", "Font ERROR :: cannot find font file")
         End Try
+    End Sub
+
+    Public Sub Dispose() Implements IDisposable.Dispose
+        '   dispose of the font objects
+
+        txtSmlFont.Dispose()
+        txtTnyFont.Dispose()
+        txtBigFont.Dispose()
+        txtLrgFont.Dispose()
+        pfc.Dispose()
+        GC.SuppressFinalize(Me)
+
     End Sub
 
     Public Function getFont(tmStr As String, mode As String, g As Graphics) As Font
@@ -70,16 +82,4 @@
 
         Return rtnFont
     End Function
-
-    Public Sub Dispose() Implements IDisposable.Dispose
-        '   dispose of the font objects
-
-        txtSmlFont.Dispose()
-        txtTnyFont.Dispose()
-        txtBigFont.Dispose()
-        txtLrgFont.Dispose()
-        pfc.Dispose()
-        GC.SuppressFinalize(Me)
-
-    End Sub
 End Class

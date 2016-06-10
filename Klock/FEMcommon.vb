@@ -15,103 +15,10 @@ Module FEMcommon
 
     Public usrFonts As UserFonts                    '   instance of user fonts.
 
-    Public Sub ButtonsVisible(ByVal b As Boolean, noFriends As Integer, noEvents As Integer, noMemo As Integer)
-        '   Switch on the editing buttons.
-        '   Only enable print button, if items exist to print.
-        '   Only enable check button, if events exist to check.
-
-        Dim enablePrint As Boolean = noFriends <> 0 Or noEvents <> 0 Or noMemo <> 0
-        Dim enableCheck As Boolean = noEvents <> 0
-
-        frmKlock.btnNew.Visible = b
-        frmKlock.btnAdd.Visible = b
-        frmKlock.btnClear.Visible = b
-        frmKlock.btnEdit.Visible = b
-        frmKlock.btnDelete.Visible = b
-        frmKlock.btnEventsCheck.Visible = b
-
-        frmKlock.btnPrint.Visible = If(frmKlock.TbCntrl.SelectedIndex > 4 And enablePrint, True, False)
-        frmKlock.btnEventsCheck.Visible = If(frmKlock.TbCntrl.SelectedIndex = 6 And enableCheck, True, False)
-    End Sub
-
-    Public Sub btnPrint()
-        '   Sets up to print list box.
-        '   printDialog goes straight to printer
-        '   printPreview produces a preview on screen first - better for debugging.
-        '   TODO :: maybe an option.
-
-        Dim PrintPreview As New PrintPreviewDialog
-
-        PrintPreview.Document = docToPrint
-        PrintPreview.ShowDialog()
-
-    End Sub
-
     '
     '   ************************************************************************************************ print the list-box's ********************************
     '
     Private WithEvents docToPrint As New PrintDocument
-
-    Private Sub printItems(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles docToPrint.PrintPage
-
-        usrFonts = New UserFonts                        '   user fonts
-
-        Dim printFont = usrFonts.getFont()
-        Dim crntView As ListBox = frmKlock.LstBxFriends                             '   just to give a default.
-        Dim yPosition As Integer = 40
-
-        Select Case frmKlock.TbCntrl.SelectedIndex
-            Case 5
-                crntView = frmKlock.LstBxFriends
-            Case 6
-                crntView = frmKlock.LstBxEvents
-            Case 7
-                crntView = frmKlock.LstBxMemo
-        End Select
-
-        For Each item As Object In crntView.Items
-            e.Graphics.DrawString(item.ToString, printFont, System.Drawing.Brushes.Black, 25, yPosition)
-            yPosition += 40
-        Next
-    End Sub
-
-
-    Public Sub btnNew()
-        '   Sets up to add new friend, event or memo.
-
-        frmKlock.btnClear.Enabled = True
-        frmKlock.btnAdd.Enabled = True
-        frmKlock.btnNew.Enabled = False
-        frmKlock.btnEdit.Enabled = False
-        frmKlock.btnDelete.Enabled = False
-        frmKlock.btnPrint.Visible = False
-
-        PanelTop()
-
-        Select Case frmKlock.TbCntrl.SelectedIndex
-            Case 5
-                frmKlock.txtbxFriendsFirstName.Focus()
-
-                frmKlock.FriendsClearText()
-                frmKlock.FriendsReadOnlyText(False)
-
-                frmKlock.F_ADDING = True
-            Case 6
-                frmKlock.TxtBxEventsName.Focus()
-
-                frmKlock.EventsClearText()
-                frmKlock.EventsReadOnlyText(True)
-
-                frmKlock.E_ADDING = True
-            Case 7
-                frmKlock.TxtBxMemoName.Focus()
-
-                frmKlock.ChckBxMemoEncypt.Enabled = True
-
-                frmKlock.MemoClearText()
-                frmKlock.memoReadOnlyText(True)
-        End Select
-    End Sub
 
     Public Sub btnAdd()
         '   Adds a new friend, event or memo to list-view box and saves a new friend, event or memo file.
@@ -232,6 +139,75 @@ Module FEMcommon
         End Select
     End Sub
 
+    Public Sub btnDelete()
+        '   Deletes the currently selected entry form the list-view box.
+        '   Saves new friend, event or memo file and display first entry [if exists].
+
+        Dim reply As MsgBoxResult
+
+        reply = MsgBox("Are you sure to DELETE?", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
+        If reply = MsgBoxResult.No Then Exit Sub '   Not to delete, exit sub.
+
+        frmKlock.btnPrint.Visible = False
+
+        Select Case frmKlock.TbCntrl.SelectedIndex
+            Case 5
+                If frmKlock.LstBxFriends.SelectedIndex > -1 Then                                        '   If entries in list-view box.
+                    frmKlock.LstBxFriends.Items.RemoveAt(frmKlock.LstBxFriends.SelectedIndex)
+                    frmKlock.FriendsClearText()
+                    frmKlock.FriendsReadOnlyText(True)
+                End If
+
+                If frmKlock.LstBxFriends.Items.Count > 0 Then                                           '   If entries in list view box, after delete.
+                    frmKlock.btnDelete.Enabled = True
+                    frmKlock.btnEdit.Enabled = True
+                    frmKlock.showFriends(0)
+                Else                                                                                    '   No entries in list-view box after delete.
+                    frmKlock.btnDelete.Enabled = False
+                    frmKlock.btnEdit.Enabled = False
+                End If
+                IOcommon.saveFriends()
+            Case 6
+                If frmKlock.LstBxEvents.SelectedIndex > -1 Then                                         '   If entries in list-view box.
+                    frmKlock.LstBxEvents.Items.RemoveAt(frmKlock.LstBxEvents.SelectedIndex)
+                    frmKlock.EventsClearText()
+                    frmKlock.EventsReadOnlyText(True)
+                End If
+
+                If frmKlock.LstBxEvents.Items.Count > 0 Then                                            '   If entries in list view box, after delete.
+                    frmKlock.btnDelete.Enabled = True
+                    frmKlock.btnEdit.Enabled = True
+                    frmKlock.btnEventsCheck.Enabled = True
+                    frmKlock.showEvents(0)
+                    frmKlock.tmrEvents.Interval = frmKlock.usrSettings.usrEventsTimerInterval * 60      '   interval is held in minutes
+                    frmKlock.tmrEvents.Enabled = True                                                   '   enable events timer.
+                Else                                                                                    '   No entries in list-view box after delete.
+                    frmKlock.btnDelete.Enabled = False
+                    frmKlock.btnEdit.Enabled = False
+                    frmKlock.btnEventsCheck.Enabled = False
+                    frmKlock.tmrEvents.Enabled = False                                                  '   enable events timer.
+                End If
+                IOcommon.saveEvents()
+            Case 7
+                If frmKlock.LstBxMemo.SelectedIndex > -1 Then                                        '   If entries in list-view box.
+                    frmKlock.LstBxMemo.Items.RemoveAt(frmKlock.LstBxMemo.SelectedIndex)
+                    frmKlock.MemoClearText()
+                    frmKlock.memoReadOnlyText(True)
+                End If
+
+                If frmKlock.LstBxMemo.Items.Count > 0 Then                                           '   If entries in list view box, after delete.
+                    frmKlock.btnDelete.Enabled = True
+                    frmKlock.btnEdit.Enabled = True
+                    frmKlock.showMemo(0)
+                Else                                                                                    '   No entries in list-view box after delete.
+                    frmKlock.btnDelete.Enabled = False
+                    frmKlock.btnEdit.Enabled = False
+                End If
+
+                IOcommon.saveMemo()
+        End Select
+    End Sub
+
     Public Sub btnEdit()
         '   allows selected entry in list-view box to be edited.
         '   Changed button to "Save", which then will save new data to selected entry and save new friend, event or memo file.
@@ -306,73 +282,74 @@ Module FEMcommon
         frmKlock.btnPrint.Visible = True
     End Sub
 
-    Public Sub btnDelete()
-        '   Deletes the currently selected entry form the list-view box.
-        '   Saves new friend, event or memo file and display first entry [if exists].
 
-        Dim reply As MsgBoxResult
+    Public Sub btnNew()
+        '   Sets up to add new friend, event or memo.
 
-        reply = MsgBox("Are you sure to DELETE?", MsgBoxStyle.YesNo Or MsgBoxStyle.Exclamation, "WARNING")
-        If reply = MsgBoxResult.No Then Exit Sub '   Not to delete, exit sub.
-
+        frmKlock.btnClear.Enabled = True
+        frmKlock.btnAdd.Enabled = True
+        frmKlock.btnNew.Enabled = False
+        frmKlock.btnEdit.Enabled = False
+        frmKlock.btnDelete.Enabled = False
         frmKlock.btnPrint.Visible = False
+
+        PanelTop()
 
         Select Case frmKlock.TbCntrl.SelectedIndex
             Case 5
-                If frmKlock.LstBxFriends.SelectedIndex > -1 Then                                        '   If entries in list-view box.
-                    frmKlock.LstBxFriends.Items.RemoveAt(frmKlock.LstBxFriends.SelectedIndex)
-                    frmKlock.FriendsClearText()
-                    frmKlock.FriendsReadOnlyText(True)
-                End If
+                frmKlock.txtbxFriendsFirstName.Focus()
 
-                If frmKlock.LstBxFriends.Items.Count > 0 Then                                           '   If entries in list view box, after delete.
-                    frmKlock.btnDelete.Enabled = True
-                    frmKlock.btnEdit.Enabled = True
-                    frmKlock.showFriends(0)
-                Else                                                                                    '   No entries in list-view box after delete.
-                    frmKlock.btnDelete.Enabled = False
-                    frmKlock.btnEdit.Enabled = False
-                End If
-                IOcommon.saveFriends()
+                frmKlock.FriendsClearText()
+                frmKlock.FriendsReadOnlyText(False)
+
+                frmKlock.F_ADDING = True
             Case 6
-                If frmKlock.LstBxEvents.SelectedIndex > -1 Then                                         '   If entries in list-view box.
-                    frmKlock.LstBxEvents.Items.RemoveAt(frmKlock.LstBxEvents.SelectedIndex)
-                    frmKlock.EventsClearText()
-                    frmKlock.EventsReadOnlyText(True)
-                End If
+                frmKlock.TxtBxEventsName.Focus()
 
-                If frmKlock.LstBxEvents.Items.Count > 0 Then                                            '   If entries in list view box, after delete.
-                    frmKlock.btnDelete.Enabled = True
-                    frmKlock.btnEdit.Enabled = True
-                    frmKlock.btnEventsCheck.Enabled = True
-                    frmKlock.showEvents(0)
-                    frmKlock.tmrEvents.Interval = frmKlock.usrSettings.usrEventsTimerInterval * 60      '   interval is held in minutes
-                    frmKlock.tmrEvents.Enabled = True                                                   '   enable events timer.
-                Else                                                                                    '   No entries in list-view box after delete.
-                    frmKlock.btnDelete.Enabled = False
-                    frmKlock.btnEdit.Enabled = False
-                    frmKlock.btnEventsCheck.Enabled = False
-                    frmKlock.tmrEvents.Enabled = False                                                  '   enable events timer.
-                End If
-                IOcommon.saveEvents()
+                frmKlock.EventsClearText()
+                frmKlock.EventsReadOnlyText(True)
+
+                frmKlock.E_ADDING = True
             Case 7
-                If frmKlock.LstBxMemo.SelectedIndex > -1 Then                                        '   If entries in list-view box.
-                    frmKlock.LstBxMemo.Items.RemoveAt(frmKlock.LstBxMemo.SelectedIndex)
-                    frmKlock.MemoClearText()
-                    frmKlock.memoReadOnlyText(True)
-                End If
+                frmKlock.TxtBxMemoName.Focus()
 
-                If frmKlock.LstBxMemo.Items.Count > 0 Then                                           '   If entries in list view box, after delete.
-                    frmKlock.btnDelete.Enabled = True
-                    frmKlock.btnEdit.Enabled = True
-                    frmKlock.showMemo(0)
-                Else                                                                                    '   No entries in list-view box after delete.
-                    frmKlock.btnDelete.Enabled = False
-                    frmKlock.btnEdit.Enabled = False
-                End If
+                frmKlock.ChckBxMemoEncypt.Enabled = True
 
-                IOcommon.saveMemo()
+                frmKlock.MemoClearText()
+                frmKlock.memoReadOnlyText(True)
         End Select
+    End Sub
+
+    Public Sub btnPrint()
+        '   Sets up to print list box.
+        '   printDialog goes straight to printer
+        '   printPreview produces a preview on screen first - better for debugging.
+        '   TODO :: maybe an option.
+
+        Dim PrintPreview As New PrintPreviewDialog
+
+        PrintPreview.Document = docToPrint
+        PrintPreview.ShowDialog()
+
+    End Sub
+
+    Public Sub ButtonsVisible(ByVal b As Boolean, noFriends As Integer, noEvents As Integer, noMemo As Integer)
+        '   Switch on the editing buttons.
+        '   Only enable print button, if items exist to print.
+        '   Only enable check button, if events exist to check.
+
+        Dim enablePrint As Boolean = noFriends <> 0 Or noEvents <> 0 Or noMemo <> 0
+        Dim enableCheck As Boolean = noEvents <> 0
+
+        frmKlock.btnNew.Visible = b
+        frmKlock.btnAdd.Visible = b
+        frmKlock.btnClear.Visible = b
+        frmKlock.btnEdit.Visible = b
+        frmKlock.btnDelete.Visible = b
+        frmKlock.btnEventsCheck.Visible = b
+
+        frmKlock.btnPrint.Visible = If(frmKlock.TbCntrl.SelectedIndex > 4 And enablePrint, True, False)
+        frmKlock.btnEventsCheck.Visible = If(frmKlock.TbCntrl.SelectedIndex = 6 And enableCheck, True, False)
     End Sub
 
     Public Sub PanelTop()
@@ -386,6 +363,29 @@ Module FEMcommon
             Case 7
                 frmKlock.pnlMemo.ScrollControlIntoView(frmKlock.lblMemoName)
         End Select
+    End Sub
+
+    Private Sub printItems(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles docToPrint.PrintPage
+
+        usrFonts = New UserFonts                        '   user fonts
+
+        Dim printFont = usrFonts.getFont()
+        Dim crntView As ListBox = frmKlock.LstBxFriends                             '   just to give a default.
+        Dim yPosition As Integer = 40
+
+        Select Case frmKlock.TbCntrl.SelectedIndex
+            Case 5
+                crntView = frmKlock.LstBxFriends
+            Case 6
+                crntView = frmKlock.LstBxEvents
+            Case 7
+                crntView = frmKlock.LstBxMemo
+        End Select
+
+        For Each item As Object In crntView.Items
+            e.Graphics.DrawString(item.ToString, printFont, System.Drawing.Brushes.Black, 25, yPosition)
+            yPosition += 40
+        Next
     End Sub
 End Module
 

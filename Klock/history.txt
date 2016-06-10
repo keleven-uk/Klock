@@ -3,6 +3,33 @@ converted from SVN as of build 42.
 I find the git commit number unwieldy, so still include SVN style build numbers.
 
 
+[Build [77] - V1.1.9.77 - June 2016
+[Lines of code = 15578]
+[maintainability index = 77]
+
+commit dde5b984592ec8723722b650c1d3975c49b202b0
+Author: Kevin Scott <klock@keleven.co.uk>
+Date:   Mon Jun 6 22:07:40 2016 +0100
+
+    [OptionThings.vb]
+    Added file to hold some the boring stuff from frmOptions.vb.
+    
+    [stickyNotes.vb]
+    Made the code more robust.
+    
+    [frmOptions.vb]
+    Lost some stuff to OptionThings.vb.  Amended btnArchiveLoad() so that settings and sticky notes are loaded after files are loaded from an archive.  Removed the exclusion .log files from the archive.
+    
+    [frmStickyNote.vb]
+    Added the label to the drag and drop routines.
+    
+    [UserSettings.vb]
+    Removed usrTimeThreeQuartersChimes from options - not used.
+    
+    [frmAbout.vb]
+    Added date and time of compile to version string.
+    
+    
 [Build [76] - V1.1.9.76 - May 2016
 [Lines of code = 15194]
 [maintainability index = 79]

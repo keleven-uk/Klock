@@ -14,16 +14,6 @@ Public Class frmNotification
     'The handle of the window that currently has focus.
     Private currentForegroundWindow As IntPtr
 
-    'Gets the handle of the window that currently has focus.
-    <DllImport("user32")> _
-    Private Shared Function GetForegroundWindow() As IntPtr
-    End Function
-
-    'Activates the specified window handle of the window to be focused.  Returns True if the window was focused; False otherwise.
-    <DllImport("user32")> _
-    Private Shared Function SetForegroundWindow(ByVal hWnd As IntPtr) As Boolean
-    End Function
-
     Dim mode As String
 
     'Creates a new Notification form object that is displayed for the specified length of time.
@@ -120,20 +110,35 @@ Public Class frmNotification
         MyBase.Show()
     End Sub
 
-    Private Sub NotificationForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        'Display the form just above the system tray.
-        Location = New Point(Screen.PrimaryScreen.WorkingArea.Width - Width - 5, Screen.PrimaryScreen.WorkingArea.Height - Height - 5)
+    'Gets the handle of the window that currently has focus.
+    <DllImport("user32")>
+    Private Shared Function GetForegroundWindow() As IntPtr
+    End Function
 
-        'Move each open form upwards to make room for this one.
-        For Each openForm As frmNotification In frmNotification.openForms
-            openForm.Top -= Height + 5
-        Next
+    'Activates the specified window handle of the window to be focused.  Returns True if the window was focused; False otherwise.
+    <DllImport("user32")>
+    Private Shared Function SetForegroundWindow(ByVal hWnd As IntPtr) As Boolean
+    End Function
 
-        'Add this form from the open form list.
-        frmNotification.openForms.Add(Me)
+    Private Sub btnExit_Click(sender As System.Object, e As System.EventArgs) Handles btnExit.Click
+        Close()
+    End Sub
 
-        'Start counting down the form's lifetime [only if reminder].
-        If mode = "R" Then lifeTimer.Start()
+    Private Sub btnExit_MouseDown(sender As System.Object, e As System.EventArgs) Handles btnExit.MouseDown
+        btnExit.Image = My.Resources.btnClicked
+    End Sub
+
+    Private Sub btnExit_MouseHover(sender As System.Object, e As System.EventArgs) Handles btnExit.MouseHover
+        btnExit.Image = My.Resources.btnLow
+    End Sub
+
+    Private Sub btnExit_MouseLeave(sender As System.Object, e As System.EventArgs) Handles btnExit.MouseLeave
+        btnExit.Image = My.Resources.btnHigh
+    End Sub
+
+    Private Sub lifeTimer_Tick(ByVal sender As Object, ByVal e As EventArgs) Handles lifeTimer.Tick
+        'The form's lifetime has expired.
+        Close()
     End Sub
 
     Private Sub NotificationForm_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
@@ -144,12 +149,8 @@ Public Class frmNotification
         End If
     End Sub
 
-    Private Sub NotificationForm_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
-        'Once the animation has completed the form can receive focus.
-        allowFocus = True
-
-        'Close the form by sliding down.
-        animator.Direction = FormAnimator.AnimationDirection.Down
+    Private Sub NotificationForm_Click(sender As System.Object, e As System.EventArgs) Handles MyBase.Click, lblMessage1.Click, lblMessage2.Click
+        Close()
     End Sub
 
     Private Sub NotificationForm_FormClosed(ByVal sender As Object, ByVal e As FormClosedEventArgs) Handles MyBase.FormClosed
@@ -167,9 +168,20 @@ Public Class frmNotification
         frmNotification.openForms.Remove(Me)
     End Sub
 
-    Private Sub lifeTimer_Tick(ByVal sender As Object, ByVal e As EventArgs) Handles lifeTimer.Tick
-        'The form's lifetime has expired.
-        Close()
+    Private Sub NotificationForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        'Display the form just above the system tray.
+        Location = New Point(Screen.PrimaryScreen.WorkingArea.Width - Width - 5, Screen.PrimaryScreen.WorkingArea.Height - Height - 5)
+
+        'Move each open form upwards to make room for this one.
+        For Each openForm As frmNotification In frmNotification.openForms
+            openForm.Top -= Height + 5
+        Next
+
+        'Add this form from the open form list.
+        frmNotification.openForms.Add(Me)
+
+        'Start counting down the form's lifetime [only if reminder].
+        If mode = "R" Then lifeTimer.Start()
     End Sub
 
     Private Sub NotificationForm_MouseHover(sender As System.Object, e As System.EventArgs) Handles MyBase.MouseHover, lblMessage1.MouseHover, lblMessage2.MouseHover
@@ -186,23 +198,11 @@ Public Class frmNotification
         Next
     End Sub
 
-    Private Sub NotificationForm_Click(sender As System.Object, e As System.EventArgs) Handles MyBase.Click, lblMessage1.Click, lblMessage2.Click
-        Close()
-    End Sub
+    Private Sub NotificationForm_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+        'Once the animation has completed the form can receive focus.
+        allowFocus = True
 
-    Private Sub btnExit_MouseHover(sender As System.Object, e As System.EventArgs) Handles btnExit.MouseHover
-        btnExit.Image = My.Resources.btnLow
-    End Sub
-
-    Private Sub btnExit_MouseLeave(sender As System.Object, e As System.EventArgs) Handles btnExit.MouseLeave
-        btnExit.Image = My.Resources.btnHigh
-    End Sub
-
-    Private Sub btnExit_MouseDown(sender As System.Object, e As System.EventArgs) Handles btnExit.MouseDown
-        btnExit.Image = My.Resources.btnClicked
-    End Sub
-
-    Private Sub btnExit_Click(sender As System.Object, e As System.EventArgs) Handles btnExit.Click
-        Close()
+        'Close the form by sliding down.
+        animator.Direction = FormAnimator.AnimationDirection.Down
     End Sub
 End Class

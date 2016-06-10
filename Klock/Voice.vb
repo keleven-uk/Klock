@@ -1,4 +1,8 @@
 ﻿Public Class Voice
+
+    Public displayAction As selectAction
+
+    Private _active As Boolean          '   holds if voice is active.
     '   A wrapper class around SAPI - Microsoft's speech API.
 
     '    When the class in created, the SPAI object is created, is successful voice.active will return True, if failed it return false.
@@ -6,10 +10,6 @@
 
 
     Dim SAPI
-
-    Public displayAction As selectAction
-
-    Private _active As Boolean          '   holds if voice is active.
 
     Sub New()
         '   Created a new instance on the voice.

@@ -9,9 +9,9 @@ Imports System.Runtime.Serialization.Formatters.Binary
 Imports System.IO
 
 Public Class stickyNotes
+    Dim StickyNotesFile As String = ""
 
     Dim StickyNotesStore As New Dictionary(Of Integer, stickyNote)      '   set up sticky note store.
-    Dim StickyNotesFile As String = ""
 
 
 
@@ -55,25 +55,18 @@ Public Class stickyNotes
         Save()
     End Sub
 
-    Public Sub Save()
-        '   Save the store to a location specified when the store was created.
+    Public Function isEmpty() As Boolean
+        '   Will return true if the file contains data.
+        '   Will return false if file is zero length or does not exist.
 
-        Dim saveFile As FileStream = File.Create(StickyNotesFile)
+        If My.Computer.FileSystem.FileExists(StickyNotesFile) Then
+            Dim myFile As New FileInfo(StickyNotesFile)
 
-        saveFile.Seek(0, SeekOrigin.End)
-
-        Dim Formatter As BinaryFormatter = New BinaryFormatter
-
-        Try
-            Formatter.Serialize(saveFile, StickyNotesStore)           '   Write sticky note store to binary file.
-        Catch ex As Exception
-            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("stickyNotes.save", ex)
-            frmKlock.displayAction.DisplayReminder("Error saving Sticky Notes File." & vbCrLf & ex.Message, "G", "Sticky Error")
-        End Try
-
-        saveFile.Close()
-        Formatter = Nothing
-    End Sub
+            Return If(myFile.Length > 0, False, True)
+        Else
+            Return True
+        End If
+    End Function
 
     Public Sub Load()
         '   Load the store to a location specified when the store was created.
@@ -116,16 +109,23 @@ Public Class stickyNotes
 
     End Sub
 
-    Public Function isEmpty() As Boolean
-        '   Will return true if the file contains data.
-        '   Will return false if file is zero length or does not exist.
+    Public Sub Save()
+        '   Save the store to a location specified when the store was created.
 
-        If My.Computer.FileSystem.FileExists(StickyNotesFile) Then
-            Dim myFile As New FileInfo(StickyNotesFile)
+        Dim saveFile As FileStream = File.Create(StickyNotesFile)
 
-            Return If(myFile.Length > 0, False, True)
-        Else
-            Return True
-        End If
-    End Function
+        saveFile.Seek(0, SeekOrigin.End)
+
+        Dim Formatter As BinaryFormatter = New BinaryFormatter
+
+        Try
+            Formatter.Serialize(saveFile, StickyNotesStore)           '   Write sticky note store to binary file.
+        Catch ex As Exception
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("stickyNotes.save", ex)
+            frmKlock.displayAction.DisplayReminder("Error saving Sticky Notes File." & vbCrLf & ex.Message, "G", "Sticky Error")
+        End Try
+
+        saveFile.Close()
+        Formatter = Nothing
+    End Sub
 End Class

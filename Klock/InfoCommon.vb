@@ -86,19 +86,24 @@ Module InfoCommon
         frmInfo.ShowDialog()
     End Sub
 
-    Sub updateInfo(ByVal mode As String, ByVal year As Integer)
-        '   Calls the info form and populates the labels depending upon how it called.
-        '   This is only called for Daylight Saving and Easter Dates, if the year has been changed.
 
-        Select Case mode
-            Case "Daylight Saving", "Summer Time", "Winter Time"
-                updateDaylightSaving(year)
-            Case "Easter Dates"
-                updateEasteDates(year)
-            Case "Lent Dates"
-                updateLentDates(year)
-        End Select
+    Sub queryServer()
+        '   receives the time info from an internet time server.
+        '   See SNTBClient.vb for details and credits.
 
+        Dim sntpTime As InternetTime.SNTPClient
+
+        sntpTime = New InternetTime.SNTPClient(frmInfo.CmbBxTimeServers.SelectedItem)
+        sntpTime.Connect(frmInfo.ChckBxSynchKlock.Checked)
+
+        frmInfo.Text = "Info - Internet Time"
+        frmInfo.GroupBox1.Text = "Internet Time"
+
+        frmInfo.Label1.Text = sntpTime.ToString
+        frmInfo.Label2.Text = String.Empty
+        frmInfo.Label3.Text = String.Empty
+        frmInfo.Label4.Text = String.Empty
+        frmInfo.Label5.Text = String.Empty
     End Sub
 
     Sub updateDaylightSaving(ByVal currentYear As Integer)
@@ -151,6 +156,21 @@ Module InfoCommon
         frmInfo.Label5.Text = String.Format("Easter Monday : {0}", KlockThings.easterDate(currentYear).AddDays(+1).ToLongDateString)
     End Sub
 
+    Sub updateInfo(ByVal mode As String, ByVal year As Integer)
+        '   Calls the info form and populates the labels depending upon how it called.
+        '   This is only called for Daylight Saving and Easter Dates, if the year has been changed.
+
+        Select Case mode
+            Case "Daylight Saving", "Summer Time", "Winter Time"
+                updateDaylightSaving(year)
+            Case "Easter Dates"
+                updateEasteDates(year)
+            Case "Lent Dates"
+                updateLentDates(year)
+        End Select
+
+    End Sub
+
 
     Sub updateLentDates(ByVal currentYear As Integer)
         '   Updates the form with the lent dates for the current year.
@@ -172,26 +192,6 @@ Module InfoCommon
         frmInfo.Label3.Text = String.Format("Lent Starts [Ash Wednesday] : {0}", KlockThings.easterDate(currentYear).AddDays(-46).ToLongDateString)
         frmInfo.Label4.Text = String.Format("Lent Ends   [Easter Sunday] : {0}", KlockThings.easterDate(currentYear).ToLongDateString)
         frmInfo.Label5.Text = ""
-    End Sub
-
-
-    Sub queryServer()
-        '   receives the time info from an internet time server.
-        '   See SNTBClient.vb for details and credits.
-
-        Dim sntpTime As InternetTime.SNTPClient
-
-        sntpTime = New InternetTime.SNTPClient(frmInfo.CmbBxTimeServers.SelectedItem)
-        sntpTime.Connect(frmInfo.ChckBxSynchKlock.Checked)
-
-        frmInfo.Text = "Info - Internet Time"
-        frmInfo.GroupBox1.Text = "Internet Time"
-
-        frmInfo.Label1.Text = sntpTime.ToString
-        frmInfo.Label2.Text = String.Empty
-        frmInfo.Label3.Text = String.Empty
-        frmInfo.Label4.Text = String.Empty
-        frmInfo.Label5.Text = String.Empty
     End Sub
 
 End Module

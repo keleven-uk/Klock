@@ -2,6 +2,8 @@
 
 Public Class frmAnalogueKlock
 
+    Dim _pt As Point
+
     Dim drag As Boolean                     '   Global variables used to make the form dragable.
     Dim mousex As Integer                   '
     Dim mousey As Integer                   '
@@ -21,54 +23,33 @@ Public Class frmAnalogueKlock
         Dec = 12
     End Enum
 
-    Dim _pt As Point
+    ' ------------------------------------------------------------------------------------------------------------------- Custom Painting -----------------
 
+    Public Sub analogueKlockRefresh()
+        '   preform a analogue klock refresh i.e. re-draw.
+        '   if set up to draw background image and it exists then display it, otherwise clear image.
 
-    ' -------------------------------------------------------------------------------- procedures used to make form dragable -----------------
+        Dim currentDate As Date = Date.Now
+        Dim localZone As TimeZone = TimeZone.CurrentTimeZone
+        Dim offset As TimeSpan
 
-    Private Sub analogKlock_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, analogueKlock.MouseDown
-        '   update mouse position when form is dragged i.e. left mouse button down.
+        offset = If(localZone.IsDaylightSavingTime(currentDate), New TimeSpan(0, 1, 0, 0, 0), New TimeSpan(0, 0, 0, 0, 0))
+        analogueKlock.UtcOffset = offset
 
-        drag = True
-        mousex = Windows.Forms.Cursor.Position.X - Me.Left
-        mousey = Windows.Forms.Cursor.Position.Y - Me.Top
-    End Sub
-
-    Private Sub analogKlock_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, analogueKlock.MouseMove
-        '   make klock follow the mouse, when left button is held down.
-
-        If drag Then
-            Top = Windows.Forms.Cursor.Position.Y - mousey
-            Left = Windows.Forms.Cursor.Position.X - mousex
+        If frmKlock.usrSettings.usrAnalogueKlockDisplayPicture And My.Computer.FileSystem.FileExists(frmKlock.usrSettings.usrAnalogueKlockPicture) Then
+            analogueKlock.BackgroundImageLayout = ImageLayout.Zoom
+            analogueKlock.BackgroundImage = System.Drawing.Bitmap.FromFile(frmKlock.usrSettings.usrAnalogueKlockPicture)
+            analogueKlock.Refresh()
+        Else
+            analogueKlock.BackgroundImage = Nothing
+            analogueKlock.Refresh()
         End If
     End Sub
 
-    Private Sub analogKlock_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, analogueKlock.MouseUp
-        '   Left mouse button released, stop dragging.
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+        '   Display the about form.
 
-        drag = False
-    End Sub
-
-    Private Sub frmAnalogueKlock_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
-        '   When form is closed turn off timer and re-load main form.
-        '   and save analogue klock position if needed.
-        '   and save analogue klock mode if needed.
-        '   and save analogue klock size if needed.
-
-        frmKlock.NtfyIcnKlock.Visible = False
-        frmKlock.Visible = True
-
-        If frmKlock.usrSettings.usrAnalogueKlockSavePosition Then
-            frmKlock.usrSettings.usrAnalogueKlockTop = Top
-            frmKlock.usrSettings.usrAnalogueKlockLeft = Left
-        End If
-
-        If frmKlock.usrSettings.usrAnalogueKlockSizePosition Then
-            frmKlock.usrSettings.usrAnalogueKlockWidth = Width
-            frmKlock.usrSettings.usrAnalogueKlockHeight = Height
-        End If
-
-        frmKlock.usrSettings.writeSettings()                     '   save settings, not sure if anything has changed.
+        HelpCommon.displayInfo(sender.ToString)
     End Sub
 
     Private Sub analogKlock_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown, analogueKlock.KeyDown
@@ -109,51 +90,33 @@ Public Class frmAnalogueKlock
         End Select
     End Sub
 
-    Private Sub frmAnalogueKlock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        '   Set Transparency key on load - makes the form disappear.
-        '   and load analogue klock position and size, if needed.
 
-        Me.TransparencyKey = Color.LightBlue
-        Me.BackColor = Color.LightBlue
+    ' -------------------------------------------------------------------------------- procedures used to make form dragable -----------------
 
-        If frmKlock.usrSettings.usrAnalogueKlockSavePosition Then
-            Top = frmKlock.usrSettings.usrAnalogueKlockTop
-            Left = frmKlock.usrSettings.usrAnalogueKlockLeft
-        End If
+    Private Sub analogKlock_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, analogueKlock.MouseDown
+        '   update mouse position when form is dragged i.e. left mouse button down.
 
-        If frmKlock.usrSettings.usrAnalogueKlockSizePosition Then
-            Width = frmKlock.usrSettings.usrAnalogueKlockWidth
-            Height = frmKlock.usrSettings.usrAnalogueKlockHeight
-        End If
-
-        analogueKlockRefresh()
+        drag = True
+        mousex = Cursor.Position.X - Left
+        mousey = Cursor.Position.Y - Top
     End Sub
 
-    ' ------------------------------------------------------------------------------------------------------------------- Custom Painting -----------------
+    Private Sub analogKlock_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, analogueKlock.MouseMove
+        '   make klock follow the mouse, when left button is held down.
 
-    Public Sub analogueKlockRefresh()
-        '   preform a analogue klock refresh i.e. re-draw.
-        '   if set up to draw background image and it exists then display it, otherwise clear image.
-
-        Dim currentDate As Date = Date.Now
-        Dim localZone As TimeZone = TimeZone.CurrentTimeZone
-        Dim offset As TimeSpan
-
-        offset = If(localZone.IsDaylightSavingTime(currentDate), New TimeSpan(0, 1, 0, 0, 0), New TimeSpan(0, 0, 0, 0, 0))
-        analogueKlock.UtcOffset = offset
-
-        If frmKlock.usrSettings.usrAnalogueKlockDisplayPicture And My.Computer.FileSystem.FileExists(frmKlock.usrSettings.usrAnalogueKlockPicture) Then
-            analogueKlock.BackgroundImageLayout = ImageLayout.Zoom
-            analogueKlock.BackgroundImage = System.Drawing.Bitmap.FromFile(frmKlock.usrSettings.usrAnalogueKlockPicture)
-            analogueKlock.Refresh()
-        Else
-            analogueKlock.BackgroundImage = Nothing
-            analogueKlock.Refresh()
+        If drag Then
+            Top = Cursor.Position.Y - mousey
+            Left = Cursor.Position.X - mousex
         End If
+    End Sub
+
+    Private Sub analogKlock_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, analogueKlock.MouseUp
+        '   Left mouse button released, stop dragging.
+
+        drag = False
     End Sub
 
     Private Sub analogueKlock_BackgroundPaint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles analogueKlock.BackgroundPaint
-
         '   Set background colour of klock
 
         analogueKlock.BackColor = If(frmKlock.usrSettings.usrAnalogueKlcokTransparent, Color.Transparent, frmKlock.usrSettings.usrAnalogueKlockBackColour)
@@ -202,53 +165,9 @@ Public Class frmAnalogueKlock
         End If
     End Sub
 
-    Private Sub analogueKlock_HandPainting(ByVal sender As System.Object, ByVal e As AnalogClock.PaintEventArgs) _
-    Handles analogueKlock.SecondHandPainting, analogueKlock.MinuteHandPainting, analogueKlock.HourHandPainting
-
-        'Painting the hour, minute and second hand objects with different brushes.
-
-        Dim h As Hand = DirectCast(sender, Hand)
-        Dim gp As Drawing2D.GraphicsPath = CType(h.Path.Clone, Drawing2D.GraphicsPath)
-        Dim p As New Pen(Color.Gray, 2)
-        gp.Widen(p)
-        p.Dispose()
-        e.Graphics.FillPath(Brushes.Gray, gp)
-        gp.Dispose()
-        'Make sure the hand's graphics path contains more than 2 points.
-        If h.Path.PointCount > 2 Then
-            'Make the hand gradient
-            Dim br As New Drawing2D.PathGradientBrush(h.Path)
-            br.CenterColor = Color.White
-            br.SurroundColors = New Color() {h.Color}
-            e.Brush = br
-            br.Dispose()
-        End If
-
-    End Sub
-
-    Private Sub analogueKlock_CenterPointPainting(ByVal sender As Object, ByVal e As AnalogClock.PaintEventArgs) Handles analogueKlock.CenterPointPainting
-
-        'Painting the centre object with different brushes.
-
-        Dim c As Center = DirectCast(sender, AnalogClock.Center)
-
-        'Make the centre point gradient
-        Dim br As New Drawing2D.PathGradientBrush(c.Path)
-        br.WrapMode = Drawing2D.WrapMode.Tile
-        br.CenterColor = Color.White
-        br.SurroundColors = New Color() {c.Color}
-        br.CenterPoint = c.PivotalPoint
-        e.Brush = br
-        br.Dispose()
-
-    End Sub
-
-    Private Sub analogueKlock_BigMarkerPainting(ByVal sender As Object, ByVal e As AnalogClock.PaintEventArgs) _
-    Handles analogueKlock.BigMarkerPainting, analogueKlock.SmallMarkerPainting
-
-        'Painting all big-marker objects with different brushes.
-        'With the same fashion you can paint the small-markers.
-
+    Private Sub analogueKlock_BigMarkerPainting(ByVal sender As Object, ByVal e As AnalogClock.PaintEventArgs) Handles analogueKlock.BigMarkerPainting, analogueKlock.SmallMarkerPainting
+        '   Painting all big-marker objects with different brushes.
+        '   With the same fashion you can paint the small-markers.
 
         Dim m As Marker = DirectCast(sender, AnalogClock.Marker)
         Dim gp As Drawing2D.GraphicsPath = CType(m.Path.Clone, Drawing2D.GraphicsPath)
@@ -267,6 +186,22 @@ Public Class frmAnalogueKlock
             br.Dispose()
 
         End If
+    End Sub
+
+    Private Sub analogueKlock_CenterPointPainting(ByVal sender As Object, ByVal e As AnalogClock.PaintEventArgs) Handles analogueKlock.CenterPointPainting
+        '   Painting the centre object with different brushes.
+
+        Dim c As Center = DirectCast(sender, AnalogClock.Center)
+
+        'Make the centre point gradient
+        Dim br As New Drawing2D.PathGradientBrush(c.Path)
+        br.WrapMode = Drawing2D.WrapMode.Tile
+        br.CenterColor = Color.White
+        br.SurroundColors = New Color() {c.Color}
+        br.CenterPoint = c.PivotalPoint
+        e.Brush = br
+        br.Dispose()
+
     End Sub
 
     ' ------------------------------------------------------------------------------------------------------------------- Providing Custom Elements -----------------
@@ -351,7 +286,96 @@ Public Class frmAnalogueKlock
             gPath.AddLines(points)
             gPath.CloseAllFigures()
             e.CustomPath = gPath
-            End If
+        End If
+    End Sub
+
+    Private Sub analogueKlock_HandPainting(ByVal sender As System.Object, ByVal e As AnalogClock.PaintEventArgs) _
+    Handles analogueKlock.SecondHandPainting, analogueKlock.MinuteHandPainting, analogueKlock.HourHandPainting
+
+        'Painting the hour, minute and second hand objects with different brushes.
+
+        Dim h As Hand = DirectCast(sender, Hand)
+        Dim gp As Drawing2D.GraphicsPath = CType(h.Path.Clone, Drawing2D.GraphicsPath)
+        Dim p As New Pen(Color.Gray, 2)
+        gp.Widen(p)
+        p.Dispose()
+        e.Graphics.FillPath(Brushes.Gray, gp)
+        gp.Dispose()
+        'Make sure the hand's graphics path contains more than 2 points.
+        If h.Path.PointCount > 2 Then
+            'Make the hand gradient
+            Dim br As New Drawing2D.PathGradientBrush(h.Path)
+            br.CenterColor = Color.White
+            br.SurroundColors = New Color() {h.Color}
+            e.Brush = br
+            br.Dispose()
+        End If
+
+    End Sub
+
+    Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
+        '   Close both analogue and the main klock form.
+
+        If frmKlock.usrSettings.usrRememberKlockMode Then        '   if desired, start in analogue klock next time.
+            frmKlock.usrSettings.usrStartKlockMode = 1
+        End If
+
+        Close()
+        frmKlock.Close()
+    End Sub
+
+    Private Sub frmAnalogueKlock_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        '   When form is closed turn off timer and re-load main form.
+        '   and save analogue klock position if needed.
+        '   and save analogue klock mode if needed.
+        '   and save analogue klock size if needed.
+
+        frmKlock.NtfyIcnKlock.Visible = False
+        frmKlock.Visible = True
+
+        If frmKlock.usrSettings.usrAnalogueKlockSavePosition Then
+            frmKlock.usrSettings.usrAnalogueKlockTop = Top
+            frmKlock.usrSettings.usrAnalogueKlockLeft = Left
+        End If
+
+        If frmKlock.usrSettings.usrAnalogueKlockSizePosition Then
+            frmKlock.usrSettings.usrAnalogueKlockWidth = Width
+            frmKlock.usrSettings.usrAnalogueKlockHeight = Height
+        End If
+
+        frmKlock.usrSettings.writeSettings()                     '   save settings, not sure if anything has changed.
+    End Sub
+
+    Private Sub frmAnalogueKlock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        '   Set Transparency key on load - makes the form disappear.
+        '   and load analogue klock position and size, if needed.
+
+        Me.TransparencyKey = Color.LightBlue
+        Me.BackColor = Color.LightBlue
+
+        If frmKlock.usrSettings.usrAnalogueKlockSavePosition Then
+            Top = frmKlock.usrSettings.usrAnalogueKlockTop
+            Left = frmKlock.usrSettings.usrAnalogueKlockLeft
+        End If
+
+        If frmKlock.usrSettings.usrAnalogueKlockSizePosition Then
+            Width = frmKlock.usrSettings.usrAnalogueKlockWidth
+            Height = frmKlock.usrSettings.usrAnalogueKlockHeight
+        End If
+
+        analogueKlockRefresh()
+    End Sub
+
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        '   Display the help file.
+
+        Help.ShowHelp(frmKlock, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
+    End Sub
+
+    Private Sub NewStickyNoteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewStickyNoteToolStripMenuItem.Click
+        '   Create a new sticky note.
+
+        newStickyNote()
     End Sub
 
     ' ------------------------------------------------------------------------------------------------------------------------- Context menu -----------------
@@ -367,34 +391,5 @@ Public Class frmAnalogueKlock
         '   Close analogue klock and return to the main klock form.
 
         Close()
-    End Sub
-
-    Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
-        '   Close both analogue and the main klock form.
-
-        If frmKlock.usrSettings.usrRememberKlockMode Then        '   if desired, start in analogue klock next time.
-            frmKlock.usrSettings.usrStartKlockMode = 1
-        End If
-
-        Close()
-        frmKlock.Close()
-    End Sub
-
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-        '   Display the help file.
-
-        Help.ShowHelp(frmKlock, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
-    End Sub
-
-    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
-        '   Display the about form.
-
-        HelpCommon.displayInfo(sender.ToString)
-    End Sub
-
-    Private Sub NewStickyNoteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewStickyNoteToolStripMenuItem.Click
-        '   Create a new sticky note.
-
-        newStickyNote()
     End Sub
 End Class

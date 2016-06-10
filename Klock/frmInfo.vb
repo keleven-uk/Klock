@@ -14,7 +14,25 @@
         Close()
     End Sub
 
-    Private Sub TmrInfo_Tick(sender As System.Object, e As System.EventArgs) Handles TmrInfo.Tick
+    Private Sub BtnQueryServer_Click(sender As Object, e As EventArgs) Handles BtnQueryServer.Click
+        '   Calls the query server routine.  Get the time from an internet time server.
+
+        queryServer()
+    End Sub
+
+    Private Sub frmInfo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        '   set the year to current year on form load.
+
+        NmrcUpDwnYear.Value = Now().Year
+    End Sub
+
+    Private Sub NmrcUpDwnYear_ValueChanged(sender As Object, e As EventArgs) Handles NmrcUpDwnYear.ValueChanged
+        '   If the year has been changed update the data on the form.
+
+        updateInfo(GroupBox1.Text, NmrcUpDwnYear.Value)
+    End Sub
+
+    Private Sub TmrInfo_Tick(sender As Object, e As System.EventArgs) Handles TmrInfo.Tick
         '   if the form is loaded as power source, the timer will have been enabled.
         '   So, every six seconds update the labels with the status of the power source.
 
@@ -30,24 +48,5 @@
             Case Else
 
         End Select
-
-    End Sub
-
-    Private Sub NmrcUpDwnYear_ValueChanged(sender As Object, e As EventArgs) Handles NmrcUpDwnYear.ValueChanged
-        '   If the year has been changed update the data on the form.
-
-        InfoCommon.updateInfo(GroupBox1.Text, NmrcUpDwnYear.Value)
-    End Sub
-
-    Private Sub frmInfo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        '   set the year to current year on form load.
-
-        NmrcUpDwnYear.Value = Now().Year
-    End Sub
-
-    Private Sub BtnQueryServer_Click(sender As Object, e As EventArgs) Handles BtnQueryServer.Click
-        '   Calls the query server routine.  Get the time from an internet time server.
-
-        InfoCommon.queryServer()
     End Sub
 End Class

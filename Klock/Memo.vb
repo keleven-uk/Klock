@@ -1,6 +1,4 @@
-﻿Imports System.Globalization
-
-'   A Memo class.
+﻿'   A Memo class.
 '   Holds the data for an event and the functions to expose them.
 
 '   the <Serializable()> bit, allows it to be stored easily in a binary file.
@@ -10,21 +8,14 @@
 
 
     Private _memoName As String
-    Private _memoText As String
-    Private _memoSecret As Boolean
     Private _memoPassword As String
+    Private _memoSecret As Boolean
+    Private _memoText As String
 
     Public Sub New()
 
         MyBase.New()
     End Sub
-
-    Public Overrides Function ToString() As String
-
-        Dim first As String = memoName().PadRight(14, " ")
-
-        Return String.Format("{0}", first)
-    End Function
 
     Public Property memoName() As String
         Get
@@ -35,12 +26,12 @@
         End Set
     End Property
 
-    Public Property memoText() As String
+    Public Property memoPassword() As String
         Get
-            Return _memoText
+            Return _memoPassword
         End Get
         Set(ByVal value As String)
-            _memoText = value
+            _memoPassword = value
         End Set
     End Property
 
@@ -53,13 +44,20 @@
         End Set
     End Property
 
-    Public Property memoPassword() As String
+    Public Property memoText() As String
         Get
-            Return _memoPassword
+            Return _memoText
         End Get
         Set(ByVal value As String)
-            _memoPassword = value
+            _memoText = value
         End Set
     End Property
+
+    Public Overrides Function ToString() As String
+
+        Dim first As String = memoName().PadRight(14, " ")
+
+        Return String.Format("{0}", first)
+    End Function
 
 End Class

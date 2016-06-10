@@ -4,16 +4,52 @@
 'MDI child forms do not support the Blend method and only support other methods while being displayed for the first time and when closing.
 Public NotInheritable Class FormAnimator
 
-    Public Enum AnimationMethod
-        'Rolls out from edge when showing and into edge when hiding.  Requires a Direction.
-        Roll = &H0
-        'Expands out from centre when showing and collapses into centre when hiding.
-        Centre = &H10
-        'Slides out from edge when showing and slides into edge when hiding.  Requires a Direction.
-        Slide = &H40000
-        'Fades from transparent to opaque when showing and from opaque to transparent when hiding.
-        Blend = &H80000
-    End Enum
+    'Activate the form.
+    Private Const AW_ACTIVATE As Integer = &H20000
+
+    'Hide the form.
+    Private Const AW_HIDE As Integer = &H10000
+
+    'The number of milliseconds over which the animation occurs if no value is specified.
+    Private Const DEFAULT_DURATION As Integer = 250
+
+    'The direction in which to Roll or Slide the form.
+    Private _direction As AnimationDirection
+
+    'The number of milliseconds over which the animation is played.
+    Private _duration As Integer
+
+    'The form to be animated.
+    Private WithEvents _form As Form
+
+    'The animation method used to show and hide the form.
+    Private _method As AnimationMethod
+
+    'Creates a new FormAnimator object for the specified form.
+    'No animation will be used unless the Method and/or Direction properties are set independently. The Duration is set to quarter of a second by default.
+    'Used when you specify FORM and DURATION.
+    Public Sub New(ByVal form As Form)
+        _form = form
+        _duration = DEFAULT_DURATION
+    End Sub
+
+    'Creates a new FormAnimator object for the specified form using the specified method over the specified duration.
+    'No animation will be used for the Roll or Slide methods unless the Direction property is set independently.
+    'Used when you specify FORM, METHOD and DURATION.
+    Public Sub New(ByVal form As Form, ByVal method As AnimationMethod, ByVal duration As Integer)
+        Me.New(form)
+        _method = method
+        _duration = duration
+    End Sub
+
+
+    'Creates a new FormAnimator object for the specified form using the specified method in the specified direction over the specified duration.
+    'The Direction argument will have no effect if the Centre or Blend method is specified.
+    'Used when you specify FORM, METHOD, DIRECTION and DURATION.
+    Public Sub New(ByVal form As Form, ByVal method As AnimationMethod, ByVal direction As AnimationDirection, ByVal duration As Integer)
+        Me.New(form, method, duration)
+        _direction = direction
+    End Sub
 
     <Flags()> Public Enum AnimationDirection
 
@@ -24,36 +60,16 @@ Public NotInheritable Class FormAnimator
         Up = &H8
     End Enum
 
-    'Hide the form.
-    Private Const AW_HIDE As Integer = &H10000
-
-    'Activate the form.
-    Private Const AW_ACTIVATE As Integer = &H20000
-
-    'The number of milliseconds over which the animation occurs if no value is specified.
-    Private Const DEFAULT_DURATION As Integer = 250
-
-    'The form to be animated.
-    Private WithEvents _form As Form
-
-    'The animation method used to show and hide the form.
-    Private _method As AnimationMethod
-
-    'The direction in which to Roll or Slide the form.
-    Private _direction As AnimationDirection
-
-    'The number of milliseconds over which the animation is played.
-    Private _duration As Integer
-
-    Public Property Method() As AnimationMethod
-        'Gets or sets the animation method used to show and hide the form.  Roll is used by default if no method is specified.
-        Get
-            Return _method
-        End Get
-        Set(ByVal Value As AnimationMethod)
-            _method = Value
-        End Set
-    End Property
+    Public Enum AnimationMethod
+        'Rolls out from edge when showing and into edge when hiding.  Requires a Direction.
+        Roll = &H0
+        'Expands out from centre when showing and collapses into centre when hiding.
+        Centre = &H10
+        'Slides out from edge when showing and slides into edge when hiding.  Requires a Direction.
+        Slide = &H40000
+        'Fades from transparent to opaque when showing and from opaque to transparent when hiding.
+        Blend = &H80000
+    End Enum
 
     Public Property Direction() As AnimationDirection
         'Gets or sets the direction in which the animation is performed.  Roll and Slide only.
@@ -82,35 +98,29 @@ Public NotInheritable Class FormAnimator
         End Get
     End Property
 
+    Public Property Method() As AnimationMethod
+        'Gets or sets the animation method used to show and hide the form.  Roll is used by default if no method is specified.
+        Get
+            Return _method
+        End Get
+        Set(ByVal Value As AnimationMethod)
+            _method = Value
+        End Set
+    End Property
+
     'Windows API function to animate a window.
-    <DllImport("user32")> _
+    <DllImport("user32")>
     Private Shared Function AnimateWindow(ByVal hWnd As IntPtr, ByVal dwTime As Integer, ByVal dwFlags As Integer) As Boolean
     End Function
 
-    'Creates a new FormAnimator object for the specified form.
-    'No animation will be used unless the Method and/or Direction properties are set independently. The Duration is set to quarter of a second by default.
-    'Used when you specify FORM and DURATION.
-    Public Sub New(ByVal form As Form)
-        _form = form
-        _duration = DEFAULT_DURATION
-    End Sub
-
-    'Creates a new FormAnimator object for the specified form using the specified method over the specified duration.
-    'No animation will be used for the Roll or Slide methods unless the Direction property is set independently.
-    'Used when you specify FORM, METHOD and DURATION.
-    Public Sub New(ByVal form As Form, ByVal method As AnimationMethod, ByVal duration As Integer)
-        Me.New(form)
-        _method = method
-        _duration = duration
-    End Sub
-
-
-    'Creates a new FormAnimator object for the specified form using the specified method in the specified direction over the specified duration.
-    'The Direction argument will have no effect if the Centre or Blend method is specified.
-    'Used when you specify FORM, METHOD, DIRECTION and DURATION.
-    Public Sub New(ByVal form As Form, ByVal method As AnimationMethod, ByVal direction As AnimationDirection, ByVal duration As Integer)
-        Me.New(form, method, duration)
-        _direction = direction
+    Private Sub Form_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles _form.Closing
+        If Not e.Cancel Then
+            'MDI child forms do not support transparency so do not try to use the Blend method.
+            If _form.MdiParent Is Nothing OrElse _method <> AnimationMethod.Blend Then
+                'Hide the form.
+                FormAnimator.AnimateWindow(_form.Handle, _duration, AW_HIDE Or _method Or _direction)
+            End If
+        End If
     End Sub
 
     Private Sub Form_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles _form.Load
@@ -130,16 +140,6 @@ Public NotInheritable Class FormAnimator
             flags = If(_form.Visible, flags Or AW_ACTIVATE, flags Or AW_HIDE)
 
             FormAnimator.AnimateWindow(_form.Handle, _duration, flags)
-        End If
-    End Sub
-
-    Private Sub Form_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles _form.Closing
-        If Not e.Cancel Then
-            'MDI child forms do not support transparency so do not try to use the Blend method.
-            If _form.MdiParent Is Nothing OrElse _method <> AnimationMethod.Blend Then
-                'Hide the form.
-                FormAnimator.AnimateWindow(_form.Handle, _duration, AW_HIDE Or _method Or _direction)
-            End If
         End If
     End Sub
 

@@ -41,6 +41,12 @@
         End Get
     End Property
 
+    Public Sub clearStopWatch()
+        '   Clears the stopwatch
+
+        stopWatch.Reset()
+    End Sub
+
     Public Sub startStopWatch()
         '   Starts or restart the stopwatch
 
@@ -51,12 +57,6 @@
         '   Stops the stopwatch
 
         stopWatch.Stop()
-    End Sub
-
-    Public Sub clearStopWatch()
-        '   Clears the stopwatch
-
-        stopWatch.Reset()
     End Sub
 
 End Class

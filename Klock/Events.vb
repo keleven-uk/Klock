@@ -10,6 +10,20 @@
 '   An event can [has] to one of EventTypes.
 
 <Serializable()> Public Class Events
+    Private _eDate As String
+    Private _eFirstReminder As Boolean
+
+    Private _eName As String
+    Private _eNotes As String
+    Private _eSecondReminder As Boolean
+    Private _eThirdReminder As Boolean
+    Private _eType As Integer
+
+
+    Public Sub New()
+
+        MyBase.New()
+    End Sub
     '
 
     Enum EventTypes
@@ -24,26 +38,68 @@
         Other
     End Enum
 
-    Private _eName As String
-    Private _eType As Integer
-    Private _eDate As String
-    Private _eNotes As String
-    Private _eFirstReminder As Boolean
-    Private _eSecondReminder As Boolean
-    Private _eThirdReminder As Boolean
+    Public Property EventDate() As String
+        Get
+            Return _eDate
+        End Get
+        Set(ByVal value As String)
+            _eDate = value
+        End Set
+    End Property
 
+    Public Property EventFirstReminder() As Boolean
+        Get
+            Return _eFirstReminder
+        End Get
+        Set(ByVal value As Boolean)
+            _eFirstReminder = value
+        End Set
+    End Property
 
-    Public Sub New()
+    Public Property EventName() As String
+        Get
+            Return _eName
+        End Get
+        Set(ByVal value As String)
+            _eName = value
+        End Set
+    End Property
 
-        MyBase.New()
-    End Sub
+    Public Property EventNotes() As String
+        Get
+            Return _eNotes
+        End Get
+        Set(ByVal value As String)
+            _eNotes = value
+        End Set
+    End Property
 
-    Public Overrides Function ToString() As String
+    Public Property EventSecondreminder() As Boolean
+        Get
+            Return _eSecondReminder
+        End Get
+        Set(ByVal value As Boolean)
+            _eSecondReminder = value
+        End Set
+    End Property
 
-        Dim first As String = EventName().PadRight(14, " ")
+    Public Property EventThirdReminder() As Boolean
+        Get
+            Return _eThirdReminder
+        End Get
+        Set(ByVal value As Boolean)
+            _eThirdReminder = value
+        End Set
+    End Property
 
-        Return String.Format("{0:000} {1}", DaysToGo(), first)
-    End Function
+    Public Property EventType() As Integer
+        Get
+            Return _eType
+        End Get
+        Set(ByVal value As Integer)
+            _eType = value
+        End Set
+    End Property
 
     Public Function DaysToGo() As Integer
         '   returns the interval to the event in days.
@@ -76,67 +132,11 @@
         Return dd
     End Function
 
-    Public Property EventName() As String
-        Get
-            Return _eName
-        End Get
-        Set(ByVal value As String)
-            _eName = value
-        End Set
-    End Property
+    Public Overrides Function ToString() As String
 
-    Public Property EventType() As Integer
-        Get
-            Return _eType
-        End Get
-        Set(ByVal value As Integer)
-            _eType = value
-        End Set
-    End Property
+        Dim first As String = EventName().PadRight(14, " ")
 
-    Public Property EventDate() As String
-        Get
-            Return _eDate
-        End Get
-        Set(ByVal value As String)
-            _eDate = value
-        End Set
-    End Property
-
-    Public Property EventNotes() As String
-        Get
-            Return _eNotes
-        End Get
-        Set(ByVal value As String)
-            _eNotes = value
-        End Set
-    End Property
-
-    Public Property EventFirstReminder() As Boolean
-        Get
-            Return _eFirstReminder
-        End Get
-        Set(ByVal value As Boolean)
-            _eFirstReminder = value
-        End Set
-    End Property
-
-    Public Property EventSecondreminder() As Boolean
-        Get
-            Return _eSecondreminder
-        End Get
-        Set(ByVal value As Boolean)
-            _eSecondreminder = value
-        End Set
-    End Property
-
-    Public Property EventThirdReminder() As Boolean
-        Get
-            Return _eThirdReminder
-        End Get
-        Set(ByVal value As Boolean)
-            _eThirdReminder = value
-        End Set
-    End Property
+        Return String.Format("{0:000} {1}", DaysToGo(), first)
+    End Function
 
 End Class

@@ -6,128 +6,10 @@
     Dim mousex As Integer                   '
     Dim mousey As Integer                   '
 
-    ' -------------------------------------------------------------------------------- procedures used to make form drag-able -----------------
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+        '   Display the about form.
 
-    Private Sub PctrBxBinaryKlock_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, PctrBxBinaryKlock.MouseDown
-
-        drag = True
-        mousex = Windows.Forms.Cursor.Position.X - Me.Left
-        mousey = Windows.Forms.Cursor.Position.Y - Me.Top
-    End Sub
-
-    Private Sub PctrBxBinaryKlock_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, PctrBxBinaryKlock.MouseMove
-
-        If drag Then
-            Top = Windows.Forms.Cursor.Position.Y - mousey
-            Left = Windows.Forms.Cursor.Position.X - mousex
-        End If
-    End Sub
-
-    Private Sub PctrBxBinaryKlock_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, PctrBxBinaryKlock.MouseUp
-
-        drag = False
-    End Sub
-
-    ' ------------------------------------------------------------------------------------------------- key down ----------------------------
-
-    Private Sub frmTextKlock_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
-        '   Processes key presses at form level, before passed to components.
-
-        '   Pressing F1, will open klock's help.
-        '   Pressing alt + F2, will open the options screen.
-        '   Pressing alt + F3, will open the analogue klock.
-        '   Pressing alt + F4, will open the small text klock.
-        '   Pressing alt + F5, will open the big text klock.
-        '   Pressing alt + F6, will open the binary klock.
-        '   Pressing alt + F7, will close all child klock and return to main klock.
-        '   Pressing alt + F8, will disable the monitor from going to sleep.
-        '   Pressing alt + F9, will restore system settings for the monitor.
-        '   Pressing alt + F10, will open the clipboard manager.
-        '   Pressing alt + F12, will shown total number of friends.
-
-        HotKeys(e, Me)              '   in KlockThings.vb
-    End Sub
-
-    Private Sub frmBinaryKlock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        '   when the form loads set some global variables, turn on timer And load arrays.
-
-        If frmKlock.usrSettings.usrBinaryKlockSavePosition Then
-            Top = frmKlock.usrSettings.usrBinaryKlockTop
-            Left = frmKlock.usrSettings.usrBinaryKlockLeft
-        End If
-
-        drag = False
-
-        PctrBxBinaryKlock.BackColor = frmKlock.usrSettings.usrBinaryKlockBackColour
-
-        tmrBinaryKlock.Enabled = True
-
-        frmKlock.BinaryKlockToolStripMenuItem.Checked = True
-    End Sub
-
-    Private Sub frmBinaryKlock_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        '   When form is closed turn off timer and re-load main form.
-        '   and save binary klock position if needed.
-
-        If frmKlock.usrSettings.usrBinaryKlockSavePosition Then
-            frmKlock.usrSettings.usrBinaryKlockTop = Top
-            frmKlock.usrSettings.usrBinaryKlockLeft = Left
-        End If
-
-        tmrBinaryKlock.Enabled = False
-
-        frmKlock.NtfyIcnKlock.Visible = False
-        frmKlock.Visible = True
-
-        frmKlock.BinaryKlockToolStripMenuItem.Checked = False
-    End Sub
-
-    Private Sub updateStatusBar(foreColour As Color, backColour As Color)
-        '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
-
-        '    if running on battery, change status info colour to red as a warning.
-
-        StsStrpInfo.BackColor = backColour
-
-        If frmKlock.myManagedPower.powerSource().Contains("AC") Then
-            stsLblTime.ForeColor = foreColour
-            StsLblDate.ForeColor = foreColour
-            StsLblKeys.ForeColor = foreColour
-        Else
-            stsLblTime.ForeColor = Color.Red
-            StsLblDate.ForeColor = Color.Red
-            StsLblKeys.ForeColor = Color.Red
-        End If
-
-        stsLblTime.Text = statusTime()
-        StsLblDate.Text = Format(Now, "short Date")
-        StsLblKeys.Text = statusInfo()
-
-        '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleeping.
-
-        If frmKlock.usrSettings.usrTimeIdleTime Or frmKlock.usrSettings.usrDisableMonitorSleep Then
-            stsLbIdkeTime.ForeColor = foreColour
-            stsLbIdkeTime.Visible = True
-            stsLbIdkeTime.Text = "Idle Time :: " & KlockThings.idleTime()
-        Else
-            stsLbIdkeTime.Visible = False
-        End If
-    End Sub
-
-    Private Sub tmrBinaryKlock_Tick(sender As Object, e As EventArgs) Handles tmrBinaryKlock.Tick
-        '   on every second update things.
-
-        Dim foreColour As Color = frmKlock.usrSettings.usrBinaryKlockForeColour
-        Dim backColour As Color = frmKlock.usrSettings.usrBinaryKlockBackColour
-        Dim offColour As Color = frmKlock.usrSettings.usrBinaryKlockOffColour
-
-        updateStatusBar(foreColour, backColour)
-
-        If frmKlock.usrSettings.usrBinaryUseBCD Then        '   depending upon option call BCD or true binary klock.
-            bcdKlock(backColour, foreColour, offColour)
-        Else
-            binaryKlock(backColour, foreColour, offColour)
-        End If
+        HelpCommon.displayInfo(sender.ToString)
     End Sub
 
 
@@ -204,6 +86,71 @@
         End Using
     End Sub
 
+    Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
+        '   Close both analogue and the main klock form.
+
+        If frmKlock.usrSettings.usrRememberKlockMode Then        '   if desired, start in analogue klock next time.
+            frmKlock.usrSettings.usrStartKlockMode = 4
+        End If
+
+        Close()
+        frmKlock.Close()
+    End Sub
+
+    Private Sub frmBinaryKlock_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        '   When form is closed turn off timer and re-load main form.
+        '   and save binary klock position if needed.
+
+        If frmKlock.usrSettings.usrBinaryKlockSavePosition Then
+            frmKlock.usrSettings.usrBinaryKlockTop = Top
+            frmKlock.usrSettings.usrBinaryKlockLeft = Left
+        End If
+
+        tmrBinaryKlock.Enabled = False
+
+        frmKlock.NtfyIcnKlock.Visible = False
+        frmKlock.Visible = True
+
+        frmKlock.BinaryKlockToolStripMenuItem.Checked = False
+    End Sub
+
+    Private Sub frmBinaryKlock_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        '   when the form loads set some global variables, turn on timer And load arrays.
+
+        If frmKlock.usrSettings.usrBinaryKlockSavePosition Then
+            Top = frmKlock.usrSettings.usrBinaryKlockTop
+            Left = frmKlock.usrSettings.usrBinaryKlockLeft
+        End If
+
+        drag = False
+
+        PctrBxBinaryKlock.BackColor = frmKlock.usrSettings.usrBinaryKlockBackColour
+
+        tmrBinaryKlock.Enabled = True
+
+        frmKlock.BinaryKlockToolStripMenuItem.Checked = True
+    End Sub
+
+    ' ------------------------------------------------------------------------------------------------- key down ----------------------------
+
+    Private Sub frmTextKlock_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        '   Processes key presses at form level, before passed to components.
+
+        '   Pressing F1, will open klock's help.
+        '   Pressing alt + F2, will open the options screen.
+        '   Pressing alt + F3, will open the analogue klock.
+        '   Pressing alt + F4, will open the small text klock.
+        '   Pressing alt + F5, will open the big text klock.
+        '   Pressing alt + F6, will open the binary klock.
+        '   Pressing alt + F7, will close all child klock and return to main klock.
+        '   Pressing alt + F8, will disable the monitor from going to sleep.
+        '   Pressing alt + F9, will restore system settings for the monitor.
+        '   Pressing alt + F10, will open the clipboard manager.
+        '   Pressing alt + F12, will shown total number of friends.
+
+        HotKeys(e, Me)              '   in KlockThings.vb
+    End Sub
+
     Private Function getBCDTime() As String
         '   Returns current [local] time in Binary-Coded Decimal [base 2] format.
         '   This is only a binary representation of the current time.
@@ -237,6 +184,18 @@
         Return String.Format("{0}:{1}:{2}", codeHour, codeMins, codeSecs)
     End Function
 
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        '   Display the help file.
+
+        Help.ShowHelp(frmKlock, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
+    End Sub
+
+    Private Sub NewStickyNoteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewStickyNoteToolStripMenuItem.Click
+        '   Create a new sticky note.
+
+        newStickyNote()
+    End Sub
+
     ' ------------------------------------------------------------------------------------------------------------------------- Context menu -----------------
 
     Private Sub OptionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OptionsToolStripMenuItem.Click
@@ -246,45 +205,86 @@
         frmOptions.ShowDialog()
     End Sub
 
-    Private Sub ReturnToKlockToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReturnToKlockToolStripMenuItem.Click
-        '   Close analogue klock and return to the main klock form.
-
-        Close()
-    End Sub
-
-    Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
-        '   Close both analogue and the main klock form.
-
-        If frmKlock.usrSettings.usrRememberKlockMode Then        '   if desired, start in analogue klock next time.
-            frmKlock.usrSettings.usrStartKlockMode = 4
-        End If
-
-        Close()
-        frmKlock.Close()
-    End Sub
-
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-        '   Display the help file.
-
-        Help.ShowHelp(frmKlock, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
-    End Sub
-
-    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
-        '   Display the about form.
-
-        HelpCommon.displayInfo(sender.ToString)
-    End Sub
-
     Private Sub PctrBxBinaryKlock_DoubleClick(sender As Object, e As EventArgs) Handles PctrBxBinaryKlock.DoubleClick
         '   A double click on the form [panel] calls close()
 
         Close()
     End Sub
 
-    Private Sub NewStickyNoteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewStickyNoteToolStripMenuItem.Click
-        '   Create a new sticky note.
+    ' -------------------------------------------------------------------------------- procedures used to make form drag-able -----------------
 
-        newStickyNote()
+    Private Sub PctrBxBinaryKlock_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, PctrBxBinaryKlock.MouseDown
+
+        drag = True
+        mousex = Windows.Forms.Cursor.Position.X - Me.Left
+        mousey = Windows.Forms.Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub PctrBxBinaryKlock_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, PctrBxBinaryKlock.MouseMove
+
+        If drag Then
+            Top = Windows.Forms.Cursor.Position.Y - mousey
+            Left = Windows.Forms.Cursor.Position.X - mousex
+        End If
+    End Sub
+
+    Private Sub PctrBxBinaryKlock_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, PctrBxBinaryKlock.MouseUp
+
+        drag = False
+    End Sub
+
+    Private Sub ReturnToKlockToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReturnToKlockToolStripMenuItem.Click
+        '   Close analogue klock and return to the main klock form.
+
+        Close()
+    End Sub
+
+    Private Sub tmrBinaryKlock_Tick(sender As Object, e As EventArgs) Handles tmrBinaryKlock.Tick
+        '   on every second update things.
+
+        Dim foreColour As Color = frmKlock.usrSettings.usrBinaryKlockForeColour
+        Dim backColour As Color = frmKlock.usrSettings.usrBinaryKlockBackColour
+        Dim offColour As Color = frmKlock.usrSettings.usrBinaryKlockOffColour
+
+        updateStatusBar(foreColour, backColour)
+
+        If frmKlock.usrSettings.usrBinaryUseBCD Then        '   depending upon option call BCD or true binary klock.
+            bcdKlock(backColour, foreColour, offColour)
+        Else
+            binaryKlock(backColour, foreColour, offColour)
+        End If
+    End Sub
+
+    Private Sub updateStatusBar(foreColour As Color, backColour As Color)
+        '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
+
+        '    if running on battery, change status info colour to red as a warning.
+
+        StsStrpInfo.BackColor = backColour
+
+        If frmKlock.myManagedPower.powerSource().Contains("AC") Then
+            stsLblTime.ForeColor = foreColour
+            StsLblDate.ForeColor = foreColour
+            StsLblKeys.ForeColor = foreColour
+        Else
+            stsLblTime.ForeColor = Color.Red
+            StsLblDate.ForeColor = Color.Red
+            StsLblKeys.ForeColor = Color.Red
+        End If
+
+        stsLblTime.Text = statusTime()
+        StsLblDate.Text = Format(Now, "short Date")
+        StsLblKeys.Text = statusInfo()
+
+        '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleeping.
+
+        If frmKlock.usrSettings.usrTimeIdleTime Or frmKlock.usrSettings.usrDisableMonitorSleep Then
+            stsLbIdkeTime.ForeColor = foreColour
+            stsLbIdkeTime.Visible = True
+            stsLbIdkeTime.Text = "Idle Time :: " & KlockThings.idleTime()
+        Else
+            stsLbIdkeTime.Visible = False
+        End If
     End Sub
 
 End Class

@@ -4,12 +4,12 @@
     '   Creates a basic sticky note.
 
     Dim drag As Boolean                                                             '   Global variables used to make the form drag-able.
-    Dim mousex As Integer
-    Dim mousey As Integer
 
     Dim FadeStep As Double = frmKlock.usrSettings.usrStickyNoteStpOpacity / 100     '   Global variables for form fade out.
     Dim MaxOpacity As Double = frmKlock.usrSettings.usrStickyNoteMaxOpacity / 100
     Dim MinOpacity As Double = frmKlock.usrSettings.usrStickyNoteMinOpacity / 100
+    Dim mousex As Integer
+    Dim mousey As Integer
     '
 
     Public Sub New(sn As stickyNote)

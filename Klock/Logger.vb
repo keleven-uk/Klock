@@ -2,6 +2,9 @@
 Imports System.IO
 
 Public Class Logger
+    Private _logdaysKeep As Integer = 10
+
+    Private _logFilePath As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "log_" & DateTime.Now.ToString("ddMMyyyy") & ".log")
     '   A Simple logging class.
     '
     '   provides two methods, one function and Three options.
@@ -19,20 +22,11 @@ Public Class Logger
 
 
     Private _useLogging As Boolean = True
-    Private _logdaysKeep As Integer = 10
 
-    Private _logFilePath As String = System.IO.Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "log_" & DateTime.Now.ToString("ddMMyyyy") & ".log")
+    Public Sub New()
 
-    '--------------------------------------------------------------------------------------------------- Properties ------------
-
-    Public Property useLogging() As Boolean
-        Get
-            Return _useLogging
-        End Get
-        Set(ByVal value As Boolean)
-            _useLogging = value
-        End Set
-    End Property
+        MyBase.New()
+    End Sub
 
     Public Property logdaysKeep() As Integer
         Get
@@ -52,22 +46,16 @@ Public Class Logger
         End Set
     End Property
 
-    Public Sub New()
+    '--------------------------------------------------------------------------------------------------- Properties ------------
 
-        MyBase.New()
-    End Sub
-
-    '--------------------------------------------------------------------------------------------------- Logging methods ------------
-
-    Public Sub logMessage(location As String, m As String)
-        '   Add a simple message to the logfile in the form of location, text
-        '   Adds the current date and time to the beginning of the entry.
-
-        Dim lgDate As String = String.Format("Time: {0}", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"))
-        Dim procID As String = Process.GetCurrentProcess.Id.ToString()
-
-        writeLogMessage(String.Format("{0} : {1} : {2} : {3}", procID, lgDate, location, m))
-    End Sub
+    Public Property useLogging() As Boolean
+        Get
+            Return _useLogging
+        End Get
+        Set(ByVal value As Boolean)
+            _useLogging = value
+        End Set
+    End Property
 
 
     Public Sub LogExceptionError(location As String, ex As Exception)
@@ -91,6 +79,18 @@ Public Class Logger
 
         writeLogMessage(message)
 
+    End Sub
+
+    '--------------------------------------------------------------------------------------------------- Logging methods ------------
+
+    Public Sub logMessage(location As String, m As String)
+        '   Add a simple message to the logfile in the form of location, text
+        '   Adds the current date and time to the beginning of the entry.
+
+        Dim lgDate As String = String.Format("Time: {0}", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"))
+        Dim procID As String = Process.GetCurrentProcess.Id.ToString()
+
+        writeLogMessage(String.Format("{0} : {1} : {2} : {3}", procID, lgDate, location, m))
     End Sub
 
     Public Function poolLogs() As List(Of String)
@@ -123,28 +123,6 @@ Public Class Logger
         Return rtnList
     End Function
 
-
-    Private Sub writeLogMessage(m As String)
-        '   A private sub that actually writes to the file.
-        '   A new file will be created if not present.
-        '   Therefore a new file should be created each day, if the date is in the filename.
-
-        Dim path As String = logFilePath()
-
-        If Not My.Computer.FileSystem.FileExists(path) Then
-            writeLogheader(path)
-        End If
-
-        Try
-            Using writer As New StreamWriter(path, True)
-                writer.WriteLine(m)
-                writer.Close()
-            End Using
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        End Try
-    End Sub
-
     Private Sub writeLogheader(path As String)
         '   If the log file does not exist, this will be called to write a header - thus creating the file.
 
@@ -164,6 +142,28 @@ Public Class Logger
         Try
             Using writer As New StreamWriter(path, True)
                 writer.WriteLine(message)
+                writer.Close()
+            End Using
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+
+    Private Sub writeLogMessage(m As String)
+        '   A private sub that actually writes to the file.
+        '   A new file will be created if not present.
+        '   Therefore a new file should be created each day, if the date is in the filename.
+
+        Dim path As String = logFilePath()
+
+        If Not My.Computer.FileSystem.FileExists(path) Then
+            writeLogheader(path)
+        End If
+
+        Try
+            Using writer As New StreamWriter(path, True)
+                writer.WriteLine(m)
                 writer.Close()
             End Using
         Catch ex As Exception

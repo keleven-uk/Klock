@@ -1,39 +1,74 @@
 ﻿Public Class frmBigTextKlock
+
+    Dim drag As Boolean                     '   Global variables used to make the form drag-able.
+    Dim lblArrayDayofMonth(31) As Label     '
+    Dim lblArrayDayofWeek(7) As Label       '
+    Dim lblArrayHour(12) As Label           '
+    Dim lblArrayMiniutes(60) As Label       '
+    Dim lblArrayMonth(12) As Label          '
     '   Generates a big text screen which displays the current time and date from a seemingly random set of words.
 
 
     Dim lblArraySeconds(60) As Label        '   global array of text labels
-    Dim lblArrayMiniutes(60) As Label       '
-    Dim lblArrayHour(12) As Label           '
-    Dim lblArrayMonth(12) As Label          '
-    Dim lblArrayDayofMonth(31) As Label     '
-    Dim lblArrayDayofWeek(7) As Label       '
-
-    Dim drag As Boolean                     '   Global variables used to make the form drag-able.
     Dim mousex As Integer                   '
     Dim mousey As Integer                   '
 
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+        '   Display the about form.
 
-    ' -------------------------------------------------------------------------------- procedures used to make form drag-able -----------------
-
-    Private Sub pnlBigKlock_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, pnlBigKlock.MouseDown
-
-        drag = True
-        mousex = Windows.Forms.Cursor.Position.X - Me.Left
-        mousey = Windows.Forms.Cursor.Position.Y - Me.Top
+        HelpCommon.displayInfo(sender.ToString)
     End Sub
 
-    Private Sub pnlBigKlock_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, pnlBigKlock.MouseMove
+    Private Sub clearlabels(foreColour As Color, backColour As Color, offColour As Color)
+        '   Clear all labels, in fact sets their colour to ListSlateGray.
+        '   Set colour to LightGreen for labels that always on.
 
-        If drag Then
-            Me.Top = Windows.Forms.Cursor.Position.Y - mousey
-            Me.Left = Windows.Forms.Cursor.Position.X - mousex
+        Dim lbl As New Control
+
+        pnlBigKlock.BackColor = backColour
+
+        For Each lbl In pnlBigKlock.Controls     'if other then label appear on panel, then will have to check for this.
+            lbl.ForeColor = offColour
+        Next
+
+        lblthe.ForeColor = foreColour
+        lblOf.ForeColor = foreColour
+        lblComer.ForeColor = foreColour
+        lbloclock.ForeColor = foreColour
+        lblYear.ForeColor = foreColour
+        lblInThe.ForeColor = foreColour
+
+    End Sub
+
+    Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
+        '   Close both big text and the main klock form.
+
+        If frmKlock.usrSettings.usrRememberKlockMode Then        '   if desired, start in big text klock next time.
+            frmKlock.usrSettings.usrStartKlockMode = 3
         End If
+
+        Close()
+        frmKlock.Close()
     End Sub
 
-    Private Sub pnlBigKlock_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, pnlBigKlock.MouseUp
+    Private Sub CntxtMnStrpAnalogueKlock_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CntxtMnStrpBigTextKlock.Opening
 
-        drag = False
+    End Sub
+
+    Private Sub frmBigTextKlock_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        '   When form is closed turn off timer and re-load main form.
+
+        If frmKlock.usrSettings.usrBigKlockSavePosition Then
+            frmKlock.usrSettings.usrBigKlockTop = Top
+            frmKlock.usrSettings.usrBigKlockLeft = Left
+        End If
+
+        tmrTextKlock.Enabled = False
+
+        frmKlock.NtfyIcnKlock.Visible = False
+        frmKlock.Visible = True
+
+        frmKlock.BigTextKlockToolStripMenuItem.Checked = False
     End Sub
 
     ' ------------------------------------------------------------------------------------------------- key down ----------------------------
@@ -81,244 +116,29 @@
         frmKlock.BigTextKlockToolStripMenuItem.Checked = True
     End Sub
 
-    Private Sub frmBigTextKlock_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
-        '   When form is closed turn off timer and re-load main form.
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        '   Display the help file.
 
-        If frmKlock.usrSettings.usrBigKlockSavePosition Then
-            frmKlock.usrSettings.usrBigKlockTop = Top
-            frmKlock.usrSettings.usrBigKlockLeft = Left
-        End If
-
-        tmrTextKlock.Enabled = False
-
-        frmKlock.NtfyIcnKlock.Visible = False
-        frmKlock.Visible = True
-
-        frmKlock.BigTextKlockToolStripMenuItem.Checked = False
+        Help.ShowHelp(frmKlock, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
     End Sub
+
+    Private Function IsMidnight(ByVal value As Date) As Boolean
+        '   Returns true if current time is midnight.
+
+        Return value.Hour = 0 And value.Minute = 0 And value.Second = 0
+    End Function
+
+    Private Function IsNoon(ByVal value As Date) As Boolean
+        '   Returns true if current time is noon.
+
+        Return value.Hour = 12 And value.Minute = 0 And value.Second = 0
+    End Function
 
     Private Sub lblClose_Click(sender As Object, e As EventArgs) Handles lblClose.Click
         '   The close label id clicked, close form.
         '   Used because form has no border and hence no close button of it's own.
 
         Close()
-    End Sub
-
-    Private Sub tmrTextKlock_Tick(sender As Object, e As EventArgs) Handles tmrTextKlock.Tick
-        '   On every beat of the timer clear all the labels and set the time.
-
-        setDisplay()
-    End Sub
-
-    Private Sub setDisplay()
-        '   Set the display to the current time in an appropriate colour.
-
-        Dim foreColour As Color = frmKlock.usrSettings.usrBigKlockForeColour
-        Dim backColour As Color = frmKlock.usrSettings.usrBigKlockBackColour
-        Dim offColour As Color = frmKlock.usrSettings.usrBigKlockOffColour
-
-        clearlabels(foreColour, backColour, offColour)
-        setTime(foreColour, offColour)
-        updateStatusBar(foreColour, backColour)
-    End Sub
-
-    Private Sub updateStatusBar(foreColour As Color, backColour As Color)
-        '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
-
-        '                                               if running on battery, change status info colour to red as a warning.
-
-        StsStrpInfo.BackColor = backColour
-
-        If frmKlock.myManagedPower.powerSource().Contains("AC") Then
-            stsLblTime.ForeColor = foreColour
-            StsLblDate.ForeColor = foreColour
-            StsLblKeys.ForeColor = foreColour
-        Else
-            stsLblTime.ForeColor = Color.Red
-            StsLblDate.ForeColor = Color.Red
-            StsLblKeys.ForeColor = Color.Red
-        End If
-
-        stsLblTime.Text = statusTime()
-        StsLblDate.Text = Format(Now, "long Date")
-        StsLblKeys.Text = statusInfo()
-
-        '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleeping.
-
-        If frmKlock.usrSettings.usrTimeIdleTime Or frmKlock.usrSettings.usrDisableMonitorSleep Then
-            stsLbIdkeTime.ForeColor = foreColour
-            stsLbIdkeTime.Visible = True
-            stsLbIdkeTime.Text = "Idle Time :: " & KlockThings.idleTime()
-        Else
-            stsLbIdkeTime.Visible = False
-        End If
-    End Sub
-
-    Private Sub setTime(foreColour As Color, offColour As Color)
-        '   Set the time to now().
-        '   highlights appropriate labels to represent the time in words, in fact sets their colour to LightGreen.
-
-        Dim thisNow As DateTime = Now
-
-        Dim DayOfWeek As Integer = thisNow.DayOfWeek
-        Dim DayOfMonth As Integer = thisNow.Day
-        Dim MonthOfYear As Integer = thisNow.Month
-        Dim hourOfDay As Integer = thisNow.Hour
-        Dim minutesOfDay As Integer = thisNow.Minute
-        Dim secondOfDay As Integer = thisNow.Second
-        Dim year As String = thisNow.Year.ToString
-
-        lblYear.Text = year
-
-        If IsNoon(thisNow) Then
-            SetNoon(foreColour, offColour)
-        ElseIf IsMidnight(thisNow) Then
-            SetMidnight(foreColour, offColour)
-        Else
-            setDayofWeek(DayOfWeek, foreColour)
-            setDayOfMonth(DayOfMonth, foreColour)
-            setMonthOfYear(MonthOfYear, foreColour)
-            setHourOfDay(hourOfDay, foreColour)
-            setMinutesOfDay(minutesOfDay, foreColour)
-            setSecondsofDay(secondOfDay, foreColour)
-        End If
-    End Sub
-
-    Private Sub clearlabels(foreColour As Color, backColour As Color, offColour As Color)
-        '   Clear all labels, in fact sets their colour to ListSlateGray.
-        '   Set colour to LightGreen for labels that always on.
-
-        Dim lbl As New Control
-
-        pnlBigKlock.BackColor = backColour
-
-        For Each lbl In pnlBigKlock.Controls     'if other then label appear on panel, then will have to check for this.
-            lbl.ForeColor = offColour
-        Next
-
-        lblthe.ForeColor = foreColour
-        lblOf.ForeColor = foreColour
-        lblComer.ForeColor = foreColour
-        lbloclock.ForeColor = foreColour
-        lblYear.ForeColor = foreColour
-        lblInThe.ForeColor = foreColour
-
-    End Sub
-
-
-    Private Sub setDayofWeek(DayOfWeek As Integer, foreColour As Color)
-        '   Switch on the current day of the week.
-
-        lblArrayDayofWeek(DayOfWeek).ForeColor = foreColour
-    End Sub
-
-    Private Sub setDayOfMonth(DayOfMonth As Integer, foreColour As Color)
-        '   Switch on the current day of the month.
-
-        lblArrayDayofMonth(DayOfMonth).ForeColor = foreColour
-    End Sub
-
-
-    Private Sub setMonthOfYear(MonthofYear As Integer, foreColour As Color)
-        '   Switch on the current month of the year.
-
-        lblArrayMonth(MonthofYear).ForeColor = foreColour
-    End Sub
-
-    Private Sub setHourOfDay(hourOfDay As Integer, foreColour As Color)
-        '   Switch on the current hour of the day.
-
-        Select Case hourOfDay
-            Case < 12
-                lblMorning.ForeColor = foreColour
-            Case < 17
-                lblAfternoon.ForeColor = foreColour
-                hourOfDay -= 12
-            Case Else
-                lblEvening.ForeColor = foreColour
-                hourOfDay -= 12
-        End Select
-
-        If hourOfDay > 0 Then lblArrayHour(hourOfDay).ForeColor = foreColour
-    End Sub
-
-    Private Sub setMinutesOfDay(minutesOfDay As Integer, foreColour As Color)
-        '   Switch on the current minute of the day.
-
-        If minutesOfDay = 1 Then
-            lblAndMinutes.ForeColor = foreColour
-            lblMinute.ForeColor = foreColour
-            lblArrayMiniutes(minutesOfDay).ForeColor = foreColour
-        ElseIf minutesOfDay > 1 And minutesOfDay < 60 Then
-            lblAndMinutes.ForeColor = foreColour
-            lblMinutes.ForeColor = foreColour
-            lblArrayMiniutes(minutesOfDay).ForeColor = foreColour
-        End If
-    End Sub
-
-    Private Sub setSecondsofDay(secondOfDay As Integer, foreColour As Color)
-        '   Switch on the current second of the day.
-
-        If secondOfDay = 1 Then
-            lblAndSeconds.ForeColor = foreColour
-            lblSecond.ForeColor = foreColour
-            lblArraySeconds(secondOfDay).ForeColor = foreColour
-        ElseIf secondOfDay > 1 And secondOfDay < 60 Then
-            lblAndSeconds.ForeColor = foreColour
-            lblSeconds.ForeColor = foreColour
-            lblArraySeconds(secondOfDay).ForeColor = foreColour
-        End If
-    End Sub
-
-    Private Sub SetNoon(foreColour As Color, offColour As Color)
-        '   Switch on noon.
-
-        lblComer.ForeColor = offColour
-        lblAndSeconds.ForeColor = offColour
-        lblAndMinutes.ForeColor = offColour
-        lbloclock.ForeColor = offColour
-        lblInThe.ForeColor = offColour
-
-        lblNoon.ForeColor = foreColour
-    End Sub
-
-    Private Sub SetMidnight(foreColour As Color, offColour As Color)
-        '   Switch on the midnight.
-
-        lblComer.ForeColor = offColour
-        lblAndSeconds.ForeColor = offColour
-        lblAndMinutes.ForeColor = offColour
-        lbloclock.ForeColor = offColour
-        lblInThe.ForeColor = offColour
-
-        lblMidnight.ForeColor = foreColour
-    End Sub
-
-    Private Function IsNoon(ByVal value As DateTime) As Boolean
-        '   Returns true if current time is noon.
-
-        Return value.Hour = 12 And value.Minute = 0 And value.Second = 0
-    End Function
-
-    Private Function IsMidnight(ByVal value As DateTime) As Boolean
-        '   Returns true if current time is midnight.
-
-        Return value.Hour = 0 And value.Minute = 0 And value.Second = 0
-    End Function
-
-
-    '----------------------------------------------------------------------------Load Label Arrays -----------------------------
-    '   maybe these should be loaded dynamically - TODO
-
-    Private Sub loadArrayDayofWeek()
-
-        lblArrayDayofWeek(0) = lblSunday
-        lblArrayDayofWeek(1) = lblMonday
-        lblArrayDayofWeek(2) = lblMonday
-        lblArrayDayofWeek(3) = lblWednesday
-        lblArrayDayofWeek(4) = lblThursday
-        lblArrayDayofWeek(5) = lblFriday
-        lblArrayDayofWeek(6) = lblSaturday
     End Sub
 
     Private Sub loadArrayDayofMonth()
@@ -356,21 +176,19 @@
         lblArrayDayofMonth(31) = lblThirtyFirstDay
     End Sub
 
-    Private Sub loadArrayMonth()
 
-        lblArrayMonth(1) = lblJanuary
-        lblArrayMonth(2) = lblFebruary
-        lblArrayMonth(3) = lblMarch
-        lblArrayMonth(4) = lblApril
-        lblArrayMonth(5) = lblMay
-        lblArrayMonth(6) = lblJune
-        lblArrayMonth(7) = lblJuly
-        lblArrayMonth(8) = lblAugust
-        lblArrayMonth(9) = lblSeptember
-        lblArrayMonth(10) = lblOctober
-        lblArrayMonth(11) = lblNovember
-        lblArrayMonth(12) = lblDecember
+    '----------------------------------------------------------------------------Load Label Arrays -----------------------------
+    '   maybe these should be loaded dynamically - TODO
 
+    Private Sub loadArrayDayofWeek()
+
+        lblArrayDayofWeek(0) = lblSunday
+        lblArrayDayofWeek(1) = lblMonday
+        lblArrayDayofWeek(2) = lblMonday
+        lblArrayDayofWeek(3) = lblWednesday
+        lblArrayDayofWeek(4) = lblThursday
+        lblArrayDayofWeek(5) = lblFriday
+        lblArrayDayofWeek(6) = lblSaturday
     End Sub
 
     Private Sub loadArrayHour()
@@ -452,6 +270,23 @@
         lblArrayMiniutes(59) = lblFiftyNineMinutes
     End Sub
 
+    Private Sub loadArrayMonth()
+
+        lblArrayMonth(1) = lblJanuary
+        lblArrayMonth(2) = lblFebruary
+        lblArrayMonth(3) = lblMarch
+        lblArrayMonth(4) = lblApril
+        lblArrayMonth(5) = lblMay
+        lblArrayMonth(6) = lblJune
+        lblArrayMonth(7) = lblJuly
+        lblArrayMonth(8) = lblAugust
+        lblArrayMonth(9) = lblSeptember
+        lblArrayMonth(10) = lblOctober
+        lblArrayMonth(11) = lblNovember
+        lblArrayMonth(12) = lblDecember
+
+    End Sub
+
     Private Sub loadArraySeconds()
 
         lblArraySeconds(1) = lblOneSecond
@@ -515,6 +350,12 @@
         lblArraySeconds(59) = lblFiftyNineSeconds
     End Sub
 
+    Private Sub NewStickyNoteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewStickyNoteToolStripMenuItem.Click
+        '   Create a new sticky note.
+
+        newStickyNote()
+    End Sub
+
 
     ' ------------------------------------------------------------------------------------------------------------------------- Context menu -----------------
 
@@ -526,42 +367,201 @@
         frmOptions.ShowDialog()
     End Sub
 
+
+    ' -------------------------------------------------------------------------------- procedures used to make form drag-able -----------------
+
+    Private Sub pnlBigKlock_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, pnlBigKlock.MouseDown
+
+        drag = True
+        mousex = Windows.Forms.Cursor.Position.X - Me.Left
+        mousey = Windows.Forms.Cursor.Position.Y - Me.Top
+    End Sub
+
+    Private Sub pnlBigKlock_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, pnlBigKlock.MouseMove
+
+        If drag Then
+            Me.Top = Windows.Forms.Cursor.Position.Y - mousey
+            Me.Left = Windows.Forms.Cursor.Position.X - mousex
+        End If
+    End Sub
+
+    Private Sub pnlBigKlock_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, pnlBigKlock.MouseUp
+
+        drag = False
+    End Sub
+
     Private Sub ReturnToKlockToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReturnToKlockToolStripMenuItem.Click
         '   Close big text klock and return to the main klock form.
 
         Close()
     End Sub
 
-    Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
-        '   Close both big text and the main klock form.
+    Private Sub setDayOfMonth(DayOfMonth As Integer, foreColour As Color)
+        '   Switch on the current day of the month.
 
-        If frmKlock.usrSettings.usrRememberKlockMode Then        '   if desired, start in big text klock next time.
-            frmKlock.usrSettings.usrStartKlockMode = 3
+        lblArrayDayofMonth(DayOfMonth).ForeColor = foreColour
+    End Sub
+
+
+    Private Sub setDayofWeek(DayOfWeek As Integer, foreColour As Color)
+        '   Switch on the current day of the week.
+
+        lblArrayDayofWeek(DayOfWeek).ForeColor = foreColour
+    End Sub
+
+    Private Sub setDisplay()
+        '   Set the display to the current time in an appropriate colour.
+
+        Dim foreColour As Color = frmKlock.usrSettings.usrBigKlockForeColour
+        Dim backColour As Color = frmKlock.usrSettings.usrBigKlockBackColour
+        Dim offColour As Color = frmKlock.usrSettings.usrBigKlockOffColour
+
+        clearlabels(foreColour, backColour, offColour)
+        setTime(foreColour, offColour)
+        updateStatusBar(foreColour, backColour)
+    End Sub
+
+    Private Sub setHourOfDay(hourOfDay As Integer, foreColour As Color)
+        '   Switch on the current hour of the day.
+
+        Select Case hourOfDay
+            Case < 12
+                lblMorning.ForeColor = foreColour
+            Case < 17
+                lblAfternoon.ForeColor = foreColour
+                hourOfDay -= 12
+            Case Else
+                lblEvening.ForeColor = foreColour
+                hourOfDay -= 12
+        End Select
+
+        If hourOfDay > 0 Then lblArrayHour(hourOfDay).ForeColor = foreColour
+    End Sub
+
+    Private Sub SetMidnight(foreColour As Color, offColour As Color)
+        '   Switch on the midnight.
+
+        lblComer.ForeColor = offColour
+        lblAndSeconds.ForeColor = offColour
+        lblAndMinutes.ForeColor = offColour
+        lbloclock.ForeColor = offColour
+        lblInThe.ForeColor = offColour
+
+        lblMidnight.ForeColor = foreColour
+    End Sub
+
+    Private Sub setMinutesOfDay(minutesOfDay As Integer, foreColour As Color)
+        '   Switch on the current minute of the day.
+
+        If minutesOfDay = 1 Then
+            lblAndMinutes.ForeColor = foreColour
+            lblMinute.ForeColor = foreColour
+            lblArrayMiniutes(minutesOfDay).ForeColor = foreColour
+        ElseIf minutesOfDay > 1 And minutesOfDay < 60 Then
+            lblAndMinutes.ForeColor = foreColour
+            lblMinutes.ForeColor = foreColour
+            lblArrayMiniutes(minutesOfDay).ForeColor = foreColour
+        End If
+    End Sub
+
+
+    Private Sub setMonthOfYear(MonthofYear As Integer, foreColour As Color)
+        '   Switch on the current month of the year.
+
+        lblArrayMonth(MonthofYear).ForeColor = foreColour
+    End Sub
+
+    Private Sub SetNoon(foreColour As Color, offColour As Color)
+        '   Switch on noon.
+
+        lblComer.ForeColor = offColour
+        lblAndSeconds.ForeColor = offColour
+        lblAndMinutes.ForeColor = offColour
+        lbloclock.ForeColor = offColour
+        lblInThe.ForeColor = offColour
+
+        lblNoon.ForeColor = foreColour
+    End Sub
+
+    Private Sub setSecondsofDay(secondOfDay As Integer, foreColour As Color)
+        '   Switch on the current second of the day.
+
+        If secondOfDay = 1 Then
+            lblAndSeconds.ForeColor = foreColour
+            lblSecond.ForeColor = foreColour
+            lblArraySeconds(secondOfDay).ForeColor = foreColour
+        ElseIf secondOfDay > 1 And secondOfDay < 60 Then
+            lblAndSeconds.ForeColor = foreColour
+            lblSeconds.ForeColor = foreColour
+            lblArraySeconds(secondOfDay).ForeColor = foreColour
+        End If
+    End Sub
+
+    Private Sub setTime(foreColour As Color, offColour As Color)
+        '   Set the time to now().
+        '   highlights appropriate labels to represent the time in words, in fact sets their colour to LightGreen.
+
+        Dim thisNow As Date = Now
+
+        Dim DayOfWeek As Integer = thisNow.DayOfWeek
+        Dim DayOfMonth As Integer = thisNow.Day
+        Dim MonthOfYear As Integer = thisNow.Month
+        Dim hourOfDay As Integer = thisNow.Hour
+        Dim minutesOfDay As Integer = thisNow.Minute
+        Dim secondOfDay As Integer = thisNow.Second
+        Dim year As String = thisNow.Year.ToString
+
+        lblYear.Text = year
+
+        If IsNoon(thisNow) Then
+            SetNoon(foreColour, offColour)
+        ElseIf IsMidnight(thisNow) Then
+            SetMidnight(foreColour, offColour)
+        Else
+            setDayofWeek(DayOfWeek, foreColour)
+            setDayOfMonth(DayOfMonth, foreColour)
+            setMonthOfYear(MonthOfYear, foreColour)
+            setHourOfDay(hourOfDay, foreColour)
+            setMinutesOfDay(minutesOfDay, foreColour)
+            setSecondsofDay(secondOfDay, foreColour)
+        End If
+    End Sub
+
+    Private Sub tmrTextKlock_Tick(sender As Object, e As EventArgs) Handles tmrTextKlock.Tick
+        '   On every beat of the timer clear all the labels and set the time.
+
+        setDisplay()
+    End Sub
+
+    Private Sub updateStatusBar(foreColour As Color, backColour As Color)
+        '    Updates the status bar - time, date and status of caps, scroll and num lock keys.
+
+        '                                               if running on battery, change status info colour to red as a warning.
+
+        StsStrpInfo.BackColor = backColour
+
+        If frmKlock.myManagedPower.powerSource().Contains("AC") Then
+            stsLblTime.ForeColor = foreColour
+            StsLblDate.ForeColor = foreColour
+            StsLblKeys.ForeColor = foreColour
+        Else
+            stsLblTime.ForeColor = Color.Red
+            StsLblDate.ForeColor = Color.Red
+            StsLblKeys.ForeColor = Color.Red
         End If
 
-        Close()
-        frmKlock.Close()
-    End Sub
+        stsLblTime.Text = statusTime()
+        StsLblDate.Text = Format(Now, "long Date")
+        StsLblKeys.Text = statusInfo()
 
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-        '   Display the help file.
+        '   Works out idle time, but only if needed.  But, will display idle time if disabling monitor sleeping.
 
-        Help.ShowHelp(frmKlock, frmKlock.HlpPrvdrKlock.HelpNamespace, HelpNavigator.TableOfContents)
-    End Sub
-
-    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
-        '   Display the about form.
-
-        HelpCommon.displayInfo(sender.ToString)
-    End Sub
-
-    Private Sub CntxtMnStrpAnalogueKlock_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CntxtMnStrpBigTextKlock.Opening
-
-    End Sub
-
-    Private Sub NewStickyNoteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewStickyNoteToolStripMenuItem.Click
-        '   Create a new sticky note.
-
-        newStickyNote()
+        If frmKlock.usrSettings.usrTimeIdleTime Or frmKlock.usrSettings.usrDisableMonitorSleep Then
+            stsLbIdkeTime.ForeColor = foreColour
+            stsLbIdkeTime.Visible = True
+            stsLbIdkeTime.Text = "Idle Time :: " & idleTime()
+        Else
+            stsLbIdkeTime.Visible = False
+        End If
     End Sub
 End Class

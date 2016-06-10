@@ -10,6 +10,58 @@ Module conversionThings
     Dim UnitConvVal As Double                                                                       '   Global Variable for Unit Value.
     Dim unitsFile As String = Path.Combine(frmKlock.usrSettings.usrOptionsSavePath(), "units.txt")  '   file is in user area
 
+    Public Sub addUnits()
+        '   called when the add units button is pressed.
+        '   Loads the file units.txt into the default text editor.
+        '   re-loads the combo boxes when finished.
+
+        Dim ps As New ProcessStartInfo()
+        With ps
+            .FileName = Path.Combine(unitsFile)
+            .UseShellExecute = True
+        End With
+
+        Try
+            Dim p As New Process
+            p.StartInfo = ps
+            p.Start()
+
+            frmKlock.CmbBxConvertCategory.Items.Clear()
+            unitsLoad("LoadCategory")
+        Catch ex As Exception
+            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("conversionThings.addUnits", ex)
+            frmKlock.displayAction.DisplayReminder("Sorry, can't find units.txt. " & ex.Message, "G", "Units File Error")
+        End Try
+    End Sub
+
+    Public Sub calculate()
+        '   Called when the convert button is called.
+        '   There should always be a value to convert, checks whether numeric.
+
+        If Not IsNumeric(frmKlock.TxtBxConvertValue.Text) Then
+            MessageBox.Show("Please Enter A Numeric Value to Convert", "Numeric Error", MessageBoxButtons.OK, MessageBoxIcon.Error) '   Display error message, if no value is entered.
+        Else
+            unitsLoad("SelectUnit")                                                                         '   Parse file to locate conversion rate.
+            frmKlock.TxtBxConvertResult.Text = CStr(CDbl(frmKlock.TxtBxConvertValue.Text) * UnitConvVal)    '   If Value has been entered, compute conversion for unit.
+        End If
+    End Sub
+
+    Public Sub checkUnitsFile()
+        '   Data directory in usrOptionsSavepath(), should already be there..
+        '   Checks for settings file in above directory, if not there create it.
+
+        If Not My.Computer.FileSystem.FileExists(unitsFile) Then
+            writeDefaultUnits()
+        End If
+    End Sub
+
+    Public Sub clearTextBoxes()
+        '   Clear both text boxes on the convert tab.
+
+        frmKlock.TxtBxConvertResult.Text = String.Empty
+        frmKlock.TxtBxConvertValue.Text = String.Empty
+    End Sub
+
 
     Public Sub unitsLoad(ByVal Switch As String)
         '   Loads the data file units.txt, which contains the data for the conversions
@@ -51,58 +103,6 @@ Module conversionThings
             If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("conversionThings.unitsLoad", ex)
             frmKlock.displayAction.DisplayReminder("Sorry, can't find units.txt. " & ex.Message, "G", "Units File Error")
         End Try
-    End Sub
-
-    Public Sub calculate()
-        '   Called when the convert button is called.
-        '   There should always be a value to convert, checks whether numeric.
-
-        If Not IsNumeric(frmKlock.TxtBxConvertValue.Text) Then
-            MessageBox.Show("Please Enter A Numeric Value to Convert", "Numeric Error", MessageBoxButtons.OK, MessageBoxIcon.Error) '   Display error message, if no value is entered.
-        Else
-            unitsLoad("SelectUnit")                                                                         '   Parse file to locate conversion rate.
-            frmKlock.TxtBxConvertResult.Text = CStr(CDbl(frmKlock.TxtBxConvertValue.Text) * UnitConvVal)    '   If Value has been entered, compute conversion for unit.
-        End If
-    End Sub
-
-    Public Sub clearTextBoxes()
-        '   Clear both text boxes on the convert tab.
-
-        frmKlock.TxtBxConvertResult.Text = String.Empty
-        frmKlock.TxtBxConvertValue.Text = String.Empty
-    End Sub
-
-    Public Sub addUnits()
-        '   called when the add units button is pressed.
-        '   Loads the file units.txt into the default text editor.
-        '   re-loads the combo boxes when finished.
-
-        Dim ps As New ProcessStartInfo()
-        With ps
-            .FileName = Path.Combine(unitsFile)
-            .UseShellExecute = True
-        End With
-
-        Try
-            Dim p As New Process
-            p.StartInfo = ps
-            p.Start()
-
-            frmKlock.CmbBxConvertCategory.Items.Clear()
-            unitsLoad("LoadCategory")
-        Catch ex As Exception
-            If frmKlock.usrSettings.usrLogging Then frmKlock.errLogger.LogExceptionError("conversionThings.addUnits", ex)
-            frmKlock.displayAction.DisplayReminder("Sorry, can't find units.txt. " & ex.Message, "G", "Units File Error")
-        End Try
-    End Sub
-
-    Public Sub checkUnitsFile()
-        '   Data directory in usrOptionsSavepath(), should already be there..
-        '   Checks for settings file in above directory, if not there create it.
-
-        If Not My.Computer.FileSystem.FileExists(unitsFile) Then
-            writeDefaultUnits()
-        End If
     End Sub
 
     Private Sub writeDefaultUnits()
