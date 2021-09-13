@@ -14,7 +14,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("A Clock with a K.")> 
 <Assembly: AssemblyCompany("www.keleven.co.uk")> 
 <Assembly: AssemblyProduct("Klock")>
-<Assembly: AssemblyCopyright("Keleven ©  2012 - 2016")>
+<Assembly: AssemblyCopyright("Keleven ©  2012 - 2021")>
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)> 
@@ -33,6 +33,6 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.1.9.78")>
-<Assembly: AssemblyFileVersion("1.1.9.78")>
+<Assembly: AssemblyVersion("1.1.9.80")>
+<Assembly: AssemblyFileVersion("1.1.9.80")>
 <Assembly: NeutralResourcesLanguageAttribute("en")>

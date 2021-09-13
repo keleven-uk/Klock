@@ -20,7 +20,7 @@ Public Class UserSettings
 
     '   StartKlock mode
     '   0 = main klock
-    '   1 - Analogue Klock
+    '   1 = Analogue Klock
     '   2 = Small text Klock
     '   3 = Big text Klock
     '   4 = Binary klock
@@ -1316,7 +1316,7 @@ Public Class UserSettings
                                   <StartMinimised><%= usrStartMinimised() %></StartMinimised>
                                   <RunOnStartup><%= usrRunOnStartup() %></RunOnStartup>
                                   <RememberKlockMode><%= usrRememberKlockMode() %></RememberKlockMode>
-                                  <StartKlockMode><%= usrStartKlockMode %></StartKlockMode>
+                                  <StartKlockMode><%= usrStartKlockMode() %></StartKlockMode>
                                   <SoundVolume><%= usrSoundVolume() %></SoundVolume>
                                   <OptionsSavePath><%= usrOptionsSavePath() %></OptionsSavePath>
                                   <OptionsSaveFile><%= usrOptionsSaveFile() %></OptionsSaveFile>

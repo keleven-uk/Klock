@@ -1,3 +1,64 @@
+commit bf66f6816fd8420ae85a6f6c43cea30be16c8727
+Author: Kevin Scott <klock@keleven.co.uk>
+Date:   Fri Jun 10 22:16:15 2016 +0100
+
+    Main change, code clean up.  Visual studio keeps telling me to change the order of my code within modules, so followed this advice.  Not sure if it makes any difference, we shall see.  Also removed a few redundant imports and simplified quite a few qualified names.
+    
+    [frmAbout.vb]
+    Added routine to determine the compile time of the application.
+
+ Klock/Events.vb                  |  144 +-
+ Klock/FEMcommon.vb               |  294 ++--
+ Klock/FormAnimator.vb            |  140 +-
+ Klock/IOcommon.vb                |  400 ++---
+ Klock/InfoCommon.vb              |   62 +-
+ Klock/Klock.chm                  |  Bin 1508362 -> 1510452 bytes
+ Klock/Klock.pdf                  |  Bin 7354817 -> 7354996 bytes
+ Klock/KlockThings.vb             |  372 ++---
+ Klock/Logger.vb                  |   98 +-
+ Klock/ManagedPower.vb            |   68 +-
+ Klock/Memo.vb                    |   34 +-
+ Klock/My Project/AssemblyInfo.vb |    4 +-
+ Klock/OptionThings.vb            |  414 +++---
+ Klock/Person.vb                  |  150 +-
+ Klock/SNTPClient.vb              |  272 ++--
+ Klock/Simple3Des.vb              |   74 +-
+ Klock/Timer.vb                   |   12 +-
+ Klock/UserFonts.vb               |   30 +-
+ Klock/Voice.vb                   |    8 +-
+ Klock/clipItem.vb                |   48 +-
+ Klock/conversionThings.vb        |  104 +-
+ Klock/eventThings.vb             |   78 +-
+ Klock/frmAbout.vb                |  173 ++-
+ Klock/frmAnalogKlock.vb          |  259 ++--
+ Klock/frmBigTextKlock.vb         |  552 +++----
+ Klock/frmBinaryKlock.vb          |  282 ++--
+ Klock/frmClipboardMonitor.vb     |  405 ++---
+ Klock/frmInfo.vb                 |   39 +-
+ Klock/frmKlock.vb                | 3056 +++++++++++++++++++-------------------
+ Klock/frmMemoPassword.vb         |   26 +-
+ Klock/frmNotification.vb         |   94 +-
+ Klock/frmOptions.vb              | 1167 ++++++++-------
+ Klock/frmSmallTextKlock.vb       |  200 +--
+ Klock/frmStickyNote.vb           |    4 +-
+ Klock/history.txt                |   27 +
+ Klock/klock.hnd                  |  Bin 47665152 -> 47673344 bytes
+ Klock/selectAction.vb            |  172 +--
+ Klock/selectTime.vb              |  614 ++++----
+ Klock/stickyNote.vb              |   48 +-
+ Klock/stickyNotes.vb             |   56 +-
+ log.txt                          |   41 +
+ 41 files changed, 5059 insertions(+), 4962 deletions(-)
+
+commit 6ff25205fc9ee283fca8624d86b3992bc2369b6c
+Author: Kevin Scott <github@keleven.co.uk>
+Date:   Mon Jun 6 22:33:06 2016 +0100
+
+    Update README.md
+
+ README.md | 57 ++++++++++++++++++++++++---------------------------------
+ 1 file changed, 24 insertions(+), 33 deletions(-)
+
 commit dde5b984592ec8723722b650c1d3975c49b202b0
 Author: Kevin Scott <klock@keleven.co.uk>
 Date:   Mon Jun 6 22:07:40 2016 +0100

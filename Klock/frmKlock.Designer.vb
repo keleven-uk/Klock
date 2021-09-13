@@ -391,52 +391,52 @@ Partial Class frmKlock
         '
         Me.TimeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AnalogKlockToolStripMenuItem, Me.TextKlockToolStripMenuItem, Me.BigTextKlockToolStripMenuItem, Me.BinaryKlockToolStripMenuItem, Me.DisplayTwoTimeFormatsToolStripMenuItem, Me.DisplayIdleTime, Me.InternetTimeToolStripMenuItem})
         Me.TimeToolStripMenuItem.Name = "TimeToolStripMenuItem"
-        Me.TimeToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
+        Me.TimeToolStripMenuItem.Size = New System.Drawing.Size(45, 20)
         Me.TimeToolStripMenuItem.Text = "Time"
         '
         'AnalogKlockToolStripMenuItem
         '
         Me.AnalogKlockToolStripMenuItem.Name = "AnalogKlockToolStripMenuItem"
-        Me.AnalogKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.AnalogKlockToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
         Me.AnalogKlockToolStripMenuItem.Text = "Analogue Klock"
         '
         'TextKlockToolStripMenuItem
         '
         Me.TextKlockToolStripMenuItem.CheckOnClick = True
         Me.TextKlockToolStripMenuItem.Name = "TextKlockToolStripMenuItem"
-        Me.TextKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.TextKlockToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
         Me.TextKlockToolStripMenuItem.Text = "Small Text Klock"
         '
         'BigTextKlockToolStripMenuItem
         '
         Me.BigTextKlockToolStripMenuItem.Name = "BigTextKlockToolStripMenuItem"
-        Me.BigTextKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.BigTextKlockToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
         Me.BigTextKlockToolStripMenuItem.Text = "Big Text Klock"
         '
         'BinaryKlockToolStripMenuItem
         '
         Me.BinaryKlockToolStripMenuItem.Name = "BinaryKlockToolStripMenuItem"
-        Me.BinaryKlockToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.BinaryKlockToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
         Me.BinaryKlockToolStripMenuItem.Text = "Binary Klock"
         '
         'DisplayTwoTimeFormatsToolStripMenuItem
         '
         Me.DisplayTwoTimeFormatsToolStripMenuItem.CheckOnClick = True
         Me.DisplayTwoTimeFormatsToolStripMenuItem.Name = "DisplayTwoTimeFormatsToolStripMenuItem"
-        Me.DisplayTwoTimeFormatsToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.DisplayTwoTimeFormatsToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
         Me.DisplayTwoTimeFormatsToolStripMenuItem.Text = "Display Two Time Formats"
         '
         'DisplayIdleTime
         '
         Me.DisplayIdleTime.CheckOnClick = True
         Me.DisplayIdleTime.Name = "DisplayIdleTime"
-        Me.DisplayIdleTime.Size = New System.Drawing.Size(213, 22)
+        Me.DisplayIdleTime.Size = New System.Drawing.Size(211, 22)
         Me.DisplayIdleTime.Text = "Display Idle Time"
         '
         'InternetTimeToolStripMenuItem
         '
         Me.InternetTimeToolStripMenuItem.Name = "InternetTimeToolStripMenuItem"
-        Me.InternetTimeToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.InternetTimeToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
         Me.InternetTimeToolStripMenuItem.Text = "Internet Time"
         '
         'MonitorToolStripMenuItem
@@ -2259,43 +2259,43 @@ Partial Class frmKlock
         '
         Me.CntxtMnStrpKlock.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TlStrpMnItmShow, Me.TlStrpMnItmTime, Me.NewSticktNoteToolStripMenuItem, Me.TlStrpMnItmHelp, Me.TlStrpMnItmOptions, Me.TlStrpMnItmExit})
         Me.CntxtMnStrpKlock.Name = "CntxtMnStrpKlock"
-        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(153, 158)
+        Me.CntxtMnStrpKlock.Size = New System.Drawing.Size(135, 136)
         '
         'TlStrpMnItmShow
         '
         Me.TlStrpMnItmShow.Name = "TlStrpMnItmShow"
-        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(152, 22)
+        Me.TlStrpMnItmShow.Size = New System.Drawing.Size(134, 22)
         Me.TlStrpMnItmShow.Text = "Show"
         '
         'TlStrpMnItmTime
         '
         Me.TlStrpMnItmTime.CheckOnClick = True
         Me.TlStrpMnItmTime.Name = "TlStrpMnItmTime"
-        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(152, 22)
+        Me.TlStrpMnItmTime.Size = New System.Drawing.Size(134, 22)
         Me.TlStrpMnItmTime.Text = "Time"
         '
         'NewSticktNoteToolStripMenuItem
         '
         Me.NewSticktNoteToolStripMenuItem.Name = "NewSticktNoteToolStripMenuItem"
-        Me.NewSticktNoteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.NewSticktNoteToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
         Me.NewSticktNoteToolStripMenuItem.Text = "Sticky Note"
         '
         'TlStrpMnItmHelp
         '
         Me.TlStrpMnItmHelp.Name = "TlStrpMnItmHelp"
-        Me.TlStrpMnItmHelp.Size = New System.Drawing.Size(152, 22)
+        Me.TlStrpMnItmHelp.Size = New System.Drawing.Size(134, 22)
         Me.TlStrpMnItmHelp.Text = "Help"
         '
         'TlStrpMnItmOptions
         '
         Me.TlStrpMnItmOptions.Name = "TlStrpMnItmOptions"
-        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(152, 22)
+        Me.TlStrpMnItmOptions.Size = New System.Drawing.Size(134, 22)
         Me.TlStrpMnItmOptions.Text = "Options"
         '
         'TlStrpMnItmExit
         '
         Me.TlStrpMnItmExit.Name = "TlStrpMnItmExit"
-        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(152, 22)
+        Me.TlStrpMnItmExit.Size = New System.Drawing.Size(134, 22)
         Me.TlStrpMnItmExit.Text = "Exit"
         '
         'tmrReminder

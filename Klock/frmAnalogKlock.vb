@@ -316,10 +316,6 @@ Public Class frmAnalogueKlock
     Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseToolStripMenuItem.Click
         '   Close both analogue and the main klock form.
 
-        If frmKlock.usrSettings.usrRememberKlockMode Then        '   if desired, start in analogue klock next time.
-            frmKlock.usrSettings.usrStartKlockMode = 1
-        End If
-
         Close()
         frmKlock.Close()
     End Sub
